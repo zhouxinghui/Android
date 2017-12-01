@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.yzy.ebag.student.widget.TitleBar
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="@string/login_pwd_forget"/>
+
+    <EditText
+        android:id="@+id/phoneEdit"
+        style="@style/forget_edit_text"
+        android:layout_marginTop="@dimen/y49"
+        android:hint="@string/login_hint_phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleView"
+        android:drawableLeft="@drawable/login_icon_phone"
+        android:inputType="phone"
+        android:maxLength="11"/>
+    <FrameLayout
+        android:id="@+id/forgetCodeLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneEdit"
+        style="@style/forgetHeight">
+        <EditText
+            android:id="@+id/codeEdit"
+            style="@style/forget_edit_text"
+            android:hint="@string/login_hint_code"
+            android:drawableLeft="@drawable/login_icon_code"
+            android:inputType="number"
+            android:maxLength="6"/>
+        <TextView
+            android:id="@+id/codeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y36"
+            android:paddingStart="@dimen/x7"
+            android:paddingEnd="@dimen/x7"
+            android:layout_marginRight="@dimen/x7"
+            android:text="@string/login_code_get"
+            android:layout_gravity="end|center_vertical"
+            android:gravity="center"
+            android:background="@drawable/login_code_btn"
+            android:textColor="@color/white"
+            android:textSize="@dimen/x18"/>
+    </FrameLayout>
+
+    <EditText
+        android:id="@+id/pwdEdit"
+        style="@style/forget_edit_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forgetCodeLayout"
+        android:hint="@string/login_hint_pwd"
+        android:drawableLeft="@drawable/login_pwd"
+        android:inputType="textPassword"/>
+
+    <TextView
+        android:id="@+id/completeBtn"
+        android:clickable="true"
+        android:layout_width="@dimen/x421"
+        android:layout_height="@dimen/x52"
+        android:layout_marginTop="@dimen/y224"
+        android:textSize="@dimen/x24"
+        android:gravity="center"
+        android:text="@string/tip_complete"
+        android:textColor="@color/white"
+        android:background="@drawable/login_btn_bac"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pwdEdit" />
+
+</android.support.constraint.ConstraintLayout>

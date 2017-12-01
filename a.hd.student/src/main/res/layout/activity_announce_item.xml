@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_radius_bg"
+    android:layout_margin="@dimen/x6"
+    android:paddingTop="@dimen/x12"
+    android:paddingBottom="@dimen/x24"
+    android:paddingStart="@dimen/x28"
+    android:paddingEnd="@dimen/x28">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="@dimen/x68"
+        android:layout_height="@dimen/x68"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x24"
+        android:textColor="#2a2a2a"
+        android:textSize="@dimen/x24"
+
+        android:text="一年级语文老师"
+        app:layout_constraintStart_toEndOf="@id/imageView3"
+        app:layout_constraintTop_toTopOf="@id/imageView3" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x15"
+        android:text="2017-12-20"
+        android:textSize="@dimen/x18"
+        android:textColor="#9b9b9b"
+        app:layout_constraintStart_toStartOf="@id/textView"
+        app:layout_constraintTop_toBottomOf="@id/textView" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x12"
+        android:textColor="#2a2a2a"
+        android:textSize="@dimen/x22"
+        android:text="请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告"
+        app:layout_constraintTop_toBottomOf="@id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/imageView3" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textView3"/>
+
+</android.support.constraint.ConstraintLayout>

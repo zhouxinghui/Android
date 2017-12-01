@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context="com.yzy.ebag.student.MainActivity">
+
+    <!--左边布局-->
+
+    <View
+        android:id="@+id/leftLayout"
+        android:layout_width="@dimen/x278"
+        android:layout_height="match_parent"
+        android:background="@color/main_bg_color"/>
+    <ImageView
+        android:id="@+id/ivHead"
+        android:layout_width="@dimen/x112"
+        android:layout_height="@dimen/x112"
+        android:layout_marginTop="@dimen/x19"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="@id/leftLayout"
+        app:layout_constraintStart_toStartOf="@id/leftLayout"
+        app:layout_constraintTop_toTopOf="@id/leftLayout"
+        app:srcCompat="@drawable/home_photos" />
+
+    <View
+        android:id="@+id/tagView"
+        android:layout_width="@dimen/x268"
+        android:layout_height="@dimen/x225"
+        android:background="@drawable/main_photos_bg"
+        app:layout_constraintEnd_toEndOf="@id/leftLayout"
+        app:layout_constraintStart_toStartOf="@id/leftLayout"
+        app:layout_constraintTop_toTopOf="@id/leftLayout"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x5"
+        android:text="1000123"
+        android:textColor="@color/main_text_color"
+        android:textSize="@dimen/x22"
+        app:layout_constraintEnd_toEndOf="@id/leftLayout"
+        app:layout_constraintStart_toStartOf="@id/leftLayout"
+        app:layout_constraintTop_toBottomOf="@id/ivHead" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x3"
+        android:text="晴天"
+        android:textColor="@color/main_text_color"
+        android:textSize="@dimen/x22"
+        app:layout_constraintEnd_toEndOf="@id/leftLayout"
+        app:layout_constraintStart_toStartOf="@id/leftLayout"
+        app:layout_constraintTop_toBottomOf="@id/tvId" />
+
+    <TextView
+        android:id="@+id/tvGrade"
+        style="@style/main_left_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y28"
+        android:text="@string/main_class_name"
+        app:layout_constraintStart_toStartOf="@id/leftLayout"
+        app:layout_constraintTop_toBottomOf="@id/tagView" />
+
+    <TextView
+        android:id="@+id/tvClassTeacher"
+        style="@style/main_left_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y32"
+        android:text="@string/main_teacher_name"
+        android:textColor="@color/main_text_color"
+        android:textSize="@dimen/x20"
+        app:layout_constraintStart_toStartOf="@id/leftLayout"
+        app:layout_constraintTop_toBottomOf="@id/tvGrade" />
+
+    <TextView
+        android:id="@+id/textView5"
+        style="@style/main_left_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y22"
+        android:text="@string/main_teachers_tip"
+        android:textColor="@color/main_text_color"
+        android:textSize="@dimen/x20"
+        app:layout_constraintStart_toStartOf="@id/leftLayout"
+        app:layout_constraintTop_toBottomOf="@id/tvClassTeacher" />
+
+    <com.yzy.ebag.student.widget.drawable.CenterTextView
+        android:id="@+id/tvSetup"
+        android:layout_width="@dimen/x139"
+        android:layout_height="@dimen/x62"
+        app:layout_constraintBottom_toBottomOf="@id/leftLayout"
+        app:layout_constraintStart_toStartOf="@id/leftLayout"
+        android:text="@string/setting"
+        android:textSize="@dimen/x20"
+        android:textColor="@color/main_text_color"
+        android:drawablePadding="@dimen/x12"
+        app:leftDrawable="@drawable/home_icon_set_up"
+        app:leftDrawableHeight="@dimen/x38"
+        app:leftDrawableWidth="@dimen/x38"/>
+
+    <com.yzy.ebag.student.widget.drawable.CenterTextView
+        android:id="@+id/tvPosition"
+        android:layout_width="@dimen/x139"
+        android:layout_height="@dimen/x62"
+        app:layout_constraintBottom_toBottomOf="@id/leftLayout"
+        app:layout_constraintEnd_toEndOf="@id/leftLayout"
+        android:text="@string/position"
+        android:textSize="@dimen/x20"
+        android:textColor="@color/main_text_color"
+        android:drawablePadding="@dimen/x12"
+        app:leftDrawable="@drawable/home_icon_position"
+        app:leftDrawableHeight="@dimen/x38"
+        app:leftDrawableWidth="@dimen/x31"/>
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvTeacherName"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/tvSetup"
+        app:layout_constraintEnd_toEndOf="@id/leftLayout"
+        app:layout_constraintStart_toStartOf="@id/leftLayout"
+        app:layout_constraintTop_toBottomOf="@id/textView5" />
+
+
+    <!--公告相关-->
+    <ImageView
+        android:id="@+id/ivAnnounce"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/y128"
+        android:scaleType="centerCrop"
+        android:src="@drawable/home_bg_announ_sky_default"
+        app:layout_constraintStart_toEndOf="@id/leftLayout"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View
+        android:id="@+id/ivAnnounceBg"
+        android:layout_width="@dimen/x553"
+        android:layout_height="@dimen/y98"
+        android:background="@drawable/home_announce_bg"
+        app:layout_constraintBottom_toBottomOf="@id/ivAnnounce"
+        app:layout_constraintEnd_toEndOf="@id/ivAnnounce"
+        app:layout_constraintStart_toStartOf="@id/ivAnnounce"
+        app:layout_constraintTop_toTopOf="@id/ivAnnounce"/>
+
+    <TextView
+        android:id="@+id/tipA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x2"
+        android:text="@string/main_announce"
+        android:textColor="@color/main_announce_text_color"
+        android:textSize="@dimen/x22"
+        app:layout_constraintEnd_toEndOf="@id/ivAnnounceBg"
+        app:layout_constraintStart_toStartOf="@id/ivAnnounceBg"
+        app:layout_constraintTop_toTopOf="@id/ivAnnounceBg" />
+
+    <View
+        android:layout_width="@dimen/x50"
+        android:layout_height="@dimen/x1"
+        android:layout_marginStart="@dimen/x20"
+        android:background="@drawable/home_announce_line"
+        app:layout_constraintBottom_toBottomOf="@id/tipA"
+        app:layout_constraintLeft_toRightOf="@id/tipA"
+        app:layout_constraintTop_toTopOf="@id/tipA" />
+
+    <View
+        android:layout_width="@dimen/x50"
+        android:layout_height="@dimen/x1"
+        android:layout_marginEnd="@dimen/x20"
+        android:background="@drawable/home_announce_line"
+        app:layout_constraintBottom_toBottomOf="@id/tipA"
+        app:layout_constraintEnd_toStartOf="@id/tipA"
+        app:layout_constraintTop_toTopOf="@id/tipA" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="@dimen/x505"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x2"
+        android:ellipsize="end"
+        android:lines="2"
+        android:text="TextViewText"
+        android:textColor="@color/main_announce_text_color"
+        android:textSize="@dimen/x20"
+        app:layout_constraintEnd_toEndOf="@+id/ivAnnounceBg"
+        app:layout_constraintStart_toStartOf="@+id/ivAnnounceBg"
+        app:layout_constraintTop_toBottomOf="@+id/tipA" />
+
+    <com.yzy.ebag.student.widget.drawable.CenterTextView
+        android:id="@+id/tvMoreAnnounce"
+        android:layout_width="@dimen/x128"
+        android:layout_height="@dimen/y38"
+        android:text="@string/main_announce_more"
+        app:rightDrawable="@drawable/home_icon_more"
+        app:rightDrawableHeight="@dimen/x14"
+        app:rightDrawableWidth="@dimen/x10"
+        android:drawablePadding="@dimen/x8"
+        android:layout_marginRight="@dimen/x24"
+        android:textColor="@color/main_announce_text_color"
+        android:textSize="@dimen/x20"
+        android:background="@drawable/home_announce_more"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivAnnounceBg" />
+
+    <com.yzy.ebag.student.widget.drawable.CenterTextView
+        android:id="@+id/tvKHZY"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/y240"
+        android:gravity="center"
+        android:text="@string/main_khzy"
+        android:textColor="@color/main_class_text_color"
+        android:textSize="@dimen/x18"
+        android:drawablePadding="@dimen/x22"
+        app:topDrawable="@drawable/home_khzy_normal"
+        app:topDrawableHeight="@dimen/x119"
+        app:topDrawableWidth="@dimen/x107"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintTop_toBottomOf="@id/ivAnnounce"
+        app:layout_constraintStart_toStartOf="@id/ivAnnounce"
+        app:layout_constraintEnd_toStartOf="@id/tvSTZY"/>
+    <com.yzy.ebag.student.widget.drawable.CenterTextView
+        android:id="@+id/tvSTZY"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/y240"
+        android:gravity="center"
+        android:text="@string/main_stzy"
+        android:textColor="@color/main_class_text_color"
+        android:textSize="@dimen/x18"
+        android:drawablePadding="@dimen/x22"
+        app:topDrawable="@drawable/home_stzy_normal"
+        app:topDrawableHeight="@dimen/x119"
+        app:topDrawableWidth="@dimen/x141"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintTop_toTopOf="@id/tvKHZY"
+        app:layout_constraintStart_toEndOf="@id/tvKHZY"
+        app:layout_constraintEnd_toStartOf="@id/tvKSSJ"/>
+    <com.yzy.ebag.student.widget.drawable.CenterTextView
+        android:id="@+id/tvKSSJ"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/y240"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/main_kssj"
+        android:textColor="@color/main_class_text_color"
+        android:textSize="@dimen/x18"
+        android:drawablePadding="@dimen/x22"
+        app:topDrawable="@drawable/home_examination_paper_normal"
+        app:topDrawableHeight="@dimen/x119"
+        app:topDrawableWidth="@dimen/x129"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintTop_toTopOf="@id/tvKHZY"
+        app:layout_constraintStart_toEndOf="@id/tvSTZY"
+        app:layout_constraintEnd_toStartOf="@id/tvXXKB"/>
+    <com.yzy.ebag.student.widget.drawable.CenterTextView
+        android:id="@+id/tvXXKB"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/y240"
+        android:gravity="center"
+        android:text="@string/main_xxkb"
+        android:textColor="@color/main_class_text_color"
+        android:textSize="@dimen/x18"
+        android:drawablePadding="@dimen/x22"
+        app:topDrawable="@drawable/home_book_normal"
+        app:topDrawableHeight="@dimen/x119"
+        app:topDrawableWidth="@dimen/x99"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintTop_toTopOf="@id/tvKHZY"
+        app:layout_constraintStart_toEndOf="@id/tvKSSJ"
+        app:layout_constraintEnd_toStartOf="@id/tvKCB"/>
+    <com.yzy.ebag.student.widget.drawable.CenterTextView
+        android:id="@+id/tvKCB"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/y240"
+        android:gravity="center"
+        android:text="@string/main_kcb"
+        android:textColor="@color/main_class_text_color"
+        android:textSize="@dimen/x18"
+        android:drawablePadding="@dimen/x22"
+        app:topDrawable="@drawable/home_class_schedule_normal"
+        app:topDrawableHeight="@dimen/x119"
+        app:topDrawableWidth="@dimen/x134"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintTop_toTopOf="@id/tvKHZY"
+        app:layout_constraintStart_toEndOf="@id/tvXXKB"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/llLearnGroup"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/y98"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@color/main_learn_left_bg_color"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintTop_toBottomOf="@id/tvKHZY"
+        app:layout_constraintStart_toStartOf="@id/ivAnnounce"
+        app:layout_constraintEnd_toStartOf="@id/llLearnPlace">
+
+        <com.yzy.ebag.student.widget.drawable.CenterTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:rightDrawable="@drawable/home_icon_more_learn"
+            android:text="@string/main_learn_group"
+            android:textSize="@dimen/x24"
+            android:textColor="@color/main_learn_text_main_color"
+            android:drawablePadding="@dimen/x14"
+            app:rightDrawableHeight="@dimen/x22"
+            app:rightDrawableWidth="@dimen/x12"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/main_learn_text_sub_color"
+            android:textSize="@dimen/x16"
+            android:layout_marginTop="@dimen/y9"
+            android:text="@string/main_learn_group_tip"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llLearnPlace"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/y98"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@color/main_learn_right_bg_color"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintTop_toTopOf="@id/llLearnGroup"
+        app:layout_constraintStart_toEndOf="@id/llLearnGroup"
+        app:layout_constraintEnd_toEndOf="parent">
+        <com.yzy.ebag.student.widget.drawable.CenterTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:rightDrawable="@drawable/home_icon_more_learn"
+            android:text="@string/main_learn_place"
+            android:textSize="@dimen/x24"
+            android:textColor="@color/main_class_text_color"
+            android:drawablePadding="@dimen/x14"
+            app:rightDrawableHeight="@dimen/x22"
+            app:rightDrawableWidth="@dimen/x12"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/main_learn_text_sub_color"
+            android:textSize="@dimen/x16"
+            android:layout_marginTop="@dimen/y9"
+            android:text="@string/main_learn_place_tip"/>
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/btnMyError"
+        android:layout_width="@dimen/x218"
+        android:layout_height="@dimen/x142"
+        app:srcCompat="@drawable/home_btn_mine_error"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintTop_toBottomOf="@id/llLearnGroup"
+        app:layout_constraintStart_toStartOf="@id/ivAnnounce"
+        app:layout_constraintEnd_toStartOf="@id/btnMyClassmate"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/btnMyClassmate"
+        android:layout_width="@dimen/x218"
+        android:layout_height="@dimen/x142"
+        app:srcCompat="@drawable/home_btn_mine_classmate"
+        app:layout_constraintStart_toEndOf="@id/btnMyError"
+        app:layout_constraintEnd_toStartOf="@id/btnMyBook"
+        app:layout_constraintTop_toBottomOf="@id/llLearnGroup"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/btnMyBook"
+        android:layout_width="@dimen/x218"
+        android:layout_height="@dimen/x142"
+        app:srcCompat="@drawable/home_btn_mine_stack_room"
+        app:layout_constraintStart_toEndOf="@id/btnMyClassmate"
+        app:layout_constraintEnd_toStartOf="@id/btnDailyPractice"
+        app:layout_constraintTop_toBottomOf="@id/llLearnGroup"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/btnDailyPractice"
+        android:layout_width="@dimen/x218"
+        android:layout_height="@dimen/x142"
+        app:srcCompat="@drawable/home_btn_daily_practice"
+        app:layout_constraintStart_toEndOf="@id/btnMyBook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llLearnGroup"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

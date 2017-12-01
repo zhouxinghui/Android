@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.yzy.ebag.student.widget.TitleBar
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="@string/invite_register_tip"
+        app:showRightText="true"
+        app:rightText="@string/invite_contact_customer"/>
+
+    <EditText
+        android:id="@+id/codeEdit"
+        android:layout_width="@dimen/x448"
+        android:layout_height="@dimen/x78"
+        android:layout_marginStart="@dimen/x334"
+        android:layout_marginTop="@dimen/x78"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:hint="@string/invite_register_tip"
+        android:textColorHint="@color/color_edit_hint"
+        android:textColor="@color/color_edit_color"
+        android:background="@drawable/invite_code_input"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleView" />
+
+    <ImageView
+        android:id="@+id/codeScan"
+        android:layout_width="@dimen/x46"
+        android:layout_height="@dimen/x42"
+        android:layout_marginBottom="@dimen/x18"
+        android:layout_marginEnd="@dimen/x18"
+        android:layout_marginTop="@dimen/x18"
+        app:layout_constraintBottom_toBottomOf="@+id/codeEdit"
+        app:layout_constraintEnd_toEndOf="@+id/codeEdit"
+        app:layout_constraintTop_toTopOf="@+id/codeEdit"
+        app:srcCompat="@drawable/icon_code_scan" />
+
+    <ImageView
+        android:id="@+id/nextBtn"
+        android:layout_width="@dimen/x98"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x24"
+        app:layout_constraintBottom_toBottomOf="@+id/codeEdit"
+        app:layout_constraintStart_toEndOf="@+id/codeEdit"
+        app:layout_constraintTop_toTopOf="@+id/codeEdit"
+        app:srcCompat="@drawable/invite_code_nextstep" />
+
+    <ImageView
+        android:id="@+id/tipIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x55"
+        app:layout_constraintStart_toStartOf="@+id/codeEdit"
+        app:layout_constraintTop_toBottomOf="@+id/codeEdit"
+        app:srcCompat="@drawable/invite_register_tip" />
+
+    <TextView
+        android:id="@+id/tipText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x10"
+        android:lines="1"
+        android:textColor="@color/invite_tip"
+        android:textSize="@dimen/x24"
+        android:text="@string/invite_register_get_tip"
+        app:layout_constraintBottom_toBottomOf="@+id/tipIcon"
+        app:layout_constraintStart_toEndOf="@+id/tipIcon"
+        app:layout_constraintTop_toTopOf="@+id/tipIcon" />
+
+    <TextView
+        android:id="@+id/tipText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x18"
+        android:textSize="@dimen/x20"
+        android:textColor="@color/invite_tip"
+        android:text="@string/invite_register_get_tip_info"
+        android:lineSpacingExtra="@dimen/x12"
+        app:layout_constraintStart_toStartOf="@+id/tipText1"
+        app:layout_constraintTop_toBottomOf="@+id/tipText1" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/invite_code_nextstep_pressed"
+        android:visibility="gone"/>
+
+</android.support.constraint.ConstraintLayout>

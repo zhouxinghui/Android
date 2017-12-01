@@ -1,0 +1,4 @@
+/build
+/signing.properties
+/release
+*.iml

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--登录注册 忘记密码 相关-->
+    <style name="loginWith">
+        <item name="android:layout_width">@dimen/x589</item>
+    </style>
+
+    <style name="loginHeight">
+        <item name="android:layout_height">@dimen/y78</item>
+    </style>
+
+    <style name="login_edit_text" parent="loginHeight">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@drawable/login_edit_bac</item>
+        <item name="android:drawablePadding">@dimen/x25</item>
+        <item name="android:textSize">@dimen/x22</item>
+        <item name="android:gravity">center|left</item>
+        <item name="android:paddingStart">@dimen/x15</item>
+        <item name="android:paddingEnd">@dimen/x15</item>
+        <item name="android:textColor">@color/color_edit_color</item>
+        <item name="android:textColorHint">@color/color_edit_hint</item>
+    </style>
+
+    <style name="registerHeight">
+        <item name="android:layout_height">@dimen/y53</item>
+    </style>
+
+    <style name="register_edit_text" parent="registerHeight">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@drawable/login_edit_bac</item>
+        <item name="android:drawablePadding">@dimen/x25</item>
+        <item name="android:textSize">@dimen/x22</item>
+        <item name="android:gravity">center|left</item>
+        <item name="android:paddingStart">@dimen/x15</item>
+        <item name="android:paddingEnd">@dimen/x15</item>
+        <item name="android:textColor">@color/color_edit_color</item>
+        <item name="android:textColorHint">@color/color_edit_hint</item>
+    </style>
+
+    <style name="forgetHeight">
+        <item name="android:layout_height">@dimen/y68</item>
+        <item name="android:layout_width">@dimen/x589</item>
+    </style>
+
+    <style name="forget_edit_text" parent="forgetHeight">
+        <item name="android:background">@drawable/login_edit_bac</item>
+        <item name="android:drawablePadding">@dimen/x25</item>
+        <item name="android:textSize">@dimen/x22</item>
+        <item name="android:gravity">center|left</item>
+        <item name="android:paddingStart">@dimen/x15</item>
+        <item name="android:paddingEnd">@dimen/x15</item>
+        <item name="android:textColor">@color/color_edit_color</item>
+        <item name="android:textColorHint">@color/color_edit_hint</item>
+    </style>
+
+    <!--主页-->
+    <style name="main_left_text_color">
+        <item name="android:textColor">@color/main_text_color</item>
+    </style>
+    <style name="main_left_text" parent="main_left_text_color">
+        <item name="android:paddingStart">@dimen/x24</item>
+        <item name="android:paddingEnd">@dimen/x24</item>
+        <item name="android:textSize">@dimen/x20</item>
+    </style>
+
+    <!--个人中心-->
+    <style name="center_module">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/x54</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">@dimen/x24</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/center_module_bg_selector</item>
+        <item name="android:textColor">@color/color_center_text_selector</item>
+    </style>
+
+    <style name="center_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/x1</item>
+        <item name="android:layout_marginStart">@dimen/x24</item>
+        <item name="android:layout_marginEnd">@dimen/x24</item>
+        <item name="android:background">@drawable/center_line</item>
+    </style>
+    <style name="center_personal_tip">
+        <item name="android:layout_width">@dimen/x90</item>
+        <item name="android:layout_height">@dimen/x68</item>
+        <item name="android:textSize">@dimen/x22</item>
+        <item name="android:gravity">end|center_vertical</item>
+        <item name="android:layout_marginEnd">@dimen/x50</item>
+        <item name="android:textColor">@color/color_center_personal_tip</item>
+    </style>
+
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="horizontal" android:gravity="center_vertical"
+
+    <style name="center_personal_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/setting_item_selector</item>
+    </style>
+
+    <style name="center_personal_right_text">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">@dimen/x68</item>
+        <item name="android:textSize">@dimen/x22</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/color_edit_color</item>
+    </style>
+
+    <style name="center_personal_more_icon">
+        <item name="android:layout_width">@dimen/x13</item>
+        <item name="android:layout_height">@dimen/x22</item>
+        <item name="android:layout_marginRight">@dimen/x20</item>
+        <item name="android:background">@drawable/icon_more</item>
+    </style>
+</resources>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6FB1FF</color>
+    <color name="colorPrimaryDark">#6FB1FF</color>
+    <color name="colorPrimaryDark2">#55BBFF</color>
+    <color name="colorAccent">#6FB1FF</color>
+
+    <color name="disable">#D8D8D8</color>
+
+    <color name="transparent">#00000000</color>
+
+    <color name="background">#FFFFFF</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="translation">#00000000</color>
+
+    <color name="gray_e6">#EEEEEE</color>
+    <color name="gray_97">#979797</color>
+    <color name="gray_65">#656565</color>
+
+    <!--TabLayout-->
+    <color name="color_tab_selected_text">#1E85FF</color>
+    <color name="color_tab_text">#4A4A4A</color>
+    <color name="color_tab_indicator">#1E85FF</color>
+
+    <!--全局使用-->
+    <color name="color_edit_hint">#9b9b9b</color>
+    <color name="color_edit_color">#2a2a2a</color>
+
+    <color name="invite_tip">#4A4A4A</color>
+
+    <!--登陆-->
+    <color name="login_selector_checked">#272727</color>
+    <color name="login_selector_normal">#656565</color>
+
+    <color name="login_line">#eeeeee</color>
+    <color name="login_tips">#979797</color>
+    <color name="login_serve_tips">#6FB1FF</color>
+
+    <!--主页-->
+    <color name="main_bg_color">#6FB1FF</color>
+    <color name="main_text_color">#FFFFFF</color>
+    <color name="main_announce_bg_stroke">#FFFFFF</color>
+    <color name="main_announce_bg_solid">#66FFFFFF</color>
+    <color name="main_announce_text_color">#0084ff</color>
+    <color name="main_announce_line">#ffffff</color>
+    <color name="main_class_text_color">#282828</color>
+    <color name="main_learn_left_bg_color">#FCCBAA</color>
+    <color name="main_learn_right_bg_color">#ABDECB</color>
+    <color name="main_learn_text_main_color">#282828</color>
+    <color name="main_learn_text_sub_color">#645B60</color>
+
+    <!--设置-->
+    <color name="setting_text_color">#2A2A2A</color>
+    <color name="setting_item_pressed_color">#F4F4F4</color>
+    <color name="setting_line_color">#F4F4F4</color>
+
+    <!--用户反馈-->
+    <color name="feedback_tip_color">#4A4A4A</color>
+
+    <!--关于我们-->
+    <color name="color_about_us_sub">#57ABD3</color>
+    <color name="color_about_us_sub2">#0A88C5</color>
+    <color name="color_about_us_text">#4A4A4A</color>
+
+    <!--官方公告-->
+    <color name="color_announce_time">#92A1A9</color>
+
+    <!--更新-->
+    <color name="color_update_version_text">#1E85FF</color>
+    <color name="color_update_context_bg">#FFFFFF</color>
+    <color name="color_update_title_text">#F5F595</color>
+    <color name="color_update_version_bg">#F6F69C</color>
+    <color name="color_update_context_text">#4A4A4A</color>
+    <color name="color_update_update_text">#1E85FF</color>
+
+    <!--个人中心-->
+    <color name="color_center_line">#6AA4F8</color>
+    <color name="color_center_module_bg_checked">#E7F1FD</color>
+    <color name="color_center_personal_line">#F0F0F0</color>
+    <color name="color_center_personal_tip">#999999</color>
+    <color name="color_dialog_add_class_title">#7ED321</color>
+    <color name="color_dialog_line">#e0e0e0</color>
+    <color name="color_dialog_confirm_normal">#54A2FF</color>
+    <color name="color_my_parents_name">#777777</color>
+
+    <!--课程表-->
+    <color name="color_monday_bg">#ff8989</color>
+    <color name="color_tuesday_bg">#84b2ff</color>
+    <color name="color_wednesday_bg">#ffc469</color>
+    <color name="color_thursday_bg">#a0dd5e</color>
+    <color name="color_friday_bg">#c39bff</color>
+    <color name="color_morning_bg">#d0d0d0</color>
+    <color name="color_afternoon_bg">#bcbcbc</color>
+</resources>

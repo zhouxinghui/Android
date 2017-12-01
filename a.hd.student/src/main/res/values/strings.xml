@@ -1,0 +1,129 @@
+<resources>
+    <string name="app_name">Shudent.hd.kotlin</string>
+
+    <!--提示-->
+    <string name="tip_complete">完成</string>
+    <string name="tip_submit">提交</string>
+    <string name="tip_confirm">确定</string>
+
+    <string name="listview_header_hint_normal">下拉刷新</string>
+    <string name="listview_header_hint_release">释放立即刷新</string>
+    <string name="listview_loading">正在加载...</string>
+    <string name="nomore_loading">没有了</string>
+    <string name="refreshing">正在刷新...</string>
+    <string name="refresh_done">刷新完成</string>
+    <string name="loading_done">加载完成</string>
+    <string name="listview_header_last_time">上次更新时间：</string>
+
+    <!--登录注册相关-->
+    <string name="login_login">登录</string>
+    <string name="login_register">注册</string>
+    <string name="login_forget">忘记密码？</string>
+    <string name="login_pwd_forget">忘记密码</string>
+
+    <string name="login_hint_nickname">昵称/手机号</string>
+    <string name="login_hint_phone">请输入手机号</string>
+    <string name="login_hint_code">请输入验证码</string>
+    <string name="login_hint_pwd">密码</string>
+    <string name="login_code_get">获取验证码</string>
+    <string name="login_agree_tip">我已阅读并同意</string>
+    <string name="login_agree_title">《云书包服务协议》</string>
+
+
+
+    <!--邀请码-->
+    <string name="invite_invite_tip">请输入邀请码</string>
+    <string name="invite_register_tip">请输入注册码</string>
+    <string name="invite_invite_get_tip">获取邀请码提示：</string>
+    <string name="invite_register_get_tip">获取注册码提示：</string>
+    <string name="invite_invite_get_tip_info">1、班级邀请码由班主任创建班级所获得。\n
+    2、找班主任获取本班邀请码。</string>
+    <string name="invite_register_get_tip_info">1、学生版云书包定制版平板注册码请查看包装内邀请码卡片。\n
+        2、网络下载版学生云书包邀请码请点击右上角联系客服获取邀请码。</string>
+    <string name="invite_contact_customer">联系客服</string>
+
+    <!--主页-->
+    <string name="main">首页</string>
+    <string name="main_class_name">班级：%1$s</string>
+    <string name="main_teacher_name">班主任：%1$s</string>
+    <string name="main_teachers_tip">科任老师</string>
+    <string name="main_announce">公告</string>
+    <string name="main_announce_more">更多公告</string>
+    <string name="main_khzy">课后作业</string>
+    <string name="main_stzy">随堂作业</string>
+    <string name="main_kssj">考试试卷</string>
+    <string name="main_xxkb">学习课本</string>
+    <string name="main_kcb">课程表</string>
+    <string name="main_learn_group">学习小组</string>
+    <string name="main_learn_group_tip">在这里和同学们一起交流、学习</string>
+    <string name="main_learn_place">学习园地</string>
+    <string name="main_learn_place_tip">在这里和同学们一起探讨喜欢的话题</string>
+
+    <!--定位-->
+    <string name="position">定位</string>
+
+    <!--设置-->
+    <string name="setting">设置</string>
+    <string name="setting_theme">我的主题</string>
+    <string name="setting_update">版本更新</string>
+    <string name="setting_announce">官方公告</string>
+    <string name="setting_feedback">用户反馈</string>
+    <string name="setting_about_us">关于我们</string>
+    <string name="setting_system">系统设置</string>
+    <string name="setting_desktop">进入桌面</string>
+    <string name="setting_logout">退出当前账号</string>
+
+    <!--用户反馈-->
+    <string name="feedback_tip">问题和意见</string>
+    <string name="feedback_tip_hint">请简要描述你的问题和意见</string>
+    <string name="feedback_photo_tip">图片（选填、提供问题截图）</string>
+
+    <!--关于我们-->
+    <string name="about_us_name">云书包学生端HD</string>
+    <string name="about_us_website">官方网址：www.yun-bag.com</string>
+    <string name="about_us_phone">官方电话：0755&#8211;33073777</string>
+    <string name="about_us_email">官方邮箱：bag@yun-bag.com</string>
+    <string name="about_us_desc_tip">云书包简介</string>
+    <string name="about_us_desc">\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020云书包通过“互联网+教育”的平台搭建模式，
+        平台打破了传统的教育信息化边界，为全国所有的中小学老师、学生、家长打造一个集家校沟通、教学管理、学习、分享、交流、评测于一体，
+        以“人人通”的广泛、深度应用进一步体现“校校通”、“班班通”的综合效能；具有个性化、社会化、智能化、开放性特征的教育云平台。</string>
+
+    <!--更新-->
+    <string name="update_immediately">立即更新</string>
+
+    <!--个人中心-->
+    <string name="center_personal">个人中心</string>
+    <string name="my_task">我的任务</string>
+    <string name="my_class">我的班级</string>
+    <string name="my_parents">我的家长</string>
+    <string name="growth_trajectory">成长轨迹</string>
+    <string name="center_cloud_coin">云币中心</string>
+    <string name="operating_guide">操作指南</string>
+    <string name="center_personal_avatar">头像</string>
+    <string name="center_personal_name">姓名</string>
+    <string name="center_personal_id">书包号</string>
+    <string name="center_personal_gander">性别</string>
+    <string name="center_personal_contact">联系方式</string>
+    <string name="center_personal_address">家庭地址</string>
+    <string name="center_personal_school">所在学校</string>
+    <string name="center_personal_class">所在班级</string>
+    <string name="my_class_class_head_name">班主任：%1$s</string>
+    <string name="my_class_class_student">学生人数：</string>
+    <string name="my_class_class_teacher">科任老师：</string>
+    <string name="my_class_class_num_more">&#8230;共%1$s人</string>
+    <string name="my_class_class_num">共%1$s人</string>
+    <string name="my_class_add_class">加入班级</string>
+    <string name="my_class_add_class_code">输入班级邀请码</string>
+    <string name="my_parents_id_input">输入书包号</string>
+    <string name="my_parents_relation_input">输入你们的关系 例：妈妈</string>
+
+
+    <!--课程表-->
+    <string name="monday">星期一</string>
+    <string name="tuesday">星期二</string>
+    <string name="wednesday">星期三</string>
+    <string name="thursday">星期四</string>
+    <string name="friday">星期五</string>
+    <string name="morning">上午</string>
+    <string name="afternoon">下午</string>
+</resources>

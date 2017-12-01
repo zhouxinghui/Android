@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/x16"
+    android:paddingBottom="@dimen/x16">
+
+    <TextView
+        android:id="@+id/tvAnnounceTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_announce_time"
+        android:textSize="@dimen/x20"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivAnnouncePortrait"
+        android:layout_width="@dimen/x78"
+        android:layout_height="@dimen/x78"
+        android:layout_marginLeft="@dimen/x30"
+        android:layout_marginTop="@dimen/x16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAnnounceTime"
+        app:srcCompat="@drawable/announce_head_portrait" />
+
+    <TextView
+        android:id="@+id/tvAnnounceContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x30"
+        android:maxWidth="@dimen/x1112"
+        android:background="@drawable/announce_info_bg"
+        android:paddingTop="@dimen/x12"
+        android:paddingBottom="@dimen/x12"
+        android:paddingStart="@dimen/x24"
+        android:paddingEnd="@dimen/x12"
+        android:text="TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView"
+        android:textColor="@color/color_edit_color"
+        android:textSize="@dimen/x24"
+        app:layout_constraintStart_toEndOf="@+id/ivAnnouncePortrait"
+        app:layout_constraintTop_toTopOf="@+id/ivAnnouncePortrait" />
+</android.support.constraint.ConstraintLayout>

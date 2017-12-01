@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/launcher"
+        android:layout_width="@dimen/x133"
+        android:layout_height="@dimen/x108"
+        android:layout_marginTop="@dimen/y53"
+        android:scaleType="fitXY"
+        android:contentDescription="@string/login_login"
+        android:src="@drawable/student_logo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x156"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/login_bottom_img"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <RadioGroup
+        android:id="@+id/radio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/y40"
+        android:orientation="horizontal"
+        android:baselineAligned="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/launcher">
+
+        <RadioButton
+            android:id="@+id/login_choose"
+            android:layout_width="@dimen/x100"
+            android:layout_height="@dimen/y50"
+            android:layout_marginEnd="@dimen/x74"
+            android:button="@null"
+            android:checked="true"
+            android:drawableBottom="@drawable/login_register_line_selector"
+            android:gravity="center"
+            android:text="@string/login_login"
+            android:textColor="@color/login_register_text_selector"
+            android:textSize="@dimen/x26" />
+
+        <RadioButton
+            android:id="@+id/register_choose"
+            android:layout_width="@dimen/x100"
+            android:layout_height="@dimen/y50"
+            android:layout_marginStart="@dimen/x74"
+            android:button="@null"
+            android:drawableBottom="@drawable/login_register_line_selector"
+            android:gravity="center"
+            android:text="@string/login_register"
+            android:textColor="@color/login_register_text_selector"
+            android:textSize="@dimen/x26" />
+    </RadioGroup>
+
+    <View
+        android:id="@+id/topLine"
+        style="@style/loginWith"
+        android:layout_height="@dimen/y2"
+        android:background="@color/login_line"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radio"/>
+
+
+    <LinearLayout
+        android:id="@+id/fillLayout"
+        style="@style/loginWith"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topLine"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/loginAccount"
+            style="@style/login_edit_text"
+            android:hint="@string/login_hint_nickname"
+            android:drawableLeft="@drawable/login_nickname"/>
+
+        <FrameLayout
+            android:id="@+id/loginPwdLayout"
+            style="@style/loginHeight"
+            android:layout_width="match_parent">
+            <EditText
+                android:id="@+id/loginPwd"
+                style="@style/login_edit_text"
+                android:hint="@string/login_hint_pwd"
+                android:drawableLeft="@drawable/login_pwd"
+                android:inputType="textPassword"/>
+
+            <ImageView
+                android:id="@+id/imageSee"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/x78"
+                android:layout_gravity="end"
+                android:layout_marginEnd="0dp"
+                android:src="@drawable/login_see_selector"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/forgetPwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y10"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/login_forget"
+            android:textColor="@color/login_tips"
+            android:textSize="@dimen/x18"/>
+
+
+        <EditText
+            android:id="@+id/registerAccount"
+            style="@style/register_edit_text"
+            android:hint="@string/login_hint_nickname"
+            android:drawableLeft="@drawable/login_nickname"
+            android:visibility="gone"/>
+        <EditText
+            android:id="@+id/registerPhone"
+            style="@style/register_edit_text"
+            android:hint="@string/login_hint_phone"
+            android:drawableLeft="@drawable/login_icon_phone"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:visibility="gone"/>
+        <FrameLayout
+            android:id="@+id/registerCodeLayout"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            style="@style/registerHeight">
+            <EditText
+                android:id="@+id/registerCode"
+                style="@style/register_edit_text"
+                android:hint="@string/login_hint_code"
+                android:drawableLeft="@drawable/login_icon_code"
+                android:inputType="number"
+                android:maxLength="6"/>
+            <TextView
+                android:id="@+id/registerCodeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y36"
+                android:paddingStart="@dimen/x7"
+                android:paddingEnd="@dimen/x7"
+                android:layout_marginRight="@dimen/x7"
+                android:text="@string/login_code_get"
+                android:layout_gravity="end|center_vertical"
+                android:gravity="center"
+                android:background="@drawable/login_code_btn"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x18"/>
+        </FrameLayout>
+        
+        <EditText
+            android:id="@+id/registerPwd"
+            style="@style/register_edit_text"
+            android:hint="@string/login_hint_pwd"
+            android:drawableLeft="@drawable/login_pwd"
+            android:visibility="gone"
+            android:inputType="textPassword"/>
+
+        <LinearLayout
+            android:id="@+id/registerTip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/x15"
+            android:paddingTop="@dimen/y10"
+            android:baselineAligned="true"
+            android:visibility="gone">
+            <CheckBox
+                android:id="@+id/serveCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/register_agree_check_box"
+                android:text="@string/login_agree_tip"
+                android:textColor="@color/login_tips"
+                android:textSize="@dimen/x18"
+                android:paddingLeft="@dimen/x15"/>
+
+            <TextView
+                android:id="@+id/serveBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_agree_title"
+                android:textColor="@color/login_serve_tips"
+                android:textSize="@dimen/x18"
+                android:paddingLeft="@dimen/x15"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    
+    <TextView
+        android:id="@+id/loginBtn"
+        android:clickable="true"
+        android:layout_width="@dimen/x421"
+        android:layout_height="@dimen/x52"
+        android:layout_marginTop="@dimen/y58"
+        android:textSize="@dimen/x24"
+        android:gravity="center"
+        android:text="@string/login_login"
+        android:textColor="@color/white"
+        android:background="@drawable/login_btn_bac"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fillLayout" />
+
+</android.support.constraint.ConstraintLayout>

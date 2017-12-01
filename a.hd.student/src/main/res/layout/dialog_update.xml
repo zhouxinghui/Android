@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/tagView1"
+        android:layout_width="@dimen/x535"
+        android:layout_height="@dimen/x313"
+        android:background="@drawable/update_top_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/btnUpdateClose"
+        android:layout_width="@dimen/x58"
+        android:layout_height="@dimen/x58"
+        android:layout_marginTop="@dimen/x33"
+        app:layout_constraintEnd_toEndOf="@+id/tagView1"
+        app:layout_constraintTop_toTopOf="@+id/tagView1"
+        app:srcCompat="@drawable/icon_update_close" />
+
+    <TextView
+        android:id="@+id/tvUpdateVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x103"
+        tools:text="2.1.3"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10"
+        android:textSize="@dimen/x24"
+        android:textColor="@color/color_update_version_text"
+        android:background="@drawable/update_version_bg"
+        app:layout_constraintEnd_toEndOf="@+id/tagView1"
+        app:layout_constraintStart_toStartOf="@+id/tagView1"
+        app:layout_constraintTop_toTopOf="@+id/tagView1" />
+
+    <TextView
+        android:id="@+id/tvUpdateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        tools:text="新版本上线啦！"
+        android:textColor="@color/color_update_title_text"
+        android:textSize="@dimen/x42"
+        app:layout_constraintEnd_toEndOf="@+id/tagView1"
+        app:layout_constraintStart_toStartOf="@+id/tagView1"
+        app:layout_constraintTop_toBottomOf="@+id/tvUpdateVersion" />
+
+    <ScrollView
+        android:id="@+id/llContent"
+        android:layout_width="@dimen/x535"
+        android:layout_height="@dimen/x150"
+        android:background="@color/color_update_context_bg"
+        app:layout_constraintTop_toBottomOf="@id/tagView1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        >
+        <TextView
+            android:id="@+id/tvUpdateContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_update_context_text"
+            android:paddingLeft="@dimen/x30"
+            android:paddingRight="@dimen/x30"
+            android:textSize="@dimen/x24"
+            android:paddingBottom="@dimen/x50"/>
+    </ScrollView>
+
+
+
+    <TextView
+        android:id="@+id/btnUpdate"
+        android:layout_width="@dimen/x535"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_update_update_text"
+        android:textSize="@dimen/x30"
+        android:paddingTop="@dimen/x12"
+        android:paddingBottom="@dimen/x12"
+        android:gravity="center"
+        android:text="@string/update_immediately"
+        android:background="@drawable/update_btn_bg"
+        app:layout_constraintTop_toBottomOf="@id/llContent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>
