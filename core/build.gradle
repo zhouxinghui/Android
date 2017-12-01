@@ -16,56 +16,13 @@ android {
 
     }
 
-    //签名配置
-    signingConfigs {
-        release {
-//            需要再当前目录下新建一个signing.properties文件，样式格式按照signing.properties.bak文件来写
-            File propFile = file('signing.properties');
-            if (propFile.exists()) {
-                Properties props = new Properties()
-                props.load(new FileInputStream(propFile))
-                if (props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
-                        props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
-                    android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
-                    android.signingConfigs.release.storePassword = props['STORE_PASSWORD']
-                    android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
-                    android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
-                } else {
-                    android.buildTypes.release.signingConfig = null
-                }
-            } else {
-                android.buildTypes.release.signingConfig = null
-            }
-        }
-        debug {
-            File propFile = file('signing.properties');
-            if (propFile.exists()) {
-                Properties props = new Properties()
-                props.load(new FileInputStream(propFile))
-                if (props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
-                        props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
-                    android.signingConfigs.debug.storeFile = file(props['STORE_FILE'])
-                    android.signingConfigs.debug.storePassword = props['STORE_PASSWORD']
-                    android.signingConfigs.debug.keyAlias = props['KEY_ALIAS']
-                    android.signingConfigs.debug.keyPassword = props['KEY_PASSWORD']
-                } else {
-                    android.buildTypes.debug.signingConfig = null
-                }
-            } else {
-                android.buildTypes.debug.signingConfig = null
-            }
-        }
-    }
-
     buildTypes {
         buildTypes {
             release {
                 minifyEnabled false
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-//                signingConfig signingConfigs.release
             }
             debug {
-//                signingConfig signingConfigs.debug
             }
         }
     }
