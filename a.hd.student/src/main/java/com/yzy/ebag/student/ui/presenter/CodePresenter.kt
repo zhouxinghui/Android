@@ -29,15 +29,17 @@ open class CodePresenter(view: CodeView, listener: OnToastListener): BasePresent
         if(StringUtils.isMobileNo(phone)) {
             if(requestRequest == null)
                 requestRequest = object: RequestCallBack<CodeEntity>() {
+
                     override fun onStart() {
                         getView()?.onCodeStart()
                     }
-                    override fun onSuccess(t: CodeEntity) {
-                        getView()?.onCodeSuccess(t)
+
+                    override fun onSuccess(entity: CodeEntity) {
+                        getView()?.onCodeSuccess(entity)
                     }
 
-                    override fun onError(e: Throwable) {
-                        getView()?.onCodeError(e)
+                    override fun onError(exception: Throwable) {
+                        getView()?.onCodeError(exception)
                     }
 
                 }

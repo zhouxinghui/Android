@@ -3,6 +3,7 @@ package ebag.core.http.network;
 import android.support.annotation.NonNull;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.parser.Feature;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -58,12 +59,12 @@ public class FastJsonConverterFactory extends Converter.Factory{
             BufferedSource bufferedSource = Okio.buffer(value.source());
             String tempStr = bufferedSource.readUtf8();
             bufferedSource.close();
-            tempStr = tempStr.replaceAll("\\\\\"","\"")
-                    .replaceAll("\"\\{","{")
-                    .replaceAll("\\}\"","}")
-                    .replaceAll("\"\\[","[")
-                    .replaceAll("\\]\"","]");
-            return JSON.parseObject(tempStr, type);
+//            tempStr = tempStr.replaceAll("\\\\\"","\"")
+//                    .replaceAll("\"\\{","{")
+//                    .replaceAll("\\}\"","}")
+//                    .replaceAll("\"\\[","[")
+//                    .replaceAll("\\]\"","]");
+            return JSON.parseObject(tempStr, type, Feature.AllowArbitraryCommas);
         }
     }
 

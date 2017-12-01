@@ -30,3 +30,5 @@ proguard/
 
 /gradlew
 /gradlew.bat
+
+/gradle.properties

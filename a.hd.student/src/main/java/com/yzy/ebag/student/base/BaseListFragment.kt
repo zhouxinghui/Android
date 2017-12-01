@@ -125,7 +125,7 @@ abstract class BaseListFragment<T> : BaseFragment(), XRecyclerView.OnLoadMoreLis
             }
         }
 
-        override fun onSuccess(entity: List<T>?) {
+        override fun onSuccess(entity: List<T>) {
             var result: List<T>? = entity
             if (result == null) {
                 //添加判断，防止异常

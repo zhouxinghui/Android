@@ -3,7 +3,7 @@ package ebag.core.http.network
 /**
  * Created by unicho on 2017/11/9.
  */
-interface IRequest<T> {
+interface IRequest<in T> {
     /**
      * 网络请求前
      */
@@ -13,7 +13,7 @@ interface IRequest<T> {
      * 网络请求成功
      * @param entity
      */
-    fun onSuccess(entity: T?)
+    fun onSuccess(entity: T)
 
     /**
      * 异常处理
