@@ -26,11 +26,14 @@ proguard/
 #Log Files
 *.log
 
+# Android Studio Navigation editor temp filesss
+.navigation/
+
+# Android Studio captures folder
+captures/
+
 *.iml
 
-/gradlew
-/gradlew.bat
+gradlew*
 
 /gradle.properties
-
-.DS_Store

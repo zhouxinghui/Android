@@ -1,7 +1,6 @@
 package com.yzy.ebag.student.widget.drawable;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -27,10 +26,8 @@ public class DrawableUtil {
         return new DrawableUtil();
     }
 
-    public Drawable[] getDrawable(Context context, AttributeSet attrs, int defStyleAttr){
+    public Drawable[] getDrawable(Context context, AttributeSet attrs){
         Drawable[] drawables = new Drawable[4];
-
-        final Resources.Theme theme = context.getTheme();
 
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.DrawableTextView);
 
