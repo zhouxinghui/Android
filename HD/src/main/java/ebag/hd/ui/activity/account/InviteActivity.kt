@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.activity_invitation.*
 
 /**
  * Created by unicho on 2017/11/21.
+ * Activity 输入注册码
  */
 class InviteActivity: MVPActivity(),InviteView {
 

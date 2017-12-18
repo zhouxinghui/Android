@@ -1,1 +1,1 @@
-include ':a.hd.student', ':core', ':JavaTest'
+include ':a.hd.student', ':core', ':JavaTest', ':HD'

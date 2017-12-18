@@ -20,8 +20,11 @@ android {
         buildTypes {
             release {
                 minifyEnabled false
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             }
+            //新增
+//            preview {
+//            }
             debug {
             }
         }
@@ -30,7 +33,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(dir: 'libs', include: ['*.jar'])
 
     //读取渠道号的库，主要是用来增量更新时，对多渠道增量更新的处理
     compile 'com.meituan.android.walle:library:1.1.5'
@@ -54,8 +57,6 @@ dependencies {
 
     //图片加载
     compile 'com.github.bumptech.glide:glide:4.2.0'
-
-    implementation 'com.android.support:appcompat-v7:26.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

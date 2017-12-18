@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.yzy.ebag.student.R;
-
 /**
  * Created by unicho on 2017/11/25.
  */

@@ -1,23 +1,24 @@
 package com.yzy.ebag.student.ui.activity.account
 
-import com.yzy.ebag.student.R
-import com.yzy.ebag.student.bean.response.CodeEntity
-import com.yzy.ebag.student.dialog.UpdateDialog
 import com.yzy.ebag.student.ui.presenter.CodePresenter
 import com.yzy.ebag.student.ui.presenter.ForgetPresenter
 import com.yzy.ebag.student.ui.view.CodeView
 import com.yzy.ebag.student.ui.view.ForgetView
 import ebag.core.base.mvp.MVPActivity
-import kotlinx.android.synthetic.main.activity_forget.*
+import ebag.hd.R
+import ebag.hd.R.id.*
+import ebag.hd.bean.response.CodeEntity
+
 
 /**
  * Created by unicho on 2017/11/13.
+ * activity 忘记密码
  */
-class ForgetActivity: MVPActivity(),CodeView,ForgetView {
+class ForgetActivity: MVPActivity(), CodeView, ForgetView {
 
-    private val fPresenterDelegate = lazy{ ForgetPresenter(this,this)}
+    private val fPresenterDelegate = lazy{ ForgetPresenter(this,this) }
     private val fPresenter: ForgetPresenter by fPresenterDelegate
-    private val cPresenterDelegate = lazy { CodePresenter(this,this)}
+    private val cPresenterDelegate = lazy { CodePresenter(this,this) }
     private val cPresenter: CodePresenter by cPresenterDelegate
 
     /**

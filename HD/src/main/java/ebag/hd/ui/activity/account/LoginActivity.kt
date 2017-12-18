@@ -9,10 +9,13 @@ import com.yzy.ebag.student.ui.presenter.LoginPresenter
 import com.yzy.ebag.student.ui.view.CodeView
 import com.yzy.ebag.student.ui.view.LoginView
 import ebag.core.base.mvp.MVPActivity
+import ebag.hd.bean.response.CodeEntity
+import ebag.hd.bean.response.UserEntity
 import kotlinx.android.synthetic.main.activity_login.*
 
 /**
  * Created by unicho on 2017/11/2.
+ * Activity 登录&注册
  */
 
 internal class LoginActivity : MVPActivity(), LoginView,CodeView {
