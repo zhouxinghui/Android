@@ -25,4 +25,6 @@
     <string name="invite_register_get_tip">获取注册码提示：</string>
     <string name="invite_register_get_tip_info">1、学生版云书包定制版平板注册码请查看包装内邀请码卡片。\n
         2、网络下载版学生云书包邀请码请点击右上角联系客服获取邀请码。</string>
+
+    <string name="invite_contact_customer">联系客服</string>
 </resources>

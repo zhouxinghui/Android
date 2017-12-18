@@ -34,10 +34,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-
-    //读取渠道号的库，主要是用来增量更新时，对多渠道增量更新的处理
     compile 'com.meituan.android.walle:library:1.1.5'
-
+    api 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:26.1.0'
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support:recyclerview-v7:26.1.0'

@@ -19,8 +19,6 @@
     <string name="invite_invite_get_tip_info">1、班级邀请码由班主任创建班级所获得。\n
     2、找班主任获取本班邀请码。</string>
 
-    <string name="invite_contact_customer">联系客服</string>
-
     <!--主页-->
     <string name="main">首页</string>
     <string name="main_class_name">班级：%1$s</string>
