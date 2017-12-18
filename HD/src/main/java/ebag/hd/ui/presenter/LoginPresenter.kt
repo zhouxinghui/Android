@@ -1,12 +1,12 @@
-package com.yzy.ebag.student.ui.presenter
-
-import com.yzy.ebag.student.bean.response.UserEntity
-import com.yzy.ebag.student.http.EBagApi
-import com.yzy.ebag.student.ui.view.LoginView
+package ebag.hd.ui.presenter
 import ebag.core.base.mvp.BasePresenter
 import ebag.core.base.mvp.OnToastListener
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.StringUtils
+import ebag.hd.bean.response.UserEntity
+import ebag.hd.http.EBagApi
+import ebag.hd.ui.view.LoginView
+
 
 /**
  * presenter 登录页面的控制类

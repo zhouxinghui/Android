@@ -1,18 +1,18 @@
-package com.yzy.ebag.student.ui.activity.account
+package ebag.hd.ui.activity.account
 
 import android.text.Editable
 import android.text.TextWatcher
-import com.yzy.ebag.student.R
-import com.yzy.ebag.student.ui.presenter.InvitePresenter
-import com.yzy.ebag.student.ui.view.InviteView
 import ebag.core.base.mvp.MVPActivity
+import ebag.hd.R
+import ebag.hd.ui.presenter.InvitePresenter
+import ebag.hd.ui.view.InviteView
 import kotlinx.android.synthetic.main.activity_invitation.*
 
 /**
  * Created by unicho on 2017/11/21.
  * Activity 输入注册码
  */
-class InviteActivity: MVPActivity(),InviteView {
+class InviteActivity: MVPActivity(), InviteView {
 
     private val iDelegate = lazy { InvitePresenter(this,this) }
     private val invitePresenter: InvitePresenter by iDelegate

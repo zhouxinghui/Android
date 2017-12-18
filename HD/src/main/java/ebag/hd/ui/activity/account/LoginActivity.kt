@@ -1,24 +1,23 @@
-package com.yzy.ebag.student.ui.activity.account
+package ebag.hd.ui.activity.account
 
 import android.view.View
-import com.yzy.ebag.student.R
-import com.yzy.ebag.student.bean.response.CodeEntity
-import com.yzy.ebag.student.bean.response.UserEntity
-import com.yzy.ebag.student.ui.presenter.CodePresenter
-import com.yzy.ebag.student.ui.presenter.LoginPresenter
-import com.yzy.ebag.student.ui.view.CodeView
-import com.yzy.ebag.student.ui.view.LoginView
 import ebag.core.base.mvp.MVPActivity
+import ebag.hd.R
 import ebag.hd.bean.response.CodeEntity
 import ebag.hd.bean.response.UserEntity
+import ebag.hd.ui.presenter.CodePresenter
+import ebag.hd.ui.presenter.LoginPresenter
+import ebag.hd.ui.view.CodeView
+import ebag.hd.ui.view.LoginView
 import kotlinx.android.synthetic.main.activity_login.*
+
 
 /**
  * Created by unicho on 2017/11/2.
  * Activity 登录&注册
  */
 
-internal class LoginActivity : MVPActivity(), LoginView,CodeView {
+internal class LoginActivity : MVPActivity(), LoginView, CodeView {
 
 
     override fun destroyPresenter() {
@@ -29,8 +28,8 @@ internal class LoginActivity : MVPActivity(), LoginView,CodeView {
     }
 
     /**懒加载*/
-    private val lDelegate = lazy { LoginPresenter(this,this)}
-    private val cDelegate = lazy { CodePresenter(this,this)}
+    private val lDelegate = lazy { LoginPresenter(this, this) }
+    private val cDelegate = lazy { CodePresenter(this,this) }
     private val loginPresenter: LoginPresenter by lDelegate
     private val codePresenter: CodePresenter by cDelegate
 

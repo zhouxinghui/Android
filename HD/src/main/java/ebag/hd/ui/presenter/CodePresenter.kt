@@ -1,13 +1,13 @@
-package com.yzy.ebag.student.ui.presenter
+package ebag.hd.ui.presenter
 
-import com.yzy.ebag.student.bean.response.CodeEntity
-import com.yzy.ebag.student.http.EBagApi
-import com.yzy.ebag.student.ui.view.CodeView
 import ebag.core.base.mvp.BasePresenter
 import ebag.core.base.mvp.OnToastListener
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.L
 import ebag.core.util.StringUtils
+import ebag.hd.bean.response.CodeEntity
+import ebag.hd.http.EBagApi
+import ebag.hd.ui.view.CodeView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

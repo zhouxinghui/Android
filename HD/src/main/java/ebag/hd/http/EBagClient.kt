@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.http
+package ebag.hd.http
 
 import android.os.Environment
 import ebag.core.http.network.FastJsonConverterFactory
@@ -19,11 +19,11 @@ import java.util.concurrent.TimeUnit
  */
 object EBagClient {
 
-    private fun getLogInterceptor(): Interceptor{
+    private fun getLogInterceptor(): Interceptor {
         return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 
-    private fun getCache(): Cache{
+    private fun getCache(): Cache {
         val cachePath: String = if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
             (Environment.getExternalStorageDirectory().absolutePath
                     + File.separator + "ktravel" + File.separator + "cache" + File.separator)

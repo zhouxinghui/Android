@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.http.baseBean;
+package ebag.hd.http.baseBean;
 
 import java.io.Serializable;
 

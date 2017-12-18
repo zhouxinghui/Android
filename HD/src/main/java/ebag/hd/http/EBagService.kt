@@ -1,15 +1,15 @@
-package com.yzy.ebag.student.http
-
-import com.yzy.ebag.student.bean.request.CodeVo
-import com.yzy.ebag.student.bean.request.LoginVo
-import com.yzy.ebag.student.bean.response.CodeEntity
-import com.yzy.ebag.student.bean.response.UserEntity
-import com.yzy.ebag.student.http.baseBean.QuestionErrEntity
-import com.yzy.ebag.student.http.baseBean.RequestBean
-import com.yzy.ebag.student.http.baseBean.ResponseBean
-import com.yzy.ebag.student.http.baseBean.ResponseEntity
+package ebag.hd.http
+import ebag.hd.bean.request.CodeVo
+import ebag.hd.bean.request.LoginVo
+import ebag.hd.bean.response.CodeEntity
+import ebag.hd.bean.response.UserEntity
+import ebag.hd.http.baseBean.QuestionErrEntity
+import ebag.hd.http.baseBean.RequestBean
+import ebag.hd.http.baseBean.ResponseBean
+import ebag.hd.http.baseBean.ResponseEntity
 import io.reactivex.Observable
 import okhttp3.MultipartBody
+
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -32,7 +32,7 @@ interface EBagService {
      * @return
      */
     @POST("services/login/{version}")
-    fun login(@Path("version") version: String,  @Body requestBody: RequestBean<LoginVo>): Observable<ResponseBean<UserEntity>>
+    fun login(@Path("version") version: String, @Body requestBody: RequestBean<LoginVo>): Observable<ResponseBean<UserEntity>>
 
     /**
      * 登录
