@@ -1,14 +1,14 @@
-package com.yzy.ebag.student.ui.activity.account
+package ebag.hd.ui.activity.account
 
-import com.yzy.ebag.student.ui.presenter.CodePresenter
-import com.yzy.ebag.student.ui.presenter.ForgetPresenter
-import com.yzy.ebag.student.ui.view.CodeView
-import com.yzy.ebag.student.ui.view.ForgetView
 import ebag.core.base.mvp.MVPActivity
 import ebag.hd.R
-import ebag.hd.R.id.*
 import ebag.hd.bean.response.CodeEntity
-
+import ebag.hd.dialog.UpdateDialog
+import ebag.hd.ui.presenter.CodePresenter
+import ebag.hd.ui.presenter.ForgetPresenter
+import ebag.hd.ui.view.CodeView
+import ebag.hd.ui.view.ForgetView
+import kotlinx.android.synthetic.main.activity_forget.*
 
 /**
  * Created by unicho on 2017/11/13.

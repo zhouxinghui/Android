@@ -1,5 +1,4 @@
-package com.yzy.ebag.student.http
-
+package ebag.hd.http
 import android.content.Context
 import ebag.core.http.network.MsgException
 import ebag.core.util.T

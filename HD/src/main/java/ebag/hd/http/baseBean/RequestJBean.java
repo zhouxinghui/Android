@@ -1,16 +1,22 @@
-package com.yzy.ebag.student.http.baseBean;
+package ebag.hd.http.baseBean;
 
 import com.alibaba.fastjson.JSON;
+
+import org.json.JSONObject;
 
 /**
  * Created by caoyu on 2017/8/28.
  */
 
-public class RequestBean<T> {
+public class RequestJBean<T> extends JSONObject {
 
-    private String token = "ee60ZT8U5lPeAc6Op94EFE4xToQxbCV1ttod7KGLcL2rCtPtqfhu4qhNhVkgKXqyfq2bPF\\/Oho8=";
+    public RequestJBean(T t,String token){
+
+    }
+    private String token;
     private String millis = String.valueOf(System.currentTimeMillis());
     private String body;
+
     public String getToken() {
         return token;
     }
@@ -27,8 +33,8 @@ public class RequestBean<T> {
         this.millis = millis;
     }
 
-    public String getBody() {
-        return body;
+    public T getBody() {
+        return (T) JSON.parse(body);
     }
 
     public void setBody(T body) {

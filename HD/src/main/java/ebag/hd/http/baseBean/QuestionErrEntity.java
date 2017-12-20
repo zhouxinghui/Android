@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.http.baseBean;
+package ebag.hd.http.baseBean;
 
 /**
  * Created by caoyu on 2017/8/28.

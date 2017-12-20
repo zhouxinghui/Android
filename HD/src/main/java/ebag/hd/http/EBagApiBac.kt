@@ -1,11 +1,10 @@
-package com.yzy.ebag.student.http
-
-import com.yzy.ebag.student.http.baseBean.QuestionErrEntity
-import com.yzy.ebag.student.http.baseBean.RequestBean
-import com.yzy.ebag.student.http.baseBean.ResponseBean
-import com.yzy.ebag.student.http.baseBean.ResponseEntity
+package ebag.hd.http
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.RequestSubscriber
+import ebag.hd.http.baseBean.QuestionErrEntity
+import ebag.hd.http.baseBean.RequestBean
+import ebag.hd.http.baseBean.ResponseBean
+import ebag.hd.http.baseBean.ResponseEntity
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

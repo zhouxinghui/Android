@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.dialog;
+package ebag.hd.dialog;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import ebag.hd.R;
+
 
 /**
  * Created by unicho on 2017/11/25.
@@ -48,12 +51,12 @@ public class UpdateDialog extends AppCompatDialogFragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btnUpdateClose:
-                dismiss();
-                break;
-            case R.id.btnUpdate:
-                break;
+        int i = v.getId();
+        if (i == R.id.btnUpdateClose) {
+            dismiss();
+
+        } else if (i == R.id.btnUpdate) {
+
         }
     }
 }
