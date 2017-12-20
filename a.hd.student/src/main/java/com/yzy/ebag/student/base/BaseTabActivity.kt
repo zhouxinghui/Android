@@ -37,7 +37,7 @@ abstract class BaseTabActivity : BaseActivity(){
      * 设置起始tab
      * @param currentPosition
      */
-    fun setViewPagerCurrentItem(currentPosition: Int) {
+    protected fun setViewPagerCurrentItem(currentPosition: Int) {
         tabsContent?.currentItem = currentPosition
     }
 

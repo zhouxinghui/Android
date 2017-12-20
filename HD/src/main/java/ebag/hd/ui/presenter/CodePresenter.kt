@@ -29,7 +29,7 @@ open class CodePresenter(view: CodeView, listener: OnToastListener): BasePresent
 
         if(StringUtils.isMobileNo(phone)) {
             if(requestRequest == null)
-                requestRequest = object: RequestCallBack<CodeEntity>() {
+                requestRequest = createRequest(object: RequestCallBack<CodeEntity>() {
 
                     override fun onStart() {
                         getView()?.onCodeStart()
@@ -43,7 +43,7 @@ open class CodePresenter(view: CodeView, listener: OnToastListener): BasePresent
                         getView()?.onCodeError(exception)
                     }
 
-                }
+                })
             EBagApi.getCode(phone,requestRequest!!)
         } else
             showToast("手机号码格式输入错误",true)

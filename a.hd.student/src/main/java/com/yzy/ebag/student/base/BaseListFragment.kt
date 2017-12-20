@@ -59,7 +59,7 @@ abstract class BaseListFragment<T> : BaseFragment(), XRecyclerView.OnLoadMoreLis
      * @param position
      * @param t
      */
-    protected abstract fun onItemClick(view: View, position: Int, t: T)
+    protected  fun onItemClick(view: View, position: Int, t: T){}
 
     /**
      * 列表页的点击事件
@@ -67,7 +67,7 @@ abstract class BaseListFragment<T> : BaseFragment(), XRecyclerView.OnLoadMoreLis
      * @param position
      * @param t
      */
-    protected abstract fun onItemChildClick(view: View, position: Int, t: T)
+    protected fun onItemChildClick(view: View, position: Int, t: T){}
 
     /** 每页默认加载的数量 */
     protected fun getPageSize(): Int = DEFAULT_PAGE_SIZE

@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers
 object EBagApi {
 
 
-    /**返回的数据格式是按照我们自己定义的数据格式时*/
+    /**返回的数据格式是按照我们自己定义的数据格式时调用此方法*/
     private fun <T> request(ob: Observable<ResponseBean<T>>, callback: RequestCallBack<T>){
         ob.subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
@@ -25,7 +25,7 @@ object EBagApi {
             .subscribe(RequestSubscriber(callback))
     }
 
-    /**返回的数据格式是按照我们自己定义的数据格式时*/
+    /**返回的数据格式是按照我们自己定义的数据格式时调用此方法*/
     private fun <T> startRequest(ob: Observable<T>, callback: RequestCallBack<T>){
         ob.subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())

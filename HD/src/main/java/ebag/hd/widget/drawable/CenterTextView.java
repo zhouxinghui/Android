@@ -13,7 +13,7 @@ import android.view.Gravity;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import ebag.core.R;
+import ebag.hd.R;
 
 
 /**

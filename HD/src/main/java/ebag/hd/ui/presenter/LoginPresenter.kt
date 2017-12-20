@@ -39,11 +39,12 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
      */
     fun login(account: String, pwd: String){
         if(isLoginInfoCorrect(account,pwd)) {
-            if(loginRequest == null)
-                loginRequest = object: RequestCallBack<UserEntity>(){
+            if(loginRequest == null) {
+                loginRequest = createRequest(object : RequestCallBack<UserEntity>() {
                     override fun onStart() {
                         getView()?.onLoginStart()
                     }
+
                     override fun onSuccess(entity: UserEntity) {
                         getView()?.onLoginSuccess(entity)
                     }
@@ -51,8 +52,8 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
                     override fun onError(exception: Throwable) {
                         getView()?.onLoginError(exception)
                     }
-
-                }
+                })
+            }
            EBagApi.login(account,pwd, loginRequest!!)
         }
     }
@@ -85,7 +86,7 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
     fun register(name: String, phone: String, code: String, pwd: String){
         if(isRegisterInfoCorrect(phone,code,pwd)){
             if(registerRequest == null)
-                registerRequest = object: RequestCallBack<UserEntity>(){
+                registerRequest = createRequest(object: RequestCallBack<UserEntity>(){
                     override fun onStart() {
                     }
                     override fun onSuccess(entity: UserEntity) {
@@ -95,19 +96,9 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
                     override fun onError(exception: Throwable) {
                     }
 
-                }
+                })
             EBagApi.register(name,phone,code,pwd,registerRequest!!)
         }
 
     }
-
-    /**
-     * 调用onDestroy方法 终止网络请求
-     */
-    override fun onDestroy(){
-        loginRequest?.cancelRequest()
-        registerRequest?.cancelRequest()
-        super.onDestroy()
-    }
-
 }
