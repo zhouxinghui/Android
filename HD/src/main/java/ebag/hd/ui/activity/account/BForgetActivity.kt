@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_forget.*
  * Created by unicho on 2017/11/13.
  * activity 忘记密码
  */
-class BForgetActivity : MVPActivity(), CodeView, ForgetView {
+open class BForgetActivity : MVPActivity(), CodeView, ForgetView {
 
     private val fPresenterDelegate = lazy{ ForgetPresenter(this,this) }
     private val fPresenter: ForgetPresenter by fPresenterDelegate
@@ -95,4 +95,5 @@ class BForgetActivity : MVPActivity(), CodeView, ForgetView {
         //点击完成事件
         completeBtn.setOnClickListener { fPresenter.startRequest(phoneEdit.text.toString(),codeEdit.text.toString(),pwdEdit.text.toString()) }
     }
+
 }

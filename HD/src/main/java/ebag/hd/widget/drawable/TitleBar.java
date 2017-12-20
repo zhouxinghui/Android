@@ -7,6 +7,8 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -121,8 +123,8 @@ public class TitleBar extends RelativeLayout {
 
         /*设置左侧按钮*/
         backView = new ImageView(context);
-        backView.setPadding((int) getResources().getDimension(R.dimen.x18),(int) getResources().getDimension(R.dimen.x11)
-                ,(int) getResources().getDimension(R.dimen.x12),(int) getResources().getDimension(R.dimen.x11));
+        backView.setPadding((int) getResources().getDimension(R.dimen.x18),(int) getResources().getDimension(R.dimen.x5)
+                ,(int) getResources().getDimension(R.dimen.x18),(int) getResources().getDimension(R.dimen.x5));
         if(leftImage == null){
             backView.setImageResource(R.drawable.icon_back);
         }else{
@@ -139,7 +141,7 @@ public class TitleBar extends RelativeLayout {
             backView.setBackgroundResource(R.drawable.bac_transparent_selector);
         }
 
-        leftParams = new LayoutParams((int) getResources().getDimension(R.dimen.x45), (int) getResources().getDimension(R.dimen.x48));
+        leftParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, (int) getResources().getDimension(R.dimen.x48));
         leftParams.addRule(ALIGN_PARENT_LEFT, TRUE);
         addView(backView, leftParams);
 
@@ -214,6 +216,13 @@ public class TitleBar extends RelativeLayout {
         return (int) (dpValue * scale + 0.5f);
     }
 
+    public void setBgColor(@ColorRes int colorRes){
+        setBackgroundResource(colorRes);
+    }
+
+    public void setBackImg(@DrawableRes int imgRes){
+        backView.setImageResource(imgRes);
+    }
 
     public void setRightText(String str,OnClickListener onClickListener){
         if(rightView == null){
