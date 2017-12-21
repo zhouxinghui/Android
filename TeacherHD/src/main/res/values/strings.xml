@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">TeacherHD</string>
+    <!--首页start-->
+    <string name="first_page">首页</string>
+    <string name="clazz">班级</string>
+    <string name="mine">我的</string>
+    <string name="share_screen">同屏</string>
+    <string name="class_test">课堂检测\nClassroom test</string>
+    <string name="after_class">课后作业\nHomework after class</string>
+    <string name="test_paper">考试试卷\nExamination</string>
+    <string name="check_homework">检查作业\nTesting work</string>
+    <string name="my_book">我的课本\nMy textbook</string>
+    <string name="my_prepare">我的备课\nPrepare lessons</string>
+    <string name="study_room">自习室\nStudy room</string>
+    <string name="homework_schedule">作业进度</string>
+    <!--首页end-->
 </resources>

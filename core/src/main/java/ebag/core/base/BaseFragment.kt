@@ -21,7 +21,7 @@ abstract class BaseFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if(rootView == null){
-            rootView = inflater?.inflate(getRootViewId(), container, false)
+            rootView = inflater?.inflate(getLayoutRes(), container, false)
         }else{
             val viewGroup : ViewGroup ? = rootView?.parent as ViewGroup
             viewGroup?.removeAllViewsInLayout()
@@ -38,7 +38,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     /**获取RootLayout的ID*/
-    protected abstract fun getRootViewId(): Int
+    protected abstract fun getLayoutRes(): Int
     /**获取数据源*/
     protected abstract fun getBundle(bundle: Bundle)
     /**初始化View*/

@@ -16,13 +16,13 @@ import ebag.core.util.AppManager
  */
 abstract class BaseActivity : AppCompatActivity() {
 
-    private var isDestroy : Boolean = false
+    protected var isDestroy : Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setBackgroundDrawable(null)
-        isDestroy = true
+        isDestroy = false
         AppManager.addActivity(this)
         setContentView(getLayoutId())
         initViews()

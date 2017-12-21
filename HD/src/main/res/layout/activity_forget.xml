@@ -15,7 +15,7 @@
     <EditText
         android:id="@+id/phoneEdit"
         style="@style/forget_edit_text"
-        android:layout_marginTop="@dimen/y49"
+        android:layout_marginTop="@dimen/y120"
         android:hint="@string/login_hint_phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,13 +60,13 @@
         android:hint="@string/login_hint_pwd"
         android:drawableLeft="@drawable/login_pwd"
         android:inputType="textPassword"/>
-
+<!--android:layout_marginTop="@dimen/y150"-->
     <TextView
         android:id="@+id/completeBtn"
         android:clickable="true"
         android:layout_width="@dimen/x421"
         android:layout_height="@dimen/x52"
-        android:layout_marginTop="@dimen/y224"
+
         android:textSize="@dimen/x24"
         android:gravity="center"
         android:text="@string/tip_complete"
@@ -74,6 +74,9 @@
         android:background="@drawable/login_btn_bac"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pwdEdit" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pwdEdit"
+        app:layout_constraintVertical_bias="0.5"
+        />
 
 </android.support.constraint.ConstraintLayout>

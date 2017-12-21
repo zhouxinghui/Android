@@ -81,7 +81,7 @@ abstract class BaseListFragment<T> : BaseFragment(), XRecyclerView.OnLoadMoreLis
     /** 当前网络请求所处的状态 */
     private var loadingStatus: Int = FIRST
 
-    override fun getRootViewId(): Int {
+    override fun getLayoutRes(): Int {
         return R.layout.base_listview
     }
 

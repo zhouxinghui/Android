@@ -53,7 +53,9 @@ dependencies {
     compile 'com.alibaba:fastjson:1.1.62.android'
 
     //图片加载
-    compile 'com.github.bumptech.glide:glide:4.2.0'
+    compile 'com.github.bumptech.glide:glide:4.3.1'
+    //banner
+    compile 'com.youth.banner:banner:1.4.10'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
