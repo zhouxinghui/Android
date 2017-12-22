@@ -35,7 +35,7 @@ android {
             release {
                 minifyEnabled false
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-                signingConfig signingConfigs.release
+//                signingConfig signingConfigs.release
             }
             debug {
                 signingConfig signingConfigs.debug
@@ -53,4 +53,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile project(':HD')
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 4894ad87b3dff47cb839194dceadc52b21eef3da
