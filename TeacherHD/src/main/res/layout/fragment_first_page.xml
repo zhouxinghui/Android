@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/y10"
+    android:paddingBottom="@dimen/y5"
+    android:paddingLeft="@dimen/x15"
+    android:paddingRight="@dimen/x15"
+    >
+    <android.support.constraint.Guideline android:id="@+id/horizontal_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.33" />
+    <android.support.constraint.Guideline android:id="@+id/horizontal_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.56" />
+    <android.support.constraint.Guideline android:id="@+id/vertical_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+    <!--banner-->
+    <com.youth.banner.Banner android:id="@+id/banner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/x5"
+        android:layout_marginRight="@dimen/x5"
+        android:layout_marginBottom="@dimen/y10"
+        app:delay_time="4000"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/horizontal_1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+    <!--课堂检测-->
+    <TextView android:id="@+id/classTest"
+        style="@style/home_tv_btn"
+        android:text="@string/class_test"
+        android:drawableLeft="@drawable/home_icon_class_test"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/afterClass"
+        app:layout_constraintBottom_toTopOf="@id/horizontal_2"
+        />
+    <!--课后作业-->
+    <TextView android:id="@+id/afterClass"
+        style="@style/home_tv_btn"
+        android:text="@string/after_class"
+        android:drawableLeft="@drawable/home_icon_after_class"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_1"
+        app:layout_constraintLeft_toRightOf="@id/classTest"
+        app:layout_constraintRight_toLeftOf="@id/testPaper"
+        app:layout_constraintBottom_toTopOf="@id/horizontal_2"
+        />
+    <!--考试试卷-->
+    <TextView android:id="@+id/testPaper"
+        style="@style/home_tv_btn"
+        android:text="@string/test_paper"
+        android:drawableLeft="@drawable/home_icon_test_paper"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_1"
+        app:layout_constraintLeft_toRightOf="@id/afterClass"
+        app:layout_constraintRight_toLeftOf="@id/checkHomework"
+        app:layout_constraintBottom_toTopOf="@id/horizontal_2"
+        />
+    <!--检查作业-->
+    <TextView android:id="@+id/checkHomework"
+        style="@style/home_tv_btn"
+        android:text="@string/check_homework"
+        android:drawableLeft="@drawable/home_icon_check_homework"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_1"
+        app:layout_constraintLeft_toRightOf="@id/testPaper"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/horizontal_2"
+        />
+    <!--我的课本-->
+    <TextView android:id="@+id/book"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:background="@drawable/home_book_bg"
+        android:text="@string/my_book"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_2"
+        app:layout_constraintRight_toLeftOf="@id/prepare"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <!--我的备课-->
+    <TextView android:id="@+id/prepare"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="@string/my_prepare"
+        android:background="@drawable/home_prepare_bg"
+        app:layout_constraintLeft_toRightOf="@id/book"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_2"
+        app:layout_constraintRight_toLeftOf="@id/zixi"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <!--自习室-->
+    <TextView android:id="@+id/zixi"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="@string/study_room"
+        android:background="@drawable/home_zixi_bg"
+        app:layout_constraintLeft_toRightOf="@id/prepare"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_2"
+        app:layout_constraintRight_toLeftOf="@id/vertical_center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <!--作业进度背景-->
+    <TextView android:id="@+id/homeworkSchedule"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="@dimen/x15"
+        android:textSize="20sp"
+        android:text="@string/homework_schedule"
+        android:background="@drawable/homg_schedule_bg"
+        app:layout_constraintLeft_toRightOf="@id/zixi"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+</android.support.constraint.ConstraintLayout>

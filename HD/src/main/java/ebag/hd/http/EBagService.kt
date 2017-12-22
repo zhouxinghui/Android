@@ -1,4 +1,5 @@
 package ebag.hd.http
+
 import ebag.hd.bean.request.CodeVo
 import ebag.hd.bean.request.LoginVo
 import ebag.hd.bean.response.CodeEntity
@@ -9,7 +10,6 @@ import ebag.hd.http.baseBean.ResponseBean
 import ebag.hd.http.baseBean.ResponseEntity
 import io.reactivex.Observable
 import okhttp3.MultipartBody
-
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Path

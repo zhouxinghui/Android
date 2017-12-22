@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context="com.yzy.ebag.teacher.MainActivity">
+    <!--左侧菜单-->
+    <LinearLayout android:id="@+id/left_ll"
+        android:layout_width="@dimen/x110"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/home_left_bg"
+        >
+        <!--logo-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y150"
+            android:paddingTop="@dimen/y15"
+            android:paddingBottom="@dimen/y15"
+            android:src="@drawable/home_logo"
+            />
+        <!--导航-->
+        <RadioGroup android:id="@+id/leftGroup"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+            <RadioButton android:id="@+id/firstPage"
+                style="@style/home_navigation"
+                android:drawableTop="@drawable/home_first_page_icon"
+                android:checked="true"
+                android:text="@string/first_page"
+                tools:text="首页"
+                />
+            <RadioButton android:id="@+id/clazz"
+                style="@style/home_navigation"
+                android:drawableTop="@drawable/home_class_icon"
+                android:text="@string/clazz"
+                tools:text="班级"
+                />
+            <RadioButton android:id="@+id/mine"
+                style="@style/home_navigation"
+                android:drawableTop="@drawable/home_mine_icon"
+                android:text="@string/mine"
+                tools:text="我的"
+                />
+        </RadioGroup>
+        <!--同屏-->
+        <TextView android:id="@+id/shareScreen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:padding="@dimen/y20"
+            android:drawablePadding="@dimen/y10"
+            android:drawableTop="@drawable/home_share_screen_icon"
+            android:background="@drawable/bac_transparent_selector"
+            android:text="@string/share_screen"
+            />
+    </LinearLayout>
+
+    <FrameLayout android:id="@+id/replaceLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toRightOf="@id/left_ll"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+</android.support.constraint.ConstraintLayout>
