@@ -9,11 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD:a.hd.student/src/main/AndroidManifest.xml
         <activity android:name=".TestActivity">
-=======
-        <activity android:name=".ui.activity.account.ForgetActivity">
->>>>>>> d92c1eded6763dae35e41fdfc58c52995ade674c:StudentHD/src/main/AndroidManifest.xml
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
