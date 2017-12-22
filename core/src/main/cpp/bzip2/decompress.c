@@ -204,8 +204,9 @@ Int32 BZ2_decompress ( DState* s )
       if (uc != BZ_HDR_h) RETURN(BZ_DATA_ERROR_MAGIC);
 
       GET_BITS(BZ_X_MAGIC_4, s->blockSize100k, 8)
-      if (s->blockSize100k < (BZ_HDR_0 + 1) || 
-          s->blockSize100k > (BZ_HDR_0 + 9)) RETURN(BZ_DATA_ERROR_MAGIC);
+      if ((s->blockSize100k < (BZ_HDR_0 + 1)) ||
+              (s->blockSize100k > (BZ_HDR_0 + 9)))
+         RETURN(BZ_DATA_ERROR_MAGIC);
       s->blockSize100k -= BZ_HDR_0;
 
       if (s->smallDecompress) {

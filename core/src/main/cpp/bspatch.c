@@ -4,11 +4,14 @@
 #include <fcntl.h>
 #include "jni.h"
 #include <err.h>
+#include <string.h>
 #include "bzip2/bzlib.h"
 
 
-JNIEXPORT jint JNICALL Java_ebag_core_util_PatchUtils_patch
-        (JNIEnv *env, jclass cls,
+JNIEXPORT jint
+JNICALL
+Java_ebag_core_util_PatchUtils_patch
+        (JNIEnv *env, jobject instance,
          jstring oldFile_, jstring newFile_, jstring patchFile_){
     int argc = 4;
     char * argv[argc];
@@ -20,9 +23,9 @@ JNIEXPORT jint JNICALL Java_ebag_core_util_PatchUtils_patch
 
     int ret = patchMethod(argc, argv);
 
-    (*env)->ReleaseStringUTFChars(env, old, argv[1]);
-    (*env)->ReleaseStringUTFChars(env, new, argv[2]);
-    (*env)->ReleaseStringUTFChars(env, patch, argv[3]);
+    (*env)->ReleaseStringUTFChars(env, oldFile_, argv[1]);
+    (*env)->ReleaseStringUTFChars(env, newFile_, argv[2]);
+    (*env)->ReleaseStringUTFChars(env, patchFile_, argv[3]);
     return ret;
 }
 
