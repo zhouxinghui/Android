@@ -1,4 +1,4 @@
-package ebag.hd.widget.drawable;
+package ebag.hd.widget;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

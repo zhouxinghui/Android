@@ -26,4 +26,7 @@
     <color name="color_update_update_text">#1E85FF</color>
 
     <color name="invite_tip">#4A4A4A</color>
+
+    <color name="color_question_option_text">#393A3F</color>
+    <color name="color_question_option_border">#8892A1</color>
 </resources>
