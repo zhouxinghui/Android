@@ -97,6 +97,11 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent{
 
     }
 
+    @Override
+    public String getAnswer() {
+        return null;
+    }
+
 
     private class OptionAdapter extends RecyclerAdapter<String>{
 
