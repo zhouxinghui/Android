@@ -9,7 +9,7 @@ import ebag.core.bean.QuestionBean;
 public interface IQuestionEvent {
 
     /**
-     * 给当前View 绑定问题
+     * 给当前View 绑定问题,并且做一些数据处理
      * @param questionBean
      */
     void setData(QuestionBean questionBean);

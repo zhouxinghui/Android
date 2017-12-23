@@ -2,18 +2,14 @@ package ebag.core.http.image;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
-import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.TransitionOptions;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 
 import ebag.core.R;
@@ -37,7 +33,6 @@ public class SingleImageLoader {
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .format(DecodeFormat.PREFER_RGB_565)
                 .priority(Priority.NORMAL);
-//                .transform(new GlideCircleTransform());
     }
 
     public static SingleImageLoader getInstance() {
@@ -84,27 +79,19 @@ public class SingleImageLoader {
     }
 
     private void loadImage(RequestManager requestManager, ImageView imageView, String url, int placeHolderId, int errorId){
-        defaultOptions.placeholder(placeHolderId)//占位符
+        defaultOptions = defaultOptions.placeholder(placeHolderId)//占位符
                 .error(errorId)//加载失败
                 .fallback(errorId);//URL或者model为空
-        loadImage(requestManager,imageView,url,defaultOptions, DrawableTransitionOptions.withCrossFade());
+        loadImage(requestManager,imageView,url,defaultOptions);
     }
-
-    private void loadImage(RequestManager requestManager, ImageView imageView, String url, RequestOptions options
-            , TransitionOptions<?, ? super Drawable> transitionOptions){
-        loadImage(requestManager.asDrawable(),imageView,url,options,transitionOptions);
-    }
-
 
     /**
      * 图片加载，这里用的是加载为Drawable的形式，另外还有，asbitmap 等等
      */
-    private <T> void loadImage(RequestBuilder<T> requestBuilder, ImageView imageView, String url, RequestOptions options
-            , TransitionOptions<?, ? super T> transitionOptions){
-        requestBuilder.load(url)
+    private void loadImage(RequestManager requestManager, ImageView imageView, String url, RequestOptions options){
+        requestManager.load(url)
                 .thumbnail(0.2f)
                 .apply(options)//配置
-                .transition(transitionOptions)//动画效果
                 .into(imageView);
     }
 

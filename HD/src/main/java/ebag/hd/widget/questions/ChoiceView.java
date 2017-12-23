@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.TypedValue;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -50,18 +52,31 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent{
         this.mContext = context;
         //标题 主要用来显示看单词选图片和看图片选单词的这几个字
         tvTitle = new TextView(mContext);
-
-        addView(tvTitle);
-
+        LinearLayout.LayoutParams titleParams =
+                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX,28);
+        tvTitle.setTextColor(getResources().getColor(R.color.color_question_option_text));
+        tvTitle.setPadding(0,0,0,getResources().getDimensionPixelSize(R.dimen.y20));
+        addView(tvTitle,titleParams);
+        LinearLayout.LayoutParams ivParams =
+                new LinearLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.x144)
+                        , getResources().getDimensionPixelSize(R.dimen.x144));
         //显示标题的图片
         ivTitle = new ImageView(mContext);
-
-        addView(ivTitle);
+        ivTitle.setScaleType(ImageView.ScaleType.CENTER);
+        addView(ivTitle,ivParams);
 
         //显示题目内容
         tvContent = new TextView(mContext);
 
-        addView(tvContent);
+        LinearLayout.LayoutParams contentParams =
+                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        tvContent.setTextSize(TypedValue.COMPLEX_UNIT_PX,22);
+        tvContent.setTextColor(getResources().getColor(R.color.color_question_option_text));
+        tvContent.setPadding(0,0,0,getResources().getDimensionPixelSize(R.dimen.y20));
+
+        addView(tvContent, contentParams);
 
         //选项
         optionRecycler = new RecyclerView(mContext);
