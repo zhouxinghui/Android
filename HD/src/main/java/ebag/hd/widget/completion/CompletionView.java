@@ -1,4 +1,4 @@
-package ebag.hd.widget.questions.completion;
+package ebag.hd.widget.completion;
 
 
 import android.content.Context;

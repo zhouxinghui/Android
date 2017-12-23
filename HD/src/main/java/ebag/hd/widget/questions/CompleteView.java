@@ -13,7 +13,7 @@ import ebag.core.bean.QuestionBean;
 import ebag.core.http.image.SingleImageLoader;
 import ebag.core.util.StringUtils;
 import ebag.hd.R;
-import ebag.hd.widget.questions.completion.CompletionView;
+import ebag.hd.widget.completion.CompletionView;
 
 /**
  * Created by YZY on 2017/12/23.
@@ -56,7 +56,7 @@ public class CompleteView extends LinearLayout implements IQuestionEvent{
         contentImg = new ImageView(context);
         LayoutParams imgParams = new LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        imgParams.bottomMargin = (int) getResources().getDimension(R.dimen.y30);
+        imgParams.bottomMargin = (int) getResources().getDimension(R.dimen.y15);
         imgParams.width = (int) getResources().getDimension(R.dimen.x140);
         imgParams.height = (int) getResources().getDimension(R.dimen.x140);
         contentImg.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
@@ -65,7 +65,7 @@ public class CompleteView extends LinearLayout implements IQuestionEvent{
         headTv = new TextView(context);
         LayoutParams contentParams = new LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        contentParams.bottomMargin = (int) getResources().getDimension(R.dimen.y30);
+        contentParams.bottomMargin = (int) getResources().getDimension(R.dimen.y15);
         headTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.question_head));
         headTv.setTextColor(getResources().getColor(R.color.question_normal));
         headTv.setLayoutParams(contentParams);

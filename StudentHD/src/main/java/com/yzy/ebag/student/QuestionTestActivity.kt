@@ -10,6 +10,7 @@ class QuestionTestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question_test)
+        setJudge()
         setCompletion()
         showResult.setOnClickListener {
             completeView.showResult()
@@ -27,10 +28,10 @@ class QuestionTestActivity : AppCompatActivity() {
 
     private fun setCompletion(){
         val questionBean = QuestionBean()
-        questionBean.questionHead = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/sx/tuxing6.png"
-        questionBean.questionContent = "12－8＝(#R#*#R#)        13－6＝(#R#*#R#)#R##F##R#13－8＝(#R#*#R#)        15－9＝(#R#*#R#)#R##F##R#9 + 4＝(#R#*#R#)        12－5＝(#R#*#R#)#R##F##R#11－3＝(#R#*#R#)       17－9＝(#R#*#R#)#R##F##R#15－7＝(#R#*#R#)"
-        questionBean.rightAnswer = "4#R#7#R#5#R#6#R#13#R#7#R#8#R#8#R#8"
+        questionBean.questionHead = "按照《找春天》的课文内容填空"
+        questionBean.questionContent = "小草从地下探出头来，那是春天的眉毛吧？#R##F##R#早开的野花#R##E##R#，那是春天的眼睛吧？#R##F##R#树木吐出#R##E##R#嫩芽，那是春天的音符吧？#R##F##R#解冻的小溪#R##E##R#，那是春天的琴声吧？"
+        questionBean.rightAnswer = "一朵两朵#R#点点#R#丁丁冬冬"
         completeView.setData(questionBean)
-        completeView.show(true)
+        completeView.show(false)
     }
 }
