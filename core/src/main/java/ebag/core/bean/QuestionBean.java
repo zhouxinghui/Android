@@ -7,7 +7,7 @@ import java.util.List;
  * Created by YZY on 2017/5/6.
  */
 
-public class HomeWorkBaseBean implements Serializable{
+public class QuestionBean implements Serializable{
     private static final long serialVersionUID = 4978312197081677925L;
 
     private boolean isChoose;
@@ -210,6 +210,6 @@ public class HomeWorkBaseBean implements Serializable{
 
     @Override
     public boolean equals(Object obj) {
-        return obj != null && obj instanceof HomeWorkBaseBean && this.getId() == ((HomeWorkBaseBean) obj).getId();
+        return obj != null && obj instanceof QuestionBean && this.getId() == ((QuestionBean) obj).getId();
     }
 }

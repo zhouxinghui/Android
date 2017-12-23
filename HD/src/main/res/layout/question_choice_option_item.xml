@@ -4,23 +4,33 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/y20"
+    android:paddingBottom="@dimen/y20"
+    android:gravity="top">
 
     <TextView
-        android:id="@+id/ivOption"
+        android:id="@+id/tvOption"
         android:layout_width="@dimen/x40"
-        android:layout_height="@dimen/x40" />
+        android:layout_height="@dimen/x40"
+        android:textColor="@color/color_question_option_selector"
+        android:background="@drawable/question_option_selector"
+        android:gravity="center"
+        android:layout_marginRight="@dimen/x20"
+        android:text="A"/>
     
     <ImageView
         android:id="@+id/ivOptionContent"
         android:layout_width="@dimen/x140"
-        android:layout_height="@dimen/x140" />
+        android:layout_height="@dimen/x140"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/tvOptionContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/x28"
+        android:minHeight="@dimen/x40"
         android:text="哈哈哈 漩涡"
         android:textColor="@color/color_question_option_text"/>
 </LinearLayout>
