@@ -1,5 +1,6 @@
 package com.yzy.ebag.student
 
+import android.content.Intent
 import android.os.Environment
 import android.util.Log
 import com.meituan.android.walle.ChannelReader
@@ -67,6 +68,11 @@ class TestActivity : BaseActivity() {
                     PatchUtils.install(this,newFile.absolutePath)
                 }
             }
+        }
+
+        jump.setOnClickListener {
+            val intent = Intent(this, QuestionTestActivity :: class.java)
+            startActivity(intent)
         }
     }
 }

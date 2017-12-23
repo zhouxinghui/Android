@@ -24,11 +24,7 @@ import ebag.hd.R;
 public class JudgeView extends LinearLayout implements IQuestionEvent{
     private Context context;
     /**
-     * 标题文字
-     */
-    private TextView headTv;
-    /**
-     * 内容文字
+     * 题目内容文字
      */
     private TextView contentTv;
     /**
@@ -41,10 +37,6 @@ public class JudgeView extends LinearLayout implements IQuestionEvent{
     private RadioGroup radioGroup;
     private RadioButton aRadioButton;
     private RadioButton bRadioButton;
-    /**
-     * 标题
-     */
-    private String questionHead;
     /**
      * 内容
      */
@@ -79,19 +71,6 @@ public class JudgeView extends LinearLayout implements IQuestionEvent{
     private void init(final Context context){
         this.context = context;
         setOrientation(VERTICAL);
-        headTv = new TextView(context);
-        headTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.question_head));
-        headTv.setTextColor(getResources().getColor(R.color.question_normal));
-
-        contentTv = new TextView(context);
-        LayoutParams contentParams = new LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        contentParams.topMargin = (int) getResources().getDimension(R.dimen.y10);
-        contentParams.bottomMargin = (int) getResources().getDimension(R.dimen.y10);
-        contentTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.question_content));
-        contentTv.setTextColor(getResources().getColor(R.color.question_normal));
-        contentTv.setLayoutParams(contentParams);
-
         contentImg = new ImageView(context);
         LayoutParams imgParams = new LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -100,6 +79,14 @@ public class JudgeView extends LinearLayout implements IQuestionEvent{
         imgParams.height = (int) getResources().getDimension(R.dimen.x140);
         contentImg.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         contentImg.setLayoutParams(imgParams);
+
+        contentTv = new TextView(context);
+        LayoutParams contentParams = new LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        contentParams.bottomMargin = (int) getResources().getDimension(R.dimen.y30);
+        contentTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.question_content));
+        contentTv.setTextColor(getResources().getColor(R.color.question_normal));
+        contentTv.setLayoutParams(contentParams);
 
         radioGroup = new RadioGroup(context);
         RadioGroup.LayoutParams groupParams = new RadioGroup.LayoutParams(
@@ -144,23 +131,23 @@ public class JudgeView extends LinearLayout implements IQuestionEvent{
             }
         });
 //        radioGroup.setEnabled(false);
-        addView(headTv);
-        addView(contentTv);
         addView(contentImg);
+        addView(contentTv);
         addView(radioGroup);
     }
 
     @Override
     public void setData(QuestionBean questionBean) {
         imageUrl = null;
-        questionHead = questionBean.getQuestionHead();
         questionContent =  questionBean.getQuestionContent();
-        if (questionContent.startsWith("http")) {
+        /*if (questionContent.startsWith("http")) {
             String[] split = questionContent.split("#R#");
             if (split.length > 1)
                 questionContent = split[1];
             imageUrl = split[0];
-        }
+        }*/
+        imageUrl = questionBean.getQuestionHead();
+
         rightAnswer = questionBean.getRightAnswer();
         studentAnswer = questionBean.getAnswer();
     }
@@ -168,7 +155,6 @@ public class JudgeView extends LinearLayout implements IQuestionEvent{
     @Override
     public void show(boolean active) {
         enable(active);
-        headTv.setText(questionHead);
         contentTv.setText(questionContent);
         if (StringUtils.INSTANCE.isEmpty(imageUrl))
             contentImg.setVisibility(GONE);

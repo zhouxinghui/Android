@@ -84,7 +84,7 @@ public class SingleImageLoader {
     }
 
     private void loadImage(RequestManager requestManager, ImageView imageView, String url, int placeHolderId, int errorId){
-        defaultOptions.placeholder(placeHolderId)//占位符
+        defaultOptions = defaultOptions.placeholder(placeHolderId)//占位符
                 .error(errorId)//加载失败
                 .fallback(errorId);//URL或者model为空
         loadImage(requestManager,imageView,url,defaultOptions, DrawableTransitionOptions.withCrossFade());
@@ -104,7 +104,7 @@ public class SingleImageLoader {
         requestBuilder.load(url)
                 .thumbnail(0.2f)
                 .apply(options)//配置
-                .transition(transitionOptions)//动画效果
+//                .transition(transitionOptions)//动画效果
                 .into(imageView);
     }
 

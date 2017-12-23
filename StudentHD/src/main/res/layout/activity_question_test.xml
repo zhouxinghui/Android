@@ -31,6 +31,10 @@
                 android:id="@+id/judgeView"
                 android:layout_width="@dimen/x500"
                 android:layout_height="wrap_content"/>
+            <ebag.hd.widget.questions.CompleteView
+                android:id="@+id/completeView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </ScrollView>
     <Button android:id="@+id/showResult"
