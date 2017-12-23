@@ -6,28 +6,64 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Arrays;
+import java.util.List;
+
 import ebag.core.bean.QuestionBean;
+import ebag.core.http.image.SingleImageLoader;
+import ebag.core.util.StringUtils;
+import ebag.core.xRecyclerView.adapter.OnRVItemClickListener;
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
 import ebag.core.xRecyclerView.adapter.ViewHolderHelper;
 import ebag.hd.R;
+import ebag.hd.widget.questions.util.IQuestionEvent;
+import ebag.hd.widget.questions.util.QuestionTypeUtils;
 
 /**
  * Created by unicho on 2017/12/22.
  */
 
-public class ChoiceView extends LinearLayout implements IQuestionEvent{
+public class ChoiceView extends LinearLayout implements IQuestionEvent
+        , OnRVItemClickListener{
 
     private Context mContext;
     private TextView tvTitle;
     private ImageView ivTitle;
     private TextView tvContent;
-    private RecyclerView optionRecycler;
     private OptionAdapter optionAdapter;
+
+    /**
+     * 标题
+     */
+    private String questionHead;
+
+    /**
+     * 选择题题目展示的内容
+     */
+    private String content;
+    /**
+     * 选项
+     */
+    private List<String> options;
+    /**
+     * 正确答案
+     */
+    private String rightAnswer;
+    /**
+     * 学生答案
+     */
+    private String studentAnswer;
+
+    private boolean active = true;
+
+    private int choiceType = 0;
+
     public ChoiceView(Context context) {
         super(context, null);
         init(context);
@@ -79,7 +115,7 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent{
         addView(tvContent, contentParams);
 
         //选项
-        optionRecycler = new RecyclerView(mContext);
+        RecyclerView optionRecycler = new RecyclerView(mContext);
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(mContext,2);
 
@@ -88,34 +124,127 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent{
         optionAdapter = new OptionAdapter(optionRecycler);
         optionRecycler.setAdapter(optionAdapter);
 
+        optionAdapter.setOnRVItemClickListener(this);
+
         addView(optionRecycler);
 
     }
 
     @Override
     public void setData(QuestionBean questionBean) {
+        switch (QuestionTypeUtils.getIntType(questionBean)){
+            case QuestionTypeUtils.QUESTIONS_CHOOSE_PIC_BY_WORD://看单词选图
+                choiceType = QuestionTypeUtils.QUESTIONS_CHOOSE_PIC_BY_WORD;
+                questionHead = "看单词选图";
+                content = questionBean.getQuestionHead();
+                break;
+            case QuestionTypeUtils.QUESTIONS_CHOOSE_WORD_BY_PIC://看图选单词
+                choiceType = QuestionTypeUtils.QUESTIONS_CHOOSE_WORD_BY_PIC;
+                questionHead = "看图选单词";
+                content = questionBean.getQuestionHead();
+                break;
+            case QuestionTypeUtils.QUESTIONS_CHOISE://选择题
+                choiceType = QuestionTypeUtils.QUESTIONS_CHOISE;
+                questionHead = questionBean.getQuestionHead();
+                if (questionHead.startsWith("http")) {
+                    String[] split = questionHead.split("#R#");
+                    if (split.length > 1)
+                        questionHead = split[1];
+                    content = split[0];
+                }else{
+                    content = "";
+                }
+                break;
+            case QuestionTypeUtils.QUESTIONS_CHOOSE_BY_VOICE://听录音选择
+                choiceType = QuestionTypeUtils.QUESTIONS_CHOOSE_BY_VOICE;
+
+                break;
+        }
+        options = Arrays.asList(questionBean.getQuestionContent().split(";"));
+        rightAnswer = questionBean.getRightAnswer();
+        studentAnswer = questionBean.getAnswer();
 
     }
 
     @Override
     public void show(boolean active) {
+        this.active = active;
+        switch (choiceType){
+            case QuestionTypeUtils.QUESTIONS_CHOOSE_PIC_BY_WORD://看单词选图
+                tvTitle.setVisibility(VISIBLE);
+                tvTitle.setText(questionHead);
+                ivTitle.setVisibility(GONE);
+                tvContent.setVisibility(VISIBLE);
+                tvContent.setText(content);
+                break;
+            case QuestionTypeUtils.QUESTIONS_CHOOSE_WORD_BY_PIC://看图选单词
+                tvTitle.setVisibility(VISIBLE);
+                tvTitle.setText(questionHead);
+                ivTitle.setVisibility(VISIBLE);
+                SingleImageLoader.getInstance().setImage(content,ivTitle);
+                tvContent.setVisibility(GONE);
+                break;
 
+            case QuestionTypeUtils.QUESTIONS_CHOISE://选择题
+                if(StringUtils.INSTANCE.isEmpty(questionHead)){
+                    tvTitle.setText("");
+                    tvTitle.setVisibility(GONE);
+                }else{
+                    tvTitle.setVisibility(VISIBLE);
+                    tvTitle.setText(questionHead);
+                }
+                if (StringUtils.INSTANCE.isEmpty(content)){
+                    ivTitle.setVisibility(GONE);
+                }else {
+                    ivTitle.setVisibility(VISIBLE);
+                    SingleImageLoader.getInstance().setImage(content,ivTitle);
+                }
+                tvContent.setVisibility(GONE);
+                break;
+            case QuestionTypeUtils.QUESTIONS_CHOOSE_BY_VOICE://听录音选择
+                ivTitle.setVisibility(GONE);
+                tvContent.setVisibility(GONE);
+                tvTitle.setVisibility(GONE);
+                break;
+        }
+        //设置选项
+        optionAdapter.setDatas(options);
     }
 
     @Override
     public void enable(boolean active) {
-
+        this.active = active;
     }
 
     @Override
     public void showResult() {
+        show(false);
+        optionAdapter.setResult(getIndex(rightAnswer), getIndex(studentAnswer));
+    }
 
+    @Override
+    public String getAnswer() {
+        return String.valueOf((char)('A' + optionAdapter.getSelectedPosition()));
+    }
+
+    private int getIndex(String str) {
+        if(StringUtils.INSTANCE.isEmpty(str))
+            return 0;
+        char c = str.charAt(0);
+        if(c >= 'A')
+            return c - 'A';
+        else
+            return 0;
+    }
+
+    @Override
+    public void onRVItemClick(ViewGroup recyclerView, View view, int position) {
+        if(!this.active) return;
+        optionAdapter.setSelectedPosition(position);
     }
 
 
     private class OptionAdapter extends RecyclerAdapter<String>{
-
-        private boolean enable = false;
 
         private int selectedPosition = -1;
 
@@ -126,14 +255,26 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent{
             super(recyclerView, R.layout.question_choice_option_item);
         }
 
+        public void setSelectedPosition(int selectedPosition) {
+            this.selectedPosition = selectedPosition;
+            notifyDataSetChanged();
+        }
+
+        public void setResult(int rightPosition, int selectedPosition) {
+            this.selectedPosition = selectedPosition;
+            this.rightPosition = rightPosition;
+            notifyDataSetChanged();
+        }
+
+        public int getSelectedPosition() {
+            return selectedPosition;
+        }
+
         @Override
         protected void fillData(ViewHolderHelper setter, int position, String entity) {
 
-            setter.setText(R.id.tvOption,'A'+position);
+            setter.setText(R.id.tvOption,String.valueOf((char)('A'+position)));
             setter.getTextView(R.id.tvOption).setSelected(position == selectedPosition);
-
-            setter.getTextView(R.id.tvOption).setEnabled(enable);
-
             if(rightPosition != -1){
                 if( position == rightPosition && position == selectedPosition){
                     setter.getTextView(R.id.tvOption).setBackgroundResource(R.drawable.question_option_correct);
@@ -145,6 +286,16 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent{
                     setter.getTextView(R.id.tvOption).setBackgroundResource(R.drawable.question_option_selector);
                     setter.setText(R.id.tvOption, 'A' + position);
                 }
+            }
+
+            if(entity.startsWith("http")){
+                setter.showView(R.id.ivOptionContent);
+                setter.goneView(R.id.tvOptionContent);
+                SingleImageLoader.getInstance().setImage(entity,setter.getImageView(R.id.ivOptionContent));
+            }else{
+                setter.goneView(R.id.ivOptionContent);
+                setter.showView(R.id.tvOptionContent);
+                setter.setText(R.id.tvOptionContent,entity);
             }
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="question_head">@dimen/x16</dimen>
-    <dimen name="question_content">@dimen/x14</dimen>
+    <dimen name="question_head">@dimen/x24</dimen>
+    <dimen name="question_content">@dimen/x22</dimen>
 </resources>

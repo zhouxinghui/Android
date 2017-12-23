@@ -92,6 +92,7 @@ public class SingleImageLoader {
         requestManager.load(url)
                 .thumbnail(0.2f)
                 .apply(options)//配置
+//                .transition(transitionOptions)//动画效果
                 .into(imageView);
     }
 

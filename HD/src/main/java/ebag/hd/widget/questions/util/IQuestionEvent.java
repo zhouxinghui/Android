@@ -1,4 +1,4 @@
-package ebag.hd.widget.questions;
+package ebag.hd.widget.questions.util;
 
 import ebag.core.bean.QuestionBean;
 
@@ -31,4 +31,10 @@ public interface IQuestionEvent {
      * 展示做题结果，做对了还是做错了，也是不能操作的
      */
     void showResult();
+
+    /**
+     * 获取学生答案（上传服务器）
+     * @return String
+     */
+    String getAnswer();
 }

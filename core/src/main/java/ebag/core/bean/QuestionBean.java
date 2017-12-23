@@ -193,6 +193,8 @@ public class QuestionBean implements Serializable{
     }
 
     public String getQuestionContent() {
+        if(questionContent == null)
+            questionContent = "";
         return questionContent;
     }
 

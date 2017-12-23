@@ -29,7 +29,7 @@ object StringUtils {
      * @return true or false
      */
     fun isEmpty(str: String?): Boolean {
-        return str?.trim()?.isEmpty() ?: false
+        return str?.trim()?.isEmpty() ?: true
     }
 
     /**

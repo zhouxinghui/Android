@@ -16,13 +16,14 @@
         android:textColor="@color/color_question_option_selector"
         android:background="@drawable/question_option_selector"
         android:gravity="center"
-        android:layout_marginRight="@dimen/x20"
+        android:layout_marginRight="@dimen/x10"
         android:text="A"/>
     
     <ImageView
         android:id="@+id/ivOptionContent"
         android:layout_width="@dimen/x140"
         android:layout_height="@dimen/x140"
+        android:scaleType="centerInside"
         android:visibility="gone"/>
 
     <TextView
