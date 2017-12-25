@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <TextView android:id="@+id/head_tv_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/question_content"
+        android:textColor="@color/question_normal"
+        android:layout_marginBottom="@dimen/y15"
+        tools:text="书写作业标题"
+        />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ebag.hd.widget.DrawView
+            android:id="@+id/draw_view"
+            android:layout_width="@dimen/x300"
+            android:layout_height="@dimen/x300"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+        <Button android:id="@+id/btn_eraser_id"
+            android:layout_width="@dimen/x50"
+            android:layout_height="@dimen/x50"
+            android:background="@drawable/btn_icon_eraser"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.13"
+            />
+        <RadioGroup android:id="@+id/pen_size_group"
+            android:layout_width="@dimen/x40"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_eraser_id"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.13"
+            >
+            <RadioButton android:id="@+id/pen_size_one"
+                style="@style/pen"
+                android:checked="true"
+                android:background="@drawable/pen_size_one_bg"
+                />
+            <RadioButton android:id="@+id/pen_size_two"
+                style="@style/pen"
+                android:background="@drawable/pen_size_two_bg"
+                />
+            <RadioButton android:id="@+id/pen_size_three"
+                style="@style/pen"
+                android:background="@drawable/pen_size_three_bg"
+                />
+            <RadioButton android:id="@+id/pen_size_four"
+                style="@style/pen"
+                android:background="@drawable/pen_size_four_bg"
+                />
+        </RadioGroup>
+        <Button android:id="@+id/btn_check"
+            android:layout_width="@dimen/x50"
+            android:layout_height="@dimen/x50"
+            android:background="@drawable/write_check_btn"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            />
+    </android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y20"
+        />
+</LinearLayout>

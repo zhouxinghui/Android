@@ -11,7 +11,7 @@ class DemoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_demo)
 
         save.setOnClickListener {
-            image.setImageBitmap(drawView.bitmap)
+//            image.setImageBitmap(drawView.bitmap)
         }
 
         clear.setOnClickListener {

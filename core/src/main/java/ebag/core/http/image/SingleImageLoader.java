@@ -26,18 +26,22 @@ import ebag.core.R;
 public class SingleImageLoader {
 
     private volatile static SingleImageLoader singleImageLoader;
-    private RequestOptions defaultOptions;
+    private RequestOptions defaultOptions,optionsNoReplaceImg;
 
     private SingleImageLoader() {
 
         //清除磁盘缓存
 //        Glide.get(context).clearDiskCache();
         //基础配置，磁盘缓存模式，图片精度
-        defaultOptions = new RequestOptions()
+        optionsNoReplaceImg = new RequestOptions()
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .format(DecodeFormat.PREFER_RGB_565)
                 .priority(Priority.NORMAL);
 //                .transform(new GlideCircleTransform());
+        defaultOptions =  new RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .format(DecodeFormat.PREFER_RGB_565)
+                .priority(Priority.NORMAL);
     }
 
     public static SingleImageLoader getInstance() {
@@ -50,7 +54,9 @@ public class SingleImageLoader {
         }
         return singleImageLoader;
     }
-
+    public void loadImage(String url, ImageView imageView){
+        loadImage(Glide.with(imageView),imageView,url);
+    }
 
     public void setImage(String url, ImageView imageView){
         loadImage(Glide.with(imageView),imageView,url, R.drawable.ic_launcher, R.drawable.ic_launcher);
@@ -88,6 +94,10 @@ public class SingleImageLoader {
                 .error(errorId)//加载失败
                 .fallback(errorId);//URL或者model为空
         loadImage(requestManager,imageView,url,defaultOptions, DrawableTransitionOptions.withCrossFade());
+    }
+
+    private void loadImage(RequestManager requestManager, ImageView imageView, String url){
+        loadImage(requestManager,imageView,url,optionsNoReplaceImg, DrawableTransitionOptions.withCrossFade());
     }
 
     private void loadImage(RequestManager requestManager, ImageView imageView, String url, RequestOptions options

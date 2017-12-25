@@ -12,6 +12,7 @@ class QuestionTestActivity : AppCompatActivity() {
         setContentView(R.layout.activity_question_test)
         setJudge()
         setCompletion()
+        setWriteView()
         showResult.setOnClickListener {
             completeView.showResult()
         }
@@ -33,5 +34,15 @@ class QuestionTestActivity : AppCompatActivity() {
         questionBean.rightAnswer = "一朵两朵#R#点点#R#丁丁冬冬"
         completeView.setData(questionBean)
         completeView.show(false)
+    }
+
+    private fun setWriteView(){
+        val questionBean = QuestionBean()
+        questionBean.id = 2
+        questionBean.questionHead = "书写作业要求--写八个字出来"
+        questionBean.questionContent = "这个写图片地址"
+        questionBean.rightAnswer = ""
+        writeView.setData(questionBean)
+        writeView.show(true)
     }
 }
