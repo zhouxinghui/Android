@@ -90,7 +90,7 @@ public class SingleImageLoader {
      */
     private void loadImage(RequestManager requestManager, ImageView imageView, String url, RequestOptions options){
         requestManager.load(url)
-                .thumbnail(0.2f)
+//                .thumbnail(0.2f)
                 .apply(options)//配置
 //                .transition(transitionOptions)//动画效果
                 .into(imageView);

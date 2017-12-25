@@ -12,24 +12,46 @@ import android.widget.Toast
  * Created by unicho on 2017/11/1.
  */
 object T {
-
-    fun show(context: Context, info: String, isShort: Boolean) {
-        Toast.makeText(context, info, if (isShort) Toast.LENGTH_SHORT else Toast.LENGTH_LONG).show()
+    var toast: Toast? = null
+    fun show(context: Context, info: CharSequence, isShort: Boolean) {
+        if(toast == null){
+            toast = Toast.makeText(context, info, if (isShort) Toast.LENGTH_SHORT else Toast.LENGTH_LONG)
+            toast?.show()
+        }else{
+            toast?.duration = if (isShort) Toast.LENGTH_SHORT else Toast.LENGTH_LONG
+            toast?.setText(info)
+            toast?.show()
+        }
     }
 
     fun show(context: Context, resId: Int, isShort: Boolean) {
-        Toast.makeText(context, resId, if (isShort) Toast.LENGTH_SHORT else Toast.LENGTH_LONG).show()
+        if(toast == null){
+            toast = Toast.makeText(context, resId, if (isShort) Toast.LENGTH_SHORT else Toast.LENGTH_LONG)
+            toast?.show()
+        }else{
+            toast?.duration = if (isShort) Toast.LENGTH_SHORT else Toast.LENGTH_LONG
+            toast?.setText(resId)
+            toast?.show()
+        }
     }
 
-    fun show(context: Context, info: String) {
-        Toast.makeText(context, info, Toast.LENGTH_SHORT).show()
+    fun show(context: Context, info: CharSequence) {
+        show(context, info, true)
     }
 
     fun show(context: Context, info: Int) {
-        Toast.makeText(context, info, Toast.LENGTH_SHORT).show()
+        show(context, info, true)
     }
 
-    fun threadShow(context: Context, handler: Handler, info: String) {
+    fun showLong(context: Context, message: CharSequence) {
+        show(context, message, false)
+    }
+
+    fun showLong(context: Context, message: Int) {
+        show(context, message, false)
+    }
+
+    fun threadShow(context: Context, handler: Handler, info: CharSequence) {
         handler.post { show(context, info) }
     }
 
@@ -43,7 +65,7 @@ object T {
         mToast.show()
     }
 
-    fun centerShow(context: Context, info: String) {
+    fun centerShow(context: Context, info: CharSequence) {
         val mToast = Toast.makeText(context, info, Toast.LENGTH_SHORT)
         mToast.setGravity(Gravity.CENTER, 0, 0)
         mToast.show()
@@ -53,45 +75,7 @@ object T {
         handler.post { centerShow(context, info) }
     }
 
-    /**
-     * 短时间显示Toast
-     *
-     * @param context
-     * @param message
-     */
-    fun showShort(context: Context, message: CharSequence) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-    }
 
-    /**
-     * 短时间显示Toast
-     *
-     * @param context
-     * @param message
-     */
-    fun showShort(context: Context?, message: Int) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-    }
-
-    /**
-     * 长时间显示Toast
-     *
-     * @param context
-     * @param message
-     */
-    fun showLong(context: Context, message: CharSequence) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-    }
-
-    /**
-     * 长时间显示Toast
-     *
-     * @param context
-     * @param message
-     */
-    fun showLong(context: Context, message: Int) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-    }
 
     /**
      * @Description: 显示Toast消息,当在非UI线程中需要显示消息时调用此方法

@@ -155,7 +155,7 @@ public class JudgeView extends LinearLayout implements IQuestionEvent {
 
     @Override
     public void show(boolean active) {
-        enable(active);
+        questionActive(active);
         contentTv.setText(questionContent);
         if (StringUtils.INSTANCE.isEmpty(imageUrl))
             contentImg.setVisibility(GONE);
@@ -167,14 +167,19 @@ public class JudgeView extends LinearLayout implements IQuestionEvent {
     }
 
     @Override
-    public void enable(boolean active) {
+    public void questionActive(boolean active) {
         aRadioButton.setEnabled(active);
         bRadioButton.setEnabled(active);
     }
 
     @Override
+    public boolean isQuestionActive() {
+        return this.aRadioButton.isEnabled();
+    }
+
+    @Override
     public void showResult() {
-        enable(false);
+        show(false);
         if (StringUtils.INSTANCE.isEmpty(rightAnswer))
             L.INSTANCE.e("判断题：正确答案字段为空");
         else{
@@ -200,5 +205,10 @@ public class JudgeView extends LinearLayout implements IQuestionEvent {
     @Override
     public String getAnswer() {
         return studentAnswer;
+    }
+
+    @Override
+    public void reset() {
+
     }
 }

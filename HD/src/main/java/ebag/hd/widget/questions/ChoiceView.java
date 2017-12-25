@@ -90,7 +90,7 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
         tvTitle = new TextView(mContext);
         LinearLayout.LayoutParams titleParams =
                 new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX,28);
+        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX,getResources().getDimensionPixelSize(R.dimen.question_head));
         tvTitle.setTextColor(getResources().getColor(R.color.color_question_option_text));
         tvTitle.setPadding(0,0,0,getResources().getDimensionPixelSize(R.dimen.y20));
         addView(tvTitle,titleParams);
@@ -99,7 +99,7 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
                         , getResources().getDimensionPixelSize(R.dimen.x144));
         //显示标题的图片
         ivTitle = new ImageView(mContext);
-        ivTitle.setScaleType(ImageView.ScaleType.CENTER);
+        ivTitle.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         addView(ivTitle,ivParams);
 
         //显示题目内容
@@ -108,7 +108,7 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
         LinearLayout.LayoutParams contentParams =
                 new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        tvContent.setTextSize(TypedValue.COMPLEX_UNIT_PX,22);
+        tvContent.setTextSize(TypedValue.COMPLEX_UNIT_PX,getResources().getDimensionPixelSize(R.dimen.question_content));
         tvContent.setTextColor(getResources().getColor(R.color.color_question_option_text));
         tvContent.setPadding(0,0,0,getResources().getDimensionPixelSize(R.dimen.y20));
 
@@ -163,7 +163,6 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
         options = Arrays.asList(questionBean.getQuestionContent().split(";"));
         rightAnswer = questionBean.getRightAnswer();
         studentAnswer = questionBean.getAnswer();
-
     }
 
     @Override
@@ -212,35 +211,56 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
     }
 
     @Override
-    public void enable(boolean active) {
+    public void questionActive(boolean active) {
         this.active = active;
+    }
+
+    @Override
+    public boolean isQuestionActive() {
+        return this.active;
     }
 
     @Override
     public void showResult() {
         show(false);
-        optionAdapter.setResult(getIndex(rightAnswer), getIndex(studentAnswer));
+        if(isRegularAnswer(studentAnswer) && isRegularAnswer(rightAnswer))
+            optionAdapter.setResult(getIndex(rightAnswer), getIndex(studentAnswer));
     }
 
     @Override
     public String getAnswer() {
-        return String.valueOf((char)('A' + optionAdapter.getSelectedPosition()));
+        return studentAnswer;
+    }
+
+    @Override
+    public void reset(){
+        this.active = true;
+        optionAdapter.setResult(-1, -1);
     }
 
     private int getIndex(String str) {
         if(StringUtils.INSTANCE.isEmpty(str))
-            return 0;
+            return -1;
         char c = str.charAt(0);
-        if(c >= 'A')
+        if(c >= 'A' && c <= 'A' + options.size())
             return c - 'A';
         else
-            return 0;
+            return -1;
+    }
+
+    private boolean isRegularAnswer(String str){
+        if(StringUtils.INSTANCE.isEmpty(str))
+            return false;
+        else if(str.length() != 1)
+            return false;
+        else return 'A' <= str.charAt(0) && str.charAt(0) <= 'A' + options.size();
     }
 
     @Override
     public void onRVItemClick(ViewGroup recyclerView, View view, int position) {
         if(!this.active) return;
         optionAdapter.setSelectedPosition(position);
+        studentAnswer = String.valueOf((char)('A' + position));
     }
 
 
@@ -266,10 +286,6 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
             notifyDataSetChanged();
         }
 
-        public int getSelectedPosition() {
-            return selectedPosition;
-        }
-
         @Override
         protected void fillData(ViewHolderHelper setter, int position, String entity) {
 
@@ -284,7 +300,7 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
                     setter.setText(R.id.tvOption,"");
                 }else {
                     setter.getTextView(R.id.tvOption).setBackgroundResource(R.drawable.question_option_selector);
-                    setter.setText(R.id.tvOption, 'A' + position);
+                    setter.setText(R.id.tvOption, String.valueOf((char)('A'+position)));
                 }
             }
 
@@ -297,8 +313,6 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
                 setter.showView(R.id.tvOptionContent);
                 setter.setText(R.id.tvOptionContent,entity);
             }
-
-
         }
     }
 }

@@ -15,8 +15,9 @@
         android:layout_height="@dimen/x40"
         android:textColor="@color/color_question_option_selector"
         android:background="@drawable/question_option_selector"
+        android:textSize="@dimen/question_head"
         android:gravity="center"
-        android:layout_marginRight="@dimen/x10"
+        android:layout_marginRight="@dimen/x20"
         android:text="A"/>
     
     <ImageView
@@ -30,8 +31,9 @@
         android:id="@+id/tvOptionContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/x28"
+        android:gravity="center_vertical"
         android:minHeight="@dimen/x40"
+        android:textSize="@dimen/question_head"
         android:text="哈哈哈 漩涡"
         android:textColor="@color/color_question_option_text"/>
 </LinearLayout>

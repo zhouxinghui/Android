@@ -13,7 +13,6 @@ import ebag.core.bean.QuestionBean;
 import ebag.core.http.image.SingleImageLoader;
 import ebag.core.util.StringUtils;
 import ebag.hd.R;
-import ebag.hd.widget.questions.completion.CompletionView;
 import ebag.hd.widget.questions.util.IQuestionEvent;
 
 /**
@@ -33,9 +32,10 @@ public class CompleteView extends LinearLayout implements IQuestionEvent {
     /**
      * 题目内容
      */
-    private CompletionView completionView;
+    private FillBlankView fillBlankView;
     private String questionHead,imageUrl,questionContent;
     private String rightAnswer;
+    private String studentAnswer;
     public CompleteView(Context context) {
         super(context);
         init(context);
@@ -61,7 +61,6 @@ public class CompleteView extends LinearLayout implements IQuestionEvent {
         imgParams.width = (int) getResources().getDimension(R.dimen.x140);
         imgParams.height = (int) getResources().getDimension(R.dimen.x140);
         contentImg.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        contentImg.setLayoutParams(imgParams);
 
         headTv = new TextView(context);
         LayoutParams contentParams = new LayoutParams(
@@ -69,16 +68,14 @@ public class CompleteView extends LinearLayout implements IQuestionEvent {
         contentParams.bottomMargin = (int) getResources().getDimension(R.dimen.y30);
         headTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.question_head));
         headTv.setTextColor(getResources().getColor(R.color.question_normal));
-        headTv.setLayoutParams(contentParams);
 
-        completionView = new CompletionView(context);
-        LayoutParams completeParams = new LayoutParams(
+        fillBlankView = new FillBlankView(context);
+        LayoutParams fillBlankParams = new LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        completionView.setLayoutParams(completeParams);
 
-        addView(contentImg);
-        addView(headTv);
-        addView(completionView);
+        addView(contentImg,imgParams);
+        addView(headTv,contentParams);
+        addView(fillBlankView,fillBlankParams);
     }
 
     @Override
@@ -90,6 +87,7 @@ public class CompleteView extends LinearLayout implements IQuestionEvent {
             questionHead = head;
         questionContent = questionBean.getQuestionContent();
 
+        studentAnswer = questionBean.getAnswer();
         rightAnswer = questionBean.getRightAnswer();
     }
 
@@ -104,22 +102,34 @@ public class CompleteView extends LinearLayout implements IQuestionEvent {
             contentImg.setVisibility(VISIBLE);
             SingleImageLoader.getInstance().setImage(imageUrl, contentImg);
         }
-        completionView.setText(questionContent, rightAnswer, active);
+        fillBlankView.setActive(active);
+        fillBlankView.setData(questionContent);
     }
 
     @Override
-    public void enable(boolean active) {
-        completionView.setEnable(active);
+    public void questionActive(boolean active) {
+        fillBlankView.setActive(active);
+    }
+
+    @Override
+    public boolean isQuestionActive() {
+        return fillBlankView.isActive();
     }
 
     @Override
     public void showResult() {
-        enable(false);
-        completionView.setWrong();
+        show(false);
+        fillBlankView.showResult(studentAnswer,rightAnswer);
     }
 
     @Override
     public String getAnswer() {
-        return completionView.getAnswer("#R#");
+        return fillBlankView.getAnswer("#R#");
+    }
+
+    @Override
+    public void reset() {
+        questionActive(true);
+        fillBlankView.setData(questionContent);
     }
 }

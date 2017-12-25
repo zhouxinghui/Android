@@ -44,7 +44,13 @@
     <Button android:id="@+id/showResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="showResult"
+        android:text="答题结果"
         app:layout_constraintLeft_toRightOf="@id/line1"
+        />
+    <Button android:id="@+id/enable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="激活"
+        app:layout_constraintLeft_toRightOf="@id/showResult"
         />
 </android.support.constraint.ConstraintLayout>
