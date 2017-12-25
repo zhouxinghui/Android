@@ -39,6 +39,10 @@
                 android:id="@+id/choiceView"
                 android:layout_width="@dimen/x500"
                 android:layout_height="wrap_content"/>
+            <ebag.hd.widget.questions.WriteView
+                android:id="@+id/writeView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </ScrollView>
     <Button android:id="@+id/showResult"

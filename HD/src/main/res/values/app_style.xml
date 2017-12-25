@@ -52,4 +52,13 @@
         <item name="android:textColor">@color/color_edit_color</item>
         <item name="android:textColorHint">@color/color_edit_hint</item>
     </style>
+    <!--书写作业-->
+    <style name="pen">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">@dimen/x20</item>
+    </style>
 </resources>

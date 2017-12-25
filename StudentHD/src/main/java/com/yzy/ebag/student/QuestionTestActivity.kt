@@ -11,7 +11,9 @@ class QuestionTestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question_test)
+        setJudge()
         setCompletion()
+        setWriteView()
         showResult.setOnClickListener {
             completeView.showResult()
         }
@@ -41,7 +43,17 @@ class QuestionTestActivity : AppCompatActivity() {
         questionBean.rightAnswer = "4#R#7#R#5#R#6#R#13#R#7#R#8#R#8#R#8"
         questionBean.answer = "4#R#7#R#4#R#6#R#1#R#7#R#8#R#3#R#8"
         completeView.setData(questionBean)
-        completeView.show(true)
+        completeView.show(false)
+    }
+
+    private fun setWriteView(){
+        val questionBean = QuestionBean()
+        questionBean.id = 2
+        questionBean.questionHead = "书写作业要求--写八个字出来"
+        questionBean.questionContent = "这个写图片地址"
+        questionBean.rightAnswer = ""
+        writeView.setData(questionBean)
+        writeView.show(true)
     }
 
     private fun setChoiceView(){
