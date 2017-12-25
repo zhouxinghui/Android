@@ -24,6 +24,7 @@ import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
 import ebag.core.xRecyclerView.adapter.ViewHolderHelper;
 import ebag.hd.R;
 import ebag.hd.widget.DrawView;
+import ebag.hd.widget.questions.util.IQuestionEvent;
 
 /**
  * Created by YZY on 2017/12/23.
@@ -146,23 +147,33 @@ public class WriteView extends LinearLayout implements IQuestionEvent {
         if (fileList != null){
             adapter.setDatas(fileList);
         }
-        enable(active);
+        questionActive(active);
     }
 
     @Override
-    public void enable(boolean active) {
+    public void questionActive(boolean active) {
         checkBtn.setEnabled(active);
         recyclerView.setEnabled(active);
     }
 
     @Override
+    public boolean isQuestionActive() {
+        return checkBtn.isEnabled();
+    }
+
+    @Override
     public void showResult() {
-        enable(false);
+        questionActive(false);
     }
 
     @Override
     public String getAnswer() {
         return null;
+    }
+
+    @Override
+    public void reset() {
+
     }
 
     private class MyAdapter extends RecyclerAdapter<String>{
