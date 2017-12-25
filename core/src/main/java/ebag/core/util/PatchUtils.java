@@ -10,6 +10,7 @@ import android.text.TextUtils;
 
 import com.meituan.android.walle.ChannelInfo;
 import com.meituan.android.walle.ChannelReader;
+import com.ywl5320.bspatchywl5320.BsPatchYwl5320Util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,10 +24,6 @@ import java.util.Map;
  */
 
 public class PatchUtils {
-    static {
-        System.loadLibrary("bspatch");
-    }
-
     /**
      * 复制文件
      * @param fromFile
@@ -184,5 +181,7 @@ public class PatchUtils {
         return apkPath;
     }
 
-    public static native int patch(String oldApkPath, String newApkPath, String patchPath);
+    public static int patch(String oldApkPath, String newApkPath, String patchPath){
+        return BsPatchYwl5320Util.getInstance().bsPatch(oldApkPath,newApkPath,patchPath);
+    }
 }

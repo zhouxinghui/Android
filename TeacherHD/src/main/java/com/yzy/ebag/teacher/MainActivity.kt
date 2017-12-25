@@ -20,7 +20,7 @@ class MainActivity : MVPActivity() {
             Toast.makeText(this, "同屏", Toast.LENGTH_SHORT).show()
         }
 
-        leftGroup.setOnCheckedChangeListener { group, checkedId ->
+        leftGroup.setOnCheckedChangeListener { _, checkedId ->
             when(checkedId){
                 R.id.firstPage -> {changeFragment(0)}
                 R.id.clazz -> {changeFragment(1)}
