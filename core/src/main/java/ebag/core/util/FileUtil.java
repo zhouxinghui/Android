@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -65,17 +66,25 @@ public class FileUtil {
     }
 
     public static List<String> getWriteViewItemFiles(String bagId, String homeworkId, String questionId){
-        File file = new File(getWriteViewItemPath(homeworkId + questionId));
+        File file = new File(getWriteViewItemPath(bagId + homeworkId + questionId));
         File[] childFiles = file.listFiles();
         List<String> paths = new ArrayList<>();
         if (childFiles == null || childFiles.length == 0){
             return null;
         }else{
             for (File childFile : childFiles){
-                paths.add(childFile.getName());
+                paths.add(childFile.getAbsolutePath());
             }
             return paths;
         }
+    }
+
+    public static List<File> getWriteViewItemFiles2(String bagId, String homeworkId, String questionId){
+        File file = new File(getWriteViewItemPath(bagId + homeworkId + questionId));
+        File[] childFiles = file.listFiles();
+        List<File> list = new ArrayList<>();
+        Collections.addAll(list, childFiles);
+        return list;
     }
 
     public static boolean isFileExists(String filePath) {

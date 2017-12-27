@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.yzy.ebag.student.DemoActivity">
-    <ebag.hd.widget.DrawView
+    <ebag.hd.widget.DrawView2
         android:id="@+id/drawView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

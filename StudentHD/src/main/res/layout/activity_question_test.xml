@@ -42,7 +42,9 @@
             <ebag.hd.widget.questions.WriteView
                 android:id="@+id/writeView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                app:isChinese="false"
+                />
         </LinearLayout>
     </ScrollView>
     <Button android:id="@+id/showResult"
