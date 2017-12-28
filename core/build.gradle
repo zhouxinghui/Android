@@ -61,7 +61,7 @@ dependencies {
     compile 'com.meituan.android.walle:payload_reader:1.1.5'
 
     //图片加载
-    compile 'com.github.bumptech.glide:glide:4.3.1'
+    compile 'com.github.bumptech.glide:glide:4.3.0'
     //banner
     compile 'com.youth.banner:banner:1.4.10'
     testImplementation 'junit:junit:4.12'

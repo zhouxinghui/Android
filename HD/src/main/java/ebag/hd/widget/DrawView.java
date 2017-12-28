@@ -7,10 +7,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,6 +19,7 @@ import java.io.IOException;
 
 import ebag.core.util.FileUtil;
 import ebag.hd.R;
+import ebag.hd.bean.WriteViewBean;
 
 
 public class DrawView extends View {
@@ -34,28 +33,24 @@ public class DrawView extends View {
 
     public DrawView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initPaint();
+
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DrawView);
         boolean isEnglish = a.getBoolean(R.styleable.DrawView_isEnglish, false);
-        Drawable drawable;
-        if (isEnglish) {
-            drawable = getResources().getDrawable(R.drawable.write_english_big);
+        if (isEnglish){
+            cacheBitmap = Bitmap.createBitmap(
+                    (int) getResources().getDimension(R.dimen.english_draw_view_width),
+                    (int) getResources().getDimension(R.dimen.english_draw_view_height),
+                    Bitmap.Config.ARGB_4444);// 建立图像缓冲区用来保存图像
+        }else{
+            cacheBitmap = Bitmap.createBitmap(
+                    (int) getResources().getDimension(R.dimen.chinese_draw_view_width),
+                    (int) getResources().getDimension(R.dimen.chinese_draw_view_height),
+                    Bitmap.Config.ARGB_4444);// 建立图像缓冲区用来保存图像
         }
-        else {
-            drawable = getResources().getDrawable(R.drawable.write_chinese_big);
-        }
-        Bitmap.Config config =
-                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
-                        : Bitmap.Config.RGB_565;
-        cacheBitmap = Bitmap.createBitmap(
-                (int)getResources().getDimension(R.dimen.x300),
-                (int)getResources().getDimension(R.dimen.x300),
-                config);
-        cacheCanvas = new Canvas(cacheBitmap);
-        cacheCanvas.drawColor(Color.WHITE);
-        drawable.setBounds(0, 0, (int)getResources().getDimension(R.dimen.x300), (int)getResources().getDimension(R.dimen.x300));
-        drawable.draw(cacheCanvas);
-
+        cacheCanvas = new Canvas();
+        cacheCanvas.setBitmap(cacheBitmap);
+        cacheCanvas.drawColor(Color.TRANSPARENT);
+        initPaint();
         a.recycle();
     }
 
@@ -65,7 +60,7 @@ public class DrawView extends View {
         paint.setAntiAlias(true);// 抗锯齿
         paint.setColor(Color.BLACK);// 设置画笔颜色
         paint.setStyle(Paint.Style.STROKE);// 设置画笔的样式
-        paint.setStrokeWidth(4);// 设置画笔的粗细
+        paint.setStrokeWidth(10);// 设置画笔的粗细
         paint.setStrokeJoin(Paint.Join.ROUND); //画笔接洽点类型 如影响矩形但角的外轮廓
         paint.setStrokeCap(Paint.Cap.ROUND);// 设置画笔笔头圆形
         paint.setDither(true);// 使用图像抖动处理，更平滑和饱满
@@ -123,14 +118,19 @@ public class DrawView extends View {
         return true;
     }
 
-    public String getBitmapPath(String bagId, String homeworkId, String questionId, int position){
+    public File getBitmap(String bagId, String homeworkId, String questionId, int position){
         if (isDraw){
+            WriteViewBean bean = new WriteViewBean();
             Bitmap bitmap = cacheBitmap.copy(Bitmap.Config.ARGB_4444, true);
             String fileName = FileUtil.getWriteViewItemPath(bagId + homeworkId + questionId) + File.separator + position;
+            bean.setBitmap(bitmap);
+            bean.setPath(fileName);
             File file = new File(fileName);
             try {
-                if (!file.exists())
-                    file.createNewFile();
+                if(file.exists() && file.isFile())
+                    FileUtil.deleteFile(fileName);
+
+                file.createNewFile();
                 FileOutputStream fileOutputStream = new FileOutputStream(file);
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);// 以100%的品质创建png
                 // 人走带门
@@ -139,7 +139,7 @@ public class DrawView extends View {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return fileName;
+            return file;
         }else{
             return null;
         }

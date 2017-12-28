@@ -2,4 +2,8 @@
 <resources>
     <dimen name="question_head">@dimen/x24</dimen>
     <dimen name="question_content">@dimen/x22</dimen>
+    <dimen name="chinese_draw_view_width">@dimen/x300</dimen>
+    <dimen name="chinese_draw_view_height">@dimen/x300</dimen>
+    <dimen name="english_draw_view_width">@dimen/x550</dimen>
+    <dimen name="english_draw_view_height">@dimen/x133</dimen>
 </resources>
