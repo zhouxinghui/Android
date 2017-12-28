@@ -3,23 +3,26 @@ package com.yzy.ebag.student.base
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.view.ViewGroup
 import com.yzy.ebag.student.R
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.widget.empty.StateView
 import ebag.core.xRecyclerView.XRecyclerView
 import ebag.core.xRecyclerView.adapter.OnItemChildClickListener
-import ebag.core.xRecyclerView.adapter.OnRVItemClickListener
+import ebag.core.xRecyclerView.adapter.OnItemClickListener
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
+import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
 import kotlinx.android.synthetic.main.base_listview.*
 import java.util.*
 
 /**
  * Created by unicho on 2017/11/30.
  */
-abstract class BaseListFragment<T> : BaseFragment(), XRecyclerView.OnLoadMoreListener
-        , XRecyclerView.OnRefreshListener,StateView.OnRetryClickListener,OnRVItemClickListener,OnItemChildClickListener {
+ abstract class BaseListFragment<T> : BaseFragment(),
+        XRecyclerView.OnLoadMoreListener,
+        XRecyclerView.OnRefreshListener,
+        StateView.OnRetryClickListener,
+        OnItemClickListener,OnItemChildClickListener {
 
     companion object {
         /** 刚进入页面时的状态 */
@@ -107,8 +110,8 @@ abstract class BaseListFragment<T> : BaseFragment(), XRecyclerView.OnLoadMoreLis
         recyclerView.adapter = mAdapter
 
         //设置 点击监听事件
-        mAdapter?.setOnRVItemClickListener(this)
-        mAdapter?.setOnItemChildClickListener(this)
+        mAdapter?.onItemClickListener = this
+        mAdapter?.onItemChildClickListener = this
 
         isInit = true
     }
@@ -258,11 +261,12 @@ abstract class BaseListFragment<T> : BaseFragment(), XRecyclerView.OnLoadMoreLis
         requestData(mCurrentPage, requestCallBack)
     }
 
-    override fun onRVItemClick(recyclerView: ViewGroup, view: View, position: Int) {
-        onItemClick(view, position - (recyclerView as XRecyclerView).headerSize, mAdapter?.getItem(position)!!)
+    override fun onItemClick(holder: RecyclerViewHolder, view: View, position: Int) {
+        onItemClick(view, position, mAdapter?.getItem(position)!!)
     }
 
-    override fun onItemChildClick(recyclerView: ViewGroup, view: View, position: Int) {
-        onItemChildClick(view, position - (recyclerView as XRecyclerView).headerSize, mAdapter?.getItem(position)!!)
+    override fun onItemChildClick(holder: RecyclerViewHolder, view: View, position: Int) {
+        onItemChildClick(view, position, mAdapter?.getItem(position)!!)
     }
+
 }

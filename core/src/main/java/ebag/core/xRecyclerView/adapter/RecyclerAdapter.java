@@ -1,7 +1,8 @@
 package ebag.core.xRecyclerView.adapter;
 
-import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -14,22 +15,24 @@ import ebag.core.xRecyclerView.XRecyclerView;
 /**
  * Created by 90323 on 2016/4/27 0027.
  */
-public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerViewHolder>{
-    protected final int mItemLayoutId;
-    protected Context mContext;
-    protected List<M> mDatas = new ArrayList<>();
-    protected OnItemChildClickListener mOnItemChildClickListener;
-    protected OnItemChildLongClickListener mOnItemChildLongClickListener;
-    protected OnItemChildCheckedChangeListener mOnItemChildCheckedChangeListener;
-    protected OnRVItemClickListener mOnRVItemClickListener;
-    protected OnRVItemLongClickListener mOnRVItemLongClickListener;
-    protected RecyclerView mRecyclerView;
+public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerViewHolder> implements
+        XRecyclerView.OnHeaderSizeChangedListener{
 
-    public RecyclerAdapter(RecyclerView recyclerView, int itemLayoutId) {
-        this.mRecyclerView = recyclerView;
-        this.mContext = this.mRecyclerView.getContext();
-        this.mItemLayoutId = itemLayoutId;
-        this.mDatas = new ArrayList<>();
+    private static final int DEFAULT_VIEW_TYPE = -0xff;
+    private List<M> mDatas = new ArrayList<>();
+
+    private OnItemChildClickListener mOnItemChildClickListener;
+    private OnItemChildLongClickListener mOnItemChildLongClickListener;
+    private OnItemChildCheckedChangeListener mOnItemChildCheckedChangeListener;
+    private OnItemClickListener mOnItemClickListener;
+    private OnItemLongClickListener mOnItemLongClickListener;
+
+    private SparseIntArray layouts = new SparseIntArray();
+
+    private int headerSize = 0;
+
+    public RecyclerAdapter(int itemLayoutId) {
+        addItemType(DEFAULT_VIEW_TYPE,itemLayoutId);
     }
 
     @Override
@@ -38,78 +41,57 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
     }
 
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        return createHolder(parent,this.mItemLayoutId);
-    }
-
-    protected RecyclerViewHolder createHolder(ViewGroup parent, int mItemLayoutId){
-        RecyclerViewHolder viewHolder = new RecyclerViewHolder(this.mRecyclerView
-                , LayoutInflater.from(this.mContext).inflate(mItemLayoutId, parent, false)
-                , this.mOnRVItemClickListener, this.mOnRVItemLongClickListener);
-        viewHolder.getViewHolderHelper().setOnItemChildClickListener(this.mOnItemChildClickListener);
-        viewHolder.getViewHolderHelper().setOnItemChildLongClickListener(this.mOnItemChildLongClickListener);
-        viewHolder.getViewHolderHelper().setOnItemChildCheckedChangeListener(this.mOnItemChildCheckedChangeListener);
-        this.setItemChildListener(viewHolder.getViewHolderHelper());
+        RecyclerViewHolder viewHolder = new RecyclerViewHolder(
+                LayoutInflater.from(parent.getContext()).inflate(getLayoutId(viewType), parent, false));
+        viewHolder.setAdapter(this);
         return viewHolder;
     }
 
-    protected void setItemChildListener(ViewHolderHelper viewHolderHelper) {
+    /**
+     * 多布局时使用
+     * @param type
+     * @param layoutResId
+     */
+    protected void addItemType(int type, @LayoutRes int layoutResId) {
+        if(layouts.get(type) == 0)
+            layouts.put(type, layoutResId);
+    }
+
+    /**
+     * 当没有多布局设置时，默认使用
+     * @param viewType
+     * @return
+     */
+    private int getLayoutId(int viewType) {
+        return layouts.get(viewType);
     }
 
     public void onBindViewHolder(RecyclerViewHolder viewHolder, int position) {
-        this.fillData(viewHolder.getViewHolderHelper(), position, this.getXItem(position));
+        viewHolder.updatePosition(position);
+        this.fillData(viewHolder, position, mDatas.get(position));
     }
 
-    protected abstract void fillData(ViewHolderHelper setter, int position, M entity);
-
-    public void setOnRVItemClickListener(OnRVItemClickListener onRVItemClickListener) {
-        this.mOnRVItemClickListener = onRVItemClickListener;
-    }
-
-    public void setOnRVItemLongClickListener(OnRVItemLongClickListener onRVItemLongClickListener) {
-        this.mOnRVItemLongClickListener = onRVItemLongClickListener;
-    }
-
-    public void setOnItemChildClickListener(OnItemChildClickListener onItemChildClickListener) {
-        this.mOnItemChildClickListener = onItemChildClickListener;
-    }
-
-    public void setOnItemChildLongClickListener(OnItemChildLongClickListener onItemChildLongClickListener) {
-        this.mOnItemChildLongClickListener = onItemChildLongClickListener;
-    }
-
-    public void setOnItemChildCheckedChangeListener(OnItemChildCheckedChangeListener onItemChildCheckedChangeListener) {
-        this.mOnItemChildCheckedChangeListener = onItemChildCheckedChangeListener;
-    }
+    protected abstract void fillData(RecyclerViewHolder setter, int position, M entity);
 
     @Override
     public long getItemId(int position) {
         return position;
     }
 
-    protected M getXItem(int position) {
+    @Override
+    public void setHeaderSize(int headerSize) {
+        this.headerSize = headerSize;
+    }
+
+    public int getHeaderSize() {
+        return headerSize;
+    }
+
+    public M getItem(int position) {
         if(position >= 0 && position < getItemCount()){
             return mDatas.get(position);
         }else{
             return null;
-        }
-    }
-
-    public M getItem(int position) {
-        if(mRecyclerView instanceof XRecyclerView){
-            int headerSize = ((XRecyclerView) mRecyclerView).getHeaderSize();
-            if(position >= headerSize
-                    && position < getItemCount() + headerSize){
-                return mDatas.get(position - headerSize);
-            }else{
-                return null;
-            }
-        }else{
-            if(position >= 0 && position < getItemCount()){
-                return mDatas.get(position);
-            }else{
-                return null;
-            }
         }
     }
 
@@ -124,13 +106,7 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
     public void addMoreDatas(List<M> datas) {
         if(datas != null) {
             this.mDatas.addAll(datas);
-            if(mRecyclerView instanceof XRecyclerView){
-                this.notifyItemRangeInserted(this.mDatas.size() + ((XRecyclerView)mRecyclerView).getHeaderSize()
-                        , datas.size());
-            }else{
-                this.notifyItemRangeInserted(this.mDatas.size(), datas.size());
-            }
-
+            this.notifyItemRangeInserted(this.mDatas.size() + headerSize, datas.size());
         }
     }
 
@@ -141,15 +117,8 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
     public void addFirstDatas(List<M> datas) {
         if(datas != null) {
             this.mDatas.addAll(0, datas);
-            if(mRecyclerView instanceof XRecyclerView){
-                this.notifyItemRangeInserted(((XRecyclerView)mRecyclerView).getHeaderSize()
-                        , datas.size());
-            }else{
-                this.notifyItemRangeInserted(0, datas.size());
-            }
-
+            this.notifyItemRangeInserted(headerSize, datas.size());
         }
-
     }
 
     /**
@@ -179,11 +148,8 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
      * @param position
      */
     public void removeItem(int position) {
-        if(mRecyclerView instanceof XRecyclerView)
-            this.mDatas.remove(position - ((XRecyclerView)mRecyclerView).getHeaderSize());
-        else
-            this.mDatas.remove(position);
-        this.notifyItemRemoved(position);
+        this.mDatas.remove(position);
+        this.notifyItemRemoved(position + headerSize);
     }
 
     /**
@@ -202,11 +168,7 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
     public void removeItem(M model) {
         int i = this.mDatas.indexOf(model);
         mDatas.remove(i);
-        if(mRecyclerView instanceof XRecyclerView){
-            this.notifyItemRemoved(i+((XRecyclerView)mRecyclerView).getHeaderSize());
-        }else{
-            this.notifyItemRemoved(i);
-        }
+        this.notifyItemRemoved(i+headerSize);
 
     }
 
@@ -216,11 +178,8 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
      * @param model
      */
     public void addItem(int position, M model) {
-        if(mRecyclerView instanceof XRecyclerView)
-            this.mDatas.add(position - ((XRecyclerView)mRecyclerView).getHeaderSize(), model);
-        else
-            this.mDatas.add(position, model);
-        this.notifyItemInserted(position);
+        this.mDatas.add(position, model);
+        this.notifyItemInserted(position + headerSize);
     }
 
     /**
@@ -237,11 +196,7 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
      */
     public void addLastItem(M model) {
         this.mDatas.add( model);
-        if(mRecyclerView instanceof XRecyclerView){
-            this.notifyItemInserted(mDatas.size()+((XRecyclerView)mRecyclerView).getHeaderSize());
-        }else{
-            this.notifyItemInserted(mDatas.size());
-        }
+        this.notifyItemInserted(mDatas.size() + headerSize);
     }
 
 
@@ -251,12 +206,8 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
      * @param newModel
      */
     public void setItem(int location, M newModel) {
-        if(mRecyclerView instanceof XRecyclerView){
-            this.mDatas.set(location - ((XRecyclerView)mRecyclerView).getHeaderSize(), newModel);
-        }else{
-            this.mDatas.set(location, newModel);
-        }
-        this.notifyItemChanged(location);
+        this.mDatas.set(location, newModel);
+        this.notifyItemChanged(location + headerSize);
     }
 
     /**
@@ -274,13 +225,92 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
      * @param toPosition
      */
     public void moveItem(int fromPosition, int toPosition) {
-        if(mRecyclerView instanceof XRecyclerView)
-            this.mDatas.add(toPosition - ((XRecyclerView)mRecyclerView).getHeaderSize()
-                    , this.mDatas.remove(fromPosition - ((XRecyclerView)mRecyclerView).getHeaderSize()));
-        else
+        if(fromPosition < toPosition)
             this.mDatas.add(toPosition, this.mDatas.remove(fromPosition));
+        else{
+            this.mDatas.add(toPosition - 1, this.mDatas.remove(fromPosition));
+        }
+        this.notifyItemMoved(fromPosition + headerSize, toPosition + headerSize);
 
-        this.notifyItemMoved(fromPosition, toPosition);
+    }
 
+    /**
+     * 获取子控件点击事件
+     * @return
+     */
+    public OnItemChildClickListener getOnItemChildClickListener() {
+        return mOnItemChildClickListener;
+    }
+
+    /**
+     * 设置子控件的点击事件
+     * @param mOnItemChildClickListener
+     */
+    public void setOnItemChildClickListener(OnItemChildClickListener mOnItemChildClickListener) {
+        this.mOnItemChildClickListener = mOnItemChildClickListener;
+    }
+
+    /**
+     * 获取子控件的长按事件
+     * @return
+     */
+    public OnItemChildLongClickListener getOnItemChildLongClickListener() {
+        return mOnItemChildLongClickListener;
+    }
+
+    /**
+     * 设置子控件的长按事件
+     * @param mOnItemChildLongClickListener
+     */
+    public void setOnItemChildLongClickListener(OnItemChildLongClickListener mOnItemChildLongClickListener) {
+        this.mOnItemChildLongClickListener = mOnItemChildLongClickListener;
+    }
+
+    /**
+     * 获取子控件的checked changed 事件
+     * @return
+     */
+    public OnItemChildCheckedChangeListener getOnItemChildCheckedChangeListener() {
+        return mOnItemChildCheckedChangeListener;
+    }
+
+    /**
+     * 设置子控件的checked changed 事件
+     * @param mOnItemChildCheckedChangeListener
+     */
+    public void setmOnItemChildCheckedChangeListener(OnItemChildCheckedChangeListener mOnItemChildCheckedChangeListener) {
+        this.mOnItemChildCheckedChangeListener = mOnItemChildCheckedChangeListener;
+    }
+
+    /**
+     * 获取item点击事件
+     * @return
+     */
+    public OnItemClickListener getOnItemClickListener() {
+        return mOnItemClickListener;
+    }
+
+    /**
+     * 设置item点击事件
+     * @param mOnItemClickListener
+     */
+    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+        this.mOnItemClickListener = mOnItemClickListener;
+    }
+
+    /**
+     * 获取item长按事件
+     * @return
+     */
+    public OnItemLongClickListener getOnItemLongClickListener() {
+        return mOnItemLongClickListener;
+    }
+
+    /**
+     * 设置item长按事件
+     * @param mOnItemLongClickListener
+     */
+    public void setOnItemLongClickListener(OnItemLongClickListener mOnItemLongClickListener) {
+        this.mOnItemLongClickListener = mOnItemLongClickListener;
     }
 }

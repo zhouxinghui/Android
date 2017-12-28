@@ -39,11 +39,8 @@ public class XRecyclerView extends BetterRecyclerView {
     private static final int TYPE_FOOTER = 10001;
     private static final int HEADER_INIT_INDEX = 10002;
     private static List<Integer> sHeaderTypes = new ArrayList<>();//每个header必须有不同的type,不然滚动的时候顺序会变化
-    private int mPageCount = 0;
-    //adapter没有数据的时候显示,类似于listView的emptyView
-    private View mEmptyView;
     private View mFootView;
-    private final AdapterDataObserver mDataObserver = new DataObserver();
+
     private AppBarStateChangeListener.State appbarState = AppBarStateChangeListener.State.EXPANDED;
     public XRecyclerView(Context context) {
         this(context, null);
@@ -82,6 +79,23 @@ public class XRecyclerView extends BetterRecyclerView {
         mHeaderViews.add(view);
         if (mWrapAdapter != null) {
             mWrapAdapter.notifyDataSetChanged();
+        }
+
+        if(onHeaderSizeChangedListener != null){
+            onHeaderSizeChangedListener.setHeaderSize(getHeaderSize());
+        }
+    }
+
+    public void removeHeaderView(View view) {
+        if(mHeaderViews.contains(view)){
+            mHeaderViews.remove(view);
+            if (mWrapAdapter != null) {
+                mWrapAdapter.notifyDataSetChanged();
+            }
+
+            if(onHeaderSizeChangedListener != null){
+                onHeaderSizeChangedListener.setHeaderSize(getHeaderSize());
+            }
         }
     }
 
@@ -209,15 +223,6 @@ public class XRecyclerView extends BetterRecyclerView {
         }
     }
 
-    public void setEmptyView(View emptyView) {
-        this.mEmptyView = emptyView;
-        mDataObserver.onChanged();
-    }
-
-    public View getEmptyView() {
-        return mEmptyView;
-    }
-
     /**
      * 获取Header的数量
      * @return
@@ -230,8 +235,9 @@ public class XRecyclerView extends BetterRecyclerView {
     public void setAdapter(Adapter adapter) {
         mWrapAdapter = new WrapAdapter(adapter);
         super.setAdapter(mWrapAdapter);
-        adapter.registerAdapterDataObserver(mDataObserver);
-        mDataObserver.onChanged();
+        if(adapter instanceof OnHeaderSizeChangedListener){
+            setOnHeaderSizeChangedListener((OnHeaderSizeChangedListener) adapter);
+        }
     }
 
     //避免用户自己调用getAdapter() 引起的ClassCastException
@@ -363,54 +369,9 @@ public class XRecyclerView extends BetterRecyclerView {
         }
     }
 
-    private class DataObserver extends AdapterDataObserver {
-        @Override
-        public void onChanged() {
-            if (mWrapAdapter != null) {
-                mWrapAdapter.notifyDataSetChanged();
-            }
-            if (mWrapAdapter != null && mEmptyView != null) {
-                int emptyCount = 1 + mWrapAdapter.getHeadersCount();
-                if (loadingMoreEnabled) {
-                    emptyCount++;
-                }
-                if (mWrapAdapter.getItemCount() == emptyCount) {
-                    mEmptyView.setVisibility(View.VISIBLE);
-                    XRecyclerView.this.setVisibility(View.GONE);
-                } else {
-
-                    mEmptyView.setVisibility(View.GONE);
-                    XRecyclerView.this.setVisibility(View.VISIBLE);
-                }
-            }
-        }
-
-        @Override
-        public void onItemRangeInserted(int positionStart, int itemCount) {
-            mWrapAdapter.notifyItemRangeInserted(positionStart, itemCount);
-        }
-
-        @Override
-        public void onItemRangeChanged(int positionStart, int itemCount) {
-            mWrapAdapter.notifyItemRangeChanged(positionStart, itemCount);
-        }
-
-        @Override
-        public void onItemRangeChanged(int positionStart, int itemCount, Object payload) {
-            mWrapAdapter.notifyItemRangeChanged(positionStart, itemCount, payload);
-        }
-
-        @Override
-        public void onItemRangeRemoved(int positionStart, int itemCount) {
-            mWrapAdapter.notifyItemRangeRemoved(positionStart, itemCount);
-        }
-
-        @Override
-        public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
-            mWrapAdapter.notifyItemMoved(fromPosition, toPosition);
-        }
-    };
-
+    /**
+     * 装饰Adapter
+     */
     private class WrapAdapter extends Adapter<ViewHolder> {
 
         private Adapter adapter;
@@ -423,10 +384,20 @@ public class XRecyclerView extends BetterRecyclerView {
             return this.adapter;
         }
 
+        /**
+         * 普通头
+         * @param position
+         * @return
+         */
         public boolean isHeader(int position) {
             return position >= 1 && position < mHeaderViews.size() + 1;
         }
 
+        /**
+         * 加载更多的脚
+         * @param position
+         * @return
+         */
         public boolean isFooter(int position) {
             if(loadingMoreEnabled) {
                 return position == getItemCount() - 1;
@@ -435,6 +406,11 @@ public class XRecyclerView extends BetterRecyclerView {
             }
         }
 
+        /**
+         * 刷新的头
+         * @param position
+         * @return
+         */
         public boolean isRefreshHeader(int position) {
             return position == 0;
         }
@@ -621,7 +597,19 @@ public class XRecyclerView extends BetterRecyclerView {
         void onRefresh();
     }
 
+    private OnHeaderSizeChangedListener onHeaderSizeChangedListener;
+    public interface OnHeaderSizeChangedListener{
+        void setHeaderSize(int size);
+    }
 
+    /**
+     * 初始化headsize
+     * @param onHeaderSizeChangedListener
+     */
+    public void setOnHeaderSizeChangedListener(OnHeaderSizeChangedListener onHeaderSizeChangedListener) {
+        this.onHeaderSizeChangedListener = onHeaderSizeChangedListener;
+        onHeaderSizeChangedListener.setHeaderSize(getHeaderSize());
+    }
 
     public void setOnLoadMoreListener(OnLoadMoreListener onLoadMoreListener){
         loadingMoreEnabled=onLoadMoreListener!=null;

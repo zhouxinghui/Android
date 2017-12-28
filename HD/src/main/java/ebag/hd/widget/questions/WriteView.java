@@ -21,7 +21,7 @@ import ebag.core.http.image.SingleImageLoader;
 import ebag.core.util.FileUtil;
 import ebag.core.util.T;
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
-import ebag.core.xRecyclerView.adapter.ViewHolderHelper;
+import ebag.core.xRecyclerView.adapter.RecyclerViewHolder;
 import ebag.hd.R;
 import ebag.hd.widget.DrawView;
 import ebag.hd.widget.questions.util.IQuestionEvent;
@@ -89,8 +89,7 @@ public class WriteView extends LinearLayout implements IQuestionEvent {
         RadioGroup penSizeGroup = findViewById(R.id.pen_size_group);
         checkBtn = findViewById(R.id.btn_check);
         recyclerView = findViewById(R.id.recycler_id);
-
-        adapter = new MyAdapter(recyclerView);
+        adapter = new MyAdapter();
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 5);
         List<String> list = new ArrayList<>();
         recyclerView.setAdapter(adapter);
@@ -127,7 +126,7 @@ public class WriteView extends LinearLayout implements IQuestionEvent {
                     T.INSTANCE.show(getContext(), "你还没有写字");
                 }else{
                     drawView.clearPaint();
-                    adapter.addData(imagePath);
+                    adapter.addLastItem(imagePath);
                 }
             }
         });
@@ -178,17 +177,12 @@ public class WriteView extends LinearLayout implements IQuestionEvent {
 
     private class MyAdapter extends RecyclerAdapter<String>{
 
-        public MyAdapter(RecyclerView recyclerView) {
-            super(recyclerView, R.layout.write_view_item);
-        }
-
-        public void addData(String bitmap){
-            mDatas.add(bitmap);
-            notifyDataSetChanged();
+        public MyAdapter() {
+            super(R.layout.write_view_item);
         }
 
         @Override
-        protected void fillData(ViewHolderHelper setter, int position, String entity) {
+        protected void fillData(RecyclerViewHolder setter, int position, String entity) {
             ImageView imageView = setter.getImageView(R.id.image_id);
             SingleImageLoader.getInstance().loadImage(entity, imageView);
         }

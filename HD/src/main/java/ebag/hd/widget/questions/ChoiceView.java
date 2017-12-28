@@ -18,9 +18,9 @@ import java.util.List;
 import ebag.core.bean.QuestionBean;
 import ebag.core.http.image.SingleImageLoader;
 import ebag.core.util.StringUtils;
-import ebag.core.xRecyclerView.adapter.OnRVItemClickListener;
+import ebag.core.xRecyclerView.adapter.OnItemClickListener;
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
-import ebag.core.xRecyclerView.adapter.ViewHolderHelper;
+import ebag.core.xRecyclerView.adapter.RecyclerViewHolder;
 import ebag.hd.R;
 import ebag.hd.widget.questions.util.IQuestionEvent;
 import ebag.hd.widget.questions.util.QuestionTypeUtils;
@@ -30,7 +30,7 @@ import ebag.hd.widget.questions.util.QuestionTypeUtils;
  */
 
 public class ChoiceView extends LinearLayout implements IQuestionEvent
-        , OnRVItemClickListener{
+        , OnItemClickListener {
 
     private Context mContext;
     private TextView tvTitle;
@@ -121,10 +121,10 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
 
         optionRecycler.setLayoutManager(layoutManager);
 
-        optionAdapter = new OptionAdapter(optionRecycler);
+        optionAdapter = new OptionAdapter();
         optionRecycler.setAdapter(optionAdapter);
 
-        optionAdapter.setOnRVItemClickListener(this);
+        optionAdapter.setOnItemClickListener(this);
 
         addView(optionRecycler);
 
@@ -257,7 +257,7 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
     }
 
     @Override
-    public void onRVItemClick(ViewGroup recyclerView, View view, int position) {
+    public void onItemClick(RecyclerViewHolder holder, View view, int position) {
         if(!this.active) return;
         optionAdapter.setSelectedPosition(position);
         studentAnswer = String.valueOf((char)('A' + position));
@@ -271,8 +271,8 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
         private int rightPosition = -1;
 
 
-        OptionAdapter(RecyclerView recyclerView) {
-            super(recyclerView, R.layout.question_choice_option_item);
+        OptionAdapter() {
+            super(R.layout.question_choice_option_item);
         }
 
         public void setSelectedPosition(int selectedPosition) {
@@ -287,7 +287,7 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
         }
 
         @Override
-        protected void fillData(ViewHolderHelper setter, int position, String entity) {
+        protected void fillData(RecyclerViewHolder setter, int position, String entity) {
 
             setter.setText(R.id.tvOption,String.valueOf((char)('A'+position)));
             setter.getTextView(R.id.tvOption).setSelected(position == selectedPosition);
@@ -305,12 +305,12 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
             }
 
             if(entity.startsWith("http")){
-                setter.showView(R.id.ivOptionContent);
-                setter.goneView(R.id.tvOptionContent);
+                setter.setGone(R.id.ivOptionContent,false);
+                setter.setGone(R.id.tvOptionContent, true);
                 SingleImageLoader.getInstance().setImage(entity,setter.getImageView(R.id.ivOptionContent));
             }else{
-                setter.goneView(R.id.ivOptionContent);
-                setter.showView(R.id.tvOptionContent);
+                setter.setGone(R.id.ivOptionContent, true);
+                setter.setGone(R.id.tvOptionContent, false);
                 setter.setText(R.id.tvOptionContent,entity);
             }
         }
