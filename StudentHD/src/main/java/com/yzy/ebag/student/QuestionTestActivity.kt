@@ -3,6 +3,8 @@ package com.yzy.ebag.student
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import ebag.core.bean.QuestionBean
+import ebag.core.util.L
+import ebag.core.util.T
 import kotlinx.android.synthetic.main.activity_question_test.*
 
 class QuestionTestActivity : AppCompatActivity() {
@@ -16,9 +18,14 @@ class QuestionTestActivity : AppCompatActivity() {
         setChoiceView()
         setCompletion()
         setWriteView()
+        setChoiceView()
+        setClassificationView()
         setSortView()
 
         showResult.setOnClickListener {
+            classificationView.showResult()
+            var answer = classificationView.answer
+            L.e(answer)
             judgeView.showResult()
             choiceView.showResult()
             completeView.showResult()
@@ -26,6 +33,14 @@ class QuestionTestActivity : AppCompatActivity() {
             sortView.showResult()
         }
 
+        enable.setOnClickListener {
+            if(completeView.isQuestionActive)
+                T.show(this,"冻结操作")
+            else
+                T.show(this,"激活操作")
+            completeView.questionActive(!choiceView.isQuestionActive)
+            classificationView.questionActive(!classificationView.isQuestionActive)
+        }
 //        enable.setOnClickListener {
 //            active = !active
 //            if(active)
@@ -37,6 +52,15 @@ class QuestionTestActivity : AppCompatActivity() {
 //            completeView.questionActive(active)
 //            writeView.questionActive(active)
 //        }
+    }
+    private fun setClassificationView(){
+        val questionBean = QuestionBean()
+        questionBean.questionHead = "给下列单词归类"
+        questionBean.questionContent = "on,classroom,she,elephant,he,under,bird,blackboard;介词,学校物品,代词,动物"
+        questionBean.rightAnswer = "介词#R#on,under;学校物品#R#classroom,blackboard;代词#R#she,he;动物#R#elephant,bird"
+        questionBean.answer = ""
+        classificationView.setData(questionBean)
+        classificationView.show(true)
     }
 
     private fun setJudge(){
@@ -56,6 +80,7 @@ class QuestionTestActivity : AppCompatActivity() {
         questionBean.answer = "4#R#7#R#4#R#6#R#1#R#7#R#8#R#3#R#8"
         completeView.setData(questionBean)
         completeView.show(active)
+        completeView.show(true)
     }
 
     private fun setWriteView(){

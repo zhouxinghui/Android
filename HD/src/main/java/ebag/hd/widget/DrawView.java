@@ -3,6 +3,7 @@ package ebag.hd.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -14,6 +15,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -82,8 +85,29 @@ public class DrawView extends View {
         invalidate();
     }
 
+    public void setCacheBitmap(Bitmap cacheBitmap){
+        cacheCanvas.drawBitmap(cacheBitmap, 0, 0, paint);
+    }
+
+    public void setCacheBitmap(String path){
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(path);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return;
+        }
+        cacheCanvas.drawBitmap(BitmapFactory.decodeStream(fis), 0, 0, paint);
+    }
+
     public void setPaintSize(int size) {
+        paint.setColor(Color.BLACK);
         paint.setStrokeWidth(size);
+    }
+
+    public void setEraser(){
+        paint.setColor(Color.TRANSPARENT);
+        paint.setStrokeWidth(10);
     }
 
     @Override
@@ -118,7 +142,7 @@ public class DrawView extends View {
         return true;
     }
 
-    public File getBitmap(String bagId, String homeworkId, String questionId, int position){
+    public WriteViewBean getBitmap(String bagId, String homeworkId, String questionId, int position){
         if (isDraw){
             WriteViewBean bean = new WriteViewBean();
             Bitmap bitmap = cacheBitmap.copy(Bitmap.Config.ARGB_4444, true);
@@ -139,7 +163,7 @@ public class DrawView extends View {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return file;
+            return bean;
         }else{
             return null;
         }

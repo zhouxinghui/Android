@@ -31,4 +31,7 @@
     <color name="invite_tip">#4A4A4A</color>
 
     <color name="color_question_option_border">#8892A1</color>
+    <!--分类-->
+    <color name="element_bg_press">#AED2FF</color>
+    <color name="element_bg_wrong">#FF938C</color>
 </resources>
