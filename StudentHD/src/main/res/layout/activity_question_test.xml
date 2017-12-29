@@ -33,6 +33,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
+            <ebag.hd.widget.questions.ClassificationView
+                android:id="@+id/classificationView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
             <ebag.hd.widget.questions.VerticalSortView
                 android:id="@+id/sortView"
                 android:layout_width="match_parent"
@@ -54,7 +58,7 @@
                 android:id="@+id/writeView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:isChinese="false"
+                app:isChinese="true"
                 />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

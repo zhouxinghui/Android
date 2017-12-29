@@ -12,8 +12,6 @@ import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.io.File;
-
 import ebag.core.R;
 
 /**
@@ -54,8 +52,8 @@ public class SingleImageLoader {
         }
         return singleImageLoader;
     }
-    public void loadImage(File file, ImageView imageView){
-        loadImage(Glide.with(imageView),imageView,file);
+    public void loadImage(String url, ImageView imageView){
+        loadImage(Glide.with(imageView),imageView,url);
     }
 
     public void setImage(String url, ImageView imageView){
@@ -89,12 +87,8 @@ public class SingleImageLoader {
         loadImage(Glide.with(context),imageView,url,placeHolderId,errorId);
     }
 
-    private void loadImage(RequestManager requestManager, ImageView imageView, File file){
-        requestManager.load(file)
-                .apply(new RequestOptions()
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .skipMemoryCache(false))//配置
-                .into(imageView);
+    private void loadImage(RequestManager requestManager, ImageView imageView, String url){
+        loadImage(requestManager, imageView, url, optionsNoReplaceImg);
     }
 
     private void loadImage(RequestManager requestManager, ImageView imageView, String url, int placeHolderId, int errorId){

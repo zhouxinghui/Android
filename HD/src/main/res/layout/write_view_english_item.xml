@@ -3,10 +3,9 @@
     android:layout_width="match_parent" android:layout_height="wrap_content"
     android:orientation="vertical" android:gravity="center"
     >
-    <ImageView
-        android:layout_width="@dimen/x180" android:layout_height="@dimen/x60"
+    <ImageView android:id="@+id/image_id"
+        android:layout_width="@dimen/x230" android:layout_height="@dimen/x60"
         android:scaleType="centerInside" android:layout_marginBottom="@dimen/y10"
         android:background="@drawable/write_english_small"
-        android:id="@+id/image_id"
         />
 </LinearLayout>

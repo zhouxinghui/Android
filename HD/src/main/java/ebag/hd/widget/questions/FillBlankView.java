@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ebag.core.util.L;
+import ebag.core.util.StringUtils;
 import ebag.hd.R;
 
 
@@ -219,7 +220,10 @@ public class FillBlankView extends FrameLayout {
         // 将答案添加到集合中
         answerList.set(position, answer.trim());
 
-        answer = " " + answer + " ";
+        if(StringUtils.INSTANCE.isEmpty(answer))
+            answer = "    ";
+        else
+            answer = " " + answer + " ";
 
         // 替换答案
         AnswerRange range = rangeList.get(position);
