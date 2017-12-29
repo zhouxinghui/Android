@@ -17,6 +17,7 @@ class QuestionTestActivity : AppCompatActivity() {
         setCompletion()
         setWriteView()
         setSortView()
+        setEnSort()
 
         showResult.setOnClickListener {
             judgeView.showResult()
@@ -24,6 +25,7 @@ class QuestionTestActivity : AppCompatActivity() {
             completeView.showResult()
             writeView.showResult()
             sortView.showResult()
+            enSortView.showResult()
         }
 
 //        enable.setOnClickListener {
@@ -37,6 +39,16 @@ class QuestionTestActivity : AppCompatActivity() {
 //            completeView.questionActive(active)
 //            writeView.questionActive(active)
 //        }
+    }
+
+    private fun setEnSort(){
+        val questionBean = QuestionBean()
+        questionBean.questionHead = "将下列各词连成一句话"
+        questionBean.questionContent = "your#R#in#R#ruler#R#Put#R#pencil box#R#the#R#."
+        questionBean.rightAnswer = "Put,your,ruler,in,the,pencil box,."
+        questionBean.answer = "Put,ruler,your,in,the,pencil box,."
+        enSortView.setData(questionBean)
+        enSortView.show(active)
     }
 
     private fun setJudge(){

@@ -26,7 +26,7 @@ import ebag.hd.widget.questions.util.IQuestionEvent;
  * Created by unicho on 2017/12/28.
  */
 
-public class SortView extends LinearLayout implements IQuestionEvent{
+public class VerticalSortView extends LinearLayout implements IQuestionEvent{
 
     private Context mContext;
     private HeadAdapter headAdapter;
@@ -38,17 +38,17 @@ public class SortView extends LinearLayout implements IQuestionEvent{
     private boolean isMoved = false;
     private SimpleItemTouchHelperCallback callback;
 
-    public SortView(Context context) {
+    public VerticalSortView(Context context) {
         super(context);
         init(context);
     }
 
-    public SortView(Context context, @Nullable AttributeSet attrs) {
+    public VerticalSortView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public SortView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public VerticalSortView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
@@ -81,7 +81,7 @@ public class SortView extends LinearLayout implements IQuestionEvent{
             @Override
             public void onItemMove(int fromPosition, int toPosition) {
                 isMoved = true;
-                sortAdapter.moveItem(fromPosition,toPosition);
+                sortAdapter.moveItem(fromPosition-sortAdapter.getHeaderSize(),toPosition-sortAdapter.getHeaderSize());
             }
 
             @Override
@@ -131,10 +131,10 @@ public class SortView extends LinearLayout implements IQuestionEvent{
         show(false);
         String[] answers = studentAnswer.split(",");
         for(int i = 0; i < sortList.size(); i++){
-            if(i >= answers.length)
-                sortList.get(i).answer = "";
-            else
+            if(i < answers.length)
                 sortList.get(i).answer = answers[i];
+            else
+                sortList.get(i).answer = "";
         }
 
         String[] strings = rightAnswer.split(",");
@@ -175,7 +175,7 @@ public class SortView extends LinearLayout implements IQuestionEvent{
         }
 
         SortAdapter(){
-            super(R.layout.question_sort);
+            super(R.layout.question_sort_vertical);
             colorNormal = mContext.getResources().getColor(R.color.question_normal);
             colorSelected = mContext.getResources().getColor(R.color.white);
         }

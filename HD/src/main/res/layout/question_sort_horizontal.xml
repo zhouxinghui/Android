@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tvContent"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/question_sort_en_height"
+    android:textSize="@dimen/question_head"
+    android:gravity="center"
+    android:textColor="@color/question_normal"
+    android:background="@drawable/bg_question_sort_en_normal"
+    android:paddingRight="@dimen/x20"
+    android:paddingLeft="@dimen/x20"/>

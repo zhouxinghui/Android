@@ -80,7 +80,6 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
     }
 
     public void onBindViewHolder(RecyclerViewHolder viewHolder, int position) {
-        viewHolder.updatePosition(position);
         this.fillData(viewHolder, position, mDatas.get(position));
     }
 
@@ -288,7 +287,7 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
      * 设置子控件的checked changed 事件
      * @param mOnItemChildCheckedChangeListener
      */
-    public void setmOnItemChildCheckedChangeListener(OnItemChildCheckedChangeListener mOnItemChildCheckedChangeListener) {
+    public void setOnItemChildCheckedChangeListener(OnItemChildCheckedChangeListener mOnItemChildCheckedChangeListener) {
         this.mOnItemChildCheckedChangeListener = mOnItemChildCheckedChangeListener;
     }
 

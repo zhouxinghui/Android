@@ -11,9 +11,13 @@
     <!--全局使用-->
     <color name="color_edit_hint">#9b9b9b</color>
     <color name="color_edit_color">#2a2a2a</color>
-    <color name="question_normal">#393A3F</color>
-    <color name="question_bg_error">#FF8688</color>
-    <color name="question_bg_right">#50D47D</color>
+    <color name="question_normal">#393B3F</color>
+    <color name="question_bg_error">#FF666D</color>
+    <color name="question_bg_right">#1EC156</color>
+    <color name="question_bg_pressed">#A2CCFF</color>
+    <color name="question_bg_done">#499DFF</color>
+    <color name="question_bg_normal">#D7DAE5</color>
+
     <!--登陆-->
     <color name="login_selector_checked">#272727</color>
     <color name="login_selector_normal">#656565</color>

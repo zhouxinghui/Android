@@ -25,7 +25,6 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder implements
 
     protected Context mContext;
     private RecyclerAdapter adapter;
-    private int holderPosition;
 
 
     public RecyclerViewHolder(View itemView) {
@@ -80,12 +79,8 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder implements
         }
     }
 
-    public void updatePosition(int position){
-        this.holderPosition = position;
-    }
-
     private int getHolderPosition() {
-        return holderPosition;
+        return getAdapterPosition() - adapter.getHeaderSize();
     }
 
     public ImageView getImageView(@IdRes int viewId) {
