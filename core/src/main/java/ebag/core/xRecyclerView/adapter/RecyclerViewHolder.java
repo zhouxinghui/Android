@@ -31,6 +31,8 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder implements
     public RecyclerViewHolder(View itemView) {
         super(itemView);
         this.mContext = this.itemView.getContext();
+        this.itemView.setOnClickListener(this);
+        this.itemView.setOnLongClickListener(this);
     }
 
     public RecyclerViewHolder addClickListener(@IdRes int viewId) {
@@ -139,7 +141,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder implements
 
     public RecyclerViewHolder setGone(@IdRes int viewId, boolean visible) {
         View view = getView(viewId);
-        view.setVisibility(visible ? View.VISIBLE : View.GONE);
+        view.setVisibility(visible ? View.GONE : View.VISIBLE );
         return this;
     }
 

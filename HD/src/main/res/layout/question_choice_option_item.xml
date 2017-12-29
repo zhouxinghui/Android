@@ -35,5 +35,5 @@
         android:minHeight="@dimen/x40"
         android:textSize="@dimen/question_head"
         android:text="哈哈哈 漩涡"
-        android:textColor="@color/color_question_option_text"/>
+        android:textColor="@color/question_normal"/>
 </LinearLayout>

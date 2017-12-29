@@ -1,7 +1,6 @@
 package ebag.hd.widget.questions;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.PaintDrawable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -52,9 +51,9 @@ public class FillBlankView extends FrameLayout {
 
     private int normal_color;
 
-    private int error_color = Color.RED;
+    private int error_color = getResources().getColor(R.color.question_bg_error);
 
-    private int right_color = Color.GREEN;
+    private int right_color = getResources().getColor(R.color.question_bg_right);
 
     public FillBlankView(Context context) {
         this(context, null);

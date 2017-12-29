@@ -3,28 +3,40 @@ package com.yzy.ebag.student
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import ebag.core.bean.QuestionBean
-import ebag.core.util.T
 import kotlinx.android.synthetic.main.activity_question_test.*
 
 class QuestionTestActivity : AppCompatActivity() {
+
+    private var active = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question_test)
         setJudge()
+        setChoiceView()
         setCompletion()
         setWriteView()
+        setSortView()
+
         showResult.setOnClickListener {
+            judgeView.showResult()
+            choiceView.showResult()
             completeView.showResult()
+            writeView.showResult()
+            sortView.showResult()
         }
 
-        enable.setOnClickListener {
-            if(completeView.isQuestionActive)
-                T.show(this,"冻结操作")
-            else
-                T.show(this,"激活操作")
-            completeView.questionActive(!choiceView.isQuestionActive)
-        }
+//        enable.setOnClickListener {
+//            active = !active
+//            if(active)
+//                T.show(this,"激活操作")
+//            else
+//                T.show(this,"冻结操作")
+//            judgeView.questionActive(active)
+//            completeView.questionActive(active)
+//            completeView.questionActive(active)
+//            writeView.questionActive(active)
+//        }
     }
 
     private fun setJudge(){
@@ -33,7 +45,7 @@ class QuestionTestActivity : AppCompatActivity() {
         questionBean.questionContent = "图片是红色的"
         questionBean.rightAnswer = "对"
         judgeView.setData(questionBean)
-        judgeView.show(true)
+        judgeView.show(active)
     }
 
     private fun setCompletion(){
@@ -43,7 +55,7 @@ class QuestionTestActivity : AppCompatActivity() {
         questionBean.rightAnswer = "4#R#7#R#5#R#6#R#13#R#7#R#8#R#8#R#8"
         questionBean.answer = "4#R#7#R#4#R#6#R#1#R#7#R#8#R#3#R#8"
         completeView.setData(questionBean)
-        completeView.show(false)
+        completeView.show(active)
     }
 
     private fun setWriteView(){
@@ -53,7 +65,7 @@ class QuestionTestActivity : AppCompatActivity() {
         questionBean.questionContent = "这个写图片地址"
         questionBean.rightAnswer = ""
         writeView.setData(questionBean)
-        writeView.show(true)
+        writeView.show(active)
     }
 
     private fun setChoiceView(){
@@ -81,6 +93,16 @@ class QuestionTestActivity : AppCompatActivity() {
                 "desk;blackboard;school;wall"
         questionBean.rightAnswer = "C"
         choiceView.setData(questionBean)
-        choiceView.show(true)
+        choiceView.show(active)
+    }
+
+    private fun setSortView(){
+        val questionBean = QuestionBean()
+        questionBean.questionHead = "把下列句子排成一段通顺的话。"
+        questionBean.questionContent = "与大象一起跳舞最难忘。#R#象是泰国的国宝。#R#在泰国，人与象之间没有距离，#R#在泰国，到处遇到大象很正常，#R#大象聪明而有灵气，"
+        questionBean.rightAnswer = "5,2,3,1,4"
+        questionBean.answer = "3,2,4,1,5"
+        sortView.setData(questionBean)
+        sortView.show(active)
     }
 }

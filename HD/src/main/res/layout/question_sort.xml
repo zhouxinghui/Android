@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingEnd="@dimen/x20"
+    android:paddingTop="@dimen/y10"
+    android:paddingBottom="@dimen/y10"
+    android:baselineAligned="false"
+    android:gravity="top">
+
+    <TextView
+        android:id="@+id/tvSort"
+        android:layout_width="@dimen/x26"
+        android:layout_height="@dimen/x26"
+        android:layout_marginEnd="@dimen/x20"
+        android:layout_marginTop="@dimen/x4"
+        android:gravity="center"
+        android:background="@drawable/bg_question_sort_normal"/>
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/question_head"
+        android:textColor="@color/question_normal"/>
+
+</LinearLayout>

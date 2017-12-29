@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import ebag.core.xRecyclerView.XRecyclerView;
@@ -19,6 +20,8 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
         XRecyclerView.OnHeaderSizeChangedListener{
 
     private static final int DEFAULT_VIEW_TYPE = -0xff;
+    private static final int VIEW_NOT_FIND = -404;
+
     private List<M> mDatas = new ArrayList<>();
 
     private OnItemChildClickListener mOnItemChildClickListener;
@@ -31,6 +34,8 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
 
     private int headerSize = 0;
 
+    public RecyclerAdapter() {}
+
     public RecyclerAdapter(int itemLayoutId) {
         addItemType(DEFAULT_VIEW_TYPE,itemLayoutId);
     }
@@ -41,6 +46,9 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
     }
 
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if(getLayoutId(viewType) == VIEW_NOT_FIND){
+            throw  new IllegalArgumentException("多布局 时请使用 addItemType 方法添加布局");
+        }
         RecyclerViewHolder viewHolder = new RecyclerViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(getLayoutId(viewType), parent, false));
         viewHolder.setAdapter(this);
@@ -48,7 +56,7 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
     }
 
     /**
-     * 多布局时使用
+     * 多布局时使用，建议在getItemViewType 方法中做
      * @param type
      * @param layoutResId
      */
@@ -57,13 +65,18 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
             layouts.put(type, layoutResId);
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return DEFAULT_VIEW_TYPE;
+    }
+
     /**
      * 当没有多布局设置时，默认使用
      * @param viewType
      * @return
      */
     private int getLayoutId(int viewType) {
-        return layouts.get(viewType);
+        return layouts.get(viewType,VIEW_NOT_FIND);
     }
 
     public void onBindViewHolder(RecyclerViewHolder viewHolder, int position) {
@@ -225,13 +238,10 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
      * @param toPosition
      */
     public void moveItem(int fromPosition, int toPosition) {
-        if(fromPosition < toPosition)
-            this.mDatas.add(toPosition, this.mDatas.remove(fromPosition));
-        else{
-            this.mDatas.add(toPosition - 1, this.mDatas.remove(fromPosition));
-        }
+        Collections.swap(mDatas, fromPosition, toPosition);
         this.notifyItemMoved(fromPosition + headerSize, toPosition + headerSize);
-
+        this.notifyItemChanged(fromPosition + headerSize);
+        this.notifyItemChanged(toPosition + headerSize);
     }
 
     /**

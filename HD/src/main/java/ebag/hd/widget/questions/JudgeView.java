@@ -2,20 +2,23 @@ package ebag.hd.widget.questions;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ebag.core.bean.QuestionBean;
-import ebag.core.http.image.SingleImageLoader;
 import ebag.core.util.L;
 import ebag.core.util.StringUtils;
 import ebag.hd.R;
+import ebag.hd.widget.questions.head.HeadAdapter;
 import ebag.hd.widget.questions.util.IQuestionEvent;
 
 /**
@@ -25,27 +28,14 @@ import ebag.hd.widget.questions.util.IQuestionEvent;
 public class JudgeView extends LinearLayout implements IQuestionEvent {
     private Context context;
     /**
-     * 题目内容文字
-     */
-    private TextView contentTv;
-    /**
-     * 内容图片
-     */
-    private ImageView contentImg;
-    /**
      * 选项
      */
     private RadioGroup radioGroup;
     private RadioButton aRadioButton;
     private RadioButton bRadioButton;
-    /**
-     * 内容
-     */
-    private String questionContent;
-    /**
-     * 图片URL
-     */
-    private String imageUrl;
+    private HeadAdapter headAdapter;
+
+    private List<String> title;
     /**
      * 正确答案
      */
@@ -72,22 +62,15 @@ public class JudgeView extends LinearLayout implements IQuestionEvent {
     private void init(final Context context){
         this.context = context;
         setOrientation(VERTICAL);
-        contentImg = new ImageView(context);
-        LayoutParams imgParams = new LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        imgParams.bottomMargin = (int) getResources().getDimension(R.dimen.y10);
-        imgParams.width = (int) getResources().getDimension(R.dimen.x140);
-        imgParams.height = (int) getResources().getDimension(R.dimen.x140);
-        contentImg.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        contentImg.setLayoutParams(imgParams);
 
-        contentTv = new TextView(context);
-        LayoutParams contentParams = new LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        contentParams.bottomMargin = (int) getResources().getDimension(R.dimen.y30);
-        contentTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.question_content));
-        contentTv.setTextColor(getResources().getColor(R.color.question_normal));
-        contentTv.setLayoutParams(contentParams);
+        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        RecyclerView headRecycler = new RecyclerView(context);
+        headRecycler.setNestedScrollingEnabled(false);
+        RecyclerView.LayoutManager headManager = new LinearLayoutManager(context);
+        headRecycler.setLayoutManager(headManager);
+        headAdapter = new HeadAdapter();
+        headRecycler.setAdapter(headAdapter);
+        addView(headRecycler,layoutParams);
 
         radioGroup = new RadioGroup(context);
         RadioGroup.LayoutParams groupParams = new RadioGroup.LayoutParams(
@@ -132,22 +115,24 @@ public class JudgeView extends LinearLayout implements IQuestionEvent {
             }
         });
 //        radioGroup.setEnabled(false);
-        addView(contentImg);
-        addView(contentTv);
         addView(radioGroup);
     }
 
     @Override
     public void setData(QuestionBean questionBean) {
-        imageUrl = null;
-        questionContent =  questionBean.getQuestionContent();
         /*if (questionContent.startsWith("http")) {
             String[] split = questionContent.split("#R#");
             if (split.length > 1)
                 questionContent = split[1];
             imageUrl = split[0];
         }*/
-        imageUrl = questionBean.getQuestionHead();
+
+        title = new ArrayList<>();
+        if(!StringUtils.INSTANCE.isEmpty(questionBean.getQuestionHead())){
+            title.add(questionBean.getQuestionHead());
+        }
+        title.add(questionBean.getQuestionContent());
+
 
         rightAnswer = questionBean.getRightAnswer();
         studentAnswer = questionBean.getAnswer();
@@ -156,14 +141,7 @@ public class JudgeView extends LinearLayout implements IQuestionEvent {
     @Override
     public void show(boolean active) {
         questionActive(active);
-        contentTv.setText(questionContent);
-        if (StringUtils.INSTANCE.isEmpty(imageUrl))
-            contentImg.setVisibility(GONE);
-        else {
-            contentImg.setVisibility(VISIBLE);
-            SingleImageLoader.getInstance().setImage(
-                    imageUrl, contentImg);
-        }
+        headAdapter.setDatas(title);
     }
 
     @Override

@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -111,6 +110,7 @@ public class WriteView extends LinearLayout implements IQuestionEvent {
         RadioGroup penSizeGroup = findViewById(R.id.pen_size_group);
         checkBtn = findViewById(R.id.btn_check);
         recyclerView = findViewById(R.id.recycler_id);
+        recyclerView.setNestedScrollingEnabled(false);
         adapter = new MyAdapter();
         layoutManager = new GridLayoutManager(getContext(), spanCount);
         recyclerView.setAdapter(adapter);
@@ -214,7 +214,7 @@ public class WriteView extends LinearLayout implements IQuestionEvent {
     private class MyAdapter extends RecyclerAdapter<File>{
 
         public MyAdapter() {
-            super(R.layout.write_view_item);
+            super(R.layout.write_view_english_item);
         }
 
         @Override

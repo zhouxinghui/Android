@@ -2,17 +2,17 @@ package ebag.hd.widget.questions;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import java.util.Arrays;
+import java.util.List;
 
 import ebag.core.bean.QuestionBean;
-import ebag.core.http.image.SingleImageLoader;
-import ebag.core.util.StringUtils;
-import ebag.hd.R;
+import ebag.hd.widget.questions.head.HeadAdapter;
 import ebag.hd.widget.questions.util.IQuestionEvent;
 
 /**
@@ -21,19 +21,13 @@ import ebag.hd.widget.questions.util.IQuestionEvent;
 
 public class CompleteView extends LinearLayout implements IQuestionEvent {
     private Context context;
-    /**
-     * 题目标题
-     */
-    private TextView headTv;
-    /**
-     * 标题图片
-     */
-    private ImageView contentImg;
+    private HeadAdapter headAdapter;
+    private List<String> title;
     /**
      * 题目内容
      */
     private FillBlankView fillBlankView;
-    private String questionHead,imageUrl,questionContent;
+    private String questionContent;
     private String rightAnswer;
     private String studentAnswer;
     public CompleteView(Context context) {
@@ -54,37 +48,25 @@ public class CompleteView extends LinearLayout implements IQuestionEvent {
     private void init(Context context) {
         this.context = context;
         setOrientation(VERTICAL);
-        contentImg = new ImageView(context);
-        LayoutParams imgParams = new LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        imgParams.bottomMargin = (int) getResources().getDimension(R.dimen.y15);
-        imgParams.width = (int) getResources().getDimension(R.dimen.x140);
-        imgParams.height = (int) getResources().getDimension(R.dimen.x140);
-        contentImg.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-
-        headTv = new TextView(context);
-        LayoutParams contentParams = new LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        contentParams.bottomMargin = (int) getResources().getDimension(R.dimen.y15);
-        headTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.question_head));
-        headTv.setTextColor(getResources().getColor(R.color.question_normal));
+        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        RecyclerView headRecycler = new RecyclerView(context);
+        headRecycler.setNestedScrollingEnabled(false);
+        RecyclerView.LayoutManager headManager = new LinearLayoutManager(context);
+        headRecycler.setLayoutManager(headManager);
+        headAdapter = new HeadAdapter();
+        headRecycler.setAdapter(headAdapter);
+        addView(headRecycler,layoutParams);
 
         fillBlankView = new FillBlankView(context);
         LayoutParams fillBlankParams = new LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        addView(contentImg,imgParams);
-        addView(headTv,contentParams);
         addView(fillBlankView,fillBlankParams);
     }
 
     @Override
     public void setData(QuestionBean questionBean) {
-        String head = questionBean.getQuestionHead();
-        if (head.startsWith("http"))
-            imageUrl = head;
-        else
-            questionHead = head;
+        title = Arrays.asList(questionBean.getQuestionHead().split("#R#"));
         questionContent = questionBean.getQuestionContent();
 
         studentAnswer = questionBean.getAnswer();
@@ -93,15 +75,7 @@ public class CompleteView extends LinearLayout implements IQuestionEvent {
 
     @Override
     public void show(boolean active) {
-        if (StringUtils.INSTANCE.isEmpty(imageUrl)){
-            headTv.setText(questionHead);
-            headTv.setVisibility(VISIBLE);
-            contentImg.setVisibility(GONE);
-        }else{
-            headTv.setVisibility(GONE);
-            contentImg.setVisibility(VISIBLE);
-            SingleImageLoader.getInstance().setImage(imageUrl, contentImg);
-        }
+        headAdapter.setDatas(title);
         fillBlankView.setActive(active);
         fillBlankView.setData(questionContent);
     }

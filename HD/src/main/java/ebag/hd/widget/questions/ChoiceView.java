@@ -3,15 +3,14 @@ package ebag.hd.widget.questions;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,6 +21,7 @@ import ebag.core.xRecyclerView.adapter.OnItemClickListener;
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder;
 import ebag.hd.R;
+import ebag.hd.widget.questions.head.HeadAdapter;
 import ebag.hd.widget.questions.util.IQuestionEvent;
 import ebag.hd.widget.questions.util.QuestionTypeUtils;
 
@@ -33,20 +33,11 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
         , OnItemClickListener {
 
     private Context mContext;
-    private TextView tvTitle;
-    private ImageView ivTitle;
-    private TextView tvContent;
+    private HeadAdapter headAdapter;
     private OptionAdapter optionAdapter;
 
-    /**
-     * 标题
-     */
-    private String questionHead;
 
-    /**
-     * 选择题题目展示的内容
-     */
-    private String content;
+    private List<String> title;
     /**
      * 选项
      */
@@ -86,73 +77,50 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
         //设置padding
 //        setPadding();
         this.mContext = context;
-        //标题 主要用来显示看单词选图片和看图片选单词的这几个字
-        tvTitle = new TextView(mContext);
-        LinearLayout.LayoutParams titleParams =
-                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX,getResources().getDimensionPixelSize(R.dimen.question_head));
-        tvTitle.setTextColor(getResources().getColor(R.color.color_question_option_text));
-        tvTitle.setPadding(0,0,0,getResources().getDimensionPixelSize(R.dimen.y20));
-        addView(tvTitle,titleParams);
-        LinearLayout.LayoutParams ivParams =
-                new LinearLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.x144)
-                        , getResources().getDimensionPixelSize(R.dimen.x144));
-        //显示标题的图片
-        ivTitle = new ImageView(mContext);
-        ivTitle.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        addView(ivTitle,ivParams);
-
-        //显示题目内容
-        tvContent = new TextView(mContext);
-
-        LinearLayout.LayoutParams contentParams =
-                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        tvContent.setTextSize(TypedValue.COMPLEX_UNIT_PX,getResources().getDimensionPixelSize(R.dimen.question_content));
-        tvContent.setTextColor(getResources().getColor(R.color.color_question_option_text));
-        tvContent.setPadding(0,0,0,getResources().getDimensionPixelSize(R.dimen.y20));
-
-        addView(tvContent, contentParams);
-
+        //标题
+        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        RecyclerView headRecycler = new RecyclerView(mContext);
+        headRecycler.setNestedScrollingEnabled(false);
+        RecyclerView.LayoutManager headManager = new LinearLayoutManager(mContext);
+        headRecycler.setLayoutManager(headManager);
+        headAdapter = new HeadAdapter();
+        headRecycler.setAdapter(headAdapter);
+        addView(headRecycler,layoutParams);
         //选项
         RecyclerView optionRecycler = new RecyclerView(mContext);
-
+        optionRecycler.setNestedScrollingEnabled(false);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(mContext,2);
-
         optionRecycler.setLayoutManager(layoutManager);
-
         optionAdapter = new OptionAdapter();
         optionRecycler.setAdapter(optionAdapter);
-
         optionAdapter.setOnItemClickListener(this);
 
-        addView(optionRecycler);
+        addView(optionRecycler,layoutParams);
 
     }
 
     @Override
     public void setData(QuestionBean questionBean) {
+        title = new ArrayList<>();
         switch (QuestionTypeUtils.getIntType(questionBean)){
             case QuestionTypeUtils.QUESTIONS_CHOOSE_PIC_BY_WORD://看单词选图
                 choiceType = QuestionTypeUtils.QUESTIONS_CHOOSE_PIC_BY_WORD;
-                questionHead = "看单词选图";
-                content = questionBean.getQuestionHead();
+                title.add("看单词选图");
+                title.add(questionBean.getQuestionHead());
                 break;
             case QuestionTypeUtils.QUESTIONS_CHOOSE_WORD_BY_PIC://看图选单词
                 choiceType = QuestionTypeUtils.QUESTIONS_CHOOSE_WORD_BY_PIC;
-                questionHead = "看图选单词";
-                content = questionBean.getQuestionHead();
+                title.add("看图选单词");
+                title.add(questionBean.getQuestionHead());
                 break;
             case QuestionTypeUtils.QUESTIONS_CHOISE://选择题
                 choiceType = QuestionTypeUtils.QUESTIONS_CHOISE;
-                questionHead = questionBean.getQuestionHead();
+                String questionHead = questionBean.getQuestionHead();
                 if (questionHead.startsWith("http")) {
                     String[] split = questionHead.split("#R#");
-                    if (split.length > 1)
-                        questionHead = split[1];
-                    content = split[0];
+                    title = Arrays.asList(split);
                 }else{
-                    content = "";
+                    title.add(questionHead);
                 }
                 break;
             case QuestionTypeUtils.QUESTIONS_CHOOSE_BY_VOICE://听录音选择
@@ -168,44 +136,7 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
     @Override
     public void show(boolean active) {
         this.active = active;
-        switch (choiceType){
-            case QuestionTypeUtils.QUESTIONS_CHOOSE_PIC_BY_WORD://看单词选图
-                tvTitle.setVisibility(VISIBLE);
-                tvTitle.setText(questionHead);
-                ivTitle.setVisibility(GONE);
-                tvContent.setVisibility(VISIBLE);
-                tvContent.setText(content);
-                break;
-            case QuestionTypeUtils.QUESTIONS_CHOOSE_WORD_BY_PIC://看图选单词
-                tvTitle.setVisibility(VISIBLE);
-                tvTitle.setText(questionHead);
-                ivTitle.setVisibility(VISIBLE);
-                SingleImageLoader.getInstance().setImage(content,ivTitle);
-                tvContent.setVisibility(GONE);
-                break;
-
-            case QuestionTypeUtils.QUESTIONS_CHOISE://选择题
-                if(StringUtils.INSTANCE.isEmpty(questionHead)){
-                    tvTitle.setText("");
-                    tvTitle.setVisibility(GONE);
-                }else{
-                    tvTitle.setVisibility(VISIBLE);
-                    tvTitle.setText(questionHead);
-                }
-                if (StringUtils.INSTANCE.isEmpty(content)){
-                    ivTitle.setVisibility(GONE);
-                }else {
-                    ivTitle.setVisibility(VISIBLE);
-                    SingleImageLoader.getInstance().setImage(content,ivTitle);
-                }
-                tvContent.setVisibility(GONE);
-                break;
-            case QuestionTypeUtils.QUESTIONS_CHOOSE_BY_VOICE://听录音选择
-                ivTitle.setVisibility(GONE);
-                tvContent.setVisibility(GONE);
-                tvTitle.setVisibility(GONE);
-                break;
-        }
+        headAdapter.setDatas(title);
         //设置选项
         optionAdapter.setDatas(options);
     }

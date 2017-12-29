@@ -15,21 +15,52 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
     public static final float ALPHA_FULL = 1.0f;
 
     private final ItemTouchHelperAdapter mAdapter;
-    private  XRecyclerView mXrecyclerView;
 
-    public SimpleItemTouchHelperCallback(ItemTouchHelperAdapter adapter, XRecyclerView recyclerView) {
+    /**
+     * 是否可以拖拽
+     */
+    private boolean isCanDrag = true;
+    /**
+     * 是否可以被滑动
+     */
+    private boolean isCanSwipe = false;
+
+
+    public SimpleItemTouchHelperCallback(ItemTouchHelperAdapter adapter) {
         mAdapter = adapter;
-        this.mXrecyclerView = recyclerView;
     }
+
+    /**
+     * 设置是否可以被拖拽
+     *
+     * @param canDrag 是true，否false
+     */
+    public void setDragEnable(boolean canDrag) {
+        isCanDrag = canDrag;
+    }
+
+    public boolean dragEnable() {
+        return isCanDrag;
+    }
+
+    /**
+     * 设置是否可以被滑动
+     *
+     * @param canSwipe 是true，否false
+     */
+    public void setSwipeEnable(boolean canSwipe) {
+        isCanSwipe = canSwipe;
+    }
+
 
     @Override
     public boolean isLongPressDragEnabled() {
-        return true;
+        return isCanDrag;
     }
 
     @Override
     public boolean isItemViewSwipeEnabled() {
-        return true;
+        return isCanSwipe;
     }
 
     @Override
