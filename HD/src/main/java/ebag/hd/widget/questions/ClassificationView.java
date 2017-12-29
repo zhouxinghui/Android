@@ -325,8 +325,8 @@ public class ClassificationView extends LinearLayout implements IQuestionEvent, 
                 (int) getResources().getDimension(R.dimen.x5));
         elementTv.setText(text);
         elementTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.question_content));
-        elementTv.setTextColor(getResources().getColor(R.color.classify_element_tv));
-        elementTv.setBackgroundResource(R.drawable.classify_element_tv_bg);
+        elementTv.setTextColor(getResources().getColor(R.color.white));
+        elementTv.setBackgroundResource(R.drawable.classify_element_bg);
         LayoutParams params = new LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.leftMargin = (int) getResources().getDimension(R.dimen.x8);
@@ -354,7 +354,7 @@ public class ClassificationView extends LinearLayout implements IQuestionEvent, 
                 (int) getResources().getDimension(R.dimen.x5),
                 (int) getResources().getDimension(R.dimen.x5),
                 (int) getResources().getDimension(R.dimen.x5));
-        imageView.setBackgroundResource(R.drawable.classify_element_img_bg);
+        imageView.setBackgroundResource(R.drawable.classify_element_bg);
         LayoutParams params = new LayoutParams(
                 (int) getResources().getDimension(R.dimen.x80),
                 (int) getResources().getDimension(R.dimen.x80));
