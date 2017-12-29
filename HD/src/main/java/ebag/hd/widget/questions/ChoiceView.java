@@ -51,6 +51,8 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
      */
     private String studentAnswer;
 
+    private String answer = "";
+
     private boolean active = true;
 
     private int choiceType = 0;
@@ -127,8 +129,25 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
                 choiceType = QuestionTypeUtils.QUESTIONS_CHOOSE_BY_VOICE;
 
                 break;
+
+            case QuestionTypeUtils.QUESTIONS_JUDGE://判断题
+                choiceType = QuestionTypeUtils.QUESTIONS_JUDGE;
+                title = new ArrayList<>();
+                if(!StringUtils.INSTANCE.isEmpty(questionBean.getQuestionHead())){
+                    title.add(questionBean.getQuestionHead());
+                }
+                title.add(questionBean.getQuestionContent());
+
+                break;
         }
-        options = Arrays.asList(questionBean.getQuestionContent().split(";"));
+        if(QuestionTypeUtils.getIntType(questionBean) == QuestionTypeUtils.QUESTIONS_JUDGE){
+            options = new ArrayList<>();
+            options.add("正确");
+            options.add("错误");
+        }else{
+            options = Arrays.asList(questionBean.getQuestionContent().split(";"));
+        }
+
         rightAnswer = questionBean.getRightAnswer();
         studentAnswer = questionBean.getAnswer();
     }
@@ -154,13 +173,17 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
     @Override
     public void showResult() {
         show(false);
-        if(isRegularAnswer(studentAnswer) && isRegularAnswer(rightAnswer))
-            optionAdapter.setResult(getIndex(rightAnswer), getIndex(studentAnswer));
+        if(choiceType == QuestionTypeUtils.QUESTIONS_JUDGE){//判断题
+            optionAdapter.setResult(getJudgeIndex(rightAnswer), getJudgeIndex(studentAnswer));
+        }else{//选择题
+            optionAdapter.setResult(getChoiceIndex(rightAnswer), getChoiceIndex(studentAnswer));
+        }
+
     }
 
     @Override
     public String getAnswer() {
-        return studentAnswer;
+        return answer;
     }
 
     @Override
@@ -169,8 +192,8 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
         optionAdapter.setResult(-1, -1);
     }
 
-    private int getIndex(String str) {
-        if(StringUtils.INSTANCE.isEmpty(str))
+    private int getChoiceIndex(String str) {
+        if(StringUtils.INSTANCE.isEmpty(str) || str.length() > 1)
             return -1;
         char c = str.charAt(0);
         if(c >= 'A' && c <= 'A' + options.size())
@@ -179,30 +202,43 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
             return -1;
     }
 
-    private boolean isRegularAnswer(String str){
-        if(StringUtils.INSTANCE.isEmpty(str))
-            return false;
-        else if(str.length() != 1)
-            return false;
-        else return 'A' <= str.charAt(0) && str.charAt(0) <= 'A' + options.size();
+    private int getJudgeIndex(String str) {
+        if(StringUtils.INSTANCE.isEmpty(str) || str.length() > 1)
+            return -1;
+        if("对".equals(str)){
+            return 0;
+        }else if("错".equals(str)){
+            return 1;
+        }else{
+            return -1;
+        }
     }
 
     @Override
     public void onItemClick(RecyclerViewHolder holder, View view, int position) {
         if(!this.active) return;
         optionAdapter.setSelectedPosition(position);
-        studentAnswer = String.valueOf((char)('A' + position));
+
+        //点击的时候设置答案
+        if(choiceType == QuestionTypeUtils.QUESTIONS_JUDGE){//判断题
+            if(position == 0)
+                answer = "对";
+            else
+                answer = "错";
+        }else{//选择题
+            answer = String.valueOf((char)('A' + position));
+        }
     }
 
 
-    private class OptionAdapter extends RecyclerAdapter<String>{
+    public static class OptionAdapter extends RecyclerAdapter<String>{
 
         private int selectedPosition = -1;
 
         private int rightPosition = -1;
 
 
-        OptionAdapter() {
+        public OptionAdapter() {
             super(R.layout.question_choice_option_item);
         }
 

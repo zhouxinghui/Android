@@ -14,6 +14,7 @@ class QuestionTestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question_test)
+        setSentenceView()
         setJudge()
         setChoiceView()
         setCompletion()
@@ -33,6 +34,7 @@ class QuestionTestActivity : AppCompatActivity() {
             writeView.showResult()
             sortView.showResult()
             enSortView.showResult()
+            sentenceView.showResult()
         }
 
         enable.setOnClickListener {
@@ -55,6 +57,16 @@ class QuestionTestActivity : AppCompatActivity() {
 //            writeView.questionActive(active)
 //        }
     }
+
+    private fun setSentenceView(){
+        val questionBean = QuestionBean()
+        questionBean.questionHead = "用现代文翻译句子"
+        questionBean.questionContent = "孔子东游，见两小儿辩斗，问其故。"
+        questionBean.answer = "孔子往东边游学"
+        sentenceView.setData(questionBean)
+        sentenceView.show(true)
+    }
+
     private fun setClassificationView(){
         val questionBean = QuestionBean()
         questionBean.questionHead = "给下列单词归类"
@@ -77,9 +89,11 @@ class QuestionTestActivity : AppCompatActivity() {
 
     private fun setJudge(){
         val questionBean = QuestionBean()
+        questionBean.questionType = "pd"
         questionBean.questionHead = "http://img.zcool.cn/community/01902d554c0125000001bf72a28724.jpg@1280w_1l_2o_100sh.jpg"
         questionBean.questionContent = "图片是红色的"
         questionBean.rightAnswer = "对"
+        questionBean.answer = "错"
         judgeView.setData(questionBean)
         judgeView.show(active)
     }
@@ -129,6 +143,7 @@ class QuestionTestActivity : AppCompatActivity() {
         questionBean.questionContent =
                 "desk;blackboard;school;wall"
         questionBean.rightAnswer = "C"
+        questionBean.answer = "C"
         choiceView.setData(questionBean)
         choiceView.show(active)
     }

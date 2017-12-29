@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import ebag.core.bean.QuestionBean;
+import ebag.hd.widget.questions.base.FillBlankView;
 import ebag.hd.widget.questions.head.HeadAdapter;
 import ebag.hd.widget.questions.util.IQuestionEvent;
 

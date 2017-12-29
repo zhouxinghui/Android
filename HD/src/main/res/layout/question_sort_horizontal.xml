@@ -4,7 +4,7 @@
     android:id="@+id/tvContent"
     android:layout_width="wrap_content"
     android:layout_height="@dimen/question_sort_en_height"
-    android:textSize="@dimen/question_head"
+    android:textSize="@dimen/question_content"
     android:gravity="center"
     android:textColor="@color/question_normal"
     android:background="@drawable/bg_question_sort_en_normal"

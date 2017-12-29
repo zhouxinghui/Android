@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="question_sort_en_height">@dimen/x50</dimen>
+    <dimen name="question_sort_en_height">@dimen/x48</dimen>
     <dimen name="question_sort_en_radius">@dimen/x5</dimen>
     <dimen name="question_head">@dimen/x22</dimen>
     <dimen name="question_content">@dimen/x20</dimen>

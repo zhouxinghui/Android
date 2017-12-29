@@ -29,7 +29,7 @@ import ebag.hd.widget.questions.util.IQuestionEvent;
  * Created by unicho on 2017/12/29.
  */
 
-public class HorizontalSortView extends LinearLayout implements IQuestionEvent{
+public class SortHorizontalView extends LinearLayout implements IQuestionEvent{
 
     private HeadAdapter headAdapter;
     private SortAdapter contentAdapter;
@@ -44,17 +44,17 @@ public class HorizontalSortView extends LinearLayout implements IQuestionEvent{
     private String rightAnswer;
     private String studentAnswer;
 
-    public HorizontalSortView(Context context) {
+    public SortHorizontalView(Context context) {
         super(context);
         init(context);
     }
 
-    public HorizontalSortView(Context context, @Nullable AttributeSet attrs) {
+    public SortHorizontalView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public HorizontalSortView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public SortHorizontalView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }

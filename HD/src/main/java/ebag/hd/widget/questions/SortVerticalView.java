@@ -26,9 +26,8 @@ import ebag.hd.widget.questions.util.IQuestionEvent;
  * Created by unicho on 2017/12/28.
  */
 
-public class VerticalSortView extends LinearLayout implements IQuestionEvent{
+public class SortVerticalView extends LinearLayout implements IQuestionEvent{
 
-    private Context mContext;
     private HeadAdapter headAdapter;
     private SortAdapter sortAdapter;
     private List<String> headList;
@@ -38,17 +37,17 @@ public class VerticalSortView extends LinearLayout implements IQuestionEvent{
     private boolean isMoved = false;
     private SimpleItemTouchHelperCallback callback;
 
-    public VerticalSortView(Context context) {
+    public SortVerticalView(Context context) {
         super(context);
         init(context);
     }
 
-    public VerticalSortView(Context context, @Nullable AttributeSet attrs) {
+    public SortVerticalView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public VerticalSortView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public SortVerticalView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
@@ -59,19 +58,18 @@ public class VerticalSortView extends LinearLayout implements IQuestionEvent{
         setOrientation(VERTICAL);
         //设置padding
 //        setPadding();
-        this.mContext = context;
         //标题
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        RecyclerView headRecycler = new RecyclerView(mContext);
+        RecyclerView headRecycler = new RecyclerView(context);
         headRecycler.setNestedScrollingEnabled(false);
-        RecyclerView.LayoutManager headManager = new LinearLayoutManager(mContext);
+        RecyclerView.LayoutManager headManager = new LinearLayoutManager(context);
         headRecycler.setLayoutManager(headManager);
         headAdapter = new HeadAdapter();
         headRecycler.setAdapter(headAdapter);
         addView(headRecycler,layoutParams);
         //选项
-        RecyclerView optionRecycler = new RecyclerView(mContext);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
+        RecyclerView optionRecycler = new RecyclerView(context);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         optionRecycler.setNestedScrollingEnabled(false);
         optionRecycler.setLayoutManager(layoutManager);
         sortAdapter = new SortAdapter();
@@ -176,8 +174,8 @@ public class VerticalSortView extends LinearLayout implements IQuestionEvent{
 
         SortAdapter(){
             super(R.layout.question_sort_vertical);
-            colorNormal = mContext.getResources().getColor(R.color.question_normal);
-            colorSelected = mContext.getResources().getColor(R.color.white);
+            colorNormal = getResources().getColor(R.color.question_normal);
+            colorSelected = getResources().getColor(R.color.white);
         }
 
         @Override

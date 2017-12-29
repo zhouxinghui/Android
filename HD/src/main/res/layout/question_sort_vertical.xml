@@ -16,6 +16,7 @@
         android:layout_height="@dimen/x26"
         android:layout_marginEnd="@dimen/x20"
         android:layout_marginTop="@dimen/x4"
+        android:textSize="@dimen/question_content"
         android:gravity="center"
         android:background="@drawable/bg_question_sort_normal"/>
 

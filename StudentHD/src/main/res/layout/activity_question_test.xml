@@ -27,22 +27,24 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             >
-
-            <ebag.hd.widget.questions.HorizontalSortView
+            <ebag.hd.widget.questions.SentenceView
+                android:id="@+id/sentenceView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <ebag.hd.widget.questions.SortHorizontalView
                 android:id="@+id/enSortView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+                android:layout_height="wrap_content" />
             <ebag.hd.widget.questions.ClassificationView
                 android:id="@+id/classificationView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-            <ebag.hd.widget.questions.VerticalSortView
+            <ebag.hd.widget.questions.SortVerticalView
                 android:id="@+id/sortView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
-            <ebag.hd.widget.questions.JudgeView
+            <ebag.hd.widget.questions.ChoiceView
                 android:id="@+id/judgeView"
                 android:layout_width="@dimen/x500"
                 android:layout_height="wrap_content"/>

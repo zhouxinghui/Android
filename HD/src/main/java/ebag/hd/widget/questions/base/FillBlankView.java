@@ -1,4 +1,4 @@
-package ebag.hd.widget.questions;
+package ebag.hd.widget.questions.base;
 
 import android.content.Context;
 import android.graphics.drawable.PaintDrawable;
