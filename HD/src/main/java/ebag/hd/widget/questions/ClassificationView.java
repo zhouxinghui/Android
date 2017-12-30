@@ -319,9 +319,9 @@ public class ClassificationView extends LinearLayout implements IQuestionEvent, 
     private void addChildWorld(String text, ViewGroup parent, int index, boolean isTouch, boolean isShowElement){
         TextView elementTv = new TextView(context);
         elementTv.setPadding(
+                (int) getResources().getDimension(R.dimen.x10),
                 (int) getResources().getDimension(R.dimen.x5),
-                (int) getResources().getDimension(R.dimen.x5),
-                (int) getResources().getDimension(R.dimen.x5),
+                (int) getResources().getDimension(R.dimen.x10),
                 (int) getResources().getDimension(R.dimen.x5));
         elementTv.setText(text);
         elementTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.question_content));

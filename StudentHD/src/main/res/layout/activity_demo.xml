@@ -25,7 +25,7 @@
             android:background="@color/login_line"
             />
     </LinearLayout>
-    <ebag.hd.widget.MyView
+    <ebag.hd.widget.MyLineView
         android:id="@+id/myView"
         android:layout_width="0dp"
         android:layout_height="match_parent"

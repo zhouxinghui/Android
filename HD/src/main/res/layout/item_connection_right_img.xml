@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_marginLeft="@dimen/connection_margin"
+    android:layout_marginRight="@dimen/connection_margin"
+    android:layout_marginTop="@dimen/connection_top_margin"
+    >
+    <!--这是连线题元素的item，使用marginRight+marginLeft作为中间连线区域的宽度，修改宽度时注意-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="start"
+        >
+        <ImageView android:id="@+id/element_id"
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/x80"
+            android:background="@drawable/connection_element_bg"
+            android:padding="@dimen/x5"
+            />
+    </LinearLayout>
+</LinearLayout>

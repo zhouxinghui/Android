@@ -23,6 +23,7 @@ class QuestionTestActivity : AppCompatActivity() {
         setClassificationView()
         setSortView()
         setEnSort()
+        setConnectionView()
 
         showResult.setOnClickListener {
             classificationView.showResult()
@@ -67,6 +68,15 @@ class QuestionTestActivity : AppCompatActivity() {
         sentenceView.show(true)
     }
 
+    private fun setConnectionView(){
+        val questionBean = QuestionBean()
+        questionBean.questionHead = "给下列单词归类"
+        questionBean.questionContent = "blackboard,desk,chair,schoolbag;http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/desk.jpg,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/schoolbag.jpg"
+        questionBean.rightAnswer = "介词#R#on,under;学校物品#R#classroom,blackboard;代词#R#she,he;动物#R#elephant,bird"
+        questionBean.answer = ""
+        connectionView.setData(questionBean)
+        connectionView.show(true)
+    }
     private fun setClassificationView(){
         val questionBean = QuestionBean()
         questionBean.questionHead = "给下列单词归类"

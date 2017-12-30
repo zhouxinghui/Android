@@ -35,6 +35,10 @@
                 android:id="@+id/enSortView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+            <ebag.hd.widget.questions.ConnectionView
+                android:id="@+id/connectionView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
             <ebag.hd.widget.questions.ClassificationView
                 android:id="@+id/classificationView"
                 android:layout_width="match_parent"

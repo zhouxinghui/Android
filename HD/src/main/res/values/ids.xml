@@ -3,4 +3,5 @@
     <item name="judge_right" type="id"/>
     <item name="judge_wrong" type="id"/>
     <item name="multi_under_line" type="id"/>
+    <item name="connection_recycler_id" type="id"/>
 </resources>
