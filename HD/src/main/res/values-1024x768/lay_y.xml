@@ -9,6 +9,7 @@
 <dimen name="x8">6px</dimen>
 <dimen name="x9">7px</dimen>
 <dimen name="x10">8px</dimen>
+    <dimen name="x010">-8px</dimen>
 <dimen name="x11">9px</dimen>
 <dimen name="x12">10px</dimen>
 <dimen name="x13">10px</dimen>

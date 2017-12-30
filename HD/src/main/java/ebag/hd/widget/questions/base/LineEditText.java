@@ -3,45 +3,38 @@ package ebag.hd.widget.questions.base;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.support.v7.widget.AppCompatEditText;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 
-public class LineEditText extends AppCompatEditText {
-	private Paint linePaint;
-    private float margin;
-    private int paperColor;
+import ebag.hd.R;
 
-    public LineEditText(Context paramContext){
-        this(paramContext,null);
+public class LineEditText extends CursorEditText {
+    private Rect mRect;
+    private Paint mPaint;
+
+    public LineEditText(Context context) {
+        this(context, null);
     }
 
-    public LineEditText(Context paramContext, AttributeSet paramAttributeSet) {
-        super(paramContext, paramAttributeSet);
-        this.linePaint = new Paint();
-        linePaint.setAntiAlias(true);
+    public LineEditText(Context context, AttributeSet attrs) {
+        this(context, attrs, android.support.v7.appcompat.R.attr.editTextStyle);
     }
 
-    protected void onDraw(Canvas paramCanvas) {
-        paramCanvas.drawColor(this.paperColor);
-        int i = getLineCount();
-        int j = getHeight();
-        int k = getLineHeight();
-        int m = 1 + j / k;
-        if (i < m)
-            i = m;
-        int n = getCompoundPaddingTop();
-        int o = (int) getLineSpacingExtra() - 10;
-        paramCanvas.drawLine(0.0F, n-o, getRight(), n-o, this.linePaint);
-        for (int i2 = 0; ; i2++) {
-            if (i2 >= i) {
-                setPadding(10 + (int) this.margin, 0, 0, 0);
-                super.onDraw(paramCanvas);
-                paramCanvas.restore();
-                return;
-            }
-            n += k;
-            paramCanvas.drawLine(0.0F, n-o, getRight(), n-o, this.linePaint);
-            paramCanvas.save();
+    public LineEditText(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        mRect = new Rect();
+        mPaint = new Paint();
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setColor(getResources().getColor(R.color.question_normal));
+    }
+
+    protected void onDraw(Canvas canvas) {
+        int count = getLineCount();
+        int lineSpacing = (int) (getLineSpacingExtra() / 2);
+        for (int i = 0; i < count; i++) {
+            int baseline = getLineBounds(i, mRect);
+            canvas.drawLine(mRect.left, baseline + lineSpacing , mRect.right, baseline + lineSpacing, mPaint);
         }
+        super.onDraw(canvas);
     }
 }

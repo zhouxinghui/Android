@@ -93,7 +93,7 @@
         app:layout_constraintStart_toStartOf="@id/leftLayout"
         app:layout_constraintTop_toBottomOf="@id/tvClassTeacher" />
 
-    <com.yzy.ebag.student.widget.drawable.CenterTextView
+    <ebag.hd.widget.drawable.CenterTextView
         android:id="@+id/tvSetup"
         android:layout_width="@dimen/x139"
         android:layout_height="@dimen/x62"
@@ -107,7 +107,7 @@
         app:leftDrawableHeight="@dimen/x38"
         app:leftDrawableWidth="@dimen/x38"/>
 
-    <com.yzy.ebag.student.widget.drawable.CenterTextView
+    <ebag.hd.widget.drawable.CenterTextView
         android:id="@+id/tvPosition"
         android:layout_width="@dimen/x139"
         android:layout_height="@dimen/x62"
@@ -197,7 +197,7 @@
         app:layout_constraintStart_toStartOf="@+id/ivAnnounceBg"
         app:layout_constraintTop_toBottomOf="@+id/tipA" />
 
-    <com.yzy.ebag.student.widget.drawable.CenterTextView
+    <ebag.hd.widget.drawable.CenterTextView
         android:id="@+id/tvMoreAnnounce"
         android:layout_width="@dimen/x128"
         android:layout_height="@dimen/y38"
@@ -213,7 +213,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ivAnnounceBg" />
 
-    <com.yzy.ebag.student.widget.drawable.CenterTextView
+    <ebag.hd.widget.drawable.CenterTextView
         android:id="@+id/tvKHZY"
         android:layout_width="0dp"
         android:layout_height="@dimen/y240"
@@ -229,7 +229,7 @@
         app:layout_constraintTop_toBottomOf="@id/ivAnnounce"
         app:layout_constraintStart_toStartOf="@id/ivAnnounce"
         app:layout_constraintEnd_toStartOf="@id/tvSTZY"/>
-    <com.yzy.ebag.student.widget.drawable.CenterTextView
+    <ebag.hd.widget.drawable.CenterTextView
         android:id="@+id/tvSTZY"
         android:layout_width="0dp"
         android:layout_height="@dimen/y240"
@@ -245,7 +245,7 @@
         app:layout_constraintTop_toTopOf="@id/tvKHZY"
         app:layout_constraintStart_toEndOf="@id/tvKHZY"
         app:layout_constraintEnd_toStartOf="@id/tvKSSJ"/>
-    <com.yzy.ebag.student.widget.drawable.CenterTextView
+    <ebag.hd.widget.drawable.CenterTextView
         android:id="@+id/tvKSSJ"
         android:layout_width="0dp"
         android:layout_height="@dimen/y240"
@@ -262,7 +262,7 @@
         app:layout_constraintTop_toTopOf="@id/tvKHZY"
         app:layout_constraintStart_toEndOf="@id/tvSTZY"
         app:layout_constraintEnd_toStartOf="@id/tvXXKB"/>
-    <com.yzy.ebag.student.widget.drawable.CenterTextView
+    <ebag.hd.widget.drawable.CenterTextView
         android:id="@+id/tvXXKB"
         android:layout_width="0dp"
         android:layout_height="@dimen/y240"
@@ -278,7 +278,7 @@
         app:layout_constraintTop_toTopOf="@id/tvKHZY"
         app:layout_constraintStart_toEndOf="@id/tvKSSJ"
         app:layout_constraintEnd_toStartOf="@id/tvKCB"/>
-    <com.yzy.ebag.student.widget.drawable.CenterTextView
+    <ebag.hd.widget.drawable.CenterTextView
         android:id="@+id/tvKCB"
         android:layout_width="0dp"
         android:layout_height="@dimen/y240"
@@ -307,7 +307,7 @@
         app:layout_constraintStart_toStartOf="@id/ivAnnounce"
         app:layout_constraintEnd_toStartOf="@id/llLearnPlace">
 
-        <com.yzy.ebag.student.widget.drawable.CenterTextView
+        <ebag.hd.widget.drawable.CenterTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:rightDrawable="@drawable/home_icon_more_learn"
@@ -337,7 +337,7 @@
         app:layout_constraintTop_toTopOf="@id/llLearnGroup"
         app:layout_constraintStart_toEndOf="@id/llLearnGroup"
         app:layout_constraintEnd_toEndOf="parent">
-        <com.yzy.ebag.student.widget.drawable.CenterTextView
+        <ebag.hd.widget.drawable.CenterTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:rightDrawable="@drawable/home_icon_more_learn"

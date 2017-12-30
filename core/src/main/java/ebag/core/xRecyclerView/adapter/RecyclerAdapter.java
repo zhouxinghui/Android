@@ -179,9 +179,10 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
      */
     public void removeItem(M model) {
         int i = this.mDatas.indexOf(model);
-        mDatas.remove(i);
-        this.notifyItemRemoved(i+headerSize);
-
+        if(i >= 0) {
+            mDatas.remove(i);
+            this.notifyItemRemoved(i + headerSize);
+        }
     }
 
     /**

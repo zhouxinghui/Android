@@ -84,7 +84,7 @@ public class SortHorizontalView extends LinearLayout implements IQuestionEvent{
         contentAdapter = new SortAdapter();
         contentRecycler.setAdapter(contentAdapter);
         contentAdapter.setAnswer(false);
-        layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R.dimen.question_sort_en_height));
+        layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R.dimen.question_tag_height));
         layoutParams.bottomMargin = getResources().getDimensionPixelSize(R.dimen.y47);
         addView(contentRecycler,layoutParams);
         contentAdapter.setOnItemClickListener(new OnItemClickListener() {
@@ -92,7 +92,7 @@ public class SortHorizontalView extends LinearLayout implements IQuestionEvent{
             public void onItemClick(RecyclerViewHolder holder, View view, int position) {
                 if(active){
                     SortBean content = contentAdapter.getItem(position);
-                    contentAdapter.removeItem(position);
+                    contentAdapter.removeItem(content);
                     answerAdapter.addLastItem(content);
                 }
             }
@@ -113,13 +113,13 @@ public class SortHorizontalView extends LinearLayout implements IQuestionEvent{
             public void onItemClick(RecyclerViewHolder holder, View view, int position) {
                 if(active){
                     SortBean content = answerAdapter.getItem(position);
-                    answerAdapter.removeItem(position);
+                    answerAdapter.removeItem(content);
                     contentAdapter.addLastItem(content);
                 }
             }
         });
 
-        layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R.dimen.question_sort_en_height));
+        layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R.dimen.question_tag_height));
         addView(answerRecycler,layoutParams);
 
         callback = new SortItemTouchHelper(new ItemTouchHelperAdapter() {

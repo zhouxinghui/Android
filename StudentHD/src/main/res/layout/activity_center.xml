@@ -112,7 +112,7 @@
             android:text="@string/operating_guide" />
     </RadioGroup>
 
-    <com.yzy.ebag.student.widget.drawable.CenterTextView
+    <ebag.hd.widget.drawable.CenterTextView
         android:id="@+id/tvSetup"
         android:layout_width="@dimen/x139"
         android:layout_height="@dimen/x62"
@@ -126,7 +126,7 @@
         app:leftDrawableHeight="@dimen/x38"
         app:leftDrawableWidth="@dimen/x38" />
 
-    <com.yzy.ebag.student.widget.drawable.CenterTextView
+    <ebag.hd.widget.drawable.CenterTextView
         android:id="@+id/tvMain"
         android:layout_width="@dimen/x139"
         android:layout_height="@dimen/x62"

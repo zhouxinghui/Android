@@ -63,10 +63,4 @@
     <declare-styleable name="WriteView">
         <attr name="isChinese" format="boolean"/>
     </declare-styleable>
-
-    <declare-styleable name="LineHeightEditText">
-        <attr format="color" name="cursorColor"/>
-        <attr format="dimension" name="cursorHeight"/>
-        <attr format="dimension" name="cursorWidth"/>
-    </declare-styleable>
 </resources>

@@ -3,13 +3,13 @@
     <item android:state_pressed="true">
         <shape >
             <solid android:color="@color/question_bg_pressed"/>
-            <corners android:radius="@dimen/question_radius"/>
+            <corners android:radius="@dimen/question_tag_radius"/>
         </shape>
     </item>
     <item>
         <shape>
             <solid android:color="@color/question_bg_normal"/>
-            <corners android:radius="@dimen/question_radius"/>
+            <corners android:radius="@dimen/question_tag_radius"/>
         </shape>
     </item>
 </selector>

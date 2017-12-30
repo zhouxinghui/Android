@@ -3,10 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tvContent"
     android:layout_width="wrap_content"
-    android:layout_height="@dimen/question_sort_en_height"
+    android:layout_height="@dimen/question_tag_height"
     android:textSize="@dimen/question_content"
     android:gravity="center"
     android:textColor="@color/question_normal"
     android:background="@drawable/bg_question_sort_en_normal"
-    android:paddingRight="@dimen/x20"
-    android:paddingLeft="@dimen/x20"/>
+    android:paddingRight="@dimen/question_tag_hor_padding"
+    android:paddingLeft="@dimen/question_tag_hor_padding"/>

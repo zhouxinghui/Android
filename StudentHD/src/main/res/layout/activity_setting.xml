@@ -20,7 +20,7 @@
         android:layout_marginEnd="@dimen/x30"
         android:layout_marginTop="@dimen/y12"
         android:background="@drawable/setting_item_bg">
-        <com.yzy.ebag.student.widget.drawable.DrawableTextView
+        <ebag.hd.widget.drawable.DrawableTextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/y58"
             android:gravity="start|center_vertical"
@@ -51,7 +51,7 @@
         android:layout_marginTop="@dimen/x16"
         android:showDividers="middle"
         android:divider="@drawable/setting_line">
-        <com.yzy.ebag.student.widget.drawable.DrawableTextView
+        <ebag.hd.widget.drawable.DrawableTextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/y58"
             android:gravity="start|center_vertical"
@@ -69,7 +69,7 @@
             android:background="@drawable/setting_item_selector"
             android:text="@string/setting_update"/>
 
-        <com.yzy.ebag.student.widget.drawable.DrawableTextView
+        <ebag.hd.widget.drawable.DrawableTextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/y58"
             android:gravity="start|center_vertical"
@@ -87,7 +87,7 @@
             android:background="@drawable/setting_item_selector"
             android:text="@string/setting_announce"/>
 
-        <com.yzy.ebag.student.widget.drawable.DrawableTextView
+        <ebag.hd.widget.drawable.DrawableTextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/y58"
             android:gravity="start|center_vertical"
@@ -113,7 +113,7 @@
         android:layout_marginEnd="@dimen/x30"
         android:layout_marginTop="@dimen/y16"
         android:background="@drawable/setting_item_bg">
-        <com.yzy.ebag.student.widget.drawable.DrawableTextView
+        <ebag.hd.widget.drawable.DrawableTextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/y58"
             android:gravity="start|center_vertical"
@@ -143,7 +143,7 @@
         android:layout_marginStart="@dimen/x30"
         android:layout_marginEnd="@dimen/x30"
         android:layout_marginTop="@dimen/x16">
-        <com.yzy.ebag.student.widget.drawable.DrawableTextView
+        <ebag.hd.widget.drawable.DrawableTextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/y58"
             android:gravity="start|center_vertical"
@@ -160,7 +160,7 @@
             android:background="@drawable/setting_item_selector"
             app:rightDrawableWidth="@dimen/x13"
             app:rightDrawableHeight="@dimen/x22"/>
-        <com.yzy.ebag.student.widget.drawable.DrawableTextView
+        <ebag.hd.widget.drawable.DrawableTextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/y58"
             android:gravity="start|center_vertical"

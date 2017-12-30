@@ -1,18 +1,14 @@
 package ebag.hd.widget.questions;
 
 import android.content.Context;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -65,23 +61,16 @@ public class SentenceView extends LinearLayout implements IQuestionEvent{
         addView(headRecycler,layoutParams);
 
 
+        //这个只能用  这种方式 实例化 用 new的方式，里面设置的很多方法会没有效果
         lineEditText = new LineEditText(context);
+        lineEditText.setId(R.id.multi_under_line);
+        lineEditText.setLineSpacing(getResources().getDimensionPixelSize(R.dimen.x10),1);
         lineEditText.setTextColor(getResources().getColor(R.color.question_normal));
         lineEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.question_content));
         lineEditText.setBackground(null);
         lineEditText.setMinLines(1);
-        lineEditText.setLineSpacing(getResources().getDimensionPixelSize(R.dimen.x10),1);
-//        setTextCursorDrawable(lineEditText,R.drawable.cursor);
+
         addView(lineEditText,layoutParams);
-
-    }
-
-    public void setTextCursorDrawable(EditText et, @DrawableRes int res) {
-        try {
-            Field f = TextView.class.getDeclaredField("mCursorDrawableRes");
-            f.setAccessible(true);
-            f.set(et, res);
-        } catch (Exception ignored) {}
     }
 
     @Override

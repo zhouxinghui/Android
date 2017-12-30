@@ -2,4 +2,5 @@
 <resources>
     <item name="judge_right" type="id"/>
     <item name="judge_wrong" type="id"/>
+    <item name="multi_under_line" type="id"/>
 </resources>

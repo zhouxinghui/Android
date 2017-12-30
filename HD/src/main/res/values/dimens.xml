@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="question_sort_en_height">@dimen/x48</dimen>
-    <dimen name="question_radius">@dimen/x5</dimen>
+    <dimen name="question_tag_height">@dimen/x40</dimen>
+    <dimen name="question_tag_radius">@dimen/x4</dimen>
+
+    <dimen name="question_tag_hor_padding">@dimen/x15</dimen>
 
     <dimen name="question_head">@dimen/x22</dimen>
     <dimen name="question_content">@dimen/x20</dimen>
