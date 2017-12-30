@@ -8,4 +8,8 @@
     <dimen name="chinese_draw_view_height">@dimen/x300</dimen>
     <dimen name="english_draw_view_width">@dimen/x550</dimen>
     <dimen name="english_draw_view_height">@dimen/x133</dimen>
+
+    <dimen name="connection_margin">@dimen/x100</dimen>
+    <dimen name="connection_top_margin">@dimen/y20</dimen>
+    <dimen name="connection_tv_min_height">@dimen/y60</dimen>
 </resources>

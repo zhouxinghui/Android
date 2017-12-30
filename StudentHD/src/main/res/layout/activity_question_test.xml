@@ -27,7 +27,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             >
-
+            <ebag.hd.widget.questions.ConnectionView
+                android:id="@+id/connectionView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
             <ebag.hd.widget.questions.HorizontalSortView
                 android:id="@+id/enSortView"
                 android:layout_width="match_parent"
