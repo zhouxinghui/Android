@@ -37,6 +37,7 @@ import ebag.hd.widget.FlowLayout;
 import ebag.hd.widget.questions.util.IQuestionEvent;
 
 /**
+ * 分类题
  * Created by YZY on 2017/12/27.
  */
 
@@ -437,7 +438,7 @@ public class ClassificationView extends LinearLayout implements IQuestionEvent, 
                     windowManager.removeView(mDragImageView);
                     if ((centerY > llChildY0 && centerY < llChildY0 + categoryOut.getHeight())
                             && (centerX > llChildX0 && centerX < llChildX0 + categoryOut.getWidth())) {
-                        // TODO 在第一个圈子内
+                        // 在第一个圈子内
                         String mTag = (String) mDragImageView.getTag(R.id.image_id);
                         if (mTag.startsWith("http:"))
                             addChildPic(mTag, llChild0, (Integer) mDragImageView.getTag(), false, true);
@@ -458,7 +459,7 @@ public class ClassificationView extends LinearLayout implements IQuestionEvent, 
                     int llChildY1 = location1[1];
                     if ((centerY > llChildY1 && centerY < llChildY1 + categoryOut1.getHeight())
                             && (centerX > llChildX1 && centerX < llChildX1 + categoryOut1.getWidth())) {
-                        // TODO 在第2个圈子内
+                        // 在第2个圈子内
                         String mTag = (String) mDragImageView.getTag(R.id.image_id);
                         if (mTag.startsWith("http:"))
                             addChildPic(mTag, llChild1, (Integer) mDragImageView.getTag(), false, true);
@@ -479,7 +480,7 @@ public class ClassificationView extends LinearLayout implements IQuestionEvent, 
                     int llChildY2 = location2[1];
                     if ((centerY > llChildY2 && centerY < llChildY2 + categoryOut2.getHeight())
                             && (centerX > llChildX2 && centerX < llChildX2 + categoryOut2.getWidth())) {
-                        // TODO 在第3个圈子内
+                        // 在第3个圈子内
                         String mTag = (String) mDragImageView.getTag(R.id.image_id);
                         if (mTag.startsWith("http:"))
                             addChildPic(mTag, llChild2, (Integer) mDragImageView.getTag(), false, true);
@@ -500,7 +501,7 @@ public class ClassificationView extends LinearLayout implements IQuestionEvent, 
                     int llChildY3 = location3[1];
                     if ((centerY > llChildY3 && centerY < llChildY3 + categoryOut3.getHeight())
                             && (centerX > llChildX3 && centerX < llChildX3 + categoryOut3.getWidth())) {
-                        // TODO 在第4个圈子内
+                        // 在第4个圈子内
                         String mTag = (String) mDragImageView.getTag(R.id.image_id);
                         if (mTag.startsWith("http:"))
                             addChildPic(mTag, llChild3, (Integer) mDragImageView.getTag(), false, true);
