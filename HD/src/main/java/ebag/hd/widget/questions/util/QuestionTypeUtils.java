@@ -119,26 +119,26 @@ public class QuestionTypeUtils {
 
     public static String getTitle(String type) {
         switch (type) {
-			case "dx": return "选择题";
-            case "pd": return "判断题";
-            case "tk": return "填空题";
-            case "yd": return "阅读理解";
+			case "dx": return "选择题";//
+            case "pd": return "判断题";//
+            case "tk": return "填空题";//
+            case "yd": return "阅读理解";//
             case "yy": return "应用题";
-            case "zw": return "作文";
+            case "zw": return "作文";//
             case "tx": return "听写题";
-            case "1": return "看单词选图";
-            case "2": return "看图选单词";
-            case "3": return "看图写单词";
+            case "1": return "看单词选图";//
+            case "2": return "看图选单词";//
+            case "3": return "看图写单词";//
             case "4": return "听录音填空";
-            case "5": return "排列句子";
+            case "5": return "排列句子";//
             case "8": return "听录音选择";
             case "9": return "连线";
-            case "10": return "分类";
+            case "10": return "分类";//
             case "12": return "朗读";
             case "14": return "跟读";
             case "15": return "计算题";
-            case "16": return "词组或句子";
-            case "21": return "书写";
+            case "16": return "词组或句子";//
+            case "21": return "书写";//
             default:return "作业";
         }
     }

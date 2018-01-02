@@ -9,7 +9,6 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,16 +21,14 @@ import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder;
 import ebag.core.xRecyclerView.manager.DividerItemDecoration;
 import ebag.hd.R;
-import ebag.hd.widget.questions.head.HeadAdapter;
-import ebag.hd.widget.questions.util.IQuestionEvent;
+import ebag.hd.widget.questions.base.BaseQuestionView;
 
 /**
  * Created by unicho on 2017/12/29.
  */
 
-public class SortHorizontalView extends LinearLayout implements IQuestionEvent{
+public class SortHorizontalView extends BaseQuestionView {
 
-    private HeadAdapter headAdapter;
     private SortAdapter contentAdapter;
     private SortAdapter answerAdapter;
     private String questionContent;
@@ -46,34 +43,18 @@ public class SortHorizontalView extends LinearLayout implements IQuestionEvent{
 
     public SortHorizontalView(Context context) {
         super(context);
-        init(context);
     }
 
     public SortHorizontalView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init(context);
     }
 
     public SortHorizontalView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
     }
 
-    private void init(Context context){
-        //垂直方向
-        setOrientation(VERTICAL);
-
-        //标题
-        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        RecyclerView headRecycler = new RecyclerView(context);
-        headRecycler.setNestedScrollingEnabled(false);
-        RecyclerView.LayoutManager headManager = new LinearLayoutManager(context);
-        headRecycler.setLayoutManager(headManager);
-        headAdapter = new HeadAdapter();
-        headRecycler.setAdapter(headAdapter);
-        addView(headRecycler,layoutParams);
-
-
+    @Override
+    protected void addBody(Context context) {
         RecyclerView contentRecycler = new RecyclerView(context);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
         contentRecycler.setNestedScrollingEnabled(false);
@@ -84,7 +65,7 @@ public class SortHorizontalView extends LinearLayout implements IQuestionEvent{
         contentAdapter = new SortAdapter();
         contentRecycler.setAdapter(contentAdapter);
         contentAdapter.setAnswer(false);
-        layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R.dimen.question_tag_height));
+        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R.dimen.question_tag_height));
         layoutParams.bottomMargin = getResources().getDimensionPixelSize(R.dimen.y47);
         addView(contentRecycler,layoutParams);
         contentAdapter.setOnItemClickListener(new OnItemClickListener() {
@@ -156,7 +137,7 @@ public class SortHorizontalView extends LinearLayout implements IQuestionEvent{
     public void show(boolean active) {
         this.active = active;
         callback.setDragEnable(active);
-        headAdapter.setDatas(titleList);
+        setTitle(titleList);
         contentList = new ArrayList<>();
         String[] split = questionContent.split("#R#");
         for(String str : split)
@@ -181,7 +162,7 @@ public class SortHorizontalView extends LinearLayout implements IQuestionEvent{
     public void showResult() {
         this.active = false;
         callback.setDragEnable(false);
-        headAdapter.setDatas(titleList);
+        setTitle(titleList);
 
         contentList = new ArrayList<>();
         String[] split = questionContent.split("#R#");

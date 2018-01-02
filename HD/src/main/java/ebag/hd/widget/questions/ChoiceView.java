@@ -3,12 +3,10 @@ package ebag.hd.widget.questions;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,23 +19,18 @@ import ebag.core.xRecyclerView.adapter.OnItemClickListener;
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder;
 import ebag.hd.R;
-import ebag.hd.widget.questions.head.HeadAdapter;
-import ebag.hd.widget.questions.util.IQuestionEvent;
+import ebag.hd.widget.questions.base.BaseQuestionView;
 import ebag.hd.widget.questions.util.QuestionTypeUtils;
 
 /**
  * Created by unicho on 2017/12/22.
  */
 
-public class ChoiceView extends LinearLayout implements IQuestionEvent
-        , OnItemClickListener {
+public class ChoiceView extends BaseQuestionView implements OnItemClickListener {
 
-    private Context mContext;
-    private HeadAdapter headAdapter;
     private OptionAdapter optionAdapter;
 
 
-    private List<String> title;
     /**
      * 选项
      */
@@ -57,37 +50,22 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
 
     private int choiceType = 0;
 
+    private List<String> title;
+
     public ChoiceView(Context context) {
         super(context, null);
-        init(context);
     }
 
     public ChoiceView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs, 0);
-        init(context);
     }
 
     public ChoiceView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
     }
 
-    private void init(Context context){
-
-        //垂直方向
-        setOrientation(VERTICAL);
-        //设置padding
-//        setPadding();
-        this.mContext = context;
-        //标题
-        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        RecyclerView headRecycler = new RecyclerView(mContext);
-        headRecycler.setNestedScrollingEnabled(false);
-        RecyclerView.LayoutManager headManager = new LinearLayoutManager(mContext);
-        headRecycler.setLayoutManager(headManager);
-        headAdapter = new HeadAdapter();
-        headRecycler.setAdapter(headAdapter);
-        addView(headRecycler,layoutParams);
+    @Override
+    protected void addBody(Context context) {
         //选项
         RecyclerView optionRecycler = new RecyclerView(mContext);
         optionRecycler.setNestedScrollingEnabled(false);
@@ -96,9 +74,8 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
         optionAdapter = new OptionAdapter();
         optionRecycler.setAdapter(optionAdapter);
         optionAdapter.setOnItemClickListener(this);
-
+        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         addView(optionRecycler,layoutParams);
-
     }
 
     @Override
@@ -155,7 +132,7 @@ public class ChoiceView extends LinearLayout implements IQuestionEvent
     @Override
     public void show(boolean active) {
         this.active = active;
-        headAdapter.setDatas(title);
+        setTitle(title);
         //设置选项
         optionAdapter.setDatas(options);
     }

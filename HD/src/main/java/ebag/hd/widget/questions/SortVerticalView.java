@@ -7,30 +7,28 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import ebag.core.bean.QuestionBean;
+import ebag.core.util.StringUtils;
 import ebag.core.xRecyclerView.ItemTouchHelperAdapter;
 import ebag.core.xRecyclerView.SimpleItemTouchHelperCallback;
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder;
 import ebag.hd.R;
-import ebag.hd.widget.questions.head.HeadAdapter;
-import ebag.hd.widget.questions.util.IQuestionEvent;
+import ebag.hd.widget.questions.base.BaseQuestionView;
 
 /**
  * Created by unicho on 2017/12/28.
  */
 
-public class SortVerticalView extends LinearLayout implements IQuestionEvent{
+public class SortVerticalView extends BaseQuestionView {
 
-    private HeadAdapter headAdapter;
     private SortAdapter sortAdapter;
-    private List<String> headList;
+    private List<String> titleList;
     private List<SortBean> sortList;
     private String studentAnswer;
     private String rightAnswer;
@@ -39,34 +37,19 @@ public class SortVerticalView extends LinearLayout implements IQuestionEvent{
 
     public SortVerticalView(Context context) {
         super(context);
-        init(context);
     }
 
     public SortVerticalView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init(context);
     }
 
     public SortVerticalView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
     }
 
-    private void init(Context context){
-
-        //垂直方向
-        setOrientation(VERTICAL);
-        //设置padding
-//        setPadding();
-        //标题
+    @Override
+    protected void addBody(Context context) {
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        RecyclerView headRecycler = new RecyclerView(context);
-        headRecycler.setNestedScrollingEnabled(false);
-        RecyclerView.LayoutManager headManager = new LinearLayoutManager(context);
-        headRecycler.setLayoutManager(headManager);
-        headAdapter = new HeadAdapter();
-        headRecycler.setAdapter(headAdapter);
-        addView(headRecycler,layoutParams);
         //选项
         RecyclerView optionRecycler = new RecyclerView(context);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
@@ -91,12 +74,11 @@ public class SortVerticalView extends LinearLayout implements IQuestionEvent{
         itemTouchHelper.attachToRecyclerView(optionRecycler);
 
         addView(optionRecycler,layoutParams);
-
     }
 
     @Override
     public void setData(QuestionBean questionBean) {
-        headList = Arrays.asList(questionBean.getQuestionHead().split("#R#"));
+        titleList = Arrays.asList(questionBean.getQuestionHead().split("#R#"));
         String[] split = questionBean.getQuestionContent().split("#R#");
         sortList = new ArrayList<>();
         for(int i = 0; i < split.length; i++){
@@ -109,9 +91,24 @@ public class SortVerticalView extends LinearLayout implements IQuestionEvent{
     @Override
     public void show(boolean active) {
         callback.setDragEnable(active);
-        headAdapter.setDatas(headList);
+        setTitle(titleList);
         sortAdapter.setResult(false);
-        sortAdapter.setDatas(sortList);
+
+
+        //学生答案不为空时 显示学生答案
+        if(!StringUtils.INSTANCE.isEmpty(studentAnswer)){
+            //学生答案
+            String[] answers = studentAnswer.split(",");
+            for(int i = 0; i < sortList.size(); i++){
+                if(i < answers.length)
+                    sortList.get(i).answer = answers[i];
+                else
+                    sortList.get(i).answer = "";
+            }
+
+        }else{
+            sortAdapter.setDatas(sortList);
+        }
     }
 
     @Override
@@ -126,7 +123,9 @@ public class SortVerticalView extends LinearLayout implements IQuestionEvent{
 
     @Override
     public void showResult() {
-        show(false);
+        callback.setDragEnable(false);
+        setTitle(titleList);
+        //学生答案
         String[] answers = studentAnswer.split(",");
         for(int i = 0; i < sortList.size(); i++){
             if(i < answers.length)
@@ -135,6 +134,7 @@ public class SortVerticalView extends LinearLayout implements IQuestionEvent{
                 sortList.get(i).answer = "";
         }
 
+        //判断当前的题目是否正确
         String[] strings = rightAnswer.split(",");
         for(int i = 0; i < strings.length; i++){
             sortAdapter.getItem(i).isRight = sortAdapter.getItem(i).position.equals(strings[i]);
@@ -164,6 +164,7 @@ public class SortVerticalView extends LinearLayout implements IQuestionEvent{
 
     private class SortAdapter extends RecyclerAdapter<SortBean>{
 
+        //是否显示 结果
         private boolean isResult = false;
         private int colorNormal = 0;
         private int colorSelected = 0;
