@@ -27,8 +27,6 @@ class QuestionTestActivity : AppCompatActivity() {
 
         showResult.setOnClickListener {
             classificationView.showResult()
-            var answer = classificationView.answer
-            L.e(answer)
             judgeView.showResult()
             choiceView.showResult()
             completeView.showResult()
@@ -36,6 +34,9 @@ class QuestionTestActivity : AppCompatActivity() {
             sortView.showResult()
             enSortView.showResult()
             sentenceView.showResult()
+            connectionView.showResult()
+            val answer = connectionView.answer
+            L.e(answer)
         }
 
         enable.setOnClickListener {
@@ -71,9 +72,9 @@ class QuestionTestActivity : AppCompatActivity() {
     private fun setConnectionView(){
         val questionBean = QuestionBean()
         questionBean.questionHead = "给下列单词归类"
-        questionBean.questionContent = "blackboard,desk,chair,schoolbag;http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/desk.jpg,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/schoolbag.jpg"
-        questionBean.rightAnswer = "介词#R#on,under;学校物品#R#classroom,blackboard;代词#R#she,he;动物#R#elephant,bird"
-        questionBean.answer = ""
+        questionBean.questionContent = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/desk.jpg,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/schoolbag.jpg;blackboard,desk,chair,schoolbag"
+        questionBean.rightAnswer = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg,blackboard;http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg,chair;http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/desk.jpg,desk;http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/schoolbag.jpg,schoolbag"
+        questionBean.answer = "blackboard,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg;desk,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg;chair,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/desk.jpg;schoolbag,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/schoolbag.jpg"
         connectionView.setData(questionBean)
         connectionView.show(true)
     }

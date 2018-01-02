@@ -16,11 +16,12 @@ import ebag.core.util.L;
 import ebag.hd.R;
 
 public class MyLineView extends View {
-    List<MyLine> list;
+    private List<MyLine> list;
     /**
      * 文本的颜色
      */
-    Paint linePaint = new Paint();
+    private Paint linePaint = new Paint();
+    private Paint wrongLinePaint;
     /**
     * 绘制时控制文本绘制的范围
     */
@@ -60,17 +61,21 @@ public class MyLineView extends View {
      * 初始化数据
      */
     private void initData() {
-        // TODO Auto-generated method stub
+        wrongLinePaint = new Paint();
         initLinePaint();
         list = new ArrayList<>();
     }
 
     private void initLinePaint() {
-        // TODO Auto-generated method stub
         linePaint.setColor(getResources().getColor(R.color.question_bg_pressed));
         linePaint.setStrokeWidth(getResources().getDimension(R.dimen.x5));
         linePaint.setAntiAlias(true);
         linePaint.setStrokeCap(Paint.Cap.ROUND);
+
+        wrongLinePaint.setColor(getResources().getColor(R.color.question_bg_error));
+        wrongLinePaint.setStrokeWidth(getResources().getDimension(R.dimen.x5));
+        wrongLinePaint.setAntiAlias(true);
+        wrongLinePaint.setStrokeCap(Paint.Cap.ROUND);
     }
 
 
@@ -114,16 +119,8 @@ public class MyLineView extends View {
 
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        mPaint.setColor(Color.TRANSPARENT);
-        canvas.drawRect(0, 0, getMeasuredWidth(), getMeasuredHeight(), mPaint);
-
-        if (list != null && list.size() > 0) {
-            for (int i = 0; i < list.size(); i++) {
-                drawLine(list.get(i), canvas);
-            }
-        }
+    public void setWrongLine(int position1, int position2, int leftY, int rightY){
+        setLine(position1, position2, leftY, rightY, false);
     }
 
     /**
@@ -133,7 +130,7 @@ public class MyLineView extends View {
      * @param leftY 左边的Y坐标
      * @param rightY 右边的Y坐标
      */
-    public void setLine(int position1, int position2, int leftY, int rightY) {
+    public void setLine(int position1, int position2, int leftY, int rightY, boolean isRight) {
         Point pointLeft = new Point(0, leftY);
         Point pointRight = new Point(getWidth(), rightY);
         // 如果没满 或者不存在 那么给他添加 否则 进行设置
@@ -144,7 +141,7 @@ public class MyLineView extends View {
             }
             String answer = String.valueOf(position1) + "," + String.valueOf(position2);
             L.INSTANCE.d("存入的答案 = " + answer);
-            MyLine myLine = new MyLine(pointLeft, pointRight, answer);
+            MyLine myLine = new MyLine(pointLeft, pointRight, answer, isRight);
             list.add(myLine);
         } else {
             if(isSameSide(position1,position2)){
@@ -155,8 +152,7 @@ public class MyLineView extends View {
                 if (myLine.answer.contains(String.valueOf(position1))
                         || myLine.answer.contains(String.valueOf(position2))) {
                     list.set(i, new MyLine(pointLeft, pointRight,
-                                    String.valueOf(position1) + ","
-                                            + String.valueOf(position2)));
+                                    String.valueOf(position1) + "," + String.valueOf(position2), isRight));
                 }
             }
         }
@@ -191,6 +187,9 @@ public class MyLineView extends View {
         return false;
     }
 
+    public List<MyLine> getAnswer(){
+        return list;
+    }
 
     /**
      * 是否是同一侧
@@ -234,31 +233,57 @@ public class MyLineView extends View {
         return false;
     }
 
+    @Override
+    protected void onDraw(Canvas canvas) {
+        mPaint.setColor(Color.TRANSPARENT);
+        canvas.drawRect(0, 0, getMeasuredWidth(), getMeasuredHeight(), mPaint);
+
+        if (list != null && list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                drawLine(list.get(i), canvas, list.get(i).isRight());
+            }
+        }
+    }
+
     /**
      * 画线
      * 
      * @param myLine
      * @param canvas
      */
-    private void drawLine(MyLine myLine, Canvas canvas) {
+    private void drawLine(MyLine myLine, Canvas canvas, boolean isRight) {
+        if (isRight)
+            linePaint.setColor(getResources().getColor(R.color.question_bg_pressed));
+        else
+            linePaint.setColor(getResources().getColor(R.color.question_bg_error));
         canvas.drawLine(myLine.getStartX(), myLine.getStartY(),
                 myLine.getEndX(), myLine.getEndY(), linePaint);
     }
 
-    class MyLine {
+    public class MyLine {
 
         int startX;
         int startY;
         int endX;
         int endY;
         String answer;
+        boolean isRight;
 
-        public MyLine(Point point1, Point point2, String answer1) {
+        public MyLine(Point point1, Point point2, String answer1, boolean isRight) {
             this.startX = point1.x;
             this.startY = point1.y;
             this.endX = point2.x;
             this.endY = point2.y;
             this.answer = answer1;
+            this.isRight = isRight;
+        }
+
+        public boolean isRight() {
+            return isRight;
+        }
+
+        public void setRight(boolean right) {
+            isRight = right;
         }
 
         public String getAnswer() {
