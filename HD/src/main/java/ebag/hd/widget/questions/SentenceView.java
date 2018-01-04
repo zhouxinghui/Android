@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class SentenceView extends BaseQuestionView {
         lineEditText.setTextColor(getResources().getColor(R.color.question_normal));
         lineEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.question_content));
         lineEditText.setBackground(null);
+        lineEditText.setGravity(Gravity.TOP | Gravity.START);
         lineEditText.setMinLines(1);
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         addView(lineEditText,layoutParams);

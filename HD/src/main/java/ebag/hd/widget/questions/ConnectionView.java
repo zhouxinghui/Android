@@ -14,18 +14,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import ebag.core.bean.QuestionBean;
 import ebag.core.http.image.SingleImageLoader;
-import ebag.core.util.ArrayUtil;
 import ebag.core.util.StringUtils;
 import ebag.core.xRecyclerView.adapter.OnItemChildClickListener;
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder;
 import ebag.hd.R;
-import ebag.hd.widget.MyLineView;
+import ebag.hd.widget.questions.base.ConnectionLineView;
 import ebag.hd.widget.questions.util.IQuestionEvent;
 
 /**
@@ -33,7 +31,7 @@ import ebag.hd.widget.questions.util.IQuestionEvent;
  * Created by YZY on 2017/12/29.
  */
 
-public class ConnectionView extends LinearLayout implements IQuestionEvent, View.OnTouchListener{
+public class ConnectionView extends LinearLayout implements IQuestionEvent{
     private Context context;
     /**
      * 内容
@@ -54,7 +52,7 @@ public class ConnectionView extends LinearLayout implements IQuestionEvent, View
     /**
      * 画线view
      */
-    private MyLineView myLineView;
+    private ConnectionLineView connectionLineView;
     private RecyclerView recyclerView;
     /**
      * 适配器
@@ -63,28 +61,16 @@ public class ConnectionView extends LinearLayout implements IQuestionEvent, View
     /**
      * recyclerView数据源
      */
-    private List<String> list;
+    private List<ConnectionBean> list;
     /**
-     * 临时变量，判断左边的item是否已经被点击，-1代表没有被点击
+     * 保存上一次被点击的item
      */
-    private int left = -1;
-    /**
-     * 临时变量，判断右边的item是否已经被点击，-1代表没有被点击
-     */
-    private int right = -1;
-    /**
-     * 保存上一次被点击的item的position
-     */
-    private int tempPosition = -1;
-    /**
-     * 保存上一次被点击的item的Y坐标
-     */
-    private int tempY;
+    private ConnectionBean tempConnection;
+
     private GestureDetector detector;
-    /**
-     * 当前被双击的view
-     */
+
     private View currentTouchView;
+
     private boolean isActive;
     public ConnectionView(Context context) {
         super(context);
@@ -120,44 +106,105 @@ public class ConnectionView extends LinearLayout implements IQuestionEvent, View
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setId(R.id.connection_recycler_id);
         relativeLayout.addView(recyclerView,relativeParams);
-        adapter.setOnItemChildClickListener(new OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(RecyclerViewHolder holder, View view, int position) {
-                if (!isActive)
-                    return;
-                if (position % 2 == 0){     //点击左边
-                    left = 1;
-                    if (right != -1) {
-                        myLineView.setLine(position, tempPosition, getPointY(holder.getConvertView()), tempY, true);
-                        left = -1;
-                        right = -1;
-                    }else{
-                        tempPosition = position;
-                        tempY = getPointY(holder.getConvertView());
-                    }
-                }else{                      //点击右边
-                    right = 1;
-                    if (left != -1) {
-                        myLineView.setLine(position, tempPosition, tempY, getPointY(holder.getConvertView()), true);
-                        left = -1;
-                        right = -1;
-                    }else{
-                        tempPosition = position;
-                        tempY = getPointY(holder.getConvertView());
-                    }
-                }
-                adapter.setCurrentPressPosition(position);
-            }
-        });
 
-        myLineView = new MyLineView(context);
+
+        connectionLineView = new ConnectionLineView(context);
         relativeParams = new RelativeLayout.LayoutParams(
                 getResources().getDimensionPixelSize(R.dimen.connection_margin) * 2,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         relativeParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         relativeParams.addRule(RelativeLayout.ALIGN_TOP,R.id.connection_recycler_id);
         relativeParams.addRule(RelativeLayout.ALIGN_BOTTOM,R.id.connection_recycler_id);
-        relativeLayout.addView(myLineView,relativeParams);
+        relativeLayout.addView(connectionLineView,relativeParams);
+
+        adapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(RecyclerViewHolder holder, View view, int position) {
+                if(view.getId() == R.id.element_id){
+                    //不可操作
+                    if (!isActive)
+                        return;
+                    //获取被点击的Item
+                    ConnectionBean connectionBean = adapter.getItem(position);
+                    //选中当前的Item
+                    connectionBean.selected = true;
+
+                    if(tempConnection != null){
+                        //当前选中的和上一个Item 是同一个
+                        if(connectionBean.equals(tempConnection)){
+                            return;
+                        }
+                        //点击的是同一边
+                        if(tempConnection.isRight == connectionBean.isRight){
+                            //上一个选中的item  改为非选中
+                            if(tempConnection.connectionBean == null)
+                                tempConnection.selected = false;
+                            tempConnection = connectionBean;
+                        }else{//点击的不是同一边
+
+                            //如果需要连接的 两个已经做过连接了 去除线
+                            if(connectionBean.connectionBean != null){
+                                connectionLineView.removeLine(connectionBean);
+                            }
+                            if(tempConnection.connectionBean != null){
+                                connectionLineView.removeLine(tempConnection);
+                            }
+
+                            //建立连接
+                            line(connectionBean,tempConnection);
+                            //画线
+                            connectionLineView.setLine(connectionBean, true);
+                            tempConnection = null;
+                        }
+                    }else{
+                        tempConnection = connectionBean;
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+        detector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener(){
+
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                if (currentTouchView == null || !isActive)
+                    return false;
+                if(tempConnection != null){
+                    if(tempConnection.connectionBean == null){
+                        tempConnection.selected = false;
+                    }
+                    tempConnection = null;
+                }
+                int position = (int) currentTouchView.getTag(R.id.element_id);
+                ConnectionBean connectionBean = adapter.getItem(position);
+                if(connectionBean.connectionBean != null){
+                    connectionLineView.removeLine(connectionBean);
+                    unLine(connectionBean);
+                }
+                adapter.notifyDataSetChanged();
+                return true;
+            }
+        });
+    }
+
+    /**
+     * 解除关联
+     */
+    private void unLine(ConnectionBean connectionBean){
+        if(connectionBean.connectionBean != null){
+            connectionBean.connectionBean.unLine();
+            connectionBean.unLine();
+        }
+    }
+
+    private void line(ConnectionBean connectionBean1, ConnectionBean connectionBean2){
+        unLine(connectionBean1);
+        unLine(connectionBean2);
+        connectionBean1.selected = true;
+        connectionBean2.selected = true;
+        connectionBean1.connectionBean = connectionBean2;
+        connectionBean2.connectionBean = connectionBean1;
     }
 
     @Override
@@ -171,25 +218,9 @@ public class ConnectionView extends LinearLayout implements IQuestionEvent, View
         String[] elementSplit2 = allSplit[1].split(",");
         int count = Math.min(elementSplit1.length, elementSplit2.length);
         for (int i = 0; i < count; i ++){
-            list.add(elementSplit1[i]);
-            list.add(elementSplit2[i]);
+            list.add(new ConnectionBean(elementSplit1[i], false));
+            list.add(new ConnectionBean(elementSplit2[i],true));
         }
-
-        detector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener(){
-            @Override
-            public boolean onDoubleTap(MotionEvent e) {
-                if (currentTouchView == null || !isActive)
-                    return false;
-                int position = (int) currentTouchView.getTag(R.id.element_id);
-                int[] positions = myLineView.removeLine(position);
-                if (positions == null || positions.length == 0)
-                    return false;
-                for (int p : positions){
-                    adapter.setNormalPosition(p);
-                }
-                return true;
-            }
-        });
     }
 
     @Override
@@ -206,19 +237,25 @@ public class ConnectionView extends LinearLayout implements IQuestionEvent, View
                     String[] studentAnswers = studentAnswer.split(";");
                     for (String answer : studentAnswers) {
                         String[] answers = answer.split(",");
-                        int position1 = list.indexOf(answers[0]);
-                        int position2 = list.indexOf(answers[1]);
-                        myLineView.setLine(
-                                position1,
-                                position2,
-                                getPointY(recyclerView.getChildAt(position1)),
-                                getPointY(recyclerView.getChildAt(position2)),
-                                true);
+                        ConnectionBean connectionLeft = null;
+                        ConnectionBean connectionRight = null;
+                        for(int i = 0; i < list.size(); i ++) {
+                            if (list.get(i).content.equals(answers[0]))
+                                connectionLeft = list.get(i);
+                            if (list.get(i).content.equals(answers[1]))
+                                connectionRight = list.get(i);
+                        }
+                        //建立连接
+                        if(connectionLeft != null && connectionRight != null){
+                            line(connectionLeft,connectionRight);
+                            connectionLineView.setLine(connectionLeft, true);
+                        }
                     }
-                    setWrong();
+
+                    adapter.notifyDataSetChanged();
                 }
             }
-        }, 500);
+        }, 1000);
     }
 
     @Override
@@ -241,53 +278,52 @@ public class ConnectionView extends LinearLayout implements IQuestionEvent, View
         if (StringUtils.INSTANCE.isEmpty(rightAnswer))
             return;
         String[] rightSplit = rightAnswer.split(";");
-        List<MyLineView.MyLine> answerPositions = myLineView.getAnswer();
-        if (answerPositions == null || answerPositions.size() == 0)
+        List<ConnectionBean> lines = connectionLineView.getLines();
+        if (lines == null || lines.size() == 0)
             return ;
-        List<Integer> wrongPositions = new ArrayList<>();
-        for (int i = 0; i < answerPositions.size(); i++) {
-            String[] positions = answerPositions.get(i).getAnswer().split(",");
-            if (positions.length != 2)
+        for (int i = 0; i < lines.size(); i++) {
+
+            ConnectionBean connectionBean = lines.get(i);
+            if(!ConnectionLineView.isConnectionRegular(connectionBean))
                 continue;
-            int position1 = Integer.parseInt(positions[0]);
-            int position2 = Integer.parseInt(positions[1]);
-            String answer1 = adapter.getItem(Integer.parseInt(positions[0]));
-            String answer2 = adapter.getItem(Integer.parseInt(positions[1]));
-            String[] answers = new String[]{answer1, answer2};
-            for (String rightAnswer : rightSplit){
-                String[] rightAnswers = rightAnswer.split(",");
-                if (rightAnswers.length != 2)
-                    return;
-                //比较耗性能，可以改成普通循环的方式
-                List<String> list = Arrays.asList(rightAnswers);
-                if (list.contains(answer1) || list.contains(answer2)) {
-                    if (!ArrayUtil.containsSame(answers, rightAnswers)) {
-                        wrongPositions.add(position1);
-                        wrongPositions.add(position2);
-                        myLineView.setWrongLine(
-                                position1,
-                                position2,
-                                getPointY(recyclerView.getChildAt(position1)),
-                                getPointY(recyclerView.getChildAt(position2)));
-                    }
-                }
+
+            if(!isAnswerRight(connectionBean,rightSplit)){
+                connectionLineView.setWrongLine(connectionBean);
             }
         }
-        adapter.setWrongPosition(wrongPositions);
+        adapter.setResult(true);
+    }
+
+    private boolean isAnswerRight(ConnectionBean connectionBean, String[] rightSplit){
+        for (String rightAnswer : rightSplit){
+            String[] rightAnswers = rightAnswer.split(",");
+            if (rightAnswers.length != 2)
+                continue;
+            //比较耗性能，可以改成普通循环的方式
+            if((connectionBean.content.equals(rightAnswers[0])
+                    && connectionBean.connectionBean.content.equals(rightAnswers[1])
+                    ) || (connectionBean.content.equals(rightAnswers[1])
+                    && connectionBean.connectionBean.content.equals(rightAnswers[0]))){
+                connectionBean.isCorrect = true;
+                connectionBean.connectionBean.isCorrect = true;
+                return true;
+            }
+        }
+        connectionBean.isCorrect = false;
+        connectionBean.connectionBean.isCorrect = false;
+        return false;
     }
 
     @Override
     public String getAnswer() {
-        List<MyLineView.MyLine> answerPositions = myLineView.getAnswer();
-        if (answerPositions == null || answerPositions.size() == 0)
+        List<ConnectionBean> lines = connectionLineView.getLines();
+        if (lines == null || lines.size() == 0)
             return "";
         StringBuilder answer = new StringBuilder("");
-        for (int i = 0; i < answerPositions.size(); i++) {
-            String[] positions = answerPositions.get(i).getAnswer().split(",");
-            if (positions.length != 2)
-                continue;
-            answer.append(adapter.getItem(Integer.parseInt(positions[0])))
-                    .append(",").append(adapter.getItem(Integer.parseInt(positions[1])))
+        for (ConnectionBean line : lines) {
+            answer.append(line.content)
+                    .append(",")
+                    .append(line.connectionBean.content)
                     .append(";");
         }
         answer.deleteCharAt(answer.lastIndexOf(";"));
@@ -299,14 +335,12 @@ public class ConnectionView extends LinearLayout implements IQuestionEvent, View
 
     }
 
-    private class MyAdapter extends RecyclerAdapter<String>{
+    private class MyAdapter extends RecyclerAdapter<ConnectionBean> implements OnTouchListener{
         private final static int TYPE_LEFT_IMG = 1;
         private final static int TYPE_LEFT_TEXT = 2;
         private final static int TYPE_RIGHT_IMG = 3;
         private final static int TYPE_RIGHT_TEXT = 4;
-        private int currentPressPosition = -1;
-        private int normalPosition = -1;
-        private List<Integer> wrongPosition;
+        private boolean isResult = false;
         public MyAdapter() {
             addItemType(TYPE_LEFT_IMG, R.layout.item_connection_left_img);
             addItemType(TYPE_LEFT_TEXT, R.layout.item_connection_left_text);
@@ -314,77 +348,56 @@ public class ConnectionView extends LinearLayout implements IQuestionEvent, View
             addItemType(TYPE_RIGHT_TEXT, R.layout.item_connection_right_text);
         }
 
-        public void setCurrentPressPosition(int currentPressPosition){
-            this.currentPressPosition = currentPressPosition;
+        public void setResult(boolean result) {
+            isResult = result;
             notifyDataSetChanged();
-        }
-
-        public void setNormalPosition(int normalPosition){
-            this.normalPosition = normalPosition;
-            notifyItemChanged(normalPosition);
-        }
-
-        public void setWrongPosition(List<Integer> wrongPosition){
-            this.wrongPosition = wrongPosition;
-            notifyDataSetChanged();
-        }
-
-        public List<Integer> getWrongPosition(){
-            return wrongPosition;
         }
 
         @Override
         public int getItemViewType(int position) {
-            if(position % 2 == 0){
-                if (getItem(position).startsWith("http"))
-                    return TYPE_LEFT_IMG;
-                else
-                    return TYPE_LEFT_TEXT;
-            }else{
-                if (getItem(position).startsWith("http"))
+            if(getItem(position).isRight){
+                if (getItem(position).content.startsWith("http"))
                     return TYPE_RIGHT_IMG;
                 else
                     return TYPE_RIGHT_TEXT;
+            }else{
+                if (getItem(position).content.startsWith("http"))
+                    return TYPE_LEFT_IMG;
+                else
+                    return TYPE_LEFT_TEXT;
             }
         }
 
         @Override
-        protected void fillData(RecyclerViewHolder setter, int position, String entity) {
+        protected void fillData(RecyclerViewHolder setter, int position, ConnectionBean entity) {
             switch (setter.getItemViewType()){
                 case TYPE_LEFT_IMG:
                 case TYPE_RIGHT_IMG:
-                    SingleImageLoader.getInstance().setImage(entity, setter.getImageView(R.id.element_id));
-                    setter.addClickListener(R.id.element_id);
+                    SingleImageLoader.getInstance().setImage(entity.content, setter.getImageView(R.id.element_id));
                     break;
                 case TYPE_LEFT_TEXT:
                 case TYPE_RIGHT_TEXT:
-                    setter.setText(R.id.element_id, entity);
-                    setter.addClickListener(R.id.element_id);
+                    setter.setText(R.id.element_id, entity.content);
                     break;
             }
-            //单击时设置选中状态
-            if (currentPressPosition != -1 && currentPressPosition == position && !myLineView.hasLine(position)) {
-                setter.getView(R.id.element_id).setSelected(true);
-            }else {
-                if (myLineView.hasLine(position))
-                    setter.getView(R.id.element_id).setSelected(true);
-                else
-                    setter.getView(R.id.element_id).setSelected(false);
-            }
-            //双击时设置normal状态
-            View elementView = setter.getView(R.id.element_id);
-            elementView.setTag(R.id.element_id, position);
-            elementView.setOnTouchListener(ConnectionView.this);
-            if (normalPosition != -1 && normalPosition == position){
-                setter.getView(R.id.element_id).setSelected(false);
-                normalPosition = -1;
-            }
-            //设置错误时背景
-            if (wrongPosition != null && wrongPosition.size() != 0 && wrongPosition.contains(position)) {
-                setter.getView(R.id.element_id).setBackgroundResource(R.drawable.connection_wrong_bg);
+
+            entity.pointY = getPointY(setter.getConvertView());
+            setter.addClickListener(R.id.element_id);
+            setter.getView(R.id.element_id).setOnTouchListener(this);
+            setter.setTag(R.id.element_id, R.id.element_id, position);
+            if(isResult){//查看结果
+                setter.setBackgroundRes(R.id.element_id, R.drawable.connection_wrong_bg);
+                setter.getView(R.id.element_id).setSelected(entity.isCorrect);
             }else{
-                setter.getView(R.id.element_id).setBackgroundResource(R.drawable.connection_element_bg);
+                setter.setBackgroundRes(R.id.element_id,R.drawable.connection_element_bg);
+                setter.getView(R.id.element_id).setSelected(entity.selected);
             }
+        }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            currentTouchView = v;
+            return detector.onTouchEvent(event);
         }
     }
 
@@ -392,9 +405,29 @@ public class ConnectionView extends LinearLayout implements IQuestionEvent, View
         return view.getTop() + view.getHeight() / 2;
     }
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        currentTouchView = v;
-        return detector.onTouchEvent(event);
+    public static class ConnectionBean{
+        public String content;
+        //是否正确
+        public boolean isCorrect = false;
+        //是否选中
+        private boolean selected = false;
+        //连接的item
+        public ConnectionBean connectionBean;
+        //是否是右边的item
+        public boolean isRight;
+
+        public int pointY;
+
+        ConnectionBean(String content, boolean isRight){
+            this.content = content;
+            this.isRight = isRight;
+        }
+
+        void unLine(){
+            connectionBean = null;
+            selected = false;
+            isCorrect = false;
+        }
+
     }
 }

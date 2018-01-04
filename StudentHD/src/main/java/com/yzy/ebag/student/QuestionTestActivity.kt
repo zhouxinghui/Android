@@ -62,6 +62,7 @@ class QuestionTestActivity : AppCompatActivity() {
 
     private fun setSentenceView(){
         val questionBean = QuestionBean()
+        questionBean.questionType = "19"
         questionBean.questionHead = "用现代文翻译句子"
         questionBean.questionContent = "孔子东游，见两小儿辩斗，问其故。"
         questionBean.answer = "孔子往东边游学"

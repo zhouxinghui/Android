@@ -135,8 +135,7 @@ public class SortHorizontalView extends BaseQuestionView {
 
     @Override
     public void show(boolean active) {
-        this.active = active;
-        callback.setDragEnable(active);
+        questionActive(true);
         setTitle(titleList);
         contentList = new ArrayList<>();
         String[] split = questionContent.split("#R#");
@@ -160,8 +159,7 @@ public class SortHorizontalView extends BaseQuestionView {
 
     @Override
     public void showResult() {
-        this.active = false;
-        callback.setDragEnable(false);
+        questionActive(false);
         setTitle(titleList);
 
         contentList = new ArrayList<>();

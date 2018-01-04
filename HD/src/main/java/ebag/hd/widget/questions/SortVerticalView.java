@@ -94,7 +94,6 @@ public class SortVerticalView extends BaseQuestionView {
         setTitle(titleList);
         sortAdapter.setResult(false);
 
-
         //学生答案不为空时 显示学生答案
         if(!StringUtils.INSTANCE.isEmpty(studentAnswer)){
             //学生答案
@@ -105,10 +104,9 @@ public class SortVerticalView extends BaseQuestionView {
                 else
                     sortList.get(i).answer = "";
             }
-
-        }else{
-            sortAdapter.setDatas(sortList);
         }
+
+        sortAdapter.setDatas(sortList);
     }
 
     @Override
