@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import ebag.core.bean.QuestionBean;
-import ebag.core.util.StringUtils;
 import ebag.core.xRecyclerView.ItemTouchHelperAdapter;
 import ebag.core.xRecyclerView.SimpleItemTouchHelperCallback;
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
@@ -22,6 +21,7 @@ import ebag.hd.R;
 import ebag.hd.widget.questions.base.BaseQuestionView;
 
 /**
+ * 排序-语文
  * Created by unicho on 2017/12/28.
  */
 
@@ -94,19 +94,19 @@ public class SortVerticalView extends BaseQuestionView {
         setTitle(titleList);
         sortAdapter.setResult(false);
 
-        //学生答案不为空时 显示学生答案
-        if(!StringUtils.INSTANCE.isEmpty(studentAnswer)){
-            //学生答案
-            String[] answers = studentAnswer.split(",");
-            for(int i = 0; i < sortList.size(); i++){
-                if(i < answers.length)
-                    sortList.get(i).answer = answers[i];
-                else
-                    sortList.get(i).answer = "";
-            }
-        }
-
-        sortAdapter.setDatas(sortList);
+//        if(!StringUtils.INSTANCE.isEmpty(studentAnswer)){
+//            //学生答案
+//            String[] answers = studentAnswer.split(",");
+//            for(int i = 0; i < sortList.size(); i++){
+//                if(i < answers.length)
+//                    sortList.get(i).answer = answers[i];
+//                else
+//                    sortList.get(i).answer = "";
+//            }
+//
+//        }else{
+            sortAdapter.setDatas(sortList);
+//        }
     }
 
     @Override

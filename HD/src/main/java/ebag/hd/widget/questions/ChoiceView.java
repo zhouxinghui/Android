@@ -104,9 +104,9 @@ public class ChoiceView extends BaseQuestionView implements OnItemClickListener 
                 break;
             case QuestionTypeUtils.QUESTIONS_CHOOSE_BY_VOICE://听录音选择
                 choiceType = QuestionTypeUtils.QUESTIONS_CHOOSE_BY_VOICE;
-
+                title.add("听录音选择");
+                title.add("#M#" + questionBean.getQuestionHead());
                 break;
-
             case QuestionTypeUtils.QUESTIONS_JUDGE://判断题
                 choiceType = QuestionTypeUtils.QUESTIONS_JUDGE;
                 title = new ArrayList<>();
@@ -135,6 +135,8 @@ public class ChoiceView extends BaseQuestionView implements OnItemClickListener 
         setTitle(title);
         //设置选项
         optionAdapter.setDatas(options);
+        if (!StringUtils.INSTANCE.isEmpty(studentAnswer))
+            optionAdapter.setSelectedPosition(getChoiceIndex(studentAnswer));
     }
 
     @Override
@@ -149,7 +151,6 @@ public class ChoiceView extends BaseQuestionView implements OnItemClickListener 
 
     @Override
     public void showResult() {
-        show(false);
         if(choiceType == QuestionTypeUtils.QUESTIONS_JUDGE){//判断题
             optionAdapter.setResult(getJudgeIndex(rightAnswer), getJudgeIndex(studentAnswer));
         }else{//选择题

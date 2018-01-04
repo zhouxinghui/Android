@@ -73,9 +73,9 @@ public class FillBlankView extends FrameLayout {
     private void initView() {
 
         tvContent = new TextView(context);
-        tvContent.setLineSpacing(getResources().getDimensionPixelSize(R.dimen.y5),1.0f);
+        tvContent.setLineSpacing(getResources().getDimensionPixelSize(R.dimen.y10),1.0f);
         tvContent.setTextSize(TypedValue.COMPLEX_UNIT_PX,getResources().getDimensionPixelSize(R.dimen.question_content));
-
+        tvContent.setTextColor(getResources().getColor(R.color.question_normal));
         normal_color = tvContent.getCurrentTextColor();
 
         LayoutParams layoutParams = new LayoutParams(
@@ -106,10 +106,10 @@ public class FillBlankView extends FrameLayout {
         for (int i = 0; i < strings.length; i++) {
             switch (strings[i]){
                 case "*"://括号,  需要把前后的增加前括号和后括号，所以index需要处理需要改变
-                    rangeList.add(new AnswerRange(index,index + 4,false));
-                    index = index + 4;
+                    rangeList.add(new AnswerRange(index,index + 3,false));
+                    index = index + 3;
                     answerList.add("");
-                    stringBuilder.append("    ");
+                    stringBuilder.append("\u3000\u3000\u3000");
                     break;
                 case "#F#"://换行
                     stringBuilder.append("\n");
@@ -121,7 +121,7 @@ public class FillBlankView extends FrameLayout {
                     rangeList.add(new AnswerRange(index,index + 4));
                     index = 4 + index;
                     answerList.add("");
-                    stringBuilder.append("    ");
+                    stringBuilder.append("____");
                     break;
                 default:
                     index = index + strings[i].length();
@@ -220,13 +220,16 @@ public class FillBlankView extends FrameLayout {
         // 将答案添加到集合中
         answerList.set(position, answer.trim());
 
+        AnswerRange range = rangeList.get(position);
         if(StringUtils.INSTANCE.isEmpty(answer))
-            answer = "    ";
+            if(range.line)
+                answer = "____";
+            else
+                answer = "\u3000\u3000\u3000";
         else
-            answer = " " + answer + " ";
+            answer = "\u3000" + answer + "\u3000";
 
         // 替换答案
-        AnswerRange range = rangeList.get(position);
         content.replace(range.start, range.end, answer);
 
         // 计算新旧答案字数的差值
@@ -264,32 +267,45 @@ public class FillBlankView extends FrameLayout {
         this.active = active;
     }
 
+    public void showResult(String studentAnswer){
+        showResult(studentAnswer, "");
+    }
+
     public void showResult(String studentAnswer, String rightAnswer){
-        if(studentAnswer == null || rightAnswer == null){
+        if(StringUtils.INSTANCE.isEmpty(studentAnswer)){
             return;
         }
         String[] studentAnswers = studentAnswer.split("#R#");
 
-        String[] rightAnswers;
-        if(rightAnswer.contains("#R#"))
-            rightAnswers = rightAnswer.split("#R#");
-        else
-            rightAnswers = rightAnswer.split(",");
+        if(StringUtils.INSTANCE.isEmpty(rightAnswer)){
+            int len = Math.min(answerList.size(), studentAnswers.length);
+            for(int i = 0; i < len; i++){
+                if(studentAnswers[i] != null)
+                    fillAnswer(studentAnswers[i], i, normal_color);
+            }
+        }else{
+            String[] rightAnswers;
+            if(rightAnswer.contains("#R#"))
+                rightAnswers = rightAnswer.split("#R#");
+            else
+                rightAnswers = rightAnswer.split(",");
 
-        //答案个数和需要填空的个数不相符
-        if(studentAnswers.length != answerList.size() ||
-                rightAnswers.length != answerList.size() ||
-                studentAnswers.length != rightAnswers.length){
-            return;
+            //答案个数和需要填空的个数不相符
+            if(studentAnswers.length != answerList.size() ||
+                    rightAnswers.length != answerList.size() ||
+                    studentAnswers.length != rightAnswers.length){
+                return;
+            }
+            for(int i = 0; i < studentAnswers.length; i++){
+                if(studentAnswers[i] != null)
+                    if(studentAnswers[i].equals(rightAnswers[i])){
+                        fillAnswer(studentAnswers[i], i, right_color);
+                    }else{
+                        fillAnswer(studentAnswers[i], i, error_color);
+                    }
+            }
         }
-        for(int i = 0; i < studentAnswers.length; i++){
-            if(studentAnswers[i] != null)
-                if(studentAnswers[i].equals(rightAnswers[i])){
-                    fillAnswer(studentAnswers[i], i, right_color);
-                }else{
-                    fillAnswer(studentAnswers[i], i, error_color);
-                }
-        }
+
     }
 
     /**

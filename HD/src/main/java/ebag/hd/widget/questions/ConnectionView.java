@@ -10,7 +10,6 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -23,24 +22,23 @@ import ebag.core.xRecyclerView.adapter.OnItemChildClickListener;
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder;
 import ebag.hd.R;
+import ebag.hd.widget.questions.base.BaseQuestionView;
 import ebag.hd.widget.questions.base.ConnectionLineView;
-import ebag.hd.widget.questions.util.IQuestionEvent;
 
 /**
  * 连线
  * Created by YZY on 2017/12/29.
  */
 
-public class ConnectionView extends LinearLayout implements IQuestionEvent{
-    private Context context;
+public class ConnectionView extends BaseQuestionView {
+    /**
+     * 标题
+     */
+    private List<String> titleList;
     /**
      * 内容
      */
     private String questionContent;
-    /**
-     * 标题
-     */
-    private String questionHead;
     /**
      * 正确答案
      */
@@ -74,22 +72,18 @@ public class ConnectionView extends LinearLayout implements IQuestionEvent{
     private boolean isActive;
     public ConnectionView(Context context) {
         super(context);
-        init(context);
     }
 
     public ConnectionView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init(context);
     }
 
     public ConnectionView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
     }
 
-    private void init(Context context){
-        this.context = context;
-        setOrientation(VERTICAL);
+    @Override
+    protected void addBody(Context context) {
         RelativeLayout relativeLayout = new RelativeLayout(context);
         LayoutParams layoutParams = new LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
@@ -209,6 +203,8 @@ public class ConnectionView extends LinearLayout implements IQuestionEvent{
 
     @Override
     public void setData(QuestionBean questionBean) {
+        titleList = new ArrayList<>();
+        titleList.add(questionBean.getQuestionHead());
         questionContent = questionBean.getQuestionContent();
         studentAnswer = questionBean.getAnswer();
         rightAnswer = questionBean.getRightAnswer();
@@ -226,6 +222,7 @@ public class ConnectionView extends LinearLayout implements IQuestionEvent{
     @Override
     public void show(boolean active) {
         questionActive(active);
+        setTitle(titleList);
         if (list != null && list.size() > 0)
             adapter.setDatas(list);
         else
@@ -251,7 +248,6 @@ public class ConnectionView extends LinearLayout implements IQuestionEvent{
                             connectionLineView.setLine(connectionLeft, true);
                         }
                     }
-
                     adapter.notifyDataSetChanged();
                 }
             }
