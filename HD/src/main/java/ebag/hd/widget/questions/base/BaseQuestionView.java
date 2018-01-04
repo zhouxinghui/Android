@@ -1,16 +1,20 @@
 package ebag.hd.widget.questions.base;
 
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import java.util.List;
 
 import ebag.core.http.image.SingleImageLoader;
+import ebag.core.xRecyclerView.adapter.OnItemChildClickListener;
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder;
 import ebag.hd.R;
@@ -58,6 +62,14 @@ public abstract class BaseQuestionView extends LinearLayout implements IQuestion
 
     }
 
+    /**
+     * 播放音频的监听器，需要从外部传入
+     */
+    public void setOnItemChildClickListener(OnItemChildClickListener onItemChildClickListener){
+        if (onItemChildClickListener != null)
+            headAdapter.setOnItemChildClickListener(onItemChildClickListener);
+    }
+
     public void setTitle(List<String> title){
         headAdapter.setDatas(title);
     }
@@ -69,6 +81,7 @@ public abstract class BaseQuestionView extends LinearLayout implements IQuestion
 
         private final static int VIEW_TITLE = 1;
         private final static int VIEW_IMAGE = 2;
+        private final static int VIEW_VOICE = 4;
         private final static int VIEW_SUB_TITLE = 3;
 
         private boolean hideTitle = false;
@@ -77,6 +90,7 @@ public abstract class BaseQuestionView extends LinearLayout implements IQuestion
             addItemType(VIEW_SUB_TITLE, R.layout.question_head_sub_title);
             addItemType(VIEW_IMAGE, R.layout.question_head_image);
             addItemType(VIEW_TITLE, R.layout.question_head_title);
+            addItemType(VIEW_VOICE, R.layout.question_head_voice);
         }
 
         public void setHideTitle(boolean hideTitle) {
@@ -94,7 +108,9 @@ public abstract class BaseQuestionView extends LinearLayout implements IQuestion
                 }else{
                     return VIEW_SUB_TITLE;
                 }
-            }else{//第一个item 不是图片
+            }else if (getItem(position).startsWith("#M#")){//音频链接
+                return VIEW_VOICE;
+            } else{//第一个item 不是图片
                 if(position == 0){//第一个设置为 title，其他的为 sub title
                     return VIEW_TITLE;
                 }else{
@@ -116,7 +132,76 @@ public abstract class BaseQuestionView extends LinearLayout implements IQuestion
                 case VIEW_SUB_TITLE:
                     setter.setText(R.id.tvSubTitle,entity);
                     break;
+                case VIEW_VOICE:
+                    LinearLayout linearLayout = setter.getView(R.id.play_id);
+                    ImageView imageView = setter.getImageView(R.id.image_id);
+                    ProgressBar progressBar = setter.getView(R.id.progress_id);
+                    AnimationDrawable drawable = (AnimationDrawable) imageView.getBackground();
+                    linearLayout.setTag(R.id.image_id, drawable);
+                    linearLayout.setTag(R.id.progress_id, progressBar);
+                    linearLayout.setTag(R.id.play_id, entity);
+                    setter.addClickListener(R.id.play_id);
+                    break;
             }
         }
     }
+    /* 语音播放
+    click = MyOnItemChildClickListener()
+        voicePlayer = VoicePlayerOnline(this)
+
+        voicePlayer!!.setOnPlayChangeListener(object : VoicePlayerOnline.OnPlayChangeListener{
+            override fun onProgressChange(progress: Int) {
+                progressBar!!.progress = progress
+            }
+            override fun onCompletePlay() {
+                tempUrl = null
+                anim!!.stop()
+                anim!!.selectDrawable(0)
+            }
+        })
+    }
+
+    private var click : MyOnItemChildClickListener? = null
+    private var voicePlayer : VoicePlayerOnline? = null
+    private var anim : AnimationDrawable? = null
+    private var progressBar : ProgressBar? = null
+    private var tempUrl: String? = null
+    inner class MyAdapter : RecyclerAdapter<QuestionBean> (R.layout.item_demo){
+        override fun fillData(setter: RecyclerViewHolder?, position: Int, entity: QuestionBean?) {
+            val choiceView = setter!!.getView<ChoiceView>(R.id.choiceView)
+            choiceView.setData(entity)
+            choiceView.show(true)
+            choiceView.setOnItemChildClickListener(click)
+        }
+    }
+
+    inner class MyOnItemChildClickListener : OnItemChildClickListener {
+        override fun onItemChildClick(holder: RecyclerViewHolder?, view: View?, position: Int) {
+            var url : String = view?.getTag(R.id.play_id) as String
+            url = url.substring(3, url.length)
+            if (StringUtils.isEmpty(url))
+                return
+            if (url != tempUrl){
+                if(anim != null) {
+                    anim!!.stop()
+                    anim!!.selectDrawable(0)
+                    progressBar!!.progress = 0
+                }
+                anim = view.getTag(R.id.image_id) as AnimationDrawable
+                progressBar = view.getTag(R.id.progress_id) as ProgressBar
+                voicePlayer!!.playUrl(url)
+                anim!!.start()
+                tempUrl = url
+            }else{
+                if (voicePlayer!!.isPlaying && !voicePlayer!!.isPause){
+                    voicePlayer!!.pause()
+                    anim!!.stop()
+                }else{
+                    voicePlayer!!.play()
+                    anim!!.start()
+                }
+            }
+        }
+    }
+    */
 }

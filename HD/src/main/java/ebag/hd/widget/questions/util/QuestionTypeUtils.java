@@ -123,16 +123,16 @@ public class QuestionTypeUtils {
             case "pd": return "判断题";//
             case "tk": return "填空题";//
             case "yd": return "阅读理解";//
-            case "yy": return "应用题";
+            case "yy": return "应用题";//
             case "zw": return "作文";//
             case "tx": return "听写题";
             case "1": return "看单词选图";//
             case "2": return "看图选单词";//
             case "3": return "看图写单词";//
-            case "4": return "听录音填空";
+            case "4": return "听录音填空";//
             case "5": return "排列句子";//
-            case "8": return "听录音选择";
-            case "9": return "连线";
+            case "8": return "听录音选择";//
+            case "9": return "连线";//
             case "10": return "分类";//
             case "12": return "朗读";
             case "14": return "跟读";

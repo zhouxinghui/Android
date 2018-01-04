@@ -62,6 +62,7 @@ class QuestionTestActivity : AppCompatActivity() {
 
     private fun setSentenceView(){
         val questionBean = QuestionBean()
+        questionBean.questionType = "19"
         questionBean.questionHead = "用现代文翻译句子"
         questionBean.questionContent = "孔子东游，见两小儿辩斗，问其故。"
         questionBean.answer = "孔子往东边游学"
@@ -71,10 +72,10 @@ class QuestionTestActivity : AppCompatActivity() {
 
     private fun setConnectionView(){
         val questionBean = QuestionBean()
-        questionBean.questionHead = "给下列单词归类"
+        questionBean.questionHead = "给图片和单词连线"
         questionBean.questionContent = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/desk.jpg,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/schoolbag.jpg;blackboard,desk,chair,schoolbag"
         questionBean.rightAnswer = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg,blackboard;http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg,chair;http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/desk.jpg,desk;http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/schoolbag.jpg,schoolbag"
-        questionBean.answer = "blackboard,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg;desk,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg;chair,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/desk.jpg;schoolbag,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/schoolbag.jpg"
+//        questionBean.answer = "blackboard,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg;desk,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg;chair,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/desk.jpg;schoolbag,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/schoolbag.jpg"
         connectionView.setData(questionBean)
         connectionView.show(true)
     }
@@ -111,12 +112,12 @@ class QuestionTestActivity : AppCompatActivity() {
 
     private fun setCompletion(){
         val questionBean = QuestionBean()
+        questionBean.questionType = "4"
         questionBean.questionHead = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/sx/tuxing6.png"
         questionBean.questionContent = "12－8＝(#R#*#R#)        13－6＝(#R#*#R#)#R##F##R#13－8＝(#R#*#R#)        15－9＝(#R#*#R#)#R##F##R#9 + 4＝(#R#*#R#)        12－5＝(#R#*#R#)#R##F##R#11－3＝(#R#*#R#)       17－9＝(#R#*#R#)#R##F##R#15－7＝(#R#*#R#)"
-        questionBean.rightAnswer = "4#R#7#R#5#R#6#R#13#R#7#R#8#R#8#R#8"
-        questionBean.answer = "4#R#7#R#4#R#6#R#1#R#7#R#8#R#3#R#8"
+        questionBean.rightAnswer = "电视机#R#台灯#R#桌子#R#房间#R#在......后面#R#在......旁边"
+        questionBean.answer = "电视机#R#台灯#R#桌子#R#房间#R#在......后面#R#在......旁边"
         completeView.setData(questionBean)
-        completeView.show(active)
         completeView.show(true)
     }
 
@@ -149,8 +150,8 @@ class QuestionTestActivity : AppCompatActivity() {
 //                "How do you do?;How about you?;Fine, thank you.;Good,how about you?"
 //        questionBean.rightAnswer = "C"
 
-        questionBean.questionType = "2"
-        questionBean.questionHead = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/yy/Unit1_Classroom_blackboard3.png"
+        questionBean.questionType = "8"
+        questionBean.questionHead = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/Lesson/hj/yy/3/1/5262/5273/Module 4 Unit 11.mp3"
         questionBean.questionContent =
                 "desk;blackboard;school;wall"
         questionBean.rightAnswer = "C"

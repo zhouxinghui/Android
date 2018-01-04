@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -41,8 +42,8 @@ public class SentenceView extends BaseQuestionView {
 
     @Override
     protected void addBody(Context context) {
-        //这个只能用  这种方式 实例化 用 new的方式，里面设置的很多方法会没有效果
         lineEditText = new LineEditText(context);
+        lineEditText.setGravity(Gravity.TOP | Gravity.START);
         lineEditText.setId(R.id.multi_under_line);
         lineEditText.setLineSpacing(getResources().getDimensionPixelSize(R.dimen.x10),1);
         lineEditText.setTextColor(getResources().getColor(R.color.question_normal));
@@ -55,7 +56,9 @@ public class SentenceView extends BaseQuestionView {
 
     @Override
     public void setData(QuestionBean questionBean) {
-        if(QuestionTypeUtils.getIntType(questionBean) == QuestionTypeUtils.QUESTIONS_CHINESE_SENTENCE){//词组或句子
+        //词组或句子&应用题
+        if(QuestionTypeUtils.getIntType(questionBean) == QuestionTypeUtils.QUESTIONS_CHINESE_SENTENCE
+                ||QuestionTypeUtils.getIntType(questionBean) == QuestionTypeUtils.QUESTION_MATH_APPLICATION){
             lineEditText.setMinLines(1);
         }else{//作文
             lineEditText.setMinLines(5);

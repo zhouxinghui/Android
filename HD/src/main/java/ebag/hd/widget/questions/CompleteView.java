@@ -5,12 +5,16 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import ebag.core.bean.QuestionBean;
+import ebag.core.util.StringUtils;
+import ebag.hd.R;
 import ebag.hd.widget.questions.base.BaseQuestionView;
 import ebag.hd.widget.questions.base.FillBlankView;
+import ebag.hd.widget.questions.util.QuestionTypeUtils;
 
 /**
  * Created by unicho on 2017/12/23.
@@ -42,13 +46,24 @@ public class CompleteView extends BaseQuestionView {
         fillBlankView = new FillBlankView(context);
         LayoutParams fillBlankParams = new LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
+        fillBlankParams.topMargin = getResources().getDimensionPixelSize(R.dimen.y10);
         addView(fillBlankView,fillBlankParams);
     }
 
     @Override
     public void setData(QuestionBean questionBean) {
-        title = Arrays.asList(questionBean.getQuestionHead().split("#R#"));
+        title = new ArrayList<>();
+        switch (QuestionTypeUtils.getIntType(questionBean)) {
+            case QuestionTypeUtils.QUESTIONS_COMPLETION_BY_VOICE://听录音填空
+                title.add("听录音填空");
+                title.add("#M#" + questionBean.getQuestionHead());
+                break;
+            case QuestionTypeUtils.QUESTIONS_COMPLETION://填空题
+            case QuestionTypeUtils.QUESTIONS_WRITE_WORD_BY_PIC://看图写单词
+                title = (Arrays.asList(questionBean.getQuestionHead().split("#R#")));
+                break;
+        }
+
         questionContent = questionBean.getQuestionContent();
 
         studentAnswer = questionBean.getAnswer();
@@ -60,6 +75,8 @@ public class CompleteView extends BaseQuestionView {
         setTitle(title);
         fillBlankView.setActive(active);
         fillBlankView.setData(questionContent);
+        if (!StringUtils.INSTANCE.isEmpty(studentAnswer))
+            fillBlankView.showResult(studentAnswer);
     }
 
     @Override
@@ -74,7 +91,7 @@ public class CompleteView extends BaseQuestionView {
 
     @Override
     public void showResult() {
-        show(false);
+        questionActive(false);
         fillBlankView.showResult(studentAnswer,rightAnswer);
     }
 

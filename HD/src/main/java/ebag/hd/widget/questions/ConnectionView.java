@@ -10,7 +10,6 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -26,23 +25,22 @@ import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder;
 import ebag.hd.R;
 import ebag.hd.widget.MyLineView;
-import ebag.hd.widget.questions.util.IQuestionEvent;
+import ebag.hd.widget.questions.base.BaseQuestionView;
 
 /**
  * 连线
  * Created by YZY on 2017/12/29.
  */
 
-public class ConnectionView extends LinearLayout implements IQuestionEvent, View.OnTouchListener{
-    private Context context;
+public class ConnectionView extends BaseQuestionView implements View.OnTouchListener{
+    /**
+     * 标题
+     */
+    private List<String> titleList;
     /**
      * 内容
      */
     private String questionContent;
-    /**
-     * 标题
-     */
-    private String questionHead;
     /**
      * 正确答案
      */
@@ -88,22 +86,18 @@ public class ConnectionView extends LinearLayout implements IQuestionEvent, View
     private boolean isActive;
     public ConnectionView(Context context) {
         super(context);
-        init(context);
     }
 
     public ConnectionView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init(context);
     }
 
     public ConnectionView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
     }
 
-    private void init(Context context){
-        this.context = context;
-        setOrientation(VERTICAL);
+    @Override
+    protected void addBody(Context context) {
         RelativeLayout relativeLayout = new RelativeLayout(context);
         LayoutParams layoutParams = new LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
@@ -162,6 +156,8 @@ public class ConnectionView extends LinearLayout implements IQuestionEvent, View
 
     @Override
     public void setData(QuestionBean questionBean) {
+        titleList = new ArrayList<>();
+        titleList.add(questionBean.getQuestionHead());
         questionContent = questionBean.getQuestionContent();
         studentAnswer = questionBean.getAnswer();
         rightAnswer = questionBean.getRightAnswer();
@@ -175,7 +171,7 @@ public class ConnectionView extends LinearLayout implements IQuestionEvent, View
             list.add(elementSplit2[i]);
         }
 
-        detector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener(){
+        detector = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener(){
             @Override
             public boolean onDoubleTap(MotionEvent e) {
                 if (currentTouchView == null || !isActive)
@@ -195,6 +191,7 @@ public class ConnectionView extends LinearLayout implements IQuestionEvent, View
     @Override
     public void show(boolean active) {
         questionActive(active);
+        setTitle(titleList);
         if (list != null && list.size() > 0)
             adapter.setDatas(list);
         else
@@ -215,7 +212,6 @@ public class ConnectionView extends LinearLayout implements IQuestionEvent, View
                                 getPointY(recyclerView.getChildAt(position2)),
                                 true);
                     }
-                    setWrong();
                 }
             }
         }, 500);
@@ -327,10 +323,6 @@ public class ConnectionView extends LinearLayout implements IQuestionEvent, View
         public void setWrongPosition(List<Integer> wrongPosition){
             this.wrongPosition = wrongPosition;
             notifyDataSetChanged();
-        }
-
-        public List<Integer> getWrongPosition(){
-            return wrongPosition;
         }
 
         @Override

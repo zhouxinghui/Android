@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"/>
             <ebag.hd.widget.questions.CompleteView
                 android:id="@+id/completeView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <ebag.hd.widget.questions.ChoiceView
                 android:id="@+id/choiceView"
