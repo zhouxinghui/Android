@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import java.util.List;
 
 import ebag.core.http.image.SingleImageLoader;
+import ebag.core.util.StringUtils;
 import ebag.core.xRecyclerView.adapter.OnItemChildClickListener;
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder;
@@ -123,24 +124,40 @@ public abstract class BaseQuestionView extends LinearLayout implements IQuestion
         protected void fillData(RecyclerViewHolder setter, int position, String entity) {
             switch (getItemViewType(position)){
                 case VIEW_TITLE:
-                    setter.setText(R.id.tvTitle,entity);
-                    setter.setGone(R.id.tvTitle,hideTitle);
+                    if(StringUtils.INSTANCE.isEmpty(entity)){
+                        setter.setGone(R.id.tvTitle,true);
+                    }else{
+                        setter.setText(R.id.tvTitle,entity);
+                        setter.setGone(R.id.tvTitle,hideTitle);
+                    }
                     break;
                 case VIEW_IMAGE:
-                    SingleImageLoader.getInstance().setImage(entity,setter.getImageView(R.id.ivImage));
+                    if(StringUtils.INSTANCE.isEmpty(entity)){
+                        setter.setGone(R.id.ivImage,true);
+                    }else{
+                        SingleImageLoader.getInstance().setImage(entity,setter.getImageView(R.id.ivImage));
+                    }
                     break;
                 case VIEW_SUB_TITLE:
-                    setter.setText(R.id.tvSubTitle,entity);
+                    if(StringUtils.INSTANCE.isEmpty(entity)){
+                        setter.setGone(R.id.tvSubTitle,true);
+                    }else{
+                        setter.setText(R.id.tvSubTitle,entity);
+                    }
                     break;
                 case VIEW_VOICE:
-                    LinearLayout linearLayout = setter.getView(R.id.play_id);
-                    ImageView imageView = setter.getImageView(R.id.image_id);
-                    ProgressBar progressBar = setter.getView(R.id.progress_id);
-                    AnimationDrawable drawable = (AnimationDrawable) imageView.getBackground();
-                    linearLayout.setTag(R.id.image_id, drawable);
-                    linearLayout.setTag(R.id.progress_id, progressBar);
-                    linearLayout.setTag(R.id.play_id, entity);
-                    setter.addClickListener(R.id.play_id);
+                    if(StringUtils.INSTANCE.isEmpty(entity)){
+                        setter.setGone(R.id.play_id,true);
+                    }else{
+                        LinearLayout linearLayout = setter.getView(R.id.play_id);
+                        ImageView imageView = setter.getImageView(R.id.image_id);
+                        ProgressBar progressBar = setter.getView(R.id.progress_id);
+                        AnimationDrawable drawable = (AnimationDrawable) imageView.getBackground();
+                        linearLayout.setTag(R.id.image_id, drawable);
+                        linearLayout.setTag(R.id.progress_id, progressBar);
+                        linearLayout.setTag(R.id.play_id, entity);
+                        setter.addClickListener(R.id.play_id);
+                    }
                     break;
             }
         }
