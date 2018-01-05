@@ -48,6 +48,21 @@ public class FileUtil {
     }
 
     /**
+     * 录音文件保存路径
+     * @return 文件路径
+     */
+    public static String getRecorderPath(){
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath()
+                + File.separator
+                + "eBag"
+                + File.separator
+                + "recorder";
+        if (!isFileExists(path))
+            createDir(path);
+        return path;
+    }
+
+    /**
      * 书写作业图片保存路径
      * @return 路径
      */
@@ -64,6 +79,13 @@ public class FileUtil {
         return path;
     }
 
+    /**
+     * 获取书写作业文件
+     * @param bagId 书包号
+     * @param homeworkId 作业id
+     * @param questionId 试题id
+     * @return 作业路径集合
+     */
     public static List<String> getWriteViewItemFiles(String bagId, String homeworkId, String questionId){
         File file = new File(getWriteViewItemPath(bagId + homeworkId + questionId));
         File[] childFiles = file.listFiles();

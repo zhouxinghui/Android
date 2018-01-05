@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:oneshot="false">
+    <item android:drawable="@drawable/icon_record0"  android:duration="1"/>
+    <item android:drawable="@drawable/icon_record1"  android:duration="50"/>
+    <item android:drawable="@drawable/icon_record2"  android:duration="50"/>
+    <item android:drawable="@drawable/icon_record3"  android:duration="50"/>
+    <item android:drawable="@drawable/icon_record4"  android:duration="50"/>
+    <item android:drawable="@drawable/icon_record5"  android:duration="50"/>
+    <item android:drawable="@drawable/icon_record6"  android:duration="50"/>
+    <item android:drawable="@drawable/icon_record7"  android:duration="50"/>
+    <item android:drawable="@drawable/icon_record8"  android:duration="50"/>
+    <item android:drawable="@drawable/icon_record9"  android:duration="50"/>
+    <item android:drawable="@drawable/icon_record10" android:duration="50"/>
+    <item android:drawable="@drawable/icon_record11" android:duration="50"/>
+    <item android:drawable="@drawable/icon_record12" android:duration="50"/>
+    <item android:drawable="@drawable/icon_record13" android:duration="50"/>
+    <item android:drawable="@drawable/icon_record14" android:duration="50"/>
+    <item android:drawable="@drawable/icon_record15" android:duration="50"/>
+    <item android:drawable="@drawable/icon_record16" android:duration="50"/>
+    <item android:drawable="@drawable/icon_record17" android:duration="50"/>
+    <item android:drawable="@drawable/icon_record18" android:duration="50"/>
+    <item android:drawable="@drawable/icon_record19" android:duration="50"/>
+    <item android:drawable="@drawable/icon_record20" android:duration="50"/>
+    <item android:drawable="@drawable/icon_record21" android:duration="50"/>
+    <item android:drawable="@drawable/icon_record22" android:duration="50"/>
+    <item android:drawable="@drawable/icon_record23" android:duration="50"/>
+    <item android:drawable="@drawable/icon_record24" android:duration="50"/>
+</animation-list>
