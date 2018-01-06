@@ -4,4 +4,8 @@
     <item name="judge_wrong" type="id"/>
     <item name="multi_under_line" type="id"/>
     <item name="connection_recycler_id" type="id"/>
+    <item name="recorder_time_tv_id" type="id"/>
+    <item name="recorder_id" type="id"/>
+    <item name="recorder_play_id" type="id"/>
+    <item name="recorder_upload_id" type="id"/>
 </resources>

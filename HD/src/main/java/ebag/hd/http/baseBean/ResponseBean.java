@@ -6,25 +6,17 @@ package ebag.hd.http.baseBean;
 
 public class ResponseBean<T> {
 
-    private String millis;
-    private String code;
+    private String success;
     private String message;
-    private T body;
+    private T data;
+    private String token;
 
-    public String getMillis() {
-        return millis;
+    public String getSuccess() {
+        return success;
     }
 
-    public void setMillis(String millis) {
-        this.millis = millis;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
+    public void setSuccess(String success) {
+        this.success = success;
     }
 
     public String getMessage() {
@@ -35,11 +27,19 @@ public class ResponseBean<T> {
         this.message = message;
     }
 
-    public T getBody() {
-        return body;
+    public T getData() {
+        return data;
     }
 
-    public void setBody(T body) {
-        this.body = body;
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

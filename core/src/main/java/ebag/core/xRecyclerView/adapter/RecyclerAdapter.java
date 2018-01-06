@@ -1,6 +1,7 @@
 package ebag.core.xRecyclerView.adapter;
 
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
@@ -83,7 +84,7 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
         this.fillData(viewHolder, position, mDatas.get(position));
     }
 
-    protected abstract void fillData(RecyclerViewHolder setter, int position, M entity);
+    protected abstract void fillData(@NonNull RecyclerViewHolder setter, int position, M entity);
 
     @Override
     public long getItemId(int position) {

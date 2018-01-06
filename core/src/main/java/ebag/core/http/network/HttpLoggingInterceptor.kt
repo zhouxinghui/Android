@@ -231,12 +231,7 @@ class HttpLoggingInterceptor : Interceptor {
 
                     if (contentLength != 0L) {
                         logger.log("")
-                        var str = buffer.clone().readString(charset!!)
-                        str = str.replace(("\\\\\"").toRegex(), "\"")
-                                .replace(("\"\\{").toRegex(), "{")
-                                .replace(("\\}\"").toRegex(), "}")
-                                .replace(("\"\\[").toRegex(), "[")
-                                .replace(("\\]\"").toRegex(), "]")
+                        val str = buffer.clone().readString(charset!!)
                         logger.log(str)
                     }
 

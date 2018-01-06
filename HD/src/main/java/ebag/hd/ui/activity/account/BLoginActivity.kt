@@ -1,8 +1,13 @@
 package ebag.hd.ui.activity.account
 
+import android.content.Intent
 import android.view.View
 import ebag.core.base.mvp.MVPActivity
+import ebag.core.util.LoadingDialogUtil
+import ebag.core.util.SerializableUtils
+import ebag.core.util.T
 import ebag.hd.R
+import ebag.hd.base.Constants
 import ebag.hd.bean.response.CodeEntity
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.ui.presenter.CodePresenter
@@ -32,27 +37,37 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
     private val codePresenter : CodePresenter by cDelegate
 
     override fun onLoginStart() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        LoadingDialogUtil.showLoading(this)
     }
 
     override fun onCodeStart() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun onLoginSuccess(userEntity: UserEntity) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        LoadingDialogUtil.closeLoadingDialog()
+        userEntity.roleCode = getRoleCode()
+        SerializableUtils.setSerializable(
+                if (getRoleCode() == "student")
+                    Constants.STUDENT_USER_ENTITY
+                else
+                    Constants.TEACHER_USER_ENTITY,
+                userEntity)
+        startActivity(getJumpIntent())
+        finish()
     }
 
     override fun onCodeSuccess(codeEntity: CodeEntity) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+         //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onLoginError(t: Throwable) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        LoadingDialogUtil.closeLoadingDialog()
+        T.show(this, t.message.toString())
     }
 
     override fun onCodeError(t: Throwable) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun enableCodeBtn(enable: Boolean) {
@@ -75,13 +90,11 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
         //点击切换选中状态
         radio.setOnCheckedChangeListener { _, checkedId ->
-            run {
-                when (checkedId) {
-                //选中了登陆
-                    R.id.login_choose -> toggleLogin(true)
-                //选中了注册
-                    R.id.register_choose -> toggleLogin(false)
-                }
+            when (checkedId) {
+            //选中了登陆
+                R.id.login_choose -> toggleLogin(true)
+            //选中了注册
+                R.id.register_choose -> toggleLogin(false)
             }
         }
 
@@ -93,7 +106,7 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         //点击登陆
         loginBtn.setOnClickListener {
             if (isLoginState){//登陆状态
-                loginPresenter.login(loginAccount.text.toString(),loginPwd.text.toString())
+                loginPresenter.login(loginAccount.text.toString(), loginPwd.text.toString(), getRoleCode())
             }else{//注册
                 if(serveCheck.isChecked)
                     loginPresenter.register(registerAccount.text.toString(), registerPhone.text.toString()
@@ -103,8 +116,6 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
             }
         }
     }
-
-    abstract protected fun getLogoResId() : Int
 
     /**切换是登陆或者注册*/
     private fun toggleLogin(boolean: Boolean){
@@ -133,4 +144,15 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
             loginBtn.text = getText(R.string.login_register)
         }
     }
+
+    /**
+     * logo图标
+     */
+    abstract protected fun getLogoResId() : Int
+
+    /**
+     * 登录角色名
+     */
+    abstract protected fun getRoleCode(): String
+    abstract protected fun getJumpIntent(): Intent
 }
