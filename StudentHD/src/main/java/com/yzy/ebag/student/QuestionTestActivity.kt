@@ -14,6 +14,11 @@ class QuestionTestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question_test)
+        setMathFractionView()
+        setMathEquationView()
+        setMathEquationView2()
+        setMathVerticalView2()
+        setMathVerticalView()
         setSentenceView()
         setJudge()
         setChoiceView()
@@ -35,7 +40,8 @@ class QuestionTestActivity : AppCompatActivity() {
             enSortView.showResult()
             sentenceView.showResult()
             connectionView.showResult()
-            val answer = connectionView.answer
+            mathVerticalView.showResult()
+            val answer = mathVerticalView.answer
             L.e(answer)
         }
 
@@ -60,6 +66,68 @@ class QuestionTestActivity : AppCompatActivity() {
 //        }
     }
 
+    private fun setMathFractionView(){
+        val questionBean = QuestionBean()
+        questionBean.questionType = "15"
+        questionBean.questionTypeSx = "19"
+        questionBean.questionHead = "竖式计算"
+        questionBean.questionContent = "#1,6#:-:#1,7#:=:#*,*#;#4,5#:-:#2,3#:=:#*,*#;#1,8#:+:#1,6#:=:#*,*#;"
+        questionBean.rightAnswer = "1,42;2,15;7,24"
+//        questionBean.answer = "4,2,2,8,3,1,2,1,2"
+        mathFractionView.setData(questionBean)
+        mathFractionView.show(true)
+    }
+
+    private fun setMathEquationView(){
+        val questionBean = QuestionBean()
+        questionBean.questionType = "15"
+        questionBean.questionTypeSx = "18"
+        questionBean.questionHead = "简便计算"
+        questionBean.questionContent = "*(70,－,46),÷,8,＝,#C#"
+        questionBean.rightAnswer = "24,3"
+//        questionBean.answer = "4,2,2,8,3,1,2,1,2"
+        mathEquationView.setData(questionBean)
+        mathEquationView.show(true)
+    }
+
+    private fun setMathEquationView2(){
+        val questionBean = QuestionBean()
+        questionBean.questionType = "15"
+        questionBean.questionTypeSx = "18"
+        questionBean.questionHead = "直接写出得数"
+        questionBean.questionContent = "#45,－,(13,＋,12),＝,#C#"
+        questionBean.rightAnswer = "25,20"
+//        questionBean.answer = "4,2,2,8,3,1,2,1,2"
+        mathEquationView2.setData(questionBean)
+        mathEquationView2.show(true)
+    }
+
+    private fun setMathVerticalView2(){
+        val questionBean = QuestionBean()
+        questionBean.questionType = "15"
+        questionBean.questionTypeSx = "17"
+        questionBean.questionHead = "82×16=(    )"
+        questionBean.questionContent = "#G#,#C#,#C#,#C#,#F#,#H#,#F#,3,3,5,3,#F#,#G#,#C#,#G#,#G#," +
+                "#F#,#E#,#F#,#G#,#G#,#C#,#G#,#F#,#G#,#G#,#C#,#G#,#F#,#E#,#F#,#G#,#G#,#C#,#C#," +
+                "#F#,#G#,#G#,#C#,#C#,#F#,#E#,#F#,#G#,#G#,#G#,#C#"
+        questionBean.rightAnswer = "1,1,7,3,5,3,2,3,2,1,2"
+//        questionBean.answer = "4,2,2,8,3,1,2,1,2"
+        mathVerticalView2.setData(questionBean)
+        mathVerticalView2.show(true)
+    }
+
+    private fun setMathVerticalView(){
+        val questionBean = QuestionBean()
+        questionBean.questionType = "15"
+        questionBean.questionTypeSx = "21"
+        questionBean.questionHead = "82×16=(    )"
+        questionBean.questionContent = "#G#,#G#,8,2,#F#,×,#F#,#G#,#G#,1,6,#F#,#E#,#F#,#G#,#C#,#C#,#C#,#F#,#G#,#C#,#C#,#G#,#F#,#E#,#F#,#C#,#C#,#C#,#C#"
+        questionBean.rightAnswer = "4,9,2,8,2,1,3,1,2"
+//        questionBean.answer = "4,2,2,8,3,1,2,1,2"
+        mathVerticalView.setData(questionBean)
+        mathVerticalView.show(true)
+    }
+
     private fun setSentenceView(){
         val questionBean = QuestionBean()
         questionBean.questionType = "19"
@@ -73,9 +141,19 @@ class QuestionTestActivity : AppCompatActivity() {
     private fun setConnectionView(){
         val questionBean = QuestionBean()
         questionBean.questionHead = "给图片和单词连线"
-        questionBean.questionContent = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/desk.jpg,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/schoolbag.jpg;blackboard,desk,chair,schoolbag"
-        questionBean.rightAnswer = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg,blackboard;http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg,chair;http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/desk.jpg,desk;http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/schoolbag.jpg,schoolbag"
-//        questionBean.answer = "blackboard,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg;desk,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg;chair,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/desk.jpg;schoolbag,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/schoolbag.jpg"
+        questionBean.questionContent = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg," +
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg," +
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/desk.jpg," +
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/schoolbag.jpg;" +
+                "blackboard,desk,chair,schoolbag"
+        questionBean.rightAnswer = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg,blackboard;" +
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg,chair;" +
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/desk.jpg,desk;" +
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/schoolbag.jpg,schoolbag"
+//        questionBean.answer = "blackboard,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg;" +
+//                "desk,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg;" +
+//                "chair,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/desk.jpg;" +
+//                "schoolbag,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/schoolbag.jpg"
         connectionView.setData(questionBean)
         connectionView.show(true)
     }
@@ -114,7 +192,11 @@ class QuestionTestActivity : AppCompatActivity() {
         val questionBean = QuestionBean()
         questionBean.questionType = "4"
         questionBean.questionHead = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/sx/tuxing6.png"
-        questionBean.questionContent = "12－8＝(#R#*#R#)        13－6＝(#R#*#R#)#R##F##R#13－8＝(#R#*#R#)        15－9＝(#R#*#R#)#R##F##R#9 + 4＝(#R#*#R#)        12－5＝(#R#*#R#)#R##F##R#11－3＝(#R#*#R#)       17－9＝(#R#*#R#)#R##F##R#15－7＝(#R#*#R#)"
+        questionBean.questionContent = "12－8＝(#R#*#R#)        " +
+                "13－6＝(#R#*#R#)#R##F##R#13－8＝(#R#*#R#)        " +
+                "15－9＝(#R#*#R#)#R##F##R#9 + 4＝(#R#*#R#)        " +
+                "12－5＝(#R#*#R#)#R##F##R#11－3＝(#R#*#R#)       " +
+                "17－9＝(#R#*#R#)#R##F##R#15－7＝(#R#*#R#)"
         questionBean.rightAnswer = "电视机#R#台灯#R#桌子#R#房间#R#在......后面#R#在......旁边"
         questionBean.answer = "电视机#R#台灯#R#桌子#R#房间#R#在......后面#R#在......旁边"
         completeView.setData(questionBean)

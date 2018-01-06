@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ebag.hd.widget.questions.base.MathFraction
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lineView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/question_math_width"
+        android:layout_margin="@dimen/question_math_margin"
+        android:minWidth="@dimen/question_math_width"
+        android:gravity="center"
+        android:textSize="@dimen/question_content"
+        android:textColor="@color/question_normal"/>
+</ebag.hd.widget.questions.base.MathFraction>

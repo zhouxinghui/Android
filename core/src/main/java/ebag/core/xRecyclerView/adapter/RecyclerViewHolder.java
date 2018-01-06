@@ -12,6 +12,7 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.Checkable;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -79,7 +80,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder implements
         }
     }
 
-    private int getHolderPosition() {
+    public int getHolderPosition() {
         return getAdapterPosition() - adapter.getHeaderSize();
     }
 
@@ -89,6 +90,10 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder implements
 
     public TextView getTextView(@IdRes int viewId) {
         return (TextView)this.getView(viewId);
+    }
+
+    public EditText getEditText(@IdRes int viewId) {
+        return (EditText)this.getView(viewId);
     }
 
     public View getConvertView() {

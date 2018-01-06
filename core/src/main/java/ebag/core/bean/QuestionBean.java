@@ -58,6 +58,7 @@ public class QuestionBean implements Serializable{
     }
 
     public String getAnswer() {
+        if(answer == null) answer = "";
         return answer;
     }
 

@@ -27,6 +27,26 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             >
+            <ebag.hd.widget.questions.MathFractionView
+                android:id="@+id/mathFractionView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <ebag.hd.widget.questions.MathEquationView
+                android:id="@+id/mathEquationView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <ebag.hd.widget.questions.MathEquationView
+                android:id="@+id/mathEquationView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <ebag.hd.widget.questions.MathVerticalView
+                android:id="@+id/mathVerticalView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <ebag.hd.widget.questions.MathVerticalView
+                android:id="@+id/mathVerticalView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
             <ebag.hd.widget.questions.SentenceView
                 android:id="@+id/sentenceView"
                 android:layout_width="match_parent"

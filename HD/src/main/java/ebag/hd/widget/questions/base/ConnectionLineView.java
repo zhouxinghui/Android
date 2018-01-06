@@ -3,7 +3,6 @@ package ebag.hd.widget.questions.base;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -19,11 +18,6 @@ public class ConnectionLineView extends View {
      * 文本的颜色
      */
     private Paint linePaint = new Paint();
-    /**
-    * 绘制时控制文本绘制的范围
-    */
-    private Rect mBound;
-    private Paint mPaint;
 
     /**
      * 答案是否正确画的线
@@ -47,73 +41,17 @@ public class ConnectionLineView extends View {
      */
     public ConnectionLineView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        initData();
-
-        /**
-         * 获得绘制文本的宽和高
-         */
-        mPaint = new Paint();
-//        mPaint.setTextSize(5);
-        // mPaint.setColor(mTitleTextColor);
-        mBound = new Rect();
-        mPaint.getTextBounds("", 0, 0, mBound);
+        initLinePaint();
     }
 
     /**
      * 初始化数据
      */
-    private void initData() {
-        initLinePaint();
-    }
-
     private void initLinePaint() {
         linePaint.setColor(getResources().getColor(R.color.question_bg_pressed));
-        linePaint.setStrokeWidth(getResources().getDimension(R.dimen.x5));
+        linePaint.setStrokeWidth(getResources().getDimension(R.dimen.x3));
         linePaint.setAntiAlias(true);
         linePaint.setStrokeCap(Paint.Cap.ROUND);
-    }
-
-
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-//         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        int width = 0;
-        int height = 0;
-
-        /**
-         * 设置宽度
-         */
-        int specMode = MeasureSpec.getMode(widthMeasureSpec);
-        int specSize = MeasureSpec.getSize(widthMeasureSpec);
-        switch (specMode) {
-            case MeasureSpec.EXACTLY:// 明确指定了
-                width = getPaddingLeft() + getPaddingRight() + specSize;
-                break;
-            case MeasureSpec.AT_MOST:// 一般为WARP_CONTENT
-                width = getPaddingLeft() + getPaddingRight() + mBound.width();
-                break;
-            case MeasureSpec.UNSPECIFIED:
-                break;
-        }
-
-        /**
-         * 设置高度
-         */
-        specMode = MeasureSpec.getMode(heightMeasureSpec);
-        specSize = MeasureSpec.getSize(heightMeasureSpec);
-        switch (specMode) {
-        case MeasureSpec.EXACTLY:// 明确指定了
-            height = getPaddingTop() + getPaddingBottom() + specSize;
-            break;
-        case MeasureSpec.AT_MOST:// 一般为WARP_CONTENT
-            height = getPaddingTop() + getPaddingBottom() + mBound.height();
-            break;
-        }
-
-        setMeasuredDimension(width, height);
-
     }
 
     public void setWrongLine(ConnectionView.ConnectionBean connectionBean){
@@ -210,6 +148,7 @@ public class ConnectionLineView extends View {
                 drawLine(list.get(i), canvas);
             }
         }
+        canvas.restore();
     }
 
     /**
@@ -232,5 +171,6 @@ public class ConnectionLineView extends View {
 
         canvas.drawLine(0, connectionBean.pointY,
                 getWidth(), connectionBean.connectionBean.pointY, linePaint);
+        canvas.save();
     }
 }
