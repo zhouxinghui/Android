@@ -10,6 +10,7 @@ import ebag.hd.http.baseBean.ResponseBean
 import ebag.hd.http.baseBean.ResponseEntity
 import io.reactivex.Observable
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -31,8 +32,8 @@ interface EBagService {
      * 登录
      * @return
      */
-    @POST("services/login/{version}")
-    fun login(@Path("version") version: String, @Body requestBody: RequestBean<LoginVo>): Observable<ResponseBean<UserEntity>>
+    @POST("user/login/{version}")
+    fun login(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<UserEntity>>
 
     /**
      * 登录
@@ -45,7 +46,7 @@ interface EBagService {
      * 城市标签
      * @return
      */
-    @POST("services/exam/getCode")
+    @POST("services/exam/getSuccess")
     fun getPhoneCode(@Body requestBody: RequestBean<CodeVo>): Observable<ResponseBean<CodeEntity>>
 
     //TODO 接口名称，注意替换

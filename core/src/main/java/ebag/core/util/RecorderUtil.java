@@ -99,7 +99,7 @@ public class RecorderUtil {
         if (file1.exists()) {
             file1.delete();
         }
-        fileName = path + File.separator + System.currentTimeMillis() + ".amr";
+        fileName = path + System.currentTimeMillis() + ".amr";
         isPause = false;
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);

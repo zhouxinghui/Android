@@ -3,6 +3,7 @@ package ebag.hd.http
 import android.os.Environment
 import ebag.core.http.network.FastJsonConverterFactory
 import ebag.core.http.network.HttpLoggingInterceptor
+import ebag.core.util.StringUtils
 import okhttp3.Cache
 import okhttp3.ConnectionSpec
 import okhttp3.Interceptor
@@ -12,6 +13,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import java.io.File
 import java.util.*
 import java.util.concurrent.TimeUnit
+
+
 
 /**
  * 网络请求的全局配置
@@ -55,13 +58,33 @@ object EBagClient {
                 // 支持HTTPS
                 .connectionSpecs(Arrays.asList(ConnectionSpec.CLEARTEXT, ConnectionSpec.MODERN_TLS)) //明文Http与比较新的Https
                 .addInterceptor(getLogInterceptor())
+                .addInterceptor {
+
+                    val original = it.request()
+                    val request = original.newBuilder()
+
+                    //如果没有配置 Content-Type，这边统一添加这个配置
+                    var header = original.header("Content-Type")
+                    if(StringUtils.isEmpty(header)){
+                        request.addHeader("Content-Type", "application/json")
+                    }
+
+                    //如果没有配置 Accept，这边统一添加这个配置
+                    header= original.header("Accept")
+                    if(StringUtils.isEmpty(header)){
+                        request.addHeader("Accept", "application/json")
+                    }
+
+                    return@addInterceptor it.proceed(request.build())
+                }
 //                .cache(cache)
                 .build()
         val retrofit = Retrofit.Builder()
                 .client(builder)
                 .addConverterFactory(FastJsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl("http://www.yun-bag.com/ebag-portal/")
+//                .baseUrl("http://www.yun-bag.com/ebag-portal/")
+                .baseUrl("http://192.168.1.155:9001/")
                 .build()
         return retrofit.create(clazz)
     }

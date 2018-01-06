@@ -47,6 +47,18 @@ public class FileUtil {
         }
     }
 
+    public static String getSerializablePath(){
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath()
+                + File.separator
+                + "eBag"
+                + File.separator
+                + "serializable"
+                + File.separator;
+        if (!isFileExists(path))
+            createDir(path);
+        return path;
+    }
+
     /**
      * 录音文件保存路径
      * @return 文件路径
@@ -56,7 +68,8 @@ public class FileUtil {
                 + File.separator
                 + "eBag"
                 + File.separator
-                + "recorder";
+                + "recorder"
+                + File.separator;
         if (!isFileExists(path))
             createDir(path);
         return path;
@@ -73,7 +86,8 @@ public class FileUtil {
                 + File.separator
                 + "writePic"
                 + File.separator
-                + id;
+                + id
+                + File.separator;
         if (!isFileExists(path))
             createDir(path);
         return path;

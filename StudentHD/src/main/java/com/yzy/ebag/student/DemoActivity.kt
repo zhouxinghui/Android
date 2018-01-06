@@ -60,7 +60,7 @@ class DemoActivity : AppCompatActivity() {
             }
         })
 
-        recorderUtil.setFinalFileName(FileUtil.getRecorderPath() + File.separator + "1.amr")
+        recorderUtil.setFinalFileName(FileUtil.getRecorderPath() + "1.amr")
         adapter.setOnItemChildClickListener { holder, view, position ->
             when {
                 view.id == R.id.recorder_id -> {
@@ -73,9 +73,10 @@ class DemoActivity : AppCompatActivity() {
                             recorderUtil.pauseRecord()
                             alertDialog.show()
                         }else{
-                            L.e(uploadBtn!!.visibility)
+                            //前面的item录音文件未上传
                             if(uploadBtn!!.visibility == View.VISIBLE) {
                                 alertDialog.show()
+                            //前面的item录音文件已经上传，直接开始录音
                             }else{
                                 startNewRecorder(view, position)
                             }
@@ -89,8 +90,10 @@ class DemoActivity : AppCompatActivity() {
                             recorderUtil.pauseRecord()
                             recorderAnim!!.stop()
                         }else{
+                            //已经录音了，点击录音按钮提示用户是否重新录音
                             if(uploadBtn!!.visibility == View.INVISIBLE)
                                 dialogNew.show()
+                            //已经暂停录音，点击录音按钮继续录音
                             else{
                                 recorderUtil.startRecord()
                                 recorderAnim!!.start()
@@ -162,7 +165,7 @@ class DemoActivity : AppCompatActivity() {
         //上传录音
         OSSUploadUtils.getInstance().uploadFileToOss(
                 this,
-                File(FileUtil.getRecorderPath() + File.separator + "1.amr"),
+                File(FileUtil.getRecorderPath() + "1.amr"),
                 "personal/test2018",
                 "1.amr",
                 mHandler)

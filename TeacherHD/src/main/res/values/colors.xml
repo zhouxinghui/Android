@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#676156</color>
     <color name="colorPrimaryDark2">#F9F6F1</color>
     <color name="colorAccent">#6FB1FF</color>
-    <color name="background">#F7F7FA</color>
+    <color name="background">#FFFFFF</color>
 
     <!--首页start-->
     <drawable name="home_navigation_selected">#FFA850</drawable>

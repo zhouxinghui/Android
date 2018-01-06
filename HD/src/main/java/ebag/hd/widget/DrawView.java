@@ -146,7 +146,7 @@ public class DrawView extends View {
         if (isDraw){
             WriteViewBean bean = new WriteViewBean();
             Bitmap bitmap = cacheBitmap.copy(Bitmap.Config.ARGB_4444, true);
-            String fileName = FileUtil.getWriteViewItemPath(bagId + homeworkId + questionId) + File.separator + position;
+            String fileName = FileUtil.getWriteViewItemPath(bagId + homeworkId + questionId) + position;
             bean.setBitmap(bitmap);
             bean.setPath(fileName);
             File file = new File(fileName);

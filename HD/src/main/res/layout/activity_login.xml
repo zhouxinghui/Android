@@ -86,7 +86,8 @@
         <EditText
             android:id="@+id/loginAccount"
             style="@style/login_edit_text"
-            android:hint="@string/login_hint_nickname"
+            android:hint="@string/login_hint_account"
+            android:inputType="number"
             android:drawableLeft="@drawable/login_nickname"/>
 
         <FrameLayout

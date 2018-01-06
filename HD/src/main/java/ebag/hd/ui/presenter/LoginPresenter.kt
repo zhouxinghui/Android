@@ -2,6 +2,7 @@ package ebag.hd.ui.presenter
 import ebag.core.base.mvp.BasePresenter
 import ebag.core.base.mvp.OnToastListener
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.L
 import ebag.core.util.StringUtils
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
@@ -19,7 +20,7 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
             if (account.isEmpty() || pwd.isEmpty()){
                 showToast("请输入账号密码！",true)
                 false
-            }else if(account.length != 11 || account.length != 7) {
+            }else if(account.length != 11 && account.length != 7) {
                 showToast("请输入正确的账号！", true)
                 false
             }else if(account.length == 11 && !StringUtils.isMobileNo(account)){
@@ -37,7 +38,7 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
     /**
      * 登录
      */
-    fun login(account: String, pwd: String){
+    fun login(account: String, pwd: String, roleCode: String){
         if(isLoginInfoCorrect(account,pwd)) {
             if(loginRequest == null) {
                 loginRequest = createRequest(object : RequestCallBack<UserEntity>() {
@@ -47,6 +48,7 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
 
                     override fun onSuccess(entity: UserEntity) {
                         getView()?.onLoginSuccess(entity)
+                        L.e(entity.token)
                     }
 
                     override fun onError(exception: Throwable) {
@@ -54,7 +56,7 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
                     }
                 })
             }
-           EBagApi.login(account,pwd, loginRequest!!)
+           EBagApi.login(account, pwd, roleCode, loginRequest!!)
         }
     }
 
