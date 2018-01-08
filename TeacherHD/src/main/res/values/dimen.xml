@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tv_normal">@dimen/x24</dimen>
+    <dimen name="tv_sub">@dimen/x22</dimen>
+    <dimen name="tv_third">@dimen/x18</dimen>
+    <!--布置作业-->
+    <dimen name="assignment_tv_height">@dimen/y80</dimen>
+</resources>

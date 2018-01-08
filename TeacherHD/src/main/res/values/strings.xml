@@ -14,4 +14,12 @@
     <string name="study_room">自习室\nStudy room</string>
     <string name="homework_schedule">作业进度</string>
     <!--首页end-->
+    <!--布置作业start-->
+    <string name="text_book">教材</string>
+    <string name="difficulty">难度</string>
+    <string name="unlimited">不限</string>
+    <string name="easy">容易</string>
+    <string name="secondary">中等</string>
+    <string name="hard">困难</string>
+    <!--布置作业end-->
 </resources>
