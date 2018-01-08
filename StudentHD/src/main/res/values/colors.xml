@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#6FB1FF</color>
     <color name="colorPrimaryDark2">#55BBFF</color>
     <color name="colorAccent">#6FB1FF</color>
+    <color name="navigationBarColor">#6FB1FF</color>
 
     <color name="disable">#D8D8D8</color>
 

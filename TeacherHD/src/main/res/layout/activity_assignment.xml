@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.yzy.ebag.teacher.ui.activity.AssignmentActivity">
+    <ebag.hd.widget.TitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="课后作业"
+        />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <TextView android:id="@+id/class_tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/assignment_tv_height"
+            android:gravity="center"
+            android:paddingLeft="@dimen/x15"
+            android:paddingRight="@dimen/x15"
+            android:text="@string/clazz"
+            android:textSize="@dimen/tv_normal"
+            android:textColor="@color/title_text_color"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/gradeRecycler"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <!--年级-->
+        <android.support.v7.widget.RecyclerView android:id="@+id/gradeRecycler"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y80"
+            app:layout_constraintLeft_toRightOf="@id/class_tv_id"
+            app:layout_constraintRight_toLeftOf="@id/classRecycler"
+            />
+        <!--班级-->
+        <android.support.v7.widget.RecyclerView android:id="@+id/classRecycler"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y80"
+            app:layout_constraintLeft_toRightOf="@id/gradeRecycler"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+        <View android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F7F7FA"
+            app:layout_constraintTop_toBottomOf="@id/class_tv_id"
+            />
+        <TextView android:id="@+id/version_tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/assignment_tv_height"
+            android:gravity="center"
+            android:paddingLeft="@dimen/x15"
+            android:paddingRight="@dimen/x15"
+            android:text="@string/text_book"
+            android:textSize="@dimen/tv_normal"
+            android:textColor="@color/title_text_color"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line1"
+            />
+        <View android:id="@+id/line2"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:background="#F7F7FA"
+            app:layout_constraintTop_toBottomOf="@id/line1"
+            app:layout_constraintBottom_toTopOf="@id/line4"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.3"
+            />
+        <!--教材版本-->
+        <TextView android:id="@+id/textBookVersion"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y80"
+            android:gravity="start|center_vertical"
+            android:textColor="@color/assignment_tv_sub"
+            android:textSize="@dimen/tv_sub"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="人教版-一年级-上册"
+            app:layout_constraintTop_toBottomOf="@id/line1"
+            app:layout_constraintLeft_toRightOf="@id/version_tv_id"
+            app:layout_constraintRight_toLeftOf="@id/line2"
+            />
+        <View android:id="@+id/line3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/x80"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginRight="@dimen/x10"
+            android:background="#F7F7FA"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/version_tv_id"
+            app:layout_constraintRight_toLeftOf="@id/line2"
+            />
+        <!--单元-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/unitRecycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/line3"
+            app:layout_constraintBottom_toTopOf="@id/line4"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/line2"
+            />
+        <TextView android:id="@+id/difficulty_tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/assignment_tv_height"
+            android:gravity="center"
+            android:paddingLeft="@dimen/x15"
+            android:paddingRight="@dimen/x15"
+            android:text="@string/difficulty"
+            android:textSize="@dimen/tv_normal"
+            android:textColor="@color/title_text_color"
+            app:layout_constraintLeft_toRightOf="@id/line2"
+            app:layout_constraintTop_toBottomOf="@id/line1"
+            />
+        <!--难度-->
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/assignment_tv_height"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@id/line1"
+            app:layout_constraintLeft_toRightOf="@id/difficulty_tv_id"
+            >
+            <RadioButton android:id="@+id/unlimitedBtn"
+                android:checked="true"
+                style="@style/assignment_radio_button"
+                android:text="@string/unlimited"
+                />
+            <RadioButton android:id="@+id/easyBtn"
+                style="@style/assignment_radio_button"
+                android:text="@string/easy"
+                />
+            <RadioButton android:id="@+id/secondaryBtn"
+                style="@style/assignment_radio_button"
+                android:text="@string/secondary"
+                />
+            <RadioButton android:id="@+id/hardBtn"
+                style="@style/assignment_radio_button"
+                android:text="@string/hard"
+                />
+        </RadioGroup>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/questionsRecycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/difficulty_tv_id"
+            app:layout_constraintBottom_toTopOf="@id/line4"
+            app:layout_constraintLeft_toRightOf="@id/line2"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+        <View android:id="@+id/line4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/x80"
+            android:background="#F7F7FA"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>

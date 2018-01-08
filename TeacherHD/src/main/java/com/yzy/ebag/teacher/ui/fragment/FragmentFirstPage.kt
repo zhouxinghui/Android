@@ -1,9 +1,11 @@
 package com.yzy.ebag.teacher.ui.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.AbsoluteSizeSpan
@@ -11,9 +13,11 @@ import android.text.style.StyleSpan
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.youth.banner.loader.ImageLoader
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.bean.HomeProgressBean
+import com.yzy.ebag.teacher.ui.activity.AssignmentActivity
+import com.yzy.ebag.teacher.ui.adapter.HomeProgressAdapter
 import ebag.core.base.BaseFragment
 import ebag.core.util.loadImage
 import kotlinx.android.synthetic.main.fragment_first_page.*
@@ -47,7 +51,7 @@ class FragmentFirstPage : BaseFragment() {
         banner.setImageLoader(MyImageLoader()).setImages(images).start()
 
         classTest.setOnClickListener {
-            Toast.makeText(mContext, "课堂检测", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(mContext, AssignmentActivity::class.java))
         }
 
         setTextStyle(classTest.text.toString(), classTest)
@@ -57,12 +61,23 @@ class FragmentFirstPage : BaseFragment() {
         setTextStyle(book.text.toString(), book)
         setTextStyle(prepare.text.toString(), prepare)
         setTextStyle(zixi.text.toString(), zixi)
+
+        val adapter = HomeProgressAdapter()
+        val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = layoutManager
+        val list = ArrayList<HomeProgressBean>()
+        for(i in 0..10){
+            list.add(HomeProgressBean())
+        }
+        adapter.datas = list
+
     }
 
     private fun setTextStyle(string: String, textView : TextView){
         val spannableString = SpannableString(string)
-        spannableString.setSpan(AbsoluteSizeSpan(24,true), 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        spannableString.setSpan(AbsoluteSizeSpan(18,true), 4, string.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.x24),false), 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.x18),false), 4, string.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(StyleSpan(Typeface.BOLD), 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(StyleSpan(Typeface.NORMAL), 4, string.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         textView.text = spannableString

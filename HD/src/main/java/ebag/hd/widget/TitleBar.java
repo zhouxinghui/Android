@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -301,8 +302,8 @@ public class TitleBar extends RelativeLayout {
     public void setTitle(String str){
         titleTv.setText(str);
     }
-    public void setTitle(int strRds){
-        titleTv.setText(strRds);
+    public void setTitle(@StringRes int strRes){
+        titleTv.setText(strRes);
     }
     public void hideAllButtons(boolean hide){
         if (hide){

@@ -22,6 +22,9 @@ import kotlinx.android.synthetic.main.activity_login.*
  * Activity 登录&注册
  */
 open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
+    override fun getLayoutId(): Int {
+        return R.layout.activity_login
+    }
 
     override fun destroyPresenter() {
         if(lDelegate.isInitialized())
@@ -79,10 +82,6 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
     }
 
     private var isLoginState = true
-
-    override fun getLayoutId(): Int {
-        return R.layout.activity_login
-    }
 
     override fun initViews() {
         launcher.setImageResource(getLogoResId())
