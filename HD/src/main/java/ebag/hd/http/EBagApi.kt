@@ -21,7 +21,7 @@ import java.io.File
  */
 object EBagApi {
 
-    val JSON_TYPE = MediaType.parse("application/json; charset=utf-8")
+    private val JSON_TYPE = MediaType.parse("application/json; charset=utf-8")
 
 
     /**返回的数据格式是按照我们自己定义的数据格式时调用此方法*/

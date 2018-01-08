@@ -48,8 +48,8 @@ abstract class BaseListActivity<T> : BaseActivity(),
 
     private var mAdapter: RecyclerAdapter<T>? = null
     protected var mCurrentPage = 1
-    protected var rootLayout: RelativeLayout? = null
-    protected var titleBar: TitleBar? = null
+    protected lateinit var rootLayout: RelativeLayout
+    protected lateinit var titleBar: TitleBar
 
     protected abstract fun loadConfig(intent: Intent)
 

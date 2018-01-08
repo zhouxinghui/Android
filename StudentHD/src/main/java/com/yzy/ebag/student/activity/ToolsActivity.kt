@@ -12,7 +12,6 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.util.T
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
-import kotlinx.android.synthetic.main.activity_list.*
 
 /**
  * Created by unicho on 2018/1/8.
@@ -38,8 +37,8 @@ class ToolsActivity : BaseListActivity<Int>() {
         params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,RelativeLayout.TRUE)
         params.bottomMargin = resources.getDimensionPixelSize(R.dimen.x24)
         params.rightMargin = resources.getDimensionPixelSize(R.dimen.x24)
-        layout.addView(imageView,params)
-        titleBar?.setTitle(R.string.tool)
+        rootLayout.addView(imageView,params)
+        titleBar.setTitle(R.string.tool)
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<Int>>) {
