@@ -14,7 +14,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:rightText="@string/tip_submit"
-        app:showRightText="true"
         app:titleText="@string/setting_feedback" />
 
     <View

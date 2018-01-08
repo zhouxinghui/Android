@@ -25,7 +25,7 @@ object EBagApi {
 
 
     /**返回的数据格式是按照我们自己定义的数据格式时调用此方法*/
-    private fun <T> request(ob: Observable<ResponseBean<T>>, callback: RequestCallBack<T>){
+    fun <T> request(ob: Observable<ResponseBean<T>>, callback: RequestCallBack<T>){
         ob.subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .observeOn(Schedulers.newThread())
@@ -35,22 +35,22 @@ object EBagApi {
     }
 
     /**返回的数据格式是按照我们自己定义的数据格式时调用此方法*/
-    private fun <T> startRequest(ob: Observable<T>, callback: RequestCallBack<T>){
+    fun <T> startRequest(ob: Observable<T>, callback: RequestCallBack<T>){
         ob.subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(RequestSubscriber(callback))
     }
 
-    private fun <T> createBody(request: T): RequestBody {
+    fun <T> createBody(request: T): RequestBody {
         return RequestBody.create(JSON_TYPE, JSON.toJSONString(request))
     }
 
-    private fun createBody(jsonObject: JSONObject): RequestBody {
+    fun createBody(jsonObject: JSONObject): RequestBody {
         return RequestBody.create(JSON_TYPE, jsonObject.toString())
     }
 
-    private fun <T> getRequestBean(body: T): RequestBean<T> {
+    fun <T> getRequestBean(body: T): RequestBean<T> {
         val request = RequestBean<T>()
         request.setBody(body)
         return request

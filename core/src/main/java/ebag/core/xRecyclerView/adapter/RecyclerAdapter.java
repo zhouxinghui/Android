@@ -58,6 +58,14 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
 
     /**
      * 多布局时使用，建议在getItemViewType 方法中做
+     * @param layoutResId
+     */
+    protected void addDefaultItem(@LayoutRes int layoutResId) {
+        addItemType(DEFAULT_VIEW_TYPE,layoutResId);
+    }
+
+    /**
+     * 多布局时使用，建议在getItemViewType 方法中做
      * @param type
      * @param layoutResId
      */

@@ -24,4 +24,8 @@
     <dimen name="connection_margin">@dimen/x100</dimen>
     <dimen name="connection_top_margin">@dimen/y20</dimen>
     <dimen name="connection_tv_min_height">@dimen/y60</dimen>
+
+    <dimen name="title_bar_height">@dimen/x55</dimen>
+    <dimen name="title_bar_title_size">@dimen/x32</dimen>
+    <dimen name="title_bar_title_sub_size">@dimen/x24</dimen>
 </resources>

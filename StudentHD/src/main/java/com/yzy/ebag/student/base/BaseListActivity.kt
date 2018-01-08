@@ -1,10 +1,12 @@
 package com.yzy.ebag.student.base
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.RelativeLayout
 import com.yzy.ebag.student.R
-import ebag.core.base.BaseFragment
+import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.widget.empty.StateView
 import ebag.core.xRecyclerView.XRecyclerView
@@ -12,17 +14,19 @@ import ebag.core.xRecyclerView.adapter.OnItemChildClickListener
 import ebag.core.xRecyclerView.adapter.OnItemClickListener
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
+import ebag.hd.widget.TitleBar
+import kotlinx.android.synthetic.main.activity_list.*
 import kotlinx.android.synthetic.main.base_list_view.*
 import java.util.*
 
 /**
- * Created by unicho on 2017/11/30.
+ * Created by unicho on 2018/1/8.
  */
-abstract class BaseListFragment<T> : BaseFragment(),
+abstract class BaseListActivity<T> : BaseActivity(),
         XRecyclerView.OnLoadMoreListener,
         XRecyclerView.OnRefreshListener,
         StateView.OnRetryClickListener,
-        OnItemClickListener,OnItemChildClickListener {
+        OnItemClickListener, OnItemChildClickListener {
 
     companion object {
         /** 刚进入页面时的状态 */
@@ -34,9 +38,6 @@ abstract class BaseListFragment<T> : BaseFragment(),
         /** 每页默认加载的数量 */
         val DEFAULT_PAGE_SIZE = 10
     }
-    private var mAdapter: RecyclerAdapter<T>? = null
-    protected var mCurrentPage = 1
-    protected var isFirstLoadSuccess: Boolean = false
 
     /**可刷新*/
     private var canRefresh = true
@@ -45,7 +46,12 @@ abstract class BaseListFragment<T> : BaseFragment(),
     /**没有网络请求*/
     private var noNetWork = false
 
-    protected abstract fun loadConfig()
+    private var mAdapter: RecyclerAdapter<T>? = null
+    protected var mCurrentPage = 1
+    protected var rootLayout: RelativeLayout? = null
+    protected var titleBar: TitleBar? = null
+
+    protected abstract fun loadConfig(intent: Intent)
 
     /**
      *  网络请求
@@ -65,7 +71,7 @@ abstract class BaseListFragment<T> : BaseFragment(),
     protected abstract fun getLayoutManager(): RecyclerView.LayoutManager?
 
     /** 每页默认加载的数量 */
-    open protected fun getPageSize(): Int = DEFAULT_PAGE_SIZE
+    open protected fun getPageSize(): Int = BaseListFragment.DEFAULT_PAGE_SIZE
 
     /** 是否有加载更多操作 */
     protected fun loadMoreEnabled(enable: Boolean){
@@ -85,17 +91,19 @@ abstract class BaseListFragment<T> : BaseFragment(),
     }
 
     /** 当前网络请求所处的状态 */
-    private var loadingStatus: Int = FIRST
+    private var loadingStatus: Int = BaseListFragment.FIRST
 
-    override fun getLayoutRes(): Int {
-        return R.layout.base_list_view
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_list
     }
 
-    /** 初始化操作 */
-    override fun initViews(rootView: View) {
-        loadConfig()
+    override fun initViews() {
+        rootLayout = layout
+        titleBar = titleView
+        loadConfig(intent)
         // 设置 RecyclerView 的 LayoutManager
-        recyclerView.layoutManager = getLayoutManager() ?: LinearLayoutManager(mContext)
+        recyclerView.layoutManager = getLayoutManager() ?: LinearLayoutManager(this)
         // 设置 recyclerView 的 Adapter
         mAdapter = getAdapter()
         recyclerView.adapter = mAdapter
@@ -113,12 +121,21 @@ abstract class BaseListFragment<T> : BaseFragment(),
             stateView.setOnRetryClickListener(this)
             recyclerView.setOnRefreshListener(this)
             recyclerView.setOnLoadMoreListener(this)
+
             loadMoreEnabled(true)
             refreshEnabled(true)
+
+            //第一次加载数据
+            loadingStatus = BaseListFragment.FIRST
+            mCurrentPage = 1
+            // 加载各种数据
+            requestData(mCurrentPage, requestCallBack)
         }
+
     }
 
     private val requestDelegate = lazy{ object: RequestCallBack<List<T>>(){
+
             override fun onStart() {
                 when (loadingStatus) {
                     BaseListFragment.FIRST -> stateView.showLoading()
@@ -138,9 +155,6 @@ abstract class BaseListFragment<T> : BaseFragment(),
                 when (loadingStatus) {
                 /** 刚进入页面，第一次请求成功 */
                     BaseListFragment.FIRST -> {
-                        //第一次请求成功
-                        isFirstLoadSuccess = true
-
                         if (result.isEmpty()) {
                             //返回数据为空时，展示无数据
                             stateView.showEmpty()
@@ -210,62 +224,6 @@ abstract class BaseListFragment<T> : BaseFragment(),
      */
     private val requestCallBack: RequestCallBack<List<T>> by requestDelegate
 
-
-    override fun onResume() {
-        super.onResume()
-        // onlyView() 是否做网络请求
-        // userVisibleHint 判断当前fragment是否显示
-        // isFirstLoadSuccess 第一次网络请求是否成功，不成功的话 会继续加载
-        if (!noNetWork && userVisibleHint && !isFirstLoadSuccess) {
-            loadingStatus = FIRST
-            mCurrentPage = 1
-            // 加载各种数据
-            requestData(mCurrentPage, requestCallBack)
-        }
-    }
-
-//    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-//        super.setUserVisibleHint(isVisibleToUser)
-//        // 每次切换fragment时调用的方法
-//        if (isVisibleToUser && !isFirstLoadSuccess) {
-//            showData()
-//        }
-//    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        //判断这个是否进行了初始化
-        if(requestDelegate.isInitialized())
-            requestCallBack.cancelRequest()
-    }
-
-    /**
-     * 第一次加载失败，后点击重新加载
-     */
-    override fun onRetryClick() {
-        loadingStatus = REFRESH
-        mCurrentPage = 1
-        requestData(mCurrentPage, requestCallBack)
-    }
-
-    /**
-     * 下拉刷新
-     */
-    override fun onRefresh() {
-        loadingStatus = REFRESH
-        mCurrentPage = 1
-        requestData(mCurrentPage, requestCallBack)
-    }
-
-    /**
-     * 上拉加载
-     */
-    override fun onLoadMore() {
-        loadingStatus = LOAD_MORE
-        mCurrentPage++
-        requestData(mCurrentPage, requestCallBack)
-    }
-
     /**
      * 列表页的点击事件
      * @param view
@@ -280,4 +238,30 @@ abstract class BaseListFragment<T> : BaseFragment(),
      * @param t
      */
     override fun onItemChildClick(holder: RecyclerViewHolder, view: View, position: Int) {}
+
+    override fun onRefresh() {
+        loadingStatus = BaseListFragment.REFRESH
+        mCurrentPage = 1
+        requestData(mCurrentPage, requestCallBack)
+    }
+
+    override fun onRetryClick() {
+        loadingStatus = BaseListFragment.REFRESH
+        mCurrentPage = 1
+        requestData(mCurrentPage, requestCallBack)
+    }
+
+    override fun onLoadMore() {
+        loadingStatus = BaseListFragment.LOAD_MORE
+        mCurrentPage++
+        requestData(mCurrentPage, requestCallBack)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        //判断这个是否进行了初始化
+        if(requestDelegate.isInitialized())
+            requestCallBack.cancelRequest()
+    }
+
 }

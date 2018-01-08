@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.ui.activity.account
+package com.yzy.ebag.student.activity.account
 
 import ebag.hd.ui.activity.account.BForgetActivity
 

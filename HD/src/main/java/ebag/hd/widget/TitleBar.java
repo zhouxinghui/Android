@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import ebag.core.util.StringUtils;
 import ebag.hd.R;
 
 
@@ -28,20 +29,21 @@ import ebag.hd.R;
 
 public class TitleBar extends RelativeLayout {
 
-    private String title;   //标题文字
-    private String rightText;    //右侧按钮文字
-    private float rightTextSize; //右侧文字大小
-    private int rightTextColor;   //标题文字颜色
-    private int titleTextColor;   //标题文字颜色
-    private float titleTextSize;    //标题文字大小
     private ImageView backView; //左侧返回按钮控件
     private View rightView;
     private TextView titleTv;   //标题文本控件
     private LayoutParams leftParams;  //左侧控件布局参数
     private LayoutParams rightParams; //右侧控件布局参数
     private LayoutParams titleParams; //标题文本布局参数
+    private View bottomLine;
+
+    private String title;   //标题文字
+    private String rightText;    //右侧按钮文字
+    private float rightTextSize; //右侧文字大小
+    private int rightTextColor;   //标题文字颜色
+    private int titleTextColor;   //标题文字颜色
+    private float titleTextSize;    //标题文字大小
     public OnTitleBarClickListener listener;
-    private boolean showRightImage;
     private boolean needBottomLine;
     private boolean toMainTab;
 
@@ -51,7 +53,6 @@ public class TitleBar extends RelativeLayout {
     private Drawable leftImage;
     private Drawable rightImage;
     private Context mContext;
-    private boolean showRightText;
     public TitleBar(Context context) {
         super(context);
     }
@@ -80,22 +81,18 @@ public class TitleBar extends RelativeLayout {
 
         rightBackground = typedArray.getDrawable(R.styleable.Title_bar_rightBackground);
 
-        showRightImage = typedArray.getBoolean(R.styleable.Title_bar_isRightImage,false);
-
-        showRightText = typedArray.getBoolean(R.styleable.Title_bar_showRightText,false);
-
         leftImage = typedArray.getDrawable(R.styleable.Title_bar_backImage);
 
         rightImage = typedArray.getDrawable(R.styleable.Title_bar_rightImage);
 
         toMainTab = typedArray.getBoolean(R.styleable.Title_bar_toMainTab,false);
         title = typedArray.getString(R.styleable.Title_bar_titleText);
-        titleTextSize = typedArray.getDimension(R.styleable.Title_bar_titleTextSize, getResources().getDimension(R.dimen.x24));
+        titleTextSize = typedArray.getDimension(R.styleable.Title_bar_titleTextSize, getResources().getDimension(R.dimen.title_bar_title_size));
         titleTextColor = typedArray.getColor(R.styleable.Title_bar_titleTextColor, getResources().getColor(R.color.title_text_color));
 
         rightText = typedArray.getString(R.styleable.Title_bar_rightText);
         rightTextColor = typedArray.getColor(R.styleable.Title_bar_rightTextColor, getResources().getColor(R.color.title_text_color));
-        rightTextSize = typedArray.getDimension(R.styleable.Title_bar_rightTextSize, getResources().getDimension(R.dimen.x20));
+        rightTextSize = typedArray.getDimension(R.styleable.Title_bar_rightTextSize, getResources().getDimension(R.dimen.title_bar_title_sub_size));
 
         needBottomLine = typedArray.getBoolean(R.styleable.Title_bar_needBottomLine,true);
         typedArray.recycle();
@@ -115,7 +112,7 @@ public class TitleBar extends RelativeLayout {
         titleTv.setEllipsize(TextUtils.TruncateAt.END);
         titleTv.setPadding(titleTv.getPaddingLeft()+ (int) getResources().getDimension(R.dimen.x45),titleTv.getPaddingTop()
                 ,titleTv.getPaddingRight()+(int) getResources().getDimension(R.dimen.x45),titleTv.getPaddingBottom());
-        titleParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, (int) getResources().getDimension(R.dimen.x48));
+        titleParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, (int) getResources().getDimension(R.dimen.title_bar_height));
         titleParams.addRule(CENTER_IN_PARENT, TRUE);
         titleParams.addRule(CENTER_VERTICAL);
         addView(titleTv, titleParams);
@@ -141,11 +138,13 @@ public class TitleBar extends RelativeLayout {
             backView.setBackgroundResource(R.drawable.bac_transparent_selector);
         }
 
-        leftParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, (int) getResources().getDimension(R.dimen.x48));
+        leftParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, (int) getResources().getDimension(R.dimen.title_bar_height));
         leftParams.addRule(ALIGN_PARENT_LEFT, TRUE);
         addView(backView, leftParams);
 
-        if(showRightImage || toMainTab){
+
+        //设置了右侧的点击图片，或者设置了回到首页
+        if(rightImage != null || toMainTab){
             rightView = new ImageView(context);
             rightView.setPadding((int) getResources().getDimension(R.dimen.x13),(int) getResources().getDimension(R.dimen.x11)
                     ,(int) getResources().getDimension(R.dimen.x13),(int) getResources().getDimension(R.dimen.x11));
@@ -155,17 +154,10 @@ public class TitleBar extends RelativeLayout {
             }else{
                 ((ImageView)rightView).setImageDrawable(rightImage);
             }
-            if(rightBackground != null){
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){
-                    rightView.setBackground(rightBackground);
-                }else{
-                    rightView.setBackgroundDrawable(rightBackground);
-                }
-            }else{
-                rightView.setBackgroundResource(R.drawable.bac_transparent_selector);
-            }
+
             addRight(false);
-        }else if(showRightText){
+            //设置了右侧的文字，图片会覆盖文字
+        }else if(StringUtils.INSTANCE.isEmpty(rightText)){
             rightView = new TextView(context);
             rightView.setPadding((int) getResources().getDimension(R.dimen.x13),0
                     ,(int) getResources().getDimension(R.dimen.x13),0);
@@ -176,14 +168,8 @@ public class TitleBar extends RelativeLayout {
             addRight(true);
         }
 
-
-        if(needBottomLine){
-            View view = new View(context);
-            view.setBackgroundColor(Color.parseColor("#e1e2e3"));
-            LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,dip2px(context,0.5f));
-            layoutParams.addRule(ALIGN_PARENT_BOTTOM, TRUE);
-            addView(view, layoutParams);
-        }
+        //添加标题下划线
+        addBottomLine();
 
         backView.setOnClickListener(new OnClickListener() {
             @Override
@@ -226,27 +212,60 @@ public class TitleBar extends RelativeLayout {
 
     public void setRightText(String str,OnClickListener onClickListener){
         if(rightView == null){
-            rightText = str;
             rightView = new TextView(mContext);
             ((TextView)rightView).setGravity(Gravity.CENTER_VERTICAL);
             ((TextView)rightView).setTextSize(TypedValue.COMPLEX_UNIT_PX, rightTextSize);
-            ((TextView)rightView).setText(rightText);
             ((TextView)rightView).setTextColor(rightTextColor);
-            rightView.setOnClickListener(onClickListener);
             addRight(true);
+        }else{
+            rightText = str;
+            if(rightView instanceof TextView){
+                ((TextView)rightView).setText(rightText);
+                rightView.setOnClickListener(onClickListener);
+                rightView.setVisibility(VISIBLE);
+            }else{
+                throw new IllegalArgumentException("右侧的 VIEW 不是TextView");
+            }
+        }
+    }
+
+    //显示或隐藏 标题底部横线
+    public void showBottomLine(boolean show){
+        needBottomLine = show;
+        if(show){
+            addBottomLine();
+            bottomLine.setVisibility(VISIBLE);
+        }else{
+            if(bottomLine != null){
+                bottomLine.setVisibility(GONE);
+            }
+        }
+    }
+
+    private void addBottomLine(){
+        if(needBottomLine && bottomLine == null){
+            bottomLine = new View(mContext);
+            bottomLine.setBackgroundColor(Color.parseColor("#e1e2e3"));
+            LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,dip2px(mContext,0.5f));
+            layoutParams.addRule(ALIGN_PARENT_BOTTOM, TRUE);
+            addView(bottomLine, layoutParams);
         }
     }
 
     private void addRight(boolean isText){
         if(isText)
-            rightParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, (int) getResources().getDimension(R.dimen.x48));
+            rightParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, (int) getResources().getDimension(R.dimen.title_bar_height));
         else
-            rightParams = new LayoutParams((int) getResources().getDimension(R.dimen.x45), (int) getResources().getDimension(R.dimen.x48));
+            rightParams = new LayoutParams((int) getResources().getDimension(R.dimen.x45), (int) getResources().getDimension(R.dimen.title_bar_height));
         rightParams.addRule(ALIGN_PARENT_RIGHT, TRUE);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){
-            rightView.setBackground(rightBackground);
+        if(rightBackground != null){
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){
+                rightView.setBackground(rightBackground);
+            }else{
+                rightView.setBackgroundDrawable(rightBackground);
+            }
         }else{
-            rightView.setBackgroundDrawable(rightBackground);
+            rightView.setBackgroundResource(R.drawable.bac_transparent_selector);
         }
         addView(rightView, rightParams);
     }
@@ -259,7 +278,7 @@ public class TitleBar extends RelativeLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, (int) getResources().getDimension(R.dimen.x48));
+        super.onMeasure(widthMeasureSpec, (int) getResources().getDimension(R.dimen.title_bar_height));
     }
 
     /**
@@ -281,6 +300,9 @@ public class TitleBar extends RelativeLayout {
 
     public void setTitle(String str){
         titleTv.setText(str);
+    }
+    public void setTitle(int strRds){
+        titleTv.setText(strRds);
     }
     public void hideAllButtons(boolean hide){
         if (hide){

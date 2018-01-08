@@ -589,7 +589,7 @@ public class XRecyclerView extends BetterRecyclerView {
     }
 
     public void setOnRefreshListener(OnRefreshListener onRefreshListener){
-        pullRefreshEnabled=null!=onRefreshListener;
+        pullRefreshEnabled = null!=onRefreshListener;
         this.mOnRefreshListener = onRefreshListener;
     }
 

@@ -1,10 +1,10 @@
-package com.yzy.ebag.student.ui.activity
+package com.yzy.ebag.student.activity
 
 import android.content.Intent
 import android.os.Handler
 import com.yzy.ebag.student.MainActivity
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.ui.activity.account.LoginActivity
+import com.yzy.ebag.student.activity.account.LoginActivity
 import ebag.core.base.BaseActivity
 import ebag.core.util.SerializableUtils
 import ebag.hd.base.Constants

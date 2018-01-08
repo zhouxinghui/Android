@@ -217,7 +217,7 @@ public class ChoiceView extends BaseQuestionView implements OnItemClickListener 
 
 
         public OptionAdapter() {
-            super(R.layout.question_choice_option_item);
+            addDefaultItem(R.layout.question_choice_option_item);
         }
 
         public void setSelectedPosition(int selectedPosition) {

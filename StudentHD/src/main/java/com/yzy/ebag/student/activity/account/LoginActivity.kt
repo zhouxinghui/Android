@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.ui.activity.account
+package com.yzy.ebag.student.activity.account
 
 import android.content.Intent
 import com.yzy.ebag.student.MainActivity

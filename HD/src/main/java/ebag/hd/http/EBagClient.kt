@@ -47,7 +47,7 @@ object EBagClient {
         createRetrofitService(EBagService::class.java)
     }
 
-    private fun <T> createRetrofitService(clazz: Class<T>): T{
+    public fun <T> createRetrofitService(clazz: Class<T>): T{
         val builder = OkHttpClient.Builder()
                 //错误重连
                 .retryOnConnectionFailure(true)
@@ -59,7 +59,6 @@ object EBagClient {
                 .connectionSpecs(Arrays.asList(ConnectionSpec.CLEARTEXT, ConnectionSpec.MODERN_TLS)) //明文Http与比较新的Https
                 .addInterceptor(getLogInterceptor())
                 .addInterceptor {
-
                     val original = it.request()
                     val request = original.newBuilder()
 

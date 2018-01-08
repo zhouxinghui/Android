@@ -100,4 +100,7 @@
     <string name="friday">星期五</string>
     <string name="morning">上午</string>
     <string name="afternoon">下午</string>
+
+    <!--工具-->
+    <string name="tool">工具</string>
 </resources>

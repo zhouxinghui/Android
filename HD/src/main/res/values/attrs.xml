@@ -51,10 +51,8 @@
         <attr name="leftBackground" format="reference|color"/>
         <attr name="rightBackground" format="reference|color"/>
 
-        <attr name="isRightImage" format="boolean"/>
         <attr name="needBottomLine" format="boolean"/>
         <attr name="toMainTab" format="boolean"/>
-        <attr name="showRightText" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="DrawView">
