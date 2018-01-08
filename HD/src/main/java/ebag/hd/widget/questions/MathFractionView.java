@@ -103,7 +103,14 @@ public class MathFractionView extends BaseQuestionView {
 
     @Override
     public String getAnswer() {
-        return null;
+        StringBuilder sb = new StringBuilder();
+        for(Fraction fraction : contentList){
+            sb.append(fraction.studentAnswer).append(";");
+        }
+
+        if(sb.length() > 0)
+            sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
     }
 
     @Override
@@ -132,6 +139,9 @@ public class MathFractionView extends BaseQuestionView {
 
         private void setResult(boolean result) {
             isResult = result;
+            if(isResult){
+                isActive = false;
+            }
             notifyDataSetChanged();
         }
 

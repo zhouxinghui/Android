@@ -41,7 +41,7 @@ class QuestionTestActivity : AppCompatActivity() {
             sentenceView.showResult()
             connectionView.showResult()
             mathVerticalView.showResult()
-            val answer = mathVerticalView.answer
+            val answer = mathFractionView.answer
             L.e(answer)
         }
 
