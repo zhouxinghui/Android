@@ -5,10 +5,9 @@ import android.os.Handler
 import com.yzy.ebag.teacher.MainActivity
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.ui.activity.account.LoginActivity
+import ebag.core.base.App
 import ebag.core.base.BaseActivity
-import ebag.core.util.SerializableUtils
-import ebag.hd.base.Constants
-import ebag.hd.bean.response.UserEntity
+import ebag.core.util.StringUtils
 
 class WelcomeActivity : BaseActivity() {
     override fun getLayoutId(): Int {
@@ -16,9 +15,9 @@ class WelcomeActivity : BaseActivity() {
     }
 
     override fun initViews() {
-        val userEntity: UserEntity? = SerializableUtils.getSerializable<UserEntity>(Constants.TEACHER_USER_ENTITY)
+        val token: String = App.TOKEN
         Handler().postDelayed({
-            intent = if (userEntity != null){
+            intent = if (!StringUtils.isEmpty(token)){
                 Intent(this, MainActivity::class.java)
             }else{
                 Intent(this, LoginActivity::class.java)

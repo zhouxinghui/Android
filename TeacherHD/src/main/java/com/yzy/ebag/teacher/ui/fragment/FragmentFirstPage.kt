@@ -15,10 +15,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.youth.banner.loader.ImageLoader
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.bean.FirstPageBean
 import com.yzy.ebag.teacher.bean.HomeProgressBean
+import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.ui.activity.AssignmentActivity
 import com.yzy.ebag.teacher.ui.adapter.HomeProgressAdapter
 import ebag.core.base.BaseFragment
+import ebag.core.http.network.RequestCallBack
+import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.loadImage
 import kotlinx.android.synthetic.main.fragment_first_page.*
 
@@ -26,6 +30,7 @@ import kotlinx.android.synthetic.main.fragment_first_page.*
  * Created by YZY on 2017/12/21.
  */
 class FragmentFirstPage : BaseFragment() {
+    var request: RequestCallBack<FirstPageBean>? = null
     companion object {
         fun newInstance() : Fragment {
             val fragment = FragmentFirstPage()
@@ -45,6 +50,21 @@ class FragmentFirstPage : BaseFragment() {
     }
 
     override fun initViews(rootView: View) {
+        if (request == null)
+            request = object : RequestCallBack<FirstPageBean>(){
+                override fun onStart() {
+                    LoadingDialogUtil.showLoading(mContext)
+                }
+                override fun onSuccess(entity: FirstPageBean) {
+                    LoadingDialogUtil.closeLoadingDialog()
+                }
+
+                override fun onError(exception: Throwable) {
+                    LoadingDialogUtil.closeLoadingDialog()
+                }
+
+            }
+        TeacherApi.firstPage(request!!)
         val images = ArrayList<String>()
         images.add("http://static9.photo.sina.com.cn/orignal/4af8a5e8856933841a998")
         images.add("http://img.zcool.cn/community/01902d554c0125000001bf72a28724.jpg@1280w_1l_2o_100sh.jpg")
@@ -87,7 +107,12 @@ class FragmentFirstPage : BaseFragment() {
         override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
             imageView!!.loadImage(context, path as String)
         }
+    }
 
+    override fun onDestroy() {
+        if (request != null)
+            request!!.cancelRequest()
+        super.onDestroy()
     }
 
 }
