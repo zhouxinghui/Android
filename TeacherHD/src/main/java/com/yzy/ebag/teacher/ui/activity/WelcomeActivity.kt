@@ -8,6 +8,7 @@ import com.yzy.ebag.teacher.ui.activity.account.LoginActivity
 import ebag.core.base.App
 import ebag.core.base.BaseActivity
 import ebag.core.util.StringUtils
+import ebag.hd.base.Constants
 
 class WelcomeActivity : BaseActivity() {
     override fun getLayoutId(): Int {
@@ -19,6 +20,7 @@ class WelcomeActivity : BaseActivity() {
         Handler().postDelayed({
             intent = if (!StringUtils.isEmpty(token)){
                 Intent(this, MainActivity::class.java)
+                intent.putExtra(Constants.KEY_TO_MAIN,true)
             }else{
                 Intent(this, LoginActivity::class.java)
             }

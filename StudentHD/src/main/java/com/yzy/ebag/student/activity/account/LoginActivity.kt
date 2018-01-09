@@ -1,7 +1,7 @@
 package com.yzy.ebag.student.activity.account
 
 import android.content.Intent
-import com.yzy.ebag.student.MainActivity
+import com.yzy.ebag.student.activity.main.MainActivity
 import com.yzy.ebag.student.R
 import ebag.hd.ui.activity.account.BLoginActivity
 

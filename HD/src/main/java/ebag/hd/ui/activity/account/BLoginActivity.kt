@@ -23,6 +23,9 @@ import kotlinx.android.synthetic.main.activity_login.*
  * Activity 登录&注册
  */
 open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
+
+    private var isToMain = false
+
     override fun getLayoutId(): Int {
         return R.layout.activity_login
     }
@@ -58,7 +61,10 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
                 else
                     Constants.TEACHER_USER_ENTITY,
                 userEntity)
-        startActivity(getJumpIntent())
+        if(isToMain)
+            startActivity(getJumpIntent())
+        else
+            setResult(Constants.CODE_LOGIN_RESULT)
         finish()
     }
 
@@ -86,6 +92,9 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
     private var isLoginState = true
 
     override fun initViews() {
+
+        isToMain = intent.getBooleanExtra(Constants.KEY_TO_MAIN,false)
+
         launcher.setImageResource(getLogoResId())
         toggleLogin(true)
 
@@ -116,6 +125,8 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
                     toast("请勾选服务条款",true)
             }
         }
+
+
     }
 
     /**切换是登陆或者注册*/

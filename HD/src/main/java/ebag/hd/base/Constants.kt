@@ -7,4 +7,6 @@ package ebag.hd.base
 object Constants {
     val STUDENT_USER_ENTITY = "student_user_entity"
     val TEACHER_USER_ENTITY = "teacher_user_entity"
+    val KEY_TO_MAIN = "key_to_main"
+    val CODE_LOGIN_RESULT = 11
 }

@@ -2,12 +2,14 @@ package com.yzy.ebag.student.activity
 
 import android.content.Intent
 import android.os.Handler
-import com.yzy.ebag.student.MainActivity
+import com.yzy.ebag.student.activity.main.MainActivity
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.activity.account.LoginActivity
 import ebag.core.base.App
 import ebag.core.base.BaseActivity
+import ebag.core.util.L
 import ebag.core.util.StringUtils
+import ebag.hd.base.Constants
 
 class WelcomeActivity : BaseActivity() {
     override fun getLayoutId(): Int {
@@ -16,13 +18,15 @@ class WelcomeActivity : BaseActivity() {
 
     override fun initViews() {
         val token: String = App.TOKEN
+        L.e("token", token)
         Handler().postDelayed({
             intent = if (!StringUtils.isEmpty(token)){
                 Intent(this, MainActivity::class.java)
             }else{
                 Intent(this, LoginActivity::class.java)
             }
-            startActivity(intent)
+            intent.putExtra(Constants.KEY_TO_MAIN,true)
+            this@WelcomeActivity.startActivity(intent)
             finish()
         }, 2000)
     }
