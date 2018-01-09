@@ -90,6 +90,16 @@ abstract class BaseListActivity<T> : BaseActivity(),
         this.noNetWork = noNetWork
     }
 
+    /** 设置页面标题 */
+    protected fun setPageTitle(title: String){
+        titleView.setTitle(title)
+    }
+
+    /** 设置页面标题 */
+    protected fun setPageTitle(title: Int){
+        titleView.setTitle(title)
+    }
+
     /** 当前网络请求所处的状态 */
     private var loadingStatus: Int = BaseListFragment.FIRST
 

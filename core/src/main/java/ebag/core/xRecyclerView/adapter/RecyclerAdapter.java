@@ -20,8 +20,8 @@ import ebag.core.xRecyclerView.XRecyclerView;
 public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerViewHolder> implements
         XRecyclerView.OnHeaderSizeChangedListener{
 
-    private static final int DEFAULT_VIEW_TYPE = -0xff;
-    private static final int VIEW_NOT_FIND = -404;
+    protected static final int DEFAULT_VIEW_TYPE = -0xff;
+    protected static final int VIEW_NOT_FIND = -404;
 
     private List<M> mDatas = new ArrayList<>();
 
@@ -50,6 +50,11 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
         if(getLayoutId(viewType) == VIEW_NOT_FIND){
             throw  new IllegalArgumentException("多布局 时请使用 addItemType 方法添加布局");
         }
+
+        return createBaseViewHolder(parent,viewType);
+    }
+
+    protected RecyclerViewHolder createBaseViewHolder(ViewGroup parent, int viewType){
         RecyclerViewHolder viewHolder = new RecyclerViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(getLayoutId(viewType), parent, false));
         viewHolder.setAdapter(this);

@@ -28,6 +28,10 @@
         </activity>
 
         <activity android:name="com.yzy.ebag.student.activity.ToolsActivity">
+
+        </activity>
+
+        <activity android:name=".activity.book.BookListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
