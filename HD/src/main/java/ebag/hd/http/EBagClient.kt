@@ -1,6 +1,7 @@
 package ebag.hd.http
 
 import android.os.Environment
+import ebag.core.base.App
 import ebag.core.http.network.FastJsonConverterFactory
 import ebag.core.http.network.HttpLoggingInterceptor
 import ebag.core.util.StringUtils
@@ -60,6 +61,7 @@ object EBagClient {
                 .addInterceptor(getLogInterceptor())
                 .addInterceptor {
                     val original = it.request()
+
                     val request = original.newBuilder()
 
                     //如果没有配置 Content-Type，这边统一添加这个配置
@@ -72,6 +74,16 @@ object EBagClient {
                     header= original.header("Accept")
                     if(StringUtils.isEmpty(header)){
                         request.addHeader("Accept", "application/json")
+                    }
+                    //如果没有配置 Accept，这边统一添加这个配置
+                    header= original.header("EBag-Special-Url")
+                    if(StringUtils.isEmpty(header)){
+                        if(StringUtils.isEmpty(original.url().queryParameter("access_token"))){
+                            val url = original.url().toString()
+                            request.url("${if(url.contains("?")) "$url&" else "$url?"}access_token=${App.TOKEN}")
+                        }
+                    }else{
+                        request.removeHeader("EBag-Special-Url")
                     }
 
                     return@addInterceptor it.proceed(request.build())

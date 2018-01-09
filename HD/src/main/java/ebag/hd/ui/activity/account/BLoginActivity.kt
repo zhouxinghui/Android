@@ -2,6 +2,7 @@ package ebag.hd.ui.activity.account
 
 import android.content.Intent
 import android.view.View
+import ebag.core.base.App
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.SerializableUtils
@@ -49,6 +50,7 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
     override fun onLoginSuccess(userEntity: UserEntity) {
         LoadingDialogUtil.closeLoadingDialog()
+        App.modifyToken(userEntity.token)
         userEntity.roleCode = getRoleCode()
         SerializableUtils.setSerializable(
                 if (getRoleCode() == "student")

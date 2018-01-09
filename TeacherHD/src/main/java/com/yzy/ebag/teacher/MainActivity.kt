@@ -27,7 +27,6 @@ class MainActivity : MVPActivity() {
                 R.id.mine -> {changeFragment(2)}
             }
         }
-
     }
 
     private var tempFragment : Fragment? = null

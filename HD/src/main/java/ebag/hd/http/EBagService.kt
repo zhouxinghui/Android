@@ -12,6 +12,7 @@ import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
+import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -32,6 +33,7 @@ interface EBagService {
      * 登录
      * @return
      */
+    @Headers("EBag-Special-Url: special/url")
     @POST("user/login/{version}")
     fun login(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<UserEntity>>
 

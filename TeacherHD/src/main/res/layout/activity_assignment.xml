@@ -34,6 +34,7 @@
         <android.support.v7.widget.RecyclerView android:id="@+id/gradeRecycler"
             android:layout_width="0dp"
             android:layout_height="@dimen/y80"
+            android:layout_marginRight="@dimen/x40"
             app:layout_constraintLeft_toRightOf="@id/class_tv_id"
             app:layout_constraintRight_toLeftOf="@id/classRecycler"
             />

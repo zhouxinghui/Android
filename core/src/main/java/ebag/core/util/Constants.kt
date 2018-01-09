@@ -7,4 +7,5 @@ package ebag.core.util
 object Constants {
     val UPLOAD_SUCCESS = 1
     val UPLOAD_FAIL = 2
+    val USER_TOKEN = "user_token"
 }

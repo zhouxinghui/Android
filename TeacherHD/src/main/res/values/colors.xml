@@ -16,6 +16,7 @@
     <!--布置作业start-->
     <color name="assignment_tv_sub">#717272</color>
     <color name="assignment_btn_checked">#F98353</color>
+    <color name="assignment_grade_checked">#EFF3F6</color>
     <!--布置作业end-->
     <color name="title_text_color">#5B5852</color>
 </resources>

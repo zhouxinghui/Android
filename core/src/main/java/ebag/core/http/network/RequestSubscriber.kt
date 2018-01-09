@@ -8,7 +8,6 @@ import io.reactivex.disposables.Disposable
  */
 class RequestSubscriber<E>(private val requestCallBack: RequestCallBack<E>) : Observer<E>, OnRequestCancelListener {
     private var disposable: Disposable? = null
-
     init {
         this.requestCallBack.setOnRequestCancelListener(this)
     }
