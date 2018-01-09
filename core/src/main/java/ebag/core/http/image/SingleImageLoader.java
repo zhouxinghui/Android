@@ -26,7 +26,6 @@ public class SingleImageLoader {
 
 
     private SingleImageLoader() {
-
         //清除磁盘缓存
 //        Glide.get(context).clearDiskCache();
         //基础配置，磁盘缓存模式，图片精度
