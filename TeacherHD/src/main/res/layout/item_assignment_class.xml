@@ -5,9 +5,11 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
+    android:layout_marginLeft="@dimen/x10"
+    android:layout_marginRight="@dimen/x10"
     >
     <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/Class"
-        android:layout_width="@dimen/x120"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/y50"
         android:textSize="@dimen/tv_sub"
         android:gravity="center_vertical"

@@ -26,10 +26,10 @@ object ImageViewUtils {
 /**
  * 加载图片（默认加载中和加载失败图片）
  */
-fun ImageView.loadImage(context: Context?, url : String) {
+fun ImageView.loadImage(url : String) {
     ImageViewUtils.requestNormal?.let {
         Glide
-        .with(context)
+        .with(this.context)
         .load(url)
         .apply(it)
         .into(this)

@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleText="课后作业"
+        app:rightText="@string/preview"
         />
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

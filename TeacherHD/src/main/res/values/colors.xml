@@ -6,7 +6,7 @@
     <color name="colorAccent">#676156</color>
     <color name="background">#FFFFFF</color>
     <color name="navigationBarColor">#6FB1FF</color>
-
+    <color name="red">#FD7E74</color>
     <!--首页start-->
     <drawable name="home_navigation_selected">#FFA850</drawable>
     <drawable name="white">#FFFFFF</drawable>

@@ -158,7 +158,7 @@ public class TitleBar extends RelativeLayout {
 
             addRight(false);
             //设置了右侧的文字，图片会覆盖文字
-        }else if(StringUtils.INSTANCE.isEmpty(rightText)){
+        }else if(!StringUtils.INSTANCE.isEmpty(rightText)){
             rightView = new TextView(context);
             rightView.setPadding((int) getResources().getDimension(R.dimen.x13),0
                     ,(int) getResources().getDimension(R.dimen.x13),0);

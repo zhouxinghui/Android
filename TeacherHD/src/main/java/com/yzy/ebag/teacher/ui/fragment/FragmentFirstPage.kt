@@ -105,7 +105,7 @@ class FragmentFirstPage : BaseFragment() {
 
     inner private class MyImageLoader : ImageLoader(){
         override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
-            imageView!!.loadImage(context, path as String)
+            imageView!!.loadImage(path as String)
         }
     }
 
