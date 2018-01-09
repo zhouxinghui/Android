@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/x10"
+    >
+    <ImageView android:id="@+id/question_image_id"
+        android:layout_width="@dimen/x100"
+        android:layout_height="@dimen/x100"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+    <TextView android:id="@+id/point_id"
+        android:layout_width="@dimen/x24"
+        android:layout_height="@dimen/x24"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@drawable/red_point"
+        app:layout_constraintTop_toTopOf="@id/question_image_id"
+        app:layout_constraintRight_toRightOf="@id/question_image_id"
+        />
+    <TextView android:id="@+id/question_name_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/assignment_tv_sub"
+        android:textSize="@dimen/tv_sub"
+        android:layout_marginTop="@dimen/y10"
+        app:layout_constraintTop_toBottomOf="@id/question_image_id"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+</android.support.constraint.ConstraintLayout>

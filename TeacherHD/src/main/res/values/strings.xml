@@ -15,11 +15,25 @@
     <string name="homework_schedule">作业进度</string>
     <!--首页end-->
     <!--布置作业start-->
+    <string name="preview">预览</string>
     <string name="text_book">教材</string>
     <string name="difficulty">难度</string>
     <string name="unlimited">不限</string>
     <string name="easy">容易</string>
     <string name="secondary">中等</string>
     <string name="hard">困难</string>
+    <array name="bottom_work">
+        <item>智能推送</item>
+        <item>自定义</item>
+        <item>发布小组</item>
+        <item>发布班级</item>
+    </array>
+    <array name="bottom_test">
+        <item>系统试卷</item>
+        <item>组卷</item>
+        <item>我的试卷</item>
+        <item>发布小组</item>
+        <item>发布班级</item>
+    </array>
     <!--布置作业end-->
 </resources>
