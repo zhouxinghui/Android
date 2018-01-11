@@ -34,5 +34,35 @@
         <item name="android:layout_marginRight">@dimen/x40</item>
         <item name="android:gravity">center</item>
     </style>
+    <style name="semester_radio_button">
+        <item name="android:layout_width">@dimen/x150</item>
+        <item name="android:layout_height">@dimen/y50</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:textColor">@color/semester_tv</item>
+        <item name="android:background">@drawable/semester_tv_bg</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginRight">@dimen/x50</item>
+    </style>
     <!--布置作业end-->
+    <!--班级
+    android:layout_width="@dimen/x170"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/x10"
+        android:gravity="center"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="@color/desc_blue"
+        android:text="@string/add_teacher"
+        android:background="@drawable/clazz_btn_bg"-->
+    <style name="btn_style">
+        <item name="android:layout_width">@dimen/x170</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/x8</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:textColor">@color/desc_blue</item>
+        <item name="android:background">@drawable/clazz_btn_bg</item>
+        <item name="android:layout_marginLeft">@dimen/x30</item>
+        <item name="android:layout_marginRight">@dimen/x30</item>
+    </style>
 </resources>

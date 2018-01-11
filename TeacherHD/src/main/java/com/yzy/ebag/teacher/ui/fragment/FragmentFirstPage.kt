@@ -9,21 +9,24 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.AbsoluteSizeSpan
+import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.youth.banner.loader.ImageLoader
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.base.Constants
 import com.yzy.ebag.teacher.bean.FirstPageBean
-import com.yzy.ebag.teacher.bean.HomeProgressBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.ui.activity.AssignmentActivity
-import com.yzy.ebag.teacher.ui.adapter.HomeProgressAdapter
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.loadImage
+import ebag.core.xRecyclerView.adapter.RecyclerAdapter
+import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
 import kotlinx.android.synthetic.main.fragment_first_page.*
 
 /**
@@ -50,28 +53,21 @@ class FragmentFirstPage : BaseFragment() {
     }
 
     override fun initViews(rootView: View) {
-        if (request == null)
-            request = object : RequestCallBack<FirstPageBean>(){
-                override fun onStart() {
-                    LoadingDialogUtil.showLoading(mContext)
-                }
-                override fun onSuccess(entity: FirstPageBean) {
-                    LoadingDialogUtil.closeLoadingDialog()
-                }
-
-                override fun onError(exception: Throwable) {
-                    LoadingDialogUtil.closeLoadingDialog()
-                }
-
-            }
-        TeacherApi.firstPage(request!!)
-        val images = ArrayList<String>()
-        images.add("http://static9.photo.sina.com.cn/orignal/4af8a5e8856933841a998")
-        images.add("http://img.zcool.cn/community/01902d554c0125000001bf72a28724.jpg@1280w_1l_2o_100sh.jpg")
-        banner.setImageLoader(MyImageLoader()).setImages(images).start()
-
+        val intent = Intent(mContext, AssignmentActivity::class.java)
         classTest.setOnClickListener {
-            startActivity(Intent(mContext, AssignmentActivity::class.java))
+            startActivity(intent
+                    .putExtra(Constants.ASSIGN_CATEGORY, Constants.ASSIGN_WORK)
+                    .putExtra(Constants.ASSIGN_TITLE, resources.getString(R.string.assign_class_test)))
+        }
+        afterClass.setOnClickListener {
+            startActivity(intent
+                    .putExtra(Constants.ASSIGN_CATEGORY, Constants.ASSIGN_WORK)
+                    .putExtra(Constants.ASSIGN_TITLE, resources.getString(R.string.assign_after_class)))
+        }
+        testPaper.setOnClickListener {
+            startActivity(intent
+                    .putExtra(Constants.ASSIGN_CATEGORY, Constants.ASSIGN_TEST_PAPER)
+                    .putExtra(Constants.ASSIGN_TITLE, resources.getString(R.string.assign_test_paper)))
         }
 
         setTextStyle(classTest.text.toString(), classTest)
@@ -86,14 +82,52 @@ class FragmentFirstPage : BaseFragment() {
         val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = layoutManager
-        val list = ArrayList<HomeProgressBean>()
-        for(i in 0..10){
-            list.add(HomeProgressBean())
-        }
-        adapter.datas = list
 
+        if (request == null)
+            request = object : RequestCallBack<FirstPageBean>(){
+                override fun onStart() {
+                    LoadingDialogUtil.showLoading(mContext)
+                }
+                override fun onSuccess(entity: FirstPageBean) {
+                    LoadingDialogUtil.closeLoadingDialog()
+                    //轮播图
+                    val images = ArrayList<String>()
+                    entity.resultAdvertisementVos.mapTo(images) { it.adverUrl }
+                    banner.setImageLoader(MyImageLoader()).setImages(images).start()
+                    //作业进度
+                    adapter.datas = entity.resultHomeWorkVos
+                }
+
+                override fun onError(exception: Throwable) {
+                    LoadingDialogUtil.closeLoadingDialog()
+                }
+
+            }
+        TeacherApi.firstPage(request!!)
     }
 
+    inner private class MyImageLoader : ImageLoader(){
+        override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
+            imageView!!.loadImage(path as String)
+        }
+    }
+    inner class HomeProgressAdapter: RecyclerAdapter<FirstPageBean.ResultHomeWorkVosBean>(R.layout.item_home_schedule) {
+        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: FirstPageBean.ResultHomeWorkVosBean) {
+            val classTv = setter.getTextView(R.id.class_tv_id)
+            val progressBar = setter.getView<ProgressBar>(R.id.progress_id)
+            val current = Integer.parseInt(entity.homeWorkNoCompleteCount)
+            val total = Integer.parseInt(entity.studentHomeWorkCount)
+            progressBar.max = total
+            progressBar.progress = current
+
+            val name = entity.className
+            setWorkTextStyle(entity.homeWorkNoCompleteCount, entity.studentHomeWorkCount, name, classTv)
+        }
+    }
+
+    /**
+     * 卡片字体样式
+     */
     private fun setTextStyle(string: String, textView : TextView){
         val spannableString = SpannableString(string)
         spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.x24),false), 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -103,10 +137,16 @@ class FragmentFirstPage : BaseFragment() {
         textView.text = spannableString
     }
 
-    inner private class MyImageLoader : ImageLoader(){
-        override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
-            imageView!!.loadImage(path as String)
-        }
+    /**
+     * 作业进度字体样式
+     */
+    private fun setWorkTextStyle(current: String, total: String, name: String, textView: TextView){
+        val spannableString = SpannableString(current + "/" + total + "\n" + name)
+        spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.x30),false), 0, current.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(ForegroundColorSpan(resources.getColor(R.color.progress_second_bg)), 0, current.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.x22),false), current.length, spannableString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(ForegroundColorSpan(resources.getColor(R.color.title_text_color)), current.length, spannableString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        textView.text = spannableString
     }
 
     override fun onDestroy() {

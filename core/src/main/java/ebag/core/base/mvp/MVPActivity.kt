@@ -14,6 +14,10 @@ abstract class MVPActivity : BaseActivity(), OnToastListener {
 
     protected abstract fun destroyPresenter()
 
+    override fun toast(msg: String) {
+        toast(msg, true)
+    }
+
     override fun toast(msg: String, isShort: Boolean) {
         T.show(this, msg, isShort)
     }

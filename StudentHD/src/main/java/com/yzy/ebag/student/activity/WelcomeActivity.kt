@@ -2,9 +2,9 @@ package com.yzy.ebag.student.activity
 
 import android.content.Intent
 import android.os.Handler
-import com.yzy.ebag.student.activity.main.MainActivity
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.activity.account.LoginActivity
+import com.yzy.ebag.student.activity.main.MainActivity
 import ebag.core.base.App
 import ebag.core.base.BaseActivity
 import ebag.core.util.L
@@ -23,10 +23,9 @@ class WelcomeActivity : BaseActivity() {
             intent = if (!StringUtils.isEmpty(token)){
                 Intent(this, MainActivity::class.java)
             }else{
-                Intent(this, LoginActivity::class.java)
+                Intent(this, LoginActivity::class.java).putExtra(Constants.KEY_TO_MAIN,true)
             }
-            intent.putExtra(Constants.KEY_TO_MAIN,true)
-            this@WelcomeActivity.startActivity(intent)
+            startActivity(intent)
             finish()
         }, 2000)
     }

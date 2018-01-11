@@ -9,7 +9,7 @@ import java.util.List;
 public class FirstPageBean {
 
     private List<ResultHomeWorkVosBean> resultHomeWorkVos;
-    private List<String> resultAdvertisementVos;
+    private List<ResultAdvertisementVosBean> resultAdvertisementVos;
 
     public List<ResultHomeWorkVosBean> getResultHomeWorkVos() {
         return resultHomeWorkVos;
@@ -19,25 +19,25 @@ public class FirstPageBean {
         this.resultHomeWorkVos = resultHomeWorkVos;
     }
 
-    public List<String> getResultAdvertisementVos() {
+    public List<ResultAdvertisementVosBean> getResultAdvertisementVos() {
         return resultAdvertisementVos;
     }
 
-    public void setResultAdvertisementVos(List<String> resultAdvertisementVos) {
+    public void setResultAdvertisementVos(List<ResultAdvertisementVosBean> resultAdvertisementVos) {
         this.resultAdvertisementVos = resultAdvertisementVos;
     }
 
     public static class ResultHomeWorkVosBean {
         /**
-         * studentHomeWorkCount : 0
-         * homeWorkNoCompleteCount : 0
-         * subject : null
-         * subCode : null
-         * grade : null
-         * gradeCode : null
-         * classId : null
-         * className : null
-         * gradeByClazzName : null
+         * studentHomeWorkCount : 3
+         * homeWorkNoCompleteCount : 2
+         * subject :
+         * subCode :
+         * grade :
+         * gradeCode :
+         * classId : 14
+         * className : 5502班
+         * gradeByClazzName :
          */
 
         private String studentHomeWorkCount;
@@ -120,6 +120,42 @@ public class FirstPageBean {
 
         public void setGradeByClazzName(String gradeByClazzName) {
             this.gradeByClazzName = gradeByClazzName;
+        }
+    }
+
+    public static class ResultAdvertisementVosBean {
+        /**
+         * adverCode : YSB_xxxvipxxx
+         * adverName : 广告商xxx
+         * adverUrl : http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/test/home_banner_one@1x.png
+         */
+
+        private String adverCode;
+        private String adverName;
+        private String adverUrl;
+
+        public String getAdverCode() {
+            return adverCode;
+        }
+
+        public void setAdverCode(String adverCode) {
+            this.adverCode = adverCode;
+        }
+
+        public String getAdverName() {
+            return adverName;
+        }
+
+        public void setAdverName(String adverName) {
+            this.adverName = adverName;
+        }
+
+        public String getAdverUrl() {
+            return adverUrl;
+        }
+
+        public void setAdverUrl(String adverUrl) {
+            this.adverUrl = adverUrl;
         }
     }
 }

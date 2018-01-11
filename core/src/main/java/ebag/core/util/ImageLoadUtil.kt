@@ -12,12 +12,12 @@ import ebag.core.R
 
 object ImageViewUtils {
     val requestNormal: RequestOptions = RequestOptions()
-            .placeholder(R.drawable.ic_launcher)
-            .error(R.drawable.ic_launcher)
+            .placeholder(R.drawable.replace_img)
+            .error(R.drawable.replace_img)
 
     val requestCircle: RequestOptions = RequestOptions()
-            .placeholder(R.drawable.ic_launcher)
-            .error(R.drawable.ic_launcher)
+            .placeholder(R.drawable.replace_round_img)
+            .error(R.drawable.replace_round_img)
             .circleCrop()
 }
 

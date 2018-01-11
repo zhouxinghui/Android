@@ -17,11 +17,17 @@
     <!--布置作业start-->
     <string name="preview">预览</string>
     <string name="text_book">教材</string>
+    <string name="exchange_textbook">更换教材</string>
+    <string name="first_semester">上学期</string>
+    <string name="second_semester">下学期</string>
     <string name="difficulty">难度</string>
     <string name="unlimited">不限</string>
     <string name="easy">容易</string>
     <string name="secondary">中等</string>
     <string name="hard">困难</string>
+    <string name="assign_class_test">课堂检测</string>
+    <string name="assign_after_class">课后作业</string>
+    <string name="assign_test_paper">考试试卷</string>
     <array name="bottom_work">
         <item>智能推送</item>
         <item>自定义</item>
@@ -36,4 +42,9 @@
         <item>发布班级</item>
     </array>
     <!--布置作业end-->
+    <!--班级start-->
+    <string name="desc">班级邀请码：%1$s\n班级学生：%2$s人</string>
+    <string name="add_teacher">添加老师</string>
+    <string name="class_space">班级空间</string>
+    <!--班级end-->
 </resources>
