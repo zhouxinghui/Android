@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/assignment_tv_sub"
-        android:textSize="@dimen/tv_normal"
+        android:textSize="@dimen/title_bar_title_size"
         android:text="@string/exchange_textbook"
         android:padding="@dimen/x20"
         android:gravity="center"

@@ -115,13 +115,13 @@ class FragmentFirstPage : BaseFragment() {
         override fun fillData(setter: RecyclerViewHolder, position: Int, entity: FirstPageBean.ResultHomeWorkVosBean) {
             val classTv = setter.getTextView(R.id.class_tv_id)
             val progressBar = setter.getView<ProgressBar>(R.id.progress_id)
-            val current = Integer.parseInt(entity.homeWorkNoCompleteCount)
+            val current = Integer.parseInt(entity.homeWorkCompleteCount)
             val total = Integer.parseInt(entity.studentHomeWorkCount)
             progressBar.max = total
             progressBar.progress = current
 
             val name = entity.className
-            setWorkTextStyle(entity.homeWorkNoCompleteCount, entity.studentHomeWorkCount, name, classTv)
+            setWorkTextStyle(entity.homeWorkCompleteCount, entity.studentHomeWorkCount, name, classTv)
         }
     }
 

@@ -45,15 +45,7 @@
         <item name="android:layout_marginRight">@dimen/x50</item>
     </style>
     <!--布置作业end-->
-    <!--班级
-    android:layout_width="@dimen/x170"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/x10"
-        android:gravity="center"
-        android:textSize="@dimen/tv_normal"
-        android:textColor="@color/desc_blue"
-        android:text="@string/add_teacher"
-        android:background="@drawable/clazz_btn_bg"-->
+    <!--班级start-->
     <style name="btn_style">
         <item name="android:layout_width">@dimen/x170</item>
         <item name="android:layout_height">wrap_content</item>
@@ -65,4 +57,34 @@
         <item name="android:layout_marginLeft">@dimen/x30</item>
         <item name="android:layout_marginRight">@dimen/x30</item>
     </style>
+    <style name="space_tv_btn">
+        <item name="android:layout_width">@dimen/x400</item>
+        <item name="android:layout_height">@dimen/y140</item>
+        <item name="android:paddingLeft">@dimen/x40</item>
+        <item name="android:paddingRight">@dimen/x40</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/home_tv_bg</item>
+        <item name="android:textColor">@color/desc_blue</item>
+        <item name="android:textSize">@dimen/tv_big</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:drawablePadding">@dimen/x20</item>
+        <item name="leftDrawableWidth">@dimen/x100</item>
+        <item name="leftDrawableHeight">@dimen/x100</item>
+    </style>
+    <!--班级end-->
+    <!--我的start-->
+    <style name="mine_tv_btn">
+        <item name="android:layout_width">@dimen/x370</item>
+        <item name="android:layout_height">@dimen/y180</item>
+        <item name="android:padding">@dimen/x40</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/home_tv_bg</item>
+        <item name="android:textColor">@color/desc_blue</item>
+        <item name="android:textSize">@dimen/tv_big</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:drawablePadding">@dimen/x20</item>
+        <item name="leftDrawableWidth">@dimen/x100</item>
+        <item name="leftDrawableHeight">@dimen/x100</item>
+    </style>
+    <!--我的end-->
 </resources>

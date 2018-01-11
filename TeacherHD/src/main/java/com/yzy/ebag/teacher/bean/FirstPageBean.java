@@ -1,12 +1,13 @@
 package com.yzy.ebag.teacher.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by YZY on 2018/1/8.
  */
 
-public class FirstPageBean {
+public class FirstPageBean implements Serializable{
 
     private List<ResultHomeWorkVosBean> resultHomeWorkVos;
     private List<ResultAdvertisementVosBean> resultAdvertisementVos;
@@ -30,7 +31,7 @@ public class FirstPageBean {
     public static class ResultHomeWorkVosBean {
         /**
          * studentHomeWorkCount : 3
-         * homeWorkNoCompleteCount : 2
+         * homeWorkCompleteCount : 2
          * subject :
          * subCode :
          * grade :
@@ -41,7 +42,7 @@ public class FirstPageBean {
          */
 
         private String studentHomeWorkCount;
-        private String homeWorkNoCompleteCount;
+        private String homeWorkCompleteCount;
         private String subject;
         private String subCode;
         private String grade;
@@ -58,12 +59,12 @@ public class FirstPageBean {
             this.studentHomeWorkCount = studentHomeWorkCount;
         }
 
-        public String getHomeWorkNoCompleteCount() {
-            return homeWorkNoCompleteCount;
+        public String getHomeWorkCompleteCount() {
+            return homeWorkCompleteCount;
         }
 
-        public void setHomeWorkNoCompleteCount(String homeWorkNoCompleteCount) {
-            this.homeWorkNoCompleteCount = homeWorkNoCompleteCount;
+        public void setHomeWorkCompleteCount(String homeWorkCompleteCount) {
+            this.homeWorkCompleteCount = homeWorkCompleteCount;
         }
 
         public String getSubject() {

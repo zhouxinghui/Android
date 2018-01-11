@@ -1,8 +1,8 @@
 package com.yzy.ebag.teacher.http
 
+import com.yzy.ebag.teacher.bean.AssignmentBean
 import com.yzy.ebag.teacher.bean.FirstPageBean
 import ebag.core.http.network.RequestCallBack
-import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
 import ebag.hd.http.EBagClient
 import org.json.JSONObject
@@ -16,18 +16,23 @@ object TeacherApi {
         EBagClient.createRetrofitService(TeacherService::class.java)
     }
 
-    fun login(account: String, pwd: String, roleCode: String, callback: RequestCallBack<UserEntity>){
-        val jsonObj = JSONObject()
-        jsonObj.put("loginAccount",account)
-        jsonObj.put("password",pwd)
-        jsonObj.put("loginType",1)
-        jsonObj.put("roleCode",roleCode)
-//        EBagApi.request(teacherService.login("v1", EBagApi.createBody(jsonObj)), callback)
-    }
+    /**
+     * 首页网络数据
+     */
     fun firstPage(callback: RequestCallBack<FirstPageBean>){
         val jsonObject = JSONObject()
         jsonObject.put("roleCode", "teacher")
         EBagApi.request(teacherService.firstPage("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 布置作业页面
+     */
+    fun assignmentData(type: String, subCode: String, callback: RequestCallBack<AssignmentBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("type", type)
+        jsonObject.put("subCode", subCode)
+        EBagApi.request(teacherService.assignmentData("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
 }

@@ -1,11 +1,14 @@
 package com.yzy.ebag.teacher.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.ui.activity.SpaceActivity
+import com.yzy.ebag.teacher.widget.AddTeacherDialog
 import ebag.core.base.BaseFragment
 import ebag.core.util.T
 import ebag.core.util.loadImageToCircle
@@ -17,6 +20,9 @@ import kotlinx.android.synthetic.main.fragment_class.*
  * Created by YZY on 2017/12/21.
  */
 class FragmentClass : BaseFragment() {
+    private val addTeacherDialog by lazy {
+        AddTeacherDialog(mContext)
+    }
     companion object {
         fun newInstance() : Fragment {
             val fragment = FragmentClass()
@@ -51,11 +57,15 @@ class FragmentClass : BaseFragment() {
             when(view.id){
                 R.id.add_teacher_btn ->{
                     T.show(mContext, "添加老师")
+                    addTeacherDialog.show()
                 }
                 R.id.class_space_btn ->{
-                    T.show(mContext, "班级空间")
+                    startActivity(Intent(mContext, SpaceActivity::class.java))
                 }
             }
+        }
+        createClazz.setOnClickListener {
+            T.show(mContext, "创建班级")
         }
     }
 
