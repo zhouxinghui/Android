@@ -5,6 +5,7 @@ package ebag.core.base.mvp
  * Created by unicho on 2017/11/1.
  */
 interface OnToastListener {
+    fun toast(msg: String)
 
     fun toast(msg: String, isShort: Boolean)
 

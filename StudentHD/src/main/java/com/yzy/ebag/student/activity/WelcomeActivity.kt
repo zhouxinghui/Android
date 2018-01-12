@@ -23,10 +23,9 @@ class WelcomeActivity : BaseActivity() {
             intent = if (!StringUtils.isEmpty(token)){
                 Intent(this@WelcomeActivity, MainActivity::class.java)
             }else{
-                Intent(this@WelcomeActivity, LoginActivity::class.java)
+                Intent(this, LoginActivity::class.java).putExtra(Constants.KEY_TO_MAIN,true)
             }
-            intent.putExtra(Constants.KEY_TO_MAIN,true)
-            this@WelcomeActivity.startActivity(intent)
+            startActivity(intent)
             finish()
         }, 2000)
     }

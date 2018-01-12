@@ -20,9 +20,8 @@ class WelcomeActivity : BaseActivity() {
         Handler().postDelayed({
             intent = if (!StringUtils.isEmpty(token)){
                 Intent(this, MainActivity::class.java)
-                intent.putExtra(Constants.KEY_TO_MAIN,true)
             }else{
-                Intent(this, LoginActivity::class.java)
+                Intent(this, LoginActivity::class.java).putExtra(Constants.KEY_TO_MAIN,true)
             }
             startActivity(intent)
             finish()

@@ -18,15 +18,13 @@ public class UserEntity extends TokenBean{
      * province : BJ
      * city : DCQU
      * county :
-     * address : 北京市东城区
+     * address : 天津市和平区
      * birthday :
      * headUrl :
-     * depId :
+     * depId : 1
      * schoolName :
-     * personalAbout : null
      */
 
-    private String id;
     private String uid;
     private String ysbCode;
     private String name;
@@ -39,7 +37,6 @@ public class UserEntity extends TokenBean{
     private String headUrl;
     private String depId;
     private String schoolName;
-    private Object personalAbout;
     private String roleCode;
 
     public String getRoleCode() {
@@ -48,14 +45,6 @@ public class UserEntity extends TokenBean{
 
     public void setRoleCode(String roleCode) {
         this.roleCode = roleCode;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getUid() {
@@ -152,13 +141,5 @@ public class UserEntity extends TokenBean{
 
     public void setSchoolName(String schoolName) {
         this.schoolName = schoolName;
-    }
-
-    public Object getPersonalAbout() {
-        return personalAbout;
-    }
-
-    public void setPersonalAbout(Object personalAbout) {
-        this.personalAbout = personalAbout;
     }
 }

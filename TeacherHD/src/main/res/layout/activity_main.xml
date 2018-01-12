@@ -56,7 +56,7 @@
             android:padding="@dimen/y20"
             android:drawablePadding="@dimen/y10"
             android:drawableTop="@drawable/home_share_screen_icon"
-            android:background="@drawable/bac_transparent_selector"
+            android:background="?attr/selectableItemBackground"
             android:text="@string/share_screen"
             />
     </LinearLayout>

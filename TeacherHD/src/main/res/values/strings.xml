@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">TeacherHD</string>
+    <string name="confirm">确定</string>
     <!--首页start-->
     <string name="first_page">首页</string>
     <string name="clazz">班级</string>
@@ -17,11 +18,18 @@
     <!--布置作业start-->
     <string name="preview">预览</string>
     <string name="text_book">教材</string>
+    <string name="exchange_textbook">更换教材</string>
+    <string name="textbook_name">%1$s - %2$s - %3$s</string>
+    <string name="first_semester">上学期</string>
+    <string name="second_semester">下学期</string>
     <string name="difficulty">难度</string>
     <string name="unlimited">不限</string>
     <string name="easy">容易</string>
     <string name="secondary">中等</string>
     <string name="hard">困难</string>
+    <string name="assign_class_test">课堂检测</string>
+    <string name="assign_after_class">课后作业</string>
+    <string name="assign_test_paper">考试试卷</string>
     <array name="bottom_work">
         <item>智能推送</item>
         <item>自定义</item>
@@ -36,4 +44,36 @@
         <item>发布班级</item>
     </array>
     <!--布置作业end-->
+    <!--班级start-->
+    <string name="desc">班级邀请码：%1$s\n班级学生：%2$s人</string>
+    <string name="add_teacher">添加老师</string>
+    <string name="class_space">班级空间</string>
+    <string name="create_class">创建班级</string>
+    <string name="teacher_bag_number_hint">请输入老师书包号</string>
+    <string name="class_photos">班级相册</string>
+    <string name="study_group">学习小组</string>
+    <string name="course_schedule">课程表</string>
+    <string name="course">所教课程</string>
+    <string name="class_expression">课堂表现</string>
+    <string name="notice">公告通知：</string>
+    <string name="notice_history">公告历史</string>
+    <string name="publish_notice">发布通知</string>
+    <string name="notice_time">发布时间：%1$s</string>
+    <string name="notice_desc">%1$s《查看详情》</string>
+    <!--班级end-->
+    <!--我的start-->
+    <string name="bag_number">书包号：%1$s</string>
+    <string name="personal_info">个人信息</string>
+    <string name="my_shop">我的商城</string>
+    <string name="operation">操作指南</string>
+    <string name="system_setting">系统设置</string>
+    <string name="setting">设置</string>
+    <!--我的end-->
+    <!--设置start-->
+    <string name="version_update">版本更新</string>
+    <string name="office_notice">官方公告</string>
+    <string name="user_feedback">用户反馈</string>
+    <string name="about_us">关于我们</string>
+    <string name="exit_login">退出登录</string>
+    <!--设置end-->
 </resources>

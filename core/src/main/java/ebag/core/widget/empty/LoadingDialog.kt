@@ -35,7 +35,7 @@ class LoadingDialog(context: Context?, message: String?) : Dialog(context) {
         window.setBackgroundDrawable(BitmapDrawable())
         val params = window.attributes
         params.width = DensityUtil.dip2px(context!!, 120F)
-        params.height = DensityUtil.dip2px(context!!, 200F)
+        params.height = DensityUtil.dip2px(context, 200F)
         window.attributes = params
     }
 }
