@@ -5,27 +5,37 @@
     <TextView
         android:id="@+id/test"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/install"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="安装"/>
+        android:text="安装"
+        android:visibility="gone"/>
     <Button
         android:id="@+id/patch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="合成"/>
+        android:text="合成"
+        android:visibility="gone"/>
     <Button
         android:id="@+id/jump"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="跳转"/>
+        android:text="跳转"
+        android:visibility="gone"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

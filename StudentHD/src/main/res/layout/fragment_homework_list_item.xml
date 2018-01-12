@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/book_list_bg">
+    <TextView
+        android:id="@+id/tvCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/x28"
+        android:textColor="@color/normal_text_color"
+        android:layout_marginTop="@dimen/x14"
+        android:layout_marginStart="@dimen/x14"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="完成： 28/28"/>
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/x28"
+        android:textColor="@color/normal_text_color"
+        android:layout_marginTop="@dimen/x10"
+        app:layout_constraintTop_toBottomOf="@id/tvCount"
+        app:layout_constraintStart_toStartOf="@id/tvCount"
+        tools:text="内容： 第一单元 看一看"/>
+
+    <TextView
+        android:id="@+id/tvRequire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/x28"
+        android:textColor="@color/normal_text_color"
+        android:layout_marginTop="@dimen/x10"
+        android:layout_marginBottom="@dimen/x14"
+        app:layout_constraintTop_toBottomOf="@id/tvContent"
+        app:layout_constraintStart_toStartOf="@id/tvCount"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="要求： 认真仔细"/>
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/x20"
+        android:textColor="#8892a1"
+        android:layout_marginEnd="@dimen/x14"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvCount"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="截止时间： 2017-12-25 12:50"/>
+    
+    <ebag.hd.widget.drawable.DrawableTextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/x28"
+        android:textColor="@color/color_homework_list_selector"
+        android:layout_marginTop="@dimen/x10"
+        android:layout_marginBottom="@dimen/x14"
+        android:drawablePadding="@dimen/x10"
+        app:rightDrawable="@drawable/homework_list_arrow"
+        app:rightDrawableWidth="@dimen/x13"
+        app:rightDrawableHeight="@dimen/x23"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvContent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/x14"
+        tools:text="未完成"/>
+
+
+</android.support.constraint.ConstraintLayout>

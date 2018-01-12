@@ -1,28 +1,28 @@
 package com.yzy.ebag.student.base
 
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.T
 import ebag.core.widget.empty.StateView
-import ebag.core.xRecyclerView.XRecyclerView
-import ebag.core.xRecyclerView.adapter.OnItemChildClickListener
-import ebag.core.xRecyclerView.adapter.OnItemClickListener
-import ebag.core.xRecyclerView.adapter.RecyclerAdapter
-import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
 import kotlinx.android.synthetic.main.base_list_view.*
 import java.util.*
 
 /**
  * Created by unicho on 2017/11/30.
  */
-abstract class BaseListFragment<T> : BaseFragment(),
-        XRecyclerView.OnLoadMoreListener,
-        XRecyclerView.OnRefreshListener,
+ abstract class BaseListFragment<E> : BaseFragment(),
         StateView.OnRetryClickListener,
-        OnItemClickListener,OnItemChildClickListener {
+        SwipeRefreshLayout.OnRefreshListener,
+        BaseQuickAdapter.OnItemClickListener,
+        BaseQuickAdapter.OnItemChildClickListener,
+        BaseQuickAdapter.RequestLoadMoreListener{
 
     companion object {
         /** 刚进入页面时的状态 */
@@ -34,7 +34,7 @@ abstract class BaseListFragment<T> : BaseFragment(),
         /** 每页默认加载的数量 */
         val DEFAULT_PAGE_SIZE = 10
     }
-    private var mAdapter: RecyclerAdapter<T>? = null
+    private var mAdapter: BaseQuickAdapter<E,BaseViewHolder>? = null
     protected var mCurrentPage = 1
     protected var isFirstLoadSuccess: Boolean = false
 
@@ -52,12 +52,12 @@ abstract class BaseListFragment<T> : BaseFragment(),
      * @param page
      * @param requestCallBack
      */
-    protected abstract fun requestData(page: Int, requestCallBack: RequestCallBack<List<T>>)
+    protected abstract fun requestData(page: Int, requestCallBack: RequestCallBack<List<E>>)
 
     /**
      * 设置 recyclerView 的适配器 Adapter
      */
-    protected abstract fun getAdapter(): RecyclerAdapter<T>
+    protected abstract fun getAdapter(): BaseQuickAdapter<E,BaseViewHolder>
 
     /**
      * 设置 recyclerView 的 LayoutManager
@@ -70,13 +70,13 @@ abstract class BaseListFragment<T> : BaseFragment(),
     /** 是否有加载更多操作 */
     protected fun loadMoreEnabled(enable: Boolean){
         this.canLoadMore = enable
-        recyclerView.setLoadingMoreEnabled(enable)
+        mAdapter?.setEnableLoadMore(enable)
     }
 
     /** 是否有下拉刷新操作 */
     protected fun refreshEnabled(enable: Boolean){
         this.canRefresh = enable
-        recyclerView.setPullRefreshEnabled(enable)
+        refreshLayout.isEnabled = enable
     }
 
     /** 不需要网络请求操作 */
@@ -98,7 +98,8 @@ abstract class BaseListFragment<T> : BaseFragment(),
         recyclerView.layoutManager = getLayoutManager() ?: LinearLayoutManager(mContext)
         // 设置 recyclerView 的 Adapter
         mAdapter = getAdapter()
-        recyclerView.adapter = mAdapter
+        mAdapter?.enableLoadMoreEndClick(true)
+        mAdapter?.bindToRecyclerView(recyclerView)
 
         //设置 点击监听事件
         mAdapter?.onItemClickListener = this
@@ -111,26 +112,27 @@ abstract class BaseListFragment<T> : BaseFragment(),
         }else{
             // 第一次网络请求失败时点击重新加载
             stateView.setOnRetryClickListener(this)
-            recyclerView.setOnRefreshListener(this)
-            recyclerView.setOnLoadMoreListener(this)
+            refreshLayout.setOnRefreshListener(this)
+            mAdapter?.setOnLoadMoreListener(this,recyclerView)
             loadMoreEnabled(true)
             refreshEnabled(true)
         }
     }
 
-    private val requestDelegate = lazy{ object: RequestCallBack<List<T>>(){
+    private val requestDelegate = lazy{ object: RequestCallBack<List<E>>(){
             override fun onStart() {
                 when (loadingStatus) {
                     BaseListFragment.FIRST -> stateView.showLoading()
                     BaseListFragment.REFRESH -> {
+                        refreshLayout.isRefreshing = true
                     }
                     BaseListFragment.LOAD_MORE -> {
                     }
                 }
             }
 
-            override fun onSuccess(entity: List<T>) {
-                var result: List<T>? = entity
+            override fun onSuccess(entity: List<E>) {
+                var result: List<E>? = entity
                 if (result == null) {
                     //添加判断，防止异常
                     result = ArrayList()
@@ -148,42 +150,43 @@ abstract class BaseListFragment<T> : BaseFragment(),
                             //返回数据不为空时，等待层消失，展示数据
                             stateView.showContent()
 
-                            mAdapter?.datas = result
+                            mAdapter?.setNewData(result)
+
                             //没有更多了
                             if(result.size < getPageSize()){
-                                recyclerView.noMore()
+                                mAdapter?.loadMoreEnd()
                             }else{//还可以加载更多
-                                recyclerView.loadMoreComplete()
+                                mAdapter?.loadMoreComplete()
                             }
                         }
                     }
                 /** 刷新的时候数据请求成功 */
                     BaseListFragment.REFRESH -> {
                         //刷新成功
-                        recyclerView.refreshComplete()
+                        refreshLayout.isRefreshing = false
 
                         if (result.isEmpty()) {
                             //返回数据为空时，展示无数据
                             stateView.showEmpty()
                         } else {//刷新状态时此时已经是  stateView.showContent() 的状态 所以不用再show一次
                             //展示数据
-                            mAdapter?.datas = result
+                            mAdapter?.setNewData(result)
                             //没有更多了
                             if(result.size < getPageSize()){
-                                recyclerView.noMore()
+                                mAdapter?.loadMoreEnd()
                             }else{//还可以加载更多
-                                recyclerView.loadMoreComplete()
+                                mAdapter?.loadMoreComplete()
                             }
                         }
                     }
                 /** 加载更多成功 */
                     BaseListFragment.LOAD_MORE -> {
-                        mAdapter?.addMoreDatas(result)
+                        mAdapter?.addData(result)
                         //没有更多了
                         if(result.size < getPageSize()){
-                            recyclerView.noMore()
+                            mAdapter?.loadMoreEnd()
                         }else{//还可以加载更多
-                            recyclerView.loadMoreComplete()
+                            mAdapter?.loadMoreComplete()
                         }
                     }
                 }
@@ -194,11 +197,14 @@ abstract class BaseListFragment<T> : BaseFragment(),
                 //进入页面第一次加载出现的异常
                     BaseListFragment.FIRST -> stateView.showError()
                 //刷新的时候出现的异常
-                    BaseListFragment.REFRESH -> recyclerView.refreshError()
+                    BaseListFragment.REFRESH -> {
+                        refreshLayout.isRefreshing = false
+                        T.show(mContext,"数据刷新失败，请重试")
+                    }
                 //加载更多的时候出现的异常
                     BaseListFragment.LOAD_MORE -> {
                         mCurrentPage--
-                        recyclerView.loadMoreError()
+                        mAdapter?.loadMoreFail()
                     }
                 }
             }
@@ -208,7 +214,7 @@ abstract class BaseListFragment<T> : BaseFragment(),
     /**
      * 网络请求 需要的时候才被加载，运用了懒加载的策略
      */
-    private val requestCallBack: RequestCallBack<List<T>> by requestDelegate
+    private val requestCallBack: RequestCallBack<List<E>> by requestDelegate
 
 
     override fun onResume() {
@@ -260,7 +266,7 @@ abstract class BaseListFragment<T> : BaseFragment(),
     /**
      * 上拉加载
      */
-    override fun onLoadMore() {
+    override fun onLoadMoreRequested() {
         loadingStatus = LOAD_MORE
         mCurrentPage++
         requestData(mCurrentPage, requestCallBack)
@@ -272,12 +278,13 @@ abstract class BaseListFragment<T> : BaseFragment(),
      * @param position
      * @param t
      */
-    override fun onItemClick(holder: RecyclerViewHolder, view: View, position: Int) {}
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {}
     /**
      * 列表页的点击事件
      * @param view
      * @param position
      * @param t
      */
-    override fun onItemChildClick(holder: RecyclerViewHolder, view: View, position: Int) {}
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {}
+
 }

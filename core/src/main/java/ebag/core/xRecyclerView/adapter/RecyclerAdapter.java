@@ -184,7 +184,7 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
      */
     public void removeItems(List<M> datas){
         this.mDatas.removeAll(datas);
-        this.notifyAll();
+        this.notifyDataSetChanged();
     }
 
     /**
@@ -222,7 +222,7 @@ public abstract class RecyclerAdapter<M> extends RecyclerView.Adapter<RecyclerVi
      * @param model
      */
     public void addLastItem(M model) {
-        this.mDatas.add( model);
+        this.mDatas.add(model);
         this.notifyItemInserted(mDatas.size() + headerSize);
     }
 

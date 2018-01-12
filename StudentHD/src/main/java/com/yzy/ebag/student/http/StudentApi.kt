@@ -1,5 +1,6 @@
 package com.yzy.ebag.student.http
 
+import com.yzy.ebag.student.bean.response.ClassesInfoBean
 import ebag.core.http.network.RequestCallBack
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
@@ -22,6 +23,12 @@ object StudentApi{
         jsonObj.put("loginType",1)
         jsonObj.put("roleCode",roleCode)
         EBagApi.request(studentService.login("v1", EBagApi.createBody(jsonObj)), callback)
+    }
+
+    fun mainInfo(callback: RequestCallBack<ClassesInfoBean>){
+        val jsonObj = JSONObject()
+        jsonObj.put("roleCode","student")
+        EBagApi.request(studentService.mainInfo("v1", EBagApi.createBody(jsonObj)), callback)
     }
 
 }

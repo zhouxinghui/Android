@@ -6,17 +6,22 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.base.BaseListActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.T
-import ebag.core.xRecyclerView.adapter.RecyclerAdapter
-import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
 
 /**
  * Created by unicho on 2018/1/8.
  */
 class ToolsActivity : BaseListActivity<Int>() {
+    override fun getAdapter(): BaseQuickAdapter<Int, BaseViewHolder>? {
+        val adapter = ToolsAdapter()
+        adapter.setNewData(list.asList())
+        return adapter
+    }
 
     private val list = intArrayOf(R.drawable.tool_btn_calligraphy,R.drawable.tool_btn_read,
             R.drawable.tool_btn_pinyin,R.drawable.tool_btn_letter,R.drawable.tool_btn_formula,
@@ -44,25 +49,22 @@ class ToolsActivity : BaseListActivity<Int>() {
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<Int>>) {
     }
 
-    override fun getAdapter(): RecyclerAdapter<Int> {
-        val adapter = ToolsAdapter()
-        adapter.datas = list.asList()
-        return adapter
-    }
 
     override fun getLayoutManager(): RecyclerView.LayoutManager? {
         return GridLayoutManager(this,4)
     }
 
 
-    class ToolsAdapter : RecyclerAdapter<Int>(R.layout.activity_tools_item) {
-
-        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: Int) {
-            setter.setImageResource(R.id.image,entity)
+    class ToolsAdapter : BaseQuickAdapter<Int,BaseViewHolder>(R.layout.activity_tools_item) {
+        override fun convert(helper: BaseViewHolder, item: Int?) {
+            if (item != null) {
+                helper.setImageResource(R.id.image,item)
+            }
         }
     }
 
-    override fun onItemClick(holder: RecyclerViewHolder, view: View, position: Int) {
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
         T.show(this,"点击了第${position + 1}个条目")
     }
+
 }

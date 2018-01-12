@@ -1,5 +1,6 @@
 package com.yzy.ebag.student.http
 
+import com.yzy.ebag.student.bean.response.ClassesInfoBean
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.baseBean.ResponseBean
 import io.reactivex.Observable
@@ -18,4 +19,11 @@ interface StudentService {
      */
     @POST("user/login/{version}")
     fun login(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<UserEntity>>
+
+    /**
+     * 登录
+     * @return
+     */
+    @POST("user/getOnePageInfo/{version}")
+    fun mainInfo(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ClassesInfoBean>>
 }

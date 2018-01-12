@@ -23,7 +23,7 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
         AppManager.addActivity(this)
-        window.setBackgroundDrawable(null)
+//        window.setBackgroundDrawable(null)
         isDestroy = false
         initViews()
     }

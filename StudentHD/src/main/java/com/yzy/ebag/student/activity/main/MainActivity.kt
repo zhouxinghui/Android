@@ -1,24 +1,125 @@
 package com.yzy.ebag.student.activity.main
 
-import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.content.Intent
+import android.support.v7.widget.LinearLayoutManager
+import android.view.View
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
+import com.yzy.ebag.student.activity.SettingActivity
+import com.yzy.ebag.student.activity.ToolsActivity
+import com.yzy.ebag.student.activity.book.BookListActivity
+import com.yzy.ebag.student.activity.center.PersonalActivity
+import com.yzy.ebag.student.activity.homework.HomeworkActivity
+import com.yzy.ebag.student.bean.response.ClassesInfoBean
+import ebag.core.base.mvp.MVPActivity
 import ebag.core.util.SerializableUtils
 import ebag.core.util.loadImage
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : MVPActivity(), MainView, View.OnClickListener {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    private val mainPresenter = MainPresenter(this,this)
+    private val adapter = Adapter()
+
+    override fun destroyPresenter() {
+        mainPresenter.onDestroy()
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_main
+    }
+
+    override fun initViews() {
 
         val userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.STUDENT_USER_ENTITY)
-        tvName.text = userEntity.name
-        tvId.text = userEntity.id
-        ivHead.loadImage(this,userEntity.headUrl)
-        getString(R.string.main_class_name,"haha")
+        if(userEntity != null){
+            tvName.text = userEntity.name
+            tvId.text = userEntity.ysbCode
+            ivHead.loadImage(userEntity.headUrl)
+        }
+
+        rvTeacherName.layoutManager = LinearLayoutManager(this)
+        rvTeacherName.adapter = adapter
+
+        initListener()
+        getMainClassInfo()
+    }
+
+    override fun mainInfoStart() {
+        stateView.showLoading()
+    }
+
+    override fun mainInfoSuccess(classesInfoBean: ClassesInfoBean) {
+        showTeachers(classesInfoBean)
+        stateView.showContent()
+
+    }
+
+    override fun mainInfoError(exception: Throwable) {
+        stateView.showError()
+    }
+
+    private fun showTeachers(classesInfoBean: ClassesInfoBean){
+        tvGrade.text = getString(R.string.main_class_name,classesInfoBean.className)
+        tvClassTeacher.text = getString(R.string.main_teacher_name, classesInfoBean.teacherName)
+        tvTeachersTip.text = getString(R.string.main_teachers_tip)
+
+        adapter.setNewData(classesInfoBean.resultClazzInfoVos)
+    }
+
+    private fun getMainClassInfo(){
+        mainPresenter.mianInfo()
+    }
+
+    private fun initListener(){
+        tvName.setOnClickListener(this)
+        tvId.setOnClickListener(this)
+        ivHead.setOnClickListener(this)
+
+        tvKHZY.setOnClickListener(this)
+        tvSTZY.setOnClickListener(this)
+        tvKSSJ.setOnClickListener(this)
+        tvXXKB.setOnClickListener(this)
+        tvSetup.setOnClickListener(this)
+        btnDailyPractice.setOnClickListener(this)
+
+        stateView.setOnRetryClickListener {
+            getMainClassInfo()
+        }
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.btnDailyPractice -> {//学习工具
+                startActivity(Intent(this, ToolsActivity::class.java))
+            }
+            R.id.tvSetup -> {//设置
+                startActivity(Intent(this, SettingActivity::class.java))
+            }
+            R.id.tvXXKB -> {//学习课本点击事件
+                startActivity(Intent(this, BookListActivity::class.java))
+            }
+            R.id.tvKSSJ -> { //考试试卷
+                startActivity(Intent(this, HomeworkActivity::class.java).putExtra("type",3))
+            }
+            R.id.tvSTZY -> { //随堂作业
+                startActivity(Intent(this, HomeworkActivity::class.java).putExtra("type",2))
+            }
+            R.id.tvKHZY -> {//课后作业
+                startActivity(Intent(this, HomeworkActivity::class.java).putExtra("type",1))
+            }
+            R.id.tvName,R.id.tvId ,R.id.ivHead -> {//名字，id，头像
+                startActivity(Intent(this, PersonalActivity::class.java))
+            }
+        }
+    }
+
+    class Adapter: BaseQuickAdapter<ClassesInfoBean,BaseViewHolder>(R.layout.activity_main_class_info_item){
+        override fun convert(helper: BaseViewHolder?, item: ClassesInfoBean?) {
+            helper?.setText(R.id.tv, "${item?.subject} : ${item?.teacherName}")
+        }
     }
 }

@@ -6,9 +6,9 @@ import com.alibaba.fastjson.annotation.JSONField;
  * Created by unicho on 2018/1/8.
  */
 
-public class BookEntity {
+public class BookBean {
 
-    public BookEntity(String edition,String time,String item,String subject,String classX){
+    public BookBean(String edition, String time, String item, String subject, String classX){
         this.image = image;
         this.edition = edition;
         this.time = time;

@@ -35,6 +35,8 @@
 
     <color name="invite_tip">#4A4A4A</color>
 
+    <color name="normal_text_color">#4A4A4A</color>
+
     <color name="color_question_option_border">#8892A1</color>
 
 </resources>

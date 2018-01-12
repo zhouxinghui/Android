@@ -3,7 +3,7 @@ package ebag.core.http.network
 /**
  * Created by unicho on 2017/11/9.
  */
-abstract class RequestCallBack<T>: IRequest<T>{
+abstract class RequestCallBack<in T>: IRequest<T>{
 
     private var onRequestCancelListener: OnRequestCancelListener? = null
 

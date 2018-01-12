@@ -20,9 +20,8 @@ abstract class BaseTabActivity : BaseActivity(){
 
     override fun initViews() {
         init()
-        val mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
+        tabsContent.adapter = SectionsPagerAdapter(supportFragmentManager, arrayOfNulls(getTabTitle().size))
 
-        tabsContent.adapter = mSectionsPagerAdapter
         for (i in 0 until getTabTitle().size) {
             mTabs.addTab(mTabs.newTab().setText(getTabTitle()[i]))
         }
@@ -45,17 +44,13 @@ abstract class BaseTabActivity : BaseActivity(){
         return tabsContent.currentItem
     }
 
-    inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
-
-        private var fragments = arrayOfNulls<Fragment>(getTabTitle().size)
+    inner class SectionsPagerAdapter(fm: FragmentManager, private val fragments: Array<Fragment?>) : FragmentStatePagerAdapter(fm) {
 
         override fun getItem(position: Int): Fragment {
-            var fragment: Fragment? = fragments[position]
-            if (fragment == null) {
-                fragment = getFragment(position)
-                fragments[position] = fragment
+            if (fragments[position] == null) {
+                fragments[position] = getFragment(position)
             }
-            return fragment
+            return fragments[position]!!
         }
 
         override fun getCount(): Int {

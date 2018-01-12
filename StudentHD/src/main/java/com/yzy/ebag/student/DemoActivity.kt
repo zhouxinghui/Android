@@ -182,7 +182,8 @@ class DemoActivity : AppCompatActivity() {
     private var tempUrl: String? = null
 
     inner class MyAdapter : RecyclerAdapter<QuestionBean> (R.layout.item_demo){
-        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: QuestionBean?) {
+
+        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: QuestionBean) {
             val recorderView = setter.getView<RecorderView>(R.id.recorderView)
             recorderView.setData(entity)
             recorderView.show(true)
@@ -200,8 +201,8 @@ class DemoActivity : AppCompatActivity() {
     }
 
     inner class MyOnItemChildClickListener : OnItemChildClickListener {
-        override fun onItemChildClick(holder: RecyclerViewHolder, view: View?, position: Int) {
-            var url : String = view?.getTag(R.id.play_id) as String
+        override fun onItemChildClick(holder: RecyclerViewHolder, view: View, position: Int) {
+            var url : String = view.getTag(R.id.play_id) as String
             url = url.substring(3, url.length)
             if (StringUtils.isEmpty(url))
                 return

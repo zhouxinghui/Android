@@ -19,22 +19,21 @@ abstract class BaseFragment : Fragment() {
         getBundle(arguments)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if(rootView == null){
-            rootView = inflater?.inflate(getLayoutRes(), container, false)
+            rootView = inflater.inflate(getLayoutRes(), container, false)
         }else{
-            val viewGroup : ViewGroup ? = rootView?.parent as ViewGroup
-            viewGroup?.removeAllViewsInLayout()
+            val view = rootView!!.parent
+            if(view != null)
+                (view as ViewGroup).removeAllViewsInLayout()
         }
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(view != null) {
-            initViews(view)
-            initEvent(view)
-        }
+        initViews(view)
+        initEvent(view)
     }
 
     /**获取RootLayout的ID*/

@@ -12,6 +12,7 @@ public class UserEntity extends TokenBean{
     /**
      * id : 1326
      * uid : 1596
+     * ysbCode : 书包号
      * name : 学生A
      * sex :
      * province : BJ
@@ -27,6 +28,7 @@ public class UserEntity extends TokenBean{
 
     private String id;
     private String uid;
+    private String ysbCode;
     private String name;
     private String sex;
     private String province;
@@ -62,6 +64,14 @@ public class UserEntity extends TokenBean{
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getYsbCode() {
+        return ysbCode;
+    }
+
+    public void setYsbCode(String ysbCode) {
+        this.ysbCode = ysbCode;
     }
 
     public String getName() {

@@ -64,4 +64,9 @@
     <color name="color_friday_bg">#c39bff</color>
     <color name="color_morning_bg">#d0d0d0</color>
     <color name="color_afternoon_bg">#bcbcbc</color>
+
+    <!--作业列表-->
+    <color name="color_homework_normal">#888888</color>
+    <color name="color_homework_selected">#ff7800</color>
+
 </resources>

@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/x5"
-        android:text="1000123"
+        tools:text="1000123"
         android:textColor="@color/main_text_color"
         android:textSize="@dimen/x22"
         app:layout_constraintEnd_toEndOf="@id/leftLayout"
@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/x3"
-        android:text="晴天"
+        tools:text="晴天"
         android:textColor="@color/main_text_color"
         android:textSize="@dimen/x22"
         app:layout_constraintEnd_toEndOf="@id/leftLayout"
@@ -62,34 +62,37 @@
     <TextView
         android:id="@+id/tvGrade"
         style="@style/main_left_text"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/y28"
-        android:text="@string/main_class_name"
+        tools:text="@string/main_class_name"
         app:layout_constraintStart_toStartOf="@id/leftLayout"
+        app:layout_constraintEnd_toEndOf="@id/leftLayout"
         app:layout_constraintTop_toBottomOf="@id/tagView" />
 
     <TextView
         android:id="@+id/tvClassTeacher"
         style="@style/main_left_text"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/y32"
-        android:text="@string/main_teacher_name"
+        tools:text="@string/main_teacher_name"
         android:textColor="@color/main_text_color"
         android:textSize="@dimen/x20"
+        app:layout_constraintEnd_toEndOf="@id/leftLayout"
         app:layout_constraintStart_toStartOf="@id/leftLayout"
         app:layout_constraintTop_toBottomOf="@id/tvGrade" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tvTeachersTip"
         style="@style/main_left_text"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/y22"
-        android:text="@string/main_teachers_tip"
+        tools:text="@string/main_teachers_tip"
         android:textColor="@color/main_text_color"
         android:textSize="@dimen/x20"
+        app:layout_constraintEnd_toEndOf="@id/leftLayout"
         app:layout_constraintStart_toStartOf="@id/leftLayout"
         app:layout_constraintTop_toBottomOf="@id/tvClassTeacher" />
 
@@ -130,8 +133,16 @@
         app:layout_constraintBottom_toTopOf="@id/tvSetup"
         app:layout_constraintEnd_toEndOf="@id/leftLayout"
         app:layout_constraintStart_toStartOf="@id/leftLayout"
-        app:layout_constraintTop_toBottomOf="@id/textView5" />
+        app:layout_constraintTop_toBottomOf="@id/tvTeachersTip" />
 
+    <ebag.core.widget.empty.StateView
+        android:id="@+id/stateView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="@id/leftLayout"
+        app:layout_constraintStart_toStartOf="@id/leftLayout"
+        app:layout_constraintBottom_toTopOf="@id/tvSetup"
+        app:layout_constraintTop_toBottomOf="@id/tagView"/>
 
     <!--公告相关-->
     <ImageView

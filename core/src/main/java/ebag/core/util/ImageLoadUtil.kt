@@ -24,7 +24,7 @@ object ImageViewUtils {
 /**
  * 加载图片（默认加载中和加载失败图片）
  */
-fun ImageView.loadImage(url : String) {
+fun ImageView.loadImage(url: String?) {
     ImageViewUtils.requestNormal.let {
         Glide
         .with(this)
@@ -36,7 +36,7 @@ fun ImageView.loadImage(url : String) {
 /**
  * 加载图片（自定义加载中和加载失败图片）
  */
-fun ImageView.loadImage(url : String, loadImg : Int, errorImg : Int) {
+fun ImageView.loadImage(url: String?, loadImg: Int, errorImg: Int) {
     Glide
         .with(this)
         .load(url)
@@ -49,7 +49,7 @@ fun ImageView.loadImage(url : String, loadImg : Int, errorImg : Int) {
 /**
  * 加载图片为圆形图片
  */
-fun ImageView.loadImageToCircle(url : String) {
+fun ImageView.loadImageToCircle(url: String?) {
     ImageViewUtils.requestCircle.let {
         Glide
         .with(this)
