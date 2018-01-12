@@ -11,21 +11,35 @@ import ebag.core.R
  */
 
 object ImageViewUtils {
-    val requestNormal: RequestOptions = RequestOptions()
-            .placeholder(R.drawable.replace_img)
-            .error(R.drawable.replace_img)
+    val requestOptions = RequestOptions()
+}
 
-    val requestCircle: RequestOptions = RequestOptions()
-            .placeholder(R.drawable.replace_round_img)
-            .error(R.drawable.replace_round_img)
+/**
+ * 加载头像
+ */
+fun ImageView.loadHead(url: String){
+    ImageViewUtils.requestOptions
+            .placeholder(R.drawable.head_default)
+            .error(R.drawable.head_default)
             .circleCrop()
+            .let {
+        Glide
+                .with(this)
+                .load(url)
+                .apply(it)
+                .into(this)
+    }
 }
 
 /**
  * 加载图片（默认加载中和加载失败图片）
  */
 fun ImageView.loadImage(url : String) {
-    ImageViewUtils.requestNormal.let {
+    ImageViewUtils.requestOptions
+            .placeholder(R.drawable.replace_img)
+            .error(R.drawable.replace_img)
+            .centerCrop()
+            .let {
         Glide
         .with(this)
         .load(url)
@@ -37,24 +51,32 @@ fun ImageView.loadImage(url : String) {
  * 加载图片（自定义加载中和加载失败图片）
  */
 fun ImageView.loadImage(url : String, loadImg : Int, errorImg : Int) {
-    Glide
-        .with(this)
-        .load(url)
-        .apply(RequestOptions()
-                .placeholder(loadImg)
-                .error(errorImg))
-        .into(this)
+    ImageViewUtils.requestOptions
+            .placeholder(loadImg)
+            .error(errorImg)
+            .centerCrop()
+            .let {
+                Glide
+                    .with(this)
+                    .load(url)
+                    .apply(it)
+                    .into(this)
+            }
 }
 
 /**
  * 加载图片为圆形图片
  */
 fun ImageView.loadImageToCircle(url : String) {
-    ImageViewUtils.requestCircle.let {
-        Glide
-        .with(this)
-        .load(url)
-        .apply(it)
-        .into(this)
-    }//显示到目标View中
+    ImageViewUtils.requestOptions
+            .placeholder(R.drawable.replace_round_img)
+            .error(R.drawable.replace_round_img)
+            .circleCrop()
+            .let {
+                Glide
+                        .with(this)
+                        .load(url)
+                        .apply(it)
+                        .into(this)
+            }
 }

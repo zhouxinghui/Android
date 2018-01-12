@@ -87,4 +87,9 @@
         <item name="leftDrawableHeight">@dimen/x100</item>
     </style>
     <!--我的end-->
+    <!--设置-->
+    <style name="setting_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>

@@ -10,23 +10,22 @@ import ebag.core.bean.TokenBean;
 public class UserEntity extends TokenBean{
 
     /**
-     * id : 1326
-     * uid : 1596
-     * name : 学生A
-     * sex :
-     * province : BJ
-     * city : DCQU
+     * uid : 1605
+     * ysbCode : 1000734
+     * name : 语文老师
+     * sex : 女
+     * province : TJ
+     * city : HPQU
      * county :
-     * address : 北京市东城区
+     * address : 天津市和平区
      * birthday :
      * headUrl :
-     * depId :
+     * depId : 1
      * schoolName :
-     * personalAbout : null
      */
 
-    private String id;
     private String uid;
+    private String ysbCode;
     private String name;
     private String sex;
     private String province;
@@ -37,7 +36,6 @@ public class UserEntity extends TokenBean{
     private String headUrl;
     private String depId;
     private String schoolName;
-    private Object personalAbout;
     private String roleCode;
 
     public String getRoleCode() {
@@ -48,20 +46,20 @@ public class UserEntity extends TokenBean{
         this.roleCode = roleCode;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getUid() {
         return uid;
     }
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getYsbCode() {
+        return ysbCode;
+    }
+
+    public void setYsbCode(String ysbCode) {
+        this.ysbCode = ysbCode;
     }
 
     public String getName() {
@@ -142,13 +140,5 @@ public class UserEntity extends TokenBean{
 
     public void setSchoolName(String schoolName) {
         this.schoolName = schoolName;
-    }
-
-    public Object getPersonalAbout() {
-        return personalAbout;
-    }
-
-    public void setPersonalAbout(Object personalAbout) {
-        this.personalAbout = personalAbout;
     }
 }

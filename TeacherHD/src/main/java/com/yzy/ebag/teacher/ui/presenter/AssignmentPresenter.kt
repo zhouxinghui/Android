@@ -12,21 +12,21 @@ import ebag.core.http.network.RequestCallBack
  */
 class AssignmentPresenter(view: AssignmentView, listener: OnToastListener): BasePresenter<AssignmentView>(view, listener) {
     private var baseRequest: RequestCallBack<AssignmentBean>? = null
-    fun loadBaseData(type: String, subCode:String){
+    fun loadBaseData(type: String){
         if (baseRequest == null){
             baseRequest = createRequest(object : RequestCallBack<AssignmentBean>(){
                 override fun onStart() {
-                    getView()!!.loadStart()
+                    getView()?.loadStart()
                 }
                 override fun onSuccess(entity: AssignmentBean) {
-                    getView()!!.showBaseData(entity)
+                    getView()?.showBaseData(entity)
                 }
 
                 override fun onError(exception: Throwable) {
-                    getView()!!.loadError(exception)
+                    getView()?.loadError(exception)
                 }
             })
         }
-        TeacherApi.assignmentData(type, subCode, baseRequest!!)
+        TeacherApi.assignmentData(type, baseRequest!!)
     }
 }

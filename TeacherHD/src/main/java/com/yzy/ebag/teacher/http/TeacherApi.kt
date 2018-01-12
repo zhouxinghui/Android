@@ -28,10 +28,9 @@ object TeacherApi {
     /**
      * 布置作业页面
      */
-    fun assignmentData(type: String, subCode: String, callback: RequestCallBack<AssignmentBean>){
+    fun assignmentData(type: String, callback: RequestCallBack<AssignmentBean>){
         val jsonObject = JSONObject()
         jsonObject.put("type", type)
-        jsonObject.put("subCode", subCode)
         EBagApi.request(teacherService.assignmentData("v1", EBagApi.createBody(jsonObject)), callback)
     }
 

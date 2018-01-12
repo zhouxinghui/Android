@@ -61,7 +61,7 @@ class FragmentFirstPage : BaseFragment() {
         }
         afterClass.setOnClickListener {
             startActivity(intent
-                    .putExtra(Constants.ASSIGN_CATEGORY, Constants.ASSIGN_WORK)
+                    .putExtra(Constants.ASSIGN_CATEGORY, Constants.ASSIGN_AFTER)
                     .putExtra(Constants.ASSIGN_TITLE, resources.getString(R.string.assign_after_class)))
         }
         testPaper.setOnClickListener {

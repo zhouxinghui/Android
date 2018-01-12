@@ -84,7 +84,6 @@
             android:textSize="@dimen/tv_sub"
             android:maxLines="2"
             android:ellipsize="end"
-            android:text="人教版-一年级-上册"
             app:rightDrawable="@drawable/assign_version_arrow"
             app:rightDrawableWidth="@dimen/x13"
             app:rightDrawableHeight="@dimen/x23"
@@ -176,6 +175,10 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/line4"
             app:layout_constraintBottom_toBottomOf="parent"
+            />
+        <ebag.core.widget.empty.StateView android:id="@+id/stateView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             />
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>

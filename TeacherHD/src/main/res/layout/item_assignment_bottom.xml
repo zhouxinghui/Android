@@ -6,6 +6,7 @@
     android:layout_height="@dimen/assignment_tv_height"
     android:orientation="horizontal"
     android:gravity="center"
+    android:background="?attr/selectableItemBackground"
     >
     <ImageView android:id="@+id/img_id"
         android:layout_width="@dimen/x50"
