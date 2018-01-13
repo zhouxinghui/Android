@@ -19,6 +19,7 @@
 <dimen name="x17">17px</dimen>
 <dimen name="x18">18px</dimen>
 <dimen name="x19">19px</dimen>
+    <dimen name="x020">-19px</dimen>
 <dimen name="x20">20px</dimen>
 <dimen name="x21">21px</dimen>
 <dimen name="x22">22px</dimen>

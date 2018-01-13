@@ -68,22 +68,26 @@ class HomeworkActivity : BaseActivity() {
         when(type){
             Constants.KHZY_TYPE -> {
                 titleView.setTitle(R.string.main_khzy)
-                request("")
+                request()
             }
 
             Constants.STZY_TYPE -> {
                 titleView.setTitle(R.string.main_stzy)
-                request("")
+                request()
             }
 
             else -> {
                 titleView.setTitle(R.string.main_kssj)
             }
         }
+
+        stateView.setOnRetryClickListener {
+            request()
+        }
     }
 
-    private fun request(subject: String){
-        StudentApi.subjectWorkList(type, classId, subject, 1, 10, request)
+    private fun request(){
+        StudentApi.subjectWorkList(type, classId, "", 1, 10, request)
     }
 
     fun getFragment(position: Int): Fragment{

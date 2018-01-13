@@ -66,9 +66,11 @@
         以“人人通”的广泛、深度应用进一步体现“校校通”、“班班通”的综合效能；具有个性化、社会化、智能化、开放性特征的教育云平台。</string>
 
     <!--个人中心-->
+    <string name="empty"> </string>
     <string name="center_personal">个人中心</string>
     <string name="my_task">我的任务</string>
     <string name="my_class">我的班级</string>
+    <string name="classroom_performance">课堂表现</string>
     <string name="my_parents">我的家长</string>
     <string name="growth_trajectory">成长轨迹</string>
     <string name="center_cloud_coin">云币中心</string>

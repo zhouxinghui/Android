@@ -16,12 +16,12 @@ import ebag.core.base.mvp.MVPActivity
 import ebag.core.util.SerializableUtils
 import ebag.core.util.StringUtils
 import ebag.core.util.T
-import ebag.core.util.loadImage
+import ebag.core.util.loadHead
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : MVPActivity(), MainView, View.OnClickListener {
+class MainActivity : MVPActivity(), MainView {
 
     private val mainPresenter = MainPresenter(this,this)
     private val adapter = Adapter()
@@ -37,16 +37,9 @@ class MainActivity : MVPActivity(), MainView, View.OnClickListener {
 
     override fun initViews() {
 
-        val userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.STUDENT_USER_ENTITY)
-        if(userEntity != null){
-            tvName.text = userEntity.name
-            tvId.text = userEntity.ysbCode
-            ivHead.loadImage(userEntity.headUrl)
-        }
-
         rvTeacherName.layoutManager = LinearLayoutManager(this)
         rvTeacherName.adapter = adapter
-
+        initUserInfo()
         initListener()
         getMainClassInfo()
     }
@@ -78,68 +71,103 @@ class MainActivity : MVPActivity(), MainView, View.OnClickListener {
         mainPresenter.mianInfo()
     }
 
-    private fun initListener(){
-        tvName.setOnClickListener(this)
-        tvId.setOnClickListener(this)
-        ivHead.setOnClickListener(this)
+    private fun initUserInfo(){
 
-        tvKHZY.setOnClickListener(this)
-        tvSTZY.setOnClickListener(this)
-        tvKSSJ.setOnClickListener(this)
-        tvXXKB.setOnClickListener(this)
-        tvSetup.setOnClickListener(this)
-        btnDailyPractice.setOnClickListener(this)
-
-        stateView.setOnRetryClickListener {
-            getMainClassInfo()
+        val userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.STUDENT_USER_ENTITY)
+        if(userEntity != null){
+            tvName.text = userEntity.name
+            tvId.text = userEntity.ysbCode
+            ivHead.loadHead(userEntity.headUrl)
         }
     }
 
-    override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.btnDailyPractice -> {//学习工具
-                startActivity(Intent(this, ToolsActivity::class.java))
-            }
-            R.id.tvSetup -> {//设置
-                startActivity(Intent(this, SettingActivity::class.java))
-            }
-            R.id.tvXXKB -> {//学习课本点击事件
-                startActivity(Intent(this, BookListActivity::class.java))
-            }
-            R.id.tvKSSJ -> { //考试试卷
-                startActivity(Intent(this, HomeworkActivity::class.java).putExtra("type",3))
-            }
-            R.id.tvSTZY -> { //随堂作业
+    private fun initListener(){
 
-                if(StringUtils.isEmpty(classId)) {
-                    T.show(this, "请点击加载左侧班级数据！")
-                    return
-                }
+        val click = View.OnClickListener{
+            startActivity(Intent(this, PersonalActivity::class.java))
+        }
+        //名字
+        tvName.setOnClickListener(click)
+        //id
+        tvId.setOnClickListener(click)
+        //头像
+        ivHead.setOnClickListener(click)
 
+        //课后作业
+        tvKHZY.setOnClickListener{
+            if(StringUtils.isEmpty(classId)) {
+                T.show(this, "请点击加载左侧班级数据！")
+            }else{
                 startActivity(
-                        Intent(this, HomeworkActivity::class.java)
-                                .putExtra("type",com.yzy.ebag.student.base.Constants.STZY_TYPE)
-                                .putExtra("classId",classId)
+                    Intent(this, HomeworkActivity::class.java)
+                            .putExtra("type", com.yzy.ebag.student.base.Constants.KHZY_TYPE)
+                            .putExtra("classId",classId)
                 )
-
             }
-            R.id.tvKHZY -> {//课后作业
-
-                if(StringUtils.isEmpty(classId)) {
-                    T.show(this, "请点击加载左侧班级数据！")
-                    return
-                }
-
+        }
+        //随堂作业
+        tvSTZY.setOnClickListener{
+            if(StringUtils.isEmpty(classId)) {
+                T.show(this, "请点击加载左侧班级数据！")
+            }else{
                 startActivity(
-                        Intent(this, HomeworkActivity::class.java)
-                                .putExtra("type", com.yzy.ebag.student.base.Constants.KHZY_TYPE)
-                                .putExtra("classId",classId)
+                    Intent(this, HomeworkActivity::class.java)
+                            .putExtra("type",com.yzy.ebag.student.base.Constants.STZY_TYPE)
+                            .putExtra("classId",classId)
                 )
+            }
+        }
 
-            }
-            R.id.tvName,R.id.tvId ,R.id.ivHead -> {//名字，id，头像
-                startActivity(Intent(this, PersonalActivity::class.java))
-            }
+        //考试试卷
+        tvKSSJ.setOnClickListener{
+            startActivity(Intent(this, HomeworkActivity::class.java).putExtra("type",3))
+        }
+        //学习课本点击事件
+        tvXXKB.setOnClickListener{
+            startActivity(Intent(this, BookListActivity::class.java))
+        }
+        //课程表
+        tvKCB.setOnClickListener{
+
+        }
+        //设置
+        tvSetup.setOnClickListener{
+            startActivity(Intent(this, SettingActivity::class.java))
+        }
+        //定位
+        tvPosition.setOnClickListener{
+
+        }
+        //学习小组
+        llLearnGroup.setOnClickListener{
+
+        }
+        //学习园地
+        llLearnPlace.setOnClickListener{
+
+        }
+
+        //我的错题
+        btnMyError.setOnClickListener{
+
+        }
+        //我的同学
+        btnMyClassmate.setOnClickListener{
+
+        }
+        //我的书库
+        btnMyBook.setOnClickListener{
+
+        }
+        //学习工具
+        btnDailyPractice.setOnClickListener{
+            startActivity(Intent(this, ToolsActivity::class.java))
+        }
+
+
+
+        stateView.setOnRetryClickListener {
+            getMainClassInfo()
         }
     }
 
