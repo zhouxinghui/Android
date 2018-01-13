@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -19,34 +20,36 @@
         android:text="科目"
         android:gravity="center"
         android:background="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/titleView"/>
+        android:layout_below="@id/titleView"/>
     <View
         android:id="@+id/line"
         android:layout_width="@dimen/x1"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:background="@color/login_line"
-        app:layout_constraintStart_toEndOf="@id/tvTag"
-        app:layout_constraintTop_toBottomOf="@id/titleView"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_below="@id/titleView"
+        android:layout_toEndOf="@id/tvTag"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/tvTag"
-        app:layout_constraintTop_toBottomOf="@id/tvTag"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_below="@id/tvTag"
+        android:layout_alignEnd="@id/tvTag"/>
 
-    <android.support.v4.view.ViewPager
+    <ebag.core.widget.empty.NoScrollViewPager
         android:id="@+id/viewPager"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginStart="@dimen/x20"
         android:layout_marginEnd="@dimen/x20"
-        app:layout_constraintTop_toBottomOf="@id/titleView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/line"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_below="@id/titleView"
+        android:layout_toEndOf="@+id/line"/>
 
-</android.support.constraint.ConstraintLayout>
+    <ebag.core.widget.empty.StateView
+        android:id="@+id/stateView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/titleView"/>
+
+</RelativeLayout>

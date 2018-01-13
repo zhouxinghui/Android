@@ -6,7 +6,7 @@ import ebag.core.util.SerializableUtils
 import ebag.core.util.loadImage
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_personal.*
 
 /**
  * Created by unicho on 2018/1/12.
@@ -27,6 +27,10 @@ class PersonalActivity: MVPActivity() {
             tvName.text = userEntity.name
             tvId.text = userEntity.ysbCode
             ivHead.loadImage(userEntity.headUrl)
+        }
+
+        tvMain.setOnClickListener {
+            finish()
         }
     }
 }

@@ -35,8 +35,9 @@ open class CodePresenter(view: CodeView, listener: OnToastListener): BasePresent
                         getView()?.onCodeStart()
                     }
 
-                    override fun onSuccess(entity: CodeEntity) {
-                        getView()?.onCodeSuccess(entity)
+                    override fun onSuccess(entity: CodeEntity?) {
+                        if(entity != null)
+                            getView()?.onCodeSuccess(entity)
                     }
 
                     override fun onError(exception: Throwable) {

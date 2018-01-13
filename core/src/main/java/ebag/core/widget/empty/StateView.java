@@ -71,6 +71,8 @@ public class StateView extends View {
     private View mErrorView;
     private View mLoadingView;
 
+    private int resBacground = 0;
+
     private LayoutInflater mInflater;
     private OnRetryClickListener mRetryClickListener;
     private OnInflateListener mInflateListener;
@@ -263,6 +265,7 @@ public class StateView extends View {
         mLoadingLayoutResource = a.getResourceId(R.styleable.StateView_loadingLayout, 0);
         mErrorImageResource = a.getResourceId(R.styleable.StateView_errorDrawable, 0);
         mEmptyImageResource = a.getResourceId(R.styleable.StateView_emptyDrawable, 0);
+        resBacground = a.getResourceId(R.styleable.StateView_state_background, 0);
         a.recycle();
 
         if (mEmptyLayoutResource == 0) {
@@ -275,6 +278,10 @@ public class StateView extends View {
             mLoadingLayoutResource = R.layout.base_loading;
         }
 
+        if(resBacground == 0) {
+            resBacground = R.color.white;
+        }
+
         if (attrs == null) {
             mLayoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
@@ -284,6 +291,19 @@ public class StateView extends View {
 
         setVisibility(GONE);
         setWillNotDraw(true);
+    }
+
+    public void setBackgroundRes(int backgroundRes){
+        this.resBacground = backgroundRes;
+        if(mEmptyView != null){
+            mEmptyView.setBackgroundResource(backgroundRes);
+        }
+        if(mLoadingView != null){
+            mLoadingView.setBackgroundResource(backgroundRes);
+        }
+        if(mErrorView != null){
+            mErrorView.setBackgroundResource(backgroundRes);
+        }
     }
 
     @Override
@@ -324,7 +344,7 @@ public class StateView extends View {
     public View showEmpty() {
         if (mEmptyView == null) {
             mEmptyView = inflate(mEmptyLayoutResource, EMPTY);
-
+            mEmptyView.setBackgroundResource(resBacground);
             mEmptyView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -360,6 +380,7 @@ public class StateView extends View {
     public View showError() {
         if (mErrorView == null) {
             mErrorView = inflate(mErrorLayoutResource, RETRY);
+            mErrorView.setBackgroundResource(resBacground);
             mErrorView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -395,6 +416,7 @@ public class StateView extends View {
     public View showLoading() {
         if (mLoadingView == null) {
             mLoadingView = inflate(mLoadingLayoutResource, LOADING);
+            mLoadingView.setBackgroundResource(resBacground);
         }
 
         showView(mLoadingView);

@@ -7,6 +7,7 @@
         <attr name="emptyLayout" format="reference" />
         <attr name="errorLayout" format="reference" />
         <attr name="loadingLayout" format="reference" />
+        <attr name="state_background" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="AVLoadingIndicatorView">

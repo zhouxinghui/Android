@@ -13,7 +13,7 @@ interface IRequest<in T> {
      * 网络请求成功
      * @param entity
      */
-    fun onSuccess(entity: T)
+    fun onSuccess(entity: T?)
 
     /**
      * 异常处理

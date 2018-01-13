@@ -19,7 +19,10 @@ class SettingActivity: BaseActivity(), View.OnClickListener {
             R.id.logoutBtn -> {
                 App.deleteToken()
                 SerializableUtils.deleteSerializable(ebag.hd.base.Constants.STUDENT_USER_ENTITY)
-                startActivity(Intent(this, LoginActivity::class.java).putExtra(Constants.KEY_TO_MAIN,true))
+                startActivity(
+                        Intent(this, LoginActivity::class.java)
+                                .putExtra(Constants.KEY_TO_MAIN,true)
+                )
             }
 
             R.id.themeBtn -> {

@@ -1,6 +1,7 @@
 package com.yzy.ebag.student.http
 
 import com.yzy.ebag.student.bean.response.ClassesInfoBean
+import com.yzy.ebag.student.bean.response.SubjectBean
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.baseBean.ResponseBean
 import io.reactivex.Observable
@@ -21,9 +22,16 @@ interface StudentService {
     fun login(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<UserEntity>>
 
     /**
-     * 登录
+     * 首页
      * @return
      */
     @POST("user/getOnePageInfo/{version}")
     fun mainInfo(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ClassesInfoBean>>
+    /**
+     * 随堂 课后作业
+     * @return
+     */
+    @POST("homeWork/getMyHomeWork/{version}")
+    fun subjectWorkList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<SubjectBean>>>
+
 }

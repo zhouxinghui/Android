@@ -5,5 +5,4 @@ package com.yzy.ebag.student.bean.request;
  */
 
 public class SS {
-
 }

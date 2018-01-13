@@ -21,7 +21,7 @@ import java.util.*
 /**
  * Created by unicho on 2018/1/8.
  */
- abstract class BaseListActivity<E> : BaseActivity(),
+abstract class BaseListActivity<Parent, E> : BaseActivity(),
         StateView.OnRetryClickListener,
         SwipeRefreshLayout.OnRefreshListener,
         BaseQuickAdapter.OnItemClickListener,
@@ -43,8 +43,8 @@ import java.util.*
     private var canRefresh = true
     /**可加载更多*/
     private var canLoadMore = true
-    /**没有网络请求*/
-    private var noNetWork = false
+
+    private var needFirstLoad = true
 
     private var mAdapter: BaseQuickAdapter<E, BaseViewHolder>? = null
     protected var mCurrentPage = 1
@@ -58,8 +58,9 @@ import java.util.*
      * @param page
      * @param requestCallBack
      */
-    protected abstract fun requestData(page: Int, requestCallBack: RequestCallBack<List<E>>)
+    protected abstract fun requestData(page: Int, requestCallBack: RequestCallBack<Parent>)
 
+    protected abstract fun parentToList(parent: Parent?): List<E>?
     /**
      * 设置 recyclerView 的适配器 Adapter
      */
@@ -85,9 +86,32 @@ import java.util.*
         refreshLayout.isEnabled = enable
     }
 
-    /** 不需要网络请求操作 */
-    protected fun onlyView(noNetWork: Boolean){
-        this.noNetWork = noNetWork
+    protected fun withFirstPageData(list: List<E>?){
+        withFirstPageData(list,false)
+    }
+
+    protected fun withFirstPageData(list: List<E>?, enable: Boolean){
+        withFirstPageData(list,enable,enable)
+    }
+
+    protected fun withFirstPageData(list: List<E>?, canRefresh: Boolean, canLoadMore: Boolean){
+        refreshEnabled(canRefresh)
+        loadMoreEnabled(canLoadMore)
+        //mAdapter != null 是为了防止别人乱改这个  Fragment的顺序
+        if(list != null && mAdapter != null){
+            needFirstLoad = false
+            firstPageDataLoad(list)
+        }
+    }
+
+    protected fun enableNetWork(enable: Boolean){
+        config(enable,enable,enable)
+    }
+
+    protected fun config(needFirstLoad: Boolean, canRefresh: Boolean, canLoadMore: Boolean){
+        this.needFirstLoad = needFirstLoad
+        this.canRefresh = canRefresh
+        this.canLoadMore = canLoadMore
     }
 
     /** 设置页面标题 */
@@ -111,7 +135,6 @@ import java.util.*
     override fun initViews() {
         rootLayout = layout
         titleBar = titleView
-        loadConfig(intent)
         // 设置 RecyclerView 的 LayoutManager
         recyclerView.layoutManager = getLayoutManager() ?: LinearLayoutManager(this)
         // 设置 recyclerView 的 Adapter
@@ -123,29 +146,30 @@ import java.util.*
         mAdapter?.onItemClickListener = this
         mAdapter?.onItemChildClickListener = this
 
-        if(noNetWork){
-            loadMoreEnabled(false)
-            refreshEnabled(false)
-            stateView.showContent()
-        }else{
-            // 第一次网络请求失败时点击重新加载
-            stateView.setOnRetryClickListener(this)
-            refreshLayout.setOnRefreshListener(this)
-            mAdapter?.setOnLoadMoreListener(this,recyclerView)
+        stateView.setOnRetryClickListener(this)
+        refreshLayout.setOnRefreshListener(this)
+        mAdapter?.setOnLoadMoreListener(this,recyclerView)
 
-            loadMoreEnabled(true)
-            refreshEnabled(true)
+        loadConfig(intent)
+        readLoadConfig()
+    }
 
+    private fun readLoadConfig(){
+        loadMoreEnabled(canLoadMore)
+        refreshEnabled(canRefresh)
+        if(needFirstLoad){
             //第一次加载数据
             loadingStatus = FIRST
             mCurrentPage = 1
             // 加载各种数据
             requestData(mCurrentPage, requestCallBack)
+        }else{
+            //如果不需要第一次加载，默认显示空布局
+            stateView.showContent()
         }
-
     }
 
-    private val requestDelegate = lazy{ object: RequestCallBack<List<E>>(){
+    private val requestDelegate = lazy{ object: RequestCallBack<Parent>(){
 
             override fun onStart() {
                 when (loadingStatus) {
@@ -158,73 +182,43 @@ import java.util.*
                 }
             }
 
-            override fun onSuccess(entity: List<E>) {
-                var result: List<E>? = entity
+            override fun onSuccess(entity: Parent?) {
+                var result: List<E>? = parentToList(entity)
                 if (result == null) {
                     //添加判断，防止异常
                     result = ArrayList()
                 }
                 when (loadingStatus) {
-                /** 刚进入页面，第一次请求成功 */
+                    /** 刚进入页面，第一次请求成功 */
                     FIRST -> {
-                        if (result.isEmpty()) {
-                            //返回数据为空时，展示无数据
-                            stateView.showEmpty()
-                        } else {
-                            //返回数据不为空时，等待层消失，展示数据
-                            stateView.showContent()
-
-                            mAdapter?.setNewData(result)
-                            //没有更多了
-                            if(result.size < getPageSize()){
-                                mAdapter?.loadMoreEnd()
-                            }else{//还可以加载更多
-                                mAdapter?.loadMoreComplete()
-                            }
-                        }
+                        needFirstLoad = false
+                        stateView.showContent()
+                        firstPageDataLoad(result)
                     }
-                /** 刷新的时候数据请求成功 */
+                    /** 刷新的时候数据请求成功 */
                     REFRESH -> {
                         //刷新成功
                         refreshLayout.isRefreshing = false
-
-                        if (result.isEmpty()) {
-                            //返回数据为空时，展示无数据
-                            stateView.showEmpty()
-                        } else {//刷新状态时此时已经是  stateView.showContent() 的状态 所以不用再show一次
-                            //展示数据
-                            mAdapter?.setNewData(result)
-                            //没有更多了
-                            if(result.size < getPageSize()){
-                                mAdapter?.loadMoreEnd()
-                            }else{//还可以加载更多
-                                mAdapter?.loadMoreComplete()
-                            }
-                        }
+                        firstPageDataLoad(result)
                     }
-                /** 加载更多成功 */
+                    /** 加载更多成功 */
                     LOAD_MORE -> {
                         mAdapter?.addData(result)
-                        //没有更多了
-                        if(result.size < getPageSize()){
-                            mAdapter?.loadMoreEnd()
-                        }else{//还可以加载更多
-                            mAdapter?.loadMoreComplete()
-                        }
+                        footerState(result)
                     }
                 }
             }
 
             override fun onError(exception: Throwable) {
                 when (loadingStatus) {
-                //进入页面第一次加载出现的异常
+                    //进入页面第一次加载出现的异常
                     FIRST -> stateView.showError()
-                //刷新的时候出现的异常
+                    //刷新的时候出现的异常
                     REFRESH -> {
                         refreshLayout.isRefreshing = false
                         T.show(this@BaseListActivity,"数据刷新失败，请重试")
                     }
-                //加载更多的时候出现的异常
+                    //加载更多的时候出现的异常
                     LOAD_MORE -> {
                         mCurrentPage--
                         mAdapter?.loadMoreFail()
@@ -235,9 +229,35 @@ import java.util.*
     }
 
     /**
+     * 加载第一屏数据 的View的改变
+     */
+    private fun firstPageDataLoad(result: List<E>){
+        if (result.isEmpty()) {
+            //返回数据为空时，展示无数据
+            stateView.showEmpty()
+        } else {
+            mAdapter?.setNewData(result)
+            footerState(result)
+        }
+    }
+
+    /**
+     * 加载更多的状态
+     */
+    private fun footerState(result: List<E>){
+        //没有更多了
+        if(result.size < getPageSize()){
+            mAdapter?.loadMoreEnd()
+        }else{//还可以加载更多
+            mAdapter?.loadMoreComplete()
+        }
+    }
+
+
+    /**
      * 网络请求 需要的时候才被加载，运用了懒加载的策略
      */
-    private val requestCallBack: RequestCallBack<List<E>> by requestDelegate
+    private val requestCallBack: RequestCallBack<Parent> by requestDelegate
 
     /**
      * 列表页的点击事件

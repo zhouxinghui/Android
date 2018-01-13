@@ -15,21 +15,11 @@ import ebag.core.http.network.RequestCallBack
 /**
  * Created by unicho on 2018/1/8.
  */
-class BookListActivity: BaseListActivity<BookBean>() {
+class BookListActivity: BaseListActivity<List<BookBean>,BookBean>() {
+
 
     override fun loadConfig(intent: Intent) {
         setPageTitle("学习课本")
-        loadMoreEnabled(false)
-        refreshEnabled(false)
-        onlyView(true)
-    }
-
-    override fun requestData(page: Int, requestCallBack: RequestCallBack<List<BookBean>>) {
-
-    }
-
-    override fun getAdapter(): BaseQuickAdapter<BookBean, BaseViewHolder> {
-        val adapter = BookListAdapter()
         val list = ArrayList<BookBean>()
         list.add(BookBean("人教版", "2010-10-24", "上学期", "语文", "三年级"))
         list.add(BookBean("人教版", "2010-10-24", "上学期", "英语", "三年级"))
@@ -38,8 +28,18 @@ class BookListActivity: BaseListActivity<BookBean>() {
         list.add(BookBean("人教版", "2010-10-24", "上学期", "化学", "三年级"))
         list.add(BookBean("人教版", "2010-10-24", "上学期", "历史", "三年级"))
         list.add(BookBean("人教版", "2010-10-24", "上学期", "社会", "三年级"))
-        adapter.setNewData(list)
-        return adapter
+        withFirstPageData(list)
+    }
+
+    override fun requestData(page: Int, requestCallBack: RequestCallBack<List<BookBean>>) {
+    }
+
+    override fun parentToList(parent: List<BookBean>?): List<BookBean>? {
+        return parent
+    }
+
+    override fun getAdapter(): BaseQuickAdapter<BookBean, BaseViewHolder> {
+        return BookListAdapter()
     }
 
     override fun getLayoutManager(): RecyclerView.LayoutManager? {

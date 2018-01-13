@@ -46,9 +46,11 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
                         getView()?.onLoginStart()
                     }
 
-                    override fun onSuccess(entity: UserEntity) {
-                        getView()?.onLoginSuccess(entity)
-                        L.e(entity.token)
+                    override fun onSuccess(entity: UserEntity?) {
+                        if(entity!= null){
+                            getView()?.onLoginSuccess(entity)
+                            L.e(entity.token)
+                        }
                     }
 
                     override fun onError(exception: Throwable) {
@@ -91,7 +93,7 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
                 registerRequest = createRequest(object: RequestCallBack<UserEntity>(){
                     override fun onStart() {
                     }
-                    override fun onSuccess(entity: UserEntity) {
+                    override fun onSuccess(entity: UserEntity?) {
 
                     }
 

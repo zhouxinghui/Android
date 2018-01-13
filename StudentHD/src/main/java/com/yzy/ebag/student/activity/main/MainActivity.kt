@@ -14,6 +14,8 @@ import com.yzy.ebag.student.activity.homework.HomeworkActivity
 import com.yzy.ebag.student.bean.response.ClassesInfoBean
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.util.SerializableUtils
+import ebag.core.util.StringUtils
+import ebag.core.util.T
 import ebag.core.util.loadImage
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
@@ -23,6 +25,7 @@ class MainActivity : MVPActivity(), MainView, View.OnClickListener {
 
     private val mainPresenter = MainPresenter(this,this)
     private val adapter = Adapter()
+    private var classId = ""
 
     override fun destroyPresenter() {
         mainPresenter.onDestroy()
@@ -63,6 +66,7 @@ class MainActivity : MVPActivity(), MainView, View.OnClickListener {
     }
 
     private fun showTeachers(classesInfoBean: ClassesInfoBean){
+        classId = classesInfoBean.classId
         tvGrade.text = getString(R.string.main_class_name,classesInfoBean.className)
         tvClassTeacher.text = getString(R.string.main_teacher_name, classesInfoBean.teacherName)
         tvTeachersTip.text = getString(R.string.main_teachers_tip)
@@ -106,10 +110,32 @@ class MainActivity : MVPActivity(), MainView, View.OnClickListener {
                 startActivity(Intent(this, HomeworkActivity::class.java).putExtra("type",3))
             }
             R.id.tvSTZY -> { //随堂作业
-                startActivity(Intent(this, HomeworkActivity::class.java).putExtra("type",2))
+
+                if(StringUtils.isEmpty(classId)) {
+                    T.show(this, "请点击加载左侧班级数据！")
+                    return
+                }
+
+                startActivity(
+                        Intent(this, HomeworkActivity::class.java)
+                                .putExtra("type",com.yzy.ebag.student.base.Constants.STZY_TYPE)
+                                .putExtra("classId",classId)
+                )
+
             }
             R.id.tvKHZY -> {//课后作业
-                startActivity(Intent(this, HomeworkActivity::class.java).putExtra("type",1))
+
+                if(StringUtils.isEmpty(classId)) {
+                    T.show(this, "请点击加载左侧班级数据！")
+                    return
+                }
+
+                startActivity(
+                        Intent(this, HomeworkActivity::class.java)
+                                .putExtra("type", com.yzy.ebag.student.base.Constants.KHZY_TYPE)
+                                .putExtra("classId",classId)
+                )
+
             }
             R.id.tvName,R.id.tvId ,R.id.ivHead -> {//名字，id，头像
                 startActivity(Intent(this, PersonalActivity::class.java))

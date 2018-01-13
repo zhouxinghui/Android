@@ -16,11 +16,10 @@ import ebag.core.util.T
 /**
  * Created by unicho on 2018/1/8.
  */
-class ToolsActivity : BaseListActivity<Int>() {
+class ToolsActivity : BaseListActivity<List<Int>,Int>() {
+
     override fun getAdapter(): BaseQuickAdapter<Int, BaseViewHolder>? {
-        val adapter = ToolsAdapter()
-        adapter.setNewData(list.asList())
-        return adapter
+        return ToolsAdapter()
     }
 
     private val list = intArrayOf(R.drawable.tool_btn_calligraphy,R.drawable.tool_btn_read,
@@ -28,7 +27,7 @@ class ToolsActivity : BaseListActivity<Int>() {
             R.drawable.tool_btn_song)
 
     override fun loadConfig(intent: Intent) {
-        onlyView(true)
+        withFirstPageData(list.asList())
 
     }
 
@@ -47,6 +46,11 @@ class ToolsActivity : BaseListActivity<Int>() {
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<Int>>) {
+
+    }
+
+    override fun parentToList(parent: List<Int>?): List<Int>? {
+        return parent
     }
 
 

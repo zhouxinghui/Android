@@ -15,8 +15,10 @@ class MainPresenter(view: MainView, listener: OnToastListener): BasePresenter<Ma
         override fun onStart() {
             getView()?.mainInfoStart()
         }
-        override fun onSuccess(entity: ClassesInfoBean) {
-            getView()?.mainInfoSuccess(entity)
+        override fun onSuccess(entity: ClassesInfoBean?) {
+            if (entity != null){
+                getView()?.mainInfoSuccess(entity)
+            }
         }
 
         override fun onError(exception: Throwable) {
