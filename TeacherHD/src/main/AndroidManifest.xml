@@ -22,7 +22,10 @@
         <activity android:name=".ui.activity.account.ForgetActivity" />
         <activity android:name=".ui.activity.AssignmentActivity" />
         <activity android:name=".ui.activity.SpaceActivity" />
-        <activity android:name=".ui.activity.SettingActivity"></activity>
+        <activity android:name=".ui.activity.SettingActivity" />
+        <activity android:name=".ui.activity.AboutUsActivity" />
+        <activity android:name=".ui.activity.PersonalInfoActivity" />
+        <activity android:name=".ui.activity.CorrectingActivity"></activity>
     </application>
 
 </manifest>

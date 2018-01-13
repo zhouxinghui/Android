@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yzy.ebag.teacher.ui.activity.CorrectingActivity">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/white"
+        >
+        <ImageView android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/x18"
+            android:paddingRight="@dimen/x18"
+            android:paddingTop="@dimen/x5"
+            android:paddingBottom="@dimen/x5"
+            android:background="@drawable/bac_transparent_selector"
+            android:src="@drawable/icon_back"
+            />
+        <!--标题-->
+        <RadioGroup android:id="@+id/titleGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="@id/backBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+            <RadioButton android:id="@+id/clazzWork"
+                android:checked="true"
+                style="@style/correct_title_tv"
+                android:text="@string/assign_class_test"
+                />
+            <RadioButton android:id="@+id/afterWork"
+                style="@style/correct_title_tv"
+                android:text="@string/assign_after_class"
+                />
+            <RadioButton android:id="@+id/testPaper"
+                style="@style/correct_title_tv"
+                android:text="@string/assign_test_paper"
+                />
+        </RadioGroup>
+    </android.support.constraint.ConstraintLayout>
+    <FrameLayout android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

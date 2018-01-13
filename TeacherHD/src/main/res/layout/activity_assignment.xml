@@ -84,7 +84,7 @@
             android:textSize="@dimen/tv_sub"
             android:maxLines="2"
             android:ellipsize="end"
-            app:rightDrawable="@drawable/assign_version_arrow"
+            app:rightDrawable="@drawable/right_arrow"
             app:rightDrawableWidth="@dimen/x13"
             app:rightDrawableHeight="@dimen/x23"
             app:layout_constraintTop_toBottomOf="@id/line1"

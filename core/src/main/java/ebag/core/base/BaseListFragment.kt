@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.base
+package ebag.core.base
 
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
@@ -6,8 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.yzy.ebag.student.R
-import ebag.core.base.BaseFragment
+import ebag.core.R
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.T
 import ebag.core.widget.empty.StateView

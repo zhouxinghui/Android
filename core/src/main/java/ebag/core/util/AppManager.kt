@@ -69,7 +69,7 @@ object AppManager {
     /**
      * 结束所有Activity
      */
-    private fun finishAllActivity() {
+    fun finishAllActivity() {
         while (!activityStack.empty()) {
             activityStack.pop()?.finish()
         }
