@@ -7,6 +7,6 @@ import com.yzy.ebag.teacher.bean.AssignmentBean
  */
 interface AssignmentView {
     fun loadStart()
-    fun showBaseData(assignmentBean: AssignmentBean)
+    fun showBaseData(assignmentBean: AssignmentBean?)
     fun loadError(t: Throwable)
 }

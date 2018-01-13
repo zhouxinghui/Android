@@ -88,14 +88,14 @@ class FragmentFirstPage : BaseFragment() {
                 override fun onStart() {
                     LoadingDialogUtil.showLoading(mContext)
                 }
-                override fun onSuccess(entity: FirstPageBean) {
+                override fun onSuccess(entity: FirstPageBean?) {
                     LoadingDialogUtil.closeLoadingDialog()
                     //轮播图
                     val images = ArrayList<String>()
-                    entity.resultAdvertisementVos.mapTo(images) { it.adverUrl }
+                    entity?.resultAdvertisementVos?.mapTo(images) { it.adverUrl }
                     banner.setImageLoader(MyImageLoader()).setImages(images).start()
                     //作业进度
-                    adapter.datas = entity.resultHomeWorkVos
+                    adapter.datas = entity?.resultHomeWorkVos
                 }
 
                 override fun onError(exception: Throwable) {

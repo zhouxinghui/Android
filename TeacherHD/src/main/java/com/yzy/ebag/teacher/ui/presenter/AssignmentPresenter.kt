@@ -18,7 +18,7 @@ class AssignmentPresenter(view: AssignmentView, listener: OnToastListener): Base
                 override fun onStart() {
                     getView()?.loadStart()
                 }
-                override fun onSuccess(entity: AssignmentBean) {
+                override fun onSuccess(entity: AssignmentBean?) {
                     getView()?.showBaseData(entity)
                 }
 

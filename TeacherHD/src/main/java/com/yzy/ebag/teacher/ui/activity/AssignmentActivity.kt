@@ -109,15 +109,15 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         stateView.showLoading()
     }
 
-    override fun showBaseData(assignmentBean: AssignmentBean) {
+    override fun showBaseData(assignmentBean: AssignmentBean?) {
         stateView.showContent()
-        gradeAdapter.datas = assignmentBean.sendHomePageClazzInfoVos
-        questionAdapter.datas = assignmentBean.resultAdvertisementVos
+        gradeAdapter.datas = assignmentBean?.sendHomePageClazzInfoVos
+        questionAdapter.datas = assignmentBean?.resultAdvertisementVos
         textBookVersion.text = String.format(
                 resources.getString(R.string.textbook_name,
-                        assignmentBean.resultTaughtCoursesVo.bookVersionName,
-                        assignmentBean.resultTaughtCoursesVo.gradeName,
-                        assignmentBean.resultTaughtCoursesVo.semeterName))
+                        assignmentBean?.resultTaughtCoursesVo?.bookVersionName,
+                        assignmentBean?.resultTaughtCoursesVo?.gradeName,
+                        assignmentBean?.resultTaughtCoursesVo?.semeterName))
     }
 
     override fun loadError(t: Throwable) {
