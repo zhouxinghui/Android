@@ -37,5 +37,10 @@
     <color name="normal_text_color">#4A4A4A</color>
 
     <color name="color_question_option_border">#8892A1</color>
+    <!--关于我们-->
+    <color name="color_about_us_sub">#57ABD3</color>
+    <color name="color_about_us_sub2">#0A88C5</color>
+    <color name="color_about_us_text">#4A4A4A</color>
+    <color name="setting_line_color">#F4F4F4</color>
 
 </resources>

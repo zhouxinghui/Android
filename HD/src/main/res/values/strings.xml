@@ -28,4 +28,14 @@
         2、网络下载版学生云书包邀请码请点击右上角联系客服获取邀请码。</string>
 
     <string name="invite_contact_customer">联系客服</string>
+    <!--关于我们-->
+    <string name="setting_about_us">关于我们</string>
+    <string name="about_us_name">云书包学生端HD</string>
+    <string name="about_us_website">官方网址：www.yun-bag.com</string>
+    <string name="about_us_phone">官方电话：0755&#8211;33073777</string>
+    <string name="about_us_email">官方邮箱：bag@yun-bag.com</string>
+    <string name="about_us_desc_tip">云书包简介</string>
+    <string name="about_us_desc">\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020云书包通过“互联网+教育”的平台搭建模式，
+        平台打破了传统的教育信息化边界，为全国所有的中小学老师、学生、家长打造一个集家校沟通、教学管理、学习、分享、交流、评测于一体，
+        以“人人通”的广泛、深度应用进一步体现“校校通”、“班班通”的综合效能；具有个性化、社会化、智能化、开放性特征的教育云平台。</string>
 </resources>

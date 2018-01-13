@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingTop="@dimen/y10"
+    android:paddingLeft="@dimen/x10"
+    android:paddingRight="@dimen/x10"
+    >
+    <View
+        android:id="@+id/dot"
+        android:layout_width="@dimen/x10"
+        android:layout_height="@dimen/x10"
+        android:layout_marginLeft="@dimen/x15"
+        android:layout_marginRight="@dimen/x15"
+        android:background="@color/transparent"/>
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/assignment_tv"
+        tools:text="语文"
+        android:textSize="@dimen/x28"/>
+</LinearLayout>

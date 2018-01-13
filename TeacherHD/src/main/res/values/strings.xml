@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TeacherHD</string>
+    <string name="app_name">云书包老师版HD</string>
     <string name="confirm">确定</string>
     <!--首页start-->
     <string name="first_page">首页</string>
@@ -76,4 +76,13 @@
     <string name="about_us">关于我们</string>
     <string name="exit_login">退出登录</string>
     <!--设置end-->
+    <!--个人信息start-->
+    <string name="head_image">头像</string>
+    <string name="name">姓名</string>
+    <string name="bag">书包号</string>
+    <string name="sex">性别</string>
+    <string name="contact_information">联系方式</string>
+    <string name="family_address">家庭住址</string>
+    <string name="school_name">所在学校</string>
+    <!--个人信息end-->
 </resources>

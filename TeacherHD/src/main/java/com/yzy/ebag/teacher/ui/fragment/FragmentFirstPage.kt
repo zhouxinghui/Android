@@ -21,6 +21,7 @@ import com.yzy.ebag.teacher.base.Constants
 import com.yzy.ebag.teacher.bean.FirstPageBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.ui.activity.AssignmentActivity
+import com.yzy.ebag.teacher.ui.activity.CorrectingActivity
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.LoadingDialogUtil
@@ -68,6 +69,9 @@ class FragmentFirstPage : BaseFragment() {
             startActivity(intent
                     .putExtra(Constants.ASSIGN_CATEGORY, Constants.ASSIGN_TEST_PAPER)
                     .putExtra(Constants.ASSIGN_TITLE, resources.getString(R.string.assign_test_paper)))
+        }
+        checkHomework.setOnClickListener {
+            startActivity(Intent(mContext, CorrectingActivity::class.java))
         }
 
         setTextStyle(classTest.text.toString(), classTest)

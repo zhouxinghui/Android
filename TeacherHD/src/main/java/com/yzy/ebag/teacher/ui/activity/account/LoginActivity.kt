@@ -2,7 +2,7 @@ package com.yzy.ebag.teacher.ui.activity.account
 
 import android.content.Intent
 import com.yzy.ebag.teacher.MainActivity
-import ebag.hd.R
+import com.yzy.ebag.teacher.R
 import ebag.hd.ui.activity.account.BLoginActivity
 
 class LoginActivity : BLoginActivity() {

@@ -99,7 +99,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         textBookVersion.setOnClickListener {
             exchangeDialog.show()
         }
-        assignmentPresenter.loadBaseData(workCategory.toString())
+//        assignmentPresenter.loadBaseData(workCategory.toString())
         stateView.setOnRetryClickListener {
             assignmentPresenter.loadBaseData(workCategory.toString())
         }

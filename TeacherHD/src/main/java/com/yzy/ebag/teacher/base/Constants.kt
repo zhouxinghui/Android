@@ -9,4 +9,5 @@ object Constants {
     val ASSIGN_WORK = 1
     val ASSIGN_AFTER = 2
     val ASSIGN_TEST_PAPER = 102
+    val WORK_TYPE = "work_type"
 }
