@@ -2,32 +2,21 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <ebag.hd.widget.TitleBar
-        android:id="@+id/titleView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:titleText="我的作业"/>
-
+    <View android:id="@+id/tagView"
+        android:layout_width="@dimen/x174"
+        android:layout_height="1px"/>
     <TextView
         android:id="@+id/tvTag"
-        android:layout_width="@dimen/x174"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/x60"
         android:textSize="@dimen/x32"
         android:textColor="#4a4a4a"
-        android:text="科目"
         android:gravity="center"
         android:background="@color/white"
-        android:layout_below="@id/titleView"/>
-    <View
-        android:id="@+id/line"
-        android:layout_width="@dimen/x1"
-        android:layout_height="match_parent"
-        android:background="@color/login_line"
-        android:layout_below="@id/titleView"
-        android:layout_toEndOf="@id/tvTag"/>
+        android:layout_alignEnd="@id/tagView"
+        android:visibility="gone"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -35,21 +24,23 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:layout_below="@id/tvTag"
-        android:layout_alignEnd="@id/tvTag"/>
+        android:layout_alignEnd="@id/tagView"/>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="@dimen/x1"
+        android:layout_height="match_parent"
+        android:background="@color/login_line"
+        android:layout_toEndOf="@id/tagView"/>
 
     <ebag.core.widget.empty.NoScrollViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/x20"
-        android:layout_marginEnd="@dimen/x20"
-        android:layout_below="@id/titleView"
         android:layout_toEndOf="@+id/line"/>
 
     <ebag.core.widget.empty.StateView
         android:id="@+id/stateView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/titleView"/>
-
+        android:layout_height="match_parent"/>
 </RelativeLayout>

@@ -10,7 +10,9 @@
     android:divider="@drawable/center_personal_line">
 
     <LinearLayout android:id="@+id/llAvatar"
-        style="@style/center_personal_item" android:paddingBottom="@dimen/x15">
+        style="@style/center_personal_item"
+        android:paddingBottom="@dimen/x15"
+        android:paddingTop="@dimen/x20">
         <TextView
             style="@style/center_personal_tip" android:text="@string/center_personal_avatar"/>
         <View android:layout_weight="1"

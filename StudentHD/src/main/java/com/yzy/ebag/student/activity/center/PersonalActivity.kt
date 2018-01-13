@@ -66,7 +66,7 @@ class PersonalActivity: MVPActivity() {
     }
 
 
-    private val fragmentArrays = arrayOfNulls<Fragment?>(7)
+    private val fragmentArrays = arrayOfNulls<Fragment?>(itemStrIds.size)
 
     private var tempFragment : Fragment? = null
 

@@ -1,132 +1,95 @@
 package com.yzy.ebag.student.activity.homework
 
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.widget.TextView
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
+import com.yzy.ebag.student.base.BaseListTabActivity
 import com.yzy.ebag.student.base.Constants
 import com.yzy.ebag.student.bean.response.SubjectBean
 import com.yzy.ebag.student.http.StudentApi
-import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
-import ebag.core.xRecyclerView.adapter.RecyclerAdapter
-import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
-import kotlinx.android.synthetic.main.activity_homework.*
-
 
 
 /**
  * Created by unicho on 2018/1/9.
  */
-class HomeworkActivity : BaseActivity() {
+class HomeworkActivity : BaseListTabActivity<List<SubjectBean>,SubjectBean>() {
 
     private var type = "1"
     private var classId = ""
 
-    private val adapter by lazy { Adapter() }
-
-    private val request = object: RequestCallBack<List<SubjectBean>>(){
-
-        override fun onStart() {
-            stateView.showLoading()
-        }
-
-        override fun onSuccess(entity: List<SubjectBean>?) {
-            if(entity == null || entity.isEmpty()){
-                stateView.showEmpty()
-            }else{
-                adapter.datas = entity
-                viewPager.adapter = SectionsPagerAdapter(supportFragmentManager, arrayOfNulls(adapter.itemCount))
-                viewPager.setCurrentItem(0,false)
-                stateView.showContent()
-            }
-        }
-
-        override fun onError(exception: Throwable) {
-            stateView.showError()
-        }
-    }
-
-    override fun getLayoutId(): Int {
-        return R.layout.activity_homework
-    }
-
-    override fun initViews() {
-
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        adapter.setOnItemClickListener { _, _, position ->
-            adapter.selectedPosition = position
-            adapter.notifyDataSetChanged()
-            viewPager.setCurrentItem(position,false)
-        }
-
-        type = intent.getStringExtra("type")
-        classId = intent.getStringExtra("classId")
+    override fun loadConfig() {
+        type = intent.getStringExtra("type") ?: ""
+        classId = intent.getStringExtra("classId") ?: ""
         when(type){
             Constants.KHZY_TYPE -> {
-                titleView.setTitle(R.string.main_khzy)
-                request()
+                setTitleContent(R.string.main_khzy)
             }
 
             Constants.STZY_TYPE -> {
-                titleView.setTitle(R.string.main_stzy)
-                request()
+                setTitleContent(R.string.main_stzy)
             }
 
             else -> {
-                titleView.setTitle(R.string.main_kssj)
+                setTitleContent(R.string.main_kssj)
+                enableNetWork(false)
             }
         }
-
-        stateView.setOnRetryClickListener {
-            request()
-        }
+        showTipTag("科目")
     }
 
-    private fun request(){
-        StudentApi.subjectWorkList(type, classId, "", 1, 10, request)
+    override fun requestData(requestCallBack: RequestCallBack<List<SubjectBean>>) {
+        StudentApi.subjectWorkList(type, classId, "", 1, 10, requestCallBack)
     }
 
-    fun getFragment(position: Int): Fragment{
+    override fun parentToList(parent: List<SubjectBean>?): List<SubjectBean>? {
+        return parent
+    }
+
+    override fun getLeftAdapter(): BaseQuickAdapter<SubjectBean, BaseViewHolder> {
+        return Adapter()
+    }
+
+    override fun getLayoutManager(): RecyclerView.LayoutManager? {
+        return null
+    }
+
+    override fun getFragment(index: Int, item: SubjectBean?): Fragment {
         return HomeworkListFragment.newInstance(
                 type,classId,
-                adapter.datas[position].subCode,
-                adapter.datas[position].homeWorkInfoVos
+                item?.subCode ?: "",
+                item?.homeWorkInfoVos
         )
     }
 
-    inner class SectionsPagerAdapter(fm: FragmentManager,private val fragments: Array<Fragment?>) : FragmentPagerAdapter(fm) {
-        override fun getItem(position: Int): Fragment {
-            if (fragments[position] == null) {
-                fragments[position] = getFragment(position)
-            }
-            return fragments[position]!!
-        }
-
-        override fun getCount(): Int {
-            return adapter.itemCount
-        }
+    override fun leftItemClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {
+        (adapter as Adapter).selectedPosition = position
     }
 
-
-    private inner class Adapter: RecyclerAdapter<SubjectBean>(R.layout.activity_homework_subject_item){
+    class Adapter: BaseQuickAdapter<SubjectBean,BaseViewHolder>(R.layout.activity_homework_subject_item){
 
         var selectedPosition = 0
+            set(value) {
+                field = value
+                notifyDataSetChanged()
+            }
 
-        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: SubjectBean) {
-            setter.setText(R.id.text,entity.subject)
-            setter.setBackgroundRes(
+        override fun convert(helper: BaseViewHolder?, entity: SubjectBean?) {
+            helper?.setText(R.id.text,entity?.subject ?: "")
+            helper?.setBackgroundRes(
                     R.id.dot,
-                    if(entity.homeWorkComplete != "0")
+                    if(entity?.homeWorkComplete != "0")
                         R.drawable.homework_subject_dot_undo_selector
                     else
                         R.drawable.homework_subject_dot_done_selector
-            )
-            setter.setSelected(R.id.text ,position == selectedPosition)
-            setter.setSelected(R.id.dot ,position == selectedPosition)
+                )
+
+            helper?.getView<TextView>(R.id.text)?.isSelected = helper?.adapterPosition == selectedPosition
+            helper?.getView<View>(R.id.dot)?.isSelected = helper?.adapterPosition == selectedPosition
         }
     }
 

@@ -81,7 +81,10 @@ abstract class BaseListFragment<Parent, E> : BaseFragment(),
         //mAdapter != null 是为了防止别人乱改这个  Fragment的顺序
         if(list != null && mAdapter != null){
             needFirstLoad = false
+            stateView.showContent()
             firstPageDataLoad(list)
+        }else{
+            stateView.showEmpty()
         }
     }
 
@@ -136,11 +139,6 @@ abstract class BaseListFragment<Parent, E> : BaseFragment(),
     }
 
     private fun readLoadConfig(){
-
-        if(!needFirstLoad){
-            //如果不需要第一次加载，默认显示空布局
-            stateView.showContent()
-        }
         loadMoreEnabled(canLoadMore)
         refreshEnabled(canRefresh)
     }

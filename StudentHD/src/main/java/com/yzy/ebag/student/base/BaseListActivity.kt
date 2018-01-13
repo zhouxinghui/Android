@@ -100,7 +100,10 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
         //mAdapter != null 是为了防止别人乱改这个  Fragment的顺序
         if(list != null && mAdapter != null){
             needFirstLoad = false
+            stateView.showContent()
             firstPageDataLoad(list)
+        }else{
+            stateView.showEmpty()
         }
     }
 
@@ -163,9 +166,6 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
             mCurrentPage = 1
             // 加载各种数据
             requestData(mCurrentPage, requestCallBack)
-        }else{
-            //如果不需要第一次加载，默认显示空布局
-            stateView.showContent()
         }
     }
 
