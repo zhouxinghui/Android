@@ -6,6 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/home_tv_bg"
+    android:layout_marginTop="@dimen/y10"
+    android:layout_marginLeft="@dimen/x15"
+    android:layout_marginRight="@dimen/x15"
     >
     <TextView
         android:id="@+id/classNameTv"

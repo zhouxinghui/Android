@@ -78,7 +78,7 @@ class CorrectingFragment: BaseFragment() {
                 pagerList.addAll(it.subList!!)
         }
 
-        viewPager.adapter = MyPagerAdapter(childFragmentManager)
+        viewPager.adapter = MyPagerAdapter(childFragmentManager, arrayOfNulls(pagerList.size))
     }
 
     private val pagerList = ArrayList<SubjectBean>()
@@ -112,9 +112,11 @@ class CorrectingFragment: BaseFragment() {
         }
     }
 
-    inner class MyPagerAdapter(fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager){
+    inner class MyPagerAdapter(fragmentManager: FragmentManager, private var fragments: Array<CorrectingSubFragment?>): FragmentPagerAdapter(fragmentManager){
         override fun getItem(position: Int): Fragment {
-            return CorrectingSubFragment.newInstance()
+            if (fragments[position] == null)
+                fragments[position] = CorrectingSubFragment.newInstance()
+            return fragments[position]!!
         }
 
         override fun getCount(): Int {
