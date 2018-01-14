@@ -63,12 +63,12 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
     /**
      * 设置 recyclerView 的适配器 Adapter
      */
-    protected abstract fun getAdapter(): BaseQuickAdapter<E,BaseViewHolder>?
+    protected abstract fun getAdapter(): BaseQuickAdapter<E,BaseViewHolder>
 
     /**
      * 设置 recyclerView 的 LayoutManager
      */
-    protected abstract fun getLayoutManager(): RecyclerView.LayoutManager?
+    protected abstract fun getLayoutManager(adapter: BaseQuickAdapter<E,BaseViewHolder>): RecyclerView.LayoutManager?
 
     /** 每页默认加载的数量 */
     open protected fun getPageSize(): Int = DEFAULT_PAGE_SIZE
@@ -141,10 +141,10 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
     override fun initViews() {
         rootLayout = layout
         titleBar = titleView
-        // 设置 RecyclerView 的 LayoutManager
-        recyclerView.layoutManager = getLayoutManager() ?: LinearLayoutManager(this)
         // 设置 recyclerView 的 Adapter
         mAdapter = getAdapter()
+        // 设置 RecyclerView 的 LayoutManager
+        recyclerView.layoutManager = getLayoutManager(mAdapter!!) ?: LinearLayoutManager(this)
         mAdapter?.enableLoadMoreEndClick(true)
         mAdapter?.bindToRecyclerView(recyclerView)
 

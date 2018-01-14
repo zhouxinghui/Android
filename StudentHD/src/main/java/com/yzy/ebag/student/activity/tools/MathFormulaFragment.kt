@@ -63,7 +63,7 @@ class MathFormulaFragment: BaseListFragment<String, MathFormulaFragment.Formula>
         return Adapter()
     }
 
-    override fun getLayoutManager(): RecyclerView.LayoutManager? {
+    override fun getLayoutManager(adapter: BaseQuickAdapter<Formula, BaseViewHolder>): RecyclerView.LayoutManager? {
         return GridLayoutManager(mContext,spanSize)
     }
 

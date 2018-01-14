@@ -42,7 +42,7 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
     /**
      * 设置 recyclerView 的 LayoutManager
      */
-    protected abstract fun getLayoutManager(): RecyclerView.LayoutManager?
+    protected abstract fun getLayoutManager(adapter: BaseQuickAdapter<E,BaseViewHolder>): RecyclerView.LayoutManager?
 
     protected abstract fun getFragment(pagerIndex: Int, adapter: BaseQuickAdapter<E, BaseViewHolder>): Fragment
 
@@ -65,10 +65,10 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
 
 
     override fun initViews() {
-        // 设置 RecyclerView 的 LayoutManager
-        recyclerView.layoutManager = getLayoutManager() ?: LinearLayoutManager(this)
         // 设置 recyclerView 的 Adapter
         mAdapter = getLeftAdapter()
+        // 设置 RecyclerView 的 LayoutManager
+        recyclerView.layoutManager = getLayoutManager(mAdapter!!) ?: LinearLayoutManager(this)
         mAdapter?.bindToRecyclerView(recyclerView)
         //设置 点击监听事件
         mAdapter?.onItemClickListener = this

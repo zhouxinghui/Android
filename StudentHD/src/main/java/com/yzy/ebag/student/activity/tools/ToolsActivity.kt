@@ -18,10 +18,6 @@ import ebag.core.util.T
  */
 class ToolsActivity : BaseListActivity<List<Int>,Int>() {
 
-    override fun getAdapter(): BaseQuickAdapter<Int, BaseViewHolder>? {
-        return ToolsAdapter()
-    }
-
     private val list = intArrayOf(R.drawable.tool_btn_calligraphy,R.drawable.tool_btn_read,
             R.drawable.tool_btn_pinyin,R.drawable.tool_btn_letter,R.drawable.tool_btn_formula,
             R.drawable.tool_btn_song)
@@ -56,10 +52,13 @@ class ToolsActivity : BaseListActivity<List<Int>,Int>() {
         return parent
     }
 
-    override fun getLayoutManager(): RecyclerView.LayoutManager? {
+    override fun getLayoutManager(adapter: BaseQuickAdapter<Int, BaseViewHolder>): RecyclerView.LayoutManager? {
         return GridLayoutManager(this,4)
     }
 
+    override fun getAdapter(): BaseQuickAdapter<Int, BaseViewHolder> {
+        return ToolsAdapter()
+    }
 
     class ToolsAdapter : BaseQuickAdapter<Int,BaseViewHolder>(R.layout.activity_tools_item) {
         override fun convert(helper: BaseViewHolder, item: Int?) {

@@ -32,7 +32,7 @@ class MathFormulaActivity: BaseListTabActivity<String,String>() {
         return Adapter()
     }
 
-    override fun getLayoutManager(): RecyclerView.LayoutManager? {
+    override fun getLayoutManager(adapter: BaseQuickAdapter<String, BaseViewHolder>): RecyclerView.LayoutManager? {
         return null
     }
 

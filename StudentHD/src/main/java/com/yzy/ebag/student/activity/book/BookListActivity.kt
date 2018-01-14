@@ -41,7 +41,7 @@ class BookListActivity: BaseListActivity<List<BookBean>,BookBean>() {
         return BookListAdapter()
     }
 
-    override fun getLayoutManager(): RecyclerView.LayoutManager? {
+    override fun getLayoutManager(adapter: BaseQuickAdapter<BookBean, BaseViewHolder>): RecyclerView.LayoutManager? {
         return GridLayoutManager(this,3)
     }
 

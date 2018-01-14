@@ -13,6 +13,7 @@ import ebag.core.http.network.RequestCallBack
  * Created by YZY on 2018/1/13.
  */
 class CorrectingSubFragment: BaseListFragment<String, String>() {
+
     companion object {
         fun newInstance(): CorrectingSubFragment{
             val fragment = CorrectingSubFragment()
@@ -46,7 +47,7 @@ class CorrectingSubFragment: BaseListFragment<String, String>() {
         return MyAdapter()
     }
 
-    override fun getLayoutManager(): RecyclerView.LayoutManager? {
+    override fun getLayoutManager(adapter: BaseQuickAdapter<String, BaseViewHolder>): RecyclerView.LayoutManager? {
         return null
     }
 

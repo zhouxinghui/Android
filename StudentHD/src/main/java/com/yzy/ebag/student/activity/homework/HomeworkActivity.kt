@@ -19,7 +19,6 @@ import ebag.core.http.network.RequestCallBack
  * Created by unicho on 2018/1/9.
  */
 class HomeworkActivity : BaseListTabActivity<ArrayList<SubjectBean>,SubjectBean>() {
-
     private var type = "1"
     private var classId = ""
 
@@ -58,9 +57,10 @@ class HomeworkActivity : BaseListTabActivity<ArrayList<SubjectBean>,SubjectBean>
         return Adapter()
     }
 
-    override fun getLayoutManager(): RecyclerView.LayoutManager? {
+    override fun getLayoutManager(adapter: BaseQuickAdapter<SubjectBean, BaseViewHolder>): RecyclerView.LayoutManager? {
         return null
     }
+
 
     override fun getFragment(pagerIndex: Int, adapter: BaseQuickAdapter<SubjectBean, BaseViewHolder>): Fragment {
         return HomeworkListFragment.newInstance(

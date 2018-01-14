@@ -61,7 +61,7 @@ abstract class BaseListFragment<Parent, E> : BaseFragment(),
     /**
      * 设置 recyclerView 的 LayoutManager
      */
-    protected abstract fun getLayoutManager(): RecyclerView.LayoutManager?
+    protected abstract fun getLayoutManager(adapter: BaseQuickAdapter<E,BaseViewHolder>): RecyclerView.LayoutManager?
 
     /** 每页默认加载的数量 */
     open protected fun getPageSize(): Int = DEFAULT_PAGE_SIZE
@@ -123,11 +123,11 @@ abstract class BaseListFragment<Parent, E> : BaseFragment(),
 
     /** 初始化操作 */
     override fun initViews(rootView: View) {
-        // 设置 RecyclerView 的 LayoutManager
-        recyclerView.layoutManager = getLayoutManager() ?: LinearLayoutManager(mContext)
         // 设置 recyclerView 的 Adapter
         mAdapter = getAdapter()
         mAdapter?.enableLoadMoreEndClick(true)
+        // 设置 RecyclerView 的 LayoutManager
+        recyclerView.layoutManager = getLayoutManager(mAdapter!!) ?: LinearLayoutManager(mContext)
         mAdapter?.bindToRecyclerView(recyclerView)
         //设置 点击监听事件
         mAdapter?.onItemClickListener = this

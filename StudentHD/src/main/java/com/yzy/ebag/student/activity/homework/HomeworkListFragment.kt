@@ -70,7 +70,7 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
         return HomeWorkListAdapter()
     }
 
-    override fun getLayoutManager(): RecyclerView.LayoutManager? {
+    override fun getLayoutManager(adapter: BaseQuickAdapter<SubjectBean.HomeWorkInfoBean, BaseViewHolder>): RecyclerView.LayoutManager? {
         return null
     }
 
