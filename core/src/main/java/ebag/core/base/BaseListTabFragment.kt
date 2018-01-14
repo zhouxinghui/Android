@@ -43,7 +43,9 @@ abstract class BaseListTabFragment<Parent, E>: BaseFragment(),
      */
     protected abstract fun getLayoutManager(): RecyclerView.LayoutManager?
 
-    protected abstract fun getFragment(index: Int, item: E?): Fragment
+    protected abstract fun getFragment(pagerIndex: Int, adapter: BaseQuickAdapter<E, BaseViewHolder>): Fragment
+
+    protected abstract fun getViewPagerSize(adapter: BaseQuickAdapter<E, BaseViewHolder>): Int
 
     protected fun withTabData(list: List<E>?){
         if(list != null && mAdapter != null){
@@ -129,7 +131,7 @@ abstract class BaseListTabFragment<Parent, E>: BaseFragment(),
     }
 
     open fun setViewPager(){
-        viewPager.adapter = SectionsPagerAdapter(childFragmentManager, arrayOfNulls(mAdapter?.itemCount ?: 0))
+        viewPager.adapter = SectionsPagerAdapter(childFragmentManager, arrayOfNulls(getViewPagerSize(mAdapter!!)))
         viewPager.setCurrentItem(0,false)
     }
 
@@ -154,12 +156,6 @@ abstract class BaseListTabFragment<Parent, E>: BaseFragment(),
         viewPager.setCurrentItem(index,false)
     }
 
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {
-        leftItemClick(adapter,view,position)
-        setCurrentItem(position)
-    }
-
-    abstract fun leftItemClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int)
     /**
      * 列表页的点击事件
      * @param view
@@ -171,7 +167,7 @@ abstract class BaseListTabFragment<Parent, E>: BaseFragment(),
     inner class SectionsPagerAdapter(fm: FragmentManager, private val fragments: Array<Fragment?>) : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int): Fragment {
             if (fragments[position] == null) {
-                fragments[position] = getFragment(position,mAdapter?.getItem(position))
+                fragments[position] = getFragment(position,mAdapter!!)
             }
             return fragments[position]!!
         }

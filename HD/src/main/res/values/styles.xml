@@ -9,4 +9,8 @@
         <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
         <item name="android:gravity">center</item>
     </style>
+
+    <style name="baseTabText">
+        <item name="android:textSize">@dimen/x28</item>
+    </style>
 </resources>

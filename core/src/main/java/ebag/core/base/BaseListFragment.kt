@@ -51,7 +51,7 @@ abstract class BaseListFragment<Parent, E> : BaseFragment(),
      */
     protected abstract fun requestData(page: Int, requestCallBack: RequestCallBack<Parent>)
 
-    protected abstract fun parentToList(parent: Parent?): List<E>?
+    protected abstract fun parentToList(isFirstPage: Boolean, parent: Parent?): List<E>?
 
     /**
      * 设置 recyclerView 的适配器 Adapter
@@ -155,14 +155,14 @@ abstract class BaseListFragment<Parent, E> : BaseFragment(),
             }
 
             override fun onSuccess(entity: Parent?) {
-                var result: List<E>? = parentToList(entity)
-                if (result == null) {
-                    //添加判断，防止异常
-                    result = ArrayList()
-                }
                 when (loadingStatus) {
                     /** 刚进入页面，第一次请求成功 */
                     FIRST -> {
+                        var result: List<E>? = parentToList(true,entity)
+                        if (result == null) {
+                            //添加判断，防止异常
+                            result = ArrayList()
+                        }
                         //第一次请求成功
                         needFirstLoad = false
                         //返回数据不为空时，等待层消失，展示数据
@@ -171,12 +171,22 @@ abstract class BaseListFragment<Parent, E> : BaseFragment(),
                     }
                     /** 刷新的时候数据请求成功 */
                     REFRESH -> {
+                        var result: List<E>? = parentToList(true,entity)
+                        if (result == null) {
+                            //添加判断，防止异常
+                            result = ArrayList()
+                        }
                         //刷新成功
                         refreshLayout.isRefreshing = false
                         firstPageDataLoad(result)
                     }
                     /** 加载更多成功 */
                     LOAD_MORE -> {
+                        var result: List<E>? = parentToList(false,entity)
+                        if (result == null) {
+                            //添加判断，防止异常
+                            result = ArrayList()
+                        }
                         mAdapter?.addData(result)
                         footerState(result)
                     }

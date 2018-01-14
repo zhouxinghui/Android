@@ -3,13 +3,15 @@ package com.yzy.ebag.student.bean.response;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import java.util.List;
 
 /**
  * Created by unicho on 2018/1/12.
  */
 
-public class SubjectBean {
+public class SubjectBean implements MultiItemEntity {
 
     /**
      * subCode : yw
@@ -21,6 +23,7 @@ public class SubjectBean {
     private String subject;
     private String homeWorkComplete;
     private List<HomeWorkInfoBean> homeWorkInfoVos;
+    private int itemType;
 
     public String getSubCode() {
         return subCode;
@@ -52,6 +55,15 @@ public class SubjectBean {
 
     public void setHomeWorkInfoVos(List<HomeWorkInfoBean> homeWorkInfoVos) {
         this.homeWorkInfoVos = homeWorkInfoVos;
+    }
+
+    @Override
+    public int getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
     }
 
     public static class HomeWorkInfoBean implements Parcelable{

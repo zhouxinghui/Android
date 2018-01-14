@@ -6,15 +6,12 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.yzy.ebag.student.R
-import ebag.core.base.App.Companion.mContext
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
-import kotlinx.android.synthetic.main.activity_list_tab.*
-import kotlinx.android.synthetic.main.base_list_tab_view.*
+import ebag.hd.R
+import kotlinx.android.synthetic.main.activity_base_list_tab.*
 import java.util.*
 
 /**
@@ -47,7 +44,9 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
      */
     protected abstract fun getLayoutManager(): RecyclerView.LayoutManager?
 
-    protected abstract fun getFragment(index: Int, item: E?): Fragment
+    protected abstract fun getFragment(pagerIndex: Int, adapter: BaseQuickAdapter<E, BaseViewHolder>): Fragment
+
+    protected abstract fun getViewPagerSize(adapter: BaseQuickAdapter<E, BaseViewHolder>): Int
 
     protected fun withTabData(list: List<E>?){
         if(list != null && mAdapter != null){
@@ -61,13 +60,13 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.activity_list_tab
+        return R.layout.activity_base_list_tab
     }
 
 
     override fun initViews() {
         // 设置 RecyclerView 的 LayoutManager
-        recyclerView.layoutManager = getLayoutManager() ?: LinearLayoutManager(mContext)
+        recyclerView.layoutManager = getLayoutManager() ?: LinearLayoutManager(this)
         // 设置 recyclerView 的 Adapter
         mAdapter = getLeftAdapter()
         mAdapter?.bindToRecyclerView(recyclerView)
@@ -96,26 +95,8 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
     }
 
     protected fun setLeftWidth(pxSize: Int){
-        val params = tagView.layoutParams
+        val params = recyclerView.layoutParams
         params.width = pxSize
-    }
-
-    protected fun hideTipTag(){
-        tvTag.visibility = View.GONE
-    }
-
-    protected fun showTipTag(str: String){
-        tvTag.visibility = View.VISIBLE
-        tvTag.text = str
-    }
-
-    protected fun showTipTag(str: Int){
-        tvTag.visibility = View.VISIBLE
-        tvTag.setText(str)
-    }
-
-    protected fun getTipTag(): TextView{
-        return tvTag
     }
 
     private val requestDelegate = lazy {
@@ -158,7 +139,7 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
         } else {
             stateView.showContent()
             mAdapter?.setNewData(result)
-            viewPager.adapter = SectionsPagerAdapter(supportFragmentManager, arrayOfNulls(mAdapter?.itemCount ?: 0))
+            viewPager.adapter = SectionsPagerAdapter(supportFragmentManager, arrayOfNulls(getViewPagerSize(mAdapter!!)))
             viewPager.setCurrentItem(0,false)
         }
     }
@@ -173,7 +154,7 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
     inner class SectionsPagerAdapter(fm: FragmentManager, private val fragments: Array<Fragment?>) : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int): Fragment {
             if (fragments[position] == null) {
-                fragments[position] = getFragment(position,mAdapter?.getItem(position))
+                fragments[position] = getFragment(position, mAdapter!!)
             }
             return fragments[position]!!
         }
@@ -186,13 +167,6 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
     protected fun setCurrentItem(index: Int){
         viewPager.setCurrentItem(index,false)
     }
-
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {
-        leftItemClick(adapter,view,position)
-        setCurrentItem(position)
-    }
-
-    abstract fun leftItemClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int)
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {}
 }

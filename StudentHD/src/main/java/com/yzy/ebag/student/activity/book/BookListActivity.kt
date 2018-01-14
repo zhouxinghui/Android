@@ -17,7 +17,6 @@ import ebag.core.http.network.RequestCallBack
  */
 class BookListActivity: BaseListActivity<List<BookBean>,BookBean>() {
 
-
     override fun loadConfig(intent: Intent) {
         setPageTitle("学习课本")
         val list = ArrayList<BookBean>()
@@ -34,7 +33,7 @@ class BookListActivity: BaseListActivity<List<BookBean>,BookBean>() {
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<BookBean>>) {
     }
 
-    override fun parentToList(parent: List<BookBean>?): List<BookBean>? {
+    override fun parentToList(isFirstPage: Boolean, parent: List<BookBean>?): List<BookBean>? {
         return parent
     }
 

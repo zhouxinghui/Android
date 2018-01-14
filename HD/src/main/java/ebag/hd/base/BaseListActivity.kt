@@ -8,14 +8,13 @@ import android.view.View
 import android.widget.RelativeLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.yzy.ebag.student.R
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.T
 import ebag.core.widget.empty.StateView
+import ebag.hd.R
 import ebag.hd.widget.TitleBar
-import kotlinx.android.synthetic.main.activity_list.*
-import kotlinx.android.synthetic.main.base_list_view.*
+import kotlinx.android.synthetic.main.activity_base_list.*
 import java.util.*
 
 /**
@@ -60,7 +59,7 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
      */
     protected abstract fun requestData(page: Int, requestCallBack: RequestCallBack<Parent>)
 
-    protected abstract fun parentToList(parent: Parent?): List<E>?
+    protected abstract fun parentToList(isFirstPage: Boolean, parent: Parent?): List<E>?
     /**
      * 设置 recyclerView 的适配器 Adapter
      */
@@ -132,7 +131,7 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
 
 
     override fun getLayoutId(): Int {
-        return R.layout.activity_list
+        return R.layout.activity_base_list
     }
 
     override fun initViews() {
@@ -183,26 +182,36 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
             }
 
             override fun onSuccess(entity: Parent?) {
-                var result: List<E>? = parentToList(entity)
-                if (result == null) {
-                    //添加判断，防止异常
-                    result = ArrayList()
-                }
                 when (loadingStatus) {
                     /** 刚进入页面，第一次请求成功 */
                     FIRST -> {
+                        var result: List<E>? = parentToList(true,entity)
+                        if (result == null) {
+                            //添加判断，防止异常
+                            result = ArrayList()
+                        }
                         needFirstLoad = false
                         stateView.showContent()
                         firstPageDataLoad(result)
                     }
                     /** 刷新的时候数据请求成功 */
                     REFRESH -> {
+                        var result: List<E>? = parentToList(true,entity)
+                        if (result == null) {
+                            //添加判断，防止异常
+                            result = ArrayList()
+                        }
                         //刷新成功
                         refreshLayout.isRefreshing = false
                         firstPageDataLoad(result)
                     }
                     /** 加载更多成功 */
                     LOAD_MORE -> {
+                        var result: List<E>? = parentToList(true,entity)
+                        if (result == null) {
+                            //添加判断，防止异常
+                            result = ArrayList()
+                        }
                         mAdapter?.addData(result)
                         footerState(result)
                     }

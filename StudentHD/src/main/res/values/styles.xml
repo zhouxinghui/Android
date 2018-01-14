@@ -8,8 +8,4 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="baseTabText">
-        <item name="android:textSize">@dimen/x28</item>
-    </style>
-
 </resources>
