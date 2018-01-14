@@ -89,6 +89,12 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         registerCodeBtn.text = text
     }
 
+
+    override fun onBackPressed() {
+        if(!isToMain)
+            super.onBackPressed()
+    }
+
     private var isLoginState = true
 
     override fun initViews() {

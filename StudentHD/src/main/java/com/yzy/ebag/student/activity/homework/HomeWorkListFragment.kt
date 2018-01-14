@@ -8,9 +8,9 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.base.BaseListFragment
 import com.yzy.ebag.student.bean.response.SubjectBean
 import com.yzy.ebag.student.http.StudentApi
+import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.DateUtil
 import java.util.*

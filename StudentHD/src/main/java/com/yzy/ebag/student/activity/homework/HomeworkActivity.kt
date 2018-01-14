@@ -70,7 +70,7 @@ class HomeworkActivity : BaseListTabActivity<List<SubjectBean>,SubjectBean>() {
         (adapter as Adapter).selectedPosition = position
     }
 
-    class Adapter: BaseQuickAdapter<SubjectBean,BaseViewHolder>(R.layout.activity_homework_subject_item){
+    private class Adapter: BaseQuickAdapter<SubjectBean,BaseViewHolder>(R.layout.activity_homework_subject_item){
 
         var selectedPosition = 0
             set(value) {
@@ -82,7 +82,7 @@ class HomeworkActivity : BaseListTabActivity<List<SubjectBean>,SubjectBean>() {
             helper?.setText(R.id.text,entity?.subject ?: "")
             helper?.setBackgroundRes(
                     R.id.dot,
-                    if(entity?.homeWorkComplete != "0")
+                    if(entity?.homeWorkComplete == "0")
                         R.drawable.homework_subject_dot_undo_selector
                     else
                         R.drawable.homework_subject_dot_done_selector
@@ -92,5 +92,4 @@ class HomeworkActivity : BaseListTabActivity<List<SubjectBean>,SubjectBean>() {
             helper?.getView<View>(R.id.dot)?.isSelected = helper?.adapterPosition == selectedPosition
         }
     }
-
 }

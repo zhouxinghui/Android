@@ -44,6 +44,11 @@ class MainActivity : MVPActivity(), MainView {
         getMainClassInfo()
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        getMainClassInfo()
+    }
+
     override fun mainInfoStart() {
         stateView.showLoading()
     }
