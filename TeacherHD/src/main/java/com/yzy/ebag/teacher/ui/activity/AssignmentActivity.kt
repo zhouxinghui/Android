@@ -2,11 +2,14 @@ package com.yzy.ebag.teacher.ui.activity
 
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.widget.TextView
+import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.base.Constants
 import com.yzy.ebag.teacher.bean.AssignmentBean
-import com.yzy.ebag.teacher.bean.GradeBean
 import com.yzy.ebag.teacher.ui.presenter.AssignmentPresenter
 import com.yzy.ebag.teacher.ui.view.AssignmentView
 import com.yzy.ebag.teacher.widget.ExchangeTextbookDialog
@@ -22,6 +25,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     private val gradeAdapter by lazy { GradeAdapter() }
     private val classAdapter by lazy { ClassAdapter() }
     private val questionAdapter by lazy { QuestionsAdapter() }
+    private val unitAdapter by lazy { UnitAdapter(ArrayList()) }
     private val assignmentPresenter by lazy { AssignmentPresenter(this,this) }
     override fun destroyPresenter() {
         assignmentPresenter.onDestroy()
@@ -61,6 +65,10 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             bottomLayoutManager.spanCount = 4
         }
 
+        //单元
+        unitRecycler.adapter = unitAdapter
+        unitRecycler.layoutManager = LinearLayoutManager(this)
+
         gradeAdapter.setOnItemClickListener { holder, view, position ->
             gradeAdapter.selectItem(position)
         }
@@ -95,11 +103,24 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 }
             }
         }
+        unitAdapter.setOnItemClickListener { adapter, view, position ->
+            val item = adapter.getItem(position)
+            if(item is AssignmentBean.SendHomePageClazzInfoVosBean.BookVersionOrUnitVosBean) {
+                if (item.isExpanded) {
+                    adapter.collapse(position)
+                } else {
+                    adapter.expand(position)
+                }
+            }else{
+                item as AssignmentBean.SendHomePageClazzInfoVosBean.BookVersionOrUnitVosBean.ResultBookUnitOrCatalogVosBean
+                unitAdapter.selectSub = item
+            }
+        }
 
         textBookVersion.setOnClickListener {
             exchangeDialog.show()
         }
-//        assignmentPresenter.loadBaseData(workCategory.toString())
+        assignmentPresenter.loadBaseData(workCategory.toString())
         stateView.setOnRetryClickListener {
             assignmentPresenter.loadBaseData(workCategory.toString())
         }
@@ -112,12 +133,14 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     override fun showBaseData(assignmentBean: AssignmentBean?) {
         stateView.showContent()
         gradeAdapter.datas = assignmentBean?.sendHomePageClazzInfoVos
-        questionAdapter.datas = assignmentBean?.resultAdvertisementVos
-        /*textBookVersion.text = String.format(
+        classAdapter.datas = assignmentBean?.sendHomePageClazzInfoVos!![0].homeClazzInfoVos
+        questionAdapter.datas = assignmentBean.resultAdvertisementVos
+        unitAdapter.setNewData(assignmentBean.sendHomePageClazzInfoVos[0].bookVersionOrUnitVos as List<MultiItemEntity>)
+        textBookVersion.text = String.format(
                 resources.getString(R.string.textbook_name,
-                        assignmentBean?.resultTaughtCoursesVo?.bookVersionName,
-                        assignmentBean?.resultTaughtCoursesVo?.gradeName,
-                        assignmentBean?.resultTaughtCoursesVo?.semeterName))*/
+                        assignmentBean.resultTaughtCoursesVo?.bookVersionName,
+                        assignmentBean.resultTaughtCoursesVo?.semeterName,
+                        assignmentBean.resultTaughtCoursesVo?.bookName))
     }
 
     override fun loadError(t: Throwable) {
@@ -137,15 +160,15 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             textView.isSelected = selectPosition != -1 && selectPosition == position
         }
     }
-    inner class ClassAdapter: RecyclerAdapter<GradeBean>(R.layout.item_assignment_class){
+    inner class ClassAdapter: RecyclerAdapter<AssignmentBean.SendHomePageClazzInfoVosBean.HomeClazzInfoVosBean>(R.layout.item_assignment_class){
         private var selectPosition = -1
         fun selectItem(selectPosition: Int){
             this.selectPosition = selectPosition
             notifyDataSetChanged()
         }
-        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: GradeBean?) {
+        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: AssignmentBean.SendHomePageClazzInfoVosBean.HomeClazzInfoVosBean?) {
             val textView: TextView = setter.getTextView(R.id.Class)
-            textView.text = "一班"
+            textView.text = entity?.className
             if(selectPosition != -1 && selectPosition == position && !textView.isSelected)
                 textView.isSelected = true
         }
@@ -157,18 +180,44 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             setter.getImageView(R.id.question_image_id).loadImage(entity.adverUrl)
         }
     }
+
+    inner class UnitAdapter(list: ArrayList<MultiItemEntity>): BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder>(list){
+        init {
+            addItemType(1, ebag.hd.R.layout.unit_group_item)
+            addItemType(2, ebag.hd.R.layout.unit_sub_item)
+        }
+        var selectSub: AssignmentBean.SendHomePageClazzInfoVosBean.BookVersionOrUnitVosBean.ResultBookUnitOrCatalogVosBean? = null
+            set(value) {
+                field = value
+                notifyDataSetChanged()
+            }
+        override fun convert(helper: BaseViewHolder?, item: MultiItemEntity) {
+            val tv = helper!!.getView<TextView>(ebag.hd.R.id.text)
+            val point = helper.getView<View>(ebag.hd.R.id.dot)
+            when(helper.itemViewType){
+                Constants.LEVEL_ONE ->{
+                    item as AssignmentBean.SendHomePageClazzInfoVosBean.BookVersionOrUnitVosBean
+                    tv.text = item.name
+                    tv.isSelected = item.isExpanded
+                    point.isSelected = item.isExpanded
+                }
+                Constants.LEVEL_TWO ->{
+                    item as AssignmentBean.SendHomePageClazzInfoVosBean.BookVersionOrUnitVosBean.ResultBookUnitOrCatalogVosBean
+                    tv.text = item.name
+                    tv.isSelected = selectSub == item
+                    point.isSelected = selectSub == item
+                }
+            }
+        }
+
+    }
+
     val workImg = intArrayOf(R.drawable.icon_smart_push, R.drawable.icon_custom, R.drawable.icon_assign_group, R.drawable.icon_assign_class)
     val testImg = intArrayOf(R.drawable.icon_system_test_paper, R.drawable.icon_compose_paper, R.drawable.icon_my_test_paper, R.drawable.icon_assign_group, R.drawable.icon_assign_class)
     inner class BottomAdapter: RecyclerAdapter<String>(R.layout.item_assignment_bottom){
-//        private var selectPosition = -1
-//        fun selectItem(selectPosition: Int){
-//            this.selectPosition = selectPosition
-//            notifyDataSetChanged()
-//        }
         override fun fillData(setter: RecyclerViewHolder, position: Int, entity: String?) {
             val textView: TextView = setter.getTextView(R.id.tv_id)
             textView.text = entity
-//            textView.isSelected = selectPosition != -1 && selectPosition == position
             if (workCategory == Constants.ASSIGN_TEST_PAPER) {
                 setter.setImageResource(R.id.img_id, testImg[position])
                 val convertView = setter.convertView
