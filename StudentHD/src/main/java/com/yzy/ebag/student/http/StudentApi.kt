@@ -32,7 +32,7 @@ object StudentApi{
         EBagApi.request(studentService.mainInfo("v1", EBagApi.createBody(jsonObj)), callback)
     }
 
-    fun subjectWorkList(type: String, classId: String, subCode: String, page: Int, pageSize: Int, callback: RequestCallBack<List<SubjectBean>>){
+    fun subjectWorkList(type: String, classId: String, subCode: String, page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<SubjectBean>>){
         val jsonObj = JSONObject()
         jsonObj.put("classId", classId)
         jsonObj.put("type", type)

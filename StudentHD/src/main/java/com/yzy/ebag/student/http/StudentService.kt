@@ -32,6 +32,6 @@ interface StudentService {
      * @return
      */
     @POST("homeWork/getMyHomeWork/{version}")
-    fun subjectWorkList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<SubjectBean>>>
+    fun subjectWorkList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<SubjectBean>>>
 
 }

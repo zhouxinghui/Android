@@ -15,6 +15,7 @@ import ebag.core.http.network.RequestCallBack
  * Created by unicho on 2018/1/13.
  */
 class MathFormulaActivity: BaseListTabActivity<String,String>() {
+
     override fun loadConfig() {
         val list = arrayListOf("几何公式","数学定律","数量关系","单位换算","特殊问题")
         withTabData(list)
@@ -35,11 +36,16 @@ class MathFormulaActivity: BaseListTabActivity<String,String>() {
         return null
     }
 
-    override fun getFragment(index: Int, item: String?): Fragment {
+    override fun getFragment(pagerIndex: Int, adapter: BaseQuickAdapter<String, BaseViewHolder>): Fragment {
         return TestFragment.newInstance()
     }
 
-    override fun leftItemClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {
+    override fun getViewPagerSize(adapter: BaseQuickAdapter<String, BaseViewHolder>): Int {
+        return adapter.itemCount
+    }
+
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+        setCurrentItem(position)
         (adapter as Adapter).selectedPosition = position
     }
 

@@ -49,10 +49,9 @@ class ToolsActivity : BaseListActivity<List<Int>,Int>() {
 
     }
 
-    override fun parentToList(parent: List<Int>?): List<Int>? {
+    override fun parentToList(isFirstPage: Boolean, parent: List<Int>?): List<Int>? {
         return parent
     }
-
 
     override fun getLayoutManager(): RecyclerView.LayoutManager? {
         return GridLayoutManager(this,4)

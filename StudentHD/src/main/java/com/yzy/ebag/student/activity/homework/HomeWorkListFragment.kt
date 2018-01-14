@@ -59,7 +59,7 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
         StudentApi.subjectWorkList(type,classId,subCode,page,getPageSize(),requestCallBack)
     }
 
-    override fun parentToList(parent: List<SubjectBean>?): List<SubjectBean.HomeWorkInfoBean>? {
+    override fun parentToList(isFirstPage: Boolean, parent: List<SubjectBean>?): List<SubjectBean.HomeWorkInfoBean>? {
         return parent?.get(0)?.homeWorkInfoVos
     }
 

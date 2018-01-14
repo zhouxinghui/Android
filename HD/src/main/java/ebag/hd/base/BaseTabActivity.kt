@@ -1,11 +1,11 @@
-package com.yzy.ebag.student.base
+package ebag.hd.base
 
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import com.yzy.ebag.student.R
 import ebag.core.base.BaseActivity
+import ebag.hd.R
 import kotlinx.android.synthetic.main.activity_base_tabstrip.*
 
 /**

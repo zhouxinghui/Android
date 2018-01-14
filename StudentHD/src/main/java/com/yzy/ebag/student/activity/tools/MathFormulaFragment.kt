@@ -21,7 +21,7 @@ class MathFormulaFragment: BaseListFragment<String,String>() {
     override fun requestData(page: Int, requestCallBack: RequestCallBack<String>) {
     }
 
-    override fun parentToList(parent: String?): List<String>? {
+    override fun parentToList(isFirstPage: Boolean, parent: String?): List<String>? {
         return null
     }
 
