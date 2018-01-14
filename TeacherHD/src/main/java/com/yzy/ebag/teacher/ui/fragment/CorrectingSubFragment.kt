@@ -14,8 +14,8 @@ import ebag.core.http.network.RequestCallBack
  */
 class CorrectingSubFragment: BaseListFragment<String, String>() {
     companion object {
-        fun newInstance(): CorrectingFragment{
-            val fragment = CorrectingFragment()
+        fun newInstance(): CorrectingSubFragment{
+            val fragment = CorrectingSubFragment()
             val bundle = Bundle()
             fragment.arguments = bundle
             return fragment
@@ -52,7 +52,7 @@ class CorrectingSubFragment: BaseListFragment<String, String>() {
 
     inner class MyAdapter: BaseQuickAdapter<String, BaseViewHolder>(R.layout.fragment_correct_sub_item){
         override fun convert(helper: BaseViewHolder, item: String?) {
-            val classNameTv = helper.getView<TextView>(R.id.class_name_id)
+            val classNameTv = helper.getView<TextView>(R.id.classNameTv)
             val contentTv = helper.getView<TextView>(R.id.tvContent)
             val completeTv = helper.getView<TextView>(R.id.completeNum)
             val timeTv = helper.getView<TextView>(R.id.tvTime)
