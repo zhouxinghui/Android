@@ -31,7 +31,7 @@
         tools:text="内容： 第一单元 看一看"/>
 
     <TextView
-        android:id="@+id/tvRequire"
+        android:id="@+id/completeNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/x28"

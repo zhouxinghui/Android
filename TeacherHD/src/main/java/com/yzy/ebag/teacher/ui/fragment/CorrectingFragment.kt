@@ -67,11 +67,21 @@ class CorrectingFragment: BaseFragment() {
                     adapter.expand(position)
                 }
             }else{
-                mAdapter.selectSubject = adapter.getItem(position) as SubjectBean
+                item as SubjectBean
+                mAdapter.selectSubject = item
+                viewPager.setCurrentItem(pagerList.indexOf(item), false)
             }
             L.e("position:  $position" )
         }
+        list.forEach {
+            if (it is ClassesBean)
+                pagerList.addAll(it.subList!!)
+        }
+
+        viewPager.adapter = MyPagerAdapter(childFragmentManager)
     }
+
+    private val pagerList = ArrayList<SubjectBean>()
 
     inner class MyAdapter(list: ArrayList<MultiItemEntity>): BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder>(list){
         init {
@@ -108,7 +118,7 @@ class CorrectingFragment: BaseFragment() {
         }
 
         override fun getCount(): Int {
-            return 0
+            return pagerList.size
         }
 
     }
