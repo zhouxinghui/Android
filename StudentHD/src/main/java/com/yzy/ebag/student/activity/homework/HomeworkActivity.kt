@@ -22,6 +22,7 @@ class HomeworkActivity : BaseListTabActivity<ArrayList<SubjectBean>,SubjectBean>
 
     private var type = "1"
     private var classId = ""
+    private var i = 2
 
     override fun loadConfig() {
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x180))
