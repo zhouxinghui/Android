@@ -2,6 +2,7 @@ package com.yzy.ebag.teacher.ui.fragment
 
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.teacher.R
@@ -50,8 +51,17 @@ class CorrectingSubFragment: BaseListFragment<String, String>() {
     }
 
     inner class MyAdapter: BaseQuickAdapter<String, BaseViewHolder>(R.layout.fragment_correct_sub_item){
-        override fun convert(helper: BaseViewHolder?, item: String?) {
-
+        override fun convert(helper: BaseViewHolder, item: String?) {
+            val classNameTv = helper.getView<TextView>(R.id.class_name_id)
+            val contentTv = helper.getView<TextView>(R.id.tvContent)
+            val completeTv = helper.getView<TextView>(R.id.completeNum)
+            val timeTv = helper.getView<TextView>(R.id.tvTime)
+            val statusTv = helper.getView<TextView>(R.id.tvStatus)
+            classNameTv.text = "一年级一班"
+            contentTv.text = "内容： 第一单元 看一看"
+            completeTv.text = "完成： 28/28"
+            timeTv.text = "截止时间： 2017-12-25 12:50"
+            statusTv.text = "已检查"
         }
 
     }
