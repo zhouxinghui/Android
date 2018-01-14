@@ -50,7 +50,7 @@ class HomeworkActivity : BaseListTabActivity<ArrayList<SubjectBean>,SubjectBean>
     override fun parentToList(parent: ArrayList<SubjectBean>?): List<SubjectBean>? {
         val bean = SubjectBean()
         bean.itemType = 1
-        parent?.add(bean)
+        parent?.add(0, bean)
         return parent
     }
 
@@ -71,12 +71,12 @@ class HomeworkActivity : BaseListTabActivity<ArrayList<SubjectBean>,SubjectBean>
     }
 
     override fun getViewPagerSize(adapter: BaseQuickAdapter<SubjectBean, BaseViewHolder>): Int {
-        return adapter.itemCount - 1
+        return adapter.data.size - 1
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {
-        setCurrentItem(position-1)
         if(position != 0 && (adapter as Adapter).selectedPosition != position){
+            setCurrentItem(position-1)
             adapter.selectedPosition = position
         }
     }
@@ -88,7 +88,7 @@ class HomeworkActivity : BaseListTabActivity<ArrayList<SubjectBean>,SubjectBean>
             addItemType(1, R.layout.activity_homework_subject_item_header)
         }
 
-        var selectedPosition = 0
+        var selectedPosition = 1
             set(value) {
                 field = value
                 notifyDataSetChanged()

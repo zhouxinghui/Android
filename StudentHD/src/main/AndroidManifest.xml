@@ -35,10 +35,11 @@
         </activity>
         <activity android:name=".activity.account.LoginActivity"/>
 
-        <activity android:name=".activity.ToolsActivity"/>
+        <activity android:name=".activity.tools.ToolsActivity"/>
         <activity android:name=".activity.book.BookListActivity"/>
         <activity android:name=".activity.SettingActivity"/>
         <activity android:name=".activity.homework.HomeworkActivity"/>
+        <activity android:name=".activity.tools.MathFormulaActivity"/>
     </application>
 
 </manifest>

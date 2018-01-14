@@ -5,8 +5,9 @@
     android:id="@+id/tvText"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:lineSpacingMultiplier="1.2"
+    android:lineSpacingMultiplier="1.6"
     android:textSize="@dimen/x24"
     android:textColor="@color/normal_text_color"
     android:background="@drawable/book_list_bg"
+    android:padding="@dimen/x20"
     tools:text="完成： 28/28"/>

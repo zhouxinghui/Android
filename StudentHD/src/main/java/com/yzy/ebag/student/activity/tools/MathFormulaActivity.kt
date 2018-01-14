@@ -7,7 +7,6 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.TestFragment
 import com.yzy.ebag.student.base.BaseListTabActivity
 import ebag.core.http.network.RequestCallBack
 
@@ -17,6 +16,7 @@ import ebag.core.http.network.RequestCallBack
 class MathFormulaActivity: BaseListTabActivity<String,String>() {
 
     override fun loadConfig() {
+        setLeftWidth(resources.getDimensionPixelSize(R.dimen.x200))
         val list = arrayListOf("几何公式","数学定律","数量关系","单位换算","特殊问题")
         withTabData(list)
     }
@@ -37,7 +37,7 @@ class MathFormulaActivity: BaseListTabActivity<String,String>() {
     }
 
     override fun getFragment(pagerIndex: Int, adapter: BaseQuickAdapter<String, BaseViewHolder>): Fragment {
-        return TestFragment.newInstance()
+        return MathFormulaFragment.newInstance(adapter.getItem(pagerIndex) ?: "")
     }
 
     override fun getViewPagerSize(adapter: BaseQuickAdapter<String, BaseViewHolder>): Int {

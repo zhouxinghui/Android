@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.activity
+package com.yzy.ebag.student.activity.tools
 
 import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
@@ -67,7 +67,14 @@ class ToolsActivity : BaseListActivity<List<Int>,Int>() {
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-        T.show(this,"点击了第${position + 1}个条目")
+        when(list[position]){
+            R.drawable.tool_btn_formula -> {
+                startActivity(Intent(this,MathFormulaActivity::class.java))
+            }
+            else -> {
+                T.show(this,"点击了第${position + 1}个条目")
+            }
+        }
     }
 
 }

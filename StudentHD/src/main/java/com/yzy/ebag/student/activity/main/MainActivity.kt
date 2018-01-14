@@ -7,7 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.activity.SettingActivity
-import com.yzy.ebag.student.activity.ToolsActivity
+import com.yzy.ebag.student.activity.tools.ToolsActivity
 import com.yzy.ebag.student.activity.book.BookListActivity
 import com.yzy.ebag.student.activity.center.PersonalActivity
 import com.yzy.ebag.student.activity.homework.HomeworkActivity
