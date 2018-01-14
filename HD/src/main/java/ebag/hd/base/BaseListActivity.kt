@@ -116,6 +116,10 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
         this.canLoadMore = canLoadMore
     }
 
+    protected fun setPadding(left: Int, top: Int, right: Int, bottom: Int){
+        recyclerView.setPadding(left, top, right,bottom)
+    }
+
     /** 设置页面标题 */
     protected fun setPageTitle(title: String){
         titleView.setTitle(title)

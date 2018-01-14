@@ -38,6 +38,9 @@ class MathFormulaFragment: BaseListFragment<String, MathFormulaFragment.Formula>
     }
 
     override fun loadConfig() {
+        setPadding(resources.getDimensionPixelSize(R.dimen.x5),
+                resources.getDimensionPixelSize(R.dimen.x7),
+                resources.getDimensionPixelSize(R.dimen.x5), 0)
         var list = ArrayList<Formula>()
         list.add(Formula("喝茶问题","(:＋差 ÷2)大数 \n(:(差 ÷2)小数"))
         list.add(Formula("喝茶问题","(:＋差 ÷2)大数 \n(:(差 ÷2)小数"))

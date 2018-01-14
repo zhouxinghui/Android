@@ -110,6 +110,10 @@ abstract class BaseListFragment<Parent, E> : BaseFragment(),
         this.canLoadMore = canLoadMore
     }
 
+    protected fun setPadding(left: Int, top: Int, right: Int, bottom: Int){
+        recyclerView.setPadding(left, top, right,bottom)
+    }
+
     /** 当前网络请求所处的状态 */
     private var loadingStatus: Int = FIRST
 

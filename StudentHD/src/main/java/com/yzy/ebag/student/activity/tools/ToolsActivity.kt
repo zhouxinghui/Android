@@ -27,6 +27,9 @@ class ToolsActivity : BaseListActivity<List<Int>,Int>() {
             R.drawable.tool_btn_song)
 
     override fun loadConfig(intent: Intent) {
+        setPadding(resources.getDimensionPixelSize(R.dimen.x25),
+                resources.getDimensionPixelSize(R.dimen.x15),
+                resources.getDimensionPixelSize(R.dimen.x25), 0)
         withFirstPageData(list.asList())
 
     }

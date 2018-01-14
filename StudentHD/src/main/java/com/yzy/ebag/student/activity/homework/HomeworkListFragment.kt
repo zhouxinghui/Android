@@ -51,6 +51,9 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
     }
 
     override fun loadConfig() {
+        setPadding(resources.getDimensionPixelSize(R.dimen.x10),
+                resources.getDimensionPixelSize(R.dimen.x10),
+                resources.getDimensionPixelSize(R.dimen.x10),0)
         if(list != null){
             withFirstPageData(list,true)
         }
