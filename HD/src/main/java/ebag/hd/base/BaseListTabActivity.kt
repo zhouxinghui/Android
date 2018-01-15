@@ -2,7 +2,7 @@ package com.yzy.ebag.student.base
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -139,7 +139,9 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
         } else {
             stateView.showContent()
             mAdapter?.setNewData(result)
-            viewPager.adapter = SectionsPagerAdapter(supportFragmentManager, arrayOfNulls(getViewPagerSize(mAdapter!!)))
+            val size = getViewPagerSize(mAdapter!!)
+            viewPager.adapter = SectionsPagerAdapter(supportFragmentManager, arrayOfNulls(size))
+            viewPager.offscreenPageLimit = 1
             viewPager.setCurrentItem(0,false)
         }
     }
@@ -151,7 +153,7 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
             requestCallBack.cancelRequest()
     }
 
-    inner class SectionsPagerAdapter(fm: FragmentManager, private val fragments: Array<Fragment?>) : FragmentPagerAdapter(fm) {
+    inner class SectionsPagerAdapter(fm: FragmentManager, private val fragments: Array<Fragment?>) : FragmentStatePagerAdapter(fm) {
         override fun getItem(position: Int): Fragment {
             if (fragments[position] == null) {
                 fragments[position] = getFragment(position, mAdapter!!)
@@ -160,7 +162,7 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
         }
 
         override fun getCount(): Int {
-            return mAdapter?.itemCount ?: 0
+            return fragments.size
         }
     }
 

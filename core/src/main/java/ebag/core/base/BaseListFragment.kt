@@ -1,5 +1,6 @@
 package ebag.core.base
 
+import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -136,6 +137,7 @@ abstract class BaseListFragment<Parent, E> : BaseFragment(),
         stateView.setOnRetryClickListener(this)
         refreshLayout.setOnRefreshListener(this)
         mAdapter?.setOnLoadMoreListener(this,recyclerView)
+        mAdapter?.disableLoadMoreIfNotFullPage(recyclerView)
 
         loadConfig()
         readLoadConfig()
@@ -153,8 +155,7 @@ abstract class BaseListFragment<Parent, E> : BaseFragment(),
                     REFRESH -> {
 //                        refreshLayout.isRefreshing = true
                     }
-                    LOAD_MORE -> {
-                    }
+                    LOAD_MORE -> { }
                 }
             }
 
@@ -247,25 +248,39 @@ abstract class BaseListFragment<Parent, E> : BaseFragment(),
     private val requestCallBack: RequestCallBack<Parent> by requestDelegate
 
 
-    override fun onResume() {
-        super.onResume()
+    //Fragment的View加载完毕的标记
+    private var isViewCreated = false
+    //Fragment对用户可见的标记
+    private var isUIVisible = false
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if(isVisibleToUser){
+            isUIVisible = true
+            lazyLoad()
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        isViewCreated = true
+        lazyLoad()
+    }
+
+    private fun lazyLoad(){
         // userVisibleHint 判断当前fragment是否显示
         // needFirstLoad 是否需要第一次的网络加载
-        if (userVisibleHint && needFirstLoad) {
+        if (isViewCreated && isUIVisible && needFirstLoad) {
+            //数据加载完毕,恢复标记,防止重复加载
+            isViewCreated = false
+            isUIVisible = false
+
             loadingStatus = FIRST
             mCurrentPage = 1
             // 加载各种数据
             requestData(mCurrentPage, requestCallBack)
         }
     }
-
-//    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-//        super.setUserVisibleHint(isVisibleToUser)
-//        // 每次切换fragment时调用的方法
-//        if (isVisibleToUser && !isFirstLoadSuccess) {
-//            showData()
-//        }
-//    }
 
     override fun onDestroy() {
         super.onDestroy()

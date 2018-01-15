@@ -40,7 +40,7 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
     }
 
     override fun getPageSize(): Int {
-        return 10
+        return 1
     }
 
     override fun getBundle(bundle: Bundle) {
@@ -54,7 +54,7 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
         setPadding(resources.getDimensionPixelSize(R.dimen.x10),
                 resources.getDimensionPixelSize(R.dimen.x10),
                 resources.getDimensionPixelSize(R.dimen.x10),0)
-        if(list != null){
+        if(list != null && list!!.isNotEmpty()){
             withFirstPageData(list,true)
         }
     }

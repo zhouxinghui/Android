@@ -43,7 +43,7 @@ class HomeworkActivity : BaseListTabActivity<ArrayList<SubjectBean>,SubjectBean>
     }
 
     override fun requestData(requestCallBack: RequestCallBack<ArrayList<SubjectBean>>) {
-        StudentApi.subjectWorkList(type, classId, "", 1, 10, requestCallBack)
+        StudentApi.subjectWorkList(type, classId, "", 1, 1, requestCallBack)
     }
 
     override fun parentToList(parent: ArrayList<SubjectBean>?): List<SubjectBean>? {

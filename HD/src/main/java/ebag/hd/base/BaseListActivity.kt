@@ -155,6 +155,7 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
         stateView.setOnRetryClickListener(this)
         refreshLayout.setOnRefreshListener(this)
         mAdapter?.setOnLoadMoreListener(this,recyclerView)
+        mAdapter?.disableLoadMoreIfNotFullPage()
 
         loadConfig(intent)
         readLoadConfig()
