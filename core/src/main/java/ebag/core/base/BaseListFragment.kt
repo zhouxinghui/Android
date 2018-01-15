@@ -192,7 +192,12 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
                             //添加判断，防止异常
                             result = ArrayList()
                         }
-                        mAdapter?.addData(result)
+                        //加载更多时 没有数据返回的话  page 不变
+                        if(result.isEmpty()){
+                            mCurrentPage--
+                        }else{
+                            mAdapter?.addData(result)
+                        }
                         footerState(result)
                     }
                 }
