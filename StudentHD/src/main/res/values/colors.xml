@@ -69,4 +69,9 @@
     <color name="color_homework_normal">#888888</color>
     <color name="color_homework_selected">#ff7800</color>
 
+    <!--字母选择-->
+    <color name="color_letter_normal">#373b45</color>
+    <color name="color_letter_checked">#ff7800</color>
+
+
 </resources>

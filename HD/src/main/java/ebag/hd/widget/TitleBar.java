@@ -212,23 +212,46 @@ public class TitleBar extends RelativeLayout {
     }
 
     public void setRightText(String str,OnClickListener onClickListener){
+        rightText = str;
         if(rightView == null){
             rightView = new TextView(mContext);
+            rightView.setPadding((int) getResources().getDimension(R.dimen.x13),0
+                    ,(int) getResources().getDimension(R.dimen.x13),0);
             ((TextView)rightView).setGravity(Gravity.CENTER_VERTICAL);
             ((TextView)rightView).setTextSize(TypedValue.COMPLEX_UNIT_PX, rightTextSize);
             ((TextView)rightView).setTextColor(rightTextColor);
             addRight(true);
+        }
+
+        if(rightView instanceof TextView){
+            ((TextView)rightView).setText(rightText);
+            rightView.setOnClickListener(onClickListener);
         }else{
-            rightText = str;
-            if(rightView instanceof TextView){
-                ((TextView)rightView).setText(rightText);
-                rightView.setOnClickListener(onClickListener);
-                rightView.setVisibility(VISIBLE);
-            }else{
-                throw new IllegalArgumentException("右侧的 VIEW 不是TextView");
-            }
+            throw new IllegalArgumentException("右侧的 VIEW 不是TextView");
         }
     }
+
+    public void setRightText(String str){
+        rightText = str;
+        rightText = str;
+        if(rightView == null){
+            rightView = new TextView(mContext);
+            rightView.setPadding((int) getResources().getDimension(R.dimen.x13),0
+                    ,(int) getResources().getDimension(R.dimen.x13),0);
+            ((TextView)rightView).setGravity(Gravity.CENTER_VERTICAL);
+            ((TextView)rightView).setTextSize(TypedValue.COMPLEX_UNIT_PX, rightTextSize);
+            ((TextView)rightView).setTextColor(rightTextColor);
+            addRight(true);
+        }
+
+        if(rightView instanceof TextView){
+            ((TextView)rightView).setText(rightText);
+        }else{
+            throw new IllegalArgumentException("右侧的 VIEW 不是TextView");
+        }
+    }
+
+
 
     //显示或隐藏 标题底部横线
     public void showBottomLine(boolean show){
@@ -350,6 +373,10 @@ public class TitleBar extends RelativeLayout {
         if(rightView instanceof TextView){
             ((TextView)rightView).setTextColor(color);
         }
+    }
+
+    public View getRightView(){
+        return rightView;
     }
 
 

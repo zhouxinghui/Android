@@ -73,6 +73,18 @@ class ToolsActivity : BaseListActivity<List<Int>,Int>() {
             R.drawable.tool_btn_formula -> {
                 startActivity(Intent(this,MathFormulaActivity::class.java))
             }
+            R.drawable.tool_btn_pinyin -> {
+                startActivity(
+                        Intent(this, LetterActivity::class.java)
+                                .putExtra("type", LetterActivity.ZH)
+                )
+            }
+            R.drawable.tool_btn_letter -> {
+                startActivity(
+                        Intent(this, LetterActivity::class.java)
+                                .putExtra("type", LetterActivity.EN)
+                )
+            }
             else -> {
                 T.show(this,"点击了第${position + 1}个条目")
             }

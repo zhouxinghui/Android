@@ -40,6 +40,7 @@
         <activity android:name=".activity.SettingActivity"/>
         <activity android:name=".activity.homework.HomeworkActivity"/>
         <activity android:name=".activity.tools.MathFormulaActivity"/>
+        <activity android:name=".activity.tools.LetterActivity"/>
     </application>
 
 </manifest>

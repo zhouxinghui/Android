@@ -155,7 +155,6 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
         stateView.setOnRetryClickListener(this)
         refreshLayout.setOnRefreshListener(this)
         mAdapter?.setOnLoadMoreListener(this,recyclerView)
-        mAdapter?.disableLoadMoreIfNotFullPage()
 
         loadConfig(intent)
         readLoadConfig()
@@ -256,7 +255,10 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
             stateView.showEmpty()
         } else {
             mAdapter?.setNewData(result)
-            footerState(result)
+            if(canLoadMore)
+                footerState(result)
+            else
+                mAdapter?.loadMoreEnd(true)
         }
     }
 
@@ -306,7 +308,7 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
     }
 
     override fun onRetryClick() {
-        loadingStatus = REFRESH
+        loadingStatus = FIRST
         mCurrentPage = 1
         requestData(mCurrentPage, requestCallBack)
     }

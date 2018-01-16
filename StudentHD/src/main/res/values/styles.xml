@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AnimationPreview">
+        <item name="android:windowEnterAnimation">@anim/letter_pop_fade_in</item>
+        <item name="android:windowExitAnimation">@anim/letter_pop_fade_out</item>
+    </style>
+
 </resources>

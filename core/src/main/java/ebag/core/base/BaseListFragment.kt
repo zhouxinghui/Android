@@ -137,7 +137,6 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
         stateView.setOnRetryClickListener(this)
         refreshLayout.setOnRefreshListener(this)
         mAdapter?.setOnLoadMoreListener(this,recyclerView)
-        mAdapter?.disableLoadMoreIfNotFullPage(recyclerView)
 
         loadConfig()
         readLoadConfig()
@@ -231,7 +230,10 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
             stateView.showEmpty()
         } else {
             mAdapter?.setNewData(result)
-            footerState(result)
+            if(canLoadMore)
+                footerState(result)
+            else
+                mAdapter?.loadMoreEnd(true)
         }
     }
 
@@ -240,9 +242,9 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
      */
     private fun footerState(result: List<E>){
         //没有更多了
-        if(result.size < getPageSize()){
+        if (result.size < getPageSize()) {
             mAdapter?.loadMoreEnd()
-        }else{//还可以加载更多
+        } else {//还可以加载更多
             mAdapter?.loadMoreComplete()
         }
     }
@@ -272,7 +274,7 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
      * 第一次加载失败，后点击重新加载
      */
     override fun onRetryClick() {
-        loadingStatus = REFRESH
+        loadingStatus = FIRST
         mCurrentPage = 1
         requestData(mCurrentPage, requestCallBack)
     }

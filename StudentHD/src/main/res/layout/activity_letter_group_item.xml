@@ -4,5 +4,8 @@
     android:id="@+id/tvContent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textColor="#363737"
-    android:textSize="@dimen/question_content" />
+    android:paddingStart="@dimen/x50"
+    android:paddingEnd="@dimen/x50"
+    android:paddingTop="@dimen/x2"
+    android:textColor="@color/color_letter_normal"
+    android:textSize="@dimen/question_head" />

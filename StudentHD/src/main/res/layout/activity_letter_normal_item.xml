@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
+    <View
+        android:id="@+id/bg"
+        android:layout_width="@dimen/x203"
+        android:layout_height="@dimen/x107"
+        android:background="@drawable/bg_pinyin_selector"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/x6"
+        android:layout_marginBottom="@dimen/x6"/>
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="@dimen/x113"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        app:layout_constraintTop_toTopOf="@id/bg"
+        app:layout_constraintBottom_toBottomOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        android:layout_marginBottom="@dimen/x10"
+        android:text="b 波"
+        android:textColor="@color/white" />
+
+    <View
+        android:id="@+id/soundView"
+        android:layout_width="@dimen/x26"
+        android:layout_height="@dimen/x22"
+        android:layout_marginEnd="@dimen/x45"
+        android:layout_marginTop="@dimen/x12"
+        android:background="@drawable/sound_play_anim"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintTop_toTopOf="@id/bg" />
 </android.support.constraint.ConstraintLayout>
