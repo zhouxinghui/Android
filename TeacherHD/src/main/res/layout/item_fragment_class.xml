@@ -58,7 +58,6 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:textColor="@color/desc_blue"
-        android:text="@string/desc"
         android:textSize="@dimen/tv_normal"
         android:lineSpacingMultiplier="1.5"
         app:layout_constraintTop_toBottomOf="@id/line1"

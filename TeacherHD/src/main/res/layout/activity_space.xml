@@ -144,7 +144,7 @@
         />
     <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/course"
         style="@style/space_tv_btn"
-        android:text="@string/course"
+        android:text="@string/course_teaching"
         app:leftDrawable="@drawable/space_course"
         app:layout_constraintTop_toBottomOf="@id/chat"
         app:layout_constraintBottom_toBottomOf="parent"

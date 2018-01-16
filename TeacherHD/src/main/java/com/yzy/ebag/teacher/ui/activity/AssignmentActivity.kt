@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.base.Constants
 import com.yzy.ebag.teacher.bean.AssignmentBean
+import com.yzy.ebag.teacher.bean.BookVersionOrUnitVosBean
 import com.yzy.ebag.teacher.ui.presenter.AssignmentPresenter
 import com.yzy.ebag.teacher.ui.view.AssignmentView
 import com.yzy.ebag.teacher.widget.ExchangeTextbookDialog
@@ -105,14 +106,14 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         }
         unitAdapter.setOnItemClickListener { adapter, view, position ->
             val item = adapter.getItem(position)
-            if(item is AssignmentBean.SendHomePageClazzInfoVosBean.BookVersionOrUnitVosBean) {
+            if(item is BookVersionOrUnitVosBean) {
                 if (item.isExpanded) {
                     adapter.collapse(position)
                 } else {
                     adapter.expand(position)
                 }
             }else{
-                item as AssignmentBean.SendHomePageClazzInfoVosBean.BookVersionOrUnitVosBean.ResultBookUnitOrCatalogVosBean
+                item as BookVersionOrUnitVosBean.ResultBookUnitOrCatalogVosBean
                 unitAdapter.selectSub = item
             }
         }
@@ -120,7 +121,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         textBookVersion.setOnClickListener {
             exchangeDialog.show()
         }
-        assignmentPresenter.loadBaseData(workCategory.toString())
+//        assignmentPresenter.loadBaseData(workCategory.toString())
         stateView.setOnRetryClickListener {
             assignmentPresenter.loadBaseData(workCategory.toString())
         }
@@ -186,7 +187,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             addItemType(1, ebag.hd.R.layout.unit_group_item)
             addItemType(2, ebag.hd.R.layout.unit_sub_item)
         }
-        var selectSub: AssignmentBean.SendHomePageClazzInfoVosBean.BookVersionOrUnitVosBean.ResultBookUnitOrCatalogVosBean? = null
+        var selectSub: BookVersionOrUnitVosBean.ResultBookUnitOrCatalogVosBean? = null
             set(value) {
                 field = value
                 notifyDataSetChanged()
@@ -196,13 +197,13 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             val point = helper.getView<View>(ebag.hd.R.id.dot)
             when(helper.itemViewType){
                 Constants.LEVEL_ONE ->{
-                    item as AssignmentBean.SendHomePageClazzInfoVosBean.BookVersionOrUnitVosBean
+                    item as BookVersionOrUnitVosBean
                     tv.text = item.name
                     tv.isSelected = item.isExpanded
                     point.isSelected = item.isExpanded
                 }
                 Constants.LEVEL_TWO ->{
-                    item as AssignmentBean.SendHomePageClazzInfoVosBean.BookVersionOrUnitVosBean.ResultBookUnitOrCatalogVosBean
+                    item as BookVersionOrUnitVosBean.ResultBookUnitOrCatalogVosBean
                     tv.text = item.name
                     tv.isSelected = selectSub == item
                     point.isSelected = selectSub == item
