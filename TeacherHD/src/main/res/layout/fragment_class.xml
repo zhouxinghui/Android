@@ -22,16 +22,20 @@
             android:text="@string/create_class"
             />
     </LinearLayout>
-    <android.support.v7.widget.RecyclerView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recyclerView"
-        android:paddingTop="@dimen/y15"
-        android:paddingStart="@dimen/x10"
-        android:paddingEnd="@dimen/x10"
-        android:background="@color/common_background"
-        />
-    <ebag.core.widget.empty.StateView android:id="@+id/stateView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerView"
+            android:paddingTop="@dimen/y15"
+            android:paddingStart="@dimen/x10"
+            android:paddingEnd="@dimen/x10"
+            android:background="@color/common_background"
+            />
+        <ebag.core.widget.empty.StateView android:id="@+id/stateView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
 </LinearLayout>

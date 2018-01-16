@@ -31,6 +31,4 @@ open class App: Application(){
         mContext = this
         TOKEN = SPUtils.get(this, Constants.USER_TOKEN,"") as String
     }
-
-
 }

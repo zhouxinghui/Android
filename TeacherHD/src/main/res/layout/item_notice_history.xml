@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <TextView android:id="@+id/publishTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/tv_third"
+        android:textColor="@color/title_text_color"
+        tools:text="发布时间：2018-01-19"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y3"
+        android:background="@color/blue"
+        />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        >
+        <TextView android:id="@+id/publishName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/tv_third"
+            tools:text="发布人：周老师"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+        <TextView android:id="@+id/deadLine"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/tv_third"
+            tools:text="截止时间：2018-02-02"
+            app:layout_constraintStart_toEndOf="@id/publishName"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+        <TextView android:id="@+id/publishDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/tv_normal"
+            tools:text="公告详情"
+            app:layout_constraintTop_toBottomOf="@id/publishName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/publish_desc"
+            />
+        <android.support.v7.widget.RecyclerView android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/publishDesc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>

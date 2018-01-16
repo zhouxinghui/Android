@@ -18,6 +18,7 @@ import ebag.core.base.mvp.MVPActivity
 import ebag.core.util.loadImage
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
+import ebag.hd.http.handleThrowable
 import kotlinx.android.synthetic.main.activity_assignment.*
 
 class AssignmentActivity : MVPActivity(), AssignmentView{
@@ -121,7 +122,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         textBookVersion.setOnClickListener {
             exchangeDialog.show()
         }
-//        assignmentPresenter.loadBaseData(workCategory.toString())
+        assignmentPresenter.loadBaseData(workCategory.toString())
         stateView.setOnRetryClickListener {
             assignmentPresenter.loadBaseData(workCategory.toString())
         }
@@ -145,8 +146,8 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     }
 
     override fun loadError(t: Throwable) {
-        stateView.setErrorString(t.message)
         stateView.showError()
+        t.handleThrowable(this)
     }
 
     inner class GradeAdapter : RecyclerAdapter<AssignmentBean.SendHomePageClazzInfoVosBean>(R.layout.item_assignment_grade){

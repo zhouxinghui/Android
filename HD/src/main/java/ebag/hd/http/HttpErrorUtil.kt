@@ -1,33 +1,45 @@
 package ebag.hd.http
 import android.content.Context
+import android.net.ConnectivityManager
 import ebag.core.http.network.MsgException
 import ebag.core.util.T
-import org.apache.http.conn.ConnectTimeoutException
+import org.json.JSONException
+import java.net.ConnectException
 import java.net.SocketException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
+
+
 /**
  * Created by unicho on 2017/11/13.
  */
-object HttpErrorUtil {
-
-    fun handleThrowable(throwable: Throwable, mContext: Context, isToast: Boolean) {
-
-        when (throwable.cause){
-            is SocketTimeoutException -> if(isToast) T.show(mContext, "")
-            is UnknownHostException -> if(isToast) T.show(mContext, "")
-            is SocketException -> if(isToast) T.show(mContext, "")
-            is ConnectTimeoutException -> if(isToast) T.show(mContext, "")
-            is MsgException -> doMsgError(throwable.cause as MsgException,isToast)
-            else -> T.show(mContext, "")
+fun Throwable.handleThrowable(mContext: Context, isToast: Boolean = true, callback: ((MsgException) -> Unit)? = null){
+    when (this){
+        is MsgException -> {
+            if(callback == null) {
+                if (isToast)
+                    T.show(mContext, this.message.toString())
+            } else {
+                callback.invoke(this)
+            }
         }
+        is JSONException -> if(isToast) T.show(mContext, "数据异常")
+        is SocketTimeoutException -> if(isToast) T.show(mContext, "连接超时")
+        is UnknownHostException -> if(isToast) T.show(mContext, "服务器连接失败")
+        is ConnectException -> if(isToast) T.show(mContext, "服务器连接失败")
+        is SocketException -> if(isToast) T.show(mContext, "服务器连接失败")
+        else -> T.show(mContext, "网络异常，请稍后重试")
     }
+}
 
-    /**
-     * 自定义的异常处理方式
-     */
-    private fun doMsgError(exception: MsgException, isToast: Boolean){
-
-    }
+fun Context.hasNetwork() : Boolean{
+        val mConnectivityManager = this
+                .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val mNetworkInfo = mConnectivityManager
+                .activeNetworkInfo
+        if (mNetworkInfo != null) {
+            return mNetworkInfo.isAvailable
+        }
+    return false
 }

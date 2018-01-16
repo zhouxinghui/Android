@@ -40,6 +40,7 @@ class FragmentClass : BaseFragment() {
                     stateView.showEmpty()
                     return
                 }
+                stateView.showContent()
                 adapter.datas = entity
             }
 

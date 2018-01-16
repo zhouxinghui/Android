@@ -6,11 +6,11 @@ import ebag.core.base.App
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.SerializableUtils
-import ebag.core.util.T
 import ebag.hd.R
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.CodeEntity
 import ebag.hd.bean.response.UserEntity
+import ebag.hd.http.handleThrowable
 import ebag.hd.ui.presenter.CodePresenter
 import ebag.hd.ui.presenter.LoginPresenter
 import ebag.hd.ui.view.CodeView
@@ -74,7 +74,7 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
     override fun onLoginError(t: Throwable) {
         LoadingDialogUtil.closeLoadingDialog()
-        T.show(this, t.message.toString())
+        t.handleThrowable(this)
     }
 
     override fun onCodeError(t: Throwable) {

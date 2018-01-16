@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">云书包老师版HD</string>
     <string name="confirm">确定</string>
+    <string name="add">添加</string>
     <!--首页start-->
     <string name="first_page">首页</string>
     <string name="clazz">班级</string>

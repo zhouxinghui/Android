@@ -29,7 +29,11 @@
         <activity
             android:name=".ui.activity.CreateClassActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".ui.activity.SelectSchoolActivity"></activity>
+        <activity android:name=".ui.activity.SelectSchoolActivity" />
+        <activity android:name=".ui.activity.MyCourseActivity"></activity>
+        <activity android:name=".ui.activity.NoticeHistoryActivity">
+
+        </activity>
     </application>
 
 </manifest>

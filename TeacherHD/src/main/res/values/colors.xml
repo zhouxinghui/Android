@@ -32,4 +32,6 @@
     <color name="title_text_color">#5B5852</color>
     <!--关于我们-->
     <color name="color_about_us_sub">#F5A20C</color>
+    <!--公告历史-->
+    <color name="publish_desc">#F2F6FF</color>
 </resources>

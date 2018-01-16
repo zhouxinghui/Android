@@ -1,5 +1,7 @@
 package ebag.hd.http
 import com.alibaba.fastjson.JSON
+import ebag.core.base.App
+import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.RequestSubscriber
 import ebag.hd.bean.response.CodeEntity
@@ -26,6 +28,10 @@ object EBagApi {
 
     /**返回的数据格式是按照我们自己定义的数据格式时调用此方法*/
     fun <T> request(ob: Observable<ResponseBean<T>>, callback: RequestCallBack<T>){
+        if (!App.mContext!!.hasNetwork()){
+            callback.onError(MsgException("500", "当前网络不可用，请检查网络设置！"))
+            return
+        }
         ob.subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .observeOn(Schedulers.newThread())
@@ -36,6 +42,10 @@ object EBagApi {
 
     /**返回的数据格式是按照我们自己定义的数据格式时调用此方法*/
     fun <T> startRequest(ob: Observable<T>, callback: RequestCallBack<T>){
+        if (!App.mContext!!.hasNetwork()){
+            callback.onError(MsgException("500", "当前网络不可用，请检查网络设置！"))
+            return
+        }
         ob.subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
