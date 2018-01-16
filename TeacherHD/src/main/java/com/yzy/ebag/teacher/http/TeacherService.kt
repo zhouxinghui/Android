@@ -2,6 +2,7 @@ package com.yzy.ebag.teacher.http
 
 import com.yzy.ebag.teacher.bean.AssignmentBean
 import com.yzy.ebag.teacher.bean.FirstPageBean
+import com.yzy.ebag.teacher.bean.SpaceBean
 import ebag.hd.http.baseBean.ResponseBean
 import io.reactivex.Observable
 import okhttp3.RequestBody
@@ -19,6 +20,12 @@ interface TeacherService {
      */
     @POST("user/getOnePageInfo/{version}")
     fun firstPage(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<FirstPageBean>>
+
+    /**
+     * 班级
+     */
+    @POST("clazz/queryMyClassInfo/{version}")
+    fun clazzSpace(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<SpaceBean>>>
 
     /**
      * 布置作业页面

@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yzy.ebag.teacher.ui.activity.CreateClassActivity">
+    <ebag.hd.widget.TitleBar android:id="@+id/titleBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:titleText="选择学校"
+        app:rightText="确定"
+        />
+    <LinearLayout android:id="@+id/cityBtn"
+        style="@style/create_class_ll"
+        >
+        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/cityTv"
+            style="@style/create_class_left_tv"
+            app:leftDrawable="@drawable/create_class_city"
+            android:text="@string/city"
+            />
+        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/cityName"
+            style="@style/create_class_right_tv"
+            android:text="@string/select_city_hint"
+            />
+    </LinearLayout>
+    <LinearLayout android:id="@+id/phaseBtn"
+        style="@style/create_class_ll"
+        >
+        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/phaseTv"
+            style="@style/create_class_left_tv"
+            app:leftDrawable="@drawable/create_class_stage"
+            android:text="@string/phase"
+            />
+        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/phaseName"
+            style="@style/create_class_right_tv"
+            android:text="@string/select_phase_hint"
+            />
+    </LinearLayout>
+    <LinearLayout android:id="@+id/campusBtn"
+        style="@style/create_class_ll"
+        >
+        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/campusTv"
+            style="@style/create_class_left_tv"
+            app:leftDrawable="@drawable/create_class_campu"
+            android:text="@string/campus"
+            />
+        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/campusName"
+            style="@style/create_class_right_tv"
+            android:textColor="@color/title_text_color"
+            app:rightDrawable="@null"
+            />
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/x20"
+        android:layout_marginRight="@dimen/x20"
+        />
+</LinearLayout>

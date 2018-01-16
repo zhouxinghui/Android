@@ -2,6 +2,7 @@ package com.yzy.ebag.teacher.http
 
 import com.yzy.ebag.teacher.bean.AssignmentBean
 import com.yzy.ebag.teacher.bean.FirstPageBean
+import com.yzy.ebag.teacher.bean.SpaceBean
 import ebag.core.http.network.RequestCallBack
 import ebag.hd.http.EBagApi
 import ebag.hd.http.EBagClient
@@ -23,6 +24,14 @@ object TeacherApi {
         val jsonObject = JSONObject()
         jsonObject.put("roleCode", "teacher")
         EBagApi.request(teacherService.firstPage("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 班级
+     */
+    fun clazzSpace(callback: RequestCallBack<List<SpaceBean>>){
+        val jsonObject = JSONObject()
+        EBagApi.request(teacherService.clazzSpace("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
     /**

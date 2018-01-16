@@ -25,7 +25,11 @@
         <activity android:name=".ui.activity.SettingActivity" />
         <activity android:name=".ui.activity.AboutUsActivity" />
         <activity android:name=".ui.activity.PersonalInfoActivity" />
-        <activity android:name=".ui.activity.CorrectingActivity"></activity>
+        <activity android:name=".ui.activity.CorrectingActivity" />
+        <activity
+            android:name=".ui.activity.CreateClassActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity android:name=".ui.activity.SelectSchoolActivity"></activity>
     </application>
 
 </manifest>

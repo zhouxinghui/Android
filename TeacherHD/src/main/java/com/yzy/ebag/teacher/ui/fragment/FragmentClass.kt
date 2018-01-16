@@ -7,11 +7,15 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.bean.SpaceBean
+import com.yzy.ebag.teacher.http.TeacherApi
+import com.yzy.ebag.teacher.ui.activity.CreateClassActivity
 import com.yzy.ebag.teacher.ui.activity.SpaceActivity
 import com.yzy.ebag.teacher.widget.AddTeacherDialog
 import ebag.core.base.BaseFragment
+import ebag.core.http.network.RequestCallBack
 import ebag.core.util.T
-import ebag.core.util.loadImageToCircle
+import ebag.core.util.loadHead
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
 import kotlinx.android.synthetic.main.fragment_class.*
@@ -20,8 +24,30 @@ import kotlinx.android.synthetic.main.fragment_class.*
  * Created by YZY on 2017/12/21.
  */
 class FragmentClass : BaseFragment() {
-    private val addTeacherDialog by lazy {
-        AddTeacherDialog(mContext)
+    override fun getLayoutRes(): Int {
+        return R.layout.fragment_class
+    }
+    private val addTeacherDialog by lazy { AddTeacherDialog(mContext) }
+    private val adapter by lazy{ ClazzAdapter() }
+
+    private val request by lazy {
+        object : RequestCallBack<List<SpaceBean>>(){
+            override fun onStart() {
+                stateView.showLoading()
+            }
+            override fun onSuccess(entity: List<SpaceBean>?) {
+                if (entity == null || entity.isEmpty()){
+                    stateView.showEmpty()
+                    return
+                }
+                adapter.datas = entity
+            }
+
+            override fun onError(exception: Throwable) {
+                stateView.showError()
+            }
+
+        }
     }
     companion object {
         fun newInstance() : Fragment {
@@ -30,11 +56,8 @@ class FragmentClass : BaseFragment() {
             fragment.arguments = bundle
             return fragment
         }
-    }
 
 
-    override fun getLayoutRes(): Int {
-        return R.layout.fragment_class
     }
 
     override fun getBundle(bundle: Bundle) {
@@ -42,14 +65,8 @@ class FragmentClass : BaseFragment() {
     }
 
     override fun initViews(rootView: View) {
-        val adapter = ClazzAdapter()
         recyclerView.layoutManager = LinearLayoutManager(mContext)
         recyclerView.adapter = adapter
-        val list = ArrayList<String>()
-        for (i in 0..9){
-            list.add("测试")
-        }
-        adapter.datas = list
         adapter.setOnItemClickListener { holder, view, position ->
             T.show(mContext, "点击条目")
         }
@@ -65,32 +82,32 @@ class FragmentClass : BaseFragment() {
             }
         }
         createClazz.setOnClickListener {
-            T.show(mContext, "创建班级")
+            startActivity(Intent(mContext, CreateClassActivity::class.java))
+        }
+        TeacherApi.clazzSpace(request)
+        stateView.setOnRetryClickListener {
+            TeacherApi.clazzSpace(request)
         }
     }
 
-    inner class ClazzAdapter : RecyclerAdapter<String>(R.layout.item_fragment_class){
-        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: String?) {
-            setter.setText(R.id.class_name_id, entity)
+    inner class ClazzAdapter : RecyclerAdapter<SpaceBean>(R.layout.item_fragment_class){
+        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: SpaceBean?) {
+            setter.setText(R.id.class_name_id, entity?.clazzName)
+            setter.setText(R.id.class_desc_id, String.format(getString(R.string.desc), entity?.inviteCode, entity?.studentCount))
             setter.addClickListener(R.id.add_teacher_btn)
             setter.addClickListener(R.id.class_space_btn)
             val adapter = ClassMemberAdapter()
             val recyclerView = setter.getView<RecyclerView>(R.id.recyclerView)
             recyclerView.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
             recyclerView.adapter = adapter
-            val list = ArrayList<String>()
-            for (i in 0..9){
-                list.add("测试")
-            }
-            adapter.datas = list
+            adapter.datas = entity?.clazzUserVoList
         }
     }
-    inner class ClassMemberAdapter: RecyclerAdapter<String>(R.layout.item_class_member) {
-        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: String?) {
+    inner class ClassMemberAdapter: RecyclerAdapter<SpaceBean.ClazzUserVoListBean>(R.layout.item_class_member) {
+        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: SpaceBean.ClazzUserVoListBean?) {
             val imageView = setter.getImageView(R.id.img_head)
-            imageView.loadImageToCircle("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515596866962&di=e76fb5e0914eee393affee2451f04aa3&imgtype=0&src=http%3A%2F%2Fimg.taopic.com%2Fuploads%2Fallimg%2F120727%2F201995-120HG1030762.jpg")
-            setter.setText(R.id.subject_tv_id, "英")
-            setter.setText(R.id.name_id, "李老师")
+            imageView.loadHead(entity?.headUrl)
+            setter.setText(R.id.name_id, entity?.name)
         }
     }
 }

@@ -10,6 +10,9 @@
 
     <color name="blue">#70AEFF</color>
 
+    <drawable name="list_dialog_tv_bg_normal">#FFFFFF</drawable>
+    <drawable name="list_dialog_tv_bg_click">#EFF8F3</drawable>
+
     <!--TabLayout-->
     <color name="color_tab_selected_text">#1E85FF</color>
     <color name="color_tab_text">#4A4A4A</color>

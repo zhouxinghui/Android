@@ -45,7 +45,7 @@
     </array>
     <!--布置作业end-->
     <!--班级start-->
-    <string name="desc">班级邀请码：%1$s\n班级学生：%2$s人</string>
+    <string name="desc">班级邀请码：%1$s\n班级学生：%2$d人</string>
     <string name="add_teacher">添加老师</string>
     <string name="class_space">班级空间</string>
     <string name="create_class">创建班级</string>
@@ -53,7 +53,7 @@
     <string name="class_photos">班级相册</string>
     <string name="study_group">学习小组</string>
     <string name="course_schedule">课程表</string>
-    <string name="course">所教课程</string>
+    <string name="course_teaching">所教课程</string>
     <string name="class_expression">课堂表现</string>
     <string name="notice">公告通知：</string>
     <string name="notice_history">公告历史</string>
@@ -61,6 +61,20 @@
     <string name="notice_time">发布时间：%1$s</string>
     <string name="notice_desc">%1$s《查看详情》</string>
     <!--班级end-->
+    <!--创建班级start-->
+    <string name="school">学校</string>
+    <string name="grade">年级</string>
+    <string name="course">课程</string>
+    <string name="city">城市</string>
+    <string name="phase">阶段</string>
+    <string name="campus">校区</string>
+    <string name="select_school_hint">请选择学校</string>
+    <string name="select_grade_hint">请选择年级</string>
+    <string name="select_class_hint">请输入班别：例如“1班”</string>
+    <string name="select_course_hint">请选择课程</string>
+    <string name="select_city_hint">请选择所在城市</string>
+    <string name="select_phase_hint">请选择教育阶段</string>
+    <!--创建班级end-->
     <!--我的start-->
     <string name="bag_number">书包号：%1$s</string>
     <string name="personal_info">个人信息</string>

@@ -26,7 +26,7 @@
     <!--布置作业start-->
     <style name="assignment_radio_button">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">@dimen/y50</item>
+        <item name="android:layout_height">@dimen/y48</item>
         <item name="android:button">@null</item>
         <item name="android:textSize">@dimen/tv_normal</item>
         <item name="android:textColor">@color/assignment_btn_tv</item>
@@ -150,4 +150,48 @@
         <item name="android:layout_marginRight">@dimen/x30</item>
     </style>
     <!--检查作业end-->
+    <!--创建班级start-->
+    <style name="school_btn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/y48</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:textColor">@color/assignment_btn_tv</item>
+        <item name="android:background">@drawable/assignment_difficulty_bg</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="create_class_ll">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">@drawable/white_clickable_bg</item>
+        <item name="android:layout_marginTop">@dimen/y15</item>
+        <item name="android:layout_marginLeft">@dimen/x20</item>
+        <item name="android:layout_marginRight">@dimen/x20</item>
+    </style>
+    <style name="create_class_left_tv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/y80</item>
+        <item name="leftDrawableWidth">@dimen/x45</item>
+        <item name="leftDrawableHeight">@dimen/x45</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:textColor">@color/assignment_tv_sub</item>
+        <item name="android:gravity">center</item>
+        <item name="android:drawablePadding">@dimen/x15</item>
+        <item name="android:paddingLeft">@dimen/x15</item>
+        <item name="android:paddingRight">@dimen/x15</item>
+    </style>
+    <style name="create_class_right_tv">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="rightDrawableWidth">@dimen/x32</item>
+        <item name="rightDrawableHeight">@dimen/x18</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:textColor">@color/tv_light_gray_selector</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="rightDrawable">@drawable/down_arrow</item>
+        <item name="android:paddingLeft">@dimen/x15</item>
+        <item name="android:paddingRight">@dimen/x15</item>
+    </style>
+    <!--创建班级end-->
 </resources>
