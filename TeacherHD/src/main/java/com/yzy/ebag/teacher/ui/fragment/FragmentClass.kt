@@ -78,7 +78,7 @@ class FragmentClass : BaseFragment() {
                     addTeacherDialog.show()
                 }
                 R.id.class_space_btn ->{
-                    startActivity(Intent(mContext, SpaceActivity::class.java))
+                    SpaceActivity.jump(mContext, adapter.datas[position].classId, adapter.datas[position].clazzName)
                 }
             }
         }

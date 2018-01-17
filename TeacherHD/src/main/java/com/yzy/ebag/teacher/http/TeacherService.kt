@@ -2,6 +2,7 @@ package com.yzy.ebag.teacher.http
 
 import com.yzy.ebag.teacher.bean.AssignmentBean
 import com.yzy.ebag.teacher.bean.FirstPageBean
+import com.yzy.ebag.teacher.bean.GroupBean
 import com.yzy.ebag.teacher.bean.SpaceBean
 import ebag.hd.http.baseBean.ResponseBean
 import io.reactivex.Observable
@@ -32,4 +33,10 @@ interface TeacherService {
      */
     @POST("sendHome/sendHomePageData/{version}")
     fun assignmentData(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<AssignmentBean>>
+
+    /**
+     * 根据班级查询班级下所有的学习小组
+     */
+    @POST("clazz/searchClassByGroupAll/{version}")
+    fun studyGroup(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<GroupBean>>>
 }

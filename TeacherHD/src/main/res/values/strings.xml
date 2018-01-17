@@ -100,4 +100,10 @@
     <string name="family_address">家庭住址</string>
     <string name="school_name">所在学校</string>
     <!--个人信息end-->
+    <!--学习小组start-->
+    <string name="create_group">创建小组</string>
+    <string name="manage_group">管理小组</string>
+    <string name="delete_group">删除小组</string>
+    <string name="student_count">学生人数：%1$s人</string>
+    <!--学习小组end-->
 </resources>

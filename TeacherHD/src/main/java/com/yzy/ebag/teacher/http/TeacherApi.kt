@@ -2,6 +2,7 @@ package com.yzy.ebag.teacher.http
 
 import com.yzy.ebag.teacher.bean.AssignmentBean
 import com.yzy.ebag.teacher.bean.FirstPageBean
+import com.yzy.ebag.teacher.bean.GroupBean
 import com.yzy.ebag.teacher.bean.SpaceBean
 import ebag.core.http.network.RequestCallBack
 import ebag.hd.http.EBagApi
@@ -41,6 +42,12 @@ object TeacherApi {
         val jsonObject = JSONObject()
         jsonObject.put("type", type)
         EBagApi.request(teacherService.assignmentData("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun studyGroup(classId: String, callback: RequestCallBack<List<GroupBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        EBagApi.request(teacherService.studyGroup("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
 }
