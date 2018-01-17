@@ -58,7 +58,7 @@
     <string name="class_expression">课堂表现</string>
     <string name="notice">公告通知：</string>
     <string name="notice_history">公告历史</string>
-    <string name="publish_notice">发布通知</string>
+    <string name="publish_notice">发布公告</string>
     <string name="notice_time">发布时间：%1$s</string>
     <string name="notice_desc">%1$s《查看详情》</string>
     <!--班级end-->

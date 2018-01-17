@@ -18,6 +18,10 @@ import ebag.core.util.loadImage
  */
 class NoticeHistoryActivity: BaseListActivity<List<NoticeHistoryBean>, NoticeHistoryBean>() {
     override fun loadConfig(intent: Intent) {
+        titleBar.setTitle(R.string.notice_history)
+        titleBar.setRightText(resources.getString(R.string.publish_notice), {
+            startActivity(Intent(this, PublishContentActivity::class.java))
+        })
         val list = ArrayList<NoticeHistoryBean>()
         for (i in 0..99){
             val bean = NoticeHistoryBean()

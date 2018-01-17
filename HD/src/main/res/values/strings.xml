@@ -16,6 +16,11 @@
     <string name="login_agree_tip">我已阅读并同意</string>
     <string name="login_agree_title">《云书包服务协议》</string>
 
+
+    <string name="input_content">输入内容</string>
+    <string name="number_of_word">%1$d/200</string>
+    <string name="commit">提交</string>
+
     <!--提示-->
     <string name="tip_complete">完成</string>
     <!--更新-->

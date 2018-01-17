@@ -1,13 +1,13 @@
 package ebag.hd.bean.response;
 
-import ebag.core.bean.TokenBean;
+import java.io.Serializable;
 
 /**
  * 用户信息
  * Created by unicho on 2017/11/13.
  */
 
-public class UserEntity extends TokenBean{
+public class UserEntity implements Serializable{
 
     /**
      * id : 1326
@@ -38,6 +38,15 @@ public class UserEntity extends TokenBean{
     private String depId;
     private String schoolName;
     private String roleCode;
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public String getRoleCode() {
         return roleCode;
