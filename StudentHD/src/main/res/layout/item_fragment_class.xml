@@ -29,7 +29,7 @@
         android:textSize="@dimen/tv_normal"
         android:textColor="@color/desc_blue"
         android:background="@drawable/clazz_btn_bg"
-        android:layout_marginEnd="@dimen/x30"
+        android:layout_marginEnd="@dimen/x24"
         android:text="班级交流"
         app:rightDrawable="@drawable/icon_class_space"
         app:rightDrawableWidth="@dimen/x43"

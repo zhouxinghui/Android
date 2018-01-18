@@ -1,23 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:background="@drawable/gray_rect_stroke"
+    android:layout_marginLeft="@dimen/x10"
+    android:layout_marginRight="@dimen/x10"
+    android:layout_marginBottom="@dimen/x10">
+
+    <TextView android:id="@+id/tvStudentName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#5B626D"
+        tools:text="王子文"
+        android:padding="@dimen/x15"
+        android:layout_marginStart="@dimen/x9"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/tvEBagCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/tv_second"
+        android:textColor="@color/gray_9b"
+        android:layout_marginEnd="@dimen/x24"
+        tools:text="书包号"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvStudentName"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"
+        app:layout_constraintTop_toBottomOf="@id/tvStudentName" />
 
     <ImageView
         android:id="@+id/ivAvatar"
-        android:layout_width="@dimen/x128"
-        android:layout_height="@dimen/x128" />
+        android:layout_width="@dimen/x78"
+        android:layout_height="@dimen/x78"
+        android:layout_marginTop="@dimen/x24"
+        android:layout_marginBottom="@dimen/x24"
+        android:layout_marginStart="@dimen/x24"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
         android:id="@+id/tvName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/tv_big"
+        android:paddingEnd="@dimen/x24"
+        android:paddingStart="@dimen/x24"
+        android:textColor="#4f4f4f"
+        tools:text="妈妈"
+        app:layout_constraintStart_toEndOf="@id/ivAvatar"
+        app:layout_constraintEnd_toStartOf="@id/line2"
+        app:layout_constraintTop_toTopOf="@id/ivAvatar"
+        app:layout_constraintBottom_toBottomOf="@id/ivAvatar" />
+
+    <View android:id="@+id/line2"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@color/gray"
+        android:layout_marginStart="@dimen/x250"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ebag.hd.widget.drawable.DrawableTextView
+        android:id="@+id/tvPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/x15"
-        android:textSize="@dimen/x24"
-        tools:text="mama"
-        android:textColor="@color/color_my_parents_name"/>
-</LinearLayout>
+        app:leftDrawable="@drawable/icon_parent_phone"
+        app:leftDrawableWidth="@dimen/x25"
+        app:leftDrawableHeight="@dimen/x25"
+        android:layout_marginStart="@dimen/x20"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#5b626d"
+        tools:text="1234567890"
+        android:drawablePadding="@dimen/x10"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        app:layout_constraintBottom_toTopOf="@id/tvAddress"
+        app:layout_constraintStart_toEndOf="@id/line2"/>
+
+    <ebag.hd.widget.drawable.DrawableTextView
+        android:id="@+id/tvAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:leftDrawable="@drawable/icon_parent_location"
+        app:leftDrawableWidth="@dimen/x25"
+        app:leftDrawableHeight="@dimen/x25"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#5b626d"
+        tools:text="1234567890"
+        android:drawablePadding="@dimen/x10"
+        app:layout_constraintTop_toBottomOf="@id/tvPhone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvPhone"/>
+</android.support.constraint.ConstraintLayout>

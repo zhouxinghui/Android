@@ -1,7 +1,6 @@
 package com.yzy.ebag.student.activity.center.fragment
 
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.TypedValue
 import android.view.View
@@ -14,7 +13,10 @@ import com.yzy.ebag.student.R
 import com.yzy.ebag.student.dialog.ParentAddDialog
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.SerializableUtils
 import ebag.core.util.loadHead
+import ebag.hd.base.Constants
+import ebag.hd.bean.response.UserEntity
 
 /**
  * @author 曹宇
@@ -57,9 +59,9 @@ class ParentFragment: BaseListFragment<String,ParentFragment.Parent>() {
         }
 
         val list = ArrayList<Parent>()
+        list.add(Parent("我住在这里"))
         list.add(Parent())
-        list.add(Parent())
-        list.add(Parent())
+        list.add(Parent("我住在那里"))
         list.add(Parent())
         list.add(Parent())
         list.add(Parent())
@@ -81,7 +83,7 @@ class ParentFragment: BaseListFragment<String,ParentFragment.Parent>() {
     }
 
     override fun getLayoutManager(adapter: BaseQuickAdapter<Parent, BaseViewHolder>): RecyclerView.LayoutManager? {
-        return GridLayoutManager(mContext, 3)
+        return null
     }
 
     private val addDialog by lazy { ParentAddDialog.newInstance() }
@@ -92,14 +94,25 @@ class ParentFragment: BaseListFragment<String,ParentFragment.Parent>() {
 
 
     inner class Adapter: BaseQuickAdapter<Parent,BaseViewHolder>(R.layout.item_fragment_parents){
+
+        private val userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.STUDENT_USER_ENTITY)
+
         override fun convert(helper: BaseViewHolder, item: Parent?) {
             helper.setText(R.id.tvName,item?.name)
+                    .setText(R.id.tvStudentName, userEntity?.name)
+                    .setText(R.id.tvEBagCode, "书包号: ${item?.code}")
+                    .setText(R.id.tvPhone, item?.phone)
+                    .setText(R.id.tvAddress, item?.address ?: "暂无地址")
                     .getView<ImageView>(R.id.ivAvatar).loadHead(item?.head)
+
         }
     }
 
     data class Parent(
+            val address: String? = null,
             val head: String = "http://pic32.nipic.com/20130827/12906030_123121414000_2.png",
-            val name: String = "妈妈"
+            val name: String = "妈妈",
+            val code: String = "1000111",
+            val phone: String = "13188888888"
     )
 }
