@@ -7,11 +7,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.activity.SettingActivity
-import com.yzy.ebag.student.activity.tools.ToolsActivity
 import com.yzy.ebag.student.activity.book.BookListActivity
 import com.yzy.ebag.student.activity.center.PersonalActivity
 import com.yzy.ebag.student.activity.homework.HomeworkActivity
-import com.yzy.ebag.student.bean.response.ClassesInfoBean
+import com.yzy.ebag.student.activity.tools.ToolsActivity
+import com.yzy.ebag.student.bean.ClassListInfoBean
+import com.yzy.ebag.student.bean.ClassesInfoBean
+import com.yzy.ebag.student.dialog.ClassesDialog
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.util.SerializableUtils
 import ebag.core.util.StringUtils
@@ -26,6 +28,7 @@ class MainActivity : MVPActivity(), MainView {
     private val mainPresenter = MainPresenter(this,this)
     private val adapter = Adapter()
     private var classId = ""
+    private var classesInfo: List<ClassListInfoBean>? = null
 
     override fun destroyPresenter() {
         mainPresenter.onDestroy()
@@ -50,11 +53,14 @@ class MainActivity : MVPActivity(), MainView {
     }
 
     override fun mainInfoStart() {
+        tvGrade.visibility = View.INVISIBLE
         stateView.showLoading()
     }
 
     override fun mainInfoSuccess(classesInfoBean: ClassesInfoBean) {
+        tvGrade.visibility = View.VISIBLE
         showTeachers(classesInfoBean)
+        classesInfo = classesInfoBean.resultAllClazzInfoVos
         stateView.showContent()
 
     }
@@ -73,7 +79,7 @@ class MainActivity : MVPActivity(), MainView {
     }
 
     private fun getMainClassInfo(){
-        mainPresenter.mianInfo()
+        mainPresenter.mainInfo(classId)
     }
 
     private fun initUserInfo(){
@@ -169,14 +175,36 @@ class MainActivity : MVPActivity(), MainView {
             startActivity(Intent(this, ToolsActivity::class.java))
         }
 
+        //点击班级
+        tvGradeLayout.setOnClickListener {
+            showClasses()
+        }
 
 
         stateView.setOnRetryClickListener {
             getMainClassInfo()
         }
+        tvMoreAnnounce.setOnClickListener {
+            startActivity(Intent(this,AnnounceActivity::class.java))
+        }
+
     }
 
-    class Adapter: BaseQuickAdapter<ClassesInfoBean,BaseViewHolder>(R.layout.activity_main_class_info_item){
+    private val classesDialog by lazy {
+        val classes = ClassesDialog.newInstance()
+        classes.setOnClassChooseListener{
+            classId = it?.classId ?: ""
+            getMainClassInfo()
+        }
+        classes
+    }
+
+    private fun showClasses(){
+        classesDialog.updateData(classesInfo)
+        classesDialog.show(supportFragmentManager,"classes")
+    }
+
+    class Adapter: BaseQuickAdapter<ClassesInfoBean,BaseViewHolder>(R.layout.item_activity_main_class_info){
         override fun convert(helper: BaseViewHolder?, item: ClassesInfoBean?) {
             helper?.setText(R.id.tv, "${item?.subject} : ${item?.teacherName}")
         }

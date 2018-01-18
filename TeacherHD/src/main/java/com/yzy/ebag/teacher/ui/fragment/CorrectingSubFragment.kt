@@ -23,7 +23,7 @@ class CorrectingSubFragment: BaseListFragment<String, String>() {
         }
     }
 
-    override fun getBundle(bundle: Bundle) {
+    override fun getBundle(bundle: Bundle?) {
 
     }
 

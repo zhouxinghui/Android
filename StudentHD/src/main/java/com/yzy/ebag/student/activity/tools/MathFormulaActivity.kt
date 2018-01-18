@@ -49,7 +49,7 @@ class MathFormulaActivity: BaseListTabActivity<String,String>() {
         (adapter as Adapter).selectedPosition = position
     }
 
-    private class Adapter: BaseQuickAdapter<String,BaseViewHolder>(R.layout.activity_homework_subject_item){
+    private class Adapter: BaseQuickAdapter<String,BaseViewHolder>(R.layout.item_activity_homework_subject){
 
         var selectedPosition = 0
             set(value) {

@@ -3,11 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/x508" android:layout_height="match_parent">
+    android:layout_width="@dimen/x508"
+    android:layout_height="wrap_content">
 
     <View
         android:id="@+id/bg"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/x508"
         android:layout_height="@dimen/x455"
         android:background="@drawable/dialog_radius_bg"
         android:layout_marginTop="@dimen/x50"
@@ -18,8 +19,8 @@
         android:layout_width="@dimen/x124"
         android:layout_height="@dimen/x124"
         android:background="@drawable/my_class_add_icon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintEnd_toEndOf="@id/bg"/>
 
     <TextView
         android:id="@+id/tvTitle"
@@ -28,28 +29,24 @@
         android:text="@string/my_class_add_class"
         android:textColor="@color/color_dialog_add_class_title"
         android:textSize="@dimen/x28"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
         app:layout_constraintTop_toBottomOf="@+id/ivHead" />
 
     <ImageView
         android:id="@+id/ivScan"
         android:layout_width="@dimen/x67"
         android:layout_height="@dimen/x62"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         app:srcCompat="@drawable/my_class_dialog_scan" />
 
     <EditText
         android:id="@+id/etCode"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/x460"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/x24"
-        android:layout_marginStart="@dimen/x24"
         android:paddingTop="@dimen/x26"
         android:paddingBottom="@dimen/x5"
         android:gravity="center"
@@ -59,31 +56,29 @@
         android:textColorHint="@color/color_edit_hint"
         android:inputType="textPersonName"
         android:background="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
         app:layout_constraintTop_toBottomOf="@+id/ivScan" />
 
     <View
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/x460"
         android:layout_height="@dimen/x2"
         android:background="@color/color_dialog_line"
-        android:layout_marginStart="@dimen/x24"
-        android:layout_marginEnd="@dimen/x24"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
         app:layout_constraintTop_toBottomOf="@+id/etCode"/>
     <TextView
         android:id="@+id/tvConfirm"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/x460"
         android:layout_height="@dimen/x68"
         android:gravity="center"
         android:textSize="@dimen/x26"
-        android:layout_marginEnd="@dimen/x24"
-        android:layout_marginStart="@dimen/x24"
         android:layout_marginTop="@dimen/x114"
         android:text="@string/tip_confirm"
         android:textColor="@color/white"
         android:background="@drawable/dialog_add_class_confirm_selector"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
         app:layout_constraintTop_toBottomOf="@+id/etCode" />
 
     <View

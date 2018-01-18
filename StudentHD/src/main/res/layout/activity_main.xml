@@ -59,16 +59,26 @@
         app:layout_constraintStart_toStartOf="@id/leftLayout"
         app:layout_constraintTop_toBottomOf="@id/tvId" />
 
-    <TextView
-        android:id="@+id/tvGrade"
-        style="@style/main_left_text"
+    <FrameLayout
+        android:id="@+id/tvGradeLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/y28"
-        tools:text="@string/main_class_name"
         app:layout_constraintStart_toStartOf="@id/leftLayout"
-        app:layout_constraintEnd_toEndOf="@id/leftLayout"
-        app:layout_constraintTop_toBottomOf="@id/tagView" />
+        app:layout_constraintTop_toBottomOf="@id/tagView"
+        app:layout_constraintEnd_toEndOf="@id/leftLayout">
+        <ebag.hd.widget.drawable.DrawableTextView
+            android:id="@+id/tvGrade"
+            style="@style/main_left_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:rightDrawable="@drawable/home_icon_change"
+            app:rightDrawableHeight="@dimen/x24"
+            app:rightDrawableWidth="@dimen/x24"
+            android:drawablePadding="@dimen/x15"
+            tools:text="@string/main_class_name"/>
+    </FrameLayout>
+
 
     <TextView
         android:id="@+id/tvClassTeacher"
@@ -81,7 +91,7 @@
         android:textSize="@dimen/x20"
         app:layout_constraintEnd_toEndOf="@id/leftLayout"
         app:layout_constraintStart_toStartOf="@id/leftLayout"
-        app:layout_constraintTop_toBottomOf="@id/tvGrade" />
+        app:layout_constraintTop_toBottomOf="@id/tvGradeLayout" />
 
     <TextView
         android:id="@+id/tvTeachersTip"

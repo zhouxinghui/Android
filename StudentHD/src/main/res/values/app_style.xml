@@ -64,4 +64,5 @@
         <item name="android:layout_marginRight">@dimen/x20</item>
         <item name="android:background">@drawable/icon_more</item>
     </style>
+
 </resources>

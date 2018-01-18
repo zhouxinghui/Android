@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.activity.center
+package com.yzy.ebag.student.activity.center.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -22,7 +22,7 @@ class PersonalFragment: BaseFragment() {
         return R.layout.fragment_center_personal
     }
 
-    override fun getBundle(bundle: Bundle) {
+    override fun getBundle(bundle: Bundle?) {
     }
 
     override fun initViews(rootView: View) {

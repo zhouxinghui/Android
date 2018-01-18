@@ -1,7 +1,8 @@
 package com.yzy.ebag.student.http
 
-import com.yzy.ebag.student.bean.response.ClassesInfoBean
-import com.yzy.ebag.student.bean.response.SubjectBean
+import com.yzy.ebag.student.bean.ClassesInfoBean
+import com.yzy.ebag.student.bean.SpaceBean
+import com.yzy.ebag.student.bean.SubjectBean
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.baseBean.ResponseBean
 import io.reactivex.Observable
@@ -34,4 +35,9 @@ interface StudentService {
     @POST("homeWork/getMyHomeWork/{version}")
     fun subjectWorkList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<SubjectBean>>>
 
+    /**
+     * 班级
+     */
+    @POST("clazz/queryMyClassInfo/{version}")
+    fun clazzSpace(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<SpaceBean>>>
 }

@@ -8,7 +8,7 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.bean.response.SubjectBean
+import com.yzy.ebag.student.bean.SubjectBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
@@ -43,11 +43,11 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
         return 1
     }
 
-    override fun getBundle(bundle: Bundle) {
-        subCode = bundle.getString("subject")
-        type = bundle.getString("type")
-        classId = bundle.getString("classId")
-        list = bundle.getParcelableArrayList("list")
+    override fun getBundle(bundle: Bundle?) {
+        subCode = bundle?.getString("subject") ?: ""
+        type = bundle?.getString("type") ?: ""
+        classId = bundle?.getString("classId") ?: ""
+        list = bundle?.getParcelableArrayList("list")
     }
 
     override fun loadConfig() {
@@ -74,7 +74,7 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
         return null
     }
 
-    inner class HomeWorkListAdapter: BaseQuickAdapter<SubjectBean.HomeWorkInfoBean,BaseViewHolder>(R.layout.fragment_homework_list_item){
+    inner class HomeWorkListAdapter: BaseQuickAdapter<SubjectBean.HomeWorkInfoBean,BaseViewHolder>(R.layout.item_fragment_homework_list){
 
         override fun convert(helper: BaseViewHolder, item: SubjectBean.HomeWorkInfoBean?) {
 //            val spannableString = SpannableString("完成： ${item?.questionComplete}/${item?.questionCount}")

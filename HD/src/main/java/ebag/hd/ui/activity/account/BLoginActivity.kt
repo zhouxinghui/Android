@@ -2,6 +2,7 @@ package ebag.hd.ui.activity.account
 
 import android.content.Intent
 import android.view.View
+import android.widget.EditText
 import ebag.core.base.App
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.util.LoadingDialogUtil
@@ -97,7 +98,11 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
     private var isLoginState = true
 
+    lateinit var loginEdit: EditText
+    lateinit var pwdEdit: EditText
     override fun initViews() {
+        loginEdit = loginAccount
+        pwdEdit = loginPwd
 
         isToMain = intent.getBooleanExtra(Constants.KEY_TO_MAIN,false)
 

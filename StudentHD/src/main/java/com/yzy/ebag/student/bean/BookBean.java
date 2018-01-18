@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.bean.response;
+package com.yzy.ebag.student.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
 

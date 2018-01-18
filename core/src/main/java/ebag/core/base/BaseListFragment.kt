@@ -4,6 +4,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.RelativeLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import ebag.core.R
@@ -122,8 +123,10 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
         return R.layout.base_list_view
     }
 
+    lateinit var rootView: RelativeLayout
     /** 初始化操作 */
     override fun initViews(rootView: View) {
+        this.rootView = layout
         // 设置 recyclerView 的 Adapter
         mAdapter = getAdapter()
         mAdapter?.enableLoadMoreEndClick(true)

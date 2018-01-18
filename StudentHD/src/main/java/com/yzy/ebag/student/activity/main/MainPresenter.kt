@@ -1,6 +1,6 @@
 package com.yzy.ebag.student.activity.main
 
-import com.yzy.ebag.student.bean.response.ClassesInfoBean
+import com.yzy.ebag.student.bean.ClassesInfoBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.mvp.BasePresenter
 import ebag.core.base.mvp.OnToastListener
@@ -27,8 +27,8 @@ class MainPresenter(view: MainView, listener: OnToastListener): BasePresenter<Ma
 
     })
 
-    fun mianInfo(){
-        StudentApi.mainInfo(mainInfoRequest)
+    fun mainInfo(classId: String){
+        StudentApi.mainInfo(classId, mainInfoRequest)
     }
 
 }

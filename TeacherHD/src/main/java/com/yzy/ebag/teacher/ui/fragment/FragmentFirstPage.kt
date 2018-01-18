@@ -49,7 +49,7 @@ class FragmentFirstPage : BaseFragment() {
         return R.layout.fragment_first_page
     }
 
-    override fun getBundle(bundle: Bundle) {
+    override fun getBundle(bundle: Bundle?) {
 
     }
 

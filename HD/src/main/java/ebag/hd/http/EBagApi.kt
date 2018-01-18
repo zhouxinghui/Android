@@ -110,4 +110,8 @@ object EBagApi {
 
     }
 
+    fun joinClass(code: String, role: String = "student"){
+
+    }
+
 }

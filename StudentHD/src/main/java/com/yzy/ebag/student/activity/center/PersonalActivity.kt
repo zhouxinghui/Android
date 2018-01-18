@@ -6,8 +6,10 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
+import com.yzy.ebag.student.activity.center.fragment.*
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.util.SerializableUtils
+import ebag.core.util.T
 import ebag.core.util.loadHead
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
@@ -47,7 +49,10 @@ class PersonalActivity: MVPActivity() {
         adapter.setOnItemClickListener { _, _, position ->
             if(adapter.selectedPosition != position){
                 adapter.selectedPosition = position
-                changeFragment(position)
+                when(position){
+                    3 -> { T.show(this@PersonalActivity, "课堂表现")}
+                    else -> changeFragment(position)
+                }
             }
         }
 
@@ -74,7 +79,15 @@ class PersonalActivity: MVPActivity() {
 
         if(fragmentArrays[index] == null){
             fragmentArrays[index] =  when(index){
-                0 -> { PersonalFragment.newInstance() }
+                0 -> { PersonalFragment.newInstance() }//个人信息
+                1 -> { TaskTabFragment.newInstance("")}//我的任务
+                2 -> { ClassesFragment.newInstance()}//我的班级
+                4 -> {
+                    ParentFragment.newInstance()
+                }//我的家长
+                6 -> {
+                    YbCenterFragment.newInstance()
+                }
                 else ->{ PersonalFragment.newInstance() }
             }
         }
@@ -112,7 +125,7 @@ class PersonalActivity: MVPActivity() {
         }
     }
 
-    private class Adapter: BaseQuickAdapter<Int,BaseViewHolder>(R.layout.activity_personal_left_item){
+    private class Adapter: BaseQuickAdapter<Int,BaseViewHolder>(R.layout.item_activity_personal_left){
 
         var selectedPosition = 0
             set(value) {
@@ -124,7 +137,6 @@ class PersonalActivity: MVPActivity() {
             helper?.setText(R.id.tvText,item ?: R.string.empty)
                     ?.setGone(R.id.line, helper.adapterPosition == itemCount)
                     ?.getView<TextView>(R.id.tvText)?.isSelected = ((helper?.adapterPosition ?: 0) == selectedPosition)
-
         }
     }
 

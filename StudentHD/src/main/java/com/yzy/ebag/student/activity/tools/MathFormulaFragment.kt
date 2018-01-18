@@ -31,8 +31,8 @@ class MathFormulaFragment: BaseListFragment<String, MathFormulaFragment.Formula>
         }
     }
 
-    override fun getBundle(bundle: Bundle) {
-        formulaCode = bundle.getString("formulaCode","")
+    override fun getBundle(bundle: Bundle?) {
+        formulaCode = bundle?.getString("formulaCode") ?: ""
         if("几何公式" == formulaCode)
             spanSize = 2
     }
@@ -67,7 +67,7 @@ class MathFormulaFragment: BaseListFragment<String, MathFormulaFragment.Formula>
         return GridLayoutManager(mContext,spanSize)
     }
 
-    private inner class Adapter: BaseQuickAdapter<Formula,BaseViewHolder>(R.layout.fragment_math_formula_list_item){
+    private inner class Adapter: BaseQuickAdapter<Formula,BaseViewHolder>(R.layout.item_fragment_math_formula_list){
 
         override fun convert(helper: BaseViewHolder, item: Formula?) {
             val spannableString = SpannableString("${item?.title}\n${item?.content}")

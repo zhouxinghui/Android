@@ -7,7 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.base.BaseListActivity
-import com.yzy.ebag.student.bean.response.BookBean
+import com.yzy.ebag.student.bean.BookBean
 import ebag.core.http.image.SingleImageLoader
 import ebag.core.http.network.RequestCallBack
 
@@ -15,7 +15,7 @@ import ebag.core.http.network.RequestCallBack
 /**
  * Created by unicho on 2018/1/8.
  */
-class BookListActivity: BaseListActivity<List<BookBean>,BookBean>() {
+class BookListActivity: BaseListActivity<List<BookBean>, BookBean>() {
 
     override fun loadConfig(intent: Intent) {
         setPageTitle("学习课本")
@@ -45,7 +45,7 @@ class BookListActivity: BaseListActivity<List<BookBean>,BookBean>() {
         return GridLayoutManager(this,3)
     }
 
-    class BookListAdapter: BaseQuickAdapter<BookBean, BaseViewHolder>(R.layout.activity_book_list_item){
+    class BookListAdapter: BaseQuickAdapter<BookBean, BaseViewHolder>(R.layout.item_activity_book_list){
         override fun convert(helper: BaseViewHolder, item: BookBean) {
             SingleImageLoader.getInstance().setImage(item.image, helper.getView(R.id.ivBook))
             helper.setText(R.id.tvEdition,item.edition)
