@@ -89,6 +89,7 @@
     <string name="my_class_class_num_more">&#8230;共%1$s人</string>
     <string name="my_class_class_num">共%1$s人</string>
     <string name="my_class_add_class">加入班级</string>
+    <string name="change_class">更换班级</string>
     <string name="my_class_add_class_code">输入班级邀请码</string>
     <string name="my_parents_id_input">输入书包号</string>
     <string name="my_parents_relation_input">输入你们的关系 例：妈妈</string>

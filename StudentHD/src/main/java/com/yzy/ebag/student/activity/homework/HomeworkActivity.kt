@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.base.BaseListTabActivity
 import com.yzy.ebag.student.base.Constants
-import com.yzy.ebag.student.bean.response.SubjectBean
+import com.yzy.ebag.student.bean.SubjectBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
 
@@ -18,7 +18,7 @@ import ebag.core.http.network.RequestCallBack
 /**
  * Created by unicho on 2018/1/9.
  */
-class HomeworkActivity : BaseListTabActivity<ArrayList<SubjectBean>,SubjectBean>() {
+class HomeworkActivity : BaseListTabActivity<ArrayList<SubjectBean>, SubjectBean>() {
     private var type = "1"
     private var classId = ""
 
@@ -84,8 +84,8 @@ class HomeworkActivity : BaseListTabActivity<ArrayList<SubjectBean>,SubjectBean>
     private class Adapter: BaseMultiItemQuickAdapter<SubjectBean,BaseViewHolder>(null){
 
         init {
-            addItemType(0, R.layout.activity_homework_subject_item)
-            addItemType(1, R.layout.activity_homework_subject_item_header)
+            addItemType(0, R.layout.item_activity_homework_subject)
+            addItemType(1, R.layout.item_activity_homework_subject_header)
         }
 
         var selectedPosition = 1

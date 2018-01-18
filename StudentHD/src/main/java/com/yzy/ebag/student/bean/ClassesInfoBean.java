@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.bean.response;
+package com.yzy.ebag.student.bean;
 
 import java.util.List;
 
@@ -23,6 +23,7 @@ public class ClassesInfoBean {
     private String subject;
     private String teacherName;
     private List<ClassesInfoBean> resultClazzInfoVos;
+    private List<ClassListInfoBean> resultAllClazzInfoVos;
 
     public String getClassId() {
         return classId;
@@ -70,5 +71,13 @@ public class ClassesInfoBean {
 
     public void setResultClazzInfoVos(List<ClassesInfoBean> resultClazzInfoVos) {
         this.resultClazzInfoVos = resultClazzInfoVos;
+    }
+
+    public List<ClassListInfoBean> getResultAllClazzInfoVos() {
+        return resultAllClazzInfoVos;
+    }
+
+    public void setResultAllClazzInfoVos(List<ClassListInfoBean> resultAllClazzInfoVos) {
+        this.resultAllClazzInfoVos = resultAllClazzInfoVos;
     }
 }

@@ -5,12 +5,17 @@
     <color name="colorPrimaryDark2">#55BBFF</color>
     <color name="colorAccent">#6FB1FF</color>
     <color name="navigationBarColor">#6FB1FF</color>
+    <color name="pageBackground">#F5F7FA</color>
+
 
     <color name="disable">#D8D8D8</color>
 
     <color name="gray_e6">#EEEEEE</color>
     <color name="gray_97">#979797</color>
+    <color name="gray_9b">#9b9b9b</color>
     <color name="gray_65">#656565</color>
+
+    <color name="green">#97E14F</color>
 
     <!--TabLayout-->
     <color name="color_tab_selected_text">#1E85FF</color>
@@ -72,6 +77,9 @@
     <!--字母选择-->
     <color name="color_letter_normal">#373b45</color>
     <color name="color_letter_checked">#ff7800</color>
+
+    <!--班级start-->
+    <color name="desc_blue">#6F8BB0</color>
 
 
 </resources>

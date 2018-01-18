@@ -33,7 +33,7 @@ class FragmentMine : BaseFragment(), View.OnClickListener {
         return R.layout.fragment_mine
     }
 
-    override fun getBundle(bundle: Bundle) {
+    override fun getBundle(bundle: Bundle?) {
 
     }
 

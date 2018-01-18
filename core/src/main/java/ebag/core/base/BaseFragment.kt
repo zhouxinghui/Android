@@ -39,7 +39,7 @@ abstract class BaseFragment : Fragment() {
     /**获取RootLayout的ID*/
     protected abstract fun getLayoutRes(): Int
     /**获取数据源*/
-    protected abstract fun getBundle(bundle: Bundle)
+    protected abstract fun getBundle(bundle: Bundle?)
     /**初始化View*/
     protected abstract fun initViews(rootView: View)
     /**初始化监听事件*/

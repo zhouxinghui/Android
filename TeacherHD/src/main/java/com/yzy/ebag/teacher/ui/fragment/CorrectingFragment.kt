@@ -35,7 +35,7 @@ class CorrectingFragment: BaseFragment() {
         return R.layout.fragment_correcting
     }
 
-    override fun getBundle(bundle: Bundle) {
+    override fun getBundle(bundle: Bundle?) {
 
     }
 

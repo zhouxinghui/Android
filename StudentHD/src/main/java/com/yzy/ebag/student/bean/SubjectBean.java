@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.bean.response;
+package com.yzy.ebag.student.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;

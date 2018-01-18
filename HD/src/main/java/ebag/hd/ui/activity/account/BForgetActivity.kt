@@ -86,7 +86,7 @@ open class BForgetActivity : MVPActivity(), CodeView, ForgetView {
 
     override fun initViews() {
 
-        var updateDialog: UpdateDialog = UpdateDialog()
+        var updateDialog = UpdateDialog()
         updateDialog.show(supportFragmentManager,"update")
 
         //获取验证码事件

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/x508"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/bg"
+        android:layout_width="@dimen/x508"
+        android:layout_height="@dimen/x455"
+        android:background="@drawable/dialog_radius_bg"
+        android:layout_marginTop="@dimen/x50"
+        app:layout_constraintTop_toTopOf="@id/ivHead"/>
+
+    <View
+        android:id="@+id/ivHead"
+        android:layout_width="@dimen/x124"
+        android:layout_height="@dimen/x124"
+        android:background="@drawable/home_popups_icon_change"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"/>
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/change_class"
+        android:textColor="@color/color_dialog_add_class_title"
+        android:textSize="@dimen/x28"
+        android:layout_marginTop="@dimen/y7"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintTop_toBottomOf="@+id/ivHead" />
+
+    <View
+        android:id="@+id/btnClose"
+        android:layout_width="@dimen/x58"
+        android:layout_height="@dimen/x58"
+        android:background="@drawable/my_class_dialog_close"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintTop_toTopOf="@+id/bg" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/x58"
+        android:layout_marginEnd="@dimen/x58"
+        android:layout_marginBottom="@dimen/x58"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintBottom_toBottomOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintEnd_toEndOf="@id/bg" />
+
+
+</android.support.constraint.ConstraintLayout>

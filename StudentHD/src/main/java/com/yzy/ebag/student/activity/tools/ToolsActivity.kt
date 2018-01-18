@@ -60,7 +60,7 @@ class ToolsActivity : BaseListActivity<List<Int>,Int>() {
         return ToolsAdapter()
     }
 
-    class ToolsAdapter : BaseQuickAdapter<Int,BaseViewHolder>(R.layout.activity_tools_item) {
+    class ToolsAdapter : BaseQuickAdapter<Int,BaseViewHolder>(R.layout.item_activity_tools) {
         override fun convert(helper: BaseViewHolder, item: Int?) {
             if (item != null) {
                 helper.setImageResource(R.id.image,item)

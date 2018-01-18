@@ -20,7 +20,7 @@ class TestFragment:BaseFragment() {
         return R.layout.test_child
     }
 
-    override fun getBundle(bundle: Bundle) {
+    override fun getBundle(bundle: Bundle?) {
     }
 
     override fun initViews(rootView: View) {

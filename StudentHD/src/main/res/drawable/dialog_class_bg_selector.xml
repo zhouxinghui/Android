@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <shape >
+            <corners android:radius="@dimen/x10"/>
+            <solid android:color="@color/color_dialog_add_class_title"/>
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <corners android:radius="@dimen/x10"/>
+            <stroke android:color="@color/color_dialog_add_class_title"
+                android:width="@dimen/x1"/>
+        </shape>
+    </item>
+</selector>

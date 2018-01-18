@@ -16,15 +16,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
-    <!--<TextView android:id="@+id/subject_tv_id"
-        android:layout_width="@dimen/x25"
-        android:layout_height="@dimen/x25"
-        android:background="@drawable/green_point"
-        android:gravity="center"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@id/img_head"
-        app:layout_constraintBottom_toBottomOf="@id/img_head"
-        />-->
+    <!--<TextView android:id="@+id/subject_tv_id"-->
+        <!--android:layout_width="@dimen/x25"-->
+        <!--android:layout_height="@dimen/x25"-->
+        <!--android:background="@drawable/green_point"-->
+        <!--android:gravity="center"-->
+        <!--android:textColor="@color/white"-->
+        <!--app:layout_constraintEnd_toEndOf="@id/img_head"-->
+        <!--app:layout_constraintBottom_toBottomOf="@id/img_head"-->
+        <!--/>-->
     <TextView android:id="@+id/name_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

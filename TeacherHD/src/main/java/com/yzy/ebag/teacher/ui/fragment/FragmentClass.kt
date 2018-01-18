@@ -61,7 +61,7 @@ class FragmentClass : BaseFragment() {
 
     }
 
-    override fun getBundle(bundle: Bundle) {
+    override fun getBundle(bundle: Bundle?) {
 
     }
 
