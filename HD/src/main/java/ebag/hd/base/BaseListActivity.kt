@@ -165,10 +165,7 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
         refreshEnabled(canRefresh)
         if(needFirstLoad){
             //第一次加载数据
-            loadingStatus = FIRST
-            mCurrentPage = 1
-            // 加载各种数据
-            requestData(mCurrentPage, requestCallBack)
+            onRetryClick()
         }
     }
 

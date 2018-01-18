@@ -53,7 +53,7 @@ public class GroupBean implements Serializable {
         this.clazzUserVos = clazzUserVos;
     }
 
-    public static class ClazzUserVosBean {
+    public static class ClazzUserVosBean extends BaseStudentBean {
         /**
          * uid :
          * name : 学生A
@@ -62,37 +62,9 @@ public class GroupBean implements Serializable {
          * roleName :
          * headUrl :
          */
-
-        private String uid;
-        private String name;
-        private String duties;
         private String rid;
         private String roleName;
         private String headUrl;
-
-        public String getUid() {
-            return uid;
-        }
-
-        public void setUid(String uid) {
-            this.uid = uid;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getDuties() {
-            return duties;
-        }
-
-        public void setDuties(String duties) {
-            this.duties = duties;
-        }
 
         public String getRid() {
             return rid;

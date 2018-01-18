@@ -46,7 +46,8 @@
         <activity
             android:name=".ui.activity.PublishContentActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".ui.activity.StudyGroupActivity"></activity>
+        <activity android:name=".ui.activity.StudyGroupActivity"
+            />
     </application>
 
 </manifest>

@@ -94,7 +94,7 @@ class FragmentClass : BaseFragment() {
     inner class ClazzAdapter : RecyclerAdapter<SpaceBean>(R.layout.item_fragment_class){
         override fun fillData(setter: RecyclerViewHolder, position: Int, entity: SpaceBean?) {
             setter.setText(R.id.class_name_id, entity?.clazzName)
-            setter.setText(R.id.class_desc_id, String.format(getString(R.string.desc), entity?.inviteCode, entity?.studentCount))
+            setter.setText(R.id.class_desc_id, getString(R.string.desc, entity?.inviteCode, entity?.studentCount))
             setter.addClickListener(R.id.add_teacher_btn)
             setter.addClickListener(R.id.class_space_btn)
             val adapter = ClassMemberAdapter()

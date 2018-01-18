@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">云书包老师版HD</string>
     <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
     <string name="add">添加</string>
     <!--首页start-->
     <string name="first_page">首页</string>
@@ -104,6 +105,11 @@
     <string name="create_group">创建小组</string>
     <string name="manage_group">管理小组</string>
     <string name="delete_group">删除小组</string>
-    <string name="student_count">学生人数：%1$s人</string>
+    <string name="student_count">学生人数：%1$d人</string>
+    <string name="group_name_hint">请输入小组名称</string>
+    <string name="group_name_info">请选择小组成员</string>
+    <string name="group_member">小组成员 长按设置组长</string>
+    <string name="set_group_leader">设置为组长</string>
+    <string name="cancel_group_leader">取消设置组长</string>
     <!--学习小组end-->
 </resources>

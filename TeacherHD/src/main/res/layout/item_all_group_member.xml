@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ebag.hd.widget.drawable.DrawableTextView
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:textColor="@color/normal_text_color"
+    android:textSize="@dimen/tv_sub"
+    android:gravity="center_vertical"
+    android:maxLines="1"
+    android:ellipsize="end"
+    android:drawablePadding="@dimen/x5"
+    android:layout_marginTop="@dimen/y15"
+    android:layout_marginLeft="@dimen/x5"
+    app:leftDrawable="@drawable/group_selector"
+    app:leftDrawableWidth="@dimen/x30"
+    app:leftDrawableHeight="@dimen/x30"
+    android:id="@+id/name_id"
+    >
+
+</ebag.hd.widget.drawable.DrawableTextView>

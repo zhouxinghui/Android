@@ -138,11 +138,10 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         classAdapter.datas = assignmentBean?.sendHomePageClazzInfoVos!![0].homeClazzInfoVos
         questionAdapter.datas = assignmentBean.resultAdvertisementVos
         unitAdapter.setNewData(assignmentBean.sendHomePageClazzInfoVos[0].bookVersionOrUnitVos as List<MultiItemEntity>)
-        textBookVersion.text = String.format(
-                resources.getString(R.string.textbook_name,
+        textBookVersion.text = getString(R.string.textbook_name,
                         assignmentBean.resultTaughtCoursesVo?.bookVersionName,
                         assignmentBean.resultTaughtCoursesVo?.semeterName,
-                        assignmentBean.resultTaughtCoursesVo?.bookName))
+                        assignmentBean.resultTaughtCoursesVo?.bookName)
     }
 
     override fun loadError(t: Throwable) {

@@ -1,9 +1,6 @@
 package com.yzy.ebag.teacher.http
 
-import com.yzy.ebag.teacher.bean.AssignmentBean
-import com.yzy.ebag.teacher.bean.FirstPageBean
-import com.yzy.ebag.teacher.bean.GroupBean
-import com.yzy.ebag.teacher.bean.SpaceBean
+import com.yzy.ebag.teacher.bean.*
 import ebag.hd.http.baseBean.ResponseBean
 import io.reactivex.Observable
 import okhttp3.RequestBody
@@ -39,4 +36,16 @@ interface TeacherService {
      */
     @POST("clazz/searchClassByGroupAll/{version}")
     fun studyGroup(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<GroupBean>>>
+
+    /**
+     * 根据班级查询班级下所有的成员（老师，学生，家长）
+     */
+    @POST("clazz/getClassUserByAll/{version}")
+    fun clazzMember(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ClassMemberBean>>
+
+    /**
+     * 创建学习小组
+     */
+    @POST("clazz/createByClazzGroup/{version}")
+    fun createGroup(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 }

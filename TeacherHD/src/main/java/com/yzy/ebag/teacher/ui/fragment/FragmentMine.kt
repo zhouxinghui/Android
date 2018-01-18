@@ -43,7 +43,7 @@ class FragmentMine : BaseFragment(), View.OnClickListener {
             headImg.loadHead(userEntity.headUrl)
             subjectTv.text = "英"
             name.text = userEntity.name
-            bagNumber.text = String.format(resources.getString(R.string.bag_number), userEntity.ysbCode)
+            bagNumber.text = getString(R.string.bag_number, userEntity.ysbCode)
         }
         personalInfo.setOnClickListener(this)
         myShop.setOnClickListener(this)

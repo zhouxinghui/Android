@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_marginTop="@dimen/y15"
+    android:layout_marginLeft="@dimen/x5"
+    >
+    <TextView android:id="@+id/deleteTv"
+        android:layout_width="@dimen/x30"
+        android:layout_height="@dimen/x30"
+        android:background="@drawable/icon_group_select_delete"
+        />
+    <TextView android:id="@+id/name_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x5"
+        android:textColor="@color/assignment_tv"
+        android:textSize="@dimen/tv_sub"
+        android:gravity="center_vertical"
+        />
+</LinearLayout>

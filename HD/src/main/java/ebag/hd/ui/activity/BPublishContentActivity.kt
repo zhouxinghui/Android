@@ -35,10 +35,10 @@ abstract class BPublishContentActivity: BaseActivity() {
         imgList.add("")
         recyclerView.layoutManager = GridLayoutManager(this, 8)
         recyclerView.adapter = imgAdapter
-        numberOfWord.text = String.format(resources.getString(R.string.number_of_word), 0)
+        numberOfWord.text = getString(R.string.number_of_word, 0)
         contentEdit.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(s: Editable?) {
-                numberOfWord.text = String.format(resources.getString(R.string.number_of_word), s?.length)
+                numberOfWord.text = getString(R.string.number_of_word, s?.length)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
