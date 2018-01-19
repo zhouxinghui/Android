@@ -6,6 +6,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.teacher.R
 import ebag.core.base.BaseActivity
+import ebag.hd.widget.CityPickerDialog
 import kotlinx.android.synthetic.main.activity_select_school.*
 
 class SelectSchoolActivity : BaseActivity() {
@@ -13,6 +14,7 @@ class SelectSchoolActivity : BaseActivity() {
         return R.layout.activity_select_school
     }
 
+    private val cityPickerDialog by lazy { CityPickerDialog(this) }
     override fun initViews() {
         val adapter = MyAdapter()
         recyclerView.adapter = adapter
@@ -22,6 +24,10 @@ class SelectSchoolActivity : BaseActivity() {
             list.add("人民小学")
         }
         adapter.setNewData(list)
+
+        cityBtn.setOnClickListener {
+            cityPickerDialog.show()
+        }
     }
 
     inner class MyAdapter: BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_select_school){

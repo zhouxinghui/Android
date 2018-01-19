@@ -1,4 +1,4 @@
-package ebag.hd.http.baseBean;
+package ebag.core.http.baseBean;
 
 /**
  * Created by caoyu on 2017/8/28.

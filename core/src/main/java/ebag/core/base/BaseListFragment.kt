@@ -155,7 +155,7 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
                 when (loadingStatus) {
                     FIRST -> stateView.showLoading()
                     REFRESH -> {
-//                        refreshLayout.isRefreshing = true
+                        refreshLayout.isRefreshing = true
                     }
                     LOAD_MORE -> { }
                 }
@@ -259,10 +259,8 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
 
     override fun lazyLoad() {
         if (needFirstLoad) {
-            loadingStatus = FIRST
-            mCurrentPage = 1
             // 加载各种数据
-            requestData(mCurrentPage, requestCallBack)
+            onRetryClick()
         }
     }
 

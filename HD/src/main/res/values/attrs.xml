@@ -61,4 +61,39 @@
     <declare-styleable name="WriteView">
         <attr name="isChinese" format="boolean"/>
     </declare-styleable>
+
+    <!--WheelView
+    attr 属性	        description 描述
+    lineColor	        divider line color 分割线颜色
+    lineHeight	        divider line height 分割线高度
+    itemNumber	        wheelview show item count 此wheelView显示item的个数
+    noEmpty	            if set true select area can't be null(empty),or could be empty 设置true则选中不能为空，否则可以是空
+    normalTextColor	    unSelected Text color 未选中文本颜色
+    normalTextSize	    unSelected Text size 未选中文本字体大小
+    selectedTextColor	selected Text color 选中文本颜色
+    selectedTextSize	selected Text size 选中文本字体大小
+    unitHeight	        item unit height 每个item单元的高度
+    isCyclic	        if scroll cyclic 是否循环滚动
+    maskDarkColor	    color of mask far from the select end 离选中位置远的遮罩颜色
+    maskLightColor	    color of mask near the select end 离选中位置近的遮罩颜色
+    -->
+    <declare-styleable name="WheelView">
+        <attr name="unitHeight" format="dimension" />
+        <attr name="itemNumber" format="integer"/>
+
+        <attr name="normalTextColor" format="color" />
+        <attr name="normalTextSize" format="dimension" />
+        <attr name="selectTextColor" format="color" />
+        <attr name="selectedTextSize" format="dimension" />
+        <attr name="isCyclic" format="boolean" />
+
+        <attr name="lineColor" format="color" />
+        <attr name="lineHeight" format="dimension" />
+
+        <attr name="noEmpty" format="boolean"/>
+        <attr name="isEnable" format="boolean"/>
+
+        <attr name="maskDarkColor" format="color" />
+        <attr name="maskLightColor" format="color" />
+    </declare-styleable>
 </resources>

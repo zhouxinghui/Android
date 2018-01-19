@@ -1,4 +1,4 @@
-package ebag.hd.http
+package ebag.core.http.network
 import android.content.Context
 import android.net.ConnectivityManager
 import ebag.core.http.network.MsgException

@@ -19,10 +19,10 @@ import com.yzy.ebag.teacher.bean.ClassMemberBean
 import com.yzy.ebag.teacher.bean.GroupBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
 import ebag.core.util.DensityUtil
 import ebag.core.util.T
 import ebag.hd.base.Constants
-import ebag.hd.http.handleThrowable
 import kotlinx.android.synthetic.main.dialog_group_manager.*
 
 /**
@@ -120,7 +120,6 @@ class GroupManageDialog(context: Context, classId: String): Dialog(context)  {
         cancelTv.setOnClickListener { dismiss() }
 
         memberAdapter.setNewData(groupMemberList)
-        TeacherApi.clazzMember(classId, classMemberRequest)
 
         memberAdapter.setOnItemLongClickListener { _, view, position ->
             currentBaseStudentBean = memberAdapter.getItem(position)
@@ -128,6 +127,9 @@ class GroupManageDialog(context: Context, classId: String): Dialog(context)  {
             showGroupSet(view)
             true
         }
+
+        TeacherApi.clazzMember(classId, classMemberRequest)
+        stateView.setOnRetryClickListener { TeacherApi.clazzMember(classId, classMemberRequest) }
     }
 
     fun show(groupList: List<GroupBean.ClazzUserVosBean>, groupName: String, groupId: String) {

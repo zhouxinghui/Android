@@ -1,13 +1,12 @@
 package ebag.hd.http
 import com.alibaba.fastjson.JSON
 import ebag.core.base.App
-import ebag.core.http.network.MsgException
-import ebag.core.http.network.RequestCallBack
-import ebag.core.http.network.RequestSubscriber
+import ebag.core.bean.ResponseBean
+import ebag.core.http.baseBean.RequestBean
+import ebag.core.http.network.*
+import ebag.hd.bean.ChildNodeBean
 import ebag.hd.bean.response.CodeEntity
 import ebag.hd.bean.response.UserEntity
-import ebag.hd.http.baseBean.RequestBean
-import ebag.hd.http.baseBean.ResponseBean
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -34,14 +33,12 @@ object EBagApi {
         }
         ob.subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
-            .observeOn(Schedulers.newThread())
-            .map(ShelledFunction())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(RequestSubscriber(callback))
+            .subscribe(EBagRequestObserver(callback))
     }
 
     /**返回的数据格式是按照我们自己定义的数据格式时调用此方法*/
-    fun <T> startRequest(ob: Observable<T>, callback: RequestCallBack<T>){
+    fun <T> startNormalRequest(ob: Observable<T>, callback: RequestCallBack<T>){
         if (!App.mContext!!.hasNetwork()){
             callback.onError(MsgException("500", "当前网络不可用，请检查网络设置！"))
             return
@@ -49,7 +46,7 @@ object EBagApi {
         ob.subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(RequestSubscriber(callback))
+            .subscribe(NormalRequestObserver(callback))
     }
 
     fun <T> createBody(request: T): RequestBody {
@@ -82,7 +79,7 @@ object EBagApi {
                 .addFormDataPart("test", test)
                 .build()
 
-        startRequest(EBagClient.eBagService.uploadHead(multipartBody), callBack)
+        startNormalRequest(EBagClient.eBagService.uploadHead(multipartBody), callBack)
     }
 
     /**
@@ -94,7 +91,7 @@ object EBagApi {
         jsonObj.put("password",pwd)
         jsonObj.put("loginType",1)
         jsonObj.put("roleCode",roleCode)
-        request(EBagClient.eBagService.login("v1", createBody(jsonObj)),callback)
+        request(EBagClient.eBagService.login("v1", createBody(jsonObj)), callback)
     }
 
     /**
@@ -112,6 +109,12 @@ object EBagApi {
 
     fun joinClass(code: String, role: String = "student"){
 
+    }
+
+    fun cityData(callback: RequestCallBack<List<ChildNodeBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("id", 1)
+        request(EBagClient.eBagService.cityData("v1", createBody(jsonObject)), callback)
     }
 
 }

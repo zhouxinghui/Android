@@ -1,7 +1,7 @@
 package com.yzy.ebag.teacher.http
 
 import com.yzy.ebag.teacher.bean.*
-import ebag.hd.http.baseBean.ResponseBean
+import ebag.core.bean.ResponseBean
 import io.reactivex.Observable
 import okhttp3.RequestBody
 import retrofit2.http.Body

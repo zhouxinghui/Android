@@ -1,4 +1,4 @@
-package ebag.hd.http.baseBean;
+package ebag.core.http.baseBean;
 
 import com.alibaba.fastjson.JSON;
 

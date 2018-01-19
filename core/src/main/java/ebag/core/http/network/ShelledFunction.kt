@@ -1,7 +1,7 @@
-package ebag.hd.http
+package ebag.core.http.network
 
+import ebag.core.bean.ResponseBean
 import ebag.core.http.network.MsgException
-import ebag.hd.http.baseBean.ResponseBean
 import io.reactivex.functions.Function
 
 /**

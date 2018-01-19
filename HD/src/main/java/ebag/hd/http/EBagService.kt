@@ -1,13 +1,12 @@
 package ebag.hd.http
 
+import ebag.core.bean.ResponseBean
+import ebag.core.http.baseBean.RequestBean
+import ebag.hd.bean.ChildNodeBean
 import ebag.hd.bean.request.CodeVo
 import ebag.hd.bean.request.LoginVo
 import ebag.hd.bean.response.CodeEntity
 import ebag.hd.bean.response.UserEntity
-import ebag.hd.http.baseBean.QuestionErrEntity
-import ebag.hd.http.baseBean.RequestBean
-import ebag.hd.http.baseBean.ResponseBean
-import ebag.hd.http.baseBean.ResponseEntity
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -23,11 +22,11 @@ import retrofit2.http.Path
 interface EBagService {
 
     /**
-     * 城市标签
+     * 省市区县基础数据
      * @return
      */
-    @POST("services/exam/searchQuestionErr")
-    fun getSmscode(@Body requestBody: RequestBean<QuestionErrEntity>): Observable<ResponseBean<List<ResponseEntity>>>
+    @POST("data/getProvincCityReginCascade/{version}")
+    fun cityData(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<ChildNodeBean>>>
 
     /**
      * 登录

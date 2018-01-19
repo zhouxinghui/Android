@@ -5,8 +5,8 @@ import com.yzy.ebag.student.bean.SpaceBean
 import com.yzy.ebag.student.bean.SubjectBean
 import ebag.core.http.network.RequestCallBack
 import ebag.hd.bean.response.UserEntity
-import ebag.hd.http.EBagApi
-import ebag.hd.http.EBagClient
+import ebag.hd.http.network.EBagApi
+import ebag.hd.http.network.EBagClient
 import org.json.JSONObject
 
 /**

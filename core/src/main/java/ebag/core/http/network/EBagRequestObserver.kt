@@ -1,12 +1,13 @@
 package ebag.core.http.network
 
+import ebag.core.bean.ResponseBean
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
 /**
  * Created by unicho on 2017/11/9.
  */
-class RequestSubscriber<E>(private val requestCallBack: RequestCallBack<E>) : Observer<E>, OnRequestCancelListener {
+class EBagRequestObserver<E>(private val requestCallBack: RequestCallBack<E>) : Observer<ResponseBean<E>>, OnRequestCancelListener {
     private var disposable: Disposable? = null
     init {
         this.requestCallBack.setOnRequestCancelListener(this)
@@ -17,8 +18,11 @@ class RequestSubscriber<E>(private val requestCallBack: RequestCallBack<E>) : Ob
         this.disposable = d
     }
 
-    override fun onNext(e: E) {
-        this.requestCallBack.onSuccess(e)
+    override fun onNext(response: ResponseBean<E>) {
+        if(response.success == "200")
+            this.requestCallBack.onSuccess(response.data)
+        else
+            this.requestCallBack.onError(MsgException(response.success ?: "0", response.message ?: "服务器异常"))
     }
 
     override fun onComplete() {
