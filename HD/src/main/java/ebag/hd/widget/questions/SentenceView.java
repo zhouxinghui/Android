@@ -18,7 +18,7 @@ import ebag.hd.widget.questions.base.LineEditText;
 import ebag.hd.widget.questions.util.QuestionTypeUtils;
 
 /**
- * Created by unicho on 2017/12/29.
+ * Created by caoyu on 2017/12/29.
  */
 
 public class SentenceView extends BaseQuestionView {

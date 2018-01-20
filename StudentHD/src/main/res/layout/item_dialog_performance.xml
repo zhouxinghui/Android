@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/x178"
+    android:background="@drawable/bac_f2_rectangle_stroke">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/x106"
+        android:layout_height="@dimen/x106"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/text"/>
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="专心听讲"
+        android:textSize="@dimen/tv_second"
+        android:textColor="#5b626d"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image"/>
+
+    <TextView
+        android:id="@+id/tvTag"
+        android:layout_width="@dimen/x30"
+        android:layout_height="@dimen/x30"
+        android:layout_marginTop="@dimen/x10"
+        android:layout_marginEnd="@dimen/x10"
+        android:textColor="@color/white"
+        android:textSize="@dimen/tv_third"
+        android:gravity="center"
+        tools:text="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/bac_blue_round"/>
+</android.support.constraint.ConstraintLayout>

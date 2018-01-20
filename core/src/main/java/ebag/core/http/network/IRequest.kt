@@ -1,7 +1,7 @@
 package ebag.core.http.network
 
 /**
- * Created by unicho on 2017/11/9.
+ * Created by caoyu on 2017/11/9.
  */
 interface IRequest<in T> {
     /**

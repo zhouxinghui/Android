@@ -22,7 +22,7 @@ import ebag.hd.widget.questions.base.BaseQuestionView;
 import ebag.hd.widget.questions.base.MathLine;
 
 /**
- * Created by unicho on 2018/1/5.
+ * Created by caoyu on 2018/1/5.
  */
 
 public class MathEquationView extends BaseQuestionView {

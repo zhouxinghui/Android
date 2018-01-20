@@ -11,7 +11,7 @@ import ebag.hd.ui.view.LoginView
 
 /**
  * presenter 登录页面的控制类
- * Created by unicho on 2017/11/2.
+ * Created by caoyu on 2017/11/2.
  */
 internal class LoginPresenter(view: LoginView, listener: OnToastListener): BasePresenter<LoginView>(view,listener) {
 

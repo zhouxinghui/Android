@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.base_list_view.*
 import java.util.*
 
 /**
- * Created by unicho on 2017/11/30.
+ * Created by caoyu on 2017/11/30.
  */
 abstract class BaseListFragment<Parent, E> : LazyFragment(),
         StateView.OnRetryClickListener,

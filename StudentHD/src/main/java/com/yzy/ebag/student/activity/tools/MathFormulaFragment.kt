@@ -14,7 +14,7 @@ import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
 
 /**
- * Created by unicho on 2018/1/14.
+ * Created by caoyu on 2018/1/14.
  */
 class MathFormulaFragment: BaseListFragment<String, MathFormulaFragment.Formula>() {
 

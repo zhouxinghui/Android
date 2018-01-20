@@ -4,7 +4,7 @@ import ebag.hd.bean.response.UserEntity
 
 
 /**
- * Created by unicho on 2017/11/2.
+ * Created by caoyu on 2017/11/2.
  */
 interface LoginView {
 

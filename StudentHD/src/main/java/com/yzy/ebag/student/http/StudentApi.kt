@@ -5,12 +5,12 @@ import com.yzy.ebag.student.bean.SpaceBean
 import com.yzy.ebag.student.bean.SubjectBean
 import ebag.core.http.network.RequestCallBack
 import ebag.hd.bean.response.UserEntity
-import ebag.hd.http.network.EBagApi
-import ebag.hd.http.network.EBagClient
+import ebag.hd.http.EBagApi
+import ebag.hd.http.EBagClient
 import org.json.JSONObject
 
 /**
- * Created by unicho on 2018/1/8.
+ * Created by caoyu on 2018/1/8.
  */
 object StudentApi{
 

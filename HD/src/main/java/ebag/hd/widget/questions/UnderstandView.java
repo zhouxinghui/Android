@@ -13,7 +13,7 @@ import ebag.hd.widget.questions.base.BaseQuestionView;
 import ebag.hd.widget.questions.base.FillBlankView;
 
 /**
- * Created by unicho on 2018/1/2.
+ * Created by caoyu on 2018/1/2.
  */
 
 public class UnderstandView extends BaseQuestionView {

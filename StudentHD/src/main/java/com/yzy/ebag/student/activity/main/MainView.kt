@@ -3,7 +3,7 @@ package com.yzy.ebag.student.activity.main
 import com.yzy.ebag.student.bean.ClassesInfoBean
 
 /**
- * Created by unicho on 2018/1/12.
+ * Created by caoyu on 2018/1/12.
  */
 interface MainView {
 

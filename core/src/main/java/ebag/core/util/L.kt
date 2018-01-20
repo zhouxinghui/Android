@@ -3,7 +3,7 @@ package ebag.core.util
 import android.util.Log
 
 /**
- * Created by unicho on 2017/11/1.
+ * Created by caoyu on 2017/11/1.
  */
 object L {
     val IS_DEBUG = true

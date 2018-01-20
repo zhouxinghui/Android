@@ -11,7 +11,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature
 
 
 /**
- * Created by unicho on 2017/12/1.
+ * Created by caoyu on 2017/12/1.
  */
 object JSONUtil {
     private val CONFIG = arrayOf(SerializerFeature.WriteNullBooleanAsFalse, //boolean为null时输出false

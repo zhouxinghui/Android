@@ -5,7 +5,7 @@ import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
 
 /**
- * Created by unicho on 2017/11/13.
+ * Created by caoyu on 2017/11/13.
  */
 class Demo2 {
 

@@ -13,7 +13,7 @@ import ebag.core.http.network.RequestCallBack
 
 
 /**
- * Created by unicho on 2018/1/8.
+ * Created by caoyu on 2018/1/8.
  */
 class BookListActivity: BaseListActivity<List<BookBean>, BookBean>() {
 

@@ -3,7 +3,7 @@ package com.yzy.ebag.student.bean;
 import com.alibaba.fastjson.annotation.JSONField;
 
 /**
- * Created by unicho on 2018/1/8.
+ * Created by caoyu on 2018/1/8.
  */
 
 public class BookBean {

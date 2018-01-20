@@ -7,7 +7,7 @@ import com.yzy.ebag.student.R
 import ebag.core.base.BaseFragment
 
 /**
- * Created by unicho on 2018/1/13.
+ * Created by caoyu on 2018/1/13.
  */
 class PersonalFragment: BaseFragment() {
     companion object {

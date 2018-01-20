@@ -11,7 +11,7 @@ import com.yzy.ebag.student.base.BaseListTabActivity
 import ebag.core.http.network.RequestCallBack
 
 /**
- * Created by unicho on 2018/1/13.
+ * Created by caoyu on 2018/1/13.
  */
 class MathFormulaActivity: BaseListTabActivity<String,String>() {
 

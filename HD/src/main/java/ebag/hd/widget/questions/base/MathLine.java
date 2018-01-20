@@ -10,7 +10,7 @@ import android.view.View;
 import ebag.hd.R;
 
 /**
- * Created by unicho on 2018/1/5.
+ * Created by caoyu on 2018/1/5.
  */
 
 public class MathLine extends View{

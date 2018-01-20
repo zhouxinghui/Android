@@ -17,6 +17,8 @@
 
     <color name="green">#97E14F</color>
 
+
+    <color name="performance_line_selected">#52A2FF</color>
     <!--TabLayout-->
     <color name="color_tab_selected_text">#1E85FF</color>
     <color name="color_tab_text">#4A4A4A</color>

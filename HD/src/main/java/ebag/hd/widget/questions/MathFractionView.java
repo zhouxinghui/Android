@@ -17,7 +17,7 @@ import ebag.hd.widget.questions.base.BaseQuestionView;
 import ebag.hd.widget.questions.base.MathView;
 
 /**
- * Created by unicho on 2018/1/6.
+ * Created by caoyu on 2018/1/6.
  */
 
 public class MathFractionView extends BaseQuestionView {

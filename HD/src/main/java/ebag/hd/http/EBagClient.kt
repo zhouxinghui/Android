@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit
 
 /**
  * 网络请求的全局配置
- * Created by unicho on 2017/11/1.
+ * Created by caoyu on 2017/11/1.
  */
 object EBagClient {
 

@@ -11,7 +11,7 @@ import ebag.hd.base.Constants
 import kotlinx.android.synthetic.main.activity_setting.*
 
 /**
- * Created by unicho on 2018/1/9.
+ * Created by caoyu on 2018/1/9.
  */
 class SettingActivity: BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {

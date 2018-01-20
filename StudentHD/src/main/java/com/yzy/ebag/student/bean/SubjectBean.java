@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import java.util.List;
 
 /**
- * Created by unicho on 2018/1/12.
+ * Created by caoyu on 2018/1/12.
  */
 
 public class SubjectBean implements MultiItemEntity {

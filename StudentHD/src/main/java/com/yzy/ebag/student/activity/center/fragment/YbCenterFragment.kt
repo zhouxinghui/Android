@@ -8,7 +8,7 @@ import ebag.core.util.T
 import kotlinx.android.synthetic.main.fragment_yb_center.*
 
 /**
- * @author 曹宇
+ * @author caoyu
  * @date 2018/1/18
  * @description
  */

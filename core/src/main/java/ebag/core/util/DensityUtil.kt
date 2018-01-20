@@ -3,7 +3,7 @@ package ebag.core.util
 import android.content.Context
 
 /**
- * Created by unicho on 2017/11/6.
+ * Created by caoyu on 2017/11/6.
  */
 object DensityUtil {
 

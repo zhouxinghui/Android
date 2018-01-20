@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.activity.center.fragment.*
+import com.yzy.ebag.student.dialog.PerformanceDialog
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.util.SerializableUtils
 import ebag.core.util.T
@@ -16,7 +17,7 @@ import ebag.hd.bean.response.UserEntity
 import kotlinx.android.synthetic.main.activity_personal.*
 
 /**
- * Created by unicho on 2018/1/12.
+ * Created by caoyu on 2018/1/12.
  */
 class PersonalActivity: MVPActivity() {
 
@@ -48,10 +49,14 @@ class PersonalActivity: MVPActivity() {
 
         adapter.setOnItemClickListener { _, _, position ->
             if(adapter.selectedPosition != position){
-                adapter.selectedPosition = position
                 when(position){
-                    3 -> { T.show(this@PersonalActivity, "课堂表现")}
-                    else -> changeFragment(position)
+                    3 -> {
+                        performanceDialog.show(supportFragmentManager,"performanceDialog")
+                    }
+                    else -> {
+                        adapter.selectedPosition = position
+                        changeFragment(position)
+                    }
                 }
             }
         }
@@ -123,6 +128,11 @@ class PersonalActivity: MVPActivity() {
              */
             fragmentTransaction.commitAllowingStateLoss()   //提交
         }
+    }
+
+
+    val performanceDialog by lazy {
+        PerformanceDialog.newInstance()
     }
 
     private class Adapter: BaseQuickAdapter<Int,BaseViewHolder>(R.layout.item_activity_personal_left){

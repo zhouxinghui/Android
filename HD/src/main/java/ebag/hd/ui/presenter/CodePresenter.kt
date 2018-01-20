@@ -14,7 +14,7 @@ import io.reactivex.disposables.Disposable
 import java.util.concurrent.TimeUnit
 
 /**
- * Created by unicho on 2017/11/11.
+ * Created by caoyu on 2017/11/11.
  * presenter 验证码
  */
 open class CodePresenter(view: CodeView, listener: OnToastListener): BasePresenter<CodeView>(view,listener) {

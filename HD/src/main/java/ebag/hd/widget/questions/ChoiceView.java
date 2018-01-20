@@ -23,7 +23,7 @@ import ebag.hd.widget.questions.base.BaseQuestionView;
 import ebag.hd.widget.questions.util.QuestionTypeUtils;
 
 /**
- * Created by unicho on 2017/12/22.
+ * Created by caoyu on 2017/12/22.
  */
 
 public class ChoiceView extends BaseQuestionView implements OnItemClickListener {

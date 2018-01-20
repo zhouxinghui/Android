@@ -16,7 +16,7 @@ import ebag.core.xRecyclerView.XRecyclerView;
 
 /**
  * Group 不能为NULL
- * Created by unicho on 2018/1/9.
+ * Created by caoyu on 2018/1/9.
  */
 
 public abstract class ExpandableAdapter<Group extends ExpandableAdapter.IExpandable<Child>, Child> extends RecyclerView.Adapter<ExpandableViewHolder>

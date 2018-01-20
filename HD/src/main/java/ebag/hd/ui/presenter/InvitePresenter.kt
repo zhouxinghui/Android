@@ -5,7 +5,7 @@ import ebag.core.base.mvp.OnToastListener
 import ebag.hd.ui.view.InviteView
 
 /**
- * Created by unicho on 2017/11/21.
+ * Created by caoyu on 2017/11/21.
  * presenter 输入注册码
  */
 class InvitePresenter(view: InviteView, listener: OnToastListener) : BasePresenter<InviteView>(view,listener) {

@@ -22,7 +22,7 @@ import ebag.hd.widget.questions.base.BaseQuestionView;
 
 /**
  * 排序-语文
- * Created by unicho on 2017/12/28.
+ * Created by caoyu on 2017/12/28.
  */
 
 public class SortVerticalView extends BaseQuestionView {

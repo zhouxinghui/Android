@@ -12,7 +12,7 @@ import ebag.core.util.AppManager
 
 
 /**
- * Created by unicho on 2017/10/31.
+ * Created by caoyu on 2017/10/31.
  */
 abstract class BaseActivity : AppCompatActivity() {
 

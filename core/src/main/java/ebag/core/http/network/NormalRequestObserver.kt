@@ -4,7 +4,7 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
 /**
- * Created by unicho on 2017/11/9.
+ * Created by caoyu on 2017/11/9.
  */
 class NormalRequestObserver<E>(private val requestCallBack: RequestCallBack<E>) : Observer<E>, OnRequestCancelListener {
     private var disposable: Disposable? = null

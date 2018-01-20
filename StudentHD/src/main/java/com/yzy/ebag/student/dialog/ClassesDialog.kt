@@ -10,7 +10,7 @@ import com.yzy.ebag.student.bean.ClassListInfoBean
 import kotlinx.android.synthetic.main.dialog_classes.*
 
 /**
- * @author 曹宇
+ * @author caoyu
  * @date 2018/1/16
  * @description 我的班级 列表
  */

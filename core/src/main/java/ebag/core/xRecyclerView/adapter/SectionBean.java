@@ -3,7 +3,7 @@ package ebag.core.xRecyclerView.adapter;
 import java.util.List;
 
 /**
- * Created by unicho on 2018/1/9.
+ * Created by caoyu on 2018/1/9.
  */
 
 public class SectionBean<T> {

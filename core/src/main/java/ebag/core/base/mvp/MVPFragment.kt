@@ -5,7 +5,7 @@ import ebag.core.base.BaseFragment
 import ebag.core.util.T
 
 /**
- * Created by unicho on 2017/11/1.
+ * Created by caoyu on 2017/11/1.
  */
 abstract class MVPFragment: BaseFragment(), OnToastListener {
 

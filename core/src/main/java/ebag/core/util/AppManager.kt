@@ -9,7 +9,7 @@ import java.util.*
 /**
  * 当这个类名改为object后 表示里面的所有方法都是静态方法
  *
- * Created by unicho on 2017/10/31.
+ * Created by caoyu on 2017/10/31.
  */
 object AppManager {
 

@@ -4,7 +4,7 @@ import ebag.core.base.BaseActivity
 import ebag.core.util.T
 
 /**
- * Created by unicho on 2017/11/1.
+ * Created by caoyu on 2017/11/1.
  */
 abstract class MVPActivity : BaseActivity(), OnToastListener {
     protected abstract fun destroyPresenter()

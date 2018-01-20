@@ -5,7 +5,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Created by unicho on 17-9-23.
+ * Created by caoyu on 17-9-23.
  */
 
 public class DownLoadObserver implements Observer<DownloadInfo> {

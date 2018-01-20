@@ -23,7 +23,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Created by unicho on 17-9-23.
+ * Created by caoyu on 17-9-23.
  */
 
 public class DownloadManager {

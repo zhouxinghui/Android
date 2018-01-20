@@ -25,7 +25,7 @@ import ebag.hd.R;
 
 
 /**
- * Created by unicho on 2017/11/23.
+ * Created by caoyu on 2017/11/23.
  */
 
 public class TitleBar extends RelativeLayout {

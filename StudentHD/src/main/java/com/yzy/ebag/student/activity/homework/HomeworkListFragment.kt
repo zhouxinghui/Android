@@ -17,7 +17,7 @@ import java.util.*
 
 
 /**
- * Created by unicho on 2018/1/8.
+ * Created by caoyu on 2018/1/8.
  */
 class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInfoBean>(){
 

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import ebag.hd.R;
 
 /**
- * Created by unicho on 2018/1/6.
+ * Created by caoyu on 2018/1/6.
  */
 
 public class MathFraction extends ViewGroup {

@@ -9,7 +9,7 @@ import ebag.hd.R
 import kotlinx.android.synthetic.main.activity_base_tabstrip.*
 
 /**
- * Created by unicho on 2017/11/29.
+ * Created by caoyu on 2017/11/29.
  */
 abstract class BaseTabActivity : BaseActivity(){
 

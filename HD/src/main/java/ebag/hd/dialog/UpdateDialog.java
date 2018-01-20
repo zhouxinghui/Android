@@ -13,7 +13,7 @@ import ebag.hd.R;
 
 
 /**
- * Created by unicho on 2017/11/25.
+ * Created by caoyu on 2017/11/25.
  */
 
 public class UpdateDialog extends AppCompatDialogFragment implements View.OnClickListener{

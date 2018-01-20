@@ -7,7 +7,7 @@ import ebag.core.base.mvp.OnToastListener
 import ebag.core.http.network.RequestCallBack
 
 /**
- * Created by unicho on 2018/1/12.
+ * Created by caoyu on 2018/1/12.
  */
 class MainPresenter(view: MainView, listener: OnToastListener): BasePresenter<MainView>(view,listener) {
 

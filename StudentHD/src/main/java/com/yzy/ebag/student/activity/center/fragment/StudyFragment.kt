@@ -13,7 +13,7 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.util.DateUtil
 
 /**
- * @author 曹宇
+ * @author caoyu
  * @date 2018/1/17
  * @description
  */

@@ -17,7 +17,7 @@ import retrofit2.http.Path
 
 /**
  * Retrofit 主要使网络请求相关的接口、参数
- * Created by unicho on 2017/11/1.
+ * Created by caoyu on 2017/11/1.
  */
 interface EBagService {
 

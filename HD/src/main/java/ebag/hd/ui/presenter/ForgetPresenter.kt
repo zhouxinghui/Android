@@ -6,7 +6,7 @@ import ebag.hd.ui.view.ForgetView
 
 
 /**
- * Created by unicho on 2017/11/11.
+ * Created by caoyu on 2017/11/11.
  * presenter 忘记密码
  */
 class ForgetPresenter(view: ForgetView, listener: OnToastListener) : BasePresenter<ForgetView>(view,listener) {

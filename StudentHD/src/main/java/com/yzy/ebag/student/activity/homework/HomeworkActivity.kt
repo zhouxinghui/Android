@@ -1,6 +1,9 @@
 package com.yzy.ebag.student.activity.homework
 
+import android.content.Context
+import android.content.Intent
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
@@ -16,11 +19,21 @@ import ebag.core.http.network.RequestCallBack
 
 
 /**
- * Created by unicho on 2018/1/9.
+ * Created by caoyu on 2018/1/9.
  */
 class HomeworkActivity : BaseListTabActivity<ArrayList<SubjectBean>, SubjectBean>() {
     private var type = "1"
     private var classId = ""
+
+    companion object {
+        fun jump(content: Context, type: String, classId: String){
+            content.startActivity(
+                    Intent(content, HomeworkActivity::class.java)
+                            .putExtra("type", type)
+                            .putExtra("classId",classId)
+            )
+        }
+    }
 
     override fun loadConfig() {
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x180))

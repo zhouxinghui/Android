@@ -3,7 +3,7 @@ package com.yzy.ebag.student.bean;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 /**
- * Created by unicho on 2018/1/14.
+ * Created by caoyu on 2018/1/14.
  */
 
 public class LetterBean implements MultiItemEntity{

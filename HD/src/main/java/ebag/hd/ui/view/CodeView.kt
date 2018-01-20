@@ -4,7 +4,7 @@ import ebag.hd.bean.response.CodeEntity
 
 
 /**
- * Created by unicho on 2017/11/11.
+ * Created by caoyu on 2017/11/11.
  */
 interface CodeView {
 

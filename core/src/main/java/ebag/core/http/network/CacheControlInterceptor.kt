@@ -5,7 +5,7 @@ import okhttp3.Request
 import okhttp3.Response
 
 /**
- * Created by unicho on 2017/11/13.
+ * Created by caoyu on 2017/11/13.
  */
 class CacheControlInterceptor: Interceptor {
     override fun intercept(chain: Interceptor.Chain?): Response? {

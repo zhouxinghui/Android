@@ -1,7 +1,7 @@
 package ebag.core.http.file;
 
 /**
- * Created by unicho on 17-9-23.
+ * Created by caoyu on 17-9-23.
  */
 
 public class DownloadInfo {

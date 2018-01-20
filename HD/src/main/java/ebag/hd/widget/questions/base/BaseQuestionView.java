@@ -22,7 +22,7 @@ import ebag.hd.R;
 import ebag.hd.widget.questions.util.IQuestionEvent;
 
 /**
- * Created by unicho on 2018/1/2.
+ * Created by caoyu on 2018/1/2.
  */
 
 public abstract class BaseQuestionView extends LinearLayout implements IQuestionEvent{

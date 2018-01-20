@@ -6,10 +6,11 @@ import android.support.v7.app.AppCompatDialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import ebag.hd.R
 
 /**
- * @author 曹宇
+ * @author caoyu
  * @date 2018/1/16
  * @description
  */
@@ -21,10 +22,12 @@ open abstract class BaseFragmentDialog: AppCompatDialogFragment() {
         super.onCreate(savedInstanceState)
         getBundle(arguments)
         mContext = activity
+        //添加这一行
         setStyle(AppCompatDialogFragment.STYLE_NO_TITLE, R.style.NoBackgroundDialog)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         return inflater.inflate(getLayoutRes(), container)
     }
 

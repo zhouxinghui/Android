@@ -9,7 +9,7 @@ import java.util.*
  * Presenter 的基类，主要封装了生命周期方法、toast 方法，
  * 以及资源的自动释放
  * 里面相应的方法会在 Activity 或者 Fragment 的生命周期里调用
- * Created by unicho on 2017/11/1.
+ * Created by caoyu on 2017/11/1.
  */
 abstract class BasePresenter<out V>(view: V, listener: OnToastListener) {
 

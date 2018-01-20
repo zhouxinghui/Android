@@ -42,6 +42,7 @@
         <activity android:name=".activity.tools.MathFormulaActivity"/>
         <activity android:name=".activity.tools.LetterActivity"/>
         <activity android:name=".activity.main.AnnounceActivity"/>
+        <activity android:name=".activity.homework.ErrorTopicActivity"/>
     </application>
 
 </manifest>

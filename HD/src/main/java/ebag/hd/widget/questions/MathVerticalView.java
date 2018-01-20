@@ -25,7 +25,7 @@ import ebag.hd.R;
 import ebag.hd.widget.questions.base.BaseQuestionView;
 
 /**
- * Created by unicho on 2018/1/4.
+ * Created by caoyu on 2018/1/4.
  */
 
 public class MathVerticalView extends BaseQuestionView{

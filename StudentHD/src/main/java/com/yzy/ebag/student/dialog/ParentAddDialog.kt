@@ -6,7 +6,7 @@ import com.yzy.ebag.student.R
 import kotlinx.android.synthetic.main.dialog_class_add.*
 
 /**
- * @author 曹宇
+ * @author caoyu
  * @date 2018/1/18
  * @description
  */

@@ -11,7 +11,7 @@ import ebag.hd.ui.view.ForgetView
 import kotlinx.android.synthetic.main.activity_forget.*
 
 /**
- * Created by unicho on 2017/11/13.
+ * Created by caoyu on 2017/11/13.
  * activity 忘记密码
  */
 open class BForgetActivity : MVPActivity(), CodeView, ForgetView {

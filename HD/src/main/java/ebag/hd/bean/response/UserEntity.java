@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * 用户信息
- * Created by unicho on 2017/11/13.
+ * Created by caoyu on 2017/11/13.
  */
 
 public class UserEntity implements Serializable{

@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 
 /**
- * Created by unicho on 2017/11/2.
+ * Created by caoyu on 2017/11/2.
  * Activity 登录&注册
  */
 open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {

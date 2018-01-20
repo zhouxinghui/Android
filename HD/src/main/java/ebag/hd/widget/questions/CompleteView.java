@@ -17,7 +17,7 @@ import ebag.hd.widget.questions.base.FillBlankView;
 import ebag.hd.widget.questions.util.QuestionTypeUtils;
 
 /**
- * Created by unicho on 2017/12/23.
+ * Created by caoyu on 2017/12/23.
  */
 
 public class CompleteView extends BaseQuestionView {

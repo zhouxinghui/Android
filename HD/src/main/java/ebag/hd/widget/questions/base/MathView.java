@@ -21,7 +21,7 @@ import ebag.hd.R;
 import ebag.hd.widget.questions.MathFractionView;
 
 /**
- * Created by unicho on 2018/1/5.
+ * Created by caoyu on 2018/1/5.
  */
 
 public class MathView extends RecyclerView {

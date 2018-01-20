@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 
 /**
  * 网络请求的回调类
- * Created by unicho on 2017/11/10.
+ * Created by caoyu on 2017/11/10.
  */
 class HttpLoggingInterceptor : Interceptor {
     private val UTF8 = Charset.forName("UTF-8")

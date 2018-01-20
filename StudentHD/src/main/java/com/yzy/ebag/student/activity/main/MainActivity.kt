@@ -9,6 +9,7 @@ import com.yzy.ebag.student.R
 import com.yzy.ebag.student.activity.SettingActivity
 import com.yzy.ebag.student.activity.book.BookListActivity
 import com.yzy.ebag.student.activity.center.PersonalActivity
+import com.yzy.ebag.student.activity.homework.ErrorTopicActivity
 import com.yzy.ebag.student.activity.homework.HomeworkActivity
 import com.yzy.ebag.student.activity.tools.ToolsActivity
 import com.yzy.ebag.student.bean.ClassListInfoBean
@@ -109,11 +110,7 @@ class MainActivity : MVPActivity(), MainView {
             if(StringUtils.isEmpty(classId)) {
                 T.show(this, "请点击加载左侧班级数据！")
             }else{
-                startActivity(
-                    Intent(this, HomeworkActivity::class.java)
-                            .putExtra("type", com.yzy.ebag.student.base.Constants.KHZY_TYPE)
-                            .putExtra("classId",classId)
-                )
+                HomeworkActivity.jump(this,com.yzy.ebag.student.base.Constants.KHZY_TYPE,classId)
             }
         }
         //随堂作业
@@ -121,17 +118,13 @@ class MainActivity : MVPActivity(), MainView {
             if(StringUtils.isEmpty(classId)) {
                 T.show(this, "请点击加载左侧班级数据！")
             }else{
-                startActivity(
-                    Intent(this, HomeworkActivity::class.java)
-                            .putExtra("type",com.yzy.ebag.student.base.Constants.STZY_TYPE)
-                            .putExtra("classId",classId)
-                )
+                HomeworkActivity.jump(this,com.yzy.ebag.student.base.Constants.STZY_TYPE,classId)
             }
         }
 
         //考试试卷
         tvKSSJ.setOnClickListener{
-            startActivity(Intent(this, HomeworkActivity::class.java).putExtra("type",3))
+            HomeworkActivity.jump(this, "3", classId)
         }
         //学习课本点击事件
         tvXXKB.setOnClickListener{
@@ -160,7 +153,7 @@ class MainActivity : MVPActivity(), MainView {
 
         //我的错题
         btnMyError.setOnClickListener{
-
+            ErrorTopicActivity.jump(this, classId)
         }
         //我的同学
         btnMyClassmate.setOnClickListener{

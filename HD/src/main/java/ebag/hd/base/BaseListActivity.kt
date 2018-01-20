@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_base_list.*
 import java.util.*
 
 /**
- * Created by unicho on 2018/1/8.
+ * Created by caoyu on 2018/1/8.
  */
 abstract class BaseListActivity<Parent, E> : BaseActivity(),
         StateView.OnRetryClickListener,

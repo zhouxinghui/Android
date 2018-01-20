@@ -5,7 +5,7 @@ import java.util.*
 import java.util.regex.Pattern
 
 /**
- * Created by unicho on 2017/11/1.
+ * Created by caoyu on 2017/11/1.
  */
 object StringUtils {
     /**

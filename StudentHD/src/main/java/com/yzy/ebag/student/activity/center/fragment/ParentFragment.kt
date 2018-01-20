@@ -19,7 +19,7 @@ import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
 
 /**
- * @author 曹宇
+ * @author caoyu
  * @date 2018/1/18
  * @description
  */

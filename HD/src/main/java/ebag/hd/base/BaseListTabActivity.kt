@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_base_list_tab.*
 import java.util.*
 
 /**
- * Created by unicho on 2018/1/13.
+ * Created by caoyu on 2018/1/13.
  */
 abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
         BaseQuickAdapter.OnItemClickListener,

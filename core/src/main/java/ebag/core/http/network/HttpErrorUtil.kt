@@ -12,7 +12,7 @@ import java.net.UnknownHostException
 
 
 /**
- * Created by unicho on 2017/11/13.
+ * Created by caoyu on 2017/11/13.
  */
 fun Throwable.handleThrowable(mContext: Context, isToast: Boolean = true, callback: ((MsgException) -> Unit)? = null){
     when (this){

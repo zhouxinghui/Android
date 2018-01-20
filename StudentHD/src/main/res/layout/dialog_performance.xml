@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/x40"
+    android:background="@drawable/dialog_radius_bg">
+
+    <View
+        android:id="@+id/bg"
+        android:layout_width="@dimen/x508"
+        android:layout_height="1dp"/>
+    
+    <ImageView
+        android:id="@+id/ivHead"
+        android:layout_width="@dimen/x128"
+        android:layout_height="@dimen/x128"
+        android:layout_marginTop="@dimen/x30"
+        android:src="@drawable/head_default"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintTop_toTopOf="@id/bg" />
+
+    <View
+        android:id="@+id/btnClose"
+        android:layout_width="@dimen/x58"
+        android:layout_height="@dimen/x58"
+        android:background="@drawable/my_class_dialog_close"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintTop_toTopOf="@id/bg" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x20"
+        android:textSize="@dimen/tv_big"
+        android:textColor="#393a3f"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintTop_toBottomOf="@id/ivHead"
+        tools:text="周哥哥" />
+
+    <FrameLayout
+        android:id="@+id/tvReward"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@id/tvCriticism"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintTop_toBottomOf="@id/tvName">
+        <ebag.hd.widget.drawable.DrawableTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="值得表扬"
+            android:padding="@dimen/x12"
+            android:drawablePadding="@dimen/x10"
+            android:textColor="@color/color_performance_text_selector"
+            android:textSize="@dimen/tv_normal"
+            app:leftDrawable="@drawable/icon_smile_face_selector"
+            app:leftDrawableHeight="@dimen/x26"
+            app:leftDrawableWidth="@dimen/x26"
+            android:gravity="center"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y1"
+            android:background="@drawable/performance_line_selector"
+            android:layout_gravity="bottom"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/tvCriticism"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toEndOf="@id/tvReward"
+        app:layout_constraintTop_toTopOf="@id/tvReward"
+        app:layout_constraintBottom_toBottomOf="@id/tvReward">
+        <ebag.hd.widget.drawable.DrawableTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="需要改正"
+            android:drawablePadding="@dimen/x10"
+            android:textColor="@color/color_performance_text_selector"
+            android:textSize="@dimen/tv_normal"
+            android:gravity="center"
+            android:layout_gravity="center"
+            app:leftDrawable="@drawable/icon_cry_face_selector"
+            app:leftDrawableHeight="@dimen/x26"
+            app:leftDrawableWidth="@dimen/x26"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y1"
+            android:background="@drawable/performance_line_selector"
+            android:layout_gravity="bottom"/>
+    </FrameLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintTop_toBottomOf="@id/tvReward"/>
+
+</android.support.constraint.ConstraintLayout>
