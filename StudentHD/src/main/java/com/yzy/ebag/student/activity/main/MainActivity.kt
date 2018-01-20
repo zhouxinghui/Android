@@ -43,6 +43,8 @@ class MainActivity : MVPActivity(), MainView {
 
         rvTeacherName.layoutManager = LinearLayoutManager(this)
         rvTeacherName.adapter = adapter
+
+        stateView.setBackgroundRes(R.color.main_bg_color)
         initUserInfo()
         initListener()
         getMainClassInfo()
@@ -54,14 +56,11 @@ class MainActivity : MVPActivity(), MainView {
     }
 
     override fun mainInfoStart() {
-        tvGrade.visibility = View.INVISIBLE
         stateView.showLoading()
     }
 
     override fun mainInfoSuccess(classesInfoBean: ClassesInfoBean) {
-        tvGrade.visibility = View.VISIBLE
         showTeachers(classesInfoBean)
-        classesInfo = classesInfoBean.resultAllClazzInfoVos
         stateView.showContent()
 
     }
@@ -71,6 +70,7 @@ class MainActivity : MVPActivity(), MainView {
     }
 
     private fun showTeachers(classesInfoBean: ClassesInfoBean){
+        classesInfo = classesInfoBean.resultAllClazzInfoVos
         classId = classesInfoBean.classId
         tvGrade.text = getString(R.string.main_class_name,classesInfoBean.className)
         tvClassTeacher.text = getString(R.string.main_teacher_name, classesInfoBean.teacherName)
@@ -186,14 +186,17 @@ class MainActivity : MVPActivity(), MainView {
     private val classesDialog by lazy {
         val classes = ClassesDialog.newInstance()
         classes.setOnClassChooseListener{
-            classId = it?.classId ?: ""
-            getMainClassInfo()
+            classes.dismiss()
+            if(it?.classId != classId){
+                classId = it?.classId ?: ""
+                getMainClassInfo()
+            }
         }
         classes
     }
 
     private fun showClasses(){
-        classesDialog.updateData(classesInfo)
+        classesDialog.updateData(classesInfo, classId)
         classesDialog.show(supportFragmentManager,"classes")
     }
 

@@ -1,6 +1,7 @@
 package com.yzy.ebag.student.dialog
 
 import android.os.Bundle
+import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -23,25 +24,37 @@ class ClassesDialog : BaseFragmentDialog() {
         }
     }
 
-    private var adapter: Adapter? = null
+    private val adapter = Adapter()
     private var list: List<ClassListInfoBean>? = null
     private var listener: ((ClassListInfoBean?) -> Unit)? = null
+    private var isListUpdate = false
+    private var classId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         isCancelable = false
     }
 
-    fun updateData(list: List<ClassListInfoBean>?){
+    fun updateData(list: List<ClassListInfoBean>?, classId: String){
         if(list != null && list != this.list){
             this.list = list
-            adapter?.setNewData(list)
+            if(classId.isBlank() && list.isNotEmpty())
+                this.classId = list[0].classId
+            else
+                this.classId = classId
+            isListUpdate = true
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
+        if(isListUpdate){
+            isListUpdate = false
+            adapter.setNewData(list)
+        }
     }
 
     override fun getBundle(bundle: Bundle?) {
-        list = bundle?.getParcelableArrayList("list")
     }
 
     override fun getLayoutRes(): Int {
@@ -63,31 +76,23 @@ class ClassesDialog : BaseFragmentDialog() {
             dismiss()
         }
 
-        recyclerView.layoutManager = LinearLayoutManager(mContext)
-        adapter = Adapter()
-
         recyclerView.adapter = adapter
-        adapter?.setNewData(list)
+        recyclerView.layoutManager = LinearLayoutManager(mContext)
 
-        adapter?.setOnItemClickListener { _, _, position ->
-            adapter?.selected = position
-            listener?.invoke(adapter?.getItem(position))
+        adapter.setOnItemClickListener { _, _, position ->
+            this.classId = adapter.getItem(position)?.classId ?: ""
+            adapter.notifyDataSetChanged()
+            listener?.invoke(adapter.getItem(position))
         }
     }
 
 
 
-    class Adapter: BaseQuickAdapter<ClassListInfoBean,BaseViewHolder>(R.layout.item_dialog_classes){
-
-        var selected = 0
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+    inner class Adapter: BaseQuickAdapter<ClassListInfoBean,BaseViewHolder>(R.layout.item_dialog_classes){
 
         override fun convert(helper: BaseViewHolder, item: ClassListInfoBean?) {
             helper.setText(R.id.text,item?.className)
-            helper.getView<View>(R.id.text).isSelected = helper.adapterPosition == selected
+            helper.getView<View>(R.id.text).isSelected = item?.classId == classId
         }
     }
 }

@@ -17,7 +17,7 @@ import ebag.hd.R
 open abstract class BaseFragmentDialog: AppCompatDialogFragment() {
 
     lateinit var mContext: Context
-
+    private var rootView : View? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getBundle(arguments)
@@ -27,8 +27,15 @@ open abstract class BaseFragmentDialog: AppCompatDialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        return inflater.inflate(getLayoutRes(), container)
+        if(rootView == null){
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            rootView = inflater.inflate(getLayoutRes(), container, false)
+        }else{
+            val view = rootView!!.parent
+            if(view != null)
+                (view as ViewGroup).removeAllViewsInLayout()
+        }
+        return rootView
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
