@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.base.Constants
 import com.yzy.ebag.teacher.bean.SpaceBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.ui.activity.CreateClassActivity
@@ -83,12 +84,18 @@ class FragmentClass : BaseFragment() {
             }
         }
         createClazz.setOnClickListener {
-            startActivity(Intent(mContext, CreateClassActivity::class.java))
+            CreateClassActivity.jump(this)
         }
         TeacherApi.clazzSpace(request)
         stateView.setOnRetryClickListener {
             TeacherApi.clazzSpace(request)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == Constants.CREATE_CLASS_REQUEST && resultCode == Constants.CREATE_CLASS_RESULT)
+            TeacherApi.clazzSpace(request)
     }
 
     inner class ClazzAdapter : RecyclerAdapter<SpaceBean>(R.layout.item_fragment_class){

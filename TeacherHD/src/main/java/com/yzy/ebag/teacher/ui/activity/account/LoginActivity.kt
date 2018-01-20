@@ -6,6 +6,11 @@ import com.yzy.ebag.teacher.R
 import ebag.hd.ui.activity.account.BLoginActivity
 
 class LoginActivity : BLoginActivity() {
+    override fun initViews() {
+        super.initViews()
+        loginEdit.setText("1000734")
+        pwdEdit.setText("ysb123456")
+    }
     override fun getJumpIntent(): Intent {
         return Intent(this, MainActivity::class.java)
     }

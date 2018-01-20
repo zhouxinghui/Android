@@ -10,9 +10,9 @@ object LoadingDialogUtil {
     private var loadingDialog: LoadingDialog? = null
     fun showLoading(context: Context, message: String?){
         if (loadingDialog == null){
-            loadingDialog = LoadingDialog(context, message)
+            loadingDialog = LoadingDialog(context)
         }
-            loadingDialog!!.show()
+            loadingDialog!!.show(message)
     }
     fun showLoading(context: Context){
         showLoading(context, null)

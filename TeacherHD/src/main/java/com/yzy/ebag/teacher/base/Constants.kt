@@ -15,4 +15,11 @@ object Constants {
     val LEVEL_TWO = 2
     val LEVEL_THREE = 3
     val LEVEL_FOUR = 4
+
+    val PRIMARY_SCHOOL = "1"
+    val JUNIOR_HIGH_SCHOOL = "2"
+    val HIGH_SCHOOL = "3"
+
+    val CREATE_CLASS_REQUEST = 101
+    val CREATE_CLASS_RESULT = 102
 }

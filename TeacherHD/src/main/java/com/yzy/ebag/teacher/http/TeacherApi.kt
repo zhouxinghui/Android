@@ -81,4 +81,27 @@ object TeacherApi {
         EBagApi.request(teacherService.createGroup("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
+    /**
+     * 根据年级 获取科目
+     */
+    fun getSubject(code: String, callback: RequestCallBack<List<BaseSubjectBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("groupCode", "grade_subject")
+        jsonObject.put("parentCode", code)
+        EBagApi.request(teacherService.getBaseData("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 创建班级
+     */
+    fun createClass(schoolCode: String?, gradeCode: String?, className: String?, subjectCode: String?, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("gradeCode", gradeCode)
+        jsonObject.put("className", className)
+        jsonObject.put("introduce", "")
+        jsonObject.put("school", schoolCode)
+        jsonObject.put("subCode", subjectCode)
+        EBagApi.request(teacherService.createClass("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
 }
