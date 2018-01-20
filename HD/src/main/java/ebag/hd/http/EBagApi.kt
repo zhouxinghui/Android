@@ -5,6 +5,7 @@ import ebag.core.bean.ResponseBean
 import ebag.core.http.baseBean.RequestBean
 import ebag.core.http.network.*
 import ebag.hd.bean.ChildNodeBean
+import ebag.hd.bean.SchoolBean
 import ebag.hd.bean.response.CodeEntity
 import ebag.hd.bean.response.UserEntity
 import io.reactivex.Observable
@@ -115,6 +116,14 @@ object EBagApi {
         val jsonObject = JSONObject()
         jsonObject.put("id", 1)
         request(EBagClient.eBagService.cityData("v1", createBody(jsonObject)), callback)
+    }
+
+    fun getSchool(province: String?, city: String?, county: String?, callback: RequestCallBack<List<SchoolBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("province", province)
+        jsonObject.put("city", city)
+        jsonObject.put("county", county)
+        request(EBagClient.eBagService.getSchool("v1", createBody(jsonObject)), callback)
     }
 
 }

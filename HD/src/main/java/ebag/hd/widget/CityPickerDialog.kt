@@ -8,8 +8,11 @@ import android.view.Window
 import android.view.WindowManager
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
+import ebag.core.util.SPUtils
 import ebag.hd.R
+import ebag.hd.base.Constants
 import ebag.hd.bean.ChildNodeBean
+import ebag.hd.bean.CurrentCityBean
 import ebag.hd.http.EBagApi
 import kotlinx.android.synthetic.main.dialog_city_picker.*
 
@@ -29,10 +32,29 @@ class CityPickerDialog(context: Context): Dialog(context, R.style.ActionSheetDia
             }
             stateView.showContent()
             list = entity[0].childNode
+
+            provinceIndex = SPUtils.get(context, Constants.PROVINCE_INDEX, 0) as Int
+            cityIndex = SPUtils.get(context, Constants.CITY_INDEX, 0) as Int
+            areaIndex = SPUtils.get(context, Constants.AREA_INDEX, 0) as Int
+            cityList = list[provinceIndex].childNode
+            val areaList = cityList[cityIndex].childNode
+
             provinceView.setData(list)
-            cityView.setData(list[0].childNode)
-            provinceView.setDefault(0)
-            cityView.setDefault(0)
+            cityView.setData(cityList)
+            provinceView.setDefault(provinceIndex)
+            cityView.setDefault(cityIndex)
+
+            currentCityBean.province = list[provinceIndex].charCode
+            currentCityBean.provinceName = list[provinceIndex].districtCnName
+            currentCityBean.city = cityList[cityIndex].charCode
+            currentCityBean.cityName = cityList[cityIndex].districtCnName
+
+            if(areaList != null && !areaList.isEmpty()){
+                areaView.setData(areaList)
+                areaView.setDefault(areaIndex)
+                currentCityBean.county = areaList[areaIndex].charCode
+                currentCityBean.cityName = areaList[areaIndex].districtCnName
+            }
         }
 
         override fun onError(exception: Throwable) {
@@ -40,8 +62,13 @@ class CityPickerDialog(context: Context): Dialog(context, R.style.ActionSheetDia
             stateView.showError()
         }
     }
+    private var provinceIndex = 0
+    private var cityIndex = 0
+    private var areaIndex = 0
     private var list: List<ChildNodeBean> = ArrayList()
     private var cityList: List<ChildNodeBean> = ArrayList()
+    private val currentCityBean = CurrentCityBean()
+    var onConfirmClick: ((CurrentCityBean) -> Unit)? = null
     init {
         val contentView = layoutInflater.inflate(R.layout.dialog_city_picker, null)
         window.requestFeature(Window.FEATURE_NO_TITLE)
@@ -56,39 +83,62 @@ class CityPickerDialog(context: Context): Dialog(context, R.style.ActionSheetDia
         provinceView.setOnSelectListener(this)
         cityView.setOnSelectListener(this)
         areaView.setOnSelectListener(this)
+        cancelTv.setOnClickListener(this)
+        confirmTv.setOnClickListener(this)
 
         EBagApi.cityData(request)
         stateView.setOnRetryClickListener { EBagApi.cityData(request) }
     }
 
-    override fun endSelect(view: View, id: Int, text: String, abbreviation: String) {
+    override fun endSelect(view: View, id: Int, text: String, charCode: String) {
         when(view.id){
             R.id.provinceView ->{
                 cityList = list[id].childNode
-                val areaList = cityList[0].childNode
                 cityView.setData(list[id].childNode)
                 cityView.setDefault(0)
-                if (areaList != null && !areaList.isEmpty()) {
-                    areaView.setData(areaList)
-                    areaView.setDefault(0)
-                    areaView.visibility = View.VISIBLE
-                }else{
-                    areaView.visibility = View.INVISIBLE
-                }
+
+                currentCityBean.province = charCode
+                currentCityBean.provinceName = text
+                currentCityBean.city = cityList[0].charCode
+                currentCityBean.cityName = cityList[0].districtCnName
+
+                val areaList = cityList[0].childNode
+                setArea(areaList)
+
+                provinceIndex = id
+                cityIndex = 0
             }
             R.id.cityView ->{
+
+                currentCityBean.city = charCode
+                currentCityBean.cityName = text
+
                 val areaList = cityList[id].childNode
-                if (areaList != null && !areaList.isEmpty()) {
-                    areaView.setData(areaList)
-                    areaView.setDefault(0)
-                    areaView.visibility = View.VISIBLE
-                }else{
-                    areaView.visibility = View.INVISIBLE
-                }
+                setArea(areaList)
+
+                cityIndex = id
             }
             R.id.areaView ->{
-
+                currentCityBean.county = charCode
+                currentCityBean.countyName = text
             }
+        }
+    }
+
+    private fun setArea(areaList: List<ChildNodeBean>?){
+        areaIndex = 0
+        if (areaList != null && !areaList.isEmpty()) {
+            areaView.setData(areaList)
+            areaView.setDefault(0)
+            areaView.visibility = View.VISIBLE
+
+            currentCityBean.county = areaList[0].charCode
+            currentCityBean.countyName = areaList[0].districtCnName
+        }else{
+            areaView.visibility = View.INVISIBLE
+
+            currentCityBean.county = null
+            currentCityBean.countyName = null
         }
     }
 
@@ -96,7 +146,18 @@ class CityPickerDialog(context: Context): Dialog(context, R.style.ActionSheetDia
 
     }
 
-    override fun onClick(v: View?) {
-
+    override fun onClick(v: View) {
+        when(v.id){
+            R.id.cancelTv ->{
+                dismiss()
+            }
+            R.id.confirmTv ->{
+                onConfirmClick?.invoke(currentCityBean)
+                SPUtils.put(context, Constants.PROVINCE_INDEX, provinceIndex)
+                SPUtils.put(context, Constants.CITY_INDEX, cityIndex)
+                SPUtils.put(context, Constants.AREA_INDEX, areaIndex)
+                dismiss()
+            }
+        }
     }
 }

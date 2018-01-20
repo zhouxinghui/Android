@@ -5,6 +5,7 @@ import ebag.core.bean.ResponseBean
 import io.reactivex.Observable
 import okhttp3.RequestBody
 import retrofit2.http.Body
+import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -48,4 +49,17 @@ interface TeacherService {
      */
     @POST("clazz/createByClazzGroup/{version}")
     fun createGroup(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 获取基础数据的接口
+     */
+    @Headers("EBag-Special-Url: special/url")
+    @POST("data/queryBaserData/{version}")
+    fun getBaseData(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<BaseSubjectBean>>>
+
+    /**
+     * 创建班级
+     */
+    @POST("clazz/createClazz/{version}")
+    fun createClass(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 }

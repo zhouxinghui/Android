@@ -490,7 +490,7 @@ public class WheelView extends View {
             ItemObject itemObject = new ItemObject();
             itemObject.id = i;
             itemObject.setItemText(dataList.get(i).getDistrictCnName());
-            itemObject.setDistrictEnName(dataList.get(i).getDistrictEnName());
+            itemObject.setCharCode(dataList.get(i).getCharCode());
             itemObject.x = 0;
             itemObject.y = (int) (i * unitHeight);
             itemList.add(itemObject);
@@ -654,7 +654,7 @@ public class WheelView extends View {
             callbackHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    onSelectListener.endSelect(WheelView.this, toShowItem.id, toShowItem.getItemText(), toShowItem.getDistrictEnName());
+                    onSelectListener.endSelect(WheelView.this, toShowItem.id, toShowItem.getItemText(), toShowItem.getCharCode());
                 }
             });
         }
@@ -1023,7 +1023,7 @@ public class WheelView extends View {
         /**
          * 简称
          */
-        private String districtEnName = "";
+        private String charCode = "";
         /**
          * x坐标
          */
@@ -1176,12 +1176,12 @@ public class WheelView extends View {
             this.itemText = itemText;
         }
 
-        public String getDistrictEnName() {
-            return districtEnName;
+        public String getCharCode() {
+            return charCode;
         }
 
-        public void setDistrictEnName(String districtEnName) {
-            this.districtEnName = districtEnName;
+        public void setCharCode(String charCode) {
+            this.charCode = charCode;
         }
 
         /**
@@ -1196,7 +1196,7 @@ public class WheelView extends View {
         /**
          * 结束选择，滑动停止时回调
          */
-        void endSelect(View view, int id, String text, String abbreviation);
+        void endSelect(View view, int id, String text, String charCode);
 
         /**
          * 选中的内容，滑动的过程中会不断回调

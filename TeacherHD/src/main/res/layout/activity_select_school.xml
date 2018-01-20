@@ -9,32 +9,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:titleText="选择学校"
-        app:rightText="确定"
         />
     <LinearLayout android:id="@+id/cityBtn"
         style="@style/create_class_ll"
         >
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/cityTv"
+        <ebag.hd.widget.drawable.DrawableTextView
             style="@style/create_class_left_tv"
             app:leftDrawable="@drawable/create_class_city"
             android:text="@string/city"
             />
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/cityName"
+        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/cityNameTv"
             style="@style/create_class_right_tv"
             android:text="@string/select_city_hint"
-            />
-    </LinearLayout>
-    <LinearLayout android:id="@+id/phaseBtn"
-        style="@style/create_class_ll"
-        >
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/phaseTv"
-            style="@style/create_class_left_tv"
-            app:leftDrawable="@drawable/create_class_stage"
-            android:text="@string/phase"
-            />
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/phaseName"
-            style="@style/create_class_right_tv"
-            android:text="@string/select_phase_hint"
             />
     </LinearLayout>
     <LinearLayout android:id="@+id/campusBtn"

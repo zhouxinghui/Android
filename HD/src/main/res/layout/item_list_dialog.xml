@@ -6,7 +6,7 @@
     android:gravity="center"
     android:background="@drawable/list_dialog_tv_bg"
     android:textColor="@color/title_text_color"
-    android:textSize="18sp"
+    android:textSize="22sp"
     android:id="@+id/tv_id"
     tools:text="取消">
 </TextView>

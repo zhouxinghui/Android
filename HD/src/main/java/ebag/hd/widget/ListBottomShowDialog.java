@@ -95,7 +95,6 @@ public abstract class ListBottomShowDialog<SourceData> extends Dialog implements
         if (onDialogItemClickListener != null){
             onDialogItemClickListener.onItemClick(this, adapter.getData().get(position), position);
         }
-        dismiss();
     }
 
     public interface OnDialogItemClickListener<SourceData>{

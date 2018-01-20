@@ -3,9 +3,8 @@ package ebag.hd.http
 import ebag.core.bean.ResponseBean
 import ebag.core.http.baseBean.RequestBean
 import ebag.hd.bean.ChildNodeBean
-import ebag.hd.bean.request.CodeVo
+import ebag.hd.bean.SchoolBean
 import ebag.hd.bean.request.LoginVo
-import ebag.hd.bean.response.CodeEntity
 import ebag.hd.bean.response.UserEntity
 import io.reactivex.Observable
 import okhttp3.MultipartBody
@@ -37,18 +36,18 @@ interface EBagService {
     fun login(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<UserEntity>>
 
     /**
-     * 登录
+     * 注册
      * @return
      */
     @POST("services/register")
     fun register(@Body requestBody: RequestBean<LoginVo>): Observable<ResponseBean<UserEntity>>
 
     /**
-     * 城市标签
+     *  查询学校
      * @return
      */
-    @POST("services/exam/getSuccess")
-    fun getPhoneCode(@Body requestBody: RequestBean<CodeVo>): Observable<ResponseBean<CodeEntity>>
+    @POST("data/getSchool/{version}")
+    fun getSchool(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<SchoolBean>>>
 
     //TODO 接口名称，注意替换
     /**

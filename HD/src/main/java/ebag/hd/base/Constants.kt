@@ -17,4 +17,11 @@ object Constants {
     val MONITOR_OF_CLASS = "4"
     val CLASS_REPRESENTATIVE = "5"
     val GROUP_LEADER = "6"
+
+    val PROVINCE_INDEX = "PROVENCE_INDEX"
+    val CITY_INDEX = "CITY_INDEX"
+    val AREA_INDEX = "AREA_INDEX"
+    val BACK_TO_CREATE_CLASS = 101
+    val SELECT_SCHOOL = 102
+    val CURRENT_CITY = "CURRENT_CITY"
 }
