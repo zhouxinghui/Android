@@ -1,13 +1,12 @@
-package com.yzy.ebag.teacher.bean;
+package com.yzy.ebag.student.base;
 
 import com.chad.library.adapter.base.entity.IExpandable;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
-import com.yzy.ebag.teacher.base.Constants;
 
 import java.util.List;
 
-public class BookVersionOrUnitVosBean implements
-        IExpandable<BookVersionOrUnitVosBean.ResultBookUnitOrCatalogVosBean>, MultiItemEntity {
+public class UnitBean implements
+        IExpandable<UnitBean.ChapterBean>, MultiItemEntity {
     /**
      * id : 150
      * code : 1
@@ -24,7 +23,7 @@ public class BookVersionOrUnitVosBean implements
     private String bookVersionId;
     private String pid;
     private String unitCode;
-    private List<ResultBookUnitOrCatalogVosBean> resultBookUnitOrCatalogVos;
+    private List<ChapterBean> resultBookUnitOrCatalogVos;
 
     public int getId() {
         return id;
@@ -74,11 +73,11 @@ public class BookVersionOrUnitVosBean implements
         this.unitCode = unitCode;
     }
 
-    public List<ResultBookUnitOrCatalogVosBean> getResultBookUnitOrCatalogVos() {
+    public List<ChapterBean> getResultBookUnitOrCatalogVos() {
         return resultBookUnitOrCatalogVos;
     }
 
-    public void setResultBookUnitOrCatalogVos(List<ResultBookUnitOrCatalogVosBean> resultBookUnitOrCatalogVos) {
+    public void setResultBookUnitOrCatalogVos(List<ChapterBean> resultBookUnitOrCatalogVos) {
         this.resultBookUnitOrCatalogVos = resultBookUnitOrCatalogVos;
     }
 
@@ -94,21 +93,21 @@ public class BookVersionOrUnitVosBean implements
     }
 
     @Override
-    public List<ResultBookUnitOrCatalogVosBean> getSubItems() {
+    public List<ChapterBean> getSubItems() {
         return resultBookUnitOrCatalogVos;
     }
 
     @Override
     public int getLevel() {
-        return Constants.INSTANCE.getLEVEL_ONE();
+        return UnitAdapter.LEVEL_ONE;
     }
 
     @Override
     public int getItemType() {
-        return Constants.INSTANCE.getLEVEL_ONE();
+        return UnitAdapter.LEVEL_ONE;
     }
 
-    public static class ResultBookUnitOrCatalogVosBean implements MultiItemEntity {
+    public static class ChapterBean implements MultiItemEntity {
         /**
          * id : 2208
          * code : 1
@@ -125,7 +124,7 @@ public class BookVersionOrUnitVosBean implements
         private String bookVersionId;
         private String pid;
         private String unitCode;
-        private List<ResultBookUnitOrCatalogVosBean> resultBookUnitOrCatalogVos;
+        private List<ChapterBean> resultBookUnitOrCatalogVos;
 
         public int getId() {
             return id;
@@ -175,17 +174,17 @@ public class BookVersionOrUnitVosBean implements
             this.unitCode = unitCode;
         }
 
-        public List<ResultBookUnitOrCatalogVosBean> getResultBookUnitOrCatalogVos() {
+        public List<ChapterBean> getResultBookUnitOrCatalogVos() {
             return resultBookUnitOrCatalogVos;
         }
 
-        public void setResultBookUnitOrCatalogVos(List<ResultBookUnitOrCatalogVosBean> resultBookUnitOrCatalogVos) {
+        public void setResultBookUnitOrCatalogVos(List<ChapterBean> resultBookUnitOrCatalogVos) {
             this.resultBookUnitOrCatalogVos = resultBookUnitOrCatalogVos;
         }
 
         @Override
         public int getItemType() {
-            return Constants.INSTANCE.getLEVEL_TWO();
+            return UnitAdapter.LEVEL_TWO;
         }
     }
 }

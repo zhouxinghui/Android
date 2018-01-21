@@ -7,21 +7,22 @@
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:paddingTop="@dimen/y10"
-    android:paddingLeft="@dimen/x10"
-    android:paddingRight="@dimen/x10"
+    android:paddingStart="@dimen/x25"
+    android:paddingEnd="@dimen/x10"
     >
     <View
         android:id="@+id/dot"
         android:layout_width="@dimen/x17"
         android:layout_height="@dimen/x17"
-        android:layout_marginLeft="@dimen/x15"
-        android:layout_marginRight="@dimen/x15"
         android:background="@drawable/unit_group_icon"/>
     <TextView
         android:id="@+id/text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/unit_tv"
+        android:textColor="@color/unit_text_color"
+        android:paddingEnd="@dimen/x14"
+        android:paddingStart="@dimen/x15"
         tools:text="语文"
-        android:textSize="@dimen/x26"/>
+        android:textStyle="bold"
+        android:textSize="@dimen/x24"/>
 </LinearLayout>

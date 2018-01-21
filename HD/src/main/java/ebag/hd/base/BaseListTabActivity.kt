@@ -63,6 +63,9 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
         return R.layout.activity_base_list_tab
     }
 
+    fun addLeftHeaderView(view: View){
+        leftLayout.addView(view,0)
+    }
 
     override fun initViews() {
         // 设置 recyclerView 的 Adapter
@@ -95,7 +98,7 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
     }
 
     protected fun setLeftWidth(pxSize: Int){
-        val params = recyclerView.layoutParams
+        val params = leftLayout.layoutParams
         params.width = pxSize
     }
 

@@ -25,7 +25,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/my_class_add_class"
+        android:text="@string/my_parent_add"
         android:textColor="@color/color_dialog_add_class_title"
         android:textSize="@dimen/x28"
         app:layout_constraintEnd_toEndOf="@id/bg"

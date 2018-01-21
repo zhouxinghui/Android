@@ -54,4 +54,8 @@
     <color name="color_about_us_text">#4A4A4A</color>
     <color name="setting_line_color">#F4F4F4</color>
 
+
+    <color name="unit_text_color">#4a4a4a</color>
+    <color name="unit_text_normal_color">#5B5852</color>
+    <color name="unit_text_selected_color">#70AEFF</color>
 </resources>

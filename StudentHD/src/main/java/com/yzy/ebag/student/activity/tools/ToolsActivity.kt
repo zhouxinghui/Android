@@ -70,6 +70,11 @@ class ToolsActivity : BaseListActivity<List<Int>,Int>() {
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
         when(list[position]){
+
+            R.drawable.tool_btn_calligraphy -> {//每日练字
+                PractiseActivity.jump(this)
+            }
+
             R.drawable.tool_btn_formula -> {
                 startActivity(Intent(this,MathFormulaActivity::class.java))
             }

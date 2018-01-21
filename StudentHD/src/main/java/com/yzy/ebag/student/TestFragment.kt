@@ -17,7 +17,7 @@ class TestFragment:BaseFragment() {
     }
 
     override fun getLayoutRes(): Int {
-        return R.layout.test_child
+        return R.layout.test_fragment
     }
 
     override fun getBundle(bundle: Bundle?) {
