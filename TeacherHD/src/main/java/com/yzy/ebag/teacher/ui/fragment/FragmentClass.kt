@@ -58,8 +58,6 @@ class FragmentClass : BaseFragment() {
             fragment.arguments = bundle
             return fragment
         }
-
-
     }
 
     override fun getBundle(bundle: Bundle?) {

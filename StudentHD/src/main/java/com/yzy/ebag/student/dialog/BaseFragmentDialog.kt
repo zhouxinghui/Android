@@ -10,11 +10,12 @@ import android.view.Window
 import ebag.hd.R
 
 /**
+ * 写这个类
  * @author caoyu
  * @date 2018/1/16
  * @description
  */
-open abstract class BaseFragmentDialog: AppCompatDialogFragment() {
+abstract class BaseFragmentDialog: AppCompatDialogFragment() {
 
     lateinit var mContext: Context
     private var rootView : View? = null

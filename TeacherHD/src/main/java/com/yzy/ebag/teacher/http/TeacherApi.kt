@@ -30,8 +30,7 @@ object TeacherApi {
      * 班级
      */
     fun clazzSpace(callback: RequestCallBack<List<SpaceBean>>){
-        val jsonObject = JSONObject()
-        EBagApi.request(teacherService.clazzSpace("v1", EBagApi.createBody(jsonObject)), callback)
+        EBagApi.request(teacherService.clazzSpace("v1"), callback)
     }
 
     /**
@@ -102,6 +101,25 @@ object TeacherApi {
         jsonObject.put("school", schoolCode)
         jsonObject.put("subCode", subjectCode)
         EBagApi.request(teacherService.createClass("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 根据班级获取教材版本
+     */
+    fun searchBookVersion(classesId: List<String>, callback: RequestCallBack<List<BookVersionBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("clazzIds", JSONArray(classesId))
+        EBagApi.request(teacherService.searchBookVersion("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 根据年级获取单元 和 题型信息
+     */
+    fun unitAndQuestion(type: String, gradeCode: String, callback: RequestCallBack<AssignmentBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("type", type)
+        jsonObject.put("gradeCode", gradeCode)
+        EBagApi.request(teacherService.assignmentData("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
 }

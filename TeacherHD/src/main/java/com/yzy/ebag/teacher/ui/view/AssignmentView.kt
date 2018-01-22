@@ -6,7 +6,11 @@ import com.yzy.ebag.teacher.bean.AssignmentBean
  * Created by YZY on 2018/1/8.
  */
 interface AssignmentView {
-    fun loadStart()
+    fun loadBaseStart()
     fun showBaseData(assignmentBean: AssignmentBean?)
-    fun loadError(t: Throwable)
+    fun loadBaseError(t: Throwable)
+
+    fun loadUnitAndQuestionStart()
+    fun getUnitAndQuestion(assignmentBean: AssignmentBean?)
+    fun loadUnitAndQuestionError(t: Throwable)
 }
