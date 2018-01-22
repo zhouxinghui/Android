@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.bean.SubjectBean
+import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.DateUtil
@@ -17,7 +18,7 @@ import ebag.core.util.DateUtil
  * @date 2018/1/17
  * @description
  */
-class StudyFragment: BaseListFragment<String, SubjectBean.HomeWorkInfoBean>() {
+class StudyFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInfoBean>() {
 
     companion object {
         fun newInstance(classId: String): StudyFragment {
@@ -80,11 +81,12 @@ class StudyFragment: BaseListFragment<String, SubjectBean.HomeWorkInfoBean>() {
         withFirstPageData(list)
     }
 
-    override fun requestData(page: Int, requestCallBack: RequestCallBack<String>) {
+    override fun requestData(page: Int, requestCallBack: RequestCallBack<List<SubjectBean>>) {
+        StudentApi.subjectWorkList("3", classId, "", page, getPageSize(), requestCallBack)
     }
 
-    override fun parentToList(isFirstPage: Boolean, parent: String?): List<SubjectBean.HomeWorkInfoBean>? {
-        return null
+    override fun parentToList(isFirstPage: Boolean, parent: List<SubjectBean>?): List<SubjectBean.HomeWorkInfoBean>? {
+        return parent?.get(0)?.homeWorkInfoVos
     }
 
     override fun getAdapter(): BaseQuickAdapter<SubjectBean.HomeWorkInfoBean, BaseViewHolder> {

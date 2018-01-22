@@ -9,11 +9,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.bean.SubjectBean
-import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.DateUtil
-import java.util.ArrayList
+import java.util.*
 
 /**
  * @author caoyu
@@ -49,9 +48,8 @@ class TopicListFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWor
     }
 
     override fun loadConfig() {
-        setPadding(resources.getDimensionPixelSize(R.dimen.x10),
-                resources.getDimensionPixelSize(R.dimen.x10),
-                resources.getDimensionPixelSize(R.dimen.x10),0)
+        setPadding(0,
+                resources.getDimensionPixelSize(R.dimen.x10), 0,0)
 
         val list = ArrayList<SubjectBean.HomeWorkInfoBean>()
         var info = SubjectBean.HomeWorkInfoBean()

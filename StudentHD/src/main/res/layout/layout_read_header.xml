@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/x15"
+        android:paddingBottom="@dimen/x15"
+        android:gravity="center">
+
+        <RadioButton
+            android:layout_width="@dimen/x100"
+            android:layout_height="@dimen/x50"
+            android:text="语文"
+            android:button="@null"
+            android:textSize="@dimen/x24"
+            android:gravity="center"
+            android:checked="true"
+            android:textColor="@color/color_read_subject_selector"
+            android:layout_marginEnd="@dimen/x15"
+            android:background="@drawable/bac_read_subject_selector"/>
+        <RadioButton
+            android:layout_width="@dimen/x100"
+            android:layout_height="@dimen/x50"
+            android:text="英语"
+            android:layout_marginStart="@dimen/x15"
+            android:gravity="center"
+            android:textSize="@dimen/x24"
+            android:button="@null"
+            android:textColor="@color/color_read_subject_selector"
+            android:background="@drawable/bac_read_subject_selector"/>
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/x24"
+        android:paddingRight="@dimen/x24"
+        android:paddingTop="@dimen/x14"
+        android:paddingBottom="@dimen/x14"
+        android:textSize="@dimen/x24"
+        android:background="@color/white"
+        android:textColor="#4a4a4a"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y1"
+        android:background="@color/line_color"/>
+</LinearLayout>

@@ -11,7 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.activity.tools.fragment.PractiseFragment
+import com.yzy.ebag.student.TestFragment
 import com.yzy.ebag.student.base.BaseListTabActivity
 import com.yzy.ebag.student.base.UnitAdapter
 import com.yzy.ebag.student.base.UnitBean
@@ -26,25 +26,26 @@ import java.nio.charset.Charset
  * @date 2018/1/21
  * @description
  */
-class PractiseActivity: BaseListTabActivity<String, MultiItemEntity>() {
+class ReadActivity : BaseListTabActivity<String, MultiItemEntity>() {
 
     companion object {
         fun jump(context: Context){
-            context.startActivity(Intent(context,PractiseActivity::class.java))
+            context.startActivity(Intent(context, ReadActivity::class.java))
         }
     }
 
     private lateinit var tvMaterial: TextView
     override fun loadConfig() {
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x368))
-        setMiddleDistance(resources.getDimensionPixelSize(R.dimen.x20))
         val ss = getFromAsset("unit.json")
         L.e("JSON", ss)
         val list = JSON.parseArray(ss, UnitBean::class.java)
-        val view = layoutInflater.inflate(R.layout.layout_practise_material_header,null)
+
+        val view = layoutInflater.inflate(R.layout.layout_read_header,null)
         tvMaterial = view.findViewById(R.id.text)
         tvMaterial.text = "这是教材名字"
         addLeftHeaderView(view)
+
         withTabData(list)
     }
 
@@ -85,7 +86,7 @@ class PractiseActivity: BaseListTabActivity<String, MultiItemEntity>() {
     }
 
     override fun getFragment(pagerIndex: Int, adapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>): Fragment {
-        return PractiseFragment.newInstance()
+        return TestFragment.newInstance()
     }
 
     override fun getViewPagerSize(adapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>): Int {

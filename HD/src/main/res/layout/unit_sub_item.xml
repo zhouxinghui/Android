@@ -1,28 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ebag.hd.widget.drawable.DrawableTextView
+    android:id="@+id/text"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center_vertical"
-    android:paddingTop="@dimen/y10"
+    android:paddingTop="@dimen/x10"
     android:paddingStart="@dimen/x40"
-    android:paddingEnd="@dimen/x10"
-
-    >
-    <View
-        android:id="@+id/dot"
-        android:layout_width="@dimen/x18"
-        android:layout_height="@dimen/x19"
-        android:background="@drawable/unit_sub_icon"/>
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/x15"
-        android:paddingEnd="@dimen/x14"
-        android:textColor="@color/unit_tv"
-        tools:text="语文"
-        android:textSize="@dimen/x24"/>
-</LinearLayout>
+    android:paddingEnd="@dimen/x24"
+    android:textColor="@color/unit_tv"
+    tools:text="语文"
+    android:textSize="@dimen/x24"
+    android:drawablePadding="@dimen/x15"
+    app:leftDrawable="@drawable/unit_sub_icon"
+    app:leftDrawableHeight="@dimen/x19"
+    app:leftDrawableWidth="@dimen/x18"/>

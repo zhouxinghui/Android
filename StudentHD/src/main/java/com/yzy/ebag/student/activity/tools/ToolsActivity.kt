@@ -75,6 +75,11 @@ class ToolsActivity : BaseListActivity<List<Int>,Int>() {
                 PractiseActivity.jump(this)
             }
 
+            R.drawable.tool_btn_read -> {//每日练字
+                ReadActivity.jump(this)
+            }
+
+
             R.drawable.tool_btn_formula -> {
                 startActivity(Intent(this,MathFormulaActivity::class.java))
             }

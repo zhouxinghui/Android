@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import ebag.core.R
 import ebag.core.util.AppManager
 
 
@@ -23,7 +24,7 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutId())
         AppManager.addActivity(this)
-//        window.setBackgroundDrawable(null)
+        window.setBackgroundDrawableResource(R.color.pageBackground)
         isDestroy = false
         initViews()
     }

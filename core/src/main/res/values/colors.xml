@@ -3,5 +3,6 @@
     <color name="gray">#ECE5E5</color>
     <color name="white">#FFFFFF</color>
     <color name="ripple">#20000000</color>
+    <color name="pageBackground">#F5F7FA</color>
 
 </resources>

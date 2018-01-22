@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.RelativeLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import ebag.core.base.BaseActivity
@@ -100,6 +101,11 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
     protected fun setLeftWidth(pxSize: Int){
         val params = leftLayout.layoutParams
         params.width = pxSize
+    }
+
+    protected fun setMiddleDistance(pxSize: Int){
+        val params = leftLayout.layoutParams as RelativeLayout.LayoutParams
+        params.rightMargin = pxSize
     }
 
     private val requestDelegate = lazy {

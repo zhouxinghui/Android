@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:paddingTop="@dimen/x20"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvPinyin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="hua"
+        android:textSize="@dimen/x36"
+        android:textColor="#252626"/>
+
+    <TextView
+        android:id="@+id/tvChar"
+        android:layout_marginTop="@dimen/x5"
+        android:layout_width="@dimen/x116"
+        android:layout_height="@dimen/x116"
+        android:gravity="center"
+        tools:text="画"
+        android:textSize="@dimen/x68"
+        android:textColor="#FD8F41"
+        android:background="@drawable/bac_practise_zh_selector"/>
+
+</LinearLayout>

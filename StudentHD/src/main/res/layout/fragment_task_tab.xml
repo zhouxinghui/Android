@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/x24">
+        android:layout_marginTop="@dimen/x24"
+        android:layout_marginBottom="@dimen/x7">
         <RadioButton
             android:id="@+id/rbLabour"
             android:layout_width="@dimen/x133"

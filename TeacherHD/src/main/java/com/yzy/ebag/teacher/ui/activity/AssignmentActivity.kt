@@ -2,7 +2,6 @@ package com.yzy.ebag.teacher.ui.activity
 
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -194,19 +193,16 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             }
         override fun convert(helper: BaseViewHolder?, item: MultiItemEntity) {
             val tv = helper!!.getView<TextView>(ebag.hd.R.id.text)
-            val point = helper.getView<View>(ebag.hd.R.id.dot)
             when(helper.itemViewType){
                 Constants.LEVEL_ONE ->{
                     item as BookVersionOrUnitVosBean
                     tv.text = item.name
                     tv.isSelected = item.isExpanded
-                    point.isSelected = item.isExpanded
                 }
                 Constants.LEVEL_TWO ->{
                     item as BookVersionOrUnitVosBean.ResultBookUnitOrCatalogVosBean
                     tv.text = item.name
                     tv.isSelected = selectSub == item
-                    point.isSelected = selectSub == item
                 }
             }
         }

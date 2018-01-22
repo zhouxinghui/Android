@@ -11,6 +11,9 @@
 
     <color name="blue">#70AEFF</color>
 
+    <color name="btn_blue_normal">#54A2FF</color>
+    <color name="btn_blue_pressed">#55BBFF</color>
+
     <drawable name="list_dialog_tv_bg_normal">#FFFFFF</drawable>
     <drawable name="list_dialog_tv_bg_click">#EFF8F3</drawable>
 

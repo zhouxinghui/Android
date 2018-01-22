@@ -22,7 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.center.PersonalActivity"/>
+        <!--解决横竖屏切换 fragment 重叠现象-->
+        <activity android:name=".activity.center.PersonalActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
 
         <activity android:name=".DemoActivity">
 
@@ -44,6 +46,7 @@
         <activity android:name=".activity.main.AnnounceActivity"/>
         <activity android:name=".activity.homework.ErrorTopicActivity"/>
         <activity android:name=".activity.tools.PractiseActivity"/>
+        <activity android:name=".activity.tools.ReadActivity"/>
     </application>
 
 </manifest>
