@@ -36,6 +36,7 @@ class ReadActivity : BaseListTabActivity<String, MultiItemEntity>() {
 
     private lateinit var tvMaterial: TextView
     override fun loadConfig() {
+        setTitleContent("跟读")
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x368))
         val ss = getFromAsset("unit.json")
         L.e("JSON", ss)
@@ -54,7 +55,7 @@ class ReadActivity : BaseListTabActivity<String, MultiItemEntity>() {
      * @param fileName
      * @return
      */
-    fun getFromAsset(fileName: String): String {
+    private fun getFromAsset(fileName: String): String {
         var result = ""
         try {
             val input = resources.assets.open(fileName)//从Assets中的文件获取输入流

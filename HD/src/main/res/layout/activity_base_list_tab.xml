@@ -29,18 +29,11 @@
                 android:background="@color/white" />
         </LinearLayout>
 
-        <View
-            android:id="@+id/line"
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"
-            android:background="@color/gray"
-            android:layout_toEndOf="@id/leftLayout"/>
-
         <ebag.core.widget.empty.NoScrollViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toEndOf="@+id/line"/>
+            android:layout_toEndOf="@+id/leftLayout"/>
 
         <ebag.core.widget.empty.StateView
             android:id="@+id/stateView"

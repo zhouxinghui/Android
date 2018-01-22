@@ -36,6 +36,7 @@ class PractiseActivity: BaseListTabActivity<String, MultiItemEntity>() {
 
     private lateinit var tvMaterial: TextView
     override fun loadConfig() {
+        setTitleContent("选择汉字")
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x368))
         setMiddleDistance(resources.getDimensionPixelSize(R.dimen.x20))
         val ss = getFromAsset("unit.json")

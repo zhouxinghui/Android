@@ -11,22 +11,37 @@ import ebag.core.http.network.RequestCallBack
  * Created by YZY on 2018/1/8.
  */
 class AssignmentPresenter(view: AssignmentView, listener: OnToastListener): BasePresenter<AssignmentView>(view, listener) {
-    private var baseRequest: RequestCallBack<AssignmentBean>? = null
-    fun loadBaseData(type: String){
-        if (baseRequest == null){
-            baseRequest = createRequest(object : RequestCallBack<AssignmentBean>(){
-                override fun onStart() {
-                    getView()?.loadStart()
-                }
-                override fun onSuccess(entity: AssignmentBean?) {
-                    getView()?.showBaseData(entity)
-                }
-
-                override fun onError(exception: Throwable) {
-                    getView()?.loadError(exception)
-                }
-            })
+    private var baseRequest = createRequest(object : RequestCallBack<AssignmentBean>(){
+        override fun onStart() {
+            getView()?.loadBaseStart()
         }
-        TeacherApi.assignmentData(type, baseRequest!!)
+        override fun onSuccess(entity: AssignmentBean?) {
+            getView()?.showBaseData(entity)
+        }
+
+        override fun onError(exception: Throwable) {
+            getView()?.loadBaseError(exception)
+        }
+    })
+    private val unitRequest by lazy {
+        createRequest(object : RequestCallBack<AssignmentBean>(){
+            override fun onStart() {
+                getView()?.loadUnitAndQuestionStart()
+            }
+
+            override fun onSuccess(entity: AssignmentBean?) {
+                getView()?.getUnitAndQuestion(entity)
+            }
+
+            override fun onError(exception: Throwable) {
+                getView()?.loadUnitAndQuestionError(exception)
+            }
+        })
+    }
+    fun loadBaseData(type: String){
+        TeacherApi.assignmentData(type, baseRequest)
+    }
+    fun loadUnitAndQuestion(type: String, gradeCode: String){
+        TeacherApi.unitAndQuestion(type, gradeCode, unitRequest)
     }
 }

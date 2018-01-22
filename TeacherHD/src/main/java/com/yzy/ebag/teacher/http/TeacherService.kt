@@ -21,10 +21,10 @@ interface TeacherService {
     fun firstPage(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<FirstPageBean>>
 
     /**
-     * 班级
+     * 班级列表
      */
     @POST("clazz/queryMyClassInfo/{version}")
-    fun clazzSpace(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<SpaceBean>>>
+    fun clazzSpace(@Path("version") version: String): Observable<ResponseBean<List<SpaceBean>>>
 
     /**
      * 布置作业页面
@@ -62,4 +62,10 @@ interface TeacherService {
      */
     @POST("clazz/createClazz/{version}")
     fun createClass(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 根据班级获取教材版本
+     */
+    @POST("sendHome/getBookVersion/{version}")
+    fun searchBookVersion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<BookVersionBean>>>
 }

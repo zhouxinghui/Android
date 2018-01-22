@@ -32,9 +32,9 @@ fun ImageView.loadHead(url: String?){
 }
 
 /**
- * 加载图片（默认加载中和加载失败图片）
+ * 加载图片 java中调用
  */
-fun ImageView.loadImage(url : String?) {
+fun ImageView.loadImage(url: String?) {
     ImageViewUtils.requestOptions
             .placeholder(R.drawable.replace_img)
             .error(R.drawable.replace_img)
@@ -45,12 +45,12 @@ fun ImageView.loadImage(url : String?) {
                     .load(url)
                     .apply(it)
                     .into(this)
-            }//显示到目标View中
+            }
 }
 /**
- * 加载图片（自定义加载中和加载失败图片）
+ * 加载图片（可自定义加载中和加载失败图片）
  */
-fun ImageView.loadImage(url : String?, loadImg : Int, errorImg : Int) {
+fun ImageView.loadImage(url: String?, loadImg: Int = R.drawable.replace_img, errorImg: Int = R.drawable.replace_img) {
     ImageViewUtils.requestOptions
             .placeholder(loadImg)
             .error(errorImg)
@@ -67,10 +67,10 @@ fun ImageView.loadImage(url : String?, loadImg : Int, errorImg : Int) {
 /**
  * 加载图片为圆形图片
  */
-fun ImageView.loadImageToCircle(url : String?) {
+fun ImageView.loadImageToCircle(url: String?, loadImg: Int = R.drawable.replace_round_img, errorImg: Int = R.drawable.replace_round_img) {
     ImageViewUtils.requestOptions
-            .placeholder(R.drawable.replace_round_img)
-            .error(R.drawable.replace_round_img)
+            .placeholder(loadImg)
+            .error(errorImg)
             .circleCrop()
             .let {
                 Glide

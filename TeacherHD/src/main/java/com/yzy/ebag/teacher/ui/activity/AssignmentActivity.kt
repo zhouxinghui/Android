@@ -8,32 +8,52 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.base.Constants
+import com.yzy.ebag.teacher.bean.AssignClassBean
+import com.yzy.ebag.teacher.bean.AssignGradeBean
+import com.yzy.ebag.teacher.bean.AssignUnitBean
 import com.yzy.ebag.teacher.bean.AssignmentBean
-import com.yzy.ebag.teacher.bean.BookVersionOrUnitVosBean
 import com.yzy.ebag.teacher.ui.presenter.AssignmentPresenter
 import com.yzy.ebag.teacher.ui.view.AssignmentView
 import com.yzy.ebag.teacher.widget.ExchangeTextbookDialog
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.http.network.handleThrowable
+import ebag.core.util.LoadingDialogUtil
+import ebag.core.util.T
 import ebag.core.util.loadImage
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
 import kotlinx.android.synthetic.main.activity_assignment.*
 
 class AssignmentActivity : MVPActivity(), AssignmentView{
+    override fun getLayoutId(): Int {
+        return R.layout.activity_assignment
+    }
     private var workCategory = 0
-    private val exchangeDialog by lazy { ExchangeTextbookDialog(this) }
+    private val exchangeDialog by lazy {
+        val dialog = ExchangeTextbookDialog(this)
+        dialog.onConfirmClick = {versionName,
+                                 versionCode,
+                                 semesterCode,
+                                 semesterName,
+                                 subCode,
+                                 subName ->
+            textBookVersion.text = getString(R.string.textbook_name,
+                    versionName,
+                    semesterName,
+                    subName)
+        }
+        dialog
+    }
     private val gradeAdapter by lazy { GradeAdapter() }
     private val classAdapter by lazy { ClassAdapter() }
     private val questionAdapter by lazy { QuestionsAdapter() }
     private val unitAdapter by lazy { UnitAdapter(ArrayList()) }
     private val assignmentPresenter by lazy { AssignmentPresenter(this,this) }
+    //数据保存
+    private val cacheMap by lazy { HashMap<String, Cache>() }
+    private var currentGradeCode = ""
     override fun destroyPresenter() {
         assignmentPresenter.onDestroy()
-    }
-
-    override fun getLayoutId(): Int {
-        return R.layout.activity_assignment
     }
 
     override fun initViews() {
@@ -71,11 +91,28 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         unitRecycler.layoutManager = LinearLayoutManager(this)
 
         gradeAdapter.setOnItemClickListener { holder, view, position ->
-            gradeAdapter.selectItem(position)
+            gradeAdapter.selectPosition = position
+            classAdapter.datas = gradeAdapter.datas[position].homeClazzInfoVos
+
+            val unitList = cacheMap[currentGradeCode]!!.unitList
+            val questionList = cacheMap[currentGradeCode]!!.questionList
+            if (unitList.isEmpty())
+                assignmentPresenter.loadUnitAndQuestion(workCategory.toString(), currentGradeCode)
+            else {
+                unitAdapter.setNewData(unitList as List<MultiItemEntity>)
+                questionAdapter.datas = questionList
+            }
         }
 
         classAdapter.setOnItemClickListener { holder, view, position ->
-            classAdapter.selectItem(position)
+            val cache = cacheMap[currentGradeCode]
+            val classes = cache?.classes
+            if (classes!!.contains(classAdapter.datas[position])){
+                classes.remove(classAdapter.datas[position])
+            }else{
+                classes.add(classAdapter.datas[position])
+            }
+            classAdapter.notifyDataSetChanged()
         }
 
         bottomAdapter.setOnItemClickListener { holder, view, position ->
@@ -106,20 +143,22 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         }
         unitAdapter.setOnItemClickListener { adapter, view, position ->
             val item = adapter.getItem(position)
-            if(item is BookVersionOrUnitVosBean) {
+            if(item is AssignUnitBean) {
                 if (item.isExpanded) {
                     adapter.collapse(position)
                 } else {
                     adapter.expand(position)
                 }
             }else{
-                item as BookVersionOrUnitVosBean.ResultBookUnitOrCatalogVosBean
+                item as AssignUnitBean.UnitSubBean
+                val cache = cacheMap[currentGradeCode]
+                cache?.currentUnitBean = item
                 unitAdapter.selectSub = item
             }
         }
 
         textBookVersion.setOnClickListener {
-            exchangeDialog.show()
+            exchangeDialog.show(cacheMap[currentGradeCode]!!.classes)
         }
         assignmentPresenter.loadBaseData(workCategory.toString())
         stateView.setOnRetryClickListener {
@@ -127,54 +166,105 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         }
     }
 
-    override fun loadStart() {
+    override fun loadBaseStart() {
         stateView.showLoading()
     }
 
     override fun showBaseData(assignmentBean: AssignmentBean?) {
         stateView.showContent()
-        gradeAdapter.datas = assignmentBean?.sendHomePageClazzInfoVos
+        val gradeList = assignmentBean?.sendHomePageClazzInfoVos
+        gradeAdapter.datas = gradeList
         classAdapter.datas = assignmentBean?.sendHomePageClazzInfoVos!![0].homeClazzInfoVos
-        questionAdapter.datas = assignmentBean.resultAdvertisementVos
-        unitAdapter.setNewData(assignmentBean.sendHomePageClazzInfoVos[0].bookVersionOrUnitVos as List<MultiItemEntity>)
-        textBookVersion.text = getString(R.string.textbook_name,
-                        assignmentBean.resultTaughtCoursesVo?.bookVersionName,
-                        assignmentBean.resultTaughtCoursesVo?.semeterName,
-                        assignmentBean.resultTaughtCoursesVo?.bookName)
+        gradeAdapter.selectPosition = 0
+
+        gradeList?.forEach {
+            if(cacheMap[it.gradeCode] == null) {
+                val cache = Cache()
+                cacheMap[it.gradeCode] = cache
+            }
+        }
+
+        showData(assignmentBean)
     }
 
-    override fun loadError(t: Throwable) {
+    override fun loadBaseError(t: Throwable) {
         stateView.showError()
         t.handleThrowable(this)
     }
 
-    inner class GradeAdapter : RecyclerAdapter<AssignmentBean.SendHomePageClazzInfoVosBean>(R.layout.item_assignment_grade){
-        private var selectPosition = -1
-        fun selectItem(selectPosition: Int){
-            this.selectPosition = selectPosition
+    override fun loadUnitAndQuestionStart() {
+        LoadingDialogUtil.showLoading(this)
+    }
+
+    override fun getUnitAndQuestion(assignmentBean: AssignmentBean?) {
+        LoadingDialogUtil.closeLoadingDialog()
+        if (assignmentBean != null){
+            showData(assignmentBean)
+        }else{
+            T.show(this, "暂无数据")
+        }
+    }
+
+    override fun loadUnitAndQuestionError(t: Throwable) {
+        LoadingDialogUtil.closeLoadingDialog()
+        t.handleThrowable(this)
+    }
+
+    private fun showData(assignmentBean: AssignmentBean?){
+        val questionList = assignmentBean?.resultAdvertisementVos
+        questionAdapter.datas = questionList
+        val unitList = assignmentBean?.sendHomePageClazzInfoVos!![0].bookVersionOrUnitVos
+        unitList.forEach {
+            val subList = it.resultBookUnitOrCatalogVos
+            if (subList.isEmpty()){
+                val subBean = AssignUnitBean.UnitSubBean()
+                subBean.id = it.id
+                subBean.code = it.code
+                subBean.name = it.name
+                subBean.bookVersionId = it.bookVersionId
+                subBean.pid = it.pid
+                subBean.unitCode = it.unitCode
+                it.resultBookUnitOrCatalogVos.add(subBean)
+            }
+        }
+        unitAdapter.setNewData(unitList as List<MultiItemEntity>)
+        val versionBean = assignmentBean.resultTaughtCoursesVo
+        textBookVersion.text = getString(R.string.textbook_name,
+                versionBean?.bookVersionName,
+                versionBean?.semeterName,
+                versionBean?.bookName)
+
+        cacheMap[currentGradeCode]!!.unitList = unitList as ArrayList<AssignUnitBean>
+        cacheMap[currentGradeCode]!!.questionList = questionList as ArrayList<AssignmentBean.QuestionsBean>
+        cacheMap[currentGradeCode]!!.versionId = versionBean.bookVersionId
+    }
+
+    inner class GradeAdapter : RecyclerAdapter<AssignGradeBean>(R.layout.item_assignment_grade){
+        var selectPosition = -1
+        set(value) {
+            field = value
+            currentGradeCode = datas[selectPosition].gradeCode
             notifyDataSetChanged()
         }
-        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: AssignmentBean.SendHomePageClazzInfoVosBean?) {
+        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: AssignGradeBean?) {
             val textView: TextView = setter.getTextView(R.id.grade)
             textView.text = entity!!.gradeName
             textView.isSelected = selectPosition != -1 && selectPosition == position
+
         }
     }
-    inner class ClassAdapter: RecyclerAdapter<AssignmentBean.SendHomePageClazzInfoVosBean.HomeClazzInfoVosBean>(R.layout.item_assignment_class){
-        private var selectPosition = -1
-        fun selectItem(selectPosition: Int){
-            this.selectPosition = selectPosition
-            notifyDataSetChanged()
-        }
-        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: AssignmentBean.SendHomePageClazzInfoVosBean.HomeClazzInfoVosBean?) {
+    inner class ClassAdapter: RecyclerAdapter<AssignClassBean>(R.layout.item_assignment_class){
+        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: AssignClassBean) {
             val textView: TextView = setter.getTextView(R.id.Class)
-            textView.text = entity?.className
-            if(selectPosition != -1 && selectPosition == position && !textView.isSelected)
-                textView.isSelected = true
+            textView.text = entity.className
+
+            val cache = cacheMap[currentGradeCode]
+            val classes = cache?.classes
+            textView.isSelected = classes!!.contains(entity)
         }
     }
-    inner class QuestionsAdapter: RecyclerAdapter<AssignmentBean.ResultAdvertisementVosBean>(R.layout.item_assignment_questions){
-        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: AssignmentBean.ResultAdvertisementVosBean?) {
+    inner class QuestionsAdapter: RecyclerAdapter<AssignmentBean.QuestionsBean>(R.layout.item_assignment_questions){
+        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: AssignmentBean.QuestionsBean?) {
             setter.setText(R.id.point_id, "14")
             setter.setText(R.id.question_name_id, entity!!.adverName)
             setter.getImageView(R.id.question_image_id).loadImage(entity.adverUrl)
@@ -186,7 +276,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             addItemType(1, ebag.hd.R.layout.unit_group_item)
             addItemType(2, ebag.hd.R.layout.unit_sub_item)
         }
-        var selectSub: BookVersionOrUnitVosBean.ResultBookUnitOrCatalogVosBean? = null
+        var selectSub: AssignUnitBean.UnitSubBean? = null
             set(value) {
                 field = value
                 notifyDataSetChanged()
@@ -195,14 +285,15 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             val tv = helper!!.getView<TextView>(ebag.hd.R.id.text)
             when(helper.itemViewType){
                 Constants.LEVEL_ONE ->{
-                    item as BookVersionOrUnitVosBean
+                    item as AssignUnitBean
                     tv.text = item.name
                     tv.isSelected = item.isExpanded
                 }
                 Constants.LEVEL_TWO ->{
-                    item as BookVersionOrUnitVosBean.ResultBookUnitOrCatalogVosBean
+                    item as AssignUnitBean.UnitSubBean
                     tv.text = item.name
                     tv.isSelected = selectSub == item
+                    tv.isSelected = item == cacheMap[currentGradeCode]!!.currentUnitBean
                 }
             }
         }
@@ -225,5 +316,13 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 convertView.tag = workImg[position]
             }
         }
+    }
+
+    inner class Cache{
+        var classes = ArrayList<AssignClassBean>()
+        var unitList = ArrayList<AssignUnitBean>()
+        var questionList = ArrayList<AssignmentBean.QuestionsBean>()
+        var currentUnitBean = AssignUnitBean.UnitSubBean()
+        var versionId = ""
     }
 }

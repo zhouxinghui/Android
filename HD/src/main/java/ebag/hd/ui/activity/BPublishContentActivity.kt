@@ -48,6 +48,11 @@ abstract class BPublishContentActivity: BaseActivity() {
             }
 
         })
+        imgAdapter.setOnItemClickListener { adapter, _, position ->
+            if (position == adapter.data.size - 1){
+                startSelectPicture()
+            }
+        }
     }
 
     abstract fun commit()
@@ -61,17 +66,12 @@ abstract class BPublishContentActivity: BaseActivity() {
             }else {
                 imageView.loadImage(item)
             }
-            helper.itemView.setOnClickListener{
-                if (position == data.size - 1){
-                    startSelectPicture()
-                }
-            }
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK && data != null) {
             when (requestCode) {
                 PictureConfig.CHOOSE_REQUEST -> {
                     // 图片选择结果回调
