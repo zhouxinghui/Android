@@ -47,6 +47,10 @@
         <activity android:name=".activity.homework.ErrorTopicActivity"/>
         <activity android:name=".activity.tools.PractiseActivity"/>
         <activity android:name=".activity.tools.ReadActivity"/>
+        <activity android:name=".activity.tools.practise.WriteActivity"/>
+        <activity android:name=".activity.tools.practise.RecordActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
     </application>
 
 </manifest>

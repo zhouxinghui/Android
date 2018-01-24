@@ -1,7 +1,6 @@
 package ebag.hd.widget;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -37,24 +36,14 @@ public class DrawView extends View {
     public DrawView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DrawView);
-        boolean isEnglish = a.getBoolean(R.styleable.DrawView_isEnglish, false);
-        if (isEnglish){
-            cacheBitmap = Bitmap.createBitmap(
-                    (int) getResources().getDimension(R.dimen.english_draw_view_width),
-                    (int) getResources().getDimension(R.dimen.english_draw_view_height),
-                    Bitmap.Config.ARGB_4444);// 建立图像缓冲区用来保存图像
-        }else{
-            cacheBitmap = Bitmap.createBitmap(
-                    (int) getResources().getDimension(R.dimen.chinese_draw_view_width),
-                    (int) getResources().getDimension(R.dimen.chinese_draw_view_height),
-                    Bitmap.Config.ARGB_4444);// 建立图像缓冲区用来保存图像
-        }
+        cacheBitmap = Bitmap.createBitmap(
+                (int) getResources().getDimension(R.dimen.chinese_draw_view_width),
+                (int) getResources().getDimension(R.dimen.chinese_draw_view_height),
+                Bitmap.Config.ARGB_4444);// 建立图像缓冲区用来保存图像
         cacheCanvas = new Canvas();
         cacheCanvas.setBitmap(cacheBitmap);
         cacheCanvas.drawColor(Color.TRANSPARENT);
         initPaint();
-        a.recycle();
     }
 
     private void initPaint(){

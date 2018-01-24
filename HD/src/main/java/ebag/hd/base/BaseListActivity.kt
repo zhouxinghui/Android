@@ -283,14 +283,14 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
      * @param position
      * @param t
      */
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {}
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {}
     /**
      * 列表页的点击事件
      * @param view
      * @param position
      * @param t
      */
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {}
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {}
 
     override fun onRefresh() {
         loadingStatus = REFRESH

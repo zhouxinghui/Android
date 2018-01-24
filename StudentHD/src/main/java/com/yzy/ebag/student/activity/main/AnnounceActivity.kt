@@ -67,8 +67,6 @@ class AnnounceActivity: BaseListActivity<String, AnnounceActivity.Announce>() {
 
     class Adapter: BaseQuickAdapter<AnnounceActivity.Announce,BaseViewHolder>(R.layout.item_activity_announce){
 
-        val adapter = ImageAdapter()
-
         override fun convert(helper: BaseViewHolder, item: Announce?) {
             helper.setText(R.id.tvName, item?.name)
                     .setText(R.id.tvTime, item?.time)
@@ -80,14 +78,14 @@ class AnnounceActivity: BaseListActivity<String, AnnounceActivity.Announce>() {
             recycler.isNestedScrollingEnabled = false
 
             if(recycler.adapter == null){
-                recycler.adapter = adapter
+                recycler.adapter = ImageAdapter()
             }
             if(recycler.layoutManager == null){
                 recycler.layoutManager = GridLayoutManager(mContext,6)
             }
             recycler.postDelayed({
-                adapter.setNewData(item?.images)
-            },10)
+                (recycler.adapter as ImageAdapter).setNewData(item?.images)
+            },20)
 
         }
 

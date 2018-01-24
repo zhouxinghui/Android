@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/x465"
+    android:layout_height="@dimen/x48"
+    android:background="@drawable/bac_search_white"
+    android:gravity="center_vertical">
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@null"
+        android:paddingStart="@dimen/x24"
+        android:paddingEnd="@dimen/x20"
+        android:singleLine="true"
+        android:inputType="text"
+        android:imeOptions="actionSearch"
+        android:textSize="@dimen/x22"
+        android:textColor="@color/color_edit_color"
+        android:textColorHint="@color/color_edit_hint"
+        android:hint="请输入关键字"/>
+
+    <View
+        android:layout_width="@dimen/x1"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/x7"
+        android:layout_marginBottom="@dimen/x7"
+        android:background="@color/line_color"/>
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/x30"
+        android:layout_height="@dimen/x30"
+        android:focusable="true"
+        android:background="@drawable/icon_search_for"
+        android:layout_marginStart="@dimen/x20"
+        android:layout_marginEnd="@dimen/x20"/>
+
+</LinearLayout>

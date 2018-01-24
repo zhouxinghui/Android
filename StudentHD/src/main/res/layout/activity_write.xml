@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ebag.hd.widget.TitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="默写"/>
+
+    <ImageView
+        android:id="@+id/bg"
+        android:layout_width="@dimen/x458"
+        android:layout_height="@dimen/x458"
+        android:src="@drawable/write_chinese_big"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleBar"
+        app:layout_constraintBottom_toTopOf="@+id/tvCommit"/>
+
+    <ebag.hd.widget.DrawView2
+        android:id="@+id/draw_view"
+        android:layout_width="@dimen/x458"
+        android:layout_height="@dimen/x458"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bg"/>
+
+    <TextView
+        android:id="@+id/tvCommit"
+        android:layout_width="@dimen/x458"
+        android:layout_height="@dimen/x68"
+        android:background="@drawable/btn_blue_selector"
+        android:textColor="@color/white"
+        android:text="@string/commit"
+        android:gravity="center"
+        android:textSize="@dimen/tv_big"
+        android:layout_marginBottom="@dimen/x20"
+        app:layout_constraintTop_toBottomOf="@id/bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvPinyin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/x63"
+        android:textColor="#252626"
+        tools:text="sou"
+        app:layout_constraintTop_toTopOf="@id/bg"
+        app:layout_constraintEnd_toStartOf="@id/bg"
+        android:layout_marginEnd="@dimen/x80"
+        />
+    
+    <ImageView
+        android:id="@+id/playAnim"
+        android:layout_width="@dimen/x75"
+        android:layout_height="@dimen/x66"
+        android:background="@drawable/icon_write_speak_anim"
+        android:layout_marginTop="@dimen/x10"
+        app:layout_constraintTop_toBottomOf="@id/tvPinyin"
+        app:layout_constraintStart_toStartOf="@id/tvPinyin"
+        app:layout_constraintEnd_toEndOf="@id/tvPinyin"/>
+
+    <Button android:id="@+id/btn_eraser_id"
+        android:layout_width="@dimen/x66"
+        android:layout_height="@dimen/x66"
+        android:background="@drawable/btn_icon_eraser"
+        android:layout_marginStart="@dimen/x100"
+        app:layout_constraintStart_toEndOf="@id/bg"
+        app:layout_constraintTop_toTopOf="@id/bg"
+        app:layout_constraintBottom_toTopOf="@id/pen_size_group"/>
+
+    <RadioGroup android:id="@+id/pen_size_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="@id/btn_eraser_id"
+        app:layout_constraintEnd_toEndOf="@id/btn_eraser_id"
+        app:layout_constraintTop_toBottomOf="@id/btn_eraser_id"
+        app:layout_constraintBottom_toBottomOf="@id/bg">
+        <RadioButton android:id="@+id/pen_size_one"
+            android:layout_width="@dimen/x49"
+            android:layout_height="@dimen/x49"
+            android:button="@null"
+            android:layout_gravity="center"
+            android:checked="true"
+            android:background="@drawable/pen_size_one_bg"
+            />
+        <RadioButton android:id="@+id/pen_size_two"
+            android:layout_width="@dimen/x49"
+            android:layout_height="@dimen/x49"
+            android:button="@null"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/x25"
+            android:background="@drawable/pen_size_two_bg"
+            />
+        <RadioButton android:id="@+id/pen_size_three"
+            android:layout_width="@dimen/x49"
+            android:layout_height="@dimen/x49"
+            android:button="@null"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/x25"
+            android:background="@drawable/pen_size_three_bg"
+            />
+        <RadioButton android:id="@+id/pen_size_four"
+            android:layout_width="@dimen/x49"
+            android:layout_height="@dimen/x49"
+            android:button="@null"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/x25"
+            android:background="@drawable/pen_size_four_bg"
+            />
+    </RadioGroup>
+
+</android.support.constraint.ConstraintLayout>

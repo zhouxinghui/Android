@@ -7,6 +7,7 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
+import com.yzy.ebag.student.activity.tools.practise.WriteActivity
 import ebag.core.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_practise.*
 
@@ -49,6 +50,9 @@ class PractiseFragment: BaseFragment(),BaseQuickAdapter.OnItemClickListener {
         list.add(Practise())
         adapter.setNewData(list)
 
+        tvConfirm.setOnClickListener {
+            WriteActivity.jump(mContext)
+        }
     }
 
     class Adapter: BaseQuickAdapter<Practise,BaseViewHolder>(R.layout.item_fragment_practise){

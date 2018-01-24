@@ -84,7 +84,7 @@ public class WriteView extends LinearLayout implements IQuestionEvent {
     public WriteView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.WriteView);
-        isChinese = a.getBoolean(R.styleable.DrawView_isEnglish, false);
+        isChinese = a.getBoolean(R.styleable.WriteView_isChinese, false);
         a.recycle();
         this.context = context;
     }

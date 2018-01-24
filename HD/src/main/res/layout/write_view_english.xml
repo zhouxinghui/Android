@@ -33,7 +33,6 @@
             android:id="@+id/draw_view"
             android:layout_width="@dimen/english_draw_view_width"
             android:layout_height="@dimen/english_draw_view_height"
-            app:isEnglish="true"
             android:layout_marginTop="@dimen/y10"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

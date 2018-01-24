@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.hd.R
+import ebag.hd.widget.TitleBar
 import kotlinx.android.synthetic.main.activity_base_list_tab.*
 import java.util.*
 
@@ -25,6 +26,7 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
     protected var mAdapter: BaseQuickAdapter<E, BaseViewHolder>? = null
     protected var needFirstLoad = true
     protected abstract fun loadConfig()
+    protected lateinit var titleBar: TitleBar
 
     /**
      *  网络请求
@@ -69,6 +71,7 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
     }
 
     override fun initViews() {
+        titleBar = titleView
         // 设置 recyclerView 的 Adapter
         mAdapter = getLeftAdapter()
         // 设置 RecyclerView 的 LayoutManager

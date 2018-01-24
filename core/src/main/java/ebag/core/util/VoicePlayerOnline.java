@@ -70,7 +70,7 @@ public class VoicePlayerOnline implements OnCompletionListener, MediaPlayer.OnPr
             mediaPlayer = null;   
         }
         isPlaying = false;
-    }  
+    }
 
     private boolean isPlaying;
 
@@ -81,7 +81,7 @@ public class VoicePlayerOnline implements OnCompletionListener, MediaPlayer.OnPr
     public void onPrepared(MediaPlayer arg0) {
         playTime();
         isPlaying = true;
-        arg0.start();  
+        arg0.start();
         Log.e("mediaPlayer", "onPrepared");
     }  
   

@@ -38,8 +38,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             />
         <Button android:id="@+id/btn_eraser_id"
-            android:layout_width="@dimen/x50"
-            android:layout_height="@dimen/x50"
+            android:layout_width="@dimen/x66"
+            android:layout_height="@dimen/x66"
             android:background="@drawable/btn_icon_eraser"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -49,12 +49,11 @@
             android:layout_width="@dimen/x40"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/btn_eraser_id"
+            app:layout_constraintRight_toRightOf="@id/btn_eraser_id"
             app:layout_constraintTop_toBottomOf="@id/btn_eraser_id"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.13"
-            >
+            app:layout_constraintBottom_toBottomOf="parent">
+
             <RadioButton android:id="@+id/pen_size_one"
                 style="@style/pen_chinese"
                 android:checked="true"

@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.activity.tools.fragment.PractiseFragment
+import com.yzy.ebag.student.activity.tools.practise.RecordActivity
 import com.yzy.ebag.student.base.BaseListTabActivity
 import com.yzy.ebag.student.base.UnitAdapter
 import com.yzy.ebag.student.base.UnitBean
@@ -47,6 +48,10 @@ class PractiseActivity: BaseListTabActivity<String, MultiItemEntity>() {
         tvMaterial.text = "这是教材名字"
         addLeftHeaderView(view)
         withTabData(list)
+
+        titleBar.setRightText("记录"){
+            RecordActivity.jump(this)
+        }
     }
 
     /**

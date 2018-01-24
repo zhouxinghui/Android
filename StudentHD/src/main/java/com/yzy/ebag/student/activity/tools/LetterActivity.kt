@@ -2,6 +2,7 @@ package com.yzy.ebag.student.activity.tools
 
 import android.content.Intent
 import android.graphics.Paint
+import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.ColorDrawable
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.GridLayoutManager
@@ -22,6 +23,7 @@ import com.yzy.ebag.student.R
 import com.yzy.ebag.student.base.BaseListActivity
 import com.yzy.ebag.student.bean.LetterBean
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.VoicePlayerOnline
 
 
 /**
@@ -78,8 +80,8 @@ class LetterActivity : BaseListActivity<List<LetterBean>, LetterBean>() {
         return parent
     }
 
+    val adapter = LetterAdapter()
     override fun getAdapter(): BaseQuickAdapter<LetterBean, BaseViewHolder> {
-        val adapter = LetterAdapter()
         adapter.setSpanSizeLookup { gridLayoutManager, position ->
             if(adapter.getItemViewType(position) == LetterBean.GROUP_TYPE){
                 gridLayoutManager.spanCount
@@ -94,8 +96,51 @@ class LetterActivity : BaseListActivity<List<LetterBean>, LetterBean>() {
         return GridLayoutManager(this,6)
     }
 
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-        (adapter as LetterAdapter).selectedPosition = position
+    private val playerD = lazy {
+        val pl = VoicePlayerOnline(this)
+        pl.setOnPlayChangeListener(object :VoicePlayerOnline.OnPlayChangeListener{
+            override fun onProgressChange(progress: Int) {
+            }
+
+            override fun onCompletePlay() {
+                adapter.selectedPosition = -1
+                animDrawable?.stop()
+                animDrawable?.selectDrawable(0)
+            }
+        })
+        pl
+    }
+    private val player by playerD
+    private var animDrawable: AnimationDrawable? = null
+    override fun onItemClick(a: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        //点击  normal 才有效
+        if(adapter.getItemViewType(position) == LetterBean.NORMAL_TYPE)
+            if(adapter.selectedPosition != position){
+                if(!player.isPlaying){
+                    if(animDrawable != null){
+                        animDrawable?.stop()
+                        animDrawable?.selectDrawable(0)
+                    }
+                    animDrawable = view.getTag(R.id.soundView) as AnimationDrawable
+                    animDrawable?.start()
+                    player.playUrl(adapter.getItem(position)?.mp3)
+                    adapter.selectedPosition = position
+//            }else{
+//                animDrawable.stop()
+//                animDrawable = view.findViewById<View>(R.id.soundView).background as AnimationDrawable
+//                animDrawable.start()
+//                player.playUrl((adapter as LetterAdapter).getItem(position)?.mp3)
+//                adapter.selectedPosition = position
+                }
+            }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if(playerD.isInitialized() && player.isPlaying){
+            player.stop()
+        }
     }
 
     inner class LetterAdapter: BaseMultiItemQuickAdapter<LetterBean, BaseViewHolder>(null) {
@@ -130,7 +175,12 @@ class LetterActivity : BaseListActivity<List<LetterBean>, LetterBean>() {
                     helper.setText(R.id.tvContent,item?.content ?: "")
                 }
                 LetterBean.NORMAL_TYPE -> {
+                    val animDrawable: AnimationDrawable = helper.getView<View>(R.id.soundView).background as AnimationDrawable
+
+                    helper.itemView.setTag(R.id.soundView, animDrawable)
+
                     helper.getView<View>(R.id.bg).isSelected = helper.adapterPosition == selectedPosition
+
                     if(type == ZH){
                         (helper.getView<TextView>(R.id.tvContent).layoutParams as  ConstraintLayout.LayoutParams)
                                 .bottomMargin = resources.getDimensionPixelOffset(R.dimen.x15)
@@ -138,6 +188,7 @@ class LetterActivity : BaseListActivity<List<LetterBean>, LetterBean>() {
                         (helper.getView<TextView>(R.id.tvContent).layoutParams as  ConstraintLayout.LayoutParams)
                                 .bottomMargin = 0
                     }
+
                     reSizeTextView(helper.getView(R.id.tvContent),item?.letters ?: "", item?.content ?: "")
                 }
             }
@@ -258,29 +309,29 @@ class LetterActivity : BaseListActivity<List<LetterBean>, LetterBean>() {
 
     private val smList by lazy {
         val list = ArrayList<LetterBean>()
-        list.add(LetterBean("b", "波", ""))
-        list.add(LetterBean("p", "泼", ""))
-        list.add(LetterBean("m", "摸", ""))
-        list.add(LetterBean("f", "佛", ""))
-        list.add(LetterBean("d", "的", ""))
-        list.add(LetterBean("t", "特", ""))
-        list.add(LetterBean("n", "呢", ""))
-        list.add(LetterBean("l", "了", ""))
-        list.add(LetterBean("g", "哥", ""))
-        list.add(LetterBean("k", "科", ""))
-        list.add(LetterBean("h", "喝", ""))
-        list.add(LetterBean("j", "鸡", ""))
-        list.add(LetterBean("q", "期", ""))
-        list.add(LetterBean("x", "西", ""))
-        list.add(LetterBean("z", "兹", ""))
-        list.add(LetterBean("c", "呲", ""))
-        list.add(LetterBean("s", "丝", ""))
-        list.add(LetterBean("r", "日", ""))
-        list.add(LetterBean("zh", "知", ""))
-        list.add(LetterBean("ch", "痴", ""))
-        list.add(LetterBean("sh", "狮", ""))
-        list.add(LetterBean("y", "衣", ""))
-        list.add(LetterBean("w", "乌", ""))
+        list.add(LetterBean("b", "波", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("p", "泼", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("m", "摸", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("f", "佛", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("d", "的", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("t", "特", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("n", "呢", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("l", "了", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("g", "哥", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("k", "科", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("h", "喝", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("j", "鸡", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("q", "期", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("x", "西", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("z", "兹", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("c", "呲", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("s", "丝", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("r", "日", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("zh", "知", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("ch", "痴", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("sh", "狮", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("y", "衣", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("w", "乌", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
 
         list
     }
@@ -288,141 +339,195 @@ class LetterActivity : BaseListActivity<List<LetterBean>, LetterBean>() {
     private val ymList by lazy {
         val list = ArrayList<LetterBean>()
         list.add(LetterBean("单韵母"))
-        list.add(LetterBean("a", "啊", ""))
-        list.add(LetterBean("o", "喔", ""))
-        list.add(LetterBean("e", "鹅", ""))
-        list.add(LetterBean("i", "衣", ""))
-        list.add(LetterBean("u", "乌", ""))
-        list.add(LetterBean("ü", "鱼", ""))
+        list.add(LetterBean("a", "啊", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("o", "喔", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("e", "鹅", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("i", "衣", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("u", "乌", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("ü", "鱼", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
 
         list.add(LetterBean("复韵母"))
-        list.add(LetterBean("ai", "唉", ""))
-        list.add(LetterBean("ei", "诶", ""))
-        list.add(LetterBean("ui", "威", ""))
-        list.add(LetterBean("ao", "奥", ""))
-        list.add(LetterBean("ou", "欧", ""))
-        list.add(LetterBean("iu", "优", ""))
-        list.add(LetterBean("ie", "耶", ""))
-        list.add(LetterBean("üe", "约", ""))
-        list.add(LetterBean("er", "耳", ""))
+        list.add(LetterBean("ai", "唉", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("ei", "诶", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("ui", "威", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("ao", "奥", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("ou", "欧", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("iu", "优", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("ie", "耶", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("üe", "约", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("er", "耳", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
 
         list.add(LetterBean("前鼻韵母"))
-        list.add(LetterBean("an", "安", ""))
-        list.add(LetterBean("en", "恩", ""))
-        list.add(LetterBean("in", "因", ""))
-        list.add(LetterBean("un", "温", ""))
-        list.add(LetterBean("̈ün", "晕", ""))
+        list.add(LetterBean("an", "安", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("en", "恩", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("in", "因", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("un", "温", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("̈ün", "晕", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
 
         list.add(LetterBean("后鼻韵母"))
-        list.add(LetterBean("ang", "昂", ""))
-        list.add(LetterBean("eng", "鞥", ""))
-        list.add(LetterBean("ing", "英", ""))
-        list.add(LetterBean("ong", "翁", ""))
+        list.add(LetterBean("ang", "昂", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("eng", "鞥", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("ing", "英", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("ong", "翁", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
 
         list
     }
 
     private val ztList by lazy {
         val list = ArrayList<LetterBean>()
-        list.add(LetterBean("zhi", "知", ""))
-        list.add(LetterBean("chi", "痴", ""))
-        list.add(LetterBean("shi", "狮", ""))
-        list.add(LetterBean("ri", "日", ""))
-        list.add(LetterBean("zi", "兹", ""))
-        list.add(LetterBean("ci", "呲", ""))
-        list.add(LetterBean("si", "丝", ""))
-        list.add(LetterBean("yuan", "渊", ""))
-        list.add(LetterBean("yin", "因", ""))
-        list.add(LetterBean("yun", "晕", ""))
-        list.add(LetterBean("ying", "英", ""))
+        list.add(LetterBean("zhi", "知", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("chi", "痴", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("shi", "狮", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("ri", "日", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("zi", "兹", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("ci", "呲", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("si", "丝", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("yuan", "渊", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("yin", "因", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("yun", "晕", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("ying", "英", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
 
         list
     }
 
     private val zmList by lazy {
         val list = ArrayList<LetterBean>()
-        list.add(LetterBean("A a [ei]", "诶", ""))
-        list.add(LetterBean("B b [bi:]", "哔", ""))
-        list.add(LetterBean("C c [si:]", "司仪", ""))
-        list.add(LetterBean("D d [di:]", "低", ""))
-        list.add(LetterBean("E e [i:]", "衣", ""))
-        list.add(LetterBean("F f [ef]", "爱抚", ""))
-        list.add(LetterBean("G g [dʒi:]", "计一", ""))
-        list.add(LetterBean("H h [eit∫]", "诶吃", ""))
-        list.add(LetterBean("I i [ai]", "唉一", ""))
-        list.add(LetterBean("J j [dʒei]", "之诶", ""))
-        list.add(LetterBean("K k [kei]", "尅", ""))
-        list.add(LetterBean("L l [el]", "爱凹", ""))
-        list.add(LetterBean("M m [em]", "爱母", ""))
-        list.add(LetterBean("N n [en]", "爱恩", ""))
-        list.add(LetterBean("O o [əʊ]", "欧", ""))
-        list.add(LetterBean("P p [pi:]", "劈", ""))
-        list.add(LetterBean("Q q [kju:]", "棵右", ""))
-        list.add(LetterBean("R r [ɑ:]", "啊二", ""))
-        list.add(LetterBean("S s [es]", "爱丝", ""))
-        list.add(LetterBean("T t [ti:]", "踢", ""))
-        list.add(LetterBean("U u [ju:]", "优", ""))
-        list.add(LetterBean("V v [vi:]", "威", ""))
-        list.add(LetterBean("W w ['dʌblju:]", "答不留", ""))
-        list.add(LetterBean("X x [eks]", "爱克丝", ""))
-        list.add(LetterBean("Y y [wai]", "外", ""))
-        list.add(LetterBean("Z z [zi:]", "紫一", ""))
+        list.add(LetterBean("A a [ei]", "诶", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("B b [bi:]", "哔", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("C c [si:]", "司仪", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("D d [di:]", "低", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("E e [i:]", "衣", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("F f [ef]", "爱抚", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("G g [dʒi:]", "计一", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("H h [eit∫]", "诶吃", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("I i [ai]", "唉一", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("J j [dʒei]", "之诶", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("K k [kei]", "尅", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("L l [el]", "爱凹", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("M m [em]", "爱母", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("N n [en]", "爱恩", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("O o [əʊ]", "欧", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("P p [pi:]", "劈", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("Q q [kju:]", "棵右", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("R r [ɑ:]", "啊二", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("S s [es]", "爱丝", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("T t [ti:]", "踢", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("U u [ju:]", "优", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("V v [vi:]", "威", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("W w ['dʌblju:]", "答不留", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("X x [eks]", "爱克丝", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("Y y [wai]", "外", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
+        list.add(LetterBean("Z z [zi:]", "紫一", "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/%5E-sound.mp3"))
         list
     }
 
     private val ybList by lazy {
         val list = ArrayList<LetterBean>()
         list.add(LetterBean("元音"))
-        list.add(LetterBean("[i:]", "", ""))
-        list.add(LetterBean("[ɪ]", "", ""))
-        list.add(LetterBean("[e]", "", ""))
-        list.add(LetterBean("[æ]", "", ""))
-        list.add(LetterBean("[ɜ]", "", ""))
-        list.add(LetterBean("[ə]", "", ""))
-        list.add(LetterBean("[ʌ]", "", ""))
-        list.add(LetterBean("[ɔ:]", "", ""))
-        list.add(LetterBean("[ɒ]", "", ""))
-        list.add(LetterBean("[u:]", "", ""))
-        list.add(LetterBean("[ʊ]", "", ""))
-        list.add(LetterBean("[ɑ:]", "", ""))
-        list.add(LetterBean("[aɪ]", "", ""))
-        list.add(LetterBean("[eɪ]", "", ""))
-        list.add(LetterBean("[aʊ]", "", ""))
-        list.add(LetterBean("[əʊ]", "", ""))
-        list.add(LetterBean("[ɔɪ]", "", ""))
-        list.add(LetterBean("[ɪə]", "", ""))
-        list.add(LetterBean("[eə]", "", ""))
-        list.add(LetterBean("[ʊə]", "", ""))
+        list.add(LetterBean("[i:]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/i_.mp3"))
+        list.add(LetterBean("[ɪ]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/ɪ.mp3"))
+
+        list.add(LetterBean("[ɔ:]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/ɔ_.mp3"))
+        list.add(LetterBean("[ɒ]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/ɒ.mp3"))
+
+        list.add(LetterBean("[u:]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/u_.mp3"))
+        list.add(LetterBean("[ʊ]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/ʊ.mp3"))
+
+        list.add(LetterBean("[ɜ:]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/ɜ_.mp3"))
+        list.add(LetterBean("[ə]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/ə.mp3"))
+
+        list.add(LetterBean("[ɑ:]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/ɑ_.mp3"))
+        list.add(LetterBean("[ʌ]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/ʌ.mp3"))
+
+        list.add(LetterBean("[e]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/e.mp3"))
+        list.add(LetterBean("[æ]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/æ.mp3"))
+
+        list.add(LetterBean("[aɪ]", "", 
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/aɪ.mp3"))
+        list.add(LetterBean("[eɪ]", "", 
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/eɪ.mp3"))
+        list.add(LetterBean("[aʊ]", "", 
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/aʊ.mp3"))
+        list.add(LetterBean("[əʊ]", "", 
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/əʊ.mp3"))
+        list.add(LetterBean("[ɔɪ]", "", 
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/ɔɪ.mp3"))
+        list.add(LetterBean("[ɪə]", "", 
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/ɪə.mp3"))
+        list.add(LetterBean("[eə]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/eə.mp3"))
+        list.add(LetterBean("[ʊə]", "", 
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/ʊə.mp3"))
 
         list.add(LetterBean("辅音"))
-        list.add(LetterBean("[p]", "", ""))
-        list.add(LetterBean("[t]", "", ""))
-        list.add(LetterBean("[k]", "", ""))
-        list.add(LetterBean("[b]", "", ""))
-        list.add(LetterBean("[d]", "", ""))
-        list.add(LetterBean("[g]", "", ""))
-        list.add(LetterBean("[f]", "", ""))
-        list.add(LetterBean("[s]", "", ""))
-        list.add(LetterBean("[∫]", "", ""))
-        list.add(LetterBean("[θ]", "", ""))
-        list.add(LetterBean("[h]", "", ""))
-        list.add(LetterBean("[v]", "", ""))
-        list.add(LetterBean("[z]", "", ""))
-        list.add(LetterBean("[ʒ]", "", ""))
-        list.add(LetterBean("[ð]", "", ""))
-        list.add(LetterBean("[r]", "", ""))
-        list.add(LetterBean("[tʃ]", "", ""))
-        list.add(LetterBean("[tr]", "", ""))
-        list.add(LetterBean("[ts]", "", ""))
-        list.add(LetterBean("[dʒ]", "", ""))
-        list.add(LetterBean("[dr]", "", ""))
-        list.add(LetterBean("[dz]", "", ""))
-        list.add(LetterBean("[m]", "", ""))
-        list.add(LetterBean("[n]", "", ""))
-        list.add(LetterBean("[ŋ]", "", ""))
-        list.add(LetterBean("[l]", "", ""))
-        list.add(LetterBean("[j]", "", ""))
-        list.add(LetterBean("[w]", "", ""))
+        list.add(LetterBean("[p]", "", 
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/p.mp3"))
+        list.add(LetterBean("[t]", "", 
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/t.mp3"))
+        list.add(LetterBean("[k]", "", 
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/k.mp3"))
+        list.add(LetterBean("[b]", "", 
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/b.mp3"))
+        list.add(LetterBean("[d]", "", 
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/d.mp3"))
+        list.add(LetterBean("[g]", "", 
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/g.mp3"))
+        list.add(LetterBean("[f]", "", 
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/f.mp3"))
+        list.add(LetterBean("[s]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/s.mp3"))
+        list.add(LetterBean("[ʃ]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/ʃ.mp3"))
+        list.add(LetterBean("[θ]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/θ.mp3"))
+        list.add(LetterBean("[h]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/h.mp3"))
+        list.add(LetterBean("[v]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/v.mp3"))
+        list.add(LetterBean("[z]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/z.mp3"))
+        list.add(LetterBean("[ʒ]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/ʒ.mp3"))
+        list.add(LetterBean("[ð]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/ð.mp3"))
+        list.add(LetterBean("[r]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/r.mp3"))
+        list.add(LetterBean("[tʃ]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/tʃ.mp3"))
+        list.add(LetterBean("[tr]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/tr.mp3"))
+        list.add(LetterBean("[ts]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/ts.mp3"))
+        list.add(LetterBean("[dʒ]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/dʒ.mp3"))
+        list.add(LetterBean("[dr]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/dr.mp3"))
+        list.add(LetterBean("[dz]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/dz.mp3"))
+        list.add(LetterBean("[m]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/m.mp3"))
+        list.add(LetterBean("[n]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/n.mp3"))
+        list.add(LetterBean("[ŋ]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/ŋ.mp3"))
+        list.add(LetterBean("[l]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/l.mp3"))
+        list.add(LetterBean("[j]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/j.mp3"))
+        list.add(LetterBean("[w]", "",
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/w.mp3"))
 
         list
     }

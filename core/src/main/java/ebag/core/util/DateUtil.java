@@ -827,7 +827,18 @@ public final class DateUtil implements Serializable {
 	 * @return String 指定格式的日期字符串.
 	 */
 	public static String getDateTime(long microsecond) {
-		return getFormatDateTime(new Date(microsecond), "yyyy-MM-dd HH:mm:ss");
+		return getDateTime(microsecond, "yyyy-MM-dd HH:mm:ss");
+	}
+
+	/**
+	 * 返回指定时间字符串。
+	 * <p>
+	 * 格式：yyyy-MM-dd HH:mm:ss
+	 *
+	 * @return String 指定格式的日期字符串.
+	 */
+	public static String getDateTime(long microsecond, String format) {
+		return getFormatDateTime(new Date(microsecond), format);
 	}
 
 	/**

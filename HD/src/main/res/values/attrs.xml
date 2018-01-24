@@ -55,9 +55,6 @@
         <attr name="toMainTab" format="boolean"/>
     </declare-styleable>
 
-    <declare-styleable name="DrawView">
-        <attr name="isEnglish" format="boolean"/>
-    </declare-styleable>
     <declare-styleable name="WriteView">
         <attr name="isChinese" format="boolean"/>
     </declare-styleable>
