@@ -51,6 +51,12 @@ interface TeacherService {
     fun createGroup(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /**
+     * 修改小组
+     */
+    @POST("clazz/modifyClassByGroup/{version}")
+    fun modifyGroup(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
      * 获取基础数据的接口
      */
     @Headers("EBag-Special-Url: special/url")
@@ -68,4 +74,28 @@ interface TeacherService {
      */
     @POST("sendHome/getBookVersion/{version}")
     fun searchBookVersion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<BookVersionBean>>>
+
+    /**
+     * 查询最新公告
+     */
+    @POST("notice/queryNewClassNotice/{version}")
+    fun newestNotice(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<NoticeBean>>
+
+    /**
+     * 公告列表
+     */
+    @POST("notice/queryClassNotice/{version}")
+    fun noticeList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<NoticeBean>>>
+
+    /**
+     * 发布公告
+     */
+    @POST("notice/sendClassNotice/{version}")
+    fun publishNotice(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 添加老师
+     */
+    @POST("clazz/joinTeacherBySubject/{version}")
+    fun addTeacher(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 }

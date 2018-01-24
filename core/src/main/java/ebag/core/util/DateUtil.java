@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -196,7 +197,7 @@ public final class DateUtil implements Serializable {
 	 * @return 格式化后的日期显示
 	 */
 	public static String dateFormat(String sdate, String format) {
-		SimpleDateFormat formatter = new SimpleDateFormat(format);
+		SimpleDateFormat formatter = new SimpleDateFormat(format, Locale.getDefault());
 		java.sql.Date date = java.sql.Date.valueOf(sdate);
 		String dateString = formatter.format(date);
 
@@ -362,7 +363,7 @@ public final class DateUtil implements Serializable {
 	 * @return String 指定格式的日期字符串.
 	 */
 	public static String getFormatDateTime(Date date, String format) {
-		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.getDefault());
 		return sdf.format(date);
 	}
 

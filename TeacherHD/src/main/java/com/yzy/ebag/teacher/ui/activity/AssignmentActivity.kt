@@ -37,9 +37,14 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                                  semesterName,
                                  subCode,
                                  subName ->
-            textBookVersion.text = getString(R.string.textbook_name,
-                    versionName,
+            setVersionTv(versionName,
                     semesterName,
+                    subName)
+            setVersionCache(versionName,
+                    versionCode,
+                    semesterCode,
+                    semesterName,
+                    subCode,
                     subName)
         }
         dialog
@@ -94,13 +99,15 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             gradeAdapter.selectPosition = position
             classAdapter.datas = gradeAdapter.datas[position].homeClazzInfoVos
 
-            val unitList = cacheMap[currentGradeCode]!!.unitList
-            val questionList = cacheMap[currentGradeCode]!!.questionList
+            val cache = cacheMap[currentGradeCode]!!
+            val unitList = cache.unitList
+            val questionList = cache.questionList
             if (unitList.isEmpty())
                 assignmentPresenter.loadUnitAndQuestion(workCategory.toString(), currentGradeCode)
             else {
                 unitAdapter.setNewData(unitList as List<MultiItemEntity>)
                 questionAdapter.datas = questionList
+                setVersionTv(cache.versionName, cache.semesterName, cache.subName)
             }
         }
 
@@ -229,16 +236,42 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         }
         unitAdapter.setNewData(unitList as List<MultiItemEntity>)
         val versionBean = assignmentBean.resultTaughtCoursesVo
-        textBookVersion.text = getString(R.string.textbook_name,
-                versionBean?.bookVersionName,
+        setVersionTv(versionBean?.bookVersionName,
                 versionBean?.semeterName,
                 versionBean?.bookName)
 
         cacheMap[currentGradeCode]!!.unitList = unitList as ArrayList<AssignUnitBean>
         cacheMap[currentGradeCode]!!.questionList = questionList as ArrayList<AssignmentBean.QuestionsBean>
         cacheMap[currentGradeCode]!!.versionId = versionBean.bookVersionId
+
+        val bookVersionBean = assignmentBean.resultTaughtCoursesVo
+        setVersionCache(bookVersionBean.bookVersionName,
+                bookVersionBean.bookVersionId,
+                bookVersionBean.semeterCode,
+                bookVersionBean.semeterName,
+                bookVersionBean.bookCode,
+                bookVersionBean.bookName)
     }
 
+    private fun setVersionTv(version: String?, semester: String?, subName: String?){
+        textBookVersion.text = getString(R.string.textbook_name,
+                version,
+                semester,
+                subName)
+    }
+    private fun setVersionCache(versionName: String,
+                                versionCode: String,
+                                semesterCode: String,
+                                semesterName: String,
+                                subCode: String,
+                                subName: String){
+        cacheMap[currentGradeCode]!!.versionName = versionName
+        cacheMap[currentGradeCode]!!.versionId = versionCode
+        cacheMap[currentGradeCode]!!.semesterCode = semesterCode
+        cacheMap[currentGradeCode]!!.semesterName = semesterName
+        cacheMap[currentGradeCode]!!.subCode = subCode
+        cacheMap[currentGradeCode]!!.subName = subName
+    }
     inner class GradeAdapter : RecyclerAdapter<AssignGradeBean>(R.layout.item_assignment_grade){
         var selectPosition = -1
         set(value) {
@@ -318,11 +351,20 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         }
     }
 
+    /**
+     * 数据缓存类
+     */
     inner class Cache{
         var classes = ArrayList<AssignClassBean>()
         var unitList = ArrayList<AssignUnitBean>()
         var questionList = ArrayList<AssignmentBean.QuestionsBean>()
         var currentUnitBean = AssignUnitBean.UnitSubBean()
         var versionId = ""
+        var versionName = ""
+
+        var semesterCode = ""
+        var semesterName = ""
+        var subCode = ""
+        var subName = ""
     }
 }

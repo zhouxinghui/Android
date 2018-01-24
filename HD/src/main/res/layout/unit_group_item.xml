@@ -9,11 +9,10 @@
     android:paddingTop="@dimen/x10"
     android:paddingStart="@dimen/x25"
     android:paddingEnd="@dimen/x24"
-    android:textColor="@color/unit_text_color"
+    android:textColor="@color/normal_text_color"
     tools:text="语文"
-    android:textSize="@dimen/x24"
+    android:textSize="@dimen/x26"
     android:drawablePadding="@dimen/x15"
-    android:textStyle="bold"
     app:leftDrawable="@drawable/unit_group_icon"
     app:leftDrawableHeight="@dimen/x17"
     app:leftDrawableWidth="@dimen/x17"/>

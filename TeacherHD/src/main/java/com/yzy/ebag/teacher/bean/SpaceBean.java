@@ -18,10 +18,19 @@ public class SpaceBean implements Serializable {
      */
 
     private String classId;
+    private String gradeCode;
     private String inviteCode;
     private int studentCount;
     private String clazzName;
     private List<ClazzUserVoListBean> clazzUserVoList;
+
+    public String getGradeCode() {
+        return gradeCode;
+    }
+
+    public void setGradeCode(String gradeCode) {
+        this.gradeCode = gradeCode;
+    }
 
     public String getClassId() {
         return classId;

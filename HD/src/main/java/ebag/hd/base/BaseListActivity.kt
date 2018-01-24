@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
 import ebag.core.util.T
 import ebag.core.widget.empty.StateView
 import ebag.hd.R
@@ -227,7 +228,10 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
             override fun onError(exception: Throwable) {
                 when (loadingStatus) {
                     //进入页面第一次加载出现的异常
-                    FIRST -> stateView.showError()
+                    FIRST -> {
+                        stateView.showError()
+                        exception.handleThrowable(this@BaseListActivity)
+                    }
                     //刷新的时候出现的异常
                     REFRESH -> {
                         refreshLayout.isRefreshing = false

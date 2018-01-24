@@ -12,6 +12,7 @@ import com.yzy.ebag.teacher.bean.GroupBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.widget.GroupManageDialog
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.T
 
 class StudyGroupActivity : BaseListActivity<List<GroupBean>, GroupBean>() {
     companion object {
@@ -24,7 +25,13 @@ class StudyGroupActivity : BaseListActivity<List<GroupBean>, GroupBean>() {
     }
     private lateinit var classId: String
     private val adapter by lazy { MyAdapter() }
-    private val groupDialog by lazy { GroupManageDialog(this, classId) }
+    private val groupDialog by lazy {
+        val dialog = GroupManageDialog(this, classId)
+        dialog.onGroupChangeListener = {
+            onRetryClick()
+        }
+        dialog
+    }
     override fun loadConfig(intent: Intent) {
         loadMoreEnabled(false)
         refreshEnabled(false)
@@ -40,10 +47,10 @@ class StudyGroupActivity : BaseListActivity<List<GroupBean>, GroupBean>() {
                     val item = adapter.getItem(position)
                     groupDialog.show(item?.clazzUserVos!!, item.groupName, item.groupId)
                 }
+                R.id.deleteTv ->{
+                    T.show(this, "删除小组")
+                }
             }
-        }
-        groupDialog.onGroupChangeListener = {
-            onRetryClick()
         }
     }
 

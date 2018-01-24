@@ -15,7 +15,7 @@ import com.yzy.ebag.teacher.ui.activity.SpaceActivity
 import com.yzy.ebag.teacher.widget.AddTeacherDialog
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
-import ebag.core.util.T
+import ebag.core.http.network.handleThrowable
 import ebag.core.util.loadHead
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
@@ -28,7 +28,11 @@ class FragmentClass : BaseFragment() {
     override fun getLayoutRes(): Int {
         return R.layout.fragment_class
     }
-    private val addTeacherDialog by lazy { AddTeacherDialog(mContext) }
+    private val addTeacherDialog by lazy {
+        val dialog = AddTeacherDialog(mContext)
+        dialog.onAddSuccess = {TeacherApi.clazzSpace(request)}
+        dialog
+    }
     private val adapter by lazy{ ClazzAdapter() }
 
     private val request by lazy {
@@ -47,6 +51,7 @@ class FragmentClass : BaseFragment() {
 
             override fun onError(exception: Throwable) {
                 stateView.showError()
+                exception.handleThrowable(mContext)
             }
 
         }
@@ -68,13 +73,11 @@ class FragmentClass : BaseFragment() {
         recyclerView.layoutManager = LinearLayoutManager(mContext)
         recyclerView.adapter = adapter
         adapter.setOnItemClickListener { holder, view, position ->
-            T.show(mContext, "点击条目")
         }
         adapter.setOnItemChildClickListener { holder, view, position ->
             when(view.id){
                 R.id.add_teacher_btn ->{
-                    T.show(mContext, "添加老师")
-                    addTeacherDialog.show()
+                    addTeacherDialog.show(adapter.datas[position].classId, adapter.datas[position].gradeCode)
                 }
                 R.id.class_space_btn ->{
                     SpaceActivity.jump(mContext, adapter.datas[position].classId, adapter.datas[position].clazzName)

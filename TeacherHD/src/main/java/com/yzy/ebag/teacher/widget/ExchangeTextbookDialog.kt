@@ -1,14 +1,12 @@
 package com.yzy.ebag.teacher.widget
 
-import android.app.Dialog
 import android.content.Context
-import android.graphics.drawable.BitmapDrawable
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.AssignClassBean
 import com.yzy.ebag.teacher.bean.BookVersionBean
 import com.yzy.ebag.teacher.http.TeacherApi
+import ebag.core.base.BaseDialog
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.DensityUtil
@@ -21,7 +19,18 @@ import kotlinx.android.synthetic.main.dialog_textbook_version.*
 /**
  * Created by YZY on 2018/1/10.
  */
-class ExchangeTextbookDialog(context: Context): Dialog(context) {
+class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
+    override fun getLayoutRes(): Int {
+        return R.layout.dialog_textbook_version
+    }
+
+    override fun setWidth(): Int {
+        return DensityUtil.dip2px(context, context.resources.getDimensionPixelSize(R.dimen.x400).toFloat())
+    }
+
+    override fun setHeight(): Int {
+        return DensityUtil.dip2px(context, context.resources.getDimensionPixelSize(R.dimen.y400).toFloat())
+    }
     private val versionRequest = object: RequestCallBack<List<BookVersionBean>>(){
             override fun onStart() {
                 stateView.showLoading()
@@ -61,14 +70,6 @@ class ExchangeTextbookDialog(context: Context): Dialog(context) {
     private val versionAdapter = VersionAdapter()
     private var idList: ArrayList<String>? = null
     init {
-        val contentView = LayoutInflater.from(context).inflate(R.layout.dialog_textbook_version, null)
-        setContentView(contentView)
-        window.setBackgroundDrawable(BitmapDrawable())
-        val params = window.attributes
-        params.width = DensityUtil.dip2px(context, context.resources.getDimensionPixelSize(R.dimen.x400).toFloat())
-        params.height = DensityUtil.dip2px(context, context.resources.getDimensionPixelSize(R.dimen.y400).toFloat())
-        window.attributes = params
-
         semesterGroup.setOnCheckedChangeListener { _, checkedId ->
             when(checkedId){
                 R.id.semesterFirst ->{

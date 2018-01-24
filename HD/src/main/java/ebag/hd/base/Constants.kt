@@ -24,4 +24,5 @@ object Constants {
     val BACK_TO_CREATE_CLASS = 101
     val SELECT_SCHOOL = 102
     val CURRENT_CITY = "CURRENT_CITY"
+
 }
