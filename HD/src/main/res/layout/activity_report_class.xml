@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ebag.hd.widget.TitleBar
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <View
+            android:id="@+id/bg"
+            android:layout_width="@dimen/x268"
+            android:layout_height="match_parent"
+            android:background="@color/white"/>
+
+        <FrameLayout
+            android:id="@+id/scoreLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/bg"
+            app:layout_constraintEnd_toEndOf="@id/bg"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/line1">
+
+            <ebag.hd.widget.RoundView
+                android:id="@+id/scoreRound"
+                android:layout_width="@dimen/x140"
+                android:layout_height="@dimen/x140"
+                app:progress="80"
+                app:roundColor="#D5D5D5"
+                app:roundProgressColor="#4CB06C"
+                app:roundWidth="@dimen/x2"/>
+            
+            <TextView
+                android:id="@+id/scoreTv"
+                android:layout_width="@dimen/x126"
+                android:layout_height="@dimen/x126"
+                android:background="@drawable/icon_report_score"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="#181818"
+                android:textSize="@dimen/x24"
+                android:includeFontPadding="false"
+                tools:text="总分\n80"/>
+
+        </FrameLayout>
+        <View
+            android:id="@+id/line1"
+            android:layout_width="@dimen/x204"
+            android:layout_height="@dimen/x7"
+            android:background="@drawable/seg_line"
+            app:layout_constraintStart_toStartOf="@id/bg"
+            app:layout_constraintEnd_toEndOf="@id/bg"
+            app:layout_constraintTop_toBottomOf="@id/scoreLayout"
+            app:layout_constraintBottom_toTopOf="@id/heightLayout"/>
+
+        <FrameLayout
+            android:id="@+id/heightLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/bg"
+            app:layout_constraintEnd_toEndOf="@id/bg"
+            app:layout_constraintTop_toBottomOf="@id/line1"
+            app:layout_constraintBottom_toTopOf="@id/line2">
+
+            <ebag.hd.widget.RoundView
+                android:id="@+id/heightRound"
+                android:layout_width="@dimen/x140"
+                android:layout_height="@dimen/x140"
+                app:progress="80"
+                app:roundColor="#D5D5D5"
+                app:roundProgressColor="#ECAA38"
+                app:roundWidth="@dimen/x2"/>
+            <TextView
+                android:id="@+id/heightTv"
+                android:layout_width="@dimen/x126"
+                android:layout_height="@dimen/x126"
+                android:background="@drawable/icon_report_height"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="#181818"
+                android:textSize="@dimen/x24"
+                android:includeFontPadding="false"
+                tools:text="最高分\n80"/>
+
+        </FrameLayout>
+        <View
+            android:id="@+id/line2"
+            android:layout_width="@dimen/x204"
+            android:layout_height="@dimen/x7"
+            android:background="@drawable/seg_line"
+            app:layout_constraintStart_toStartOf="@id/bg"
+            app:layout_constraintEnd_toEndOf="@id/bg"
+            app:layout_constraintTop_toBottomOf="@id/heightLayout"
+            app:layout_constraintBottom_toTopOf="@id/errorLayout"/>
+
+        <FrameLayout
+            android:id="@+id/errorLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/bg"
+            app:layout_constraintEnd_toEndOf="@id/bg"
+            app:layout_constraintTop_toBottomOf="@id/line2"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ebag.hd.widget.RoundView
+                android:id="@+id/errorRound"
+                android:layout_width="@dimen/x140"
+                android:layout_height="@dimen/x140"
+                app:progress="80"
+                app:roundColor="#D5D5D5"
+                app:roundProgressColor="#E76647"
+                app:roundWidth="@dimen/x2"/>
+            <TextView
+                android:id="@+id/errorTv"
+                android:layout_width="@dimen/x126"
+                android:layout_height="@dimen/x126"
+                android:background="@drawable/icon_report_error"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="#181818"
+                android:textSize="@dimen/x24"
+                android:includeFontPadding="false"
+                tools:text="错题\n8"/>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/tipLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toEndOf="@id/bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/white"
+            android:paddingTop="@dimen/x20"
+            android:paddingBottom="@dimen/x20"
+            android:layout_marginTop="@dimen/x24"
+            android:layout_marginStart="@dimen/x24"
+            android:layout_marginEnd="@dimen/x24">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:paddingStart="@dimen/x40"
+                android:textSize="@dimen/x28"
+                android:textColor="#2a2a2a"
+                android:text="题型类别"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="@dimen/x28"
+                android:textColor="#2a2a2a"
+                android:text="题型数量"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="@dimen/x28"
+                android:textColor="#2a2a2a"
+                android:text="错题数量"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:textSize="@dimen/x28"
+                android:textColor="#2a2a2a"
+                android:text="分数"/>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/tipLayout"
+            app:layout_constraintStart_toStartOf="@id/tipLayout"
+            app:layout_constraintEnd_toEndOf="@id/tipLayout"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
+
+
+
+</LinearLayout>
