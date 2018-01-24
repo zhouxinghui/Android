@@ -47,6 +47,20 @@ fun ImageView.loadImage(url: String?) {
                     .into(this)
             }
 }
+fun ImageView.loadPhoto(url: String?) {
+    ImageViewUtils.requestOptions
+            .placeholder(R.drawable.replace_img)
+            .error(R.drawable.replace_img)
+            .fitCenter()
+            .let {
+                Glide
+                    .with(this)
+                    .load(url)
+                    .apply(it)
+                    .into(this)
+            }
+}
+
 /**
  * 加载图片（可自定义加载中和加载失败图片）
  */

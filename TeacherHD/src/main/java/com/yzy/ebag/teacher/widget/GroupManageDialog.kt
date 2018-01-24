@@ -1,14 +1,14 @@
 package com.yzy.ebag.teacher.widget
 
-import android.app.Dialog
 import android.content.Context
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.support.v7.widget.GridLayoutManager
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.AbsoluteSizeSpan
-import android.view.*
+import android.view.Gravity
+import android.view.View
+import android.view.WindowManager
 import android.widget.PopupWindow
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -18,6 +18,7 @@ import com.yzy.ebag.teacher.bean.BaseStudentBean
 import com.yzy.ebag.teacher.bean.ClassMemberBean
 import com.yzy.ebag.teacher.bean.GroupBean
 import com.yzy.ebag.teacher.http.TeacherApi
+import ebag.core.base.BaseDialog
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.DensityUtil
@@ -26,9 +27,19 @@ import ebag.hd.base.Constants
 import kotlinx.android.synthetic.main.dialog_group_manager.*
 
 /**
+ * 管理小组
  * Created by YZY on 2018/1/18.
  */
-class GroupManageDialog(context: Context, classId: String): Dialog(context)  {
+class GroupManageDialog(context: Context, private val classId: String): BaseDialog(context)  {
+    override fun getLayoutRes(): Int {
+        return R.layout.dialog_group_manager
+    }
+    override fun setWidth(): Int {
+        return DensityUtil.dip2px(context, context.resources.getDimensionPixelSize(R.dimen.x550).toFloat())
+    }
+    override fun setHeight(): Int {
+        return WindowManager.LayoutParams.MATCH_PARENT
+    }
     private val classMemberRequest = object: RequestCallBack<ClassMemberBean>(){
         override fun onStart() {
             stateView.showLoading()
@@ -50,10 +61,10 @@ class GroupManageDialog(context: Context, classId: String): Dialog(context)  {
     }
     private val createGroupRequest = object : RequestCallBack<String>(){
         override fun onStart() {
-            T.showLong(context, "正在创建小组...")
+            T.showLong(context, if (isModify)"正在修改..." else "正在创建小组...")
         }
         override fun onSuccess(entity: String?) {
-            T.show(context, "创建成功")
+            T.show(context, if (isModify)"修改成功" else "创建成功")
             dismiss()
             onGroupChangeListener?.invoke()
         }
@@ -93,15 +104,8 @@ class GroupManageDialog(context: Context, classId: String): Dialog(context)  {
     }
     private var currentBaseStudentBean: BaseStudentBean? = null
     private var tempStudentBean: BaseStudentBean? = null
+    private lateinit var groupId: String
     init {
-        val contentView = LayoutInflater.from(context).inflate(R.layout.dialog_group_manager, null)
-        window.requestFeature(Window.FEATURE_NO_TITLE)
-        setContentView(contentView)
-        window.setBackgroundDrawable(BitmapDrawable())
-        val params = window.attributes
-        params.width = DensityUtil.dip2px(context, context.resources.getDimensionPixelSize(R.dimen.x550).toFloat())
-        params.height = WindowManager.LayoutParams.MATCH_PARENT
-        window.attributes = params
         val sps = SpannableString(context.getString(R.string.group_member))
         sps.setSpan(AbsoluteSizeSpan(context.resources.getDimensionPixelSize(R.dimen.tv_normal),false), 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         sps.setSpan(AbsoluteSizeSpan(context.resources.getDimensionPixelSize(R.dimen.tv_third),false), 4, sps.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -114,8 +118,10 @@ class GroupManageDialog(context: Context, classId: String): Dialog(context)  {
 
         confirmTv.setOnClickListener {
             val groupName = groupNameEdit.text.toString()
-            //TODO if(isModify)
-            TeacherApi.createGroup(classId, groupName, groupMemberList, createGroupRequest)
+            if(isModify)
+                TeacherApi.modifyGroup(groupId, classId, groupName, groupMemberList, createGroupRequest)
+            else
+                TeacherApi.createGroup(classId, groupName, groupMemberList, createGroupRequest)
         }
         cancelTv.setOnClickListener { dismiss() }
 
@@ -134,6 +140,7 @@ class GroupManageDialog(context: Context, classId: String): Dialog(context)  {
 
     fun show(groupList: List<GroupBean.ClazzUserVosBean>, groupName: String, groupId: String) {
         isModify = true
+        this.groupId = groupId
         groupMemberList.clear()
         groupNameEdit.setText(groupName)
         groupList.forEach {

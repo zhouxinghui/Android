@@ -1,5 +1,6 @@
 package com.yzy.ebag.teacher.ui.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -9,73 +10,83 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.base.BaseListActivity
 import com.yzy.ebag.teacher.R
-import com.yzy.ebag.teacher.bean.NoticeHistoryBean
+import com.yzy.ebag.teacher.base.Constants
+import com.yzy.ebag.teacher.bean.NoticeBean
+import com.yzy.ebag.teacher.http.TeacherApi
+import ebag.core.base.PhotoPreviewActivity
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.DateUtil
 import ebag.core.util.loadImage
+import java.util.*
 
 /**
  * Created by YZY on 2018/1/16.
  */
-class NoticeHistoryActivity: BaseListActivity<List<NoticeHistoryBean>, NoticeHistoryBean>() {
+class NoticeHistoryActivity: BaseListActivity<List<NoticeBean>, NoticeBean>() {
+    private var isPublished = false
+    companion object {
+        fun jump(context: Activity, classId: String){
+            context.startActivityForResult(Intent(
+                    context, NoticeHistoryActivity::class.java).putExtra("classId",
+                    classId), Constants.PUBLISH_REQUEST)
+        }
+    }
+    private val classId by lazy { intent.getStringExtra("classId") }
     override fun loadConfig(intent: Intent) {
         titleBar.setTitle(R.string.notice_history)
         titleBar.setRightText(resources.getString(R.string.publish_notice), {
-            startActivity(Intent(this, PublishContentActivity::class.java))
+            PublishContentActivity.jump(this, classId)
         })
-        val list = ArrayList<NoticeHistoryBean>()
-        for (i in 0..99){
-            val bean = NoticeHistoryBean()
-            bean.publishTime = "2018-01-18"
-            bean.publishName = "周老师"
-            bean.deadLine = "2018-01-18"
-            bean.description = "发京东方爱打飞机哦发京东方爱打飞机哦发京东方爱打飞机哦发京东方爱打飞机哦发京东方爱打飞机哦发京东方爱打飞机哦发京东方爱打飞机哦发京东方爱打飞机哦发京东方爱打飞机哦发京东方爱打飞机哦发京东方爱打飞机哦发京东方爱打飞机哦发京东方爱打飞机哦发京东方爱打飞机哦发京东方爱打飞机哦"
-            val imageList = ArrayList<String>()
-            imageList.add("http://img07.tooopen.com/images/20170316/tooopen_sy_201956178977.jpg")
-            imageList.add("http://img07.tooopen.com/images/20170316/tooopen_sy_201956178977.jpg")
-            imageList.add("http://img07.tooopen.com/images/20170316/tooopen_sy_201956178977.jpg")
-            imageList.add("http://img07.tooopen.com/images/20170316/tooopen_sy_201956178977.jpg")
-            imageList.add("http://img07.tooopen.com/images/20170316/tooopen_sy_201956178977.jpg")
-            imageList.add("http://img07.tooopen.com/images/20170316/tooopen_sy_201956178977.jpg")
-            imageList.add("http://img07.tooopen.com/images/20170316/tooopen_sy_201956178977.jpg")
-            imageList.add("http://img07.tooopen.com/images/20170316/tooopen_sy_201956178977.jpg")
-            bean.urls = imageList
-            list.add(bean)
-        }
-        withFirstPageData(list)
     }
 
-    override fun requestData(page: Int, requestCallBack: RequestCallBack<List<NoticeHistoryBean>>) {
-
+    override fun requestData(page: Int, requestCallBack: RequestCallBack<List<NoticeBean>>) {
+        TeacherApi.noticeList(page, classId, requestCallBack)
     }
 
-    override fun parentToList(isFirstPage: Boolean, parent: List<NoticeHistoryBean>?): List<NoticeHistoryBean>? {
+    override fun parentToList(isFirstPage: Boolean, parent: List<NoticeBean>?): List<NoticeBean>? {
         return parent
     }
 
-    override fun getAdapter(): BaseQuickAdapter<NoticeHistoryBean, BaseViewHolder> {
+    override fun getAdapter(): BaseQuickAdapter<NoticeBean, BaseViewHolder> {
         return MyAdapter()
     }
 
-    override fun getLayoutManager(adapter: BaseQuickAdapter<NoticeHistoryBean, BaseViewHolder>): RecyclerView.LayoutManager? {
+    override fun getLayoutManager(adapter: BaseQuickAdapter<NoticeBean, BaseViewHolder>): RecyclerView.LayoutManager? {
         return LinearLayoutManager(this)
     }
 
-    inner class MyAdapter: BaseQuickAdapter<NoticeHistoryBean, BaseViewHolder>(R.layout.item_notice_history){
-        override fun convert(helper: BaseViewHolder, item: NoticeHistoryBean) {
-            helper.setText(R.id.publishTime, item.publishTime)
-                    .setText(R.id.publishName, item.publishName)
-                    .setText(R.id.deadLine, item.deadLine)
-                    .setText(R.id.publishDesc, item.description)
+    inner class MyAdapter: BaseQuickAdapter<NoticeBean, BaseViewHolder>(R.layout.item_notice_history){
+        override fun convert(helper: BaseViewHolder, item: NoticeBean) {
+            helper.setText(R.id.publishTime, DateUtil.getFormatDateTime(Date(item.createDate), "yyyy-MM-dd"))
+                    .setText(R.id.publishName, item.name)
+                    .setText(R.id.publishDesc, item.content)
             val recyclerView = helper.getView<RecyclerView>(R.id.recyclerView)
             recyclerView.layoutManager = GridLayoutManager(mContext, 8)
-            recyclerView.adapter = ImageAdapter(item.urls)
+            recyclerView.adapter = ImageAdapter(item.photos)
         }
     }
 
-    inner class ImageAdapter(list: List<String>): BaseQuickAdapter<String,BaseViewHolder>(R.layout.imageview, list){
+    inner class ImageAdapter(private val list: List<String>): BaseQuickAdapter<String,BaseViewHolder>(R.layout.imageview, list){
         override fun convert(helper: BaseViewHolder, item: String?) {
             val imageView = helper.getView<ImageView>(R.id.imageView)
             imageView.loadImage(item)
+            helper.itemView.setOnClickListener {
+                PhotoPreviewActivity.jump(this@NoticeHistoryActivity, list, helper.adapterPosition)
+            }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == Constants.PUBLISH_REQUEST && resultCode == Constants.PUBLISH_RESULT) {
+            onRefresh()
+            isPublished = true
+        }
+    }
+
+    override fun onDestroy() {
+        isPublished = true
+        setResult(Constants.PUBLISH_RESULT)
+        super.onDestroy()
     }
 }

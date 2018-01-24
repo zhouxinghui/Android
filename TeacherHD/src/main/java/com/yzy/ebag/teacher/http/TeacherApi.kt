@@ -2,7 +2,6 @@ package com.yzy.ebag.teacher.http
 
 import com.yzy.ebag.teacher.bean.*
 import ebag.core.http.network.RequestCallBack
-import ebag.core.util.L
 import ebag.hd.http.EBagApi
 import ebag.hd.http.EBagClient
 import org.json.JSONArray
@@ -63,7 +62,7 @@ object TeacherApi {
     /**
      * 创建学习小组
      */
-    fun createGroup(classId: String,groupName: String, list: List<BaseStudentBean>, callback: RequestCallBack<String>){
+    fun createGroup(classId: String, groupName: String, list: List<BaseStudentBean>, callback: RequestCallBack<String>){
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
         jsonObject.put("groupName", groupName)
@@ -76,8 +75,27 @@ object TeacherApi {
             jsonArray.put(jsonObj)
         }
         jsonObject.put("clazzUserGroupVos", jsonArray)
-        L.e("json：：：：：：" + jsonObject.toString())
         EBagApi.request(teacherService.createGroup("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 修改小组
+     */
+    fun modifyGroup(groupId: String, classId: String, groupName: String, list: List<BaseStudentBean>, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("groupName", groupName)
+        jsonObject.put("studentCount", list.size)
+        jsonObject.put("groupId", groupId)
+        val jsonArray = JSONArray()
+        list.forEach {
+            val jsonObj = JSONObject()
+            jsonObj.put("uid", it.uid)
+            jsonObj.put("duties", it.duties)
+            jsonArray.put(jsonObj)
+        }
+        jsonObject.put("clazzUserGroupVos", jsonArray)
+        EBagApi.request(teacherService.modifyGroup("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
     /**
@@ -122,4 +140,45 @@ object TeacherApi {
         EBagApi.request(teacherService.assignmentData("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
+    /**
+     * 公告列表
+     */
+    fun noticeList(page: Int, classId: String, callback: RequestCallBack<List<NoticeBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("pageSize", 10)
+        jsonObject.put("page", page)
+        jsonObject.put("classId", classId)
+        EBagApi.request(teacherService.noticeList("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 查询最新公告
+     */
+    fun newestNotice(classId: String, callback: RequestCallBack<NoticeBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        EBagApi.request(teacherService.newestNotice("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 发布公告
+     */
+    fun publishNotice(classId: String, content: String, urls: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("content", content)
+        jsonObject.put("photoUrl", urls)
+        EBagApi.request(teacherService.publishNotice("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 添加老师
+     */
+    fun addTeacher(classId: String, ysbCode: String, subCode: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("ysbCode",ysbCode)
+        jsonObject.put("classId",classId)
+        jsonObject.put("subCode",subCode)
+        EBagApi.request(teacherService.addTeacher("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }
