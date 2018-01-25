@@ -20,6 +20,10 @@
         </activity>
 
         <activity android:name="ebag.hd.activity.ReportClassActivity">
+
+        </activity>
+
+        <activity android:name="ebag.hd.activity.ReportTestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

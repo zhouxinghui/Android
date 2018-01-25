@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ebag.hd.widget.TitleBar
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <View
+            android:id="@+id/lineLong"
+            android:layout_width="@dimen/x560"
+            android:layout_height="@dimen/x2"
+            android:layout_marginStart="@dimen/x24"
+            android:layout_marginTop="@dimen/x24"
+            android:background="@drawable/seg_line_long"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/scoreLayout" />
+
+        <FrameLayout
+            android:id="@+id/scoreLayout"
+            android:layout_width="@dimen/x111"
+            android:layout_height="@dimen/x111"
+            android:layout_marginTop="@dimen/x24"
+            app:layout_constraintEnd_toStartOf="@id/line1"
+            app:layout_constraintStart_toStartOf="@id/lineLong"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ebag.hd.widget.RoundView
+                android:id="@+id/scoreRound"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:progress="80"
+                app:roundColor="#D5D5D5"
+                app:roundProgressColor="#4CB06C"
+                app:roundWidth="@dimen/x2" />
+
+            <TextView
+                android:id="@+id/scoreTv"
+                android:layout_width="@dimen/x101"
+                android:layout_height="@dimen/x108"
+                android:layout_gravity="center"
+                android:background="@drawable/icon_report_score_2"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:textColor="#181818"
+                android:textSize="@dimen/x20"
+                tools:text="总分\n80" />
+
+        </FrameLayout>
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="@dimen/x3"
+            android:layout_height="@dimen/x91"
+            android:background="@drawable/seg_line_ver"
+            app:layout_constraintEnd_toStartOf="@id/heightLayout"
+            app:layout_constraintStart_toEndOf="@id/scoreLayout"
+            app:layout_constraintBottom_toBottomOf="@id/scoreLayout"
+            app:layout_constraintTop_toTopOf="@id/scoreLayout" />
+
+        <FrameLayout
+            android:id="@+id/heightLayout"
+            android:layout_width="@dimen/x111"
+            android:layout_height="@dimen/x111"
+            app:layout_constraintEnd_toStartOf="@id/line2"
+            app:layout_constraintStart_toEndOf="@id/line1"
+            app:layout_constraintBottom_toBottomOf="@id/scoreLayout"
+            app:layout_constraintTop_toTopOf="@id/scoreLayout">
+
+            <ebag.hd.widget.RoundView
+                android:id="@+id/heightRound"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:progress="80"
+                app:roundColor="#D5D5D5"
+                app:roundProgressColor="#ECAA38"
+                app:roundWidth="@dimen/x2" />
+
+            <TextView
+                android:id="@+id/heightTv"
+                android:layout_width="@dimen/x101"
+                android:layout_height="@dimen/x108"
+                android:layout_gravity="center"
+                android:background="@drawable/icon_report_height_2"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:textColor="#181818"
+                android:textSize="@dimen/x20"
+                tools:text="最高分\n80" />
+
+        </FrameLayout>
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="@dimen/x3"
+            android:layout_height="@dimen/x91"
+            android:background="@drawable/seg_line_ver"
+            app:layout_constraintEnd_toStartOf="@id/errorLayout"
+            app:layout_constraintStart_toEndOf="@id/heightLayout"
+            app:layout_constraintBottom_toBottomOf="@id/scoreLayout"
+            app:layout_constraintTop_toTopOf="@id/scoreLayout" />
+
+        <FrameLayout
+            android:id="@+id/errorLayout"
+            android:layout_width="@dimen/x111"
+            android:layout_height="@dimen/x111"
+            app:layout_constraintTop_toTopOf="@id/scoreLayout"
+            app:layout_constraintBottom_toBottomOf="@id/scoreLayout"
+            app:layout_constraintEnd_toEndOf="@id/lineLong"
+            app:layout_constraintStart_toEndOf="@id/line2">
+
+            <ebag.hd.widget.RoundView
+                android:id="@+id/errorRound"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:progress="80"
+                app:roundColor="#D5D5D5"
+                app:roundProgressColor="#E76647"
+                app:roundWidth="@dimen/x2" />
+
+            <TextView
+                android:id="@+id/errorTv"
+                android:layout_width="@dimen/x101"
+                android:layout_height="@dimen/x108"
+                android:layout_gravity="center"
+                android:background="@drawable/icon_report_error_2"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:textColor="#181818"
+                android:textSize="@dimen/x20"
+                tools:text="错题\n8" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/tipLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/x5"
+            android:layout_marginStart="@dimen/x5"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/x15"
+            android:paddingTop="@dimen/x15"
+            app:layout_constraintEnd_toEndOf="@id/lineLong"
+            app:layout_constraintStart_toStartOf="@id/lineLong"
+            app:layout_constraintTop_toBottomOf="@id/lineLong">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:paddingStart="@dimen/x40"
+                android:text="题型类别"
+                android:textColor="#2a2a2a"
+                android:textSize="@dimen/x24" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="题型数量"
+                android:textColor="#2a2a2a"
+                android:textSize="@dimen/x24" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="错题数量"
+                android:textColor="#2a2a2a"
+                android:textSize="@dimen/x24" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/tipLayout"
+            app:layout_constraintStart_toStartOf="@id/tipLayout"
+            app:layout_constraintTop_toBottomOf="@id/tipLayout" />
+
+        <View
+            android:id="@+id/longLineVer"
+            android:layout_width="@dimen/y4"
+            android:layout_height="@dimen/y600"
+            android:layout_marginStart="@dimen/x20"
+            android:background="@drawable/seg_line_long_ver"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/lineLong"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tipTeacher"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/x24"
+            android:layout_marginStart="@dimen/x20"
+            android:text="老师评语"
+            android:textColor="#272727"
+            android:textSize="@dimen/x28"
+            app:layout_constraintBottom_toTopOf="@id/editTeacher"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/longLineVer"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editTeacher"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y157"
+            android:background="@drawable/report_test_edit_bg"
+            android:textColor="#4a4a4a"
+            android:textColorHint="#9b9b9b"
+            android:textSize="@dimen/x24"
+            android:hint="老师暂无评价..."
+            android:gravity="top"
+            android:padding="@dimen/x10"
+            android:enabled="false"
+            app:layout_constraintBottom_toTopOf="@id/flowerTeacher"
+            app:layout_constraintEnd_toEndOf="@id/tipTeacher"
+            app:layout_constraintStart_toStartOf="@id/tipTeacher"
+            app:layout_constraintTop_toBottomOf="@id/tipTeacher" />
+
+        <ebag.hd.widget.drawable.DrawableTextView
+            android:id="@+id/flowerTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x5"
+            android:drawablePadding="@dimen/x10"
+            android:text="鲜花 x 3"
+            android:textColor="#4a4a4a"
+            android:textSize="@dimen/x20"
+            app:layout_constraintBottom_toTopOf="@id/tipParent"
+            app:layout_constraintEnd_toStartOf="@id/paletteTeacher"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@id/tipTeacher"
+            app:layout_constraintTop_toBottomOf="@id/editTeacher"
+            app:leftDrawable="@drawable/icon_flower"
+            app:leftDrawableHeight="@dimen/x24"
+            app:leftDrawableWidth="@dimen/x24" />
+
+        <ebag.hd.widget.drawable.DrawableTextView
+            android:id="@+id/paletteTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/x10"
+            android:text="画笔 x 3"
+            android:textColor="#4a4a4a"
+            android:textSize="@dimen/x20"
+            app:layout_constraintEnd_toStartOf="@id/notebookTeacher"
+            app:layout_constraintStart_toEndOf="@id/flowerTeacher"
+            app:layout_constraintTop_toTopOf="@id/flowerTeacher"
+            app:leftDrawable="@drawable/icon_palette"
+            app:leftDrawableHeight="@dimen/x24"
+            app:leftDrawableWidth="@dimen/x24" />
+
+        <ebag.hd.widget.drawable.DrawableTextView
+            android:id="@+id/notebookTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/x10"
+            android:text="笔记本 x 3"
+            android:textColor="#4a4a4a"
+            android:textSize="@dimen/x20"
+            app:layout_constraintEnd_toStartOf="@id/medalTeacher"
+            app:layout_constraintStart_toEndOf="@id/paletteTeacher"
+            app:layout_constraintTop_toTopOf="@id/flowerTeacher"
+            app:leftDrawable="@drawable/icon_notebook"
+            app:leftDrawableHeight="@dimen/x24"
+            app:leftDrawableWidth="@dimen/x24" />
+
+        <ebag.hd.widget.drawable.DrawableTextView
+            android:id="@+id/medalTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/x10"
+            android:text="奖章 x 3"
+            android:textColor="#4a4a4a"
+            android:textSize="@dimen/x20"
+            app:layout_constraintEnd_toStartOf="@id/piggyTeacher"
+            app:layout_constraintStart_toEndOf="@id/notebookTeacher"
+            app:layout_constraintTop_toTopOf="@id/flowerTeacher"
+            app:leftDrawable="@drawable/icon_medal"
+            app:leftDrawableHeight="@dimen/x24"
+            app:leftDrawableWidth="@dimen/x24" />
+
+        <ebag.hd.widget.drawable.DrawableTextView
+            android:id="@+id/piggyTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/x5"
+            android:drawablePadding="@dimen/x10"
+            android:text="储蓄罐 x 3"
+            android:textColor="#4a4a4a"
+            android:textSize="@dimen/x20"
+            app:layout_constraintEnd_toEndOf="@id/tipTeacher"
+            app:layout_constraintStart_toEndOf="@id/medalTeacher"
+            app:layout_constraintTop_toTopOf="@id/flowerTeacher"
+            app:leftDrawable="@drawable/icon_piggy_bank"
+            app:leftDrawableHeight="@dimen/x24"
+            app:leftDrawableWidth="@dimen/x24" />
+
+        <TextView
+            android:id="@+id/tipParent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="家长评语"
+            android:textColor="#272727"
+            android:textSize="@dimen/x28"
+            app:layout_constraintBottom_toTopOf="@id/editParent"
+            app:layout_constraintEnd_toEndOf="@id/tipTeacher"
+            app:layout_constraintStart_toStartOf="@id/tipTeacher"
+            app:layout_constraintTop_toBottomOf="@id/flowerTeacher" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/x44"
+            android:background="@drawable/bac_report_name"
+            android:textColor="@color/white"
+            android:textSize="@dimen/x24"
+            android:gravity="center"
+            android:paddingStart="@dimen/x16"
+            android:paddingEnd="@dimen/x16"
+            app:layout_constraintBaseline_toBaselineOf="@id/tipParent"
+            app:layout_constraintEnd_toEndOf="@id/tipTeacher"
+            tools:text="李毅敏" />
+
+        <EditText
+            android:id="@+id/editParent"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y157"
+            android:background="@drawable/report_test_edit_bg"
+            android:textColor="#4a4a4a"
+            android:textColorHint="#9b9b9b"
+            android:textSize="@dimen/x24"
+            android:hint="家长暂无评价..."
+            android:gravity="top"
+            android:padding="@dimen/x10"
+            android:enabled="false"
+            app:layout_constraintBottom_toTopOf="@id/flowerParent"
+            app:layout_constraintEnd_toEndOf="@id/tipTeacher"
+            app:layout_constraintStart_toStartOf="@id/tipTeacher"
+            app:layout_constraintTop_toBottomOf="@id/tipParent" />
+
+        <ebag.hd.widget.drawable.DrawableTextView
+            android:id="@+id/flowerParent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x5"
+            android:drawablePadding="@dimen/x10"
+            android:text="鲜花 x 3"
+            android:textColor="#4a4a4a"
+            android:textSize="@dimen/x20"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/paletteParent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@id/tipTeacher"
+            app:layout_constraintTop_toBottomOf="@id/editParent"
+            app:leftDrawable="@drawable/icon_flower"
+            app:leftDrawableHeight="@dimen/x24"
+            app:leftDrawableWidth="@dimen/x24" />
+
+        <ebag.hd.widget.drawable.DrawableTextView
+            android:id="@+id/paletteParent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/x10"
+            android:text="画笔 x 3"
+            android:textColor="#4a4a4a"
+            android:textSize="@dimen/x20"
+            app:layout_constraintEnd_toStartOf="@id/notebookParent"
+            app:layout_constraintStart_toEndOf="@id/flowerParent"
+            app:layout_constraintTop_toTopOf="@id/flowerParent"
+            app:leftDrawable="@drawable/icon_palette"
+            app:leftDrawableHeight="@dimen/x24"
+            app:leftDrawableWidth="@dimen/x24" />
+
+        <ebag.hd.widget.drawable.DrawableTextView
+            android:id="@+id/notebookParent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/x10"
+            android:text="笔记本 x 3"
+            android:textColor="#4a4a4a"
+            android:textSize="@dimen/x20"
+            app:layout_constraintEnd_toStartOf="@id/medalParent"
+            app:layout_constraintStart_toEndOf="@id/paletteParent"
+            app:layout_constraintTop_toTopOf="@id/flowerParent"
+            app:leftDrawable="@drawable/icon_notebook"
+            app:leftDrawableHeight="@dimen/x24"
+            app:leftDrawableWidth="@dimen/x24" />
+
+        <ebag.hd.widget.drawable.DrawableTextView
+            android:id="@+id/medalParent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/x10"
+            android:text="奖章 x 3"
+            android:textColor="#4a4a4a"
+            android:textSize="@dimen/x20"
+            app:layout_constraintEnd_toStartOf="@id/piggyParent"
+            app:layout_constraintStart_toEndOf="@id/notebookParent"
+            app:layout_constraintTop_toTopOf="@id/flowerParent"
+            app:leftDrawable="@drawable/icon_medal"
+            app:leftDrawableHeight="@dimen/x24"
+            app:leftDrawableWidth="@dimen/x24" />
+
+        <ebag.hd.widget.drawable.DrawableTextView
+            android:id="@+id/piggyParent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/x5"
+            android:drawablePadding="@dimen/x10"
+            android:text="储蓄罐 x 3"
+            android:textColor="#4a4a4a"
+            android:textSize="@dimen/x20"
+            app:layout_constraintEnd_toEndOf="@id/tipTeacher"
+            app:layout_constraintStart_toEndOf="@id/medalParent"
+            app:layout_constraintTop_toTopOf="@id/flowerParent"
+            app:leftDrawable="@drawable/icon_piggy_bank"
+            app:leftDrawableHeight="@dimen/x24"
+            app:leftDrawableWidth="@dimen/x24" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

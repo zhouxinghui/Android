@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    android:paddingTop="@dimen/x15"
+    android:paddingBottom="@dimen/x15">
+
+    <TextView
+        android:id="@+id/questionType"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:paddingStart="@dimen/x40"
+        android:textSize="@dimen/x22"
+        android:textColor="#4a4a4a"
+        tools:text="选择题"/>
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="@dimen/x22"
+        android:textColor="#4a4a4a"
+        tools:text="10"/>
+    <TextView
+        android:id="@+id/errorCount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="@dimen/x22"
+        android:textColor="#4a4a4a"
+        tools:text="1"/>
+</LinearLayout>
