@@ -57,7 +57,7 @@ public class DownloadManager {
      * @param url       下载请求的网址
      * @param downLoadObserver 用来回调的接口
      */
-    public void download(String url, DownLoadObserver downLoadObserver) {
+    public void download(String url, final String savePath, DownLoadObserver downLoadObserver) {
 //        Observable.just(url)
 //                .filter(s -> !downCalls.containsKey(s))//call的map已经有了,就证明正在下载,则这次不下载
 //                .flatMap(s -> Observable.just(createDownInfo(s)))
@@ -83,7 +83,7 @@ public class DownloadManager {
                 .map(new Function<DownloadInfo, DownloadInfo>() {//检测本地文件夹,生成新的文件名
                     @Override
                     public DownloadInfo apply(@NonNull DownloadInfo downloadInfo) throws Exception {
-                        return getRealFileName(downloadInfo);
+                        return getRealFileName(downloadInfo, savePath);
                     }
                 })
                 .flatMap(new Function<DownloadInfo, ObservableSource<DownloadInfo>>() {//下载
@@ -121,10 +121,11 @@ public class DownloadManager {
         return downloadInfo;
     }
 
-    private DownloadInfo getRealFileName(DownloadInfo downloadInfo) {
+    private DownloadInfo getRealFileName(DownloadInfo downloadInfo, String savePath) {
         String fileName = downloadInfo.getFileName();
         long downloadLength = 0, contentLength = downloadInfo.getTotal();
-        File file = new File("", fileName);//文件下载存放的路径
+        File file = new File(savePath, fileName);//文件下载存放的路径
+        downloadInfo.setSavePath(savePath);
         if (file.exists()) {
             //找到了文件,代表已经下载过,则获取其长度
             downloadLength = file.length();
@@ -176,7 +177,7 @@ public class DownloadManager {
             downCalls.put(url, call);//把这个添加到call里,方便取消
             Response response = call.execute();
 
-            File file = new File("", downloadInfo.getFileName());
+            File file = new File(downloadInfo.getSavePath(), downloadInfo.getFileName());
             InputStream is = null;
             FileOutputStream fileOutputStream = null;
             try {

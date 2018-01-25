@@ -7,7 +7,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.activity.SettingActivity
-import com.yzy.ebag.student.activity.book.BookListActivity
 import com.yzy.ebag.student.activity.center.PersonalActivity
 import com.yzy.ebag.student.activity.homework.ErrorTopicActivity
 import com.yzy.ebag.student.activity.homework.HomeworkActivity
@@ -22,6 +21,7 @@ import ebag.core.util.T
 import ebag.core.util.loadHead
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
+import ebag.hd.ui.activity.BookListActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : MVPActivity(), MainView {

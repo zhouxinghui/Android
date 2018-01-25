@@ -47,11 +47,29 @@ public class FileUtil {
         }
     }
 
+    private static final String EBAG_PATH = Environment.getExternalStorageDirectory().getAbsolutePath()
+            + File.separator
+            + "eBag"
+            + File.separator;
+
+    /**
+     * 书本下载保存路径
+     * @return
+     */
+    public static String getBookPath(){
+        String path = EBAG_PATH
+                + "book"
+                + File.separator;
+        if (!isFileExists(path))
+            createDir(path);
+        return path;
+    }
+    /**
+     * 序列化对象保存路径
+     * @return
+     */
     public static String getSerializablePath(){
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath()
-                + File.separator
-                + "eBag"
-                + File.separator
+        String path = EBAG_PATH
                 + "serializable"
                 + File.separator;
         if (!isFileExists(path))
@@ -64,10 +82,7 @@ public class FileUtil {
      * @return 文件路径
      */
     public static String getRecorderPath(){
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath()
-                + File.separator
-                + "eBag"
-                + File.separator
+        String path = EBAG_PATH
                 + "recorder"
                 + File.separator;
         if (!isFileExists(path))
@@ -80,10 +95,7 @@ public class FileUtil {
      * @return 路径
      */
     public static String getWriteViewItemPath(String id){
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath()
-                + File.separator
-                + "eBag"
-                + File.separator
+        String path = EBAG_PATH
                 + "writePic"
                 + File.separator
                 + id

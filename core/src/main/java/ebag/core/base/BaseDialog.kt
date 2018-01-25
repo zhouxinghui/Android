@@ -40,7 +40,7 @@ abstract class BaseDialog(context: Context): Dialog(context) {
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (null != this.currentFocus) {
             val mInputMethodManager = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            mInputMethodManager.hideSoftInputFromWindow(this.currentFocus!!.windowToken, 0)
+            mInputMethodManager.hideSoftInputFromWindow(this.currentFocus.windowToken, 0)
         }
         return super.onTouchEvent(event)
     }
