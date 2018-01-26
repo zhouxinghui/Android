@@ -28,6 +28,7 @@ import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.loadImage
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
+import ebag.hd.ui.activity.BookListActivity
 import kotlinx.android.synthetic.main.fragment_first_page.*
 
 /**
@@ -73,6 +74,9 @@ class FragmentFirstPage : BaseFragment() {
         checkHomework.setOnClickListener {
             startActivity(Intent(mContext, CorrectingActivity::class.java))
         }
+        book.setOnClickListener {
+            BookListActivity.jump(mContext)
+        }
 
         setTextStyle(classTest.text.toString(), classTest)
         setTextStyle(afterClass.text.toString(), afterClass)
@@ -110,7 +114,7 @@ class FragmentFirstPage : BaseFragment() {
         TeacherApi.firstPage(request!!)
     }
 
-    inner private class MyImageLoader : ImageLoader(){
+    private inner class MyImageLoader : ImageLoader(){
         override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
             imageView!!.loadImage(path as String)
         }

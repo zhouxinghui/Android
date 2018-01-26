@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/adapter_item_bg">
+    android:background="@drawable/white_clickable_bg"
+    android:layout_margin="10dp"
+    >
 
     <ImageView
         android:id="@+id/ivBook"
@@ -15,14 +17,14 @@
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/class_img1" />
+        app:srcCompat="@drawable/def_qq" />
     
     <View
         android:id="@+id/moreIcon"
         android:layout_width="@dimen/x12"
         android:layout_height="@dimen/x20"
         android:layout_marginEnd="@dimen/x14"
-        android:background="@drawable/book_list_more_icon"
+        android:background="@drawable/right_arrow"
         android:layout_marginTop="@dimen/x44"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

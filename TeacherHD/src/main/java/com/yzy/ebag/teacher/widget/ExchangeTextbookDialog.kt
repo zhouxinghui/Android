@@ -55,13 +55,13 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
     }
     private var subCode = ""
     private var subName = ""
-    private var versionCode = ""
+    private var versionId = ""
     private var versionName = ""
     private var semesterCode = "1"
     private var semesterName = "上学期"
     var onConfirmClick: ((
             versionName: String,
-            versionCode: String,
+            versionId: String,
             semesterCode: String,
             semesterName: String,
             subCode: String,
@@ -88,7 +88,7 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
                 T.show(context, "请选择版本")
                 return@setOnClickListener
             }
-            onConfirmClick?.invoke(versionName, versionCode, semesterCode, semesterName, subCode, subName)
+            onConfirmClick?.invoke(versionName, versionId, semesterCode, semesterName, subCode, subName)
             dismiss()
         }
         gradeRecycler.layoutManager = LinearLayoutManager(context)
@@ -138,7 +138,7 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
         var selectPosition = -1
             set(value) {
                 field = value
-                versionCode = versionAdapter.datas[selectPosition].versionCode
+                versionId = versionAdapter.datas[selectPosition].bookVersionId
                 versionName = versionAdapter.datas[selectPosition].versionName
                 notifyDataSetChanged()
             }

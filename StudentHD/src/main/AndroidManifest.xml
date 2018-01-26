@@ -23,12 +23,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="ebag.hd.activity.ReportClassActivity">
-
-        </activity>
-
-        <activity android:name="ebag.hd.activity.ReportTestActivity">
-        </activity>
         <!--解决横竖屏切换 fragment 重叠现象-->
         <activity android:name=".activity.center.PersonalActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
@@ -45,7 +39,6 @@
         <activity android:name=".activity.account.LoginActivity"/>
 
         <activity android:name=".activity.tools.ToolsActivity"/>
-        <activity android:name=".activity.book.BookListActivity"/>
         <activity android:name=".activity.SettingActivity"/>
         <activity android:name=".activity.homework.HomeworkActivity"/>
         <activity android:name=".activity.tools.MathFormulaActivity"/>

@@ -1,7 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ebag.hd" >
-    <!--网络状态-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    package="ebag.hd">
+    <!-- 网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <application>
+        <activity android:name=".ui.activity.BookListActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            />
+        <activity android:name=".activity.ReportClassActivity" />
+        <activity android:name=".activity.ReportTestActivity" />
+        <activity android:name=".activity.ReaderActivity"
+            android:screenOrientation="portrait"
+            />
+    </application>
 
 </manifest>

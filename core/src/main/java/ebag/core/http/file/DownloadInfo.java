@@ -10,6 +10,15 @@ public class DownloadInfo {
     private long total;
     private long progress;
     private String fileName;
+    private String savePath;
+
+    public String getSavePath() {
+        return savePath;
+    }
+
+    public void setSavePath(String savePath) {
+        this.savePath = savePath;
+    }
 
     public DownloadInfo(String url) {
         this.url = url;
