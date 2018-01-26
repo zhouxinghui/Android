@@ -10,6 +10,7 @@ import android.widget.RelativeLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import ebag.core.base.BaseActivity
+import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.hd.R
 import ebag.hd.widget.TitleBar
@@ -131,7 +132,11 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
             }
 
             override fun onError(exception: Throwable) {
-                stateView.showError()
+                if(exception is MsgException){
+                    stateView.showError(exception.message)
+                }else{
+                    stateView.showError()
+                }
             }
         }
     }

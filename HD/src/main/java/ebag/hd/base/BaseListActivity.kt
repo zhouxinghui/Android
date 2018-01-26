@@ -9,6 +9,7 @@ import android.widget.RelativeLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import ebag.core.base.BaseActivity
+import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.T
@@ -229,7 +230,11 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
                 when (loadingStatus) {
                     //进入页面第一次加载出现的异常
                     FIRST -> {
-                        stateView.showError()
+                        if(exception is MsgException){
+                            stateView.showError(exception.message)
+                        }else{
+                            stateView.showError()
+                        }
                         exception.handleThrowable(this@BaseListActivity)
                     }
                     //刷新的时候出现的异常

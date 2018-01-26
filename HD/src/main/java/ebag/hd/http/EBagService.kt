@@ -5,6 +5,7 @@ import ebag.core.http.baseBean.RequestBean
 import ebag.hd.bean.ChildNodeBean
 import ebag.hd.bean.SchoolBean
 import ebag.hd.bean.request.LoginVo
+import ebag.hd.bean.response.NoticeBean
 import ebag.hd.bean.response.UserEntity
 import io.reactivex.Observable
 import okhttp3.MultipartBody
@@ -48,6 +49,13 @@ interface EBagService {
      */
     @POST("data/getSchool/{version}")
     fun getSchool(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<SchoolBean>>>
+
+    /**
+     * 公告列表
+     */
+    @POST("notice/queryClassNotice/{version}")
+    fun noticeList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<NoticeBean>>>
+
 
     //TODO 接口名称，注意替换
     /**

@@ -5,12 +5,12 @@ import android.content.Intent
 import android.view.View
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.base.Constants
-import com.yzy.ebag.teacher.bean.NoticeBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.DateUtil
+import ebag.hd.bean.response.NoticeBean
 import kotlinx.android.synthetic.main.activity_space.*
 import java.util.*
 

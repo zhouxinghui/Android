@@ -22,13 +22,14 @@
         app:layout_constraintTop_toBottomOf="@id/titleBar"
         app:layout_constraintBottom_toTopOf="@+id/tvCommit"/>
 
-    <ebag.hd.widget.DrawView2
-        android:id="@+id/draw_view"
-        android:layout_width="@dimen/x458"
-        android:layout_height="@dimen/x458"
+    <ebag.hd.widget.PaletteView
+        android:id="@+id/drawView"
+        android:layout_width="@dimen/x451"
+        android:layout_height="@dimen/x451"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/bg"/>
+        app:layout_constraintTop_toTopOf="@id/bg"
+        app:layout_constraintBottom_toBottomOf="@id/bg"/>
 
     <TextView
         android:id="@+id/tvCommit"
@@ -39,7 +40,6 @@
         android:text="@string/commit"
         android:gravity="center"
         android:textSize="@dimen/tv_big"
-        android:layout_marginBottom="@dimen/x20"
         app:layout_constraintTop_toBottomOf="@id/bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,7 @@
         app:layout_constraintStart_toStartOf="@id/tvPinyin"
         app:layout_constraintEnd_toEndOf="@id/tvPinyin"/>
 
-    <Button android:id="@+id/btn_eraser_id"
+    <Button android:id="@+id/btnEraser"
         android:layout_width="@dimen/x66"
         android:layout_height="@dimen/x66"
         android:background="@drawable/btn_icon_eraser"
@@ -80,22 +80,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="@id/btn_eraser_id"
-        app:layout_constraintEnd_toEndOf="@id/btn_eraser_id"
-        app:layout_constraintTop_toBottomOf="@id/btn_eraser_id"
+        app:layout_constraintStart_toStartOf="@id/btnEraser"
+        app:layout_constraintEnd_toEndOf="@id/btnEraser"
+        app:layout_constraintTop_toBottomOf="@id/btnEraser"
         app:layout_constraintBottom_toBottomOf="@id/bg">
         <RadioButton android:id="@+id/pen_size_one"
             android:layout_width="@dimen/x49"
             android:layout_height="@dimen/x49"
             android:button="@null"
             android:layout_gravity="center"
-            android:checked="true"
             android:background="@drawable/pen_size_one_bg"
             />
         <RadioButton android:id="@+id/pen_size_two"
             android:layout_width="@dimen/x49"
             android:layout_height="@dimen/x49"
             android:button="@null"
+            android:checked="true"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/x25"
             android:background="@drawable/pen_size_two_bg"

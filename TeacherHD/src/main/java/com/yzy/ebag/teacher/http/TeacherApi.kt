@@ -2,6 +2,7 @@ package com.yzy.ebag.teacher.http
 
 import com.yzy.ebag.teacher.bean.*
 import ebag.core.http.network.RequestCallBack
+import ebag.hd.bean.response.NoticeBean
 import ebag.hd.http.EBagApi
 import ebag.hd.http.EBagClient
 import org.json.JSONArray
@@ -141,26 +142,6 @@ object TeacherApi {
     }
 
     /**
-     * 公告列表
-     */
-    fun noticeList(page: Int, classId: String, callback: RequestCallBack<List<NoticeBean>>){
-        val jsonObject = JSONObject()
-        jsonObject.put("pageSize", 10)
-        jsonObject.put("page", page)
-        jsonObject.put("classId", classId)
-        EBagApi.request(teacherService.noticeList("v1", EBagApi.createBody(jsonObject)), callback)
-    }
-
-    /**
-     * 查询最新公告
-     */
-    fun newestNotice(classId: String, callback: RequestCallBack<NoticeBean>){
-        val jsonObject = JSONObject()
-        jsonObject.put("classId", classId)
-        EBagApi.request(teacherService.newestNotice("v1", EBagApi.createBody(jsonObject)), callback)
-    }
-
-    /**
      * 发布公告
      */
     fun publishNotice(classId: String, content: String, urls: String, callback: RequestCallBack<String>){
@@ -180,5 +161,11 @@ object TeacherApi {
         jsonObject.put("classId",classId)
         jsonObject.put("subCode",subCode)
         EBagApi.request(teacherService.addTeacher("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun newestNotice(classId: String, callback: RequestCallBack<NoticeBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId",classId)
+        EBagApi.request(teacherService.newestNotice("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

@@ -11,12 +11,12 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.base.BaseListActivity
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.base.Constants
-import com.yzy.ebag.teacher.bean.NoticeBean
-import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.base.PhotoPreviewActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.DateUtil
 import ebag.core.util.loadImage
+import ebag.hd.bean.response.NoticeBean
+import ebag.hd.http.EBagApi
 import java.util.*
 
 /**
@@ -26,9 +26,11 @@ class NoticeHistoryActivity: BaseListActivity<List<NoticeBean>, NoticeBean>() {
     private var isPublished = false
     companion object {
         fun jump(context: Activity, classId: String){
-            context.startActivityForResult(Intent(
-                    context, NoticeHistoryActivity::class.java).putExtra("classId",
-                    classId), Constants.PUBLISH_REQUEST)
+            context.startActivityForResult(
+                    Intent(context, NoticeHistoryActivity::class.java)
+                            .putExtra("classId", classId),
+                    Constants.PUBLISH_REQUEST
+            )
         }
     }
     private val classId by lazy { intent.getStringExtra("classId") }
@@ -40,7 +42,7 @@ class NoticeHistoryActivity: BaseListActivity<List<NoticeBean>, NoticeBean>() {
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<NoticeBean>>) {
-        TeacherApi.noticeList(page, classId, requestCallBack)
+        EBagApi.noticeList(page, getPageSize(), classId, requestCallBack)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<NoticeBean>?): List<NoticeBean>? {
@@ -61,17 +63,24 @@ class NoticeHistoryActivity: BaseListActivity<List<NoticeBean>, NoticeBean>() {
                     .setText(R.id.publishName, item.name)
                     .setText(R.id.publishDesc, item.content)
             val recyclerView = helper.getView<RecyclerView>(R.id.recyclerView)
-            recyclerView.layoutManager = GridLayoutManager(mContext, 8)
-            recyclerView.adapter = ImageAdapter(item.photos)
+            if(recyclerView.adapter == null) {
+                recyclerView.adapter = ImageAdapter()
+            }
+            if(recyclerView.layoutManager == null){
+                recyclerView.layoutManager = GridLayoutManager(mContext,8)
+            }
+            recyclerView.postDelayed({
+                (recyclerView.adapter as ImageAdapter).setNewData(item.photos)
+            },20)
         }
     }
 
-    inner class ImageAdapter(private val list: List<String>): BaseQuickAdapter<String,BaseViewHolder>(R.layout.imageview, list){
+    inner class ImageAdapter: BaseQuickAdapter<String,BaseViewHolder>(R.layout.imageview){
         override fun convert(helper: BaseViewHolder, item: String?) {
             val imageView = helper.getView<ImageView>(R.id.imageView)
             imageView.loadImage(item)
             helper.itemView.setOnClickListener {
-                PhotoPreviewActivity.jump(this@NoticeHistoryActivity, list, helper.adapterPosition)
+                PhotoPreviewActivity.jump(this@NoticeHistoryActivity, data, helper.adapterPosition)
             }
         }
     }

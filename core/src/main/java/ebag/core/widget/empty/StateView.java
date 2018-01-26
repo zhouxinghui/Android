@@ -59,8 +59,8 @@ public class StateView extends View {
     private int mErrorImageResource;
     private int mEmptyImageResource;
 
-    private String strEmpty;
-    private String strError;
+    private String mErrorString;
+    private String mEmptyString;
 
     private TextView tvError;
     private TextView tvEmpty;
@@ -260,27 +260,16 @@ public class StateView extends View {
         super(context, attrs, defStyleAttr);
 
         final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.StateView);
-        mEmptyLayoutResource = a.getResourceId(R.styleable.StateView_emptyLayout, 0);
-        mErrorLayoutResource = a.getResourceId(R.styleable.StateView_errorLayout, 0);
-        mLoadingLayoutResource = a.getResourceId(R.styleable.StateView_loadingLayout, 0);
-        mErrorImageResource = a.getResourceId(R.styleable.StateView_errorDrawable, 0);
-        mEmptyImageResource = a.getResourceId(R.styleable.StateView_emptyDrawable, 0);
-        resBacground = a.getResourceId(R.styleable.StateView_state_background, 0);
+        mEmptyLayoutResource = a.getResourceId(R.styleable.StateView_emptyLayout, R.layout.base_empty);
+        mErrorLayoutResource = a.getResourceId(R.styleable.StateView_errorLayout, R.layout.base_error);
+        mLoadingLayoutResource = a.getResourceId(R.styleable.StateView_loadingLayout, R.layout.base_loading);
+        mErrorImageResource = a.getResourceId(R.styleable.StateView_errorDrawable, R.drawable.ic_state_layout_error);
+        mEmptyImageResource = a.getResourceId(R.styleable.StateView_emptyDrawable, R.drawable.ic_state_layout_empty);
+        resBacground = a.getResourceId(R.styleable.StateView_state_background, R.color.white);
         a.recycle();
 
-        if (mEmptyLayoutResource == 0) {
-            mEmptyLayoutResource = R.layout.base_empty;
-        }
-        if (mErrorLayoutResource == 0) {
-            mErrorLayoutResource = R.layout.base_error;
-        }
-        if (mLoadingLayoutResource == 0) {
-            mLoadingLayoutResource = R.layout.base_loading;
-        }
-
-        if(resBacground == 0) {
-            resBacground = R.color.white;
-        }
+        mErrorString = getResources().getString(R.string.text_error);
+        mEmptyString = getResources().getString(R.string.text_empty);
 
         if (attrs == null) {
             mLayoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -341,7 +330,15 @@ public class StateView extends View {
         setVisibility(GONE);
     }
 
-    public View showEmpty() {
+    public View showEmpty(){
+        return showEmpty(null , 0);
+    }
+
+    public View showEmpty(String str){
+        return showEmpty(str , 0);
+    }
+
+    public View showEmpty(String emptyString, int emptyImageResource) {
         if (mEmptyView == null) {
             mEmptyView = inflate(mEmptyLayoutResource, EMPTY);
             mEmptyView.setBackgroundResource(resBacground);
@@ -359,25 +356,31 @@ public class StateView extends View {
                     }
                 }
             });
-            //默认状态下的 mErrorLayoutResource
-            if(mEmptyLayoutResource == 0){
+            //默认状态下的 mEmptyLayoutResource
+            if(mEmptyLayoutResource == R.layout.base_empty){
                 ivEmpty = mEmptyView.findViewById(R.id.emptyImageView);
-                if(mEmptyImageResource != 0) {
-                    ivEmpty.setImageResource(mEmptyImageResource);
-                }
-
                 tvEmpty = mEmptyView.findViewById(R.id.emptyTextView);
-                if(strEmpty != null && strEmpty.trim().length() != 0){
-                    tvEmpty.setText(strEmpty);
-                }
             }
         }
+        if(ivEmpty != null)
+            ivEmpty.setImageResource(emptyImageResource == 0 ? mEmptyImageResource : emptyImageResource);
+
+        if(tvEmpty != null)
+            tvEmpty.setText(emptyString == null ? mEmptyString : emptyString);
 
         showView(mEmptyView);
         return mEmptyView;
     }
 
     public View showError() {
+        return showError(null,0);
+    }
+
+    public View showError(String str) {
+        return showError(str,0);
+    }
+
+    public View showError(String errString, int errImageResource){
         if (mErrorView == null) {
             mErrorView = inflate(mErrorLayoutResource, RETRY);
             mErrorView.setBackgroundResource(resBacground);
@@ -396,18 +399,17 @@ public class StateView extends View {
                 }
             });
             //默认状态下的 mErrorLayoutResource
-            if(mErrorLayoutResource == 0){
+            if(mErrorLayoutResource == R.layout.base_error){
                 ivError = mErrorView.findViewById(R.id.errorImageView);
-                if(mErrorImageResource != 0) {
-                    ivError.setImageResource(mErrorImageResource);
-                }
-
                 tvError = mErrorView.findViewById(R.id.errorTextView);
-                if(strError != null && strError.trim().length() != 0){
-                    tvError.setText(strError);
-                }
             }
         }
+
+        if(ivError != null)
+            ivError.setImageResource(errImageResource == 0 ? mErrorImageResource : errImageResource);
+
+        if(tvError != null)
+            tvError.setText(errString == null ? mErrorString : errString);
 
         showView(mErrorView);
         return mErrorView;
@@ -655,23 +657,11 @@ public class StateView extends View {
         void onInflate(@ViewType int viewType, View view);
     }
 
-    public void setErrorImageResource(int mErrorImageResource) {
-        this.mErrorImageResource = mErrorImageResource;
-        if(ivError != null) ivError.setImageResource(mErrorImageResource);
+    public void setDefErrorString(String mErrorString) {
+        this.mErrorString = mErrorString;
     }
 
-    public void setEmptyImageResource(int mEmptyImageResource) {
-        this.mEmptyImageResource = mEmptyImageResource;
-        if(ivEmpty != null) ivEmpty.setImageResource(mEmptyImageResource);
-    }
-
-    public void setEmptyString(String strEmpty) {
-        this.strEmpty = strEmpty;
-        if(tvEmpty != null) tvEmpty.setText(strEmpty);
-    }
-
-    public void setErrorString(String strError) {
-        this.strError = strError;
-        if(tvError != null) tvError.setText(strError);
+    public void setDefEmptyString(String mEmptyString) {
+        this.mEmptyString = mEmptyString;
     }
 }

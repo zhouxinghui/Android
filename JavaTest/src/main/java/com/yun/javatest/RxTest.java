@@ -6,4 +6,7 @@ package com.yun.javatest;
 
 public class RxTest {
 
+    public static void main(String[] args){
+        System.out.println("hahhaha");
+    }
 }

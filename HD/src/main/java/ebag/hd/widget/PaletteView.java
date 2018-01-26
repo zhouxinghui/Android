@@ -2,6 +2,7 @@ package ebag.hd.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -34,10 +35,12 @@ public class PaletteView extends View {
     private List<DrawingInfo> mRemovedList;
 
     private Xfermode mClearMode;
-    private float mDrawSize;
-    private float mEraserSize;
+    private float mDrawSize = 20;
+    private float mEraserSize = 40;
 
     private boolean mCanEraser;
+
+    private boolean hasBitmap = false;
 
     private Callback mCallback;
 
@@ -70,10 +73,10 @@ public class PaletteView extends View {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setFilterBitmap(true);
-        mPaint.setStrokeJoin(Paint.Join.ROUND);
-        mPaint.setStrokeCap(Paint.Cap.ROUND);
-        mDrawSize = 20;
-        mEraserSize = 40;
+        mPaint.setStrokeJoin(Paint.Join.ROUND);//画笔接洽点类型 如影响矩形但角的外轮廓
+        mPaint.setStrokeCap(Paint.Cap.ROUND);// 设置画笔笔头圆形
+        mPaint.setAntiAlias(true);// 抗锯齿
+        mPaint.setDither(true);// 使用图像抖动处理，更平滑和饱满
         mPaint.setStrokeWidth(mDrawSize);
         mPaint.setColor(0XFF000000);
 
@@ -83,6 +86,19 @@ public class PaletteView extends View {
     private void initBuffer(){
         mBufferBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
         mBufferCanvas = new Canvas(mBufferBitmap);
+    }
+
+    public void setCacheBitmap(Bitmap cacheBitmap){
+        hasBitmap = true;
+        mBufferBitmap = Bitmap.createBitmap(cacheBitmap, 0, 0, getWidth(), getHeight());
+        mBufferCanvas = new Canvas(mBufferBitmap);
+    }
+
+    public void setCacheBitmap(String path){
+        Bitmap bitmap = BitmapFactory.decodeFile(path);
+        if(bitmap != null){
+            setCacheBitmap(bitmap);
+        }
     }
 
     private abstract static class DrawingInfo {
@@ -104,25 +120,29 @@ public class PaletteView extends View {
         return mMode;
     }
 
+    /**
+     * 画笔或者橡皮檫
+     * @param mode
+     */
     public void setMode(Mode mode) {
         if (mode != mMode) {
             mMode = mode;
             if (mMode == Mode.DRAW) {
                 mPaint.setXfermode(null);
-                mPaint.setStrokeWidth(mDrawSize);
             } else {
                 mPaint.setXfermode(mClearMode);
-                mPaint.setStrokeWidth(mEraserSize);
             }
         }
     }
 
     public void setEraserSize(float size) {
         mEraserSize = size;
+        mPaint.setStrokeWidth(mEraserSize);
     }
 
     public void setPenRawSize(float size) {
-        mEraserSize = size;
+        mDrawSize = size;
+        mPaint.setStrokeWidth(mDrawSize);
     }
 
     public void setPenColor(int color) {
@@ -132,6 +152,8 @@ public class PaletteView extends View {
     public void setPenAlpha(int alpha) {
         mPaint.setAlpha(alpha);
     }
+
+
 
     private void reDraw(){
         if (mDrawingList != null) {
@@ -184,6 +206,7 @@ public class PaletteView extends View {
 
     public void clear() {
         if (mBufferBitmap != null) {
+            hasBitmap = false;
             if (mDrawingList != null) {
                 mDrawingList.clear();
             }
@@ -200,10 +223,15 @@ public class PaletteView extends View {
     }
 
     public Bitmap buildBitmap() {
-        Bitmap bm = getDrawingCache();
-        Bitmap result = Bitmap.createBitmap(bm);
-        destroyDrawingCache();
-        return result;
+        if(hasBitmap || (mDrawingList != null && !mDrawingList.isEmpty())){
+            Bitmap bm = getDrawingCache();
+            Bitmap result = Bitmap.createBitmap(bm);
+            destroyDrawingCache();
+            return result;
+        }else{
+            return null;
+        }
+
     }
 
     private void saveDrawingPath(){

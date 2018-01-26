@@ -3,7 +3,7 @@
 
     <string name="text_empty">还没有数据呢！</string>
     <string name="text_error">网络异常</string>
-    <string name="text_retry">获取数据失败，点击重试！</string>
+    <string name="text_retry">轻触屏幕重试</string>
     <string name="text_empty_retry">轻触屏幕重试</string>
     <string name="text_loading">正在加载...</string>
 

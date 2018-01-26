@@ -178,7 +178,11 @@ class MainActivity : MVPActivity(), MainView {
             getMainClassInfo()
         }
         tvMoreAnnounce.setOnClickListener {
-            startActivity(Intent(this,AnnounceActivity::class.java))
+            if(StringUtils.isEmpty(classId)) {
+                T.show(this, "请点击加载左侧班级数据！")
+            }else{
+                AnnounceActivity.jump(this, classId)
+            }
         }
 
     }

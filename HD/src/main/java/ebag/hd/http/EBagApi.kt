@@ -7,7 +7,9 @@ import ebag.core.http.network.*
 import ebag.hd.bean.ChildNodeBean
 import ebag.hd.bean.SchoolBean
 import ebag.hd.bean.response.CodeEntity
+import ebag.hd.bean.response.NoticeBean
 import ebag.hd.bean.response.UserEntity
+import ebag.hd.http.EBagClient.eBagService
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -112,18 +114,35 @@ object EBagApi {
 
     }
 
+    /**
+     * 省市区县基础数据
+     */
     fun cityData(callback: RequestCallBack<List<ChildNodeBean>>){
         val jsonObject = JSONObject()
         jsonObject.put("id", 1)
         request(EBagClient.eBagService.cityData("v1", createBody(jsonObject)), callback)
     }
 
+    /**
+     * 查询学校
+     */
     fun getSchool(province: String?, city: String?, county: String?, callback: RequestCallBack<List<SchoolBean>>){
         val jsonObject = JSONObject()
         jsonObject.put("province", province)
         jsonObject.put("city", city)
         jsonObject.put("county", county)
         request(EBagClient.eBagService.getSchool("v1", createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 公告列表
+     */
+    fun noticeList(page: Int, pageSize: Int, classId: String, callback: RequestCallBack<List<NoticeBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("pageSize", pageSize)
+        jsonObject.put("page", page)
+        jsonObject.put("classId", classId)
+        EBagApi.request(eBagService.noticeList("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
 }

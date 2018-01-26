@@ -2,6 +2,7 @@ package com.yzy.ebag.teacher.http
 
 import com.yzy.ebag.teacher.bean.*
 import ebag.core.bean.ResponseBean
+import ebag.hd.bean.response.NoticeBean
 import io.reactivex.Observable
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -80,12 +81,6 @@ interface TeacherService {
      */
     @POST("notice/queryNewClassNotice/{version}")
     fun newestNotice(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<NoticeBean>>
-
-    /**
-     * 公告列表
-     */
-    @POST("notice/queryClassNotice/{version}")
-    fun noticeList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<NoticeBean>>>
 
     /**
      * 发布公告

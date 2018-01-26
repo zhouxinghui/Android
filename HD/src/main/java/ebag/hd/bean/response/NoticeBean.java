@@ -1,11 +1,9 @@
-package com.yzy.ebag.teacher.bean;
+package ebag.hd.bean.response;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-
-import ebag.core.util.StringUtils;
 
 /**
  * Created by YZY on 2018/1/23.
@@ -28,15 +26,17 @@ public class NoticeBean implements Serializable {
     private String name;
     private String headUrl;
     private long createDate;
+    private List<String> photoList;
 
     public List<String> getPhotos() {
-        List<String> list = new ArrayList<>();
-        if (StringUtils.INSTANCE.isEmpty(photoUrl)) {
-            return list;
+        if(photoList == null){
+            photoList = new ArrayList<>();
+            if(photoUrl == null){
+                photoUrl = "";
+            }
+            Collections.addAll(photoList, photoUrl.split(","));
         }
-        String[] urlSplit = photoUrl.split(",");
-        list.addAll(Arrays.asList(urlSplit));
-        return list;
+        return photoList;
     }
 
     public String getClassId() {

@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import ebag.core.R
 import ebag.core.base.mvp.LazyFragment
+import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.T
 import ebag.core.widget.empty.StateView
@@ -208,7 +209,13 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
             override fun onError(exception: Throwable) {
                 when (loadingStatus) {
                     //进入页面第一次加载出现的异常
-                    FIRST -> stateView.showError()
+                    FIRST -> {
+                        if(exception is MsgException){
+                            stateView.showError(exception.message)
+                        }else{
+                            stateView.showError()
+                        }
+                    }
                     //刷新的时候出现的异常
                     REFRESH -> {
                         refreshLayout.isRefreshing = false

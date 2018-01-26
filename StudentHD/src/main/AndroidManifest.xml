@@ -16,7 +16,11 @@
             android:screenOrientation="landscape"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustUnspecified|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name="ebag.hd.activity.ReportClassActivity">
@@ -24,11 +28,6 @@
         </activity>
 
         <activity android:name="ebag.hd.activity.ReportTestActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <!--解决横竖屏切换 fragment 重叠现象-->
         <activity android:name=".activity.center.PersonalActivity"
