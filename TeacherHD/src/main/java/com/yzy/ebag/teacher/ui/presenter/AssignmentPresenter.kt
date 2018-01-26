@@ -41,7 +41,7 @@ class AssignmentPresenter(view: AssignmentView, listener: OnToastListener): Base
     fun loadBaseData(type: String){
         TeacherApi.assignmentData(type, baseRequest)
     }
-    fun loadUnitAndQuestion(type: String, gradeCode: String){
-        TeacherApi.unitAndQuestion(type, gradeCode, unitRequest)
+    fun loadUnitAndQuestion(type: String, gradeCode: String, bookVersionId: String? = null){
+        TeacherApi.unitAndQuestion(type, gradeCode, bookVersionId, unitRequest)
     }
 }

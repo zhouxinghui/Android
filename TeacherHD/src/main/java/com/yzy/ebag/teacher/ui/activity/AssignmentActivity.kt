@@ -32,7 +32,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     private val exchangeDialog by lazy {
         val dialog = ExchangeTextbookDialog(this)
         dialog.onConfirmClick = {versionName,
-                                 versionCode,
+                                 versionId,
                                  semesterCode,
                                  semesterName,
                                  subCode,
@@ -41,11 +41,13 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     semesterName,
                     subName)
             setVersionCache(versionName,
-                    versionCode,
+                    versionId,
                     semesterCode,
                     semesterName,
                     subCode,
                     subName)
+            isGradeRequest = false
+            assignmentPresenter.loadUnitAndQuestion(workCategory.toString(), currentGradeCode, versionId)
         }
         dialog
     }
@@ -57,6 +59,8 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     //数据保存
     private val cacheMap by lazy { HashMap<String, Cache>() }
     private var currentGradeCode = ""
+    //因为切换单元和切换版本访问的是同一个接口，但是返回的版本数据是不会因为版本的改变而改变，而是返回固定年级的班级的所教课程，所以切换版本的时候自己本地变版本名称和版本id（服务器人员太懒），所以用一个boolean值控制，当为true的时候接口请求成功的时候就根据返回参数修改版本名称和版本id，为false的时候就手动修改（见showData方法）
+    private var isGradeRequest = true
     override fun destroyPresenter() {
         assignmentPresenter.onDestroy()
     }
@@ -102,9 +106,10 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             val cache = cacheMap[currentGradeCode]!!
             val unitList = cache.unitList
             val questionList = cache.questionList
-            if (unitList.isEmpty())
+            if (unitList.isEmpty()) {
+                isGradeRequest = true
                 assignmentPresenter.loadUnitAndQuestion(workCategory.toString(), currentGradeCode)
-            else {
+            }else {
                 unitAdapter.setNewData(unitList as List<MultiItemEntity>)
                 questionAdapter.datas = questionList
                 setVersionTv(cache.versionName, cache.semesterName, cache.subName)
@@ -235,22 +240,21 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             }
         }
         unitAdapter.setNewData(unitList as List<MultiItemEntity>)
-        val versionBean = assignmentBean.resultTaughtCoursesVo
-        setVersionTv(versionBean?.bookVersionName,
-                versionBean?.semeterName,
-                versionBean?.bookName)
 
         cacheMap[currentGradeCode]!!.unitList = unitList as ArrayList<AssignUnitBean>
         cacheMap[currentGradeCode]!!.questionList = questionList as ArrayList<AssignmentBean.QuestionsBean>
-        cacheMap[currentGradeCode]!!.versionId = versionBean.bookVersionId
-
-        val bookVersionBean = assignmentBean.resultTaughtCoursesVo
-        setVersionCache(bookVersionBean.bookVersionName,
-                bookVersionBean.bookVersionId,
-                bookVersionBean.semeterCode,
-                bookVersionBean.semeterName,
-                bookVersionBean.bookCode,
-                bookVersionBean.bookName)
+        if (isGradeRequest) {
+            val versionBean = assignmentBean.resultTaughtCoursesVo
+            setVersionTv(versionBean?.bookVersionName,
+                    versionBean?.semeterName,
+                    versionBean?.bookName)
+            setVersionCache(versionBean.bookVersionName,
+                    versionBean.bookVersionId,
+                    versionBean.semeterCode,
+                    versionBean.semeterName,
+                    versionBean.bookCode,
+                    versionBean.bookName)
+        }
     }
 
     private fun setVersionTv(version: String?, semester: String?, subName: String?){
@@ -260,13 +264,13 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 subName)
     }
     private fun setVersionCache(versionName: String,
-                                versionCode: String,
+                                versionId: String,
                                 semesterCode: String,
                                 semesterName: String,
                                 subCode: String,
                                 subName: String){
         cacheMap[currentGradeCode]!!.versionName = versionName
-        cacheMap[currentGradeCode]!!.versionId = versionCode
+        cacheMap[currentGradeCode]!!.versionId = versionId
         cacheMap[currentGradeCode]!!.semesterCode = semesterCode
         cacheMap[currentGradeCode]!!.semesterName = semesterName
         cacheMap[currentGradeCode]!!.subCode = subCode

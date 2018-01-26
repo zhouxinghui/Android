@@ -51,6 +51,15 @@ public class BookVersionBean implements Serializable {
 
         private String versionCode;
         private String versionName;
+        private String bookVersionId;
+
+        public String getBookVersionId() {
+            return bookVersionId;
+        }
+
+        public void setBookVersionId(String bookVersionId) {
+            this.bookVersionId = bookVersionId;
+        }
 
         public String getVersionCode() {
             return versionCode;

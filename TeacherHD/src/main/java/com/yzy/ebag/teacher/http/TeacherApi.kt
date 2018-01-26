@@ -133,10 +133,12 @@ object TeacherApi {
     /**
      * 根据年级获取单元 和 题型信息
      */
-    fun unitAndQuestion(type: String, gradeCode: String, callback: RequestCallBack<AssignmentBean>){
+    fun unitAndQuestion(type: String, gradeCode: String, bookVersionId: String?, callback: RequestCallBack<AssignmentBean>){
         val jsonObject = JSONObject()
         jsonObject.put("type", type)
         jsonObject.put("gradeCode", gradeCode)
+        if(bookVersionId != null)
+            jsonObject.put("bookVersionId", bookVersionId)
         EBagApi.request(teacherService.assignmentData("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
