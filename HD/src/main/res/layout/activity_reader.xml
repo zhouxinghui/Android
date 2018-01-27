@@ -14,8 +14,33 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/titleBar"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <ebag.core.widget.FloatingDragButton android:id="@+id/baseFab"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/fab_menu_icon"
+        style="@style/fab_style"
+        android:visibility="visible"
+        />
+    <android.support.design.widget.FloatingActionButton android:id="@+id/clearBtn"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        style="@style/fab_style"
+        android:src="@drawable/fab_clear_icon"
+        />
+    <android.support.design.widget.FloatingActionButton android:id="@+id/eraserBtn"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        style="@style/fab_style"
+        android:src="@drawable/fab_eraser_icon"
+        />
+    <android.support.design.widget.FloatingActionButton android:id="@+id/penBtn"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        style="@style/fab_style"
+        android:src="@drawable/fab_pen_icon"
         />
 </android.support.constraint.ConstraintLayout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="fab_menu_style">
+        <item name="android:background">@drawable/fab_label_bg</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">23sp</item>
+        <item name="android:padding">3dp</item>
+    </style>
+    <!--
+    app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.98"
+        app:layout_constraintVertical_bias="0.98"-->
+    <style name="fab_style">
+        <item name="rippleColor">@color/ripple</item>
+        <item name="backgroundTint">@color/blue</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="elevation">6dp</item>
+        <item name="borderWidth">0dp</item>
+        <item name="pressedTranslationZ">12dp</item>
+        <item name="fabSize">normal</item>
+        <item name="android:visibility">invisible</item>
+        <item name="android:layout_marginRight">20dp</item>
+
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintHorizontal_bias">0.98</item>
+        <item name="layout_constraintVertical_bias">0.98</item>
+    </style>
+</resources>

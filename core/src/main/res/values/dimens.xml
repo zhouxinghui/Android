@@ -2,5 +2,4 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="textandiconmargin">10dp</dimen>
 
-    <dimen name="base_tab_tv_size"></dimen>
 </resources>
