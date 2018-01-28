@@ -1,7 +1,5 @@
 package ebag.hd.ui.view
 
-import ebag.hd.bean.response.CodeEntity
-
 
 /**
  * Created by caoyu on 2017/11/11.
@@ -16,7 +14,7 @@ interface CodeView {
     /**
      * 获取验证码成功后的操作
      */
-    fun onCodeSuccess(codeEntity: CodeEntity)
+    fun onCodeSuccess(codeEntity: String?)
 
     /**
      * 获取验证码失败后的操作

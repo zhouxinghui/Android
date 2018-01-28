@@ -1,5 +1,6 @@
 package com.yzy.ebag.student.activity.tools
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -22,7 +23,19 @@ class ToolsActivity : BaseListActivity<List<Int>,Int>() {
             R.drawable.tool_btn_pinyin,R.drawable.tool_btn_letter,R.drawable.tool_btn_formula,
             R.drawable.tool_btn_song)
 
+    companion object {
+        fun jump(context: Context, classId: String){
+            context.startActivity(
+                    Intent(context,ToolsActivity::class.java)
+                            .putExtra("classId", classId)
+            )
+        }
+    }
+
+    private lateinit var classId: String
+
     override fun loadConfig(intent: Intent) {
+        classId = intent.getStringExtra("classId") ?: ""
         setPadding(resources.getDimensionPixelSize(R.dimen.x25),
                 resources.getDimensionPixelSize(R.dimen.x15),
                 resources.getDimensionPixelSize(R.dimen.x25), 0)
@@ -72,11 +85,19 @@ class ToolsActivity : BaseListActivity<List<Int>,Int>() {
         when(list[position]){
 
             R.drawable.tool_btn_calligraphy -> {//每日练字
-                PractiseActivity.jump(this)
+                if(classId.isNullOrEmpty()){
+                    T.show(this,"请返回首页获取左侧班级信息")
+                }else{
+                    PractiseActivity.jump(this, classId)
+                }
             }
 
             R.drawable.tool_btn_read -> {//每日练字
-                ReadActivity.jump(this)
+                if(classId.isNullOrEmpty()){
+                    T.show(this,"请返回首页获取左侧班级信息")
+                }else{
+                    ReadActivity.jump(this, classId)
+                }
             }
 
 

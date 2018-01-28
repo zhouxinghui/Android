@@ -87,11 +87,13 @@ class WriteActivity: MVPActivity() {
                 return@setOnClickListener
             }
 
+            // 这里写 保存bitmap到本地的操作
 
 
             if(currentIndex == maxIndex){
 
             }else{
+                drawView.clear()
                 tvPinyin.text = pinyinList[currentIndex++]
             }
         }

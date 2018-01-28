@@ -165,7 +165,7 @@ class MainActivity : MVPActivity(), MainView {
         }
         //学习工具
         btnDailyPractice.setOnClickListener{
-            startActivity(Intent(this, ToolsActivity::class.java))
+            ToolsActivity.jump(this, classId)
         }
 
         //点击班级

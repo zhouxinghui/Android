@@ -5,7 +5,6 @@ import ebag.core.base.mvp.OnToastListener
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.L
 import ebag.core.util.StringUtils
-import ebag.hd.bean.response.CodeEntity
 import ebag.hd.http.EBagApi
 import ebag.hd.ui.view.CodeView
 import io.reactivex.Observable
@@ -20,7 +19,7 @@ import java.util.concurrent.TimeUnit
 open class CodePresenter(view: CodeView, listener: OnToastListener): BasePresenter<CodeView>(view,listener) {
 
     private var codeDisposable: Disposable? = null
-    private var requestRequest: RequestCallBack<CodeEntity>? = null
+    private var requestRequest: RequestCallBack<String>? = null
 
     /**
      * 获取验证码
@@ -29,15 +28,15 @@ open class CodePresenter(view: CodeView, listener: OnToastListener): BasePresent
 
         if(StringUtils.isMobileNo(phone)) {
             if(requestRequest == null)
-                requestRequest = createRequest(object: RequestCallBack<CodeEntity>() {
+                requestRequest = createRequest(object: RequestCallBack<String>() {
 
                     override fun onStart() {
                         getView()?.onCodeStart()
                     }
 
-                    override fun onSuccess(entity: CodeEntity?) {
-                        if(entity != null)
-                            getView()?.onCodeSuccess(entity)
+                    override fun onSuccess(entity: String?) {
+                        startCutDown()
+                        getView()?.onCodeSuccess(entity)
                     }
 
                     override fun onError(exception: Throwable) {
@@ -73,11 +72,6 @@ open class CodePresenter(view: CodeView, listener: OnToastListener): BasePresent
                     getView()?.codeBtnText("获取验证码")
                     getView()?.enableCodeBtn(true)
                 }.subscribe()
-    }
-
-    private fun success(codeEntity: CodeEntity){
-        startCutDown()
-        getView()?.onCodeSuccess(codeEntity)
     }
 
     override fun onDestroy() {

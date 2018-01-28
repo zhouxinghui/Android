@@ -10,7 +10,6 @@ import com.yzy.ebag.student.activity.center.fragment.*
 import com.yzy.ebag.student.dialog.PerformanceDialog
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.util.SerializableUtils
-import ebag.core.util.T
 import ebag.core.util.loadHead
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
@@ -90,6 +89,9 @@ class PersonalActivity: MVPActivity() {
                 4 -> {
                     ParentFragment.newInstance()
                 }//我的家长
+                5 -> {//成长轨迹
+                    GrowthEnterTabFragment.newInstance()
+                }
                 6 -> {
                     YbCenterFragment.newInstance()
                 }

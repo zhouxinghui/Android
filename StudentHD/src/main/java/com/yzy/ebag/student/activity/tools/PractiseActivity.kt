@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
-import com.alibaba.fastjson.JSON
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
@@ -16,8 +15,9 @@ import com.yzy.ebag.student.activity.tools.practise.RecordActivity
 import com.yzy.ebag.student.base.BaseListTabActivity
 import com.yzy.ebag.student.base.UnitAdapter
 import com.yzy.ebag.student.base.UnitBean
+import com.yzy.ebag.student.bean.EditionBean
+import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
-import ebag.core.util.L
 import java.io.IOException
 import java.nio.charset.Charset
 
@@ -27,27 +27,35 @@ import java.nio.charset.Charset
  * @date 2018/1/21
  * @description
  */
-class PractiseActivity: BaseListTabActivity<String, MultiItemEntity>() {
+class PractiseActivity: BaseListTabActivity<EditionBean, MultiItemEntity>() {
 
     companion object {
-        fun jump(context: Context){
-            context.startActivity(Intent(context,PractiseActivity::class.java))
+        fun jump(context: Context, classId: String){
+            context.startActivity(
+                    Intent(context,PractiseActivity::class.java)
+                            .putExtra("classId", classId)
+            )
         }
     }
 
     private lateinit var tvMaterial: TextView
+    private lateinit var classId: String
     override fun loadConfig() {
+        classId = intent.getStringExtra("classId") ?: ""
         setTitleContent("选择汉字")
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x368))
         setMiddleDistance(resources.getDimensionPixelSize(R.dimen.x20))
-        val ss = getFromAsset("unit.json")
-        L.e("JSON", ss)
-        val list = JSON.parseArray(ss, UnitBean::class.java)
+
+
         val view = layoutInflater.inflate(R.layout.layout_practise_material_header,null)
         tvMaterial = view.findViewById(R.id.text)
-        tvMaterial.text = "这是教材名字"
         addLeftHeaderView(view)
-        withTabData(list)
+
+
+//        val ss = getFromAsset("unit.json")
+//        L.e("JSON", ss)
+//        val list = JSON.parseArray(ss, UnitBean::class.java)
+//        withTabData(list)
 
         titleBar.setRightText("记录"){
             RecordActivity.jump(this)
@@ -75,11 +83,13 @@ class PractiseActivity: BaseListTabActivity<String, MultiItemEntity>() {
         return result
     }
 
-    override fun requestData(requestCallBack: RequestCallBack<String>) {
+    override fun requestData(requestCallBack: RequestCallBack<EditionBean>) {
+        StudentApi.getUint(classId, "yw", requestCallBack)
     }
 
-    override fun parentToList(parent: String?): List<UnitBean>? {
-        return null
+    override fun parentToList(parent: EditionBean?): List<UnitBean>? {
+        tvMaterial.text = parent?.bookVersion
+        return parent?.resultBookUnitOrCatalogVos
     }
 
     override fun getLeftAdapter(): BaseQuickAdapter<MultiItemEntity, BaseViewHolder> {

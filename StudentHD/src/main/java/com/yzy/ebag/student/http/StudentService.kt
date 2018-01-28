@@ -1,6 +1,7 @@
 package com.yzy.ebag.student.http
 
 import com.yzy.ebag.student.bean.ClassesInfoBean
+import com.yzy.ebag.student.bean.EditionBean
 import com.yzy.ebag.student.bean.SpaceBean
 import com.yzy.ebag.student.bean.SubjectBean
 import ebag.core.bean.ResponseBean
@@ -40,4 +41,10 @@ interface StudentService {
      */
     @POST("clazz/queryMyClassInfo/{version}")
     fun clazzSpace(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<SpaceBean>>>
+
+    /**
+     * 班级
+     */
+    @POST("util/getBookVersionOrUnit/{version}")
+    fun getUint(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<EditionBean>>
 }

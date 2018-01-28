@@ -22,6 +22,13 @@ import retrofit2.http.Path
 interface EBagService {
 
     /**
+     * 获取验证码
+     * @return
+     */
+    @POST("util/sendMessage/{version}")
+    fun getCheckCode(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
      * 省市区县基础数据
      * @return
      */

@@ -1,6 +1,8 @@
 package ebag.hd.ui.activity.account
 
 import android.content.Intent
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.widget.EditText
 import ebag.core.base.App
@@ -10,7 +12,6 @@ import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.SerializableUtils
 import ebag.hd.R
 import ebag.hd.base.Constants
-import ebag.hd.bean.response.CodeEntity
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.ui.presenter.CodePresenter
 import ebag.hd.ui.presenter.LoginPresenter
@@ -69,7 +70,7 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         finish()
     }
 
-    override fun onCodeSuccess(codeEntity: CodeEntity) {
+    override fun onCodeSuccess(codeEntity: String?) {
          //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -135,6 +136,19 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
                 else
                     toast("请勾选服务条款",true)
             }
+        }
+
+        imageSee.setOnClickListener {
+            it.isSelected = !it.isSelected
+            if(it.isSelected){//可见状态
+                loginPwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            }else{
+                loginPwd.transformationMethod = PasswordTransformationMethod.getInstance()
+            }
+        }
+
+        forgetPwd.setOnClickListener {
+            startActivity(Intent(this,ForgetActivity::class.java))
         }
 
 

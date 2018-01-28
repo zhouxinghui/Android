@@ -29,8 +29,11 @@ import java.nio.charset.Charset
 class ReadActivity : BaseListTabActivity<String, MultiItemEntity>() {
 
     companion object {
-        fun jump(context: Context){
-            context.startActivity(Intent(context, ReadActivity::class.java))
+        fun jump(context: Context, classId: String){
+            context.startActivity(
+                    Intent(context, ReadActivity::class.java)
+                            .putExtra("classId", classId)
+            )
         }
     }
 

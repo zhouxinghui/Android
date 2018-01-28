@@ -103,12 +103,11 @@
 
             <ImageView
                 android:id="@+id/imageSee"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/x78"
-                android:layout_gravity="end"
+                android:layout_width="@dimen/x44"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="0dp"
                 android:src="@drawable/login_see_selector"/>
-
         </FrameLayout>
 
         <TextView
