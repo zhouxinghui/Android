@@ -183,20 +183,16 @@ public class TitleBar extends RelativeLayout {
                 }
             }
         });
-//        if(rightView!=null){
-//            rightView.setOnClickListener(new OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if(toMainTab){
-//                        context.startActivity(new Intent(context, MainActivity.class));
-//                    }else {
-//                        if(listener != null){
-//                            listener.rightClick();
-//                        }
-//                    }
-//                }
-//            });
-//        }
+        if(rightView!=null){
+            rightView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener != null){
+                        listener.rightClick();
+                    }
+                }
+            });
+        }
     }
     private int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;

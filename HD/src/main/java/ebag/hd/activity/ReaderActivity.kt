@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -20,16 +22,22 @@ import java.io.IOException
 
 
 
-class ReaderActivity : BaseActivity() , View.OnClickListener{
+class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher{
+    override fun getLayoutId(): Int {
+        return R.layout.activity_reader
+    }
     companion object {
         fun jump(context: Context, fileName: String){
             context.startActivity(Intent(context, ReaderActivity::class.java).putExtra("fileName", fileName))
         }
     }
-    override fun getLayoutId(): Int {
-        return R.layout.activity_reader
-    }
-
+    private lateinit var noteAdapter: NoteAdapter
+    private lateinit var layoutManager: LinearLayoutManager
+    private var isEditNote = false
+    private lateinit var lastNote: String
+    private lateinit var currentNote: String
+    //记录当前笔记是新建还是旧的
+    private var currentNotePosition = -1
     override fun initViews() {
         pageView.setAdapter(PageViewAdapter(this, ZipUtils.getAllImgs(intent.getStringExtra("fileName"))))
         baseFab.registerButton(noteBtn)
@@ -43,6 +51,7 @@ class ReaderActivity : BaseActivity() , View.OnClickListener{
         eraserBtn.setOnClickListener(this)
         penBtn.setOnClickListener(this)
         saveBtn.setOnClickListener(this)
+
         pageView.setOnPageTurnListener { count, currentPosition ->
             if(!baseFab.isDraftable)
                 FabAnimationUtil.slideButtons(this,baseFab)
@@ -57,30 +66,50 @@ class ReaderActivity : BaseActivity() , View.OnClickListener{
             }
             super.onTouchEvent(event)
         }
+        dragView.setOnClickListener{
+            if (isNoteLayoutVisible())
+                setNoteVisible(noteLayout.height)
+            else
+                setNoteVisible(ScreenUtil.getScreenHeight(this)/2, true)
+        }
         noteTitle.setOnTitleBarClickListener(object : TitleBar.OnTitleBarClickListener{
             override fun leftClick() {
                 if (backEvent())
                     finish()//占位代码，永远不会执行
             }
             override fun rightClick() {
+                if (!isEditNote) {
+                    showNoteEdit("", -1)
+                }else{
+                    if (lastNote == currentNote){
+                        T.show(this@ReaderActivity, "你未对笔记作任何更新操作")
+                        return
+                    }else{
+                        //TODO 保存笔记
+                        if (currentNotePosition != -1){
+                            noteAdapter.setData(currentNotePosition, currentNote)
+                        }else{
+                            noteAdapter.addData(0, currentNote)
+                        }
+                        //TODO 保存笔记成功后
+                        hideNoteEdit()
+                        layoutManager.scrollToPosition(0)
+                    }
+                }
             }
         })
         rootView.setOnBottomHiddenChange { isShow ->  dragView.isSelected = isShow}
-        dragView.setOnClickListener{
-            if (noteLayout.height == 0)
-                setNoteVisible(ScreenUtil.getScreenHeight(this)/2, true)
-            else
-                setNoteVisible(noteLayout.height)
-        }
+        noteEdit.addTextChangedListener(this)
 
         val list = ArrayList<String>()
         for (i in 0..9){
             list.add("测试笔记测试笔记测试笔记测试笔记测试笔记测试笔记测试笔记测试笔记测试笔记测试笔记测试笔记")
         }
-        val adapter = NoteAdapter()
-        noteRecycler.adapter = adapter
-        noteRecycler.layoutManager = LinearLayoutManager(this)
-        adapter.setNewData(list)
+        noteAdapter = NoteAdapter()
+        layoutManager = LinearLayoutManager(this)
+        noteRecycler.adapter = noteAdapter
+        noteRecycler.layoutManager = layoutManager
+        noteAdapter.setNewData(list)
     }
 
     override fun onClick(v: View) {
@@ -144,8 +173,7 @@ class ReaderActivity : BaseActivity() , View.OnClickListener{
         override fun convert(helper: BaseViewHolder, item: String?) {
             helper.setText(R.id.content_tv, item)
                     .itemView.setOnClickListener {
-                noteEdit.setText(item)
-                noteEdit.visibility = View.VISIBLE
+                showNoteEdit(item!!, helper.adapterPosition)
             }
         }
     }
@@ -156,15 +184,54 @@ class ReaderActivity : BaseActivity() , View.OnClickListener{
     }
 
     private fun backEvent(): Boolean{
-        return if(noteEdit.visibility == View.VISIBLE){
-            noteEdit.visibility = View.GONE
+        return if(isNoteEditVisible()){
+            hideNoteEdit()
             false
-        }else if(noteEdit.visibility == View.GONE && noteLayout.height != 0){
+        }else if(!isNoteEditVisible() && isNoteLayoutVisible()){
             setNoteVisible(noteLayout.height)
             false
         }else{
             true
         }
+    }
+
+    /**
+     * “笔记本”是否可见
+     */
+    private fun isNoteLayoutVisible(): Boolean{
+        return noteLayout.height != 0
+    }
+
+    /**
+     * 编辑笔记界面是否可见
+     */
+    private fun isNoteEditVisible(): Boolean{
+        return noteEdit.visibility == View.VISIBLE
+    }
+
+    private fun showNoteEdit(text: String, currentNotePosition: Int){
+        noteEdit.visibility = View.VISIBLE
+        noteEdit.setText(text)
+        noteEdit.setSelection(text.length)
+        noteTitle.setRightText("完成")
+        isEditNote = true
+        lastNote = text
+        currentNote = text
+        this.currentNotePosition = currentNotePosition
+    }
+    private fun hideNoteEdit(){
+        noteEdit.visibility = View.GONE
+        noteTitle.setRightText("新增")
+        isEditNote = false
+    }
+    override fun afterTextChanged(s: Editable?) {
+        currentNote = noteEdit.text.toString()
+    }
+
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+    }
+
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
     }
 
     private fun setNoteVisible(height: Int, isShow: Boolean = false) {
