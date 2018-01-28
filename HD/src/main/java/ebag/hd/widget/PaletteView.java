@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
@@ -45,7 +44,7 @@ public class PaletteView extends View {
 
     private boolean canDraw = true;
 
-    private Bitmap mCacheBitmap;
+    private Bitmap mFirstLoadBitMap;
     private Canvas mCacheCanvas;
 
     private Callback mCallback;
@@ -100,24 +99,34 @@ public class PaletteView extends View {
 
     }
 
-    public void setCacheBitmap(Bitmap mCacheBitmap){
-
+    /**
+     * 设置首次加载的绘画轨迹（实际为bitmap）,如果设置进来的bitmap为mull，所有东西将会被清空
+     * @param mCacheBitmap
+     */
+    public void setFirstLoadBitmap(Bitmap mCacheBitmap){
         if(mCacheBitmap == null){
             hasBitmap = false;
-            this.mCacheBitmap = null;
+            mBufferBitmap = null;
             mBufferCanvas = null;
+            if (mDrawingList != null) {
+                mDrawingList.clear();
+            }
+            if (mRemovedList != null) {
+                mRemovedList.clear();
+            }
+            this.mFirstLoadBitMap = null;
         }else{
             hasBitmap = true;
-            this.mCacheBitmap = mCacheBitmap.copy(Bitmap.Config.ARGB_8888, true);
+            this.mFirstLoadBitMap = mCacheBitmap;
         }
 
         invalidate();
     }
 
-    public void setCacheBitmap(String path){
+    public void setFirstLoadBitmap(String path){
         Bitmap bitmap = BitmapFactory.decodeFile(path);
         if(bitmap != null){
-            setCacheBitmap(bitmap);
+            setFirstLoadBitmap(bitmap);
         }
     }
 
@@ -235,8 +244,6 @@ public class PaletteView extends View {
             }
             mCanEraser = false;
             mBufferBitmap.eraseColor(Color.TRANSPARENT);
-            if(mCacheBitmap != null)
-                mCacheBitmap.eraseColor(Color.TRANSPARENT);
             invalidate();
             if (mCallback != null) {
                 mCallback.onUndoRedoStatusChanged();
@@ -275,9 +282,14 @@ public class PaletteView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if(mCacheBitmap != null){
-            canvas.drawBitmap(mCacheBitmap, new Matrix(),mPaint);
-
+        if(mFirstLoadBitMap != null){
+            mBufferBitmap = Bitmap.createBitmap(mFirstLoadBitMap,0,0,getWidth(),getHeight()).copy(Bitmap.Config.ARGB_8888, true);
+            mBufferCanvas = new Canvas(mBufferBitmap);
+           if(mRemovedList != null)
+               mDrawingList.clear();
+           if(mRemovedList != null)
+               mRemovedList.clear();
+            mFirstLoadBitMap = null;
         }
         if (mBufferBitmap != null) {
             canvas.drawBitmap(mBufferBitmap, 0, 0, null);
@@ -308,19 +320,15 @@ public class PaletteView extends View {
             case MotionEvent.ACTION_MOVE:
                 //这里终点设为两点的中心点的目的在于使绘制的曲线更平滑，如果终点直接设置为x,y，效果和lineto是一样的,实际是折线效果
                 mPath.quadTo(mLastX, mLastY, (x + mLastX) / 2, (y + mLastY) / 2);
-                if (mBufferBitmap == null) {
-                    initBuffer();
-                }
-                if(mCacheBitmap != null && mCacheCanvas == null){
-                    mCacheCanvas = new Canvas(mCacheBitmap);
-                }
+                if(mBufferBitmap == null)
+                    mBufferBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+                if(mBufferCanvas == null)
+                    mBufferCanvas = new Canvas(mBufferBitmap);
                 if (mMode == Mode.ERASER && !mCanEraser) {
                     break;
                 }
                 mBufferCanvas.drawPath(mPath,mPaint);
 
-                if(mCacheCanvas != null)
-                    mCacheCanvas.drawPath(mPath,mPaint);
                 invalidate();
                 mLastX = x;
                 mLastY = y;

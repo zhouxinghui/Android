@@ -349,7 +349,7 @@ public class TitleBar extends RelativeLayout {
      * 设置左侧按钮是否可见
      * @param flag  是否可见
      */
-    public void setLeftBtnVisable(boolean flag){
+    public void setLeftBtnVisible(boolean flag){
         if (flag){
             backView.setVisibility(VISIBLE);
         }else {
