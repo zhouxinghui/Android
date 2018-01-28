@@ -1,6 +1,7 @@
 package com.yzy.ebag.student.http
 
 import com.yzy.ebag.student.bean.ClassesInfoBean
+import com.yzy.ebag.student.bean.EditionBean
 import com.yzy.ebag.student.bean.SpaceBean
 import com.yzy.ebag.student.bean.SubjectBean
 import ebag.core.http.network.RequestCallBack
@@ -50,5 +51,12 @@ object StudentApi{
     fun clazzSpace(callback: RequestCallBack<List<SpaceBean>>){
         val jsonObject = JSONObject()
         EBagApi.request(studentService.clazzSpace("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun getUint(classId: String, subjectCode: String, callback: RequestCallBack<EditionBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("subjectCode", subjectCode)
+        EBagApi.request(studentService.getUint("vi", EBagApi.createBody(jsonObject)), callback)
     }
 }

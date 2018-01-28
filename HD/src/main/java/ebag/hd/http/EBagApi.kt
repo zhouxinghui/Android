@@ -6,7 +6,6 @@ import ebag.core.http.baseBean.RequestBean
 import ebag.core.http.network.*
 import ebag.hd.bean.ChildNodeBean
 import ebag.hd.bean.SchoolBean
-import ebag.hd.bean.response.CodeEntity
 import ebag.hd.bean.response.NoticeBean
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagClient.eBagService
@@ -106,8 +105,10 @@ object EBagApi {
     /**
      * 获取验证码
      */
-    fun getCode(phone: String, callback: RequestCallBack<CodeEntity>){
-
+    fun getCode(phone: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("phone", phone)
+        request(EBagClient.eBagService.getCheckCode("v1", createBody(jsonObject)), callback)
     }
 
     fun joinClass(code: String, role: String = "student"){

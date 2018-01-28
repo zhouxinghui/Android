@@ -26,6 +26,8 @@ class BInviteActivity : MVPActivity(), InviteView {
     }
 
     override fun initViews() {
+
+
         codeEdit.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(s: Editable?) {
                 nextBtn.isEnabled = !s.isNullOrBlank()

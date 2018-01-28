@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/topBg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x73"
+        android:background="@drawable/growing_locus_grade_bg"/>
+
+
+
+    <ImageView
+        android:id="@+id/previousBtn"
+        android:layout_width="@dimen/x62"
+        android:layout_height="@dimen/x72"
+        android:paddingStart="@dimen/x25"
+        android:paddingEnd="@dimen/x25"
+        android:paddingTop="@dimen/x20"
+        android:paddingBottom="@dimen/x30"
+        android:src="@drawable/growing_icon_previous"
+        app:layout_constraintStart_toStartOf="@id/topBg"
+        app:layout_constraintTop_toTopOf="@id/topBg"
+        app:layout_constraintBottom_toBottomOf="@id/topBg"/>
+
+    <ImageView
+        android:id="@+id/nextBtn"
+        android:layout_width="@dimen/x62"
+        android:layout_height="@dimen/x72"
+        android:paddingStart="@dimen/x25"
+        android:paddingEnd="@dimen/x25"
+        android:paddingTop="@dimen/x20"
+        android:paddingBottom="@dimen/x30"
+        android:src="@drawable/growing_icon_next"
+        app:layout_constraintEnd_toEndOf="@id/topBg"
+        app:layout_constraintTop_toTopOf="@id/topBg"
+        app:layout_constraintBottom_toBottomOf="@id/topBg"/>
+
+    <ebag.core.widget.empty.NoScrollViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/x9"
+        app:layout_constraintTop_toTopOf="@id/topBg"
+        app:layout_constraintStart_toEndOf="@id/previousBtn"
+        app:layout_constraintEnd_toStartOf="@id/nextBtn"/>
+
+</android.support.constraint.ConstraintLayout>

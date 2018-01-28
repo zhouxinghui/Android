@@ -51,22 +51,37 @@
             android:textSize="@dimen/x18"/>
     </FrameLayout>
 
-    <EditText
-        android:id="@+id/pwdEdit"
-        style="@style/forget_edit_text"
+    <FrameLayout
+        android:id="@+id/forgetPwdLayout"
+        style="@style/forgetHeight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forgetCodeLayout"
-        android:hint="@string/login_hint_pwd"
-        android:drawableLeft="@drawable/login_pwd"
-        android:inputType="textPassword"/>
-<!--android:layout_marginTop="@dimen/y150"-->
+        app:layout_constraintTop_toBottomOf="@+id/forgetCodeLayout">
+        <EditText
+            android:id="@+id/pwdEdit"
+            style="@style/forget_edit_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/forgetCodeLayout"
+            android:hint="@string/login_hint_pwd"
+            android:drawableLeft="@drawable/login_pwd"
+            android:inputType="textPassword"/>
+
+        <ImageView
+            android:id="@+id/imageSee"
+            android:layout_width="@dimen/x44"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="0dp"
+            android:src="@drawable/login_see_selector"/>
+
+    </FrameLayout>
+
     <TextView
         android:id="@+id/completeBtn"
         android:clickable="true"
         android:layout_width="@dimen/x421"
         android:layout_height="@dimen/x52"
-
         android:textSize="@dimen/x24"
         android:gravity="center"
         android:text="@string/tip_complete"
@@ -75,7 +90,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pwdEdit"
+        app:layout_constraintTop_toBottomOf="@+id/forgetPwdLayout"
         app:layout_constraintVertical_bias="0.5"
         />
 
