@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.activity.center
+package com.yzy.ebag.student.activity.growth
 
 import android.content.Context
 import android.os.Bundle
@@ -66,6 +66,12 @@ class GrowthEnterFragment : BaseFragment() {
         recyclerView.adapter = adapter
 
         adapter.setNewData(list)
+
+        adapter.setOnItemClickListener { _, view, position ->
+            if(adapter.getItem(position)?.status != 0){
+                GrowthTypeActivity.jump(mContext, adapter.getItem(position)?.grade ?: "")
+            }
+        }
 
     }
 

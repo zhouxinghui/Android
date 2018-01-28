@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.activity.center.fragment.*
+import com.yzy.ebag.student.activity.growth.GrowthEnterTabFragment
 import com.yzy.ebag.student.dialog.PerformanceDialog
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.util.SerializableUtils

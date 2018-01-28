@@ -51,6 +51,8 @@
         <activity android:name=".activity.tools.practise.RecordActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
+        <activity android:name=".activity.growth.GrowthTypeActivity"/>
+        <activity android:name=".activity.growth.CourseDetailActivity"/>
     </application>
 
 </manifest>

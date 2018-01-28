@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.activity.center
+package com.yzy.ebag.student.activity.growth
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
