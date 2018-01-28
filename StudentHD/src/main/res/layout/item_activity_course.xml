@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="@dimen/x26"
+    android:textColor="#222222"
+    android:text="班主任：哈哈"
+    android:paddingTop="@dimen/x7"
+    android:paddingBottom="@dimen/x7">
+
+</TextView>
