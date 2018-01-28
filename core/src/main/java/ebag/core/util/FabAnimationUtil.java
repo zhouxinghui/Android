@@ -15,10 +15,10 @@ import java.util.Random;
 
 import ebag.core.widget.FloatingDragButton;
 
-public class AnimationUtil {
+public class FabAnimationUtil {
     public static void slideview(final View view, final float p1, final float p2, final float p3, final float p4,
                                  long durationMillis, long delayMillis,
-                                 final boolean startVisible, final boolean endVisible) {
+                                 final boolean startVisible,final boolean endVisible) {
         //如果处在动画阶段则不允许再次运行动画
         if(view.getTag()!= null && "-1".equals(view.getTag().toString())){
             return;
@@ -75,47 +75,63 @@ public class AnimationUtil {
     }
 
     //移动Buttons展开或者关闭
-    public static void slideButtons(Context context, FloatingDragButton button){
+    public static void slideButtons(Context context,final FloatingDragButton button){
 
-        if(button.isDraftable()){//可拖拽 展开Buttons
-            expandFab(context, button);
-        }else{ //关闭Buttons
-            unExpandFab(button);
-        }
-    }
-
-    public static void expandFab(Context context, FloatingDragButton button){
         int size = button.getButtonSize();
         if(size == 0){
             return;
         }
+        int buttonLeft = button.getLeft();
         int screenWidth = ScreenUtil.getScreenWidth(context);
         int buttonRight = screenWidth - button.getRight();
+        int buttonTop = button.getTop();
         int buttonBottom = ScreenUtil.getScreenHeight(context) - button.getBottom();
         int buttonWidth = button.getWidth();
         int radius = 7*buttonWidth/4;
         int gap = 5*buttonWidth/4;
-        int buttonLeft = button.getLeft();
-        int buttonTop = button.getTop();
 
         ArrayList<FloatingActionButton> buttons = button.getButtons();
 
-        showRotateAnimation(button,0,225);
-        //可围成圆形
-        if(buttonLeft >= radius && buttonRight >= radius
-                && buttonTop>= radius && buttonBottom>= radius){
-            double angle = 360.0/size;
-            int randomDegree = new Random().nextInt(180);
-            for(int i=0;i<size;i++){
-                FloatingActionButton faButton = buttons.get(i);
-                slideview(faButton,0, radius*(float)Math.cos(Math.toRadians(randomDegree+angle*i)),0,radius*(float)Math.sin(Math.toRadians(randomDegree+angle*i)),500,0,true,true);
-            }
+        if(button.isDraftable()){//可拖拽 展开Buttons
+            showRotateAnimation(button,0,225);
+            //可围成圆形
+            if(buttonLeft >= radius && buttonRight >= radius
+                    && buttonTop>= radius && buttonBottom>= radius){
+                double angle = 360.0/size;
+                int randomDegree = new Random().nextInt(180);
+                for(int i=0;i<size;i++){
+                    FloatingActionButton faButton = buttons.get(i);
+                    slideview(faButton,0, radius*(float)Math.cos(Math.toRadians(randomDegree+angle*i)),0,radius*(float)Math.sin(Math.toRadians(randomDegree+angle*i)),500,0,true,true);
+                }
 
-        }else if(size*gap < screenWidth &&(buttonTop>3*buttonBottom || buttonBottom>3*buttonTop)){//如果太靠上边或下边
-            int leftNumber = buttonLeft/gap;
-            int rightNumber = buttonRight/gap;
-            if(buttonTop >= radius && buttonBottom >= radius){
-                if(buttonTop >buttonBottom){
+            }else if(size*gap < screenWidth &&(buttonTop>3*buttonBottom || buttonBottom>3*buttonTop)){//如果太靠上边或下边
+                int leftNumber = buttonLeft/gap;
+                int rightNumber = buttonRight/gap;
+                if(buttonTop >= radius && buttonBottom >= radius){
+                    if(buttonTop >buttonBottom){
+                        FloatingActionButton faButton = buttons.get(0);
+                        slideview(faButton,0,0,0,-radius,500,0,true,true);
+                        for(int i=1;i<=leftNumber && i<size;i++){
+                            faButton = buttons.get(i);
+                            slideview(faButton,0, -gap*i,0, -radius,500,0,true,true);
+                        }
+                        for(int i=1;i<=rightNumber && i<size-leftNumber;i++){
+                            faButton = buttons.get(i+leftNumber);
+                            slideview(faButton,0, gap*i,0, -radius,500,0,true,true);
+                        }
+                    }else {
+                        FloatingActionButton faButton = buttons.get(0);
+                        slideview(faButton,0,0,0,radius,500,0,true,true);
+                        for(int i=1;i<=leftNumber && i<size;i++){
+                            faButton = buttons.get(i);
+                            slideview(faButton,0, -gap*i,0, radius,500,0,true,true);
+                        }
+                        for(int i=1;i<=rightNumber && i<size-leftNumber;i++){
+                            faButton = buttons.get(i+leftNumber);
+                            slideview(faButton,0, gap*i,0, radius,500,0,true,true);
+                        }
+                    }
+                } else if(buttonTop >= radius){
                     FloatingActionButton faButton = buttons.get(0);
                     slideview(faButton,0,0,0,-radius,500,0,true,true);
                     for(int i=1;i<=leftNumber && i<size;i++){
@@ -126,7 +142,7 @@ public class AnimationUtil {
                         faButton = buttons.get(i+leftNumber);
                         slideview(faButton,0, gap*i,0, -radius,500,0,true,true);
                     }
-                }else {
+                }else if(buttonBottom >= radius){
                     FloatingActionButton faButton = buttons.get(0);
                     slideview(faButton,0,0,0,radius,500,0,true,true);
                     for(int i=1;i<=leftNumber && i<size;i++){
@@ -138,81 +154,49 @@ public class AnimationUtil {
                         slideview(faButton,0, gap*i,0, radius,500,0,true,true);
                     }
                 }
-            } else if(buttonTop >= radius){
-                FloatingActionButton faButton = buttons.get(0);
-                slideview(faButton,0,0,0,-radius,500,0,true,true);
-                for(int i=1;i<=leftNumber && i<size;i++){
-                    faButton = buttons.get(i);
-                    slideview(faButton,0, -gap*i,0, -radius,500,0,true,true);
-                }
-                for(int i=1;i<=rightNumber && i<size-leftNumber;i++){
-                    faButton = buttons.get(i+leftNumber);
-                    slideview(faButton,0, gap*i,0, -radius,500,0,true,true);
-                }
-            }else if(buttonBottom >= radius){
-                FloatingActionButton faButton = buttons.get(0);
-                slideview(faButton,0,0,0,radius,500,0,true,true);
-                for(int i=1;i<=leftNumber && i<size;i++){
-                    faButton = buttons.get(i);
-                    slideview(faButton,0, -gap*i,0, radius,500,0,true,true);
-                }
-                for(int i=1;i<=rightNumber && i<size-leftNumber;i++){
-                    faButton = buttons.get(i+leftNumber);
-                    slideview(faButton,0, gap*i,0, radius,500,0,true,true);
-                }
-            }
-        }else {
-            int upNumber = buttonTop/gap;
-            int belowNumber = buttonBottom/gap;
-            if((upNumber+belowNumber+1)>=size){
-                upNumber = upNumber*(size-1)/(upNumber+belowNumber);
-                belowNumber = size-1-upNumber;
-                if(buttonLeft >= radius){
-                    FloatingActionButton faButton = buttons.get(0);
-                    slideview(faButton,0, -radius,0,0,500,0,true,true);
-                    for(int i=1;i<=upNumber && i<size;i++){
-                        faButton = buttons.get(i);
-                        slideview(faButton,0, -radius,0, -gap*i,500,0,true,true);
-                    }
-                    for(int i=1;i<=belowNumber && i<size-upNumber;i++){
-                        faButton = buttons.get(i+upNumber);
-                        slideview(faButton,0, -radius,0, gap*i,500,0,true,true);
-                    }
-                }else if(buttonRight >= radius ){
-                    FloatingActionButton faButton = buttons.get(0);
-                    slideview(faButton,0, radius,0,0,500,0,true,true);
-                    for(int i=1;i<=upNumber && i<size;i++){
-                        faButton = buttons.get(i);
-                        slideview(faButton,0, radius,0, -gap*i,500,0,true,true);
-                    }
-                    for(int i=1;i<=belowNumber && i<size-upNumber;i++){
-                        faButton = buttons.get(i+upNumber);
-                        slideview(faButton,0, radius,0, gap*i,500,0,true,true);
+            }else {
+                int upNumber = buttonTop/gap;
+                int belowNumber = buttonBottom/gap;
+                if((upNumber+belowNumber+1)>=size){
+                    upNumber = upNumber*(size-1)/(upNumber+belowNumber);
+                    belowNumber = size-1-upNumber;
+                    if(buttonLeft >= radius){
+                        FloatingActionButton faButton = buttons.get(0);
+                        slideview(faButton,0, -radius,0,0,500,0,true,true);
+                        for(int i=1;i<=upNumber && i<size;i++){
+                            faButton = buttons.get(i);
+                            slideview(faButton,0, -radius,0, -gap*i,500,0,true,true);
+                        }
+                        for(int i=1;i<=belowNumber && i<size-upNumber;i++){
+                            faButton = buttons.get(i+upNumber);
+                            slideview(faButton,0, -radius,0, gap*i,500,0,true,true);
+                        }
+                    }else if(buttonRight >= radius ){
+                        FloatingActionButton faButton = buttons.get(0);
+                        slideview(faButton,0, radius,0,0,500,0,true,true);
+                        for(int i=1;i<=upNumber && i<size;i++){
+                            faButton = buttons.get(i);
+                            slideview(faButton,0, radius,0, -gap*i,500,0,true,true);
+                        }
+                        for(int i=1;i<=belowNumber && i<size-upNumber;i++){
+                            faButton = buttons.get(i+upNumber);
+                            slideview(faButton,0, radius,0, gap*i,500,0,true,true);
+                        }
                     }
                 }
+
             }
 
+
+        }else{ //关闭Buttons
+            showRotateAnimation(button,225,0);
+            for(FloatingActionButton faButton : buttons){
+                int faButtonLeft = faButton.getLeft();
+                int faButtonTop = faButton.getTop();
+                slideview(faButton,0,buttonLeft-faButtonLeft,0,buttonTop-faButtonTop,500,0,true,false);
+            }
         }
-    }
 
-    public static void unExpandFab(FloatingDragButton button){
-        int size = button.getButtonSize();
-        if(size == 0){
-            return;
-        }
-        int buttonLeft = button.getLeft();
-
-
-        int buttonTop = button.getTop();
-
-        ArrayList<FloatingActionButton> buttons = button.getButtons();
-
-        showRotateAnimation(button,225,0);
-        for(FloatingActionButton faButton : buttons){
-            int faButtonLeft = faButton.getLeft();
-            int faButtonTop = faButton.getTop();
-            slideview(faButton,0,buttonLeft-faButtonLeft,0,buttonTop-faButtonTop,500,0,true,false);
-        }
     }
 
     /**旋转的动画

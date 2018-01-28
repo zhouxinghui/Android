@@ -36,6 +36,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:isEnglish="false"
             />
         <Button android:id="@+id/btn_eraser_id"
             android:layout_width="@dimen/x66"

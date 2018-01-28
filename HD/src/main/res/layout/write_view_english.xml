@@ -38,6 +38,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pen_size_group"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:isEnglish="true"
             />
         <Button android:id="@+id/btn_eraser_id"
             android:layout_width="@dimen/x50"

@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
@@ -41,6 +42,11 @@ public class PaletteView extends View {
     private boolean mCanEraser;
 
     private boolean hasBitmap = false;
+
+    private boolean canDraw = true;
+
+    private Bitmap mCacheBitmap;
+    private Canvas mCacheCanvas;
 
     private Callback mCallback;
 
@@ -88,10 +94,24 @@ public class PaletteView extends View {
         mBufferCanvas = new Canvas(mBufferBitmap);
     }
 
-    public void setCacheBitmap(Bitmap cacheBitmap){
-        hasBitmap = true;
-        mBufferBitmap = Bitmap.createBitmap(cacheBitmap, 0, 0, getWidth(), getHeight());
-        mBufferCanvas = new Canvas(mBufferBitmap);
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+    }
+
+    public void setCacheBitmap(Bitmap mCacheBitmap){
+
+        if(mCacheBitmap == null){
+            hasBitmap = false;
+            this.mCacheBitmap = null;
+            mBufferCanvas = null;
+        }else{
+            hasBitmap = true;
+            this.mCacheBitmap = mCacheBitmap.copy(Bitmap.Config.ARGB_8888, true);
+        }
+
+        invalidate();
     }
 
     public void setCacheBitmap(String path){
@@ -215,6 +235,8 @@ public class PaletteView extends View {
             }
             mCanEraser = false;
             mBufferBitmap.eraseColor(Color.TRANSPARENT);
+            if(mCacheBitmap != null)
+                mCacheBitmap.eraseColor(Color.TRANSPARENT);
             invalidate();
             if (mCallback != null) {
                 mCallback.onUndoRedoStatusChanged();
@@ -231,7 +253,6 @@ public class PaletteView extends View {
         }else{
             return null;
         }
-
     }
 
     private void saveDrawingPath(){
@@ -254,13 +275,24 @@ public class PaletteView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        if(mCacheBitmap != null){
+            canvas.drawBitmap(mCacheBitmap, new Matrix(),mPaint);
+
+        }
         if (mBufferBitmap != null) {
             canvas.drawBitmap(mBufferBitmap, 0, 0, null);
         }
     }
 
+    public void setCanDraw(boolean canDraw){
+        this.canDraw = canDraw;
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (!canDraw){
+            return false;
+        }
         final int action = event.getAction() & MotionEvent.ACTION_MASK;
         final float x = event.getX();
         final float y = event.getY();
@@ -279,10 +311,16 @@ public class PaletteView extends View {
                 if (mBufferBitmap == null) {
                     initBuffer();
                 }
+                if(mCacheBitmap != null && mCacheCanvas == null){
+                    mCacheCanvas = new Canvas(mCacheBitmap);
+                }
                 if (mMode == Mode.ERASER && !mCanEraser) {
                     break;
                 }
                 mBufferCanvas.drawPath(mPath,mPaint);
+
+                if(mCacheCanvas != null)
+                    mCacheCanvas.drawPath(mPath,mPaint);
                 invalidate();
                 mLastX = x;
                 mLastY = y;

@@ -53,6 +53,18 @@ public class FileUtil {
             + File.separator;
 
     /**
+     * 课本草稿保存路径
+     * @return
+     */
+    public static String getBookTrackPath(){
+        String path = EBAG_PATH
+                + "Track"
+                + File.separator;
+        if (!isFileExists(path))
+            createDir(path);
+        return path;
+    }
+    /**
      * 书本下载保存路径
      * @return
      */
