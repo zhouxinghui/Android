@@ -17,6 +17,8 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
+import ebag.core.util.AsyncTaskUtil;
+
 /**
  * Created by wensefu on 17-3-21.
  */
@@ -45,7 +47,6 @@ public class PaletteView extends View {
     private boolean canDraw = true;
 
     private Bitmap mFirstLoadBitMap;
-    private Canvas mCacheCanvas;
 
     private Callback mCallback;
 
@@ -124,10 +125,7 @@ public class PaletteView extends View {
     }
 
     public void setFirstLoadBitmap(String path){
-        Bitmap bitmap = BitmapFactory.decodeFile(path);
-        if(bitmap != null){
-            setFirstLoadBitmap(bitmap);
-        }
+        new MyAsyncTask(this).execute(path);
     }
 
     private abstract static class DrawingInfo {
@@ -324,7 +322,7 @@ public class PaletteView extends View {
                     mBufferBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
                 if(mBufferCanvas == null)
                     mBufferCanvas = new Canvas(mBufferBitmap);
-                if (mMode == Mode.ERASER && !mCanEraser) {
+                if (mMode == Mode.ERASER && !hasBitmap && !mCanEraser) {
                     break;
                 }
                 mBufferCanvas.drawPath(mPath,mPaint);
@@ -334,12 +332,31 @@ public class PaletteView extends View {
                 mLastY = y;
                 break;
             case MotionEvent.ACTION_UP:
-                if (mMode == Mode.DRAW || mCanEraser) {
+                if (mMode == Mode.DRAW || mCanEraser || hasBitmap) {
                     saveDrawingPath();
                 }
                 mPath.reset();
                 break;
         }
         return true;
+    }
+
+    private static class MyAsyncTask extends AsyncTaskUtil<String, Void, Bitmap, PaletteView>{
+
+        public MyAsyncTask(PaletteView pWeakTarget) {
+            super(pWeakTarget);
+        }
+
+        @Override
+        protected Bitmap doInBackground(PaletteView pTarget, String... strings) {
+            return BitmapFactory.decodeFile(strings[0]);
+        }
+
+        @Override
+        protected void onPostExecute(PaletteView pTarget, Bitmap pResult) {
+            if(pResult != null){
+                pTarget.setFirstLoadBitmap(pResult);
+            }
+        }
     }
 }

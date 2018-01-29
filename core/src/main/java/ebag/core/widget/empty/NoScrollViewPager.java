@@ -55,7 +55,7 @@ public class NoScrollViewPager extends ViewPager {
         if (isScroll){
             return super.onTouchEvent(ev);
         }else {
-            return true;// 可行,消费,拦截事件
+            return false;// true可行,消费,拦截事件;false 不消费事件
         }
     }
 

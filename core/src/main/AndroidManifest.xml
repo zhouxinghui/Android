@@ -16,7 +16,9 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application>
-        <activity android:name=".base.PhotoPreviewActivity"></activity>
+        <activity android:name=".base.PhotoPreviewActivity"
+            android:screenOrientation="landscape"
+            />
     </application>
 
 </manifest>

@@ -9,8 +9,12 @@
             android:screenOrientation="landscape"
             android:configChanges="screenSize|keyboardHidden|orientation"
             />
-        <activity android:name=".activity.ReportClassActivity" />
-        <activity android:name=".activity.ReportTestActivity" />
+        <activity android:name=".activity.ReportClassActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".activity.ReportTestActivity"
+            android:screenOrientation="landscape"
+            />
         <activity android:name=".activity.ReaderActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
