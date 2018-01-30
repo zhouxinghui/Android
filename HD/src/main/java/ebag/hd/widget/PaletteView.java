@@ -37,7 +37,7 @@ public class PaletteView extends View {
     private List<DrawingInfo> mRemovedList;
 
     private Xfermode mClearMode;
-    private float mDrawSize = 20;
+    private float mDrawSize = 8;
     private float mEraserSize = 40;
 
     private boolean mCanEraser;
@@ -330,6 +330,9 @@ public class PaletteView extends View {
                 invalidate();
                 mLastX = x;
                 mLastY = y;
+                if (onFingerMoveListener != null){
+                    onFingerMoveListener.onFingerMove();
+                }
                 break;
             case MotionEvent.ACTION_UP:
                 if (mMode == Mode.DRAW || mCanEraser || hasBitmap) {
@@ -339,6 +342,13 @@ public class PaletteView extends View {
                 break;
         }
         return true;
+    }
+    private OnFingerMoveListener onFingerMoveListener;
+    public void setOnFingerMoveListener(OnFingerMoveListener onFingerMoveListener){
+        this.onFingerMoveListener = onFingerMoveListener;
+    }
+    public interface OnFingerMoveListener {
+        void onFingerMove();
     }
 
     private static class MyAsyncTask extends AsyncTaskUtil<String, Void, Bitmap, PaletteView>{

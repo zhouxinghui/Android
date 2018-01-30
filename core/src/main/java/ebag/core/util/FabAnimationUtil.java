@@ -1,8 +1,10 @@
 package ebag.core.util;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -49,6 +51,12 @@ public class FabAnimationUtil {
                 int width = view.getWidth();
                 int height = view.getHeight();
                 view.layout(left, top, left+width, top+height);//重新设置位置
+                ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) view.getLayoutParams();
+                lp.leftMargin = left;
+                lp.topMargin = top;
+                lp.bottomMargin = ((ViewGroup)view.getParent()).getHeight() - (top + height);
+                lp.rightMargin = ((ViewGroup)view.getParent()).getWidth() - (left + width);
+                view.setLayoutParams(lp);
                 if(endVisible){
                     view.setVisibility(View.VISIBLE);
                 }else{
@@ -75,6 +83,61 @@ public class FabAnimationUtil {
     }
 
     //移动Buttons展开或者关闭
+    public static void slideButtons(Context context,final FloatingDragButton button){
+
+        int size = button.getButtonSize();
+        if(size == 0){
+            return;
+        }
+        int buttonLeft = button.getLeft();
+        int screenWidth = ScreenUtil.getScreenWidth(context);
+        int buttonRight = screenWidth - button.getRight();
+        int buttonTop = button.getTop();
+        int buttonBottom = ScreenUtil.getScreenHeight(context) - button.getBottom();
+        int buttonWidth = button.getWidth();
+        int radius = 7*buttonWidth/4;
+        int vertical = buttonWidth + buttonWidth/5;
+        int gap = 5*buttonWidth/4;
+
+        ArrayList<FloatingActionButton> buttons = button.getButtons();
+
+        if(button.isDraftable()){//可拖拽 展开Buttons
+            showRotateAnimation(button,0,225);
+            //可围成圆形
+            if(buttonLeft >= radius && buttonRight >= radius
+                    && buttonTop>= radius && buttonBottom>= radius){
+                double angle = 360.0/size;
+                int randomDegree = new Random().nextInt(180);
+                for(int i=0;i<size;i++){
+                    FloatingActionButton faButton = buttons.get(i);
+                    slideview(faButton,0, radius*(float)Math.cos(Math.toRadians(randomDegree+angle*i)),0,radius*(float)Math.sin(Math.toRadians(randomDegree+angle*i)),500,0,true,true);
+                }
+            }else if(buttonTop > buttonBottom){//如果太靠上边或下边
+                FloatingActionButton faButton = buttons.get(0);
+                slideview(faButton,0,0,0,-vertical,500,0,true,true);
+                for(int i = 1; i < size; i ++){
+                    faButton = buttons.get(i);
+                    slideview(faButton,0, 0,0, -vertical*(i+1),500,0,true,true);
+                }
+            }else {
+                FloatingActionButton faButton = buttons.get(0);
+                slideview(faButton,0,0,0,vertical,500,0,true,true);
+                for(int i = 1; i < size; i ++){
+                    faButton = buttons.get(i);
+                    slideview(faButton,0, 0,0, vertical*(i+1),500,0,true,true);
+                }
+            }
+        }else{ //关闭Buttons
+            showRotateAnimation(button,225,0);
+            for(FloatingActionButton faButton : buttons){
+                int faButtonLeft = faButton.getLeft();
+                int faButtonTop = faButton.getTop();
+                slideview(faButton,0,buttonLeft-faButtonLeft,0,buttonTop-faButtonTop,500,0,true,false);
+            }
+        }
+
+    }
+/*
     public static void slideButtons(Context context,final FloatingDragButton button){
 
         int size = button.getButtonSize();
@@ -198,6 +261,7 @@ public class FabAnimationUtil {
         }
 
     }
+*/
 
     /**旋转的动画
      * @param mView            需要选择的View

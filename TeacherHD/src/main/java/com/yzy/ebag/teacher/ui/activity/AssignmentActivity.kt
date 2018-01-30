@@ -236,6 +236,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 subBean.bookVersionId = it.bookVersionId
                 subBean.pid = it.pid
                 subBean.unitCode = it.unitCode
+                subBean.isUnit = true
                 it.resultBookUnitOrCatalogVos.add(subBean)
             }
         }

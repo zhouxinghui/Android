@@ -7,16 +7,13 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
-
-import ebag.core.util.ScreenUtil;
 
 public class FloatingDragButton extends FloatingActionButton implements View.OnTouchListener{
     int lastX, lastY;
     int originX, originY;
-    final int screenWidth ;
-    final int screenHeight ;
     private ArrayList<FloatingActionButton> floatingActionButtons = new ArrayList<FloatingActionButton>();
 
     public FloatingDragButton(Context context) {
@@ -29,8 +26,6 @@ public class FloatingDragButton extends FloatingActionButton implements View.OnT
 
     public FloatingDragButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        screenWidth = ScreenUtil.getScreenWidth(context);
-        screenHeight = ScreenUtil.getContentHeight(context);
         setOnTouchListener(this);
     }
     //注册归属的FloatingActionButton 
@@ -75,6 +70,8 @@ public class FloatingDragButton extends FloatingActionButton implements View.OnT
         int ea = event.getAction();
         int x = (int) event.getRawX();
         int y = (int) event.getRawY();
+        int screenWidth = ((ViewGroup)getParent()).getWidth();
+        int screenHeight = ((ViewGroup)getParent()).getHeight();
         switch (ea) {
             case MotionEvent.ACTION_DOWN:
                 startX = x;

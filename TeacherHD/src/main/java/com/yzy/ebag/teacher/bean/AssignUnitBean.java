@@ -126,6 +126,15 @@ public class AssignUnitBean implements
                 private String pid;
                 private String unitCode;
                 private List<UnitSubBean> resultBookUnitOrCatalogVos;
+                private boolean isUnit;
+
+                public boolean isUnit() {
+                    return isUnit;
+                }
+
+                public void setUnit(boolean unit) {
+                    isUnit = unit;
+                }
 
                 public int getId() {
                     return id;
