@@ -11,7 +11,7 @@
     android:paddingBottom="@dimen/x15">
 
     <TextView
-        android:id="@+id/questionType"
+        android:id="@+id/type"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1.5"

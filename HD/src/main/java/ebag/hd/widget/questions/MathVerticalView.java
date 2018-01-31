@@ -25,6 +25,8 @@ import ebag.hd.R;
 import ebag.hd.widget.questions.base.BaseQuestionView;
 
 /**
+ *
+ * 竖式计算 x乘法和除法 17 21
  * Created by caoyu on 2018/1/4.
  */
 
@@ -98,12 +100,12 @@ public class MathVerticalView extends BaseQuestionView{
         studentAnswer.clear();
         titleList.clear();
         //初始化数据
-        Collections.addAll(rightAnswer,questionBean.getRightAnswer().split(","));
-        Collections.addAll(studentAnswer,questionBean.getAnswer().split(","));
-        titleList.add(questionBean.getQuestionHead());
+        Collections.addAll(rightAnswer,questionBean.getAnswer().split(","));
+        Collections.addAll(studentAnswer,questionBean.getStudentAnswer().split(","));
+        titleList.add(questionBean.getTitle());
 
         //判断这个竖式是不是除式
-        isDivisor = questionBean.getQuestionContent().contains("#H#");
+        isDivisor = questionBean.getContent().contains("#H#");
         //除式需要把每一行的第一个 字符默认不加载，替换成  tvDivisor
         // 除式的话由于分子  已经提取到  tvDivisor 中了 因此 竖式每行的Item 默认减一
         int startIndex = isDivisor ? 1 : 0;
@@ -115,7 +117,7 @@ public class MathVerticalView extends BaseQuestionView{
 
         boolean numNextIsDivisor = false;
 
-        String[] split = questionBean.getQuestionContent().split("#F#,");
+        String[] split = questionBean.getContent().split("#F#,");
         for(int i = 0; i < split.length; i++){
             String[] strs = split[i].split(",");
             if(i == 0){// 每行 展示的Item 个数， 除式 由于  除数被提出，所以Item书相应减一

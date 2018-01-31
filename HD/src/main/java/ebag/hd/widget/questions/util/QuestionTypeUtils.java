@@ -144,7 +144,7 @@ public class QuestionTypeUtils {
     }
 
     public static int getIntType(QuestionBean baseBean) {
-        switch (baseBean.getQuestionType()) {
+        switch (baseBean.getType()) {
             case "dx": return QUESTIONS_CHOISE;
             case "pd": return QUESTIONS_JUDGE;
             case "tk": return QUESTIONS_COMPLETION;
@@ -163,7 +163,7 @@ public class QuestionTypeUtils {
             case "12": return QUESTIONS_READ_ALOUD;
             case "14": return QUESTIONS_FOLLOW_READ;
             case "15":
-                switch (baseBean.getQuestionTypeSx()){
+                switch (baseBean.getMinType()){
                     case "17":
                     case "21": return QUESTION_MATH_CALCULATION_1;
                     case "18": return QUESTION_MATH_CALCULATION_2;

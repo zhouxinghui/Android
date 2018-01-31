@@ -22,6 +22,7 @@ import ebag.hd.widget.questions.base.BaseQuestionView;
 import ebag.hd.widget.questions.base.MathLine;
 
 /**
+ * 等式计算 18
  * Created by caoyu on 2018/1/5.
  */
 
@@ -70,17 +71,17 @@ public class MathEquationView extends BaseQuestionView {
         titleList.clear();
 
         //初始化数据
-        Collections.addAll(rightAnswer,questionBean.getRightAnswer().split(","));
-        Collections.addAll(studentAnswer,questionBean.getAnswer().split(","));
-        titleList.add(questionBean.getQuestionHead());
+        Collections.addAll(rightAnswer,questionBean.getAnswer().split(","));
+        Collections.addAll(studentAnswer,questionBean.getStudentAnswer().split(","));
+        titleList.add(questionBean.getTitle());
 
         boolean isFirstNum;
         // ①、第一个数*号开头表示先做前两个数的运算
         // ②、第一个数#号开头表示先做后两个数的运算
 
-        if(questionBean.getQuestionContent().startsWith("#")){
+        if(questionBean.getContent().startsWith("#")){
             isFirstNum = false;
-        }else if(questionBean.getQuestionContent().startsWith("*")){
+        }else if(questionBean.getContent().startsWith("*")){
             isFirstNum = true;
         }else{
             return;
@@ -90,7 +91,7 @@ public class MathEquationView extends BaseQuestionView {
         int rightIndex = 0;
 
         //删除第一个判断运算规则的字符
-        String[] splits = questionBean.getQuestionContent().substring(1).split(",");
+        String[] splits = questionBean.getContent().substring(1).split(",");
         for(int i = 0; i < splits.length; i++){
             MathBean mathBean = new MathBean(splits[i]);
             if(mathBean.isEdit()){

@@ -11,9 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,13 +29,13 @@ import ebag.core.xRecyclerView.adapter.RecyclerViewHolder;
 import ebag.hd.R;
 import ebag.hd.bean.WriteViewBean;
 import ebag.hd.widget.DrawView;
-import ebag.hd.widget.questions.util.IQuestionEvent;
+import ebag.hd.widget.questions.base.BaseQuestionView;
 
 /**
  * Created by YZY on 2017/12/23.
  */
 
-public class WriteView extends LinearLayout implements IQuestionEvent {
+public class WriteView extends BaseQuestionView{
     private Context context;
     /**
      * 是否是英语
@@ -58,11 +56,11 @@ public class WriteView extends LinearLayout implements IQuestionEvent {
     /**
      * 试题id
      */
-    private long questionId;
+    private String questionId;
     /**
      * 题目内容Tv
      */
-    private TextView headTv;
+    private List<String> titleList;
     /**
      * 题目内容
      */
@@ -95,6 +93,11 @@ public class WriteView extends LinearLayout implements IQuestionEvent {
     }
 
     @Override
+    protected void addBody(Context context) {
+
+    }
+
+    @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
         int spanCount;
@@ -109,7 +112,6 @@ public class WriteView extends LinearLayout implements IQuestionEvent {
             LayoutInflater.from(getContext()).inflate(R.layout.write_view_english, this);
         }
 
-        headTv = findViewById(R.id.head_tv_id);
         drawView = findViewById(R.id.draw_view);
         Button eraserBtn = findViewById(R.id.btn_eraser_id);
         RadioGroup penSizeGroup = findViewById(R.id.pen_size_group);
@@ -216,12 +218,14 @@ public class WriteView extends LinearLayout implements IQuestionEvent {
     public void setData(QuestionBean questionBean) {
         //TODO 初始化bagId，homeworkId
         questionId = questionBean.getId();
-        questionHead = questionBean.getQuestionHead();
+        questionHead = questionBean.getTitle();
+        titleList = new ArrayList<>();
+        titleList.add(questionHead);
     }
 
     @Override
     public void show(boolean active) {
-        headTv.setText(questionHead);
+        setTitle(titleList);
         List<String> fileList = FileUtil.getWriteViewItemFiles(bagId, homeworkId, String.valueOf(questionId));
         List<WriteViewBean> list = new ArrayList<>();
         if (fileList != null && fileList.size() > 0)

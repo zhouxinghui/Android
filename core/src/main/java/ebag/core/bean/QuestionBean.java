@@ -1,206 +1,55 @@
 package ebag.core.bean;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import java.io.Serializable;
-import java.util.List;
+
+import ebag.core.util.StringUtils;
 
 /**
  * Created by YZY on 2017/5/6.
  */
 
-public class QuestionBean implements Serializable{
+public class QuestionBean implements Serializable, MultiItemEntity {
     private static final long serialVersionUID = 4978312197081677925L;
 
     private boolean isChoose;
 
-    private String questionType;
+    private String id;
 
-    private String questionContent;
+    private String bookUnit;
 
-    private long id;
+    private String bookCatalog;
 
-    private int pageSize;
+    private String level;
 
-    private int page;
+    private String type;
 
-    private String disabled;
+    private String minType;
 
-    private String removed;
+    private String title;
 
-    private String questionHead;
+    private String content;
 
-    private String rightAnswer;
-
-    private int author;
-
-    private String analytical;
-    private String questionTypeSx;
-    /**朗读作业和书写作业的内容*/
-    private String remark;
-
-    private String correctionAnswer;
-    private String questionScore;
     private String answer;
 
-    public String getCorrectionAnswer() {
-        return correctionAnswer;
+    private String studentAnswer;
+
+    private String item;
+
+    private String analytical;
+
+    private String isOpen;
+    private String errNum;
+    private String usage;
+    private String audioUrl;
+
+    public String getStudentAnswer() {
+        return studentAnswer;
     }
 
-    public void setCorrectionAnswer(String correctionAnswer) {
-        this.correctionAnswer = correctionAnswer;
-    }
-
-    public String getQuestionScore() {
-        return questionScore;
-    }
-
-    public void setQuestionScore(String questionScore) {
-        this.questionScore = questionScore;
-    }
-
-    public String getAnswer() {
-        if(answer == null) answer = "";
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    /*-------------------------------------连线----------------------------------------------------*/
-    private List<String> wordList;
-    public List<String> getWordList() {
-        return wordList;
-    }
-    public void setWordList(List<String> wordList) {
-        this.wordList = wordList;
-    }
-    /*-------------------------------------连线----------------------------------------------------*/
-    /*-------------------------------------分类----------------------------------------------------*/
-    private List<String> titleList;//分类列表
-
-    private List<Parse> parseList;//答案解析集合
-
-    public List<Parse> getParseList() {
-        return parseList;
-    }
-
-    public void setParseList(List<Parse> parseList) {
-        this.parseList = parseList;
-    }
-
-    public List<String> getTitleList() {
-        return titleList;
-    }
-    public void setTitleList(List<String> titleList) {
-        this.titleList = titleList;
-    }
-
-    /*-------------------------------------分类----------------------------------------------------*/
-
-    public String getQuestionType() {
-        return questionType;
-    }
-
-    public void setQuestionType(String questionType) {
-        this.questionType = questionType;
-    }
-
-    public String getQuestionTypeSx() {
-        return questionTypeSx;
-    }
-
-    public void setQuestionTypeSx(String questionTypeSx) {
-        this.questionTypeSx = questionTypeSx;
-    }
-
-    public String getAnalytical() {
-        return analytical;
-    }
-
-    public void setAnalytical(String analytical) {
-        this.analytical = analytical;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    public String getDisabled() {
-        return disabled;
-    }
-
-    public void setDisabled(String disabled) {
-        this.disabled = disabled;
-    }
-
-    public String getRemoved() {
-        return removed;
-    }
-
-    public void setRemoved(String removed) {
-        this.removed = removed;
-    }
-
-    public String getQuestionHead() {
-        return questionHead;
-    }
-
-    public void setQuestionHead(String questionHead) {
-        this.questionHead = questionHead;
-    }
-
-    public String getRightAnswer() {
-        return rightAnswer;
-    }
-
-    public void setRightAnswer(String rightAnswer) {
-        this.rightAnswer = rightAnswer;
-    }
-
-    public int getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(int author) {
-        this.author = author;
-    }
-
-    public String getQuestionContent() {
-        if(questionContent == null)
-            questionContent = "";
-        return questionContent;
-    }
-
-    public void setQuestionContent(String questionContent) {
-        this.questionContent = questionContent;
+    public void setStudentAnswer(String studentAnswer) {
+        this.studentAnswer = studentAnswer;
     }
 
     public boolean isChoose() {
@@ -211,8 +60,141 @@ public class QuestionBean implements Serializable{
         isChoose = choose;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getBookUnit() {
+        return bookUnit;
+    }
+
+    public void setBookUnit(String bookUnit) {
+        this.bookUnit = bookUnit;
+    }
+
+    public String getBookCatalog() {
+        return bookCatalog;
+    }
+
+    public void setBookCatalog(String bookCatalog) {
+        this.bookCatalog = bookCatalog;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getMinType() {
+        return minType;
+    }
+
+    public void setMinType(String minType) {
+        this.minType = minType;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public String getItem() {
+        return item;
+    }
+
+    public void setItem(String item) {
+        this.item = item;
+    }
+
+    public String getAnalytical() {
+        return analytical;
+    }
+
+    public void setAnalytical(String analytical) {
+        this.analytical = analytical;
+    }
+
+    public String getIsOpen() {
+        return isOpen;
+    }
+
+    public void setIsOpen(String isOpen) {
+        this.isOpen = isOpen;
+    }
+
+    public String getErrNum() {
+        return errNum;
+    }
+
+    public void setErrNum(String errNum) {
+        this.errNum = errNum;
+    }
+
+    public String getUsage() {
+        return usage;
+    }
+
+    public void setUsage(String usage) {
+        this.usage = usage;
+    }
+
+    public String getAudioUrl() {
+        return audioUrl;
+    }
+
+    public void setAudioUrl(String audioUrl) {
+        this.audioUrl = audioUrl;
+    }
+
     @Override
     public boolean equals(Object obj) {
         return obj != null && obj instanceof QuestionBean && this.getId() == ((QuestionBean) obj).getId();
+    }
+
+    @Override
+    public int getItemType() {
+        if ("5".equals(type)){
+            if (StringUtils.INSTANCE.isChineseCharacter(content)){
+                return QuestionTypeUtils.QUESTIONS_CN_ORDER_SENTENCE;
+            }else{
+                return QuestionTypeUtils.QUESTIONS_EN_ORDER_SENTENCE;
+            }
+        }else{
+            return QuestionTypeUtils.getIntType(this);
+        }
     }
 }

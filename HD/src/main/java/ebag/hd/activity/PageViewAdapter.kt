@@ -37,6 +37,4 @@ class PageViewAdapter(private val mContext: Context, private val images: ArrayLi
         imageView.loadPhoto(images!![position])
         return imageView
     }
-
-
 }

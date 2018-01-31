@@ -160,4 +160,10 @@
         <item name="layout_constraintHorizontal_bias">0.98</item>
         <item name="layout_constraintVertical_bias">0.98</item>
     </style>
+    <!--课本阅读：画笔调整-->
+    <style name="pen_set">
+        <item name="android:layout_width">@dimen/x68</item>
+        <item name="android:layout_height">@dimen/x68</item>
+        <item name="android:button">@null</item>
+    </style>
 </resources>

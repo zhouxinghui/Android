@@ -539,4 +539,17 @@ object StringUtils {
         }
         return sb.toString()
     }
+
+    fun isChineseCharacter(string: String?): Boolean {
+        if (string == null)
+            return false
+        return string.toCharArray().any {
+            isChinese(it)// 有一个中文字符就返回
+        }
+    }
+
+    // 判断一个字符是否是中文
+    private fun isChinese(c: Char): Boolean {
+        return c.toInt() in 0x4E00..0x9FA5// 根据字节码判断
+    }
 }

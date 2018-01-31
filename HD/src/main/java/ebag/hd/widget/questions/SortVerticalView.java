@@ -78,14 +78,14 @@ public class SortVerticalView extends BaseQuestionView {
 
     @Override
     public void setData(QuestionBean questionBean) {
-        titleList = Arrays.asList(questionBean.getQuestionHead().split("#R#"));
-        String[] split = questionBean.getQuestionContent().split("#R#");
+        titleList = Arrays.asList(questionBean.getTitle().split("#R#"));
+        String[] split = questionBean.getContent().split("#R#");
         sortList = new ArrayList<>();
         for(int i = 0; i < split.length; i++){
             sortList.add(new SortBean(String.valueOf(i+1),split[i]));
         }
-        studentAnswer = questionBean.getAnswer();
-        rightAnswer = questionBean.getRightAnswer();
+        studentAnswer = questionBean.getStudentAnswer();
+        rightAnswer = questionBean.getAnswer();
     }
 
     @Override

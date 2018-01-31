@@ -32,7 +32,7 @@ interface EBagService {
      * 省市区县基础数据
      * @return
      */
-    @POST("data/getProvincCityReginCascade/{version}")
+    @POST("data/getAreaData/{version}")
     fun cityData(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<ChildNodeBean>>>
 
     /**

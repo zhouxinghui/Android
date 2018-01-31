@@ -4,25 +4,32 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.support.v4.view.PagerAdapter
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.ViewGroup
+import android.widget.RadioGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import ebag.core.base.BaseActivity
 import ebag.core.util.*
 import ebag.hd.R
+import ebag.hd.bean.ReaderBean
 import ebag.hd.widget.PaletteView
 import ebag.hd.widget.TitleBar
 import kotlinx.android.synthetic.main.activity_reader.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.util.*
+import kotlin.collections.ArrayList
 
 
-
-class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher{
+class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, RadioGroup.OnCheckedChangeListener{
     override fun getLayoutId(): Int {
         return R.layout.activity_reader
     }
@@ -31,6 +38,7 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher{
             context.startActivity(Intent(context, ReaderActivity::class.java).putExtra("fileName", fileName))
         }
     }
+    private lateinit var trackAdapter: TrackAdapter
     private lateinit var noteAdapter: NoteAdapter
     private lateinit var layoutManager: LinearLayoutManager
     private var isEditNote = false
@@ -38,8 +46,27 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher{
     private lateinit var currentNote: String
     //记录当前笔记是新建还是旧的
     private var currentNotePosition = -1
+    private var isModifyTrack = false
+    private val saveTrackDialog by lazy {
+        val dialog = AlertDialog.Builder(this)
+                .setMessage("当前页面草稿有更新操作，是否保存？")
+                .setCancelable(false)
+                .setNegativeButton("不保存", { dialog, _ ->
+                    isModifyTrack = false
+                    dialog.dismiss()
+                })
+                .setPositiveButton("保存", { dialog, _ ->
+                    //TODO 保存草稿轨迹图
+                    isModifyTrack = false
+                    dialog.dismiss()
+                }).create()
+        dialog
+    }
+    private var penSize = 0F
+    private var penColor = "#000000"
     override fun initViews() {
-        pageView.setAdapter(PageViewAdapter(this, ZipUtils.getAllImgs(intent.getStringExtra("fileName"))))
+        penSize = resources.getDimension(R.dimen.x2)
+        initBook()
         baseFab.registerButton(noteBtn)
         baseFab.registerButton(clearBtn)
         baseFab.registerButton(eraserBtn)
@@ -51,18 +78,34 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher{
         eraserBtn.setOnClickListener(this)
         penBtn.setOnClickListener(this)
         saveBtn.setOnClickListener(this)
+        penColorGroup.setOnCheckedChangeListener(this)
+        penSizeGroup.setOnCheckedChangeListener(this)
+        hidePenSet.setOnClickListener(this)
 
         pageView.setOnPageTurnListener { count, currentPosition ->
             if(!baseFab.isDraftable)
                 FabAnimationUtil.slideButtons(this,baseFab)
+            trackPager.setCurrentItem(currentPosition, false)
         }
-        paletteView.setCanDraw(false)
-        paletteView.setFirstLoadBitmap(FileUtil.getBookTrackPath() + "textTrack.png")
+        getPaletteView().setCanDraw(false)
+        getPaletteView().setFirstLoadBitmap(FileUtil.getBookTrackPath() + "textTrack.png")
+        titleBar.setOnTitleBarClickListener(object : TitleBar.OnTitleBarClickListener{
+            override fun leftClick() {
+                if (isModifyTrack)
+                    saveTrackDialog.show()
+                else
+                    finish()
+            }
+            override fun rightClick() {
+
+            }
+        })
 
         dragView.setOnTouchListener { v, event ->
             if(!baseFab.isDraftable) {
                 FabAnimationUtil.slideButtons(this, baseFab)
-                paletteView.setCanDraw(false)
+                getPaletteView().setCanDraw(false)
+                penSetLayout.visibility = View.GONE
             }
             super.onTouchEvent(event)
         }
@@ -115,11 +158,16 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher{
     override fun onClick(v: View) {
         when(v.id){
             R.id.baseFab ->{
+                if (isModifyTrack){
+                    saveTrackDialog.show()
+                }
                 FabAnimationUtil.slideButtons(this,baseFab)
                 if(!baseFab.isDraftable) {
-                    paletteView.setCanDraw(false)
+                    getPaletteView().setCanDraw(false)
+                    penSetLayout.visibility = View.GONE
                 }else{
-                    paletteView.setCanDraw(true)
+                    getPaletteView().setCanDraw(true)
+                    penSetLayout.visibility = View.VISIBLE
                 }
             }
             R.id.noteBtn ->{
@@ -127,25 +175,59 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher{
             }
             R.id.clearBtn ->{
                 T.show(this, "清空")
-                paletteView.clear()
-                paletteView.setCanDraw(true)
+                getPaletteView().clear()
+                getPaletteView().setCanDraw(true)
             }
             R.id.eraserBtn ->{
                 T.show(this, "橡皮擦")
-                paletteView.mode = PaletteView.Mode.ERASER
-                paletteView.setCanDraw(true)
+                getPaletteView().mode = PaletteView.Mode.ERASER
+                getPaletteView().setCanDraw(true)
             }
             R.id.penBtn ->{
                 T.show(this, "画笔")
-                paletteView.mode = PaletteView.Mode.DRAW
-                paletteView.setCanDraw(true)
+                getPaletteView().mode = PaletteView.Mode.DRAW
+                getPaletteView().setCanDraw(true)
+                penSetLayout.visibility = View.VISIBLE
             }
             R.id.saveBtn ->{
-                paletteView.setCanDraw(false)
-                val bitmap = paletteView.buildBitmap()
+                getPaletteView().setCanDraw(false)
+                val bitmap = getPaletteView().buildBitmap()
                 saveTrack(bitmap)
             }
+            R.id.hidePenSet ->{
+                penSetLayout.visibility = View.GONE
+            }
         }
+    }
+    override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
+        when(checkedId){
+            R.id.penSize1 ->{
+                penSize = resources.getDimension(R.dimen.x2)
+            }
+            R.id.penSize2 ->{
+                penSize = resources.getDimension(R.dimen.x4)
+            }
+            R.id.penSize3 ->{
+                penSize = resources.getDimension(R.dimen.x6)
+            }
+            R.id.penSize4 ->{
+                penSize = resources.getDimension(R.dimen.x8)
+            }
+            R.id.penBlack ->{
+                penColor = "#000000"
+            }
+            R.id.penBlue ->{
+                penColor = "#007BFF"
+            }
+            R.id.penRed ->{
+                penColor = "#FF4E4E"
+            }
+            R.id.penOrange ->{
+                penColor = "#FF9100"
+            }
+        }
+        getPaletteView().setPenRawSize(penSize)
+        getPaletteView().setPenColor(Color.parseColor(penColor))
     }
     private fun saveTrack(bitmap: Bitmap?){
         if (bitmap == null) {
@@ -169,7 +251,86 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher{
         }
     }
 
-    inner class NoteAdapter: BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_note){
+    private fun initBook(){
+        val imagePaths = ZipUtils.getAllImgs(intent.getStringExtra("fileName"))
+        Collections.sort(imagePaths, { lhs, rhs ->
+            val l = Integer.valueOf(lhs.substring(lhs.indexOf("page") + 4,
+                    lhs.indexOf(".")))!!
+            val r = Integer.valueOf(rhs.substring(rhs.indexOf("page") + 4,
+                    rhs.indexOf(".")))!!
+            // 书本按照页码排序
+            when {
+                l < r -> -1
+                l > r -> 1
+                else -> 0
+            }
+        })
+        val tracks = arrayOfNulls<String>(imagePaths.size)
+        tracks[0] = FileUtil.getBookTrackPath() + "textTrack.png"
+        tracks[1] = FileUtil.getBookTrackPath() + "textTrack1.png"
+        val list = ArrayList<ReaderBean>()
+        for (i in 0 until imagePaths.size){
+            val readerBean = ReaderBean()
+            readerBean.imagePath = imagePaths[i]
+            readerBean.notePath = tracks[i]
+            list.add(readerBean)
+        }
+        pageView.setAdapter(PageViewAdapter(this, imagePaths))
+        trackAdapter = TrackAdapter(tracks.asList())
+        trackPager.offscreenPageLimit = 2
+        trackPager.adapter = trackAdapter
+    }
+
+    private inner class TrackAdapter(private val trackPaths: List<String?>): PagerAdapter(){
+        var mCurrentView: PaletteView? = null
+        init {
+            val palletView = PaletteView(this@ReaderActivity)
+            palletView.setFirstLoadBitmap(trackPaths[0])
+            palletView.setPenColor(Color.parseColor(penColor))
+            palletView.setPenRawSize(resources.getDimension(R.dimen.x2))
+            mCurrentView = palletView
+        }
+        override fun isViewFromObject(view: View?, `object`: Any?): Boolean {
+            return view == `object`
+        }
+
+        override fun getCount(): Int {
+            return trackPaths.size
+        }
+
+        override fun instantiateItem(container: ViewGroup, position: Int): Any {
+            val palletView = PaletteView(this@ReaderActivity)
+            palletView.setFirstLoadBitmap(trackPaths[position])
+            palletView.setCanDraw(false)
+            container.addView(palletView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            return palletView
+        }
+        /**
+         * 销毁 一个 页卡
+         */
+        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+            // 删除
+            container.removeView(`object` as View)
+        }
+
+        override fun setPrimaryItem(container: ViewGroup, position: Int, `object`: Any) {
+            mCurrentView = `object` as PaletteView
+        }
+
+        fun getPrimaryItem(): PaletteView {
+            mCurrentView!!.setPenRawSize(penSize)
+            mCurrentView!!.setPenColor(Color.parseColor(penColor))
+            return mCurrentView!!
+        }
+    }
+
+    private fun getPaletteView(): PaletteView{
+        val paletteView = trackAdapter.getPrimaryItem()
+        paletteView.setOnFingerMoveListener { isModifyTrack = true }
+        return trackAdapter.getPrimaryItem()
+    }
+
+    private inner class NoteAdapter: BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_note){
         override fun convert(helper: BaseViewHolder, item: String?) {
             helper.setText(R.id.content_tv, item)
                     .itemView.setOnClickListener {
@@ -187,8 +348,11 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher{
         return if(isNoteEditVisible()){
             hideNoteEdit()
             false
-        }else if(!isNoteEditVisible() && isNoteLayoutVisible()){
+        }else if(!isNoteEditVisible() && isNoteLayoutVisible()) {
             setNoteVisible(noteLayout.height)
+            false
+        }else if (isModifyTrack){
+            saveTrackDialog.show()
             false
         }else{
             true
@@ -227,12 +391,8 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher{
     override fun afterTextChanged(s: Editable?) {
         currentNote = noteEdit.text.toString()
     }
-
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-    }
-
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-    }
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
     private fun setNoteVisible(height: Int, isShow: Boolean = false) {
         //属性动画对象

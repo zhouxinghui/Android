@@ -85,16 +85,16 @@ public class ChoiceView extends BaseQuestionView implements OnItemClickListener 
             case QuestionTypeUtils.QUESTIONS_CHOOSE_PIC_BY_WORD://看单词选图
                 choiceType = QuestionTypeUtils.QUESTIONS_CHOOSE_PIC_BY_WORD;
                 title.add("看单词选图");
-                title.add(questionBean.getQuestionHead());
+                title.add(questionBean.getTitle());
                 break;
             case QuestionTypeUtils.QUESTIONS_CHOOSE_WORD_BY_PIC://看图选单词
                 choiceType = QuestionTypeUtils.QUESTIONS_CHOOSE_WORD_BY_PIC;
                 title.add("看图选单词");
-                title.add(questionBean.getQuestionHead());
+                title.add(questionBean.getTitle());
                 break;
             case QuestionTypeUtils.QUESTIONS_CHOISE://选择题
                 choiceType = QuestionTypeUtils.QUESTIONS_CHOISE;
-                String questionHead = questionBean.getQuestionHead();
+                String questionHead = questionBean.getTitle();
                 if (questionHead.startsWith("http")) {
                     String[] split = questionHead.split("#R#");
                     title = Arrays.asList(split);
@@ -105,15 +105,15 @@ public class ChoiceView extends BaseQuestionView implements OnItemClickListener 
             case QuestionTypeUtils.QUESTIONS_CHOOSE_BY_VOICE://听录音选择
                 choiceType = QuestionTypeUtils.QUESTIONS_CHOOSE_BY_VOICE;
                 title.add("听录音选择");
-                title.add("#M#" + questionBean.getQuestionHead());
+                title.add("#M#" + questionBean.getTitle());
                 break;
             case QuestionTypeUtils.QUESTIONS_JUDGE://判断题
                 choiceType = QuestionTypeUtils.QUESTIONS_JUDGE;
                 title = new ArrayList<>();
-                if(!StringUtils.INSTANCE.isEmpty(questionBean.getQuestionHead())){
-                    title.add(questionBean.getQuestionHead());
+                if(!StringUtils.INSTANCE.isEmpty(questionBean.getTitle())){
+                    title.add(questionBean.getTitle());
                 }
-                title.add(questionBean.getQuestionContent());
+                title.add(questionBean.getContent());
 
                 break;
         }
@@ -122,11 +122,11 @@ public class ChoiceView extends BaseQuestionView implements OnItemClickListener 
             options.add("正确");
             options.add("错误");
         }else{
-            options = Arrays.asList(questionBean.getQuestionContent().split(";"));
+            options = Arrays.asList(questionBean.getContent().split(";"));
         }
 
-        rightAnswer = questionBean.getRightAnswer();
-        studentAnswer = questionBean.getAnswer();
+        rightAnswer = questionBean.getAnswer();
+        studentAnswer = questionBean.getStudentAnswer();
     }
 
     @Override

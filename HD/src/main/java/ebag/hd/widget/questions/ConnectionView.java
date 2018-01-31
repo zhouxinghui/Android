@@ -204,10 +204,10 @@ public class ConnectionView extends BaseQuestionView {
     @Override
     public void setData(QuestionBean questionBean) {
         titleList = new ArrayList<>();
-        titleList.add(questionBean.getQuestionHead());
-        questionContent = questionBean.getQuestionContent();
-        studentAnswer = questionBean.getAnswer();
-        rightAnswer = questionBean.getRightAnswer();
+        titleList.add(questionBean.getTitle());
+        questionContent = questionBean.getContent();
+        studentAnswer = questionBean.getStudentAnswer();
+        rightAnswer = questionBean.getAnswer();
         list = new ArrayList<>();
         String[] allSplit = questionContent.split(";");
         String[] elementSplit1 = allSplit[0].split(",");

@@ -21,33 +21,64 @@
             android:name="com.luck.picture.lib.PicturePreviewActivity"
             android:screenOrientation="landscape"
             tools:replace="android:screenOrientation" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".ui.activity.WelcomeActivity">
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.WelcomeActivity"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.account.LoginActivity" />
-        <activity android:name=".ui.activity.account.ForgetActivity" />
-        <activity android:name=".ui.activity.AssignmentActivity" />
-        <activity android:name=".ui.activity.SpaceActivity" />
-        <activity android:name=".ui.activity.SettingActivity" />
-        <activity android:name=".ui.activity.AboutUsActivity" />
-        <activity android:name=".ui.activity.PersonalInfoActivity" />
-        <activity android:name=".ui.activity.CorrectingActivity" />
+        <activity
+            android:name=".ui.activity.account.LoginActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.account.ForgetActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.AssignmentActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.SpaceActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.SettingActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.AboutUsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.PersonalInfoActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.CorrectingActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".ui.activity.CreateClassActivity"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".ui.activity.SelectSchoolActivity" />
-        <activity android:name=".ui.activity.MyCourseActivity" />
-        <activity android:name=".ui.activity.NoticeHistoryActivity" />
+        <activity
+            android:name=".ui.activity.SelectSchoolActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.MyCourseActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.NoticeHistoryActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".ui.activity.PublishContentActivity"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".ui.activity.StudyGroupActivity"
-            />
+        <activity
+            android:name=".ui.activity.StudyGroupActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".ui.activity.QuestionActivity"></activity>
     </application>
 
 </manifest>

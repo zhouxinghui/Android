@@ -17,6 +17,7 @@ import ebag.hd.widget.questions.base.BaseQuestionView;
 import ebag.hd.widget.questions.base.MathView;
 
 /**
+ * 分式计算 19
  * Created by caoyu on 2018/1/6.
  */
 
@@ -53,12 +54,12 @@ public class MathFractionView extends BaseQuestionView {
     @Override
     public void setData(QuestionBean questionBean) {
         titleList.clear();
-        titleList.add(questionBean.getQuestionHead());
+        titleList.add(questionBean.getTitle());
 
         contentList.clear();
-        String[] contents = questionBean.getQuestionContent().split(";");
-        String[] rights = questionBean.getRightAnswer().split(";");
-        String[] students = questionBean.getAnswer().split(";");
+        String[] contents = questionBean.getContent().split(";");
+        String[] rights = questionBean.getAnswer().split(";");
+        String[] students = questionBean.getStudentAnswer().split(";");
 
         Fraction fraction;
         for(int i = 0; i < contents.length; i++){
