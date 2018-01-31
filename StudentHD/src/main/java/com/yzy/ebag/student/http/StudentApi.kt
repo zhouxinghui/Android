@@ -53,10 +53,10 @@ object StudentApi{
         EBagApi.request(studentService.clazzSpace("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    fun getUint(classId: String, subjectCode: String, callback: RequestCallBack<EditionBean>){
+    fun getUint(classId: String, subCode: String, callback: RequestCallBack<EditionBean>){
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
-        jsonObject.put("subjectCode", subjectCode)
+        jsonObject.put("subCode", subCode)
         EBagApi.request(studentService.getUint("vi", EBagApi.createBody(jsonObject)), callback)
     }
 }

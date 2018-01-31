@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
 import android.util.AttributeSet;
@@ -25,7 +26,7 @@ import java.util.List;
  * @2014年5月27日
  * @下午5:29:27
  */
-public class MTextView extends TextView {
+public class MTextView extends AppCompatTextView {
     private Context context;
     /**
      * 用于测量字符宽度

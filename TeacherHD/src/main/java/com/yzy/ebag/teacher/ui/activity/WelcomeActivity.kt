@@ -18,12 +18,13 @@ class WelcomeActivity : BaseActivity() {
     override fun initViews() {
         val token: String = App.TOKEN
         Handler().postDelayed({
-            intent = if (!StringUtils.isEmpty(token)){
-                Intent(this, MainActivity::class.java)
-            }else{
-                Intent(this, LoginActivity::class.java).putExtra(Constants.KEY_TO_MAIN,true)
-            }
-            startActivity(intent)
+            startActivity(
+                    if (!StringUtils.isEmpty(token)){
+                        Intent(this, MainActivity::class.java)
+                    }else{
+                        Intent(this, LoginActivity::class.java).putExtra(Constants.KEY_TO_MAIN,true)
+                    }
+            )
             finish()
         }, 2000)
     }
