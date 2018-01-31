@@ -1,6 +1,4 @@
-package ebag.hd.widget.questions.util;
-
-import ebag.core.bean.QuestionBean;
+package ebag.core.bean;
 
 
 /**
@@ -28,7 +26,11 @@ public class QuestionTypeUtils {
     /**
      * 英语：排列句子
      */
-    public static final int QUESTIONS_ORDER_SENTENCE = 5;
+    public static final int QUESTIONS_EN_ORDER_SENTENCE = 5;
+    /**
+     * 语文：排列句子
+     */
+    public static final int QUESTIONS_CN_ORDER_SENTENCE = 24;
     /**
      * 英语：判断题
      */
@@ -36,7 +38,7 @@ public class QuestionTypeUtils {
     /**
      * 英语：选择题
      */
-    public static final int QUESTIONS_CHOISE = 7;
+    public static final int QUESTIONS_CHOICE = 7;
     /**
      * 英语：听录音选择
      */
@@ -71,24 +73,20 @@ public class QuestionTypeUtils {
     public static final int QUESTION_MATH_CALCULATION = 15;
 
     /**
-     * 数学：计算题
+     * 数学：计算题-竖式（乘法和除法）
      */
-    public static final int QUESTION_MATH_CALCULATION_1 = 15;
+    public static final int QUESTION_MATH_VERTICAL = 15;
 
     /**
-     * 数学：计算题
+     * 数学：计算题-等式
      */
-    public static final int QUESTION_MATH_CALCULATION_2 = 16;
+    public static final int QUESTION_MATH_EQUATION = 16;
 
     /**
-     * 数学：计算题
+     * 数学：计算题-分式
      */
-    public static final int QUESTION_MATH_CALCULATION_3 = 17;
+    public static final int QUESTION_MATH_FRACTION = 17;
 
-    /**
-     * 数学：计算题
-     */
-    public static final int QUESTION_MATH_CALCULATION_4 = 18;
     /**
      * 语文：词组或句子
      */
@@ -145,7 +143,7 @@ public class QuestionTypeUtils {
 
     public static int getIntType(QuestionBean baseBean) {
         switch (baseBean.getType()) {
-            case "dx": return QUESTIONS_CHOISE;
+            case "dx": return QUESTIONS_CHOICE;
             case "pd": return QUESTIONS_JUDGE;
             case "tk": return QUESTIONS_COMPLETION;
             case "yd": return QUESTIONS_CHINESE_READ_UNDERSTAND;
@@ -156,7 +154,7 @@ public class QuestionTypeUtils {
             case "2": return QUESTIONS_CHOOSE_WORD_BY_PIC;
             case "3": return QUESTIONS_WRITE_WORD_BY_PIC;
             case "4": return QUESTIONS_COMPLETION_BY_VOICE;
-            case "5": return QUESTIONS_ORDER_SENTENCE;
+            case "5": return QUESTIONS_EN_ORDER_SENTENCE;
             case "8": return QUESTIONS_CHOOSE_BY_VOICE;
             case "9": return QUESTIONS_DRAW_LINE;
             case "10": return QUESTIONS_CLASSIFICATION;
@@ -164,11 +162,10 @@ public class QuestionTypeUtils {
             case "14": return QUESTIONS_FOLLOW_READ;
             case "15":
                 switch (baseBean.getMinType()){
-                    case "17":
-                    case "21": return QUESTION_MATH_CALCULATION_1;
-                    case "18": return QUESTION_MATH_CALCULATION_2;
-                    case "19": return QUESTION_MATH_CALCULATION_3;
-                    case "20": return QUESTION_MATH_CALCULATION_4;
+                    case "17":// 竖式除法
+                    case "21": return QUESTION_MATH_VERTICAL;// 竖式乘法
+                    case "18": return QUESTION_MATH_EQUATION;// 等式
+                    case "19": return QUESTION_MATH_FRACTION;// 分式
                     default: return QUESTION_NONE;
                 }
             case "16": return QUESTIONS_CHINESE_SENTENCE;

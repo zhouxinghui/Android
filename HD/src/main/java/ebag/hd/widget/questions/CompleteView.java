@@ -56,18 +56,18 @@ public class CompleteView extends BaseQuestionView {
         switch (QuestionTypeUtils.getIntType(questionBean)) {
             case QuestionTypeUtils.QUESTIONS_COMPLETION_BY_VOICE://听录音填空
                 title.add("听录音填空");
-                title.add("#M#" + questionBean.getQuestionHead());
+                title.add("#M#" + questionBean.getTitle());
                 break;
             case QuestionTypeUtils.QUESTIONS_COMPLETION://填空题
             case QuestionTypeUtils.QUESTIONS_WRITE_WORD_BY_PIC://看图写单词
-                title = (Arrays.asList(questionBean.getQuestionHead().split("#R#")));
+                title = (Arrays.asList(questionBean.getTitle().split("#R#")));
                 break;
         }
 
-        questionContent = questionBean.getQuestionContent();
+        questionContent = questionBean.getContent();
 
-        studentAnswer = questionBean.getAnswer();
-        rightAnswer = questionBean.getRightAnswer();
+        studentAnswer = questionBean.getStudentAnswer();
+        rightAnswer = questionBean.getAnswer();
     }
 
     @Override

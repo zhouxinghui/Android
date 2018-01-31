@@ -55,18 +55,18 @@ public class UnderstandView extends BaseQuestionView {
     @Override
     public void setData(QuestionBean questionBean) {
         titleList = new ArrayList<>();
-        if (questionBean.getQuestionHead().startsWith("#W#")) {
-            int index = questionBean.getQuestionHead().indexOf("#R##Z#");
-            String title = questionBean.getQuestionHead().substring(0, index).replace("#W##R#", "");
+        if (questionBean.getTitle().startsWith("#W#")) {
+            int index = questionBean.getTitle().indexOf("#R##Z#");
+            String title = questionBean.getTitle().substring(0, index).replace("#W##R#", "");
             titleList.add(title);
-            titleList.add(questionBean.getQuestionHead().substring(index + 3).replace("#R#", "").replace("#F#", "\n").replace("#Z#","\u3000\u3000"));
+            titleList.add(questionBean.getTitle().substring(index + 3).replace("#R#", "").replace("#F#", "\n").replace("#Z#","\u3000\u3000"));
         } else {
             titleList.add("阅读下面短文,回答问题");
-            titleList.add(questionBean.getQuestionHead().replace("#R#", "").replace("#F#", "\n").replace("#Z#", "\u3000\u3000"));
+            titleList.add(questionBean.getTitle().replace("#R#", "").replace("#F#", "\n").replace("#Z#", "\u3000\u3000"));
         }
 
-        rightAnswer = questionBean.getRightAnswer();
-        studentAnswer = questionBean.getQuestionContent();
+        rightAnswer = questionBean.getAnswer();
+        studentAnswer = questionBean.getContent();
     }
 
     @Override

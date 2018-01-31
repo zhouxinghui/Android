@@ -128,10 +128,10 @@ public class SortHorizontalView extends BaseQuestionView {
 
     @Override
     public void setData(QuestionBean questionBean) {
-        titleList = Arrays.asList(questionBean.getQuestionHead().split("#R#"));
-        questionContent = questionBean.getQuestionContent();
-        rightAnswer = questionBean.getRightAnswer();
-        studentAnswer = questionBean.getAnswer();
+        titleList = Arrays.asList(questionBean.getTitle().split("#R#"));
+        questionContent = questionBean.getContent();
+        rightAnswer = questionBean.getAnswer();
+        studentAnswer = questionBean.getStudentAnswer();
     }
 
     @Override

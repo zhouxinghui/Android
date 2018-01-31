@@ -22,7 +22,6 @@ import ebag.hd.widget.questions.util.QuestionTypeUtils;
  */
 
 public class SentenceView extends BaseQuestionView {
-
     private List<String> titleList;
     private String studentAnswer;
     private LineEditText lineEditText;
@@ -57,17 +56,22 @@ public class SentenceView extends BaseQuestionView {
 
     @Override
     public void setData(QuestionBean questionBean) {
-        //词组或句子&应用题
-        if(QuestionTypeUtils.getIntType(questionBean) == QuestionTypeUtils.QUESTIONS_CHINESE_SENTENCE
-                ||QuestionTypeUtils.getIntType(questionBean) == QuestionTypeUtils.QUESTION_MATH_APPLICATION){
-            lineEditText.setMinLines(1);
-        }else{//作文
-            lineEditText.setMinLines(5);
-        }
         titleList = new ArrayList<>();
-        Collections.addAll(titleList,questionBean.getQuestionHead().split("#R#"));
-        titleList.add(questionBean.getQuestionContent());
-        studentAnswer = questionBean.getAnswer();
+        Collections.addAll(titleList,questionBean.getTitle().split("#R#"));
+        //听写
+        if (QuestionTypeUtils.getIntType(questionBean) == QuestionTypeUtils.QUESTIONS_CHINESE_WRITE_BY_VOICE) {
+            titleList.add(questionBean.getAudioUrl());
+            lineEditText.setMinLines(2);
+        } else {
+            //词组或句子&应用题
+            if (QuestionTypeUtils.getIntType(questionBean) == QuestionTypeUtils.QUESTIONS_CHINESE_SENTENCE
+                    || QuestionTypeUtils.getIntType(questionBean) == QuestionTypeUtils.QUESTION_MATH_APPLICATION) {
+                lineEditText.setMinLines(1);
+            } else //作文
+                lineEditText.setMinLines(5);
+            titleList.add(questionBean.getContent());
+        }
+        studentAnswer = questionBean.getStudentAnswer();
     }
 
     @Override

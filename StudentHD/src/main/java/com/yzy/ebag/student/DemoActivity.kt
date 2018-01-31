@@ -26,17 +26,17 @@ class DemoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_demo)
         val questionList : ArrayList<QuestionBean> = ArrayList()
         val questionBean1 = QuestionBean()
-        questionBean1.questionType = "14"
-        questionBean1.questionHead = "听录音跟读句子"
-        questionBean1.questionContent = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/Lesson/hj/yy/3/1/5262/5273/Module 4 Unit 11.mp3"
+        questionBean1.type = "14"
+        questionBean1.title = "听录音跟读句子"
+        questionBean1.content = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/Lesson/hj/yy/3/1/5262/5273/Module 4 Unit 11.mp3"
         val questionBean2 = QuestionBean()
-        questionBean2.questionType = "14"
-        questionBean2.questionHead = "听录音跟读句子"
-        questionBean2.questionContent = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/Lesson/hj/yy/3/1/5260/5266/Module 2 Unit 4.mp3"
+        questionBean2.type = "14"
+        questionBean2.title = "听录音跟读句子"
+        questionBean2.content = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/Lesson/hj/yy/3/1/5260/5266/Module 2 Unit 4.mp3"
         val questionBean3 = QuestionBean()
-        questionBean3.questionType = "14"
-        questionBean3.questionHead = "听录音跟读句子"
-        questionBean3.questionContent = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/Lesson/rj/yw/2/1/1010/5427/一封信.mp3"
+        questionBean3.type = "14"
+        questionBean3.title = "听录音跟读句子"
+        questionBean3.content = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/Lesson/rj/yw/2/1/1010/5427/一封信.mp3"
         questionList.add(questionBean1)
         questionList.add(questionBean2)
         questionList.add(questionBean3)

@@ -106,16 +106,16 @@ public class RecorderView extends BaseQuestionView {
         title = new ArrayList<>();
         switch (QuestionTypeUtils.getIntType(questionBean)) {
             case QuestionTypeUtils.QUESTIONS_FOLLOW_READ://跟读作业
-                title.add(questionBean.getQuestionHead());
-                title.add("#M#" + questionBean.getQuestionContent());
+                title.add(questionBean.getTitle());
+                title.add("#M#" + questionBean.getContent());
                 break;
             case QuestionTypeUtils.QUESTIONS_READ_ALOUD://朗读作业
-                title.add(questionBean.getQuestionHead());
-                title.add(questionBean.getQuestionContent());
+                title.add(questionBean.getTitle());
+                title.add(questionBean.getContent());
                 break;
         }
         this.questionBean = questionBean;
-        rightAnswer = questionBean.getRightAnswer();
+        rightAnswer = questionBean.getAnswer();
     }
 
     @Override
@@ -142,7 +142,7 @@ public class RecorderView extends BaseQuestionView {
 
     @Override
     public String getAnswer() {
-        return questionBean.getAnswer();
+        return questionBean.getStudentAnswer();
     }
 
     @Override

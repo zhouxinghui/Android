@@ -34,19 +34,19 @@ import ebag.core.http.image.SingleImageLoader;
 import ebag.core.util.StringUtils;
 import ebag.hd.R;
 import ebag.hd.widget.FlowLayout;
-import ebag.hd.widget.questions.util.IQuestionEvent;
+import ebag.hd.widget.questions.base.BaseQuestionView;
 
 /**
  * 分类题
  * Created by YZY on 2017/12/27.
  */
 
-public class ClassificationView extends LinearLayout implements IQuestionEvent, View.OnTouchListener, View.OnClickListener{
+public class ClassificationView extends BaseQuestionView implements  View.OnTouchListener, View.OnClickListener{
     private Context context;
     /**
      * 标题
      */
-    private TextView headTv;
+    private List<String> titleList;
     /**
      * 装类别框的父布局
      */
@@ -88,20 +88,18 @@ public class ClassificationView extends LinearLayout implements IQuestionEvent, 
     private AlertDialog permissionDialog;
     public ClassificationView(Context context) {
         super(context);
-        init(context);
     }
 
     public ClassificationView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init(context);
     }
 
     public ClassificationView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
     }
 
-    private void init(Context context){
+    @Override
+    protected void addBody(Context context) {
         this.context = context;
         windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         windowManagerParams = new WindowManager.LayoutParams();
@@ -114,9 +112,6 @@ public class ClassificationView extends LinearLayout implements IQuestionEvent, 
                 | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE ;
 
         setOrientation(VERTICAL);
-        headTv = new TextView(context);
-        headTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int)getResources().getDimension(R.dimen.question_head));
-        headTv.setTextColor(getResources().getColor(R.color.question_normal));
 
         parentCategory = new FlowLayout(context);
         LayoutParams parentParams = new LayoutParams(
@@ -131,8 +126,6 @@ public class ClassificationView extends LinearLayout implements IQuestionEvent, 
 //                (int)getResources().getDimension(R.dimen.y15),
 //                0,0);
         elementLayout.setBackgroundResource(R.drawable.classify_element_layout_bg);
-
-        addView(headTv);
         addView(parentCategory);
         addView(elementLayout);
 
@@ -141,15 +134,18 @@ public class ClassificationView extends LinearLayout implements IQuestionEvent, 
 
     @Override
     public void setData(QuestionBean questionBean) {
-        questionHead = questionBean.getQuestionHead();
-        questionContent = questionBean.getQuestionContent();
-        rightAnswer = questionBean.getRightAnswer();
-        studentAnswer = questionBean.getAnswer();
+        questionHead = questionBean.getTitle();
+        questionContent = questionBean.getContent();
+        rightAnswer = questionBean.getAnswer();
+        studentAnswer = questionBean.getStudentAnswer();
+
+        titleList = new ArrayList<>();
+        titleList.add(questionHead);
     }
 
     @Override
     public void show(boolean active) {
-        headTv.setText(questionHead);
+        setTitle(titleList);
         parentCategory.removeAllViews();
         elementLayout.removeAllViews();
 
