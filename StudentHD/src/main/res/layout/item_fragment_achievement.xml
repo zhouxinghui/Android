@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_vertical"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/x70"
+    android:paddingStart="@dimen/x44"
+    android:paddingEnd="@dimen/x44"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    android:layout_marginTop="@dimen/x10">
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="@dimen/x180"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/x22"
+        android:textColor="#666666"
+        android:text="2017年3月22日"/>
+    
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="@dimen/x80"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/x22"
+        android:textColor="#666666"
+        android:text="12:30"/>
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="@dimen/x150"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/x30"
+        android:textColor="#494949"
+        android:text="98分"/>
+
+    <TextView
+        android:id="@+id/summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/x22"
+        android:textColorHint="#9b9b9b"
+        android:textColor="#4a4a4a"
+        android:hint="暂无总结"/>
+</LinearLayout>

@@ -86,6 +86,16 @@
         <activity android:name=".activity.growth.CourseDetailActivity"
             android:screenOrientation="landscape"
             />
+
+        <activity android:name=".activity.growth.AchievementActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
+            android:screenOrientation="landscape"/>
+
+        <activity android:name=".activity.growth.AchievementDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

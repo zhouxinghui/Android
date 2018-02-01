@@ -12,6 +12,7 @@ import ebag.core.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_course_detail.*
 
 /**
+ * 学习历程
  * @author caoyu
  * @date 2018/1/28
  * @description

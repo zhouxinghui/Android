@@ -7,6 +7,7 @@ import ebag.core.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_growth_type.*
 
 /**
+ * 成长轨迹  的分类
  * @author caoyu
  * @date 2018/1/28
  * @description
@@ -30,7 +31,7 @@ class GrowthTypeActivity: BaseActivity(){
     override fun initViews() {
         gradeId = intent.getStringExtra("gradeId") ?: ""
         resultBtn.setOnClickListener {
-
+            AchievementActivity.jump(this, gradeId)
         }
 
         courseBtn.setOnClickListener {

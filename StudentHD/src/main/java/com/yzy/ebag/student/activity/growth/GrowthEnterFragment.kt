@@ -12,6 +12,7 @@ import ebag.core.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_growth_enter.*
 
 /**
+ * 成长轨迹
  * @author caoyu
  * @date 2018/1/27
  * @description

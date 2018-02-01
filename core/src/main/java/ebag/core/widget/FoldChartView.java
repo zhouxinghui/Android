@@ -162,7 +162,7 @@ public class FoldChartView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        measureBaseData();
+
     }
 
     private void measureBaseData(){
@@ -230,23 +230,87 @@ public class FoldChartView extends View {
 
         // 总宽度 - PaddingRight - X轴特征名称的宽度 - 特征名距离最右刻度的距离
         rightX = (int) (this.getWidth() - getPaddingRight() - xAxisTextWidth - xDistanceAxisTextLastMark);
-        // paddingTop + Y轴特征名称的高度 + 特征名距离最高刻度的距离
-        topY = (int) (getPaddingTop() + yAxisTextHeight + yDistanceAxisTextLastMark);
+        // (paddingTop + Y轴特征名称的高度 + 特征名距离最高刻度的距离)
+        topY = (int)(getPaddingTop() + yAxisTextHeight + yDistanceAxisTextLastMark);
 
+        // 如果 showValue的话 必须让value 显示完全  这块还可以优化
+        if(showValue){
+            for(int i = 0; i < points.size(); i++){
+                if(valueDrawable != null){
+                    topY = Math.max(topY, drawableHeight);
+                }else{
+                    textPaint.setTextSize(valueTextSizes.get(i));
+                    metrics = textPaint.getFontMetrics();
+                    float textHeight = metrics.descent - metrics.ascent;
+                    topY = Math.max(topY, (int)(textHeight + valueVerticalPaddings.get(i) * 2));
+                }
+            }
+        }
 
         distanceXMark = (rightX - leftX) / (xMarkTexts.size() - 1);
         distanceYMark = (bottomY - topY) / (yMarkTexts.size() - 1);
+
+        int tableHeight = bottomY - topY;
+
+        ValuePoint point;
+        for(int i = 0; i < points.size(); i++){
+            for (int j = 0; j < points.get(i).size(); j++) {
+                if(j >= xMarkTexts.size()) //长度超过 坐标轴  不计算
+                    break;
+
+                point = points.get(i).get(j);
+                if(point.value == -1)
+                    continue;
+
+                //设置点的坐标
+                point.x = leftX + j * distanceXMark;
+                point.y = bottomY - point.value * tableHeight / fullSize;
+
+                if(showValue){ // 计算 数值 的区域
+                    String value = String.valueOf(point.value);
+                    Rect text = new Rect();
+                    textPaint.getTextBounds(value,0,value.length(), text);
+                    int textHeight = text.height();
+
+                    if(valueDrawable != null) {
+                        // 背景位置
+                        point.left = point.x - drawableWidth / 2;
+                        point.top = point.y - drawableHeight;
+                        point.right = point.x + drawableWidth / 2;
+                        point.bottom = point.y;
+
+                        // 文字 baseline 所在位置
+                        Rect rect = new Rect();
+                        boolean isRect = valueDrawable.getPadding(rect);
+                        if(isRect){//判断是不是.9图
+                            point.textY = point.y - rect.bottom - (drawableHeight - rect.bottom - rect.top - textHeight)/2;
+                        }else{
+                            point.textY = point.y - (drawableHeight - textHeight) / 2;
+                        }
+                    }else{
+
+                        float width = textPaint.measureText(value) + valueHorizontalPaddings.get(i) * 2;
+                        float height = textHeight + valueVerticalPaddings.get(i) * 2;
+                        // 文字 baseline 所在位置
+                        point.textY = point.y - valueVerticalPaddings.get(i);
+
+                        // 背景位置
+                        point.left = point.x - width / 2;
+                        point.top = point.y - height;
+                        point.right = point.x + width / 2;
+                        point.bottom = point.y;
+                    }
+                }
+            }
+        }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         // 白色背景
 //        canvas.drawColor(0xffffffff);
-
-
-
-        drawTable(canvas);
-        drawAxisLine(canvas);
+        measureBaseData();
+        drawAxis(canvas);
         drawAxisText(canvas);
         drawCurves(canvas);
         drawValues(canvas);
@@ -256,8 +320,8 @@ public class FoldChartView extends View {
     /**
      * 绘制表格
      */
-    private void drawTable(Canvas canvas) {
-
+    private void drawAxis(Canvas canvas) {
+        // 表格
         linePaint.setColor(tableLineColor);
         linePaint.setStrokeWidth(tableLineWidth);
         // 横向线
@@ -270,12 +334,8 @@ public class FoldChartView extends View {
             int x = leftX + i * distanceXMark;
             canvas.drawLine(x, topY, x, bottomY, linePaint);
         }
-    }
 
-    /**
-     * 绘制坐标轴
-     */
-    private void drawAxisLine(Canvas canvas) {
+        // 坐标轴
         linePaint.setStrokeWidth(axisLineWidth);
         linePaint.setColor(axisLineColor);
         // X
@@ -334,56 +394,36 @@ public class FoldChartView extends View {
 
     private void drawCurves(Canvas canvas){
 
-        linePaint.setStrokeWidth(defLineWidth);
-
         for(int i = 0; i < points.size(); i++){
-            if(lineColors.get(i) == null){
-                linePaint.setColor(defLineColor);
-            }else{
-                linePaint.setColor(lineColors.get(i));
+            // 线的宽度
+            linePaint.setStrokeWidth(lineWidths.get(i));
+            // 线的颜色
+            linePaint.setColor(lineColors.get(i));
+            Path path = new Path();
+            boolean isMove = false;
+            for (int j = 0; j < points.get(i).size(); j++) {
+                if(j >= xMarkTexts.size()) //长度超过 坐标轴  不计算
+                    break;
+                if(points.get(i).get(j).value == -1)
+                    continue;
+                if (!isMove) {
+                    isMove = true;
+                    path.moveTo(points.get(i).get(j).x, points.get(i).get(j).y);
+                } else {
+                    path.lineTo(points.get(i).get(j).x, points.get(i).get(j).y);
+                }
             }
-
-            drawCurve(canvas, points.get(i));
+            canvas.drawPath(path, linePaint);
         }
-    }
-
-    private void drawCurve(Canvas canvas, List<ValuePoint> data){
-        if(data == null) return;
-        Path path = new Path();
-        boolean isMove = false;
-        int tableHeight = bottomY - topY;
-
-        for (int i = 0; i < xMarkTexts.size(); i++) {
-
-            if(data.get(i).value == -1)
-                continue;
-
-            data.get(i).x = leftX + i * distanceXMark;
-            data.get(i).y = bottomY - data.get(i).value * tableHeight / fullSize;
-
-            if (!isMove) {
-                isMove = true;
-                path.moveTo(data.get(i).x, data.get(i).y);
-            } else {
-                path.lineTo(data.get(i).x, data.get(i).y);
-            }
-        }
-        canvas.drawPath(path, linePaint);
     }
 
     private void drawValues(Canvas canvas){
         if(showValue){
             textPaint.setTextAlign(Paint.Align.CENTER);
-
             for(int i = 0; i < points.size(); i++){//每一条 折线
                 textPaint.setTextSize(valueTextSizes.get(i));
                 //设置这条折线上 value 的颜色值
-                if(valueTextColors.get(i) == null){
-                    textPaint.setColor(defValueTextColor);
-                }else{
-                    textPaint.setColor(valueTextColors.get(i));
-                }
-
+                textPaint.setColor(valueTextColors.get(i));
                 //设置这条折线上 value 背景的颜色值
                 if(valueDrawable == null){
                     if(rectFPaint == null){
@@ -393,98 +433,88 @@ public class FoldChartView extends View {
                         rectFPaint.setAntiAlias(true);
                         rectFPaint.setStrokeWidth(3);
                     }
-                    if(valueBgColors.get(i) == null){
-                        rectFPaint.setColor(defValueBgColor);
-                    }else{
-                        rectFPaint.setColor(valueBgColors.get(i));
-                    }
+                    rectFPaint.setColor(valueBgColors.get(i));
                 }
 
                 for(int j = 0; j < points.get(i).size(); j++){
-                    drawValue(canvas, points.get(i).get(j), i);
+
+                    if(j >= xMarkTexts.size()) //长度超过 坐标轴  不计算
+                        break;
+
+                    ValuePoint point = points.get(i).get(j);
+                    if(point.value < 0){//只绘制 大于 0的Y轴
+                        return;
+                    }
+                    if(valueDrawable != null) {
+                        valueDrawable.setBounds((int)point.left,(int)point.top,(int)point.right,(int)point.bottom);
+                        valueDrawable.draw(canvas);
+
+                    }else {
+                        canvas.drawRoundRect(new RectF(point.left, point.top, point.right, point.bottom)
+                                , valueBgRadiuses.get(i), valueBgRadiuses.get(i), rectFPaint);
+                    }
+                    canvas.drawText(String.valueOf(point.value), point.x, point.textY, textPaint);
                 }
             }
 
         }
-    }
-
-    private void drawValue(Canvas canvas, ValuePoint point, int lineIndex){
-        if(point.value < 0){//只绘制 大于 0的Y轴
-            return;
-        }
-        float width;
-        float height ;
-        String str = String.valueOf(point.value);
-
-        Rect text = new Rect();
-        textPaint.getTextBounds(str,0,str.length(), text);
-        float textHeight = text.height();
-        float valueY;
-        if(valueDrawable != null) {
-            point.left = point.x - drawableWidth / 2;
-            point.top = point.y - drawableHeight;
-            point.right = point.x + drawableWidth / 2;
-            point.bottom = point.y;
-
-            valueDrawable.setBounds((int)point.left,(int)point.top,(int)point.right,(int)point.bottom);
-            valueDrawable.draw(canvas);
-
-            Rect rect = new Rect();
-            boolean isRect = valueDrawable.getPadding(rect);
-            if(isRect){//判断是不是.9图
-                valueY = point.y - rect.bottom - (drawableHeight - rect.bottom - rect.top - textHeight)/2;
-            }else{
-                valueY = point.y - (drawableHeight - textHeight) / 2;
-            }
-        }else{
-            width = textPaint.measureText(str) + valueHorizontalPaddings.get(lineIndex) * 2;
-            height = textHeight + valueVerticalPaddings.get(lineIndex) * 2;
-            valueY = point.y - valueVerticalPaddings.get(lineIndex);
-
-            point.left = point.x - width / 2;
-            point.top = point.y - height;
-            point.right = point.x + width / 2;
-            point.bottom = point.y;
-
-            canvas.drawRoundRect(new RectF(point.left,point.top,point.right,point.bottom)
-                    , valueBgRadiuses.get(lineIndex), valueBgRadiuses.get(lineIndex), rectFPaint);
-        }
-
-        canvas.drawText(str, point.x, valueY, textPaint);
     }
 
     float downX = 0;
     float downY = 0;
     long pressTime = 0;
 
+    private ValuePoint valuePoint;
+    private int lineIndex;
+    private int position;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                downX = event.getX();
-                downY = event.getY();
-                pressTime = System.currentTimeMillis();
-                break;
-//            case MotionEvent.ACTION_MOVE:
-//                isMoved = true;
-//                break;
-            case MotionEvent.ACTION_UP:
-                if(downX == event.getX() && downY == event.getY() // 抬起的点和按下的点是否一致
-                        && System.currentTimeMillis() - pressTime <= 300){//按下的时间小于300毫秒
+        if(showValue){
+            switch (event.getAction()){
+                case MotionEvent.ACTION_DOWN:
+                    downX = event.getX();
+                    downY = event.getY();
+                    pressTime = System.currentTimeMillis();
+                    valuePoint = null;
                     for(int i = 0; i < points.size(); i++){
                         for(int j = 0; j < points.get(i).size(); j++){
                             if(points.get(i).get(j).contains(downX, downY)){
-                                if(onValueItemClickListener != null){
-                                    onValueItemClickListener.valueClick(i,j);
-                                    return true;
-                                }
+                                lineIndex = i;
+                                position = j;
+                                valuePoint = points.get(i).get(j);
+                                valuePoint.pressed();
+                                return true;
                             }
                         }
                     }
-                }
-                break;
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    if(valuePoint != null && !valuePoint.contains(event.getX(), event.getY())){
+                        valuePoint.normal();
+//                        invalidate((int)valuePoint.left, (int)valuePoint.top,
+//                                (int)valuePoint.right, (int)valuePoint.bottom);
+                        valuePoint = null;
+                    }
+                    break;
+                case MotionEvent.ACTION_UP:
+                    if(downX == event.getX() && downY == event.getY() // 抬起的点和按下的点是否一致
+                            && System.currentTimeMillis() - pressTime <= 300 //按下的时间小于300毫秒
+                            && valuePoint != null){
+                        if(onValueItemClickListener != null)
+                            onValueItemClickListener.valueClick(lineIndex,position);
+                    }
+                    break;
+                case MotionEvent.ACTION_CANCEL:
+                    if(valuePoint != null){
+                        valuePoint = null;
+                    }
+                    break;
+            }
+            return true;
+        }else{
+            return super.onTouchEvent(event);
         }
-        return true;
+
     }
 
     interface OnValueItemClickListener{
@@ -668,6 +698,10 @@ public class FoldChartView extends View {
         this.fullSize = fullSize;
     }
 
+    public void addPoints(List<Integer> points){
+        addPoints(points,null,null,null,null,null,null,null,null);
+    }
+
     /**
      * 添加一条曲线
      * @param points
@@ -693,18 +727,24 @@ public class FoldChartView extends View {
         this.valueBgRadiuses.add(valueBgRadius == null ? defValueBgRadius : valueBgRadius);
         this.valueHorizontalPaddings.add(horizontalPadding == null ? defValueHorizontalPadding : horizontalPadding);
         this.valueVerticalPaddings.add(verticalPadding == null ? defValueVerticalPadding : verticalPadding);
+
     }
 
-    public static class ValuePoint{
+    public static class ValuePoint extends RectF{
+
+        public final static int NORMAL = 0;
+        public final static int PRESSED = 1;
+        public final static int SELECTED = 2;
+
         private int x;
         private int y;
-
-        public float left;
-        public float top;
-        public float right;
-        public float bottom;
+        private int textY;
 
         private int value;
+
+
+        private int status = 0;
+
 
         public static ValuePoint value(Integer integer){
             ValuePoint valuePoint = new ValuePoint();
@@ -714,6 +754,30 @@ public class FoldChartView extends View {
                 valuePoint.value = -1;
             }
             return valuePoint;
+        }
+
+        public void normal(){
+            status = NORMAL;
+        }
+
+        public boolean isNormal(){
+            return status == NORMAL;
+        }
+
+        public void pressed(){
+            status = PRESSED;
+        }
+
+        public boolean isPressed(){
+            return status == PRESSED;
+        }
+
+        public void selected(){
+            status = SELECTED;
+        }
+
+        public boolean isSelected(){
+            return status == SELECTED;
         }
 
         public int getX() {
@@ -740,9 +804,13 @@ public class FoldChartView extends View {
             this.value = value;
         }
 
-        public boolean contains(float x, float y) {
-            return left < right && top < bottom  // check for empty first
-                    && x >= left && x < right && y >= top && y < bottom;
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            ValuePoint r = (ValuePoint) o;
+            return left == r.left && top == r.top && right == r.right && bottom == r.bottom;
         }
     }
 }
