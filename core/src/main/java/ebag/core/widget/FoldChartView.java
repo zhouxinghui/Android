@@ -28,8 +28,28 @@ public class FoldChartView extends View {
     private List<String> yMarkTexts = new ArrayList<>();
 
     // 曲线数据，可绘制多条曲线 并且为每一条曲线设置不同的颜色
-    private List<List<Integer>> points = new ArrayList<>();
-    private List<Integer> colors = new ArrayList<>();
+    private List<List<ValuePoint>> points = new ArrayList<>();
+    // 每条线的颜色
+    private List<Integer> lineColors = new ArrayList<>();
+    // 每条线的宽度
+    private List<Integer> lineWidths = new ArrayList<>();
+
+    // 每条线数值文字颜色
+    private List<Integer> valueTextColors = new ArrayList<>();
+    // 每条线数值文字大小
+    private List<Integer> valueTextSizes = new ArrayList<>();
+
+    // 每条线数值背景颜色
+    private List<Integer> valueBgColors = new ArrayList<>();
+
+    // 每条线数值背景 角度半径
+    private List<Integer> valueBgRadiuses = new ArrayList<>();
+
+    // 每条线数字背景的横向 padding
+    private List<Integer> valueHorizontalPaddings = new ArrayList<>();
+    // 每条线数字背景的纵向 padding
+    private List<Integer> valueVerticalPaddings = new ArrayList<>();
+
 
     private int fullSize = 100;                 // Y轴最高刻度对应的值
 
@@ -45,11 +65,11 @@ public class FoldChartView extends View {
     private int rightX;                             // 表格的X轴上的终点
     private int topY;                               // 表格的Y轴上的终点
 
-    private int foldLineWidth = 2;                  // 曲线宽度
+    private int defLineWidth = 2;                  // 曲线宽度
     private int axisLineWidth = 2;                  // 坐标轴线宽度
     private int tableLineWidth = 1;                 // 表格线宽度
 
-    private int foldLineColor = 0xFF59B29C;         // 默认曲线颜色
+    private int defLineColor = 0xFF59B29C;         // 默认曲线颜色
     private int axisLineColor = 0xFFA6A6A6;         // 坐标轴颜色
     private int tableLineColor = 0xFFEBEBEB;        // 表格线颜色
 
@@ -87,10 +107,14 @@ public class FoldChartView extends View {
 
     private float xMarkTextHeight;           // 坐标轴刻度文字的高度
 
-    private int valueTextSize = 10;
-    private int valueTextColor = 0xff4a4a4a;
-    private int valueBackgroundColor = 0xff59b29c;
-    private int valueBackgroundRadius = 10;
+    private int defValueTextSize = 10;
+
+    private int defValueTextColor = 0xff4a4a4a;
+    private int defValueBgColor = 0xff59b29c;
+    private int defValueBgRadius = 10;
+
+    private int defValueHorizontalPadding = 10;
+    private int defValueVerticalPadding = 10;
 
     public FoldChartView(Context context) {
         this(context, null);
@@ -131,7 +155,7 @@ public class FoldChartView extends View {
         xMarkTexts.clear();
         yMarkTexts.clear();
         points.clear();
-        colors.clear();
+        lineColors.clear();
         invalidate();
     }
 
@@ -225,6 +249,7 @@ public class FoldChartView extends View {
         drawAxisLine(canvas);
         drawAxisText(canvas);
         drawCurves(canvas);
+        drawValues(canvas);
         canvas.restore();
     }
 
@@ -306,122 +331,126 @@ public class FoldChartView extends View {
         }
     }
 
-    private List<List<RectF>> rectList = new ArrayList<>();
 
     private void drawCurves(Canvas canvas){
 
-        linePaint.setStrokeWidth(foldLineWidth);
+        linePaint.setStrokeWidth(defLineWidth);
 
-        //记录 绘制记录点 的区域
-        rectList.clear();
         for(int i = 0; i < points.size(); i++){
-            if(colors.get(i) == null){
-                linePaint.setColor(foldLineColor);
+            if(lineColors.get(i) == null){
+                linePaint.setColor(defLineColor);
             }else{
-                linePaint.setColor(colors.get(i));
+                linePaint.setColor(lineColors.get(i));
             }
 
-            if(showValue){
-                textPaint.setTextSize(valueTextSize);
-                textPaint.setColor(valueTextColor);
-                textPaint.setTextAlign(Paint.Align.CENTER);
-
-                List<RectF> lineRectFs = new ArrayList<>();
-                rectList.add(lineRectFs);
-                drawCurve(canvas, points.get(i), lineRectFs);
-            }else{
-                drawCurve(canvas, points.get(i), null);
-            }
-
+            drawCurve(canvas, points.get(i));
         }
-
     }
 
-    private void drawCurve(Canvas canvas, List<Integer> data, List<RectF> lineRectFs){
+    private void drawCurve(Canvas canvas, List<ValuePoint> data){
         if(data == null) return;
         Path path = new Path();
         boolean isMove = false;
         int tableHeight = bottomY - topY;
 
         for (int i = 0; i < xMarkTexts.size(); i++) {
-            if(data.get(i) == null)
+
+            if(data.get(i).value == -1)
                 continue;
-            float x = leftX + i * distanceXMark;
-            float y = bottomY - data.get(i) * tableHeight / fullSize;
+
+            data.get(i).x = leftX + i * distanceXMark;
+            data.get(i).y = bottomY - data.get(i).value * tableHeight / fullSize;
 
             if (!isMove) {
                 isMove = true;
-                path.moveTo(x, y);
+                path.moveTo(data.get(i).x, data.get(i).y);
             } else {
-                path.lineTo(x, y);
-            }
-            // 绘制数值
-            if(lineRectFs != null){
-                drawValue(canvas, data.get(i), (int)x, (int)y, lineRectFs);
+                path.lineTo(data.get(i).x, data.get(i).y);
             }
         }
         canvas.drawPath(path, linePaint);
     }
 
-    private void drawValue(Canvas canvas, int data, int x, int y, List<RectF> lineRectFs){
-        RectF rect;
+    private void drawValues(Canvas canvas){
+        if(showValue){
+            textPaint.setTextAlign(Paint.Align.CENTER);
 
+            for(int i = 0; i < points.size(); i++){//每一条 折线
+                textPaint.setTextSize(valueTextSizes.get(i));
+                //设置这条折线上 value 的颜色值
+                if(valueTextColors.get(i) == null){
+                    textPaint.setColor(defValueTextColor);
+                }else{
+                    textPaint.setColor(valueTextColors.get(i));
+                }
+
+                //设置这条折线上 value 背景的颜色值
+                if(valueDrawable == null){
+                    if(rectFPaint == null){
+                        rectFPaint = new Paint();
+                        rectFPaint.setStyle(Paint.Style.FILL);
+                        rectFPaint.setDither(true);
+                        rectFPaint.setAntiAlias(true);
+                        rectFPaint.setStrokeWidth(3);
+                    }
+                    if(valueBgColors.get(i) == null){
+                        rectFPaint.setColor(defValueBgColor);
+                    }else{
+                        rectFPaint.setColor(valueBgColors.get(i));
+                    }
+                }
+
+                for(int j = 0; j < points.get(i).size(); j++){
+                    drawValue(canvas, points.get(i).get(j), i);
+                }
+            }
+
+        }
+    }
+
+    private void drawValue(Canvas canvas, ValuePoint point, int lineIndex){
+        if(point.value < 0){//只绘制 大于 0的Y轴
+            return;
+        }
         float width;
         float height ;
-        String str = String.valueOf(data);
+        String str = String.valueOf(point.value);
 
         Rect text = new Rect();
         textPaint.getTextBounds(str,0,str.length(), text);
         float textHeight = text.height();
         float valueY;
         if(valueDrawable != null) {
+            point.left = point.x - drawableWidth / 2;
+            point.top = point.y - drawableHeight;
+            point.right = point.x + drawableWidth / 2;
+            point.bottom = point.y;
 
-            rect = new RectF(
-                    x - drawableWidth / 2,
-                    y - drawableHeight,
-                    x + drawableWidth / 2,
-                    y
-            );
-
-            valueDrawable.setBounds(
-                    x - drawableWidth / 2,
-                    y - drawableHeight,
-                    x + drawableWidth / 2,
-                    y
-            );
-
+            valueDrawable.setBounds((int)point.left,(int)point.top,(int)point.right,(int)point.bottom);
             valueDrawable.draw(canvas);
-            Rect rect1 = new Rect();
-            boolean isRect = valueDrawable.getPadding(rect1);
+
+            Rect rect = new Rect();
+            boolean isRect = valueDrawable.getPadding(rect);
             if(isRect){//判断是不是.9图
-                valueY = y - rect1.bottom - (drawableHeight - rect1.bottom - rect1.top - textHeight)/2;
+                valueY = point.y - rect.bottom - (drawableHeight - rect.bottom - rect.top - textHeight)/2;
             }else{
-                valueY = y - (drawableHeight - textHeight) / 2;
+                valueY = point.y - (drawableHeight - textHeight) / 2;
             }
         }else{
-            if(rectFPaint == null){
-                rectFPaint = new Paint();
-                rectFPaint.setStyle(Paint.Style.FILL);
-                rectFPaint.setDither(true);
-                rectFPaint.setAntiAlias(true);
-                rectFPaint.setStrokeWidth(3);
-            }
-            rectFPaint.setColor(valueBackgroundColor);
-            width = textPaint.measureText(String.valueOf(data)) + valuePaddingLeft + valuePaddingRight;
-            height = textHeight + valuePaddingTop + valuePaddingBottom;
-            valueY = y - valuePaddingBottom;
+            width = textPaint.measureText(str) + valueHorizontalPaddings.get(lineIndex) * 2;
+            height = textHeight + valueVerticalPaddings.get(lineIndex) * 2;
+            valueY = point.y - valueVerticalPaddings.get(lineIndex);
 
-            rect = new RectF(
-                    x - width / 2,
-                    y - height,
-                    x + width / 2,
-                    y
-            );
-            canvas.drawRoundRect(rect, valueBackgroundRadius, valueBackgroundRadius, rectFPaint);
+            point.left = point.x - width / 2;
+            point.top = point.y - height;
+            point.right = point.x + width / 2;
+            point.bottom = point.y;
+
+            canvas.drawRoundRect(new RectF(point.left,point.top,point.right,point.bottom)
+                    , valueBgRadiuses.get(lineIndex), valueBgRadiuses.get(lineIndex), rectFPaint);
         }
 
-        canvas.drawText(String.valueOf(data), x, valueY, textPaint);
-        lineRectFs.add(rect);
+        canvas.drawText(str, point.x, valueY, textPaint);
     }
 
     float downX = 0;
@@ -442,17 +471,15 @@ public class FoldChartView extends View {
             case MotionEvent.ACTION_UP:
                 if(downX == event.getX() && downY == event.getY() // 抬起的点和按下的点是否一致
                         && System.currentTimeMillis() - pressTime <= 300){//按下的时间小于300毫秒
-
-                    for(int i = 0; i < rectList.size(); i++){
-                        if(rectList.get(i) != null)
-                            for(int j = 0; j < rectList.get(i).size(); j++){
-                                if(rectList.get(i).get(j) != null)
-                                    if(rectList.get(i).get(j).contains(downX, downY)){
-                                        if(onValueItemClickListener != null){
-                                            onValueItemClickListener.valueClick(i,j);
-                                        }
-                                    }
+                    for(int i = 0; i < points.size(); i++){
+                        for(int j = 0; j < points.get(i).size(); j++){
+                            if(points.get(i).get(j).contains(downX, downY)){
+                                if(onValueItemClickListener != null){
+                                    onValueItemClickListener.valueClick(i,j);
+                                    return true;
+                                }
                             }
+                        }
                     }
                 }
                 break;
@@ -479,23 +506,6 @@ public class FoldChartView extends View {
         this.drawableWidth = retestDrawableWidth(drawable,drawableWidth);
         this.valueDrawable = drawable;
     }
-
-    public void setValueBackground(int color, int radius){
-        this.valueBackgroundColor = color;
-        this.valueBackgroundRadius = radius;
-    }
-
-    private int valuePaddingLeft = 10;
-    private int valuePaddingTop = 10;
-    private int valuePaddingRight = 10;
-    private int valuePaddingBottom = 10;
-    public void setValuePadding(int left, int top, int right, int bottom){
-        this.valuePaddingLeft = left;
-        this.valuePaddingTop = top;
-        this.valuePaddingRight = right;
-        this.valuePaddingBottom = bottom;
-    }
-
 
     private final int DEFAULT_SIZE = -0x1;
     /**
@@ -561,12 +571,12 @@ public class FoldChartView extends View {
         this.setTextSize(markTextSize, axisTextSize, markTextSize, axisTextSize);
     }
 
-    public void setValueTextSize(int valueTextSize){
-        this.valueTextSize = valueTextSize;
+    public void setDefValueTextSize(int valueTextSize){
+        this.defValueTextSize = valueTextSize;
     }
 
-    public void setValueTextColor(int valueTextColor){
-        this.valueTextColor = valueTextColor;
+    public void setValueTextColors(List<Integer> valueTextColors){
+        this.valueTextColors = valueTextColors;
     }
 
     /**
@@ -613,7 +623,7 @@ public class FoldChartView extends View {
      * @param tableLineWidth 表格
      */
     public void setLineWidth(int foldLineWidth, int axisLineWidth, int tableLineWidth){
-        this.foldLineWidth = foldLineWidth;
+        this.defLineWidth = foldLineWidth;
         this.axisLineWidth = axisLineWidth;
         this.tableLineWidth = tableLineWidth;
     }
@@ -625,7 +635,7 @@ public class FoldChartView extends View {
      * @param tableLineColor 表格
      */
     public void setLineColor(int foldLineColor, int axisLineColor, int tableLineColor){
-        this.foldLineColor = foldLineColor;
+        this.defLineColor = foldLineColor;
         this.axisLineColor = axisLineColor;
         this.tableLineColor = tableLineColor;
     }
@@ -661,11 +671,78 @@ public class FoldChartView extends View {
     /**
      * 添加一条曲线
      * @param points
-     * @param color
+     * @param lineColor 曲线的颜色
+     * @param valueTextColor value背景的颜色
      */
-    public void addPoints(List<Integer> points, Integer color){
-        this.points.add(points);
-        this.colors.add(color);
+    public void addPoints(List<Integer> points,
+                          Integer lineColor, Integer valueTextColor, Integer valueBgColor,
+                          Integer lineWidth, Integer valueTextSize, Integer valueBgRadius,
+                          Integer horizontalPadding, Integer verticalPadding){
+        if(points == null) return;
+        List<ValuePoint> list = new ArrayList<>();
+        for(Integer integer : points){
+            list.add(ValuePoint.value(integer));
+        }
+        this.points.add(list);
+        this.lineColors.add(lineColor == null ? defLineColor : lineColor);
+        this.lineWidths.add(lineWidth == null ? defLineWidth : lineWidth);
+        this.valueTextColors.add(valueTextColor == null ? defValueTextColor : valueTextColor);
+        this.valueTextSizes.add(valueTextSize == null ? defValueTextSize : valueTextSize);
+
+        this.valueBgColors.add(valueBgColor == null ? defValueBgColor : valueBgColor);
+        this.valueBgRadiuses.add(valueBgRadius == null ? defValueBgRadius : valueBgRadius);
+        this.valueHorizontalPaddings.add(horizontalPadding == null ? defValueHorizontalPadding : horizontalPadding);
+        this.valueVerticalPaddings.add(verticalPadding == null ? defValueVerticalPadding : verticalPadding);
     }
 
+    public static class ValuePoint{
+        private int x;
+        private int y;
+
+        public float left;
+        public float top;
+        public float right;
+        public float bottom;
+
+        private int value;
+
+        public static ValuePoint value(Integer integer){
+            ValuePoint valuePoint = new ValuePoint();
+            if(integer != null){
+                valuePoint.value = integer;
+            }else{
+                valuePoint.value = -1;
+            }
+            return valuePoint;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public void setX(int x) {
+            this.x = x;
+        }
+
+        public int getY() {
+            return y;
+        }
+
+        public void setY(int y) {
+            this.y = y;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public void setValue(int value) {
+            this.value = value;
+        }
+
+        public boolean contains(float x, float y) {
+            return left < right && top < bottom  // check for empty first
+                    && x >= left && x < right && y >= top && y < bottom;
+        }
+    }
 }

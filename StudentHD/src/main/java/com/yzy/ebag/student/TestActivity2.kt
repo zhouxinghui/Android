@@ -41,15 +41,16 @@ class TestActivity2:BaseActivity() {
                 "分数")
         curveChartView.setTextSize(resources.getDimensionPixelSize(R.dimen.x24),resources.getDimensionPixelSize(R.dimen.x20))
         curveChartView.setFullSize(100)
-        curveChartView.setValueTextSize(resources.getDimensionPixelSize(R.dimen.x20))
+//        curveChartView.setValueTextSize(resources.getDimensionPixelSize(R.dimen.x20))
 
-        curveChartView.addPoints(intArrayOf(58, 83, 99, 82, 92, 78, 78, 93, 83, 100).asList(), null)
+        curveChartView.addPoints(intArrayOf(58, 83, 99, 82, 92, 78, 78, 93, 83, 100).asList()
+                , null, null, null)
 //        curveChartView.addPoints(intArrayOf(48, 73, 89, 72, 82, 68, 68, 83, 73, 90).asList(), null)
-        curveChartView.setValueBackground(
-                resources.getDrawable(R.drawable.achievement_icon),
-                resources.getDimensionPixelSize(R.dimen.x48),
-                resources.getDimensionPixelSize(R.dimen.x58)
-        )
+//        curveChartView.setValueBackground(
+//                resources.getDrawable(R.drawable.achievement_icon),
+//                resources.getDimensionPixelSize(R.dimen.x48),
+//                resources.getDimensionPixelSize(R.dimen.x58)
+//        )
         curveChartView.show()
 
         curveChartView.setOnValueItemClickListener { lineIndex, position ->
