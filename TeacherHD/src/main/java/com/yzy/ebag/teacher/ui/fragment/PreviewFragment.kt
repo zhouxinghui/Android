@@ -6,8 +6,6 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.teacher.R
-import com.yzy.ebag.teacher.bean.AssignUnitBean
-import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.ui.activity.QuestionAdapter
 import ebag.core.base.BaseListFragment
 import ebag.core.bean.QuestionBean
@@ -17,50 +15,26 @@ import ebag.core.util.T
 /**
  * Created by YZY on 2018/1/31.
  */
-class QuestionFragment: BaseListFragment<List<QuestionBean>, QuestionBean>() {
-    private lateinit var unitBean: AssignUnitBean.UnitSubBean
-    private var difficulty: String? = null
-    private lateinit var type: String
+class PreviewFragment : BaseListFragment<List<QuestionBean>, QuestionBean>() {
     private lateinit var previewList: ArrayList<QuestionBean>
-    private var isPreview = false
+    private var isSmartPush = false
     companion object {
-        fun newInstance(previewList: ArrayList<QuestionBean>, unitBean: AssignUnitBean.UnitSubBean, difficulty: String?, type: String): QuestionFragment{
-            val fragment = QuestionFragment()
+        fun newInstance(previewList: ArrayList<QuestionBean>): PreviewFragment {
+            val fragment = PreviewFragment()
             val bundle = Bundle()
             bundle.putSerializable("previewList", previewList)
-            bundle.putSerializable("unitBean", unitBean)
-            bundle.putString("difficulty", difficulty)
-            bundle.putString("type", type)
             fragment.arguments = bundle
             return fragment
         }
     }
     override fun getBundle(bundle: Bundle?) {
-        unitBean = bundle?.getSerializable("unitBean") as AssignUnitBean.UnitSubBean
-        difficulty = bundle.getString("difficulty")
-        type = bundle.getString("type")
-        previewList = bundle.getSerializable("previewList") as ArrayList<QuestionBean>
+        previewList = bundle?.getSerializable("previewList") as ArrayList<QuestionBean>
     }
 
-    override fun isPagerFragment(): Boolean {
-        return false
-    }
     override fun loadConfig() {
-        (mAdapter as QuestionAdapter).previewList = this.previewList
+        (mAdapter as QuestionAdapter).previewList = previewList
+        withFirstPageData(previewList)
     }
-
-    fun showPreview(list: ArrayList<QuestionBean>){
-        isPreview = true
-        withFirstPageData(list)
-    }
-    fun showSelect(list: ArrayList<QuestionBean>){
-        isPreview = false
-        withFirstPageData(list, true)
-    }
-    fun getData(): ArrayList<QuestionBean>{
-        return mAdapter!!.data as ArrayList<QuestionBean>
-    }
-
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
         adapter as QuestionAdapter
         when(view?.id){
@@ -69,20 +43,9 @@ class QuestionFragment: BaseListFragment<List<QuestionBean>, QuestionBean>() {
             }
             R.id.selectTv ->{
                 val questionBean = adapter.getItem(position)
-                if (isPreview){
-                    questionBean!!.isChoose = false
-                    if (adapter.previewList.contains(questionBean))
-                        adapter.remove(position)
-                }else {
-                    if (questionBean!!.isChoose) {
-                        if (adapter.previewList.contains(questionBean))
-                            adapter.previewList.remove(questionBean)
-                        questionBean.isChoose = false
-                    } else {
-                        adapter.previewList.add(questionBean)
-                        questionBean.isChoose = true
-                    }
-                }
+                questionBean!!.isChoose = false
+                if (adapter.previewList.contains(questionBean))
+                    adapter.remove(position)
                 onSelectClick?.invoke(questionBean)
 
                 adapter.notifyDataSetChanged()
@@ -99,7 +62,6 @@ class QuestionFragment: BaseListFragment<List<QuestionBean>, QuestionBean>() {
     var onSelectClick: ((questionBean: QuestionBean) -> Unit)? = null
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<QuestionBean>>) {
-        TeacherApi.searchQuestion(unitBean, difficulty, type, page, requestCallBack)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<QuestionBean>?): List<QuestionBean>? {
@@ -107,7 +69,7 @@ class QuestionFragment: BaseListFragment<List<QuestionBean>, QuestionBean>() {
     }
 
     override fun getAdapter(): BaseQuickAdapter<QuestionBean, BaseViewHolder> {
-        return QuestionAdapter(false)
+        return QuestionAdapter(true)
     }
 
     override fun getLayoutManager(adapter: BaseQuickAdapter<QuestionBean, BaseViewHolder>): RecyclerView.LayoutManager? {

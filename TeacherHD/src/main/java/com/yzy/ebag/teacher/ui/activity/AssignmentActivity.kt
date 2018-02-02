@@ -24,6 +24,7 @@ import ebag.core.util.T
 import ebag.core.util.loadImage
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
+import ebag.hd.widget.TitleBar
 import kotlinx.android.synthetic.main.activity_assignment.*
 
 class AssignmentActivity : MVPActivity(), AssignmentView{
@@ -65,7 +66,6 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     private var isGradeRequest = true
     private var difficulty: String? = null
 
-    private var previewList = ArrayList<QuestionBean>()
     override fun destroyPresenter() {
         assignmentPresenter.onDestroy()
     }
@@ -194,10 +194,22 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 unitAdapter.selectSub = item
             }
         }
-
+        //切换版本
         textBookVersion.setOnClickListener {
             exchangeDialog.show(cacheMap[currentGradeCode]!!.classes)
         }
+        //预览
+        titleBar.setOnTitleBarClickListener(object : TitleBar.OnTitleBarClickListener{
+            override fun leftClick() {
+            }
+            override fun rightClick() {
+                val previewList = ArrayList<QuestionBean>()
+                cacheMap[currentGradeCode]!!.questionList.forEach {
+                    previewList.addAll(it.questionList)
+                }
+                PreviewActivity.jump(this@AssignmentActivity, previewList)
+            }
+        })
         assignmentPresenter.loadBaseData(workCategory.toString())
         stateView.setOnRetryClickListener {
             assignmentPresenter.loadBaseData(workCategory.toString())
@@ -389,8 +401,10 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == Constants.QUESTION_REQUEST && resultCode == Constants.QUESTION_RESULT && data != null) {
-            previewList = data.getSerializableExtra("previewList") as ArrayList<QuestionBean>
+        if (data == null)
+            return
+        if (requestCode == Constants.QUESTION_REQUEST && resultCode == Constants.QUESTION_RESULT) {
+            val previewList = data.getSerializableExtra("previewList") as ArrayList<QuestionBean>
             val type = data.getStringExtra("type")
             cacheMap[currentGradeCode]!!.questionList.forEach {
                 if (it.adverCode == type) {
@@ -401,9 +415,8 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             }
             questionAdapter.notifyDataSetChanged()
         }
-/*
-        if (requestCode == Constants.QUESTION_REQUEST && resultCode == Constants.QUESTION_RESULT && data != null) {
-            previewList = data.getSerializableExtra("previewList") as ArrayList<QuestionBean>
+        if (requestCode == Constants.PREVIEW_REQUEST && resultCode == Constants.QUESTION_RESULT) {
+            val previewList = data.getSerializableExtra("previewList") as ArrayList<QuestionBean>
             cacheMap[currentGradeCode]!!.questionList.forEach {
                 val type = it.adverCode
                 it.questionList.clear()
@@ -411,7 +424,6 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             }
             questionAdapter.notifyDataSetChanged()
         }
-*/
     }
 
     /**

@@ -29,4 +29,5 @@ object Constants {
 
     val QUESTION_REQUEST = 120
     val QUESTION_RESULT = 121
+    val PREVIEW_REQUEST = 130
 }

@@ -12,7 +12,7 @@ import ebag.hd.widget.questions.base.BaseQuestionView
 /**
  * Created by YZY on 2018/1/30.
  */
-class QuestionAdapter: BaseMultiItemQuickAdapter<QuestionBean, BaseViewHolder>(null) {
+class QuestionAdapter(private val isPreviewPage: Boolean = false): BaseMultiItemQuickAdapter<QuestionBean, BaseViewHolder>(null) {
     init {
         //看单词选图
         addItemType(QuestionTypeUtils.QUESTIONS_CHOOSE_PIC_BY_WORD, R.layout.item_question_choice)
@@ -91,11 +91,15 @@ class QuestionAdapter: BaseMultiItemQuickAdapter<QuestionBean, BaseViewHolder>(n
             selectTv.isSelected = true
             selectTv.text = "移除"
         }
-        if (helper.adapterPosition != 0 && item.type == mData[helper.adapterPosition - 1].type)
+        if (isPreviewPage) {
+            if (helper.adapterPosition != 0 && item.type == mData[helper.adapterPosition - 1].type)
+                helper.getView<TextView>(R.id.typeNameTv).visibility = View.GONE
+            else {
+                helper.setText(R.id.typeNameTv, QuestionTypeUtils.getTitle(item.type))
+                helper.getView<TextView>(R.id.typeNameTv).visibility = View.VISIBLE
+            }
+        }else{
             helper.getView<TextView>(R.id.typeNameTv).visibility = View.GONE
-        else {
-            helper.setText(R.id.typeNameTv, QuestionTypeUtils.getTitle(item.type))
-            helper.getView<TextView>(R.id.typeNameTv).visibility = View.VISIBLE
         }
     }
 }
