@@ -78,7 +78,11 @@
         <activity
             android:name=".ui.activity.StudyGroupActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.activity.QuestionActivity"></activity>
+        <activity android:name=".ui.activity.QuestionActivity"
+            android:screenOrientation="landscape"
+            >
+
+        </activity>
     </application>
 
 </manifest>

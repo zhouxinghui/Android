@@ -112,4 +112,11 @@
     <string name="set_group_leader">设置为组长</string>
     <string name="cancel_group_leader">取消设置组长</string>
     <!--学习小组end-->
+    <!--选题start-->
+    <string name="question_analysis">试题解析</string>
+    <string name="answer_analyse">答案解析：</string>
+    <string name="next_page">下一页</string>
+    <string name="preview_page">上一页</string>
+    <string name="publish">发布</string>
+    <!--选题end-->
 </resources>

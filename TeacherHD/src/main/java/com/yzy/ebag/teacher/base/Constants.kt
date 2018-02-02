@@ -26,4 +26,7 @@ object Constants {
 
     val PUBLISH_REQUEST = 110
     val PUBLISH_RESULT = 111
+
+    val QUESTION_REQUEST = 120
+    val QUESTION_RESULT = 121
 }

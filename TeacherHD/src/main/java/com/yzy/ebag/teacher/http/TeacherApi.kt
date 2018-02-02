@@ -1,6 +1,7 @@
 package com.yzy.ebag.teacher.http
 
 import com.yzy.ebag.teacher.bean.*
+import ebag.core.bean.QuestionBean
 import ebag.core.http.network.RequestCallBack
 import ebag.hd.bean.response.NoticeBean
 import ebag.hd.http.EBagApi
@@ -165,9 +166,28 @@ object TeacherApi {
         EBagApi.request(teacherService.addTeacher("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
+    /**
+     * 查询最新公告
+     */
     fun newestNotice(classId: String, callback: RequestCallBack<NoticeBean>){
         val jsonObject = JSONObject()
         jsonObject.put("classId",classId)
         EBagApi.request(teacherService.newestNotice("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 查询试题
+     */
+    fun searchQuestion(unitBean: AssignUnitBean.UnitSubBean, difficulty: String?, type: String, page: Int, callback: RequestCallBack<List<QuestionBean>>){
+        val jsonObject = JSONObject()
+        if (unitBean.isUnit)
+            jsonObject.put("bookUnit",unitBean.id)
+        else
+            jsonObject.put("bookCatalog",unitBean.id)
+        difficulty ?: jsonObject.put("level",difficulty)
+        jsonObject.put("type",type)
+        jsonObject.put("page",page)
+        jsonObject.put("pageSize",10)
+        EBagApi.request(teacherService.searchQuestion("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

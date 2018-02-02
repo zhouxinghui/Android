@@ -1,6 +1,8 @@
 package ebag.core.bean;
 
 
+import ebag.core.util.StringUtils;
+
 /**
  * Created by zdw on 2017/5/17.
  */
@@ -154,7 +156,10 @@ public class QuestionTypeUtils {
             case "2": return QUESTIONS_CHOOSE_WORD_BY_PIC;
             case "3": return QUESTIONS_WRITE_WORD_BY_PIC;
             case "4": return QUESTIONS_COMPLETION_BY_VOICE;
-            case "5": return QUESTIONS_EN_ORDER_SENTENCE;
+            case "5":
+                if (StringUtils.INSTANCE.isChineseCharacter(baseBean.getContent()))
+                    return QUESTIONS_CN_ORDER_SENTENCE;
+                return QUESTIONS_EN_ORDER_SENTENCE;
             case "8": return QUESTIONS_CHOOSE_BY_VOICE;
             case "9": return QUESTIONS_DRAW_LINE;
             case "10": return QUESTIONS_CLASSIFICATION;

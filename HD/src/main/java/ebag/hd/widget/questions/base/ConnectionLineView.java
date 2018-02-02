@@ -62,7 +62,6 @@ public class ConnectionLineView extends View {
      * 画线
      */
     public void setLine(ConnectionView.ConnectionBean connectionBean,boolean isNormal) {
-
         checkConnection(connectionBean);
         //设置左边的item 为默认 item
         if(connectionBean.isRight)
@@ -91,20 +90,22 @@ public class ConnectionLineView extends View {
         }
     }
 
+    public String questionId = "";
+
     /**
      * 检查这个Connection是否正确
      * @param connectionBean
      */
     private void checkConnection(ConnectionView.ConnectionBean connectionBean){
         if(connectionBean.connectionBean == null){
-            throw new IllegalArgumentException("请建立连线的关系");
+            throw new IllegalArgumentException("请建立连线的关系" + questionId);
         }
         if(connectionBean.isRight == connectionBean.connectionBean.isRight){
-            throw new IllegalArgumentException("连线需要连不同的两侧");
+            throw new IllegalArgumentException("连线需要连不同的两侧" + questionId);
         }
 
         if(connectionBean != connectionBean.connectionBean.connectionBean){
-            throw new IllegalArgumentException("连线的Item 需要相互关联");
+            throw new IllegalArgumentException("连线的Item 需要相互关联" + questionId);
         }
     }
 

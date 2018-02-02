@@ -4,10 +4,11 @@ import com.chad.library.adapter.base.entity.IExpandable;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.yzy.ebag.teacher.base.Constants;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class AssignUnitBean implements
-        IExpandable<AssignUnitBean.UnitSubBean>, MultiItemEntity {
+        IExpandable<AssignUnitBean.UnitSubBean>, MultiItemEntity, Serializable {
     /**
      * id : 150
      * code : 1
@@ -117,7 +118,7 @@ public class AssignUnitBean implements
         return Constants.INSTANCE.getLEVEL_ONE();
     }
 
-    public static class UnitSubBean implements MultiItemEntity {
+    public static class UnitSubBean implements MultiItemEntity, Serializable {
         /**
          * id : 2208
          * code : 1

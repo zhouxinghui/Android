@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
-    android:layout_marginLeft="@dimen/connection_margin"
     android:layout_marginRight="@dimen/connection_margin"
     android:layout_marginTop="@dimen/connection_top_margin"
     >

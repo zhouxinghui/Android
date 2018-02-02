@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
-    android:layout_marginLeft="@dimen/connection_margin"
     android:layout_marginRight="@dimen/connection_margin"
     android:layout_marginTop="@dimen/connection_top_margin"
     >
@@ -18,8 +17,10 @@
         android:gravity="end"
         >
         <TextView android:id="@+id/element_id"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minWidth="@dimen/x100"
+            android:maxWidth="@dimen/x150"
             android:minHeight="@dimen/connection_tv_min_height"
             android:textSize="@dimen/question_content"
             android:textColor="@color/white"

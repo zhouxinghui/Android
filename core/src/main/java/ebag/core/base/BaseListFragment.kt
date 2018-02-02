@@ -36,7 +36,7 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
         /** 每页默认加载的数量 */
         val DEFAULT_PAGE_SIZE = 10
     }
-    private var mAdapter: BaseQuickAdapter<E,BaseViewHolder>? = null
+    protected var mAdapter: BaseQuickAdapter<E,BaseViewHolder>? = null
     protected var mCurrentPage = 1
     protected var needFirstLoad = true
 

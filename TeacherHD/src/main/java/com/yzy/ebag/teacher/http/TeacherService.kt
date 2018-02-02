@@ -1,6 +1,7 @@
 package com.yzy.ebag.teacher.http
 
 import com.yzy.ebag.teacher.bean.*
+import ebag.core.bean.QuestionBean
 import ebag.core.bean.ResponseBean
 import ebag.hd.bean.response.NoticeBean
 import io.reactivex.Observable
@@ -93,4 +94,10 @@ interface TeacherService {
      */
     @POST("clazz/joinTeacherBySubject/{version}")
     fun addTeacher(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 查询试题
+     */
+    @POST("question/queryQuestion/{version}")
+    fun searchQuestion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<QuestionBean>>>
 }
