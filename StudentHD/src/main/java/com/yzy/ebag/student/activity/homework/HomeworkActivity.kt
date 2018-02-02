@@ -3,7 +3,6 @@ package com.yzy.ebag.student.activity.homework
 import android.content.Context
 import android.content.Intent
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
@@ -56,7 +55,7 @@ class HomeworkActivity : BaseListTabActivity<ArrayList<SubjectBean>, SubjectBean
     }
 
     override fun requestData(requestCallBack: RequestCallBack<ArrayList<SubjectBean>>) {
-        StudentApi.subjectWorkList(type, classId, "", 1, 1, requestCallBack)
+        StudentApi.subjectWorkList(type, classId, "", 1, 10, requestCallBack)
     }
 
     override fun parentToList(parent: ArrayList<SubjectBean>?): List<SubjectBean>? {

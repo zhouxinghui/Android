@@ -65,7 +65,7 @@ class TaskTabFragment: BaseFragment() {
         }
     }
 
-    private fun showFragment(index: Int): BaseFragment =
+    private fun showFragment(index: Int): Fragment =
         when(index){
             0 -> LabourFragment.newInstance(classId)
             1 -> StudyFragment.newInstance(classId)

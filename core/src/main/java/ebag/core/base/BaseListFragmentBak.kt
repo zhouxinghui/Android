@@ -12,12 +12,13 @@ import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.T
 import ebag.core.widget.empty.StateView
+import kotlinx.android.synthetic.main.base_list_view.*
 import java.util.*
 
 /**
  * Created by caoyu on 2017/11/30.
  */
-abstract class BaseListFragment<Parent, E> : LazyFragment(),
+abstract class BaseListFragmentBak<Parent, E> : LazyFragment(),
         StateView.OnRetryClickListener,
         SwipeRefreshLayout.OnRefreshListener,
         BaseQuickAdapter.OnItemClickListener,
@@ -124,23 +125,9 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
     }
 
     lateinit var rootView: RelativeLayout
-    lateinit var recyclerView: RecyclerView
-    lateinit var stateView: StateView
-    lateinit var refreshLayout: SwipeRefreshLayout
-
     /** 初始化操作 */
     override fun initViews(rootView: View) {
-
-    }
-
-    /**
-     * 这个方法里面不能直接用  kotlin的快捷方式取得View 必须findViewById
-     */
-    override fun initRootView(rootView: View) {
-        this.rootView = rootView.findViewById(R.id.layout)
-        recyclerView = rootView.findViewById(R.id.recyclerView)
-        stateView = rootView.findViewById(R.id.stateView)
-        refreshLayout = rootView.findViewById(R.id.refreshLayout)
+        this.rootView = layout
         // 设置 recyclerView 的 Adapter
         mAdapter = getAdapter()
         mAdapter?.enableLoadMoreEndClick(true)

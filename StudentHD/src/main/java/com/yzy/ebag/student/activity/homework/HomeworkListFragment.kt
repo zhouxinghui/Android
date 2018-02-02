@@ -39,10 +39,6 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
         }
     }
 
-    override fun getPageSize(): Int {
-        return 1
-    }
-
     override fun getBundle(bundle: Bundle?) {
         subCode = bundle?.getString("subject") ?: ""
         type = bundle?.getString("type") ?: ""
@@ -88,4 +84,5 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
             helper.getView<View>(R.id.tvStatus).isSelected = item?.questionComplete == item?.questionCount
         }
     }
+
 }

@@ -13,27 +13,30 @@ import android.view.ViewGroup
 abstract class BaseFragment : Fragment() {
 
     val mContext: Context by lazy { activity}
-    private var rootView : View? = null
+    private var mRootView : View? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getBundle(arguments)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        if(rootView == null){
-            rootView = inflater.inflate(getLayoutRes(), container, false)
+        if(mRootView == null){
+            mRootView = inflater.inflate(getLayoutRes(), container, false)
+            initRootView(mRootView!!)
         }else{
-            val view = rootView!!.parent
-            if(view != null)
-                (view as ViewGroup).removeAllViewsInLayout()
+            (mRootView?.parent as ViewGroup?)?.removeAllViewsInLayout()
         }
-        return rootView
+        return mRootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews(view)
-        initEvent(view)
+    }
+
+    /**初始化View*/
+    protected open fun initRootView(rootView: View){
+
     }
 
     /**获取RootLayout的ID*/
@@ -42,7 +45,4 @@ abstract class BaseFragment : Fragment() {
     protected abstract fun getBundle(bundle: Bundle?)
     /**初始化View*/
     protected abstract fun initViews(rootView: View)
-    /**初始化监听事件*/
-    protected fun initEvent(rootView: View) {
-    }
 }

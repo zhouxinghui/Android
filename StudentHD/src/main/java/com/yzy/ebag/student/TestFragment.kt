@@ -8,7 +8,7 @@ import ebag.core.base.BaseFragment
 /**
  * Created by caoyu on 2018/1/14.
  */
-class TestFragment:BaseFragment() {
+class TestFragment: BaseFragment() {
 
     companion object {
         fun newInstance(): Fragment {

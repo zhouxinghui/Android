@@ -7,7 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.bean.Achievement
-import ebag.core.base.mvp.LazyFragment
+import ebag.core.base.LazyFragment
 import ebag.core.util.T
 import kotlinx.android.synthetic.main.fragment_achievement.*
 

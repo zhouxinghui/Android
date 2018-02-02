@@ -1,8 +1,7 @@
-package ebag.core.base.mvp
+package ebag.core.base
 
 import android.os.Bundle
 import android.view.View
-import ebag.core.base.BaseFragment
 
 /**
  * @author caoyu

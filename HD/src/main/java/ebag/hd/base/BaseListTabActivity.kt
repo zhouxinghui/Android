@@ -181,6 +181,10 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
         override fun getCount(): Int {
             return fragments.size
         }
+
+        override fun getPageTitle(position: Int): CharSequence {
+            return "$position"
+        }
     }
 
     protected fun setCurrentItem(index: Int){
