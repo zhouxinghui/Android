@@ -5,8 +5,7 @@ import android.content.Intent
 import android.view.View
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.base.Constants
-import com.yzy.ebag.teacher.bean.AssignUnitBean
-import com.yzy.ebag.teacher.ui.fragment.QuestionFragment
+import com.yzy.ebag.teacher.ui.fragment.PreviewFragment
 import ebag.core.base.BaseActivity
 import ebag.core.bean.QuestionBean
 import ebag.core.bean.QuestionTypeUtils
@@ -17,35 +16,27 @@ import ebag.hd.widget.questions.*
 import ebag.hd.widget.questions.base.BaseQuestionView
 import kotlinx.android.synthetic.main.activity_question.*
 
-class QuestionActivity : BaseActivity() {
+/**
+ * Created by YZY on 2018/2/2.
+ */
+class PreviewActivity: BaseActivity() {
     override fun getLayoutId(): Int {
         return R.layout.activity_question
     }
     private lateinit var previewList: ArrayList<QuestionBean>
-    private var isPreview = false
-    private lateinit var tempList: ArrayList<QuestionBean>
-    private var type = ""
     companion object {
-        fun jump(activity: Activity, previewList: ArrayList<QuestionBean>, unitBean: AssignUnitBean.UnitSubBean, difficulty: String?, type: String){
+        fun jump(activity: Activity, previewList: ArrayList<QuestionBean>){
             activity.startActivityForResult(
-                    Intent(activity, QuestionActivity::class.java)
+                    Intent(activity, PreviewActivity::class.java)
                             .putExtra("previewList", previewList)
-                            .putExtra("unitBean", unitBean)
-                            .putExtra("difficulty", difficulty)
-                            .putExtra("type", type)
-                    , Constants.QUESTION_REQUEST)
+                    , Constants.PREVIEW_REQUEST)
         }
     }
+
     override fun initViews() {
-        publishTv.visibility = View.GONE
-        type = intent.getStringExtra("type")
-        titleBar.setTitle(QuestionTypeUtils.getTitle(type))
+        previewTv.visibility = View.GONE
         previewList = intent.getSerializableExtra("previewList") as ArrayList<QuestionBean>
-        val fragment = QuestionFragment.newInstance(
-                previewList,
-                intent.getSerializableExtra("unitBean") as AssignUnitBean.UnitSubBean,
-                intent.getStringExtra("difficulty"),
-                type)
+        val fragment = PreviewFragment.newInstance(previewList)
         supportFragmentManager.beginTransaction().replace(R.id.questionLayout, fragment)
                 .commitAllowingStateLoss()
 
@@ -67,19 +58,6 @@ class QuestionActivity : BaseActivity() {
         fragment.onSelectClick = {
             questionNumTv.text = "${previewList.size}题"
         }
-        previewTv.setOnClickListener {
-            if (isPreview){
-                previewTv.text = "预览"
-                fragment.showSelect(tempList)
-                isPreview = false
-            }else{
-                previewTv.text = "选题"
-                tempList = fragment.getData()
-                fragment.showPreview(previewList)
-                isPreview = true
-            }
-        }
-
         titleBar.setOnTitleBarClickListener(object : TitleBar.OnTitleBarClickListener{
             override fun leftClick() {
                 backEvent()
@@ -93,15 +71,14 @@ class QuestionActivity : BaseActivity() {
         if (previewList.size != 0){
             val intent = Intent()
             intent.putExtra("previewList", previewList)
-            intent.putExtra("type", type)
             setResult(Constants.QUESTION_RESULT, intent)
         }
     }
-
     override fun onBackPressed() {
         backEvent()
         super.onBackPressed()
     }
+
     private fun showAnalyse(questionBean: QuestionBean){
         emptyAnalyseLayout.visibility = View.GONE
         rightAnswerLayout.removeAllViews()
@@ -132,7 +109,7 @@ class QuestionActivity : BaseActivity() {
             QuestionTypeUtils.QUESTIONS_CLASSIFICATION->{
                 questionView = ClassificationView(this)
             }
-            QuestionTypeUtils.QUESTIONS_READ_ALOUD,QuestionTypeUtils.QUESTIONS_FOLLOW_READ->{
+            QuestionTypeUtils.QUESTIONS_READ_ALOUD, QuestionTypeUtils.QUESTIONS_FOLLOW_READ->{
                 questionView = RecorderView(this)
             }
             QuestionTypeUtils.QUESTIONS_WRITE_COMPOSITION_BY_PIC,

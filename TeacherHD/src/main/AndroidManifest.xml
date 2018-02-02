@@ -12,15 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- 图片选择 -->
-        <activity
-            android:name="com.luck.picture.lib.PictureSelectorActivity"
-            android:screenOrientation="landscape"
-            tools:replace="android:screenOrientation" />
-        <activity
-            android:name="com.luck.picture.lib.PicturePreviewActivity"
-            android:screenOrientation="landscape"
-            tools:replace="android:screenOrientation" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"
@@ -83,6 +74,9 @@
             >
 
         </activity>
+        <activity android:name=".ui.activity.PreviewActivity"
+            android:screenOrientation="landscape"
+            />
     </application>
 
 </manifest>

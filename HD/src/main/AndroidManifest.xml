@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="ebag.hd">
     <!-- 网络状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application>
+        <!-- 图片选择 -->
+        <activity
+            android:name="com.luck.picture.lib.PictureSelectorActivity"
+            android:screenOrientation="landscape"
+            tools:replace="android:screenOrientation" />
+        <activity
+            android:name="com.luck.picture.lib.PicturePreviewActivity"
+            android:screenOrientation="landscape"
+            tools:replace="android:screenOrientation" />
         <activity android:name=".ui.activity.BookListActivity"
             android:screenOrientation="landscape"
             android:configChanges="screenSize|keyboardHidden|orientation"
