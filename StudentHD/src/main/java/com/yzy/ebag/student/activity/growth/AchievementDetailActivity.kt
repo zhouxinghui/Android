@@ -33,6 +33,11 @@ class AchievementDetailActivity: BaseActivity() {
     override fun initViews() {
         achievement = intent.getSerializableExtra("achievement") as Achievement?
 
+        if(achievement == null){
+            finish()
+            return
+        }
+
         rightView = titleBar.rightView as TextView
 
         if(achievement?.summary.isNullOrEmpty()){
@@ -60,4 +65,5 @@ class AchievementDetailActivity: BaseActivity() {
         time.text = achievement?.time
         score.text = "${achievement?.score}分"
     }
+
 }

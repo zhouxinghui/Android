@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <ebag.hd.widget.TitleBar android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="我的日记"/>
+
+    <EditText
+        android:id="@+id/titleEdit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y98"
+        android:background="@color/white"
+        android:maxLines="1"
+        android:paddingStart="@dimen/x24"
+        android:paddingEnd="@dimen/x24"
+        android:gravity="center_vertical|start"
+        android:textSize="@dimen/x28"
+        android:textColor="#4a4a4a"
+        android:hint="@string/input_title"/>
+
+    <EditText android:id="@+id/contentEdit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y200"
+        android:padding="20dp"
+        android:gravity="start"
+        android:maxLength="200"
+        android:layout_marginTop="@dimen/x20"
+        android:textSize="@dimen/x24"
+        android:textColor="#4a4a4a"
+        android:hint="@string/input_content"
+        android:background="@color/white" />
+
+    <TextView android:id="@+id/numberOfWord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:textSize="@dimen/x22"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:paddingLeft="@dimen/x36"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

@@ -47,7 +47,7 @@ class GrowthTypeActivity: BaseActivity(){
         }
 
         diaryBtn.setOnClickListener {
-
+            DiaryListActivity.jump(this,gradeId)
         }
     }
 

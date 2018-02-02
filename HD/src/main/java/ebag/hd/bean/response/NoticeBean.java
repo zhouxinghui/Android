@@ -32,7 +32,7 @@ public class NoticeBean implements Serializable {
         if(photoList == null){
             photoList = new ArrayList<>();
             if(photoUrl == null){
-                photoUrl = "";
+                return photoList;
             }
             Collections.addAll(photoList, photoUrl.split(","));
         }

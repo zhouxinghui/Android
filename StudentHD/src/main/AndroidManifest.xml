@@ -96,6 +96,15 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
             android:screenOrientation="landscape"/>
+
+        <activity android:name=".activity.growth.DiaryDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".activity.growth.DiaryListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>
