@@ -4,13 +4,11 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.io.Serializable;
 
-import ebag.core.util.StringUtils;
-
 /**
  * Created by YZY on 2017/5/6.
  */
 
-public class QuestionBean implements Serializable, MultiItemEntity {
+public class QuestionBean implements Serializable, MultiItemEntity, Cloneable {
     private static final long serialVersionUID = 4978312197081677925L;
 
     private boolean isChoose;
@@ -109,6 +107,8 @@ public class QuestionBean implements Serializable, MultiItemEntity {
     }
 
     public String getTitle() {
+        if (title == null)
+            title = "";
         return title;
     }
 
@@ -117,6 +117,8 @@ public class QuestionBean implements Serializable, MultiItemEntity {
     }
 
     public String getContent() {
+        if (content == null)
+            content = "";
         return content;
     }
 
@@ -182,19 +184,39 @@ public class QuestionBean implements Serializable, MultiItemEntity {
 
     @Override
     public boolean equals(Object obj) {
-        return obj != null && obj instanceof QuestionBean && this.getId() == ((QuestionBean) obj).getId();
+        return obj != null && obj instanceof QuestionBean && this.getId().equals(((QuestionBean) obj).getId());
+    }
+
+    @Override
+    public Object clone(){
+        try {
+            return super.clone();
+        }catch (CloneNotSupportedException e){
+            e.printStackTrace();
+            QuestionBean questionBean = new QuestionBean();
+            questionBean.setChoose(isChoose);
+            questionBean.setId(id);
+            questionBean.setBookUnit(bookUnit);
+            questionBean.setBookCatalog(bookCatalog);
+            questionBean.setLevel(level);
+            questionBean.setType(type);
+            questionBean.setMinType(minType);
+            questionBean.setTitle(title);
+            questionBean.setContent(content);
+            questionBean.setAnswer(answer);
+            questionBean.setStudentAnswer(studentAnswer);
+            questionBean.setItem(item);
+            questionBean.setAnalytical(analytical);
+            questionBean.setIsOpen(isOpen);
+            questionBean.setErrNum(errNum);
+            questionBean.setUsage(usage);
+            questionBean.setAudioUrl(audioUrl);
+            return questionBean;
+        }
     }
 
     @Override
     public int getItemType() {
-        if ("5".equals(type)){
-            if (StringUtils.INSTANCE.isChineseCharacter(content)){
-                return QuestionTypeUtils.QUESTIONS_CN_ORDER_SENTENCE;
-            }else{
-                return QuestionTypeUtils.QUESTIONS_EN_ORDER_SENTENCE;
-            }
-        }else{
-            return QuestionTypeUtils.getIntType(this);
-        }
+        return QuestionTypeUtils.getIntType(this);
     }
 }

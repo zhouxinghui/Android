@@ -207,5 +207,15 @@
         <item name="android:layout_margin">@dimen/x10</item>
         <item name="android:background">@color/gray</item>
     </style>
+    <style name="question_bottom_tv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/title_bar_height</item>
+        <item name="android:textSize">@dimen/tv_sub</item>
+        <item name="android:textColor">@color/assignment_tv</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:paddingStart">@dimen/x20</item>
+        <item name="android:paddingEnd">@dimen/x20</item>
+    </style>
     <!--questions end-->
 </resources>

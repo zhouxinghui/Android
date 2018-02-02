@@ -1,7 +1,10 @@
 package com.yzy.ebag.teacher.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import ebag.core.bean.QuestionBean;
 
 /**
  * Created by YZY on 2018/1/11.
@@ -43,7 +46,7 @@ public class AssignmentBean implements Serializable {
         this.resultAdvertisementVos = resultAdvertisementVos;
     }
 
-    public static class ResultTaughtCoursesVoBean {
+    public static class ResultTaughtCoursesVoBean implements Serializable{
         /**
          * classId : null
          * bookVersionId : 362
@@ -138,7 +141,7 @@ public class AssignmentBean implements Serializable {
             this.semeterName = semeterName;
         }
     }
-    public static class QuestionsBean {
+    public static class QuestionsBean implements Serializable{
         /**
          * adverCode : tk
          * adverName : 填空
@@ -148,6 +151,15 @@ public class AssignmentBean implements Serializable {
         private String adverCode;
         private String adverName;
         private String adverUrl;
+        private ArrayList<QuestionBean> questionList = new ArrayList<>();
+
+        public ArrayList<QuestionBean> getQuestionList() {
+            return questionList;
+        }
+
+        public void setQuestionList(ArrayList<QuestionBean> questionList) {
+            this.questionList = questionList;
+        }
 
         public String getAdverCode() {
             return adverCode;

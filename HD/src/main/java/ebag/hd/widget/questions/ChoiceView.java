@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +31,8 @@ public class ChoiceView extends BaseQuestionView implements OnItemClickListener 
 
     private OptionAdapter optionAdapter;
 
-
+    private GridLayoutManager layoutManager;
+    private boolean isOneLineSet;
     /**
      * 选项
      */
@@ -69,7 +71,7 @@ public class ChoiceView extends BaseQuestionView implements OnItemClickListener 
         //选项
         RecyclerView optionRecycler = new RecyclerView(mContext);
         optionRecycler.setNestedScrollingEnabled(false);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(mContext,2);
+        layoutManager = new GridLayoutManager(mContext,2);
         optionRecycler.setLayoutManager(layoutManager);
         optionAdapter = new OptionAdapter();
         optionRecycler.setAdapter(optionAdapter);
@@ -136,7 +138,11 @@ public class ChoiceView extends BaseQuestionView implements OnItemClickListener 
         //设置选项
         optionAdapter.setDatas(options);
         if (!StringUtils.INSTANCE.isEmpty(studentAnswer))
-            optionAdapter.setSelectedPosition(getChoiceIndex(studentAnswer));
+            if(choiceType == QuestionTypeUtils.QUESTIONS_JUDGE){//判断题
+                optionAdapter.setSelectedPosition(getJudgeIndex(studentAnswer));
+            }else{//选择题
+                optionAdapter.setSelectedPosition(getChoiceIndex(studentAnswer));
+            }
     }
 
     @Override
@@ -233,7 +239,6 @@ public class ChoiceView extends BaseQuestionView implements OnItemClickListener 
 
         @Override
         protected void fillData(RecyclerViewHolder setter, int position, String entity) {
-
             setter.setText(R.id.tvOption,String.valueOf((char)('A'+position)));
             setter.getTextView(R.id.tvOption).setSelected(position == selectedPosition);
             if(rightPosition != -1){
@@ -255,8 +260,9 @@ public class ChoiceView extends BaseQuestionView implements OnItemClickListener 
                 SingleImageLoader.getInstance().setImage(entity,setter.getImageView(R.id.ivOptionContent));
             }else{
                 setter.setGone(R.id.ivOptionContent, true);
+                TextView contentTv = setter.getTextView(R.id.tvOptionContent);
                 setter.setGone(R.id.tvOptionContent, false);
-                setter.setText(R.id.tvOptionContent,entity);
+                contentTv.setText(entity);
             }
         }
     }

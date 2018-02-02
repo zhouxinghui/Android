@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ebag.core.http.image.SingleImageLoader;
@@ -72,7 +73,12 @@ public abstract class BaseQuestionView extends LinearLayout implements IQuestion
     }
 
     public void setTitle(List<String> title){
-        headAdapter.setDatas(title);
+        List<String> newTitle = new ArrayList<>();
+        for (String string: title) {
+            if (!StringUtils.INSTANCE.isEmpty(string))
+                newTitle.add(string);
+        }
+        headAdapter.setDatas(newTitle);
     }
 
     protected abstract void addBody(Context context);

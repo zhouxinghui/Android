@@ -203,6 +203,7 @@ public class ConnectionView extends BaseQuestionView {
 
     @Override
     public void setData(QuestionBean questionBean) {
+        connectionLineView.questionId = questionBean.getId();
         titleList = new ArrayList<>();
         titleList.add(questionBean.getTitle());
         questionContent = questionBean.getContent();
@@ -236,11 +237,11 @@ public class ConnectionView extends BaseQuestionView {
                         String[] answers = answer.split(",");
                         ConnectionBean connectionLeft = null;
                         ConnectionBean connectionRight = null;
-                        for(int i = 0; i < list.size(); i ++) {
+                        for(int i = 0; i < list.size(); i +=2) {
                             if (list.get(i).content.equals(answers[0]))
                                 connectionLeft = list.get(i);
-                            if (list.get(i).content.equals(answers[1]))
-                                connectionRight = list.get(i);
+                            if (list.get(i + 1).content.equals(answers[1]))
+                                connectionRight = list.get(i + 1);
                         }
                         //建立连接
                         if(connectionLeft != null && connectionRight != null){
@@ -251,7 +252,7 @@ public class ConnectionView extends BaseQuestionView {
                     adapter.notifyDataSetChanged();
                 }
             }
-        }, 1000);
+        }, 50);
     }
 
     @Override

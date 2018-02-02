@@ -1,5 +1,6 @@
 package com.yzy.ebag.teacher.ui.activity
 
+import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.TextView
@@ -16,6 +17,7 @@ import com.yzy.ebag.teacher.ui.presenter.AssignmentPresenter
 import com.yzy.ebag.teacher.ui.view.AssignmentView
 import com.yzy.ebag.teacher.widget.ExchangeTextbookDialog
 import ebag.core.base.mvp.MVPActivity
+import ebag.core.bean.QuestionBean
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
@@ -61,6 +63,9 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     private var currentGradeCode = ""
     //因为切换单元和切换版本访问的是同一个接口，但是返回的版本数据是不会因为版本的改变而改变，而是返回固定年级的班级的所教课程，所以切换版本的时候自己本地变版本名称和版本id（服务器人员太懒），所以用一个boolean值控制，当为true的时候接口请求成功的时候就根据返回参数修改版本名称和版本id，为false的时候就手动修改（见showData方法）
     private var isGradeRequest = true
+    private var difficulty: String? = null
+
+    private var previewList = ArrayList<QuestionBean>()
     override fun destroyPresenter() {
         assignmentPresenter.onDestroy()
     }
@@ -98,6 +103,27 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         //单元
         unitRecycler.adapter = unitAdapter
         unitRecycler.layoutManager = LinearLayoutManager(this)
+
+        difficultyGroup.setOnCheckedChangeListener { group, checkedId ->
+            when(checkedId){
+                R.id.unlimitedBtn ->{
+                    difficulty = null
+                }
+                R.id.easyBtn ->{
+                    difficulty = "1"
+                }
+                R.id.secondaryBtn ->{
+                    difficulty = "2"
+                }
+                R.id.hardBtn ->{
+                    difficulty = "3"
+                }
+            }
+        }
+
+        questionAdapter.setOnItemClickListener { holder, view, position ->
+            QuestionActivity.jump(this, questionAdapter.datas[position].questionList, cacheMap[currentGradeCode]!!.currentUnitBean, difficulty, questionAdapter.datas[position].adverCode)
+        }
 
         gradeAdapter.setOnItemClickListener { holder, view, position ->
             gradeAdapter.selectPosition = position
@@ -302,9 +328,14 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         }
     }
     inner class QuestionsAdapter: RecyclerAdapter<AssignmentBean.QuestionsBean>(R.layout.item_assignment_questions){
-        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: AssignmentBean.QuestionsBean?) {
-            setter.setText(R.id.point_id, "14")
-            setter.setText(R.id.question_name_id, entity!!.adverName)
+        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: AssignmentBean.QuestionsBean) {
+            if(entity.questionList.size != 0) {
+                setter.setVisible(R.id.point_id, true)
+                setter.setText(R.id.point_id, entity.questionList.size.toString())
+            }else{
+                setter.setVisible(R.id.point_id, false)
+            }
+            setter.setText(R.id.question_name_id, entity.adverName)
             setter.getImageView(R.id.question_image_id).loadImage(entity.adverUrl)
         }
     }
@@ -354,6 +385,33 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 convertView.tag = workImg[position]
             }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == Constants.QUESTION_REQUEST && resultCode == Constants.QUESTION_RESULT && data != null) {
+            previewList = data.getSerializableExtra("previewList") as ArrayList<QuestionBean>
+            val type = data.getStringExtra("type")
+            cacheMap[currentGradeCode]!!.questionList.forEach {
+                if (it.adverCode == type) {
+                    it.questionList.clear()
+                    it.questionList.addAll(previewList)
+                    return@forEach
+                }
+            }
+            questionAdapter.notifyDataSetChanged()
+        }
+/*
+        if (requestCode == Constants.QUESTION_REQUEST && resultCode == Constants.QUESTION_RESULT && data != null) {
+            previewList = data.getSerializableExtra("previewList") as ArrayList<QuestionBean>
+            cacheMap[currentGradeCode]!!.questionList.forEach {
+                val type = it.adverCode
+                it.questionList.clear()
+                it.questionList.addAll( previewList.filter {it.type == type})
+            }
+            questionAdapter.notifyDataSetChanged()
+        }
+*/
     }
 
     /**
