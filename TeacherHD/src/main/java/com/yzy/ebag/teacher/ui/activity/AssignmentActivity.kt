@@ -166,10 +166,10 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     toast("我的试卷")
                 }
                 testImg[3] -> {//发布小组
-                    toast("发布小组")
+                    PublishWorkActivity.jump(this, true, workCategory == Constants.ASSIGN_TEST_PAPER)
                 }
                 testImg[4] -> {//发布班级
-                    toast("发布班级")
+                    PublishWorkActivity.jump(this, false, workCategory == Constants.ASSIGN_TEST_PAPER)
                 }
                 workImg[0] -> {//智能推送
                     toast("智能推送")
@@ -201,6 +201,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         //预览
         titleBar.setOnTitleBarClickListener(object : TitleBar.OnTitleBarClickListener{
             override fun leftClick() {
+                finish()
             }
             override fun rightClick() {
                 val previewList = ArrayList<QuestionBean>()

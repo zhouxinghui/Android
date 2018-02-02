@@ -119,4 +119,8 @@
     <string name="preview_page">上一页</string>
     <string name="publish">发布</string>
     <!--选题end-->
+    <!--布置作业start-->
+    <string name="dead_time">截止时间：</string>
+    <string name="work_attention">作业注意事项：</string>
+    <!--布置作业end-->
 </resources>
