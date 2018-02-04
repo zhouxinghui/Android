@@ -106,4 +106,10 @@ interface TeacherService {
      */
     @POST("sendHome/sendHome/{version}")
     fun publishHomework(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 查询已经布置的作业列表
+     */
+    @POST("sendHome/searchSendHomeWork/{version}")
+    fun searchPublish(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<CorrectingBean>>>
 }

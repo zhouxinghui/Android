@@ -9,11 +9,14 @@ import android.view.View
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.chad.library.adapter.base.entity.IExpandable
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.base.Constants
+import com.yzy.ebag.teacher.bean.CorrectingBean
+import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.base.BaseFragment
+import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
 import ebag.core.util.L
 import kotlinx.android.synthetic.main.fragment_correcting.*
 
@@ -34,61 +37,76 @@ class CorrectingFragment: BaseFragment() {
     override fun getLayoutRes(): Int {
         return R.layout.fragment_correcting
     }
+    private val request = object : RequestCallBack<List<CorrectingBean>>(){
+        override fun onStart() {
+            stateView.showLoading()
+        }
+        override fun onSuccess(entity: List<CorrectingBean>?) {
+            if (entity == null || entity.isEmpty()){
+                stateView.showEmpty()
+                return
+            }
+            stateView.showContent()
+            mAdapter.setNewData(entity)
+            mAdapter.expand(0)
+            mAdapter.selectSubject = mAdapter.getItem(1) as CorrectingBean.SubjectVosBean
+            //不能用foreach,用了会让你怀疑人生的
+            (0 until entity.size)
+                    .filter {
+                        //必须判断，因为if中100%会有false返回
+                        entity[it] is CorrectingBean
+                    }
+                    .forEach { i ->
+                        entity[i].subjectVos.forEach {
+                            pagerList.add(it)
+                        }
+                    }
+            pagerList.add(entity[0].subjectVos[0])
+            viewPager.adapter = MyPagerAdapter(childFragmentManager, arrayOfNulls(pagerList.size))
+        }
 
+        override fun onError(exception: Throwable) {
+            exception.handleThrowable(mContext)
+            stateView.showError()
+        }
+
+    }
+    private val mAdapter = MyAdapter()
+    private var type = ""
     override fun getBundle(bundle: Bundle?) {
-
+        type = bundle?.getString(Constants.WORK_TYPE)!!
     }
 
     override fun initViews(rootView: View) {
-        val list = ArrayList<MultiItemEntity>()
-        for (i in 0..8){
-            val classesBean = ClassesBean()
-            classesBean.clazzName = "一年级一班"
-            val subList = ArrayList<SubjectBean>()
-            for (j in 0..2){
-                val subjectBean = SubjectBean()
-                subjectBean.subjectName = "语文"
-                subList.add(subjectBean)
-                classesBean.subList = subList
-            }
-            list.add(classesBean)
-        }
-        val mAdapter = MyAdapter(list)
         recyclerView.adapter = mAdapter
         recyclerView.layoutManager = LinearLayoutManager(mContext)
-        mAdapter.expand(0)
-        mAdapter.selectSubject = mAdapter.getItem(1) as SubjectBean
         mAdapter.setOnItemClickListener { adapter, view, position ->
             val item = adapter.getItem(position)
-            if(item is ClassesBean) {
+            if(item is CorrectingBean) {
                 if (item.isExpanded) {
                     adapter.collapse(position)
                 } else {
                     adapter.expand(position)
                 }
             }else{
-                item as SubjectBean
+                item as CorrectingBean.SubjectVosBean
                 mAdapter.selectSubject = item
                 viewPager.setCurrentItem(pagerList.indexOf(item), false)
             }
             L.e("position:  $position" )
         }
-        list.forEach {
-            if (it is ClassesBean)
-                pagerList.addAll(it.subList!!)
-        }
-
-        viewPager.adapter = MyPagerAdapter(childFragmentManager, arrayOfNulls(pagerList.size))
+        TeacherApi.searchPublish(type, request)
+        stateView.setOnRetryClickListener { TeacherApi.searchPublish(type, request) }
     }
 
-    private val pagerList = ArrayList<SubjectBean>()
+    private val pagerList = ArrayList<CorrectingBean.SubjectVosBean>()
 
-    inner class MyAdapter(list: ArrayList<MultiItemEntity>): BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder>(list){
+    inner class MyAdapter: BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder>(null){
         init {
             addItemType(1, R.layout.fragment_correct_classes_item)
             addItemType(2, R.layout.fragment_correct_subject_item)
         }
-        var selectSubject: SubjectBean? = null
+        var selectSubject: CorrectingBean.SubjectVosBean? = null
             set(value) {
                 field = value
                 notifyDataSetChanged()
@@ -97,15 +115,15 @@ class CorrectingFragment: BaseFragment() {
             val tv = helper!!.getView<TextView>(R.id.text)
             val point = helper.getView<View>(R.id.dot)
             when(helper.itemViewType){
-                1 ->{
-                    item as ClassesBean
-                    tv.text = item.clazzName
+                Constants.LEVEL_ONE ->{
+                    item as CorrectingBean
+                    tv.text = item.className
                     tv.isSelected = item.isExpanded
                     point.isSelected = item.isExpanded
                 }
-                2 ->{
-                    item as SubjectBean
-                    tv.text = item.subjectName
+                Constants.LEVEL_TWO ->{
+                    item as CorrectingBean.SubjectVosBean
+                    tv.text = item.subject
                     tv.isSelected = selectSubject == item
                 }
             }
@@ -115,7 +133,9 @@ class CorrectingFragment: BaseFragment() {
     inner class MyPagerAdapter(fragmentManager: FragmentManager, private var fragments: Array<CorrectingSubFragment?>): FragmentPagerAdapter(fragmentManager){
         override fun getItem(position: Int): Fragment {
             if (fragments[position] == null)
-                fragments[position] = CorrectingSubFragment.newInstance()
+                fragments[position] = CorrectingSubFragment.newInstance(
+                        pagerList[position].homeWorkInfoVos as ArrayList<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>,
+                        type)
             return fragments[position]!!
         }
 
@@ -123,38 +143,5 @@ class CorrectingFragment: BaseFragment() {
             return pagerList.size
         }
 
-    }
-
-    inner class ClassesBean: IExpandable<SubjectBean>, MultiItemEntity {
-        override fun getSubItems(): MutableList<SubjectBean> {
-            return subList!!
-        }
-
-        override fun isExpanded(): Boolean {
-            return isExpand
-        }
-
-        override fun setExpanded(expanded: Boolean) {
-            isExpand = expanded
-        }
-
-        override fun getItemType(): Int {
-            return 1
-        }
-
-        override fun getLevel(): Int {
-            return 1
-        }
-        var isExpand = false
-        var subList: ArrayList<SubjectBean>? = null
-        var clazzName: String? = null
-    }
-
-    inner class SubjectBean: MultiItemEntity{
-        override fun getItemType(): Int {
-            return 2
-        }
-
-        var subjectName: String? = null
     }
 }

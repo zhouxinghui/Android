@@ -216,7 +216,7 @@ object TeacherApi {
             jsonObject.put("groupType", "1")
         jsonObject.put("content", content)
         jsonObject.put("type", type)
-//        jsonObject.put("endTime", endTime)
+        jsonObject.put("endTime", endTime)
         jsonObject.put("subCode", subCode)
         jsonObject.put("bookVersionId", bookVersionId)
         val questionArray = JSONArray()
@@ -228,5 +228,14 @@ object TeacherApi {
         }
         jsonObject.put("homeWorkQuestionDtos", questionArray)
         EBagApi.request(teacherService.publishHomework("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 查询已经布置的作业列表
+     */
+    fun searchPublish(type: String, callback: RequestCallBack<List<CorrectingBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("type", type)
+        EBagApi.request(teacherService.searchPublish("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

@@ -6,63 +6,71 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.bean.CorrectingBean
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
 
 /**
  * Created by YZY on 2018/1/13.
  */
-class CorrectingSubFragment: BaseListFragment<String, String>() {
+class CorrectingSubFragment: BaseListFragment<List<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>, CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>() {
 
     companion object {
-        fun newInstance(): CorrectingSubFragment{
+        fun newInstance(list: ArrayList<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>, type: String): CorrectingSubFragment{
             val fragment = CorrectingSubFragment()
             val bundle = Bundle()
+            bundle.putSerializable("list", list)
+            bundle.putSerializable("type", type)
             fragment.arguments = bundle
             return fragment
         }
     }
-
+    private lateinit var list: ArrayList<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>
+    private var type = ""
     override fun getBundle(bundle: Bundle?) {
-
+        list = bundle?.getSerializable("list") as ArrayList<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>
+        type = bundle.getString("type")
     }
 
     override fun loadConfig() {
-        val list = ArrayList<String>()
-        for (i in 0..20){
-            list.add("")
-        }
         withFirstPageData(list)
     }
 
-    override fun requestData(page: Int, requestCallBack: RequestCallBack<String>) {
-
+    override fun requestData(page: Int, requestCallBack: RequestCallBack<List<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>>) {
+        requestCallBack.onSuccess(ArrayList())
     }
 
-    override fun parentToList(isFirstPage: Boolean, parent: String?): List<String>? {
+    override fun parentToList(isFirstPage: Boolean, parent: List<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>?): List<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>? {
         return null
     }
 
-    override fun getAdapter(): BaseQuickAdapter<String, BaseViewHolder> {
+    override fun getAdapter(): BaseQuickAdapter<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean, BaseViewHolder> {
         return MyAdapter()
     }
 
-    override fun getLayoutManager(adapter: BaseQuickAdapter<String, BaseViewHolder>): RecyclerView.LayoutManager? {
+    override fun getLayoutManager(adapter: BaseQuickAdapter<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean, BaseViewHolder>): RecyclerView.LayoutManager? {
         return null
     }
 
-    inner class MyAdapter: BaseQuickAdapter<String, BaseViewHolder>(R.layout.fragment_correct_sub_item){
-        override fun convert(helper: BaseViewHolder, item: String?) {
+    inner class MyAdapter: BaseQuickAdapter<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean, BaseViewHolder>(R.layout.fragment_correct_sub_item){
+        override fun convert(helper: BaseViewHolder, item: CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean) {
             val classNameTv = helper.getView<TextView>(R.id.classNameTv)
             val contentTv = helper.getView<TextView>(R.id.tvContent)
             val completeTv = helper.getView<TextView>(R.id.completeNum)
             val timeTv = helper.getView<TextView>(R.id.tvTime)
             val statusTv = helper.getView<TextView>(R.id.tvStatus)
-            classNameTv.text = "一年级一班"
-            contentTv.text = "内容： 第一单元 看一看"
-            completeTv.text = "完成： 28/28"
-            timeTv.text = "截止时间： 2017-12-25 12:50"
-            statusTv.text = "已检查"
+            classNameTv.text = item.className
+            contentTv.text = item.content
+            completeTv.text = "完成： ${item.homeWorkCompleteCount}/${item.studentCount}"
+            if (type ==  "3")
+                timeTv.text = "考试时间： ${item.endTime}"
+            else
+                timeTv.text = "截止时间： ${item.endTime}"
+            if (item.state == "0")
+                statusTv.text = "待检查"
+            else
+                statusTv.text = "已检查"
+            statusTv.isSelected = item.state != "0"
         }
 
     }
