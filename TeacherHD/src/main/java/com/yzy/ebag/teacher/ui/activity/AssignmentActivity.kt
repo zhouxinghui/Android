@@ -70,6 +70,24 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         assignmentPresenter.onDestroy()
     }
 
+    /**
+     *
+     * 重写此方法，加上setIntent(intent);否则在onResume里面得不到intent
+     * @param intent intent
+     */
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+    }
+    override fun onResume() {
+        super.onResume()
+        val isClearQuestion = intent.getBooleanExtra("clearQuestion", false)
+        if (cacheMap[currentGradeCode] != null && isClearQuestion){
+            cacheMap[currentGradeCode]!!.clearQuestionSelected()
+            questionAdapter.notifyDataSetChanged()
+        }
+    }
+
     override fun initViews() {
         titleBar.setTitle(intent.getStringExtra(Constants.ASSIGN_TITLE))
         //年级
@@ -122,7 +140,17 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         }
 
         questionAdapter.setOnItemClickListener { holder, view, position ->
-            QuestionActivity.jump(this, questionAdapter.datas[position].questionList, cacheMap[currentGradeCode]!!.currentUnitBean, difficulty, questionAdapter.datas[position].adverCode)
+            val unitBean = cacheMap[currentGradeCode]!!.currentUnitBean
+            if (unitBean.id == 0){
+                T.show(this, "请选择单元")
+                return@setOnItemClickListener
+            }
+            QuestionActivity.jump(
+                    this,
+                    questionAdapter.datas[position].questionList,
+                    cacheMap[currentGradeCode]!!.currentUnitBean,
+                    difficulty,
+                    questionAdapter.datas[position].adverCode)
         }
 
         gradeAdapter.setOnItemClickListener { holder, view, position ->
@@ -166,10 +194,18 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     toast("我的试卷")
                 }
                 testImg[3] -> {//发布小组
-                    PublishWorkActivity.jump(this, true, workCategory == Constants.ASSIGN_TEST_PAPER)
+                    if(cacheMap[currentGradeCode]!!.classes.size > 1){
+                        T.show(this, "发布小组不能多选班级")
+                        return@setOnItemClickListener
+                    }
+                    if (!isReadyToAssign())
+                        return@setOnItemClickListener
+                    jumpToPublish(true)
                 }
                 testImg[4] -> {//发布班级
-                    PublishWorkActivity.jump(this, false, workCategory == Constants.ASSIGN_TEST_PAPER)
+                    if (!isReadyToAssign())
+                        return@setOnItemClickListener
+                    jumpToPublish(false)
                 }
                 workImg[0] -> {//智能推送
                     toast("智能推送")
@@ -204,17 +240,36 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 finish()
             }
             override fun rightClick() {
-                val previewList = ArrayList<QuestionBean>()
-                cacheMap[currentGradeCode]!!.questionList.forEach {
-                    previewList.addAll(it.questionList)
+                if(getPreviewList().isEmpty()){
+                    T.show(this@AssignmentActivity, "你还没有选题")
+                    return
                 }
-                PreviewActivity.jump(this@AssignmentActivity, previewList)
+                PreviewActivity.jump(this@AssignmentActivity,
+                        workCategory == Constants.ASSIGN_TEST_PAPER,
+                        cacheMap[currentGradeCode]!!.classes,
+                        cacheMap[currentGradeCode]!!.currentUnitBean,
+                        getPreviewList(),
+                        workCategory,
+                        cacheMap[currentGradeCode]!!.subCode,
+                        cacheMap[currentGradeCode]!!.versionId)
             }
         })
         assignmentPresenter.loadBaseData(workCategory.toString())
         stateView.setOnRetryClickListener {
             assignmentPresenter.loadBaseData(workCategory.toString())
         }
+    }
+    private fun jumpToPublish(isGroup: Boolean){
+        PublishWorkActivity.jump(
+                this,
+                isGroup,
+                workCategory == Constants.ASSIGN_TEST_PAPER,
+                cacheMap[currentGradeCode]!!.classes,
+                cacheMap[currentGradeCode]!!.currentUnitBean,
+                getPreviewList(),
+                workCategory,
+                cacheMap[currentGradeCode]!!.subCode,
+                cacheMap[currentGradeCode]!!.versionId)
     }
 
     override fun loadBaseStart() {
@@ -400,6 +455,26 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         }
     }
 
+    private fun isReadyToAssign(): Boolean{
+        if(cacheMap[currentGradeCode]!!.classes.size == 0){
+            T.show(this, "请选择班级")
+            return false
+        }
+        if (getPreviewList().isEmpty()){
+            T.show(this, "你还没有选题")
+            return false
+        }
+        return true
+    }
+    private fun getPreviewList(): ArrayList<QuestionBean>{
+        val previewList = ArrayList<QuestionBean>()
+        if (cacheMap[currentGradeCode] == null)
+            return previewList
+        cacheMap[currentGradeCode]!!.questionList.forEach {
+            previewList.addAll(it.questionList)
+        }
+        return previewList
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (data == null)
@@ -442,5 +517,8 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         var semesterName = ""
         var subCode = ""
         var subName = ""
+        fun clearQuestionSelected(){
+            questionList.forEach { it.questionList.clear() }
+        }
     }
 }

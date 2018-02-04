@@ -4,8 +4,16 @@ import android.app.Activity
 import android.content.Intent
 import android.view.View
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.bean.AssignClassBean
+import com.yzy.ebag.teacher.bean.AssignUnitBean
+import com.yzy.ebag.teacher.http.TeacherApi
+import com.yzy.ebag.teacher.widget.DialogSelectGroup
 import ebag.core.base.BaseActivity
+import ebag.core.bean.QuestionBean
+import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
 import ebag.core.util.DateUtil
+import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.StringUtils
 import ebag.core.util.T
 import ebag.hd.widget.DatePickerDialog
@@ -17,6 +25,25 @@ class PublishWorkActivity : BaseActivity() {
     override fun getLayoutId(): Int {
         return R.layout.activity_publish_work
     }
+    private val publishRequest = object : RequestCallBack<String>(){
+        override fun onStart() {
+            LoadingDialogUtil.showLoading(this@PublishWorkActivity, "正在发布...")
+        }
+        override fun onSuccess(entity: String?) {
+            LoadingDialogUtil.closeLoadingDialog()
+            T.show(this@PublishWorkActivity, "发布成功")
+            startActivity(
+                    Intent(this@PublishWorkActivity, AssignmentActivity::class.java)
+                            .putExtra("clearQuestion", true)
+            )
+        }
+
+        override fun onError(exception: Throwable) {
+            LoadingDialogUtil.closeLoadingDialog()
+            exception.handleThrowable(this@PublishWorkActivity)
+        }
+
+    }
     private val datePickerDialog by lazy {
         val dialog = DatePickerDialog(this)
         dialog.onConfirmClick = {
@@ -25,12 +52,36 @@ class PublishWorkActivity : BaseActivity() {
         }
         dialog
     }
+    private val selectGroupDialog by lazy {
+        val dialog = DialogSelectGroup(this)
+        dialog.onConfirmClick = {
+            val stringBuilder = StringBuilder("布置小组：")
+            it.forEach { stringBuilder.append("${it.groupName}、") }
+            stringBuilder.deleteCharAt(stringBuilder.lastIndexOf("、"))
+            publishPerson.text = stringBuilder.toString()
+        }
+        dialog
+    }
     private lateinit var deadTime: String
     companion object {
-        fun jump(activity: Activity, isGroup: Boolean, isTest: Boolean){
+        fun jump(activity: Activity,
+                 isGroup: Boolean,
+                 isTest: Boolean,
+                 classes: ArrayList<AssignClassBean>,
+                 unitBean: AssignUnitBean.UnitSubBean,
+                 questionList: ArrayList<QuestionBean>,
+                 workType: Int,
+                 subCode: String,
+                 bookVersionId: String){
             activity.startActivity(Intent(activity, PublishWorkActivity::class.java)
                     .putExtra("isGroup", isGroup)
                     .putExtra("isTest", isTest)
+                    .putExtra("classes", classes)
+                    .putExtra("unitBean", unitBean)
+                    .putExtra("questionList", questionList)
+                    .putExtra("workType", workType)
+                    .putExtra("subCode", subCode)
+                    .putExtra("bookVersionId", bookVersionId)
             )
         }
     }
@@ -38,15 +89,32 @@ class PublishWorkActivity : BaseActivity() {
     override fun initViews() {
         val isGroup = intent.getBooleanExtra("isGroup", false)
         val isTest = intent.getBooleanExtra("isTest", false)
+        val classes = intent.getSerializableExtra("classes") as ArrayList<AssignClassBean>
+        val unitBean = intent.getSerializableExtra("unitBean") as AssignUnitBean.UnitSubBean
+        val questionList = intent.getSerializableExtra("questionList") as ArrayList<QuestionBean>
+        val workType = intent.getIntExtra("workType", 0).toString()
+        val subCode = intent.getStringExtra("subCode")
+        val bookVersionId = intent.getStringExtra("bookVersionId")
         var isCustom = false
         publishTime.text = "布置时间：${DateUtil.getFormatDateTime(Date(System.currentTimeMillis()), "yyyy-M-d")}"
         dateTv.text = DateUtil.getFormatDateTime(Date(System.currentTimeMillis()), "yyyy-M-d")
+        publishContent.text = "发布内容：${unitBean.name} (共${questionList.size}题)"
         if (isGroup){
             titleBar.setTitle("发布小组")
             publishPerson.text = "布置小组：点击选择小组"
+            publishPerson.setOnClickListener {
+                if (classes.isEmpty()){
+                    T.show(this, "未选择班级")
+                    return@setOnClickListener
+                }
+                selectGroupDialog.show(classes[0].classId)
+            }
         }else{
             titleBar.setTitle("发布班级")
-            publishPerson.text = "布置班级："
+            val stringBuilder = StringBuilder("布置班级：")
+            classes.forEach { stringBuilder.append("${it.className}、") }
+            stringBuilder.deleteCharAt(stringBuilder.lastIndexOf("、"))
+            publishPerson.text = stringBuilder.toString()
         }
         if(isTest){
             deadTimeTv.text = "考试时间："
@@ -111,8 +179,14 @@ class PublishWorkActivity : BaseActivity() {
                         return
                     }
                     deadTime = testTimeEdit.text.toString()
+                }else{
+
                 }
-                T.show(this@PublishWorkActivity, "截止时间 : $deadTime")
+                if (classes.isEmpty()){
+                    T.show(this@PublishWorkActivity, "未选择班级")
+                    return
+                }
+                TeacherApi.publishHomework(classes, isGroup, workType, attentionEdit.text.toString(), deadTime, subCode, bookVersionId, questionList, publishRequest)
             }
         })
     }

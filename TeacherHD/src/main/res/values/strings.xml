@@ -122,5 +122,6 @@
     <!--布置作业start-->
     <string name="dead_time">截止时间：</string>
     <string name="work_attention">作业注意事项：</string>
+    <string name="select_group">选择小组</string>
     <!--布置作业end-->
 </resources>

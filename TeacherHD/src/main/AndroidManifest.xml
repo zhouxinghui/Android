@@ -32,7 +32,9 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".ui.activity.AssignmentActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:launchMode="singleTask"
+            />
         <activity
             android:name=".ui.activity.SpaceActivity"
             android:screenOrientation="landscape" />
@@ -70,11 +72,14 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".ui.activity.QuestionActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".ui.activity.PreviewActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.activity.PublishWorkActivity"></activity>
+        <activity android:name=".ui.activity.PublishWorkActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
     </application>
 
 </manifest>

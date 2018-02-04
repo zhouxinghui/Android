@@ -119,7 +119,7 @@
             android:textColor="@color/assignment_tv"
             android:text="@string/work_attention"
             />
-        <EditText
+        <EditText android:id="@+id/attentionEdit"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y200"
             android:padding="@dimen/x15"

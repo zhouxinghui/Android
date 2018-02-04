@@ -5,6 +5,8 @@ import android.content.Intent
 import android.view.View
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.base.Constants
+import com.yzy.ebag.teacher.bean.AssignClassBean
+import com.yzy.ebag.teacher.bean.AssignUnitBean
 import com.yzy.ebag.teacher.ui.fragment.PreviewFragment
 import ebag.core.base.BaseActivity
 import ebag.core.bean.QuestionBean
@@ -25,17 +27,52 @@ class PreviewActivity: BaseActivity() {
     }
     private lateinit var previewList: ArrayList<QuestionBean>
     companion object {
-        fun jump(activity: Activity, previewList: ArrayList<QuestionBean>){
+        fun jump(activity: Activity,
+                 isTest: Boolean,
+                 classes: java.util.ArrayList<AssignClassBean>,
+                 unitBean: AssignUnitBean.UnitSubBean,
+                 previewList: java.util.ArrayList<QuestionBean>,
+                 workType: Int,
+                 subCode: String,
+                 bookVersionId: String){
             activity.startActivityForResult(
                     Intent(activity, PreviewActivity::class.java)
+                            .putExtra("isTest", isTest)
+                            .putExtra("classes", classes)
+                            .putExtra("unitBean", unitBean)
                             .putExtra("previewList", previewList)
+                            .putExtra("workType", workType)
+                            .putExtra("subCode", subCode)
+                            .putExtra("bookVersionId", bookVersionId)
                     , Constants.PREVIEW_REQUEST)
         }
     }
 
     override fun initViews() {
-        previewTv.visibility = View.GONE
+        val isTest = intent.getBooleanExtra("isTest", false)
+        val classes = intent.getSerializableExtra("classes") as java.util.ArrayList<AssignClassBean>
+        val unitBean = intent.getSerializableExtra("unitBean") as AssignUnitBean.UnitSubBean
+        val workType = intent.getIntExtra("workType", 0)
+        val subCode = intent.getStringExtra("subCode")
+        val bookVersionId = intent.getStringExtra("bookVersionId")
         previewList = intent.getSerializableExtra("previewList") as ArrayList<QuestionBean>
+
+        previewTv.text = "发布小组"
+        publishTv.text = "发布班级"
+        previewTv.setOnClickListener {
+            if (classes.isEmpty()){
+                T.show(this, "未选择班级")
+                return@setOnClickListener
+            }
+            PublishWorkActivity.jump(this, true, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId)
+        }
+        publishTv.setOnClickListener {
+            if (classes.isEmpty()){
+                T.show(this, "未选择班级")
+                return@setOnClickListener
+            }
+            PublishWorkActivity.jump(this, false, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId)
+        }
         val fragment = PreviewFragment.newInstance(previewList)
         supportFragmentManager.beginTransaction().replace(R.id.questionLayout, fragment)
                 .commitAllowingStateLoss()

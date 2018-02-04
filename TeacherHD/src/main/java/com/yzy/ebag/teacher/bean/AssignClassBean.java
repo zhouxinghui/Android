@@ -7,15 +7,15 @@ import java.io.Serializable;
  */
 
 public class AssignClassBean implements Serializable {
-    private Object gradeCode;
+    private String gradeCode;
     private String classId;
     private String className;
 
-    public Object getGradeCode() {
+    public String getGradeCode() {
         return gradeCode;
     }
 
-    public void setGradeCode(Object gradeCode) {
+    public void setGradeCode(String gradeCode) {
         this.gradeCode = gradeCode;
     }
 

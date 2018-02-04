@@ -190,4 +190,43 @@ object TeacherApi {
         jsonObject.put("pageSize",10)
         EBagApi.request(teacherService.searchQuestion("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**
+     * 发布作业
+     */
+    fun publishHomework(
+            classes: ArrayList<AssignClassBean>,
+            isGroup: Boolean,
+            type: String,
+            content: String,
+            endTime: String,
+            subCode: String,
+            bookVersionId: String,
+            questionList: ArrayList<QuestionBean>,
+            callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        val classArray = JSONArray()
+        classes.forEach {
+            classArray.put(it.classId)
+        }
+        jsonObject.put("clazzIds", classArray)
+        if (isGroup)
+            jsonObject.put("groupType", "2")
+        else
+            jsonObject.put("groupType", "1")
+        jsonObject.put("content", content)
+        jsonObject.put("type", type)
+//        jsonObject.put("endTime", endTime)
+        jsonObject.put("subCode", subCode)
+        jsonObject.put("bookVersionId", bookVersionId)
+        val questionArray = JSONArray()
+        questionList.forEach {
+            val questionJson = JSONObject()
+            questionJson.put("questionId", it.id)
+            questionJson.put("questionType", it.type)
+            questionArray.put(questionJson)
+        }
+        jsonObject.put("homeWorkQuestionDtos", questionArray)
+        EBagApi.request(teacherService.publishHomework("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

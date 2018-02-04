@@ -100,4 +100,10 @@ interface TeacherService {
      */
     @POST("question/queryQuestion/{version}")
     fun searchQuestion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<QuestionBean>>>
+
+    /**
+     * 发布作业
+     */
+    @POST("sendHome/sendHome/{version}")
+    fun publishHomework(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 }
