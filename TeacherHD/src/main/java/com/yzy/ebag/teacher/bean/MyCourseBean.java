@@ -1,7 +1,5 @@
 package com.yzy.ebag.teacher.bean;
 
-import com.alibaba.fastjson.annotation.JSONField;
-
 import java.io.Serializable;
 
 /**
@@ -9,68 +7,98 @@ import java.io.Serializable;
  */
 
 public class MyCourseBean implements Serializable {
-    public MyCourseBean(String edition, String time, String item, String subject, String classX){
-        this.image = image;
-        this.edition = edition;
-        this.time = time;
-        this.item = item;
-        this.subject = subject;
-        this.classX = classX;
+
+    /**
+     * classId : null
+     * bookVersionId : 19
+     * bookVersionName : 北师大版
+     * bookCode : yy
+     * bookName : 英语
+     * gradeCode : 1
+     * gradeName : 一年级
+     * semeterCode : 1
+     * semeterName : 上学期
+     */
+
+    private String classId;
+    private String bookVersionId;
+    private String bookVersionName;
+    private String bookCode;
+    private String bookName;
+    private String gradeCode;
+    private String gradeName;
+    private String semeterCode;
+    private String semeterName;
+
+    public String getClassId() {
+        return classId;
     }
 
-    private String image = "http://pic32.nipic.com/20130827/12906030_123121414000_2.png";
-    private String edition;
-    private String time;
-    private String item;
-    private String subject;
-    @JSONField(name = "class")
-    private String classX;
-
-    public String getImage() {
-        return image;
+    public void setClassId(String classId) {
+        this.classId = classId;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public String getBookVersionId() {
+        return bookVersionId;
     }
 
-    public String getEdition() {
-        return edition;
+    public void setBookVersionId(String bookVersionId) {
+        this.bookVersionId = bookVersionId;
     }
 
-    public void setEdition(String edition) {
-        this.edition = edition;
+    public String getBookVersionName() {
+        return bookVersionName;
     }
 
-    public String getTime() {
-        return time;
+    public void setBookVersionName(String bookVersionName) {
+        this.bookVersionName = bookVersionName;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public String getBookCode() {
+        return bookCode;
     }
 
-    public String getItem() {
-        return item;
+    public void setBookCode(String bookCode) {
+        this.bookCode = bookCode;
     }
 
-    public void setItem(String item) {
-        this.item = item;
+    public String getBookName() {
+        return bookName;
     }
 
-    public String getSubject() {
-        return subject;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public String getGradeCode() {
+        return gradeCode;
     }
 
-    public String getClassX() {
-        return classX;
+    public void setGradeCode(String gradeCode) {
+        this.gradeCode = gradeCode;
     }
 
-    public void setClassX(String classX) {
-        this.classX = classX;
+    public String getGradeName() {
+        return gradeName;
+    }
+
+    public void setGradeName(String gradeName) {
+        this.gradeName = gradeName;
+    }
+
+    public String getSemeterCode() {
+        return semeterCode;
+    }
+
+    public void setSemeterCode(String semeterCode) {
+        this.semeterCode = semeterCode;
+    }
+
+    public String getSemeterName() {
+        return semeterName;
+    }
+
+    public void setSemeterName(String semeterName) {
+        this.semeterName = semeterName;
     }
 }

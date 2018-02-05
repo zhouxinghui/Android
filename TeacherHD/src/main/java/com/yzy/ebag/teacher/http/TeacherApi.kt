@@ -238,4 +238,34 @@ object TeacherApi {
         jsonObject.put("type", type)
         EBagApi.request(teacherService.searchPublish("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**
+     * 查询所教科目
+     */
+    fun searchCourse(classId: String, callback: RequestCallBack<List<MyCourseBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        EBagApi.request(teacherService.searchCourse("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun addCourse(classId: String,
+                  bookVersionId: String,
+                  bookVersionCode: String,
+                  bookVersionName: String,
+                  bookCode: String,
+                  bookName: String,
+                  semeterCode: String,
+                  semeterName: String,
+                  callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("bookVersionId", bookVersionId)
+        jsonObject.put("bookVersionCode", bookVersionCode)
+        jsonObject.put("bookVersionName", bookVersionName)
+        jsonObject.put("bookCode", bookCode)
+        jsonObject.put("bookName", bookName)
+        jsonObject.put("semeterCode", semeterCode)
+        jsonObject.put("semeterName", semeterName)
+        EBagApi.request(teacherService.addCourse("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

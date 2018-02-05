@@ -59,7 +59,7 @@ class SpaceActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.course ->{
-                startActivity(Intent(this, MyCourseActivity::class.java))
+                MyCourseActivity.jump(this, classId)
             }
             R.id.noticeHistoryBtn ->{
                 NoticeHistoryActivity.jump(this, classId)

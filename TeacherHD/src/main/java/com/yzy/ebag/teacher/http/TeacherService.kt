@@ -112,4 +112,18 @@ interface TeacherService {
      */
     @POST("sendHome/searchSendHomeWork/{version}")
     fun searchPublish(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<CorrectingBean>>>
+
+    /**
+     * 查询所教科目
+     */
+    @POST("clazz/getTaughtCourses/{version}")
+    fun searchCourse(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<MyCourseBean>>>
+
+    /**
+     * 老师添加班级所教科目
+     */
+    @POST("clazz/addTaughtCoruses/{version}")
+    fun addCourse(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+
 }
