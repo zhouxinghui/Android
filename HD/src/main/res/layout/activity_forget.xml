@@ -16,7 +16,7 @@
         android:id="@+id/phoneEdit"
         style="@style/forget_edit_text"
         android:layout_marginTop="@dimen/y120"
-        android:hint="@string/login_hint_phone"
+        android:hint="输入手机号/书包号"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleView"

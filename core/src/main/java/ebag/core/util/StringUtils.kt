@@ -110,14 +110,14 @@ object StringUtils {
      * @return 是否为手机号码格式:是为true，否则false
      */
     fun isMobileNo(str: String): Boolean {
-        return Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$").matcher(str).matches()
+        return Pattern.compile("^((17[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$").matcher(str).matches()
     }
 
     /**
      * 验证密码 数字 字母混合输入 长度在 6--12 之间
      */
     fun isPassword(str: String): Boolean{
-        return Pattern.compile("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$").matcher(str).matches()
+        return Pattern.compile("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$").matcher(str).matches()
     }
 
     /**

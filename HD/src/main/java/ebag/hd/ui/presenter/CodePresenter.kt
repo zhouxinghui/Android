@@ -24,9 +24,9 @@ open class CodePresenter(view: CodeView, listener: OnToastListener): BasePresent
     /**
      * 获取验证码
      */
-    fun getCode(phone: String){
+    fun getCode(ysbCode: String, phone: String){
 
-        if(StringUtils.isMobileNo(phone)) {
+        if(StringUtils.isMobileNo(phone) || ysbCode.length == 7) {
             if(requestRequest == null)
                 requestRequest = createRequest(object: RequestCallBack<String>() {
 
@@ -44,9 +44,9 @@ open class CodePresenter(view: CodeView, listener: OnToastListener): BasePresent
                     }
 
                 })
-            EBagApi.getCode(phone,requestRequest!!)
+            EBagApi.getCode(phone, ysbCode, requestRequest!!)
         } else
-            showToast("手机号码格式输入错误",true)
+            showToast("手机号或书包号输入错误",true)
     }
 
     /**

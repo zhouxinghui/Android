@@ -27,8 +27,8 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
             }else if(account.length == 11 && !StringUtils.isMobileNo(account)){
                 showToast("手机格式输入错误！", true)
                 false
-            }else if(StringUtils.isPassword(pwd)){
-                showToast("请输入6~20位密码", true)
+            }else if(!StringUtils.isPassword(pwd)){
+                showToast("请输入6~20位字母数字混合密码", true)
                 false
             }else {
                 true
@@ -79,8 +79,8 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
                     showToast("验证码长度不正确",true)
                     false
                 }
-                StringUtils.isPassword(pwd) -> {
-                    showToast("请输入数字字母，6~20位密码",true)
+                !StringUtils.isPassword(pwd) -> {
+                    showToast("请输入6~20位字母数字混合密码",true)
                     false
                 }
                 else -> true

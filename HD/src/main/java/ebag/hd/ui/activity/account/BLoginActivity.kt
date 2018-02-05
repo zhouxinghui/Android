@@ -11,6 +11,7 @@ import ebag.core.http.network.MsgException
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.SerializableUtils
+import ebag.core.util.StringUtils
 import ebag.core.util.T
 import ebag.hd.R
 import ebag.hd.base.Constants
@@ -159,7 +160,11 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
         //点击获取注册码
         registerCodeBtn.setOnClickListener {
-            codePresenter.getCode(registerPhone.text.toString())
+            val str = registerPhone.text.toString()
+            if(StringUtils.isMobileNo(str))
+                codePresenter.getCode("",str)
+            else
+                codePresenter.getCode(str,"")
         }
 
         //点击登陆

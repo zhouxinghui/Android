@@ -11,6 +11,7 @@ import ebag.hd.ui.view.ForgetView
  */
 class ForgetPresenter(view: ForgetView, listener: OnToastListener) : BasePresenter<ForgetView>(view,listener) {
 
+
     fun startRequest(phone: String, code: String, pwd: String){
 
     }
