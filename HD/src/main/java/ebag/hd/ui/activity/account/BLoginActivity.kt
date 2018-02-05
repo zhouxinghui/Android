@@ -193,11 +193,7 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
             }
         }
 
-        forgetPwd.setOnClickListener {
-            startActivity(Intent(this,ForgetActivity::class.java))
-        }
-
-
+        forgetPwd.setOnClickListener { forgetClick(it) }
     }
 
     /**切换是登陆或者注册*/
@@ -238,4 +234,6 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
      */
     abstract protected fun getRoleCode(): String
     abstract protected fun getJumpIntent(): Intent
+
+    abstract protected fun forgetClick(view: View)
 }

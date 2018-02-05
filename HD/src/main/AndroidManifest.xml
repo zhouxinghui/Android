@@ -31,7 +31,7 @@
             android:windowSoftInputMode="adjustPan"
             />
 
-        <activity android:name=".ui.activity.account.ForgetActivity"
+        <activity android:name=".ui.activity.account.BForgetActivity"
             android:screenOrientation="landscape"
             android:configChanges="screenSize|keyboardHidden|orientation"/>
     </application>
