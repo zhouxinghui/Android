@@ -5,6 +5,7 @@ import com.yzy.ebag.student.bean.EditionBean
 import com.yzy.ebag.student.bean.SpaceBean
 import com.yzy.ebag.student.bean.SubjectBean
 import ebag.core.bean.ResponseBean
+import ebag.core.bean.TypeQuestionBean
 import ebag.hd.bean.response.UserEntity
 import io.reactivex.Observable
 import okhttp3.RequestBody
@@ -47,4 +48,10 @@ interface StudentService {
      */
     @POST("util/getBookVersionOrUnit/{version}")
     fun getUint(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<EditionBean>>
+
+    /**
+     * 班级
+     */
+    @POST("homeWork/getHomeWorkByQuestion/{version}")
+    fun getQuestions(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<TypeQuestionBean>>>
 }

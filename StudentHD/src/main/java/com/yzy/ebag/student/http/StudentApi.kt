@@ -4,6 +4,7 @@ import com.yzy.ebag.student.bean.ClassesInfoBean
 import com.yzy.ebag.student.bean.EditionBean
 import com.yzy.ebag.student.bean.SpaceBean
 import com.yzy.ebag.student.bean.SubjectBean
+import ebag.core.bean.TypeQuestionBean
 import ebag.core.http.network.RequestCallBack
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
@@ -58,5 +59,11 @@ object StudentApi{
         jsonObject.put("classId", classId)
         jsonObject.put("subCode", subCode)
         EBagApi.request(studentService.getUint("vi", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun getQuestions(questionId: String, callback: RequestCallBack<List<TypeQuestionBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("id", questionId)
+        EBagApi.request(studentService.getQuestions("vi", EBagApi.createBody(jsonObject)), callback)
     }
 }

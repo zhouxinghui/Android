@@ -42,6 +42,25 @@ public class QuestionBean implements Serializable, MultiItemEntity, Cloneable {
     private String usage;
     private String audioUrl;
 
+    private int position;
+    private int parentPosition;
+
+    public int getParentPosition() {
+        return parentPosition;
+    }
+
+    public void setParentPosition(int parentPosition) {
+        this.parentPosition = parentPosition;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
     public String getStudentAnswer() {
         return studentAnswer;
     }
@@ -127,6 +146,8 @@ public class QuestionBean implements Serializable, MultiItemEntity, Cloneable {
     }
 
     public String getAnswer() {
+        if(answer == null)
+            answer = "";
         return answer;
     }
 
@@ -183,8 +204,12 @@ public class QuestionBean implements Serializable, MultiItemEntity, Cloneable {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return obj != null && obj instanceof QuestionBean && this.getId().equals(((QuestionBean) obj).getId());
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        return this.getId() != null && this.getId().equals(((QuestionBean) o).getId());
+
     }
 
     @Override

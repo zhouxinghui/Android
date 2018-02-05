@@ -226,7 +226,7 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
             else
                 addChildWorld(elementSplit[i], elementLayout, i, true, isShowElement);
         }
-        setWrong();
+
         questionActive(active);
     }
 

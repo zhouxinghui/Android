@@ -117,7 +117,7 @@ object StringUtils {
      * 验证密码 数字 字母混合输入 长度在 6--12 之间
      */
     fun isPassword(str: String): Boolean{
-        return Pattern.compile("^(?![0-9]+\$)(?![a-zA-Z]+\$)[0-9A-Za-z]{6,20}\$").matcher(str).matches()
+        return Pattern.compile("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$").matcher(str).matches()
     }
 
     /**

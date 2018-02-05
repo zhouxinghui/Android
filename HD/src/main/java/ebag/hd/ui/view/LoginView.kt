@@ -22,4 +22,11 @@ interface LoginView {
      * 登录失败
      */
     fun onLoginError(t: Throwable)
+
+
+    fun onRegisterStart()
+
+    fun onRegisterSuccess(userEntity: UserEntity?)
+
+    fun onRegisterError(t: Throwable)
 }

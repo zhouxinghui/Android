@@ -161,14 +161,28 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/x18"/>
         </FrameLayout>
-        
-        <EditText
-            android:id="@+id/registerPwd"
-            style="@style/register_edit_text"
-            android:hint="@string/login_hint_pwd"
-            android:drawableLeft="@drawable/login_pwd"
-            android:visibility="gone"
-            android:inputType="textPassword"/>
+
+        <FrameLayout
+            android:id="@+id/registerPwdLayout"
+            style="@style/loginHeight"
+            android:layout_width="match_parent"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/registerPwd"
+                style="@style/register_edit_text"
+                android:hint="@string/login_hint_pwd"
+                android:drawableLeft="@drawable/login_pwd"
+
+                android:inputType="textPassword"/>
+            <ImageView
+                android:id="@+id/registerImageSee"
+                android:layout_width="@dimen/x44"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="0dp"
+                android:src="@drawable/login_see_selector"/>
+        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/registerTip"
@@ -185,6 +199,7 @@
                 android:layout_height="wrap_content"
                 android:button="@drawable/register_agree_check_box"
                 android:text="@string/login_agree_tip"
+                android:checked="true"
                 android:textColor="@color/login_tips"
                 android:textSize="@dimen/x18"
                 android:paddingLeft="@dimen/x15"/>

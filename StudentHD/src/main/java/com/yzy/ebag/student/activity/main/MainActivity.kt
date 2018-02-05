@@ -124,7 +124,7 @@ class MainActivity : MVPActivity(), MainView {
 
         //考试试卷
         tvKSSJ.setOnClickListener{
-            HomeworkActivity.jump(this, "3", classId)
+            HomeworkActivity.jump(this, com.yzy.ebag.student.base.Constants.KSSJ_TYPE, classId)
         }
         //学习课本点击事件
         tvXXKB.setOnClickListener{

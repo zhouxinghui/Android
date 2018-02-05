@@ -7,9 +7,11 @@ import android.view.View
 import android.widget.EditText
 import ebag.core.base.App
 import ebag.core.base.mvp.MVPActivity
+import ebag.core.http.network.MsgException
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.SerializableUtils
+import ebag.core.util.T
 import ebag.hd.R
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
@@ -25,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_login.*
  * Activity 登录&注册
  */
 open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
+
 
     private var isToMain = false
 
@@ -49,9 +52,7 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         LoadingDialogUtil.showLoading(this)
     }
 
-    override fun onCodeStart() {
 
-    }
 
     override fun onLoginSuccess(userEntity: UserEntity) {
         LoadingDialogUtil.closeLoadingDialog()
@@ -70,18 +71,54 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         finish()
     }
 
-    override fun onCodeSuccess(codeEntity: String?) {
-         //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun onLoginError(t: Throwable) {
         LoadingDialogUtil.closeLoadingDialog()
         t.handleThrowable(this)
     }
 
-    override fun onCodeError(t: Throwable) {
-
+    override fun onCodeStart() {
+        LoadingDialogUtil.showLoading(this,"获取验证码中...")
     }
+
+    override fun onCodeSuccess(codeEntity: String?) {
+        T.show(this, "获取验证码成功")
+        LoadingDialogUtil.closeLoadingDialog()
+        codePresenter.startCutDown()
+    }
+
+    override fun onCodeError(t: Throwable) {
+        t.handleThrowable(this)
+        LoadingDialogUtil.closeLoadingDialog()
+    }
+
+    override fun onRegisterStart() {
+        LoadingDialogUtil.showLoading(this,"正在注册中...")
+    }
+
+    override fun onRegisterSuccess(userEntity: UserEntity?) {
+
+        if(userEntity != null){
+            LoadingDialogUtil.closeLoadingDialog()
+            App.modifyToken(userEntity.token)
+            userEntity.roleCode = getRoleCode()
+            SerializableUtils.setSerializable(
+                    if (getRoleCode() == "student")
+                        Constants.STUDENT_USER_ENTITY
+                    else
+                        Constants.TEACHER_USER_ENTITY,
+                    userEntity)
+            startActivity(getJumpIntent())
+            finish()
+        }else{
+            onRegisterError(MsgException("1", "无数据返回"))
+        }
+    }
+
+    override fun onRegisterError(t: Throwable) {
+        LoadingDialogUtil.closeLoadingDialog()
+        t.handleThrowable(this)
+    }
+
 
     override fun enableCodeBtn(enable: Boolean) {
         registerCodeBtn.isEnabled = enable
@@ -147,6 +184,15 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
             }
         }
 
+        registerImageSee.setOnClickListener {
+            it.isSelected = !it.isSelected
+            if(it.isSelected){//可见状态
+                registerPwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            }else{
+                registerPwd.transformationMethod = PasswordTransformationMethod.getInstance()
+            }
+        }
+
         forgetPwd.setOnClickListener {
             startActivity(Intent(this,ForgetActivity::class.java))
         }
@@ -165,7 +211,7 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
             registerAccount.visibility = View.GONE
             registerPhone.visibility = View.GONE
             registerCodeLayout.visibility = View.GONE
-            registerPwd.visibility = View.GONE
+            registerPwdLayout.visibility = View.GONE
             registerTip.visibility = View.GONE
             loginBtn.text = getText(R.string.login_login)
         }else{
@@ -176,7 +222,7 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
             registerAccount.visibility = View.VISIBLE
             registerPhone.visibility = View.VISIBLE
             registerCodeLayout.visibility = View.VISIBLE
-            registerPwd.visibility = View.VISIBLE
+            registerPwdLayout.visibility = View.VISIBLE
             registerTip.visibility = View.VISIBLE
             loginBtn.text = getText(R.string.login_register)
         }

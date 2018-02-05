@@ -8,6 +8,7 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
+import com.yzy.ebag.student.activity.homework.done.DoHomeworkActivity
 import com.yzy.ebag.student.bean.SubjectBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseListFragment
@@ -69,6 +70,11 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
         return null
     }
 
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+
+        DoHomeworkActivity.jump(mContext, (adapter as HomeWorkListAdapter).getItem(position)?.id ?: "", type)
+    }
+
     inner class HomeWorkListAdapter: BaseQuickAdapter<SubjectBean.HomeWorkInfoBean,BaseViewHolder>(R.layout.item_fragment_homework_list){
 
         override fun convert(helper: BaseViewHolder, item: SubjectBean.HomeWorkInfoBean?) {
@@ -77,9 +83,9 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
 //            setter.setText(R.id.tvCount, spannableString)
             val time = DateUtil.getDateTime(item?.endTime ?: 0)
             helper.setText(R.id.tvCount, Html.fromHtml("完成： <font color='#FF7800'>${item?.questionComplete}</font>/${item?.questionCount}"))
-                    .setText(R.id.tvContent,"内容： ${item?.content}")
-                    .setText(R.id.tvRequire,"要求： ${item?.remark}")
-                    .setText(R.id.tvTime,"截止时间： $time")
+                    .setText(R.id.tvContent,"内容： ${item?.content ?: "无"}")
+                    .setText(R.id.tvRequire,"要求： ${item?.remark ?: "无"}")
+                    .setText(R.id.tvTime,"截止时间： ${time ?: "无"}")
                     .setText(R.id.tvStatus,if(item?.questionComplete == item?.questionCount) "已完成" else "未完成")
             helper.getView<View>(R.id.tvStatus).isSelected = item?.questionComplete == item?.questionCount
         }

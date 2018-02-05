@@ -1,10 +1,8 @@
 package ebag.hd.http
 
 import ebag.core.bean.ResponseBean
-import ebag.core.http.baseBean.RequestBean
 import ebag.hd.bean.ChildNodeBean
 import ebag.hd.bean.SchoolBean
-import ebag.hd.bean.request.LoginVo
 import ebag.hd.bean.response.NoticeBean
 import ebag.hd.bean.response.UserEntity
 import io.reactivex.Observable
@@ -44,11 +42,12 @@ interface EBagService {
     fun login(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<UserEntity>>
 
     /**
-     * 注册
+     * 登录
      * @return
      */
-    @POST("services/register")
-    fun register(@Body requestBody: RequestBean<LoginVo>): Observable<ResponseBean<UserEntity>>
+    @Headers("EBag-Special-Url: special/url")
+    @POST("user/register/{version}")
+    fun register(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<UserEntity>>
 
     /**
      *  查询学校

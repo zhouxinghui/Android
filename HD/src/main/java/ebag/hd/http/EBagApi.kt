@@ -100,6 +100,12 @@ object EBagApi {
      * 注册
      */
     fun register(name: String, phone: String, code: String, pwd: String, callback: RequestCallBack<UserEntity>){
+        val jsonObj = JSONObject()
+        jsonObj.put("name",name)
+        jsonObj.put("phone",phone)
+        jsonObj.put("verifyCode",code)
+        jsonObj.put("password",pwd)
+        request(EBagClient.eBagService.register("v1", createBody(jsonObj)), callback)
     }
 
     /**

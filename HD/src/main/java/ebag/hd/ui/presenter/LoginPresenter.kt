@@ -1,6 +1,7 @@
 package ebag.hd.ui.presenter
 import ebag.core.base.mvp.BasePresenter
 import ebag.core.base.mvp.OnToastListener
+import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.L
 import ebag.core.util.StringUtils
@@ -26,7 +27,7 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
             }else if(account.length == 11 && !StringUtils.isMobileNo(account)){
                 showToast("手机格式输入错误！", true)
                 false
-            }else if(pwd.length < 6 || pwd.length > 20){
+            }else if(StringUtils.isPassword(pwd)){
                 showToast("请输入6~20位密码", true)
                 false
             }else {
@@ -50,6 +51,8 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
                         if(entity!= null){
                             getView()?.onLoginSuccess(entity)
                             L.e(entity.token)
+                        }else{
+                            getView()?.onLoginError(MsgException("1","无数据返回，请稍后重试"))
                         }
                     }
 
@@ -77,7 +80,7 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
                     false
                 }
                 StringUtils.isPassword(pwd) -> {
-                    showToast("请输入数字字母混输，6~20位密码",true)
+                    showToast("请输入数字字母，6~20位密码",true)
                     false
                 }
                 else -> true
@@ -92,12 +95,14 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
             if(registerRequest == null)
                 registerRequest = createRequest(object: RequestCallBack<UserEntity>(){
                     override fun onStart() {
+                        getView()?.onRegisterStart()
                     }
                     override fun onSuccess(entity: UserEntity?) {
-
+                        getView()?.onRegisterSuccess(entity)
                     }
 
                     override fun onError(exception: Throwable) {
+                        getView()?.onRegisterError(exception)
                     }
 
                 })

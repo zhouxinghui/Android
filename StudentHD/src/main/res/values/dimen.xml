@@ -5,4 +5,9 @@
     <dimen name="tv_sub">@dimen/x22</dimen>
     <dimen name="tv_second">@dimen/x20</dimen>
     <dimen name="tv_third">@dimen/x18</dimen>
+    <dimen name="question_margin_bottom">@dimen/x20</dimen>
+    <dimen name="question_padding_top">@dimen/x20</dimen>
+    <dimen name="question_padding_bottom">@dimen/x20</dimen>
+    <dimen name="question_padding_left">@dimen/x20</dimen>
+    <dimen name="question_padding_right">@dimen/x20</dimen>
 </resources>
