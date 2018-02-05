@@ -29,7 +29,7 @@ class MyCourseActivity : BaseListActivity<List<MyCourseBean>,MyCourseBean>() {
         list.add(MyCourseBean("人教版", "2010-10-24", "上学期", "生物", "三年级"))
         list.add(MyCourseBean("人教版", "2010-10-24", "上学期", "化学", "三年级"))
         list.add(MyCourseBean("人教版", "2010-10-24", "上学期", "历史", "三年级"))
-        list.add(MyCourseBean("人教版", "2010-10-24", "上学期", "社会", "三年级"))
+        list.add(MyCourseBean("人教版", "2010-10-24", "上学期", "思想品德", "三年级"))
         withFirstPageData(list)
     }
 

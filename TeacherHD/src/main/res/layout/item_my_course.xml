@@ -95,6 +95,8 @@
         android:layout_height="@dimen/x54"
         android:textSize="@dimen/x24"
         android:textColor="#5B626D"
+        android:maxLines="1"
+        android:ellipsize="end"
         tools:text="英语"
         android:drawablePadding="@dimen/x10"
         app:leftDrawable="@drawable/create_class_course"
