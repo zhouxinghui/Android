@@ -11,7 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"
@@ -33,7 +32,9 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".ui.activity.AssignmentActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:launchMode="singleTask"
+            />
         <activity
             android:name=".ui.activity.SpaceActivity"
             android:screenOrientation="landscape" />
@@ -69,13 +70,15 @@
         <activity
             android:name=".ui.activity.StudyGroupActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.activity.QuestionActivity"
+        <activity
+            android:name=".ui.activity.QuestionActivity"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".ui.activity.PreviewActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".ui.activity.PublishWorkActivity"
             android:screenOrientation="landscape"
-            >
-
-        </activity>
-        <activity android:name=".ui.activity.PreviewActivity"
-            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan|stateHidden"
             />
     </application>
 

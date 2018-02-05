@@ -24,6 +24,7 @@ interface EBagService {
      * @return
      */
     @POST("util/sendMessage/{version}")
+    @Headers("EBag-Special-Url: special/url")
     fun getCheckCode(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /**

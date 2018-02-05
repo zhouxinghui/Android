@@ -14,10 +14,24 @@ class CorrectingActivity : BaseActivity() {
     override fun initViews() {
         backBtn.setOnClickListener { finish() }
         changeFragment(0)
+
+        titleGroup.setOnCheckedChangeListener { group, checkedId ->
+            when(checkedId){
+                R.id.clazzWork ->{
+                    changeFragment(0)
+                }
+                R.id.afterWork ->{
+                    changeFragment(1)
+                }
+                R.id.testPaper ->{
+                    changeFragment(2)
+                }
+            }
+        }
     }
 
     private var tempFragment : Fragment? = null
-    private val fragmentArrays = arrayOf(CorrectingFragment.newInstance("0"), CorrectingFragment.newInstance("0"), CorrectingFragment.newInstance("0"))
+    private val fragmentArrays = arrayOf(CorrectingFragment.newInstance("1"), CorrectingFragment.newInstance("2"), CorrectingFragment.newInstance("3"))
     /**
      * 显示指定的Fragment
      *

@@ -624,6 +624,17 @@ public final class DateUtil implements Serializable {
 		return cal.getTime();
 	}
 
+	public static String getDateMillions(String format, String date){
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format, Locale.getDefault());
+		try {
+			long millions = simpleDateFormat.parse(date).getTime();
+			return String.valueOf(millions);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	/**
 	 * 取得给定日期加上一定天数后的日期对象.
 	 * 

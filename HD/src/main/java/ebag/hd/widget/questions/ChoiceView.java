@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import ebag.core.bean.QuestionBean;
-import ebag.core.http.image.SingleImageLoader;
+import ebag.core.util.ImageLoadUtilKt;
 import ebag.core.util.StringUtils;
 import ebag.core.xRecyclerView.adapter.OnItemClickListener;
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
@@ -257,7 +257,7 @@ public class ChoiceView extends BaseQuestionView implements OnItemClickListener 
             if(entity.startsWith("http")){
                 setter.setGone(R.id.ivOptionContent,false);
                 setter.setGone(R.id.tvOptionContent, true);
-                SingleImageLoader.getInstance().setImage(entity,setter.getImageView(R.id.ivOptionContent));
+                ImageLoadUtilKt.loadImage(setter.getImageView(R.id.ivOptionContent), entity);
             }else{
                 setter.setGone(R.id.ivOptionContent, true);
                 TextView contentTv = setter.getTextView(R.id.tvOptionContent);
