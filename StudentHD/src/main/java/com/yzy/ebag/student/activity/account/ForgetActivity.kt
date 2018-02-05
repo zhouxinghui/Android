@@ -11,6 +11,7 @@ class ForgetActivity : BForgetActivity(){
 
     override fun resetSuccess() {
         startActivity(
+
                 Intent(this, LoginActivity::class.java)
                         .putExtra(Constants.KEY_TO_MAIN, true)
         )
