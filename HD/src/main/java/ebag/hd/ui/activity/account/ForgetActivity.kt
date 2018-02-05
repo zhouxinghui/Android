@@ -5,7 +5,6 @@ import android.text.method.PasswordTransformationMethod
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
-import ebag.core.util.StringUtils
 import ebag.core.util.T
 import ebag.hd.R
 import ebag.hd.dialog.UpdateDialog
@@ -108,15 +107,13 @@ open class ForgetActivity : MVPActivity(), CodeView, ForgetView {
 
         //获取验证码事件
         codeBtn.setOnClickListener {
-            val str = phoneEdit.text.toString()
-            if(StringUtils.isMobileNo(str))
-                cPresenter.getCode("",str)
-            else
-                cPresenter.getCode(str,"")
+            cPresenter.getCode(phoneEdit.text.toString())
         }
 
         //点击完成事件
-        completeBtn.setOnClickListener { fPresenter.startRequest(phoneEdit.text.toString(),codeEdit.text.toString(),pwdEdit.text.toString()) }
+        completeBtn.setOnClickListener {
+            fPresenter.startRequest(phoneEdit.text.toString(),codeEdit.text.toString(),pwdEdit.text.toString())
+        }
     }
 
 }

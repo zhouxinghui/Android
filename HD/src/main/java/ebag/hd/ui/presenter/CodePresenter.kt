@@ -24,29 +24,40 @@ open class CodePresenter(view: CodeView, listener: OnToastListener): BasePresent
     /**
      * 获取验证码
      */
-    fun getCode(ysbCode: String, phone: String){
+    fun getCode(account: String){
 
-        if(StringUtils.isMobileNo(phone) || ysbCode.length == 7) {
-            if(requestRequest == null)
-                requestRequest = createRequest(object: RequestCallBack<String>() {
+        var phone = ""
+        var ysbCode = ""
 
-                    override fun onStart() {
-                        getView()?.onCodeStart()
-                    }
+        if(StringUtils.isMobileNo(account)){
+            phone = account
+        }else{
+            ysbCode = account
+        }
 
-                    override fun onSuccess(entity: String?) {
-                        startCutDown()
-                        getView()?.onCodeSuccess(entity)
-                    }
+        if(ysbCode.length != 7){
+            showToast("请输入正确的手机号或书包号",true)
+            return
+        }
 
-                    override fun onError(exception: Throwable) {
-                        getView()?.onCodeError(exception)
-                    }
+        if(requestRequest == null)
+            requestRequest = createRequest(object: RequestCallBack<String>() {
 
-                })
-            EBagApi.getCode(phone, ysbCode, requestRequest!!)
-        } else
-            showToast("手机号或书包号输入错误",true)
+                override fun onStart() {
+                    getView()?.onCodeStart()
+                }
+
+                override fun onSuccess(entity: String?) {
+                    startCutDown()
+                    getView()?.onCodeSuccess(entity)
+                }
+
+                override fun onError(exception: Throwable) {
+                    getView()?.onCodeError(exception)
+                }
+
+            })
+        EBagApi.getCode(phone, ysbCode, requestRequest!!)
     }
 
     /**
