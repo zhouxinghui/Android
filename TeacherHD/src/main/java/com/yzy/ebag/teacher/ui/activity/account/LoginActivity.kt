@@ -8,6 +8,7 @@ import ebag.hd.ui.activity.account.BLoginActivity
 
 class LoginActivity : BLoginActivity() {
     override fun forgetClick(view: View) {
+        startActivity(Intent(this, ForgetActivity::class.java))
     }
 
     override fun initViews() {
