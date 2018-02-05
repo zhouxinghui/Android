@@ -29,4 +29,10 @@ interface LoginView {
     fun onRegisterSuccess(userEntity: UserEntity?)
 
     fun onRegisterError(t: Throwable)
+
+    fun onCheckStart()
+
+    fun onCheckSuccess(string: String?)
+
+    fun onCheckError(t: Throwable)
 }

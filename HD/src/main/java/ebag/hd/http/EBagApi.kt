@@ -117,6 +117,12 @@ object EBagApi {
         request(EBagClient.eBagService.resetPassword("v1", createBody(jsonObj)), callback)
     }
 
+    fun checkUserExist(phone: String, callback: RequestCallBack<String>){
+        val jsonObj = JSONObject()
+        jsonObj.put("loginAccount",phone)
+        request(EBagClient.eBagService.checkUserExist("v1", createBody(jsonObj)), callback)
+    }
+
     /**
      * 获取验证码
      */

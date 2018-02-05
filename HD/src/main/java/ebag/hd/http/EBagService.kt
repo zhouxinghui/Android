@@ -55,6 +55,13 @@ interface EBagService {
      */
     @Headers("EBag-Special-Url: special/url")
     @POST("user/updatePwdByPhone/{version}")
+    fun checkUserExist(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 重置密码
+     */
+    @Headers("EBag-Special-Url: special/url")
+    @POST("user/updatePwdByPhone/{version}")
     fun resetPassword(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /**

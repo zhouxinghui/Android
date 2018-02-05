@@ -6,7 +6,8 @@ package com.yzy.ebag.student.base;
 
 public class Constants {
 
-    public static final String KHZY_TYPE = "1";
-    public static final String STZY_TYPE = "2";
-    public static final String KSSJ_TYPE = "3";
+    public static final String STZY_TYPE = "1";
+    public static final String KHZY_TYPE = "2";
+    public static final String PARENT_TYPE = "3";
+    public static final String KSSJ_TYPE = "4";
 }

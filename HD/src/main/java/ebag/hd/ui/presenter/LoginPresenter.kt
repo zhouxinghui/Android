@@ -35,6 +35,7 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
             }
 
     private var loginRequest: RequestCallBack<UserEntity>? = null
+    private var checkRequest: RequestCallBack<String>? = null
     private var registerRequest: RequestCallBack<UserEntity>? = null
     /**
      * 登录
@@ -109,5 +110,25 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
             EBagApi.register(name,phone,code,pwd,registerRequest!!)
         }
 
+    }
+
+    fun checkExist(phone: String){
+        if(StringUtils.isMobileNo(phone)) {
+            if (checkRequest == null)
+                checkRequest = createRequest(object : RequestCallBack<String>(){
+                    override fun onStart() {
+                        getView()?.onCheckStart()
+                    }
+                    override fun onSuccess(entity: String?) {
+                        getView()?.onCheckSuccess(entity)
+                    }
+
+                    override fun onError(exception: Throwable) {
+                        getView()?.onRegisterError(exception)
+                    }
+                })
+            EBagApi.checkUserExist(phone, checkRequest!!)
+        } else
+            showToast("手机号码格式不正确",true)
     }
 }

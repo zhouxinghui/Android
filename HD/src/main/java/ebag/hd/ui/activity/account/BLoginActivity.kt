@@ -26,8 +26,7 @@ import kotlinx.android.synthetic.main.activity_login.*
  * Created by caoyu on 2017/11/2.
  * Activity 登录&注册
  */
-open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
-
+abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
     private var isToMain = false
 
@@ -76,8 +75,21 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         t.handleThrowable(this)
     }
 
-    override fun onCodeStart() {
+    override fun onCheckStart() {
         LoadingDialogUtil.showLoading(this,"获取验证码中...")
+    }
+
+    override fun onCheckSuccess(string: String?) {
+        codePresenter.getCode(registerPhone.text.toString())
+    }
+
+    override fun onCheckError(t: Throwable) {
+        t.handleThrowable(this)
+        LoadingDialogUtil.closeLoadingDialog()
+    }
+
+    override fun onCodeStart() {
+
     }
 
     override fun onCodeSuccess(codeEntity: String?) {
@@ -159,7 +171,7 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
         //点击获取注册码
         registerCodeBtn.setOnClickListener {
-            codePresenter.getCode(registerPhone.text.toString())
+            loginPresenter.checkExist(registerPhone.text.toString())
         }
 
         //点击登陆
