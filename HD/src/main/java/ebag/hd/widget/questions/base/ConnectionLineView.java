@@ -149,7 +149,7 @@ public class ConnectionLineView extends View {
                 drawLine(list.get(i), canvas);
             }
         }
-        canvas.restore();
+//        canvas.restore();
     }
 
     /**

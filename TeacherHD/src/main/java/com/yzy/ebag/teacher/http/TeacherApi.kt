@@ -196,6 +196,7 @@ object TeacherApi {
      */
     fun publishHomework(
             classes: ArrayList<AssignClassBean>,
+            groupIds: ArrayList<String>? = null,
             isGroup: Boolean,
             type: String,
             content: String,
@@ -208,6 +209,11 @@ object TeacherApi {
         val classArray = JSONArray()
         classes.forEach {
             classArray.put(it.classId)
+        }
+        if (groupIds != null){
+            val groupArray = JSONArray()
+            groupIds.forEach { groupArray.put(it) }
+            jsonObject.put("groupIds", groupArray)
         }
         jsonObject.put("clazzIds", classArray)
         if (isGroup)

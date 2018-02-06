@@ -20,6 +20,7 @@ import ebag.hd.widget.DatePickerDialog
 import ebag.hd.widget.TitleBar
 import kotlinx.android.synthetic.main.activity_publish_work.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class PublishWorkActivity : BaseActivity() {
     override fun getLayoutId(): Int {
@@ -56,13 +57,18 @@ class PublishWorkActivity : BaseActivity() {
         val dialog = DialogSelectGroup(this)
         dialog.onConfirmClick = {
             val stringBuilder = StringBuilder("布置小组：")
-            it.forEach { stringBuilder.append("${it.groupName}、") }
+            groupIds = ArrayList()
+            it.forEach {
+                stringBuilder.append("${it.groupName}、")
+                groupIds!!.add(it.groupId)
+            }
             stringBuilder.deleteCharAt(stringBuilder.lastIndexOf("、"))
             publishPerson.text = stringBuilder.toString()
         }
         dialog
     }
     private lateinit var deadTime: String
+    private var groupIds: ArrayList<String>? = null
     companion object {
         fun jump(activity: Activity,
                  isGroup: Boolean,
@@ -186,7 +192,14 @@ class PublishWorkActivity : BaseActivity() {
                     T.show(this@PublishWorkActivity, "未选择班级")
                     return
                 }
-                TeacherApi.publishHomework(classes, isGroup, workType, attentionEdit.text.toString(), deadTime, subCode, bookVersionId, questionList, publishRequest)
+                if (isGroup && (groupIds == null || groupIds!!.isEmpty())){
+                    T.show(this@PublishWorkActivity, "请选择小组")
+                    return
+                }else if (isGroup){
+                    TeacherApi.publishHomework(classes, groupIds, isGroup, workType, attentionEdit.text.toString(), deadTime, subCode, bookVersionId, questionList, publishRequest)
+                }else{
+                    TeacherApi.publishHomework(classes,null, isGroup, workType, attentionEdit.text.toString(), deadTime, subCode, bookVersionId, questionList, publishRequest)
+                }
             }
         })
     }
