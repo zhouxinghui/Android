@@ -32,7 +32,9 @@ interface CodeView {
 
     fun onCheckStart()
 
-    fun onCheckSuccess(string: String?)
+    fun onUserIsExist(string: String?)
+
+    fun onUserNotExist(string: String?)
 
     fun onCheckError(t: Throwable)
 

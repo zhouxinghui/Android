@@ -11,6 +11,7 @@ import ebag.core.http.network.MsgException
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.SerializableUtils
+import ebag.core.util.T
 import ebag.hd.R
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
@@ -79,7 +80,12 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         LoadingDialogUtil.showLoading(this,"获取验证码中...")
     }
 
-    override fun onCheckSuccess(string: String?) {
+    override fun onUserIsExist(string: String?) {
+        LoadingDialogUtil.closeLoadingDialog()
+        T.show(this, string ?: "用户已注册")
+    }
+
+    override fun onUserNotExist(string: String?) {
         codePresenter.getCode(registerPhone.text.toString())
     }
 

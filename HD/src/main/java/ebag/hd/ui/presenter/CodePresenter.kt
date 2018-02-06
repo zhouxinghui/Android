@@ -2,6 +2,7 @@ package ebag.hd.ui.presenter
 
 import ebag.core.base.mvp.BasePresenter
 import ebag.core.base.mvp.OnToastListener
+import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.L
 import ebag.core.util.StringUtils
@@ -92,11 +93,15 @@ open class CodePresenter(view: CodeView, listener: OnToastListener): BasePresent
                         getView()?.onCheckStart()
                     }
                     override fun onSuccess(entity: String?) {
-                        getView()?.onCheckSuccess(entity)
+                        getView()?.onUserNotExist(entity)
                     }
 
                     override fun onError(exception: Throwable) {
-                        getView()?.onCheckError(exception)
+                        //用户已注册
+                        if(exception is MsgException && exception.code == "1001")
+                            getView()?.onUserIsExist(exception.message)
+                        else
+                            getView()?.onCheckError(exception)
                     }
                 })
             EBagApi.checkUserExist(phone, checkRequest!!)

@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_forget.*
  * Created by caoyu on 2017/11/13.
  * activity 忘记密码
  */
- abstract class BForgetActivity : MVPActivity(), CodeView, ForgetView {
+abstract class BForgetActivity : MVPActivity(), CodeView, ForgetView {
 
     private val fPresenterDelegate = lazy{ ForgetPresenter(this,this) }
     private val fPresenter: ForgetPresenter by fPresenterDelegate
@@ -55,8 +55,13 @@ import kotlinx.android.synthetic.main.activity_forget.*
         LoadingDialogUtil.showLoading(this,"检测账号是否存在...")
     }
 
-    override fun onCheckSuccess(string: String?) {
+    override fun onUserIsExist(string: String?) {
         cPresenter.getCode(phoneEdit.text.toString())
+    }
+
+    override fun onUserNotExist(string: String?) {
+        T.show(this, string ?: "用户已注册")
+        LoadingDialogUtil.closeLoadingDialog()
     }
 
     override fun onCheckError(t: Throwable) {
