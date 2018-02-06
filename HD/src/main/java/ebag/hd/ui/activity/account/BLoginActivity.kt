@@ -11,10 +11,10 @@ import ebag.core.http.network.MsgException
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.SerializableUtils
-import ebag.core.util.T
 import ebag.hd.R
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
+import ebag.hd.dialog.MsgDialogFragment
 import ebag.hd.ui.presenter.CodePresenter
 import ebag.hd.ui.presenter.LoginPresenter
 import ebag.hd.ui.view.CodeView
@@ -91,12 +91,14 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
     override fun onCodeStart() {
 
     }
-
+    val msgDialogFragment by lazy { MsgDialogFragment() }
     override fun onCodeSuccess(codeEntity: String?) {
-        T.show(this, "获取验证码成功")
+        msgDialogFragment.show(null,"$codeEntity","知道了", null, supportFragmentManager)
         LoadingDialogUtil.closeLoadingDialog()
         codePresenter.startCutDown()
     }
+
+
 
     override fun onCodeError(t: Throwable) {
         t.handleThrowable(this)
@@ -171,7 +173,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
         //点击获取注册码
         registerCodeBtn.setOnClickListener {
-            loginPresenter.checkExist(registerPhone.text.toString())
+            codePresenter.checkExist(registerPhone.text.toString())
         }
 
         //点击登陆

@@ -30,4 +30,10 @@ interface CodeView {
      */
     fun codeBtnText(text: String)
 
+    fun onCheckStart()
+
+    fun onCheckSuccess(string: String?)
+
+    fun onCheckError(t: Throwable)
+
 }

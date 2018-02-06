@@ -5,6 +5,7 @@ import android.text.method.PasswordTransformationMethod
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
+import ebag.core.util.StringUtils
 import ebag.core.util.T
 import ebag.hd.R
 import ebag.hd.dialog.UpdateDialog
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_forget.*
  * Created by caoyu on 2017/11/13.
  * activity 忘记密码
  */
-abstract class BForgetActivity : MVPActivity(), CodeView, ForgetView {
+ abstract class BForgetActivity : MVPActivity(), CodeView, ForgetView {
 
     private val fPresenterDelegate = lazy{ ForgetPresenter(this,this) }
     private val fPresenter: ForgetPresenter by fPresenterDelegate
@@ -48,6 +49,19 @@ abstract class BForgetActivity : MVPActivity(), CodeView, ForgetView {
     override fun onForgetError(t: Throwable) {
         LoadingDialogUtil.closeLoadingDialog()
         t.handleThrowable(this)
+    }
+
+    override fun onCheckStart() {
+        LoadingDialogUtil.showLoading(this,"检测账号是否存在...")
+    }
+
+    override fun onCheckSuccess(string: String?) {
+        cPresenter.getCode(phoneEdit.text.toString())
+    }
+
+    override fun onCheckError(t: Throwable) {
+        t.handleThrowable(this)
+        LoadingDialogUtil.closeLoadingDialog()
     }
 
     /**
@@ -111,7 +125,14 @@ abstract class BForgetActivity : MVPActivity(), CodeView, ForgetView {
 
         //获取验证码事件
         codeBtn.setOnClickListener {
-            cPresenter.getCode(phoneEdit.text.toString())
+            val account = phoneEdit.text.toString()
+            if(account.length == 11 && StringUtils.isMobileNo(account)){//手机号
+                cPresenter.checkExist(account)
+            }else if(account.length == 7){//书包号  直接获取验证码
+                cPresenter.getCode(account)
+            }else{
+                T.show(this,"请输入正确的账号")
+            }
         }
 
         //点击完成事件

@@ -20,7 +20,7 @@ open class CodePresenter(view: CodeView, listener: OnToastListener): BasePresent
 
     private var codeDisposable: Disposable? = null
     private var requestRequest: RequestCallBack<String>? = null
-
+    private var checkRequest: RequestCallBack<String>? = null
     /**
      * 获取验证码
      */
@@ -84,12 +84,23 @@ open class CodePresenter(view: CodeView, listener: OnToastListener): BasePresent
                 }.subscribe()
     }
 
-    override fun onDestroy() {
-        if(codeDisposable?.isDisposed == false)
-            codeDisposable?.dispose()
+    fun checkExist(phone: String){
+        if(StringUtils.isMobileNo(phone)) {
+            if (checkRequest == null)
+                checkRequest = createRequest(object : RequestCallBack<String>(){
+                    override fun onStart() {
+                        getView()?.onCheckStart()
+                    }
+                    override fun onSuccess(entity: String?) {
+                        getView()?.onCheckSuccess(entity)
+                    }
 
-        requestRequest?.cancelRequest()
-
-        super.onDestroy()
+                    override fun onError(exception: Throwable) {
+                        getView()?.onCheckError(exception)
+                    }
+                })
+            EBagApi.checkUserExist(phone, checkRequest!!)
+        } else
+            showToast("手机号码格式不正确",true)
     }
 }
