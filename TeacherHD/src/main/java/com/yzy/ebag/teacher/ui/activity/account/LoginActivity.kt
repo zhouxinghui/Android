@@ -1,11 +1,16 @@
 package com.yzy.ebag.teacher.ui.activity.account
 
 import android.content.Intent
+import android.view.View
 import com.yzy.ebag.teacher.MainActivity
 import com.yzy.ebag.teacher.R
 import ebag.hd.ui.activity.account.BLoginActivity
 
 class LoginActivity : BLoginActivity() {
+    override fun forgetClick(view: View) {
+        startActivity(Intent(this, ForgetActivity::class.java))
+    }
+
     override fun initViews() {
         super.initViews()
         loginEdit.setText("1000734")

@@ -45,6 +45,11 @@
 
         </activity>
         <activity android:name=".activity.account.LoginActivity"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".activity.account.ForgetActivity"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
             android:screenOrientation="landscape"
             />
         <activity android:name=".activity.tools.ToolsActivity"

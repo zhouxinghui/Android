@@ -2,6 +2,7 @@ package ebag.hd.ui.presenter
 
 import ebag.core.base.mvp.BasePresenter
 import ebag.core.base.mvp.OnToastListener
+import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.L
 import ebag.core.util.StringUtils
@@ -20,33 +21,43 @@ open class CodePresenter(view: CodeView, listener: OnToastListener): BasePresent
 
     private var codeDisposable: Disposable? = null
     private var requestRequest: RequestCallBack<String>? = null
-
+    private var checkRequest: RequestCallBack<String>? = null
     /**
      * 获取验证码
      */
-    fun getCode(phone: String){
+    fun getCode(account: String){
 
-        if(StringUtils.isMobileNo(phone)) {
-            if(requestRequest == null)
-                requestRequest = createRequest(object: RequestCallBack<String>() {
+        var phone = ""
+        var ysbCode = ""
 
-                    override fun onStart() {
-                        getView()?.onCodeStart()
-                    }
+        if(StringUtils.isMobileNo(account)){
+            phone = account
+        }else{
+            ysbCode = account
+            if(ysbCode.length != 7){
+                showToast("请输入正确的手机号或书包号",true)
+                return
+            }
+        }
 
-                    override fun onSuccess(entity: String?) {
-                        startCutDown()
-                        getView()?.onCodeSuccess(entity)
-                    }
+        if(requestRequest == null)
+            requestRequest = createRequest(object: RequestCallBack<String>() {
 
-                    override fun onError(exception: Throwable) {
-                        getView()?.onCodeError(exception)
-                    }
+                override fun onStart() {
+                    getView()?.onCodeStart()
+                }
 
-                })
-            EBagApi.getCode(phone,requestRequest!!)
-        } else
-            showToast("手机号码格式输入错误",true)
+                override fun onSuccess(entity: String?) {
+                    startCutDown()
+                    getView()?.onCodeSuccess(entity)
+                }
+
+                override fun onError(exception: Throwable) {
+                    getView()?.onCodeError(exception)
+                }
+
+            })
+        EBagApi.getCode(phone, ysbCode, requestRequest!!)
     }
 
     /**
@@ -74,12 +85,27 @@ open class CodePresenter(view: CodeView, listener: OnToastListener): BasePresent
                 }.subscribe()
     }
 
-    override fun onDestroy() {
-        if(codeDisposable?.isDisposed == false)
-            codeDisposable?.dispose()
+    fun checkExist(phone: String){
+        if(StringUtils.isMobileNo(phone)) {
+            if (checkRequest == null)
+                checkRequest = createRequest(object : RequestCallBack<String>(){
+                    override fun onStart() {
+                        getView()?.onCheckStart()
+                    }
+                    override fun onSuccess(entity: String?) {
+                        getView()?.onUserNotExist(entity)
+                    }
 
-        requestRequest?.cancelRequest()
-
-        super.onDestroy()
+                    override fun onError(exception: Throwable) {
+                        //用户已注册
+                        if(exception is MsgException && exception.code == "1001")
+                            getView()?.onUserIsExist(exception.message)
+                        else
+                            getView()?.onCheckError(exception)
+                    }
+                })
+            EBagApi.checkUserExist(phone, checkRequest!!)
+        } else
+            showToast("手机号码格式不正确",true)
     }
 }

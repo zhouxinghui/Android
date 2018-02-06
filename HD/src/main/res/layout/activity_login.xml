@@ -164,7 +164,7 @@
 
         <FrameLayout
             android:id="@+id/registerPwdLayout"
-            style="@style/loginHeight"
+            style="@style/registerHeight"
             android:layout_width="match_parent"
             android:visibility="gone">
 

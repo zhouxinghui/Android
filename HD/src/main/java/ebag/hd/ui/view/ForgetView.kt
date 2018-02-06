@@ -6,7 +6,7 @@ package ebag.hd.ui.view
 interface ForgetView {
     fun onForgetStart()
 
-    fun onForgetSuccess()
+    fun onForgetSuccess(entity: String?)
 
     fun onForgetError(t: Throwable)
 }

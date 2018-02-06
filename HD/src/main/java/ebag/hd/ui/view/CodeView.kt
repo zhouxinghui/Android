@@ -30,4 +30,12 @@ interface CodeView {
      */
     fun codeBtnText(text: String)
 
+    fun onCheckStart()
+
+    fun onUserIsExist(string: String?)
+
+    fun onUserNotExist(string: String?)
+
+    fun onCheckError(t: Throwable)
+
 }

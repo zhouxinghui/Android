@@ -15,6 +15,7 @@ import ebag.core.util.T
 import ebag.hd.R
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
+import ebag.hd.dialog.MsgDialogFragment
 import ebag.hd.ui.presenter.CodePresenter
 import ebag.hd.ui.presenter.LoginPresenter
 import ebag.hd.ui.view.CodeView
@@ -26,8 +27,7 @@ import kotlinx.android.synthetic.main.activity_login.*
  * Created by caoyu on 2017/11/2.
  * Activity 登录&注册
  */
-open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
-
+abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
     private var isToMain = false
 
@@ -76,15 +76,35 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         t.handleThrowable(this)
     }
 
-    override fun onCodeStart() {
+    override fun onCheckStart() {
         LoadingDialogUtil.showLoading(this,"获取验证码中...")
     }
 
+    override fun onUserIsExist(string: String?) {
+        LoadingDialogUtil.closeLoadingDialog()
+        T.show(this, string ?: "用户已注册")
+    }
+
+    override fun onUserNotExist(string: String?) {
+        codePresenter.getCode(registerPhone.text.toString())
+    }
+
+    override fun onCheckError(t: Throwable) {
+        t.handleThrowable(this)
+        LoadingDialogUtil.closeLoadingDialog()
+    }
+
+    override fun onCodeStart() {
+
+    }
+    val msgDialogFragment by lazy { MsgDialogFragment() }
     override fun onCodeSuccess(codeEntity: String?) {
-        T.show(this, "获取验证码成功")
+        msgDialogFragment.show(null,"$codeEntity","知道了", null, supportFragmentManager)
         LoadingDialogUtil.closeLoadingDialog()
         codePresenter.startCutDown()
     }
+
+
 
     override fun onCodeError(t: Throwable) {
         t.handleThrowable(this)
@@ -159,7 +179,7 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
         //点击获取注册码
         registerCodeBtn.setOnClickListener {
-            codePresenter.getCode(registerPhone.text.toString())
+            codePresenter.checkExist(registerPhone.text.toString())
         }
 
         //点击登陆
@@ -193,11 +213,7 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
             }
         }
 
-        forgetPwd.setOnClickListener {
-            startActivity(Intent(this,ForgetActivity::class.java))
-        }
-
-
+        forgetPwd.setOnClickListener { forgetClick(it) }
     }
 
     /**切换是登陆或者注册*/
@@ -238,4 +254,6 @@ open abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
      */
     abstract protected fun getRoleCode(): String
     abstract protected fun getJumpIntent(): Intent
+
+    abstract protected fun forgetClick(view: View)
 }

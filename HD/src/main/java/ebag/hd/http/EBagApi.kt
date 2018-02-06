@@ -87,11 +87,11 @@ object EBagApi {
     /**
      * 登录
      */
-    fun login(account: String, pwd: String, roleCode: String, callback: RequestCallBack<UserEntity>){
+    fun login(account: String, pwd: String, loginType: Int, roleCode: String, callback: RequestCallBack<UserEntity>){
         val jsonObj = JSONObject()
         jsonObj.put("loginAccount",account)
         jsonObj.put("password",pwd)
-        jsonObj.put("loginType",1)
+        jsonObj.put("loginType",loginType)
         jsonObj.put("roleCode",roleCode)
         request(EBagClient.eBagService.login("v1", createBody(jsonObj)), callback)
     }
@@ -108,12 +108,28 @@ object EBagApi {
         request(EBagClient.eBagService.register("v1", createBody(jsonObj)), callback)
     }
 
+    fun resetPassword(phone: String, ysbCode: String, code: String, password: String,callback: RequestCallBack<String>){
+        val jsonObj = JSONObject()
+        jsonObj.put("ysbCode",ysbCode)
+        jsonObj.put("phone",phone)
+        jsonObj.put("verifyCode",code)
+        jsonObj.put("password",password)
+        request(EBagClient.eBagService.resetPassword("v1", createBody(jsonObj)), callback)
+    }
+
+    fun checkUserExist(phone: String, callback: RequestCallBack<String>){
+        val jsonObj = JSONObject()
+        jsonObj.put("loginAccount",phone)
+        request(EBagClient.eBagService.checkUserExist("v1", createBody(jsonObj)), callback)
+    }
+
     /**
      * 获取验证码
      */
-    fun getCode(phone: String, callback: RequestCallBack<String>){
+    fun getCode(phone: String, ysbCode: String,  callback: RequestCallBack<String>){
         val jsonObject = JSONObject()
         jsonObject.put("phone", phone)
+        jsonObject.put("ysbCode", ysbCode)
         request(EBagClient.eBagService.getCheckCode("v1", createBody(jsonObject)), callback)
     }
 
