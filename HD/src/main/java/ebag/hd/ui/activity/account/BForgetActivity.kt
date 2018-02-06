@@ -8,6 +8,7 @@ import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.StringUtils
 import ebag.core.util.T
 import ebag.hd.R
+import ebag.hd.dialog.MsgDialogFragment
 import ebag.hd.dialog.UpdateDialog
 import ebag.hd.ui.presenter.CodePresenter
 import ebag.hd.ui.presenter.ForgetPresenter
@@ -79,7 +80,9 @@ abstract class BForgetActivity : MVPActivity(), CodeView, ForgetView {
     /**
      * 获取验证码成功后的操作
      */
+    val msgDialogFragment by lazy { MsgDialogFragment() }
     override fun onCodeSuccess(codeEntity: String?) {
+        msgDialogFragment.show(null,"$codeEntity","知道了", null, supportFragmentManager)
         T.show(this, "获取验证码成功")
         cPresenter.startCutDown()
         LoadingDialogUtil.closeLoadingDialog()
