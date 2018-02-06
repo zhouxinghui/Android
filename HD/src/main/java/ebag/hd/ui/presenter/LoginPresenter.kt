@@ -61,7 +61,13 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
                     }
                 })
             }
-           EBagApi.login(account, pwd, roleCode, loginRequest!!)
+            if(StringUtils.isMobileNo(account)){
+                EBagApi.login(account, pwd, 3, roleCode, loginRequest!!)
+            }else{
+                EBagApi.login(account, pwd, 1, roleCode, loginRequest!!)
+            }
+
+
         }
     }
 

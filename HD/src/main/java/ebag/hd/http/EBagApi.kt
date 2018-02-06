@@ -87,11 +87,11 @@ object EBagApi {
     /**
      * 登录
      */
-    fun login(account: String, pwd: String, roleCode: String, callback: RequestCallBack<UserEntity>){
+    fun login(account: String, pwd: String, loginType: Int, roleCode: String, callback: RequestCallBack<UserEntity>){
         val jsonObj = JSONObject()
         jsonObj.put("loginAccount",account)
         jsonObj.put("password",pwd)
-        jsonObj.put("loginType",1)
+        jsonObj.put("loginType",loginType)
         jsonObj.put("roleCode",roleCode)
         request(EBagClient.eBagService.login("v1", createBody(jsonObj)), callback)
     }
