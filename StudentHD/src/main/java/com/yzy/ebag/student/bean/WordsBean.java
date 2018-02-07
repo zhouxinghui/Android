@@ -1,7 +1,5 @@
 package com.yzy.ebag.student.bean;
 
-import java.util.List;
-
 /**
  * @author caoyu
  * @date 2018/2/6
@@ -9,114 +7,77 @@ import java.util.List;
  */
 
 public class WordsBean {
-
     /**
-     * total : 1
-     * pages : 1
-     * newWordVo : [{"page":null,"pageSize":null,"id":null,"unitCode":"7650","word":"天,地,人,你,我,他","pinYin":"tiān,dì,rén,nǐ,wǒ,tā","audioUrl":null}]
+     * page : null
+     * pageSize : null
+     * id : null
+     * unitCode : 7650
+     * word : 天,地,人,你,我,他
+     * pinYin : tiān,dì,rén,nǐ,wǒ,tā
+     * audioUrl : null
      */
 
-    private int total;
-    private int pages;
-    private List<NewWordVoBean> newWordVo;
+    private int page;
+    private int pageSize;
+    private String id;
+    private String unitCode;
+    private String word;
+    private String pinYin;
+    private String audioUrl;
 
-    public int getTotal() {
-        return total;
+    public int getPage() {
+        return page;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
+    public void setPage(int page) {
+        this.page = page;
     }
 
-    public int getPages() {
-        return pages;
+    public int getPageSize() {
+        return pageSize;
     }
 
-    public void setPages(int pages) {
-        this.pages = pages;
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 
-    public List<NewWordVoBean> getNewWordVo() {
-        return newWordVo;
+    public String getId() {
+        return id;
     }
 
-    public void setNewWordVo(List<NewWordVoBean> newWordVo) {
-        this.newWordVo = newWordVo;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public static class NewWordVoBean {
-        /**
-         * page : null
-         * pageSize : null
-         * id : null
-         * unitCode : 7650
-         * word : 天,地,人,你,我,他
-         * pinYin : tiān,dì,rén,nǐ,wǒ,tā
-         * audioUrl : null
-         */
+    public String getUnitCode() {
+        return unitCode;
+    }
 
-        private int page;
-        private int pageSize;
-        private String id;
-        private String unitCode;
-        private String word;
-        private String pinYin;
-        private String audioUrl;
+    public void setUnitCode(String unitCode) {
+        this.unitCode = unitCode;
+    }
 
-        public int getPage() {
-            return page;
-        }
+    public String getWord() {
+        return word;
+    }
 
-        public void setPage(int page) {
-            this.page = page;
-        }
+    public void setWord(String word) {
+        this.word = word;
+    }
 
-        public int getPageSize() {
-            return pageSize;
-        }
+    public String getPinYin() {
+        return pinYin;
+    }
 
-        public void setPageSize(int pageSize) {
-            this.pageSize = pageSize;
-        }
+    public void setPinYin(String pinYin) {
+        this.pinYin = pinYin;
+    }
 
-        public String getId() {
-            return id;
-        }
+    public String getAudioUrl() {
+        return audioUrl;
+    }
 
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getUnitCode() {
-            return unitCode;
-        }
-
-        public void setUnitCode(String unitCode) {
-            this.unitCode = unitCode;
-        }
-
-        public String getWord() {
-            return word;
-        }
-
-        public void setWord(String word) {
-            this.word = word;
-        }
-
-        public String getPinYin() {
-            return pinYin;
-        }
-
-        public void setPinYin(String pinYin) {
-            this.pinYin = pinYin;
-        }
-
-        public String getAudioUrl() {
-            return audioUrl;
-        }
-
-        public void setAudioUrl(String audioUrl) {
-            this.audioUrl = audioUrl;
-        }
+    public void setAudioUrl(String audioUrl) {
+        this.audioUrl = audioUrl;
     }
 }

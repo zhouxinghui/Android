@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ebag.hd.widget.TitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <View
+        android:id="@+id/bgView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x248"
+        app:layout_constraintTop_toBottomOf="@id/titleBar"
+        android:background="#EDF6FE"/>
+
+    <cn.jzvd.JZVideoPlayerStandard
+        android:id="@+id/videoPlayer"
+        android:layout_width="@dimen/x324"
+        android:layout_height="@dimen/x214"
+        app:layout_constraintTop_toTopOf="@id/bgView"
+        app:layout_constraintBottom_toBottomOf="@id/bgView"
+        app:layout_constraintStart_toStartOf="@id/bgView"
+        app:layout_constraintEnd_toEndOf="@id/bgView"/>
+
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x162"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="@dimen/x162"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+            
+            <ImageView
+                android:id="@+id/playImage"
+                android:layout_width="@dimen/x77"
+                android:layout_height="@dimen/x77"
+                android:background="@drawable/voice_anim"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#54a2ff"
+                android:textSize="@dimen/x24"
+                android:layout_marginTop="@dimen/x15"
+                android:text="原音播放"/>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ebag.hd.widget.drawable.DrawableTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="重录"
+                android:textColor="@color/color_read_load_text_selector"
+                app:topDrawable="@drawable/btn_record_selector"
+                app:topDrawableHeight="@dimen/x48"
+                app:topDrawableWidth="@dimen/x48"
+                android:textSize="@dimen/x24"
+                android:drawablePadding="@dimen/x15"
+                android:layout_gravity="center"
+                />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#4a4a4a"
+                android:textSize="@dimen/x24"
+                android:text="00:01"/>
+
+            <ImageView
+                android:layout_width="@dimen/x68"
+                android:layout_height="@dimen/x68"
+                android:background="@drawable/recorder_anim"
+                android:layout_marginTop="@dimen/x10"
+                android:layout_marginBottom="@dimen/x10"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/x24"
+                android:textColor="#54a2ff"
+                android:text="点击停止播放"/>
+
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ebag.hd.widget.drawable.DrawableTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="提交"
+                android:textColor="@color/color_read_load_text_selector"
+                app:topDrawable="@drawable/btn_submit_selector"
+                app:topDrawableHeight="@dimen/x48"
+                app:topDrawableWidth="@dimen/x48"
+                android:textSize="@dimen/x24"
+                android:drawablePadding="@dimen/x15"
+                android:layout_gravity="center"
+                />
+        </FrameLayout>
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/x20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bgView"
+        app:layout_constraintBottom_toTopOf="@id/bottomLayout">
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/x24"
+            android:textSize="@dimen/x28"
+            android:textColor="#4a4a4a"
+            android:text="dfjaslfj"/>
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>

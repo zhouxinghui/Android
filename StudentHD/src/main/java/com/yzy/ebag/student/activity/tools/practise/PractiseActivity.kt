@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.activity.tools
+package com.yzy.ebag.student.activity.tools.practise
 
 import android.content.Context
 import android.content.Intent
@@ -11,7 +11,6 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.activity.tools.fragment.PractiseFragment
-import com.yzy.ebag.student.activity.tools.practise.RecordActivity
 import com.yzy.ebag.student.base.BaseListTabActivity
 import com.yzy.ebag.student.base.UnitAdapter
 import com.yzy.ebag.student.base.UnitBean
@@ -30,7 +29,7 @@ class PractiseActivity: BaseListTabActivity<EditionBean, MultiItemEntity>() {
     companion object {
         fun jump(context: Context, classId: String){
             context.startActivity(
-                    Intent(context,PractiseActivity::class.java)
+                    Intent(context, PractiseActivity::class.java)
                             .putExtra("classId", classId)
             )
         }

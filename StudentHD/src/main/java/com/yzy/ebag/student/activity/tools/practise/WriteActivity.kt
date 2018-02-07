@@ -15,12 +15,6 @@ import kotlinx.android.synthetic.main.activity_write.*
  * @date 2018/1/23
  * @description
  */
-
-const val SIZE_ONE = 10
-const val SIZE_TWO = 11
-const val SIZE_THREE = 12
-const val SIZE_FOUR = 13
-
 class WriteActivity: MVPActivity() {
 
 

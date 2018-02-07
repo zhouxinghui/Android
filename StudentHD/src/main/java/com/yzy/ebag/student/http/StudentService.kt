@@ -62,7 +62,7 @@ interface StudentService {
     /**
      * 获取练字列表
      */
-    @POST("util/queryNewWord/{version}")
+    @POST("util/getNewWord/{version}")
     fun getWordsList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<WordsBean>>
 
 }

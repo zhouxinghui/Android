@@ -10,6 +10,7 @@ import android.widget.RelativeLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
+import com.yzy.ebag.student.activity.tools.practise.PractiseActivity
 import com.yzy.ebag.student.base.BaseListActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.T

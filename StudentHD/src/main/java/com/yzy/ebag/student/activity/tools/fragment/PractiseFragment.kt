@@ -68,6 +68,10 @@ class PractiseFragment: BaseFragment(),BaseQuickAdapter.OnItemClickListener {
             adapter.data.forEach { it.isSelected = view.isSelected }
             adapter.notifyDataSetChanged()
         }
+
+        stateView.setOnRetryClickListener {
+            request()
+        }
         request()
     }
 
@@ -95,13 +99,12 @@ class PractiseFragment: BaseFragment(),BaseQuickAdapter.OnItemClickListener {
         }
 
         override fun onSuccess(entity: WordsBean?) {
-            if((entity?.newWordVo?.size ?: 0) == 0){
+            if(entity == null){
                 stateView.showEmpty()
             }else{
-                val bean = entity!!.newWordVo[0]
-                val words = bean.word?.split(",")
-                val pinyins = bean.pinYin?.split(",")
-                val audios = bean.audioUrl?.split(",")
+                val words = entity.word?.split(",")
+                val pinyins = entity.pinYin?.split(",")
+                val audios = entity.audioUrl?.split(",")
 
 
                 val length = Math.min(words?.size ?: -1, pinyins?.size ?: -1)

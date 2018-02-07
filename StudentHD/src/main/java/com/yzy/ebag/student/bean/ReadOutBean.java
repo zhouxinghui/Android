@@ -1,5 +1,6 @@
 package com.yzy.ebag.student.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -45,7 +46,7 @@ public class ReadOutBean {
         this.oralLanguageVos = oralLanguageVos;
     }
 
-    public static class OralLanguageBean {
+    public static class OralLanguageBean implements Serializable{
         /**
          * id : 0fe2b6b1da47478d878c5ca44b7af4fb
          * createBy : null

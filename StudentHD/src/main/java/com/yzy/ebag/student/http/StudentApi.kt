@@ -88,8 +88,6 @@ object StudentApi{
     fun getWordsList(unitCode: String, callback: RequestCallBack<WordsBean>){
         val jsonObject = JSONObject()
         jsonObject.put("unitCode", unitCode)
-        jsonObject.put("page", 1)
-        jsonObject.put("pageSize", 10)
         EBagApi.request(studentService.getWordsList("v1", EBagApi.createBody(jsonObject)), callback)
 
     }
