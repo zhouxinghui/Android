@@ -277,34 +277,6 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
      */
     private val requestCallBack: RequestCallBack<Parent> by requestDelegate
 
-//    override fun onResume() {
-//        super.onResume()
-//        // 判断当前fragment是否显示
-//        if (userVisibleHint && !needFirstLoad) {
-//            showData()
-//        }
-//    }
-//
-//    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-//        super.setUserVisibleHint(isVisibleToUser)
-//        // 每次切换fragment时调用的方法
-//        if (isVisibleToUser && !needFirstLoad) {
-//            showData()
-//        }
-//    }
-//
-//
-//    /**
-//     * 初始化数据
-//     * @author yubin
-//     * @date 2014-1-16
-//     */
-//    private fun showData() {
-//        if (!isInit) {
-//            return
-//        }
-//        onRetryClick()
-//    }
 
     override fun lazyLoad() {
         if (needFirstLoad) {
@@ -327,6 +299,10 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
         loadingStatus = FIRST
         mCurrentPage = 1
         requestData(mCurrentPage, requestCallBack)
+    }
+
+    fun cancelRequest(){
+        requestCallBack.cancelRequest()
     }
 
     /**

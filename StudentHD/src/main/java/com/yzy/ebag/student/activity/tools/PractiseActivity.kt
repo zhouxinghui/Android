@@ -18,8 +18,6 @@ import com.yzy.ebag.student.base.UnitBean
 import com.yzy.ebag.student.bean.EditionBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
-import java.io.IOException
-import java.nio.charset.Charset
 
 
 /**
@@ -50,37 +48,9 @@ class PractiseActivity: BaseListTabActivity<EditionBean, MultiItemEntity>() {
         val view = layoutInflater.inflate(R.layout.layout_practise_material_header,null)
         tvMaterial = view.findViewById(R.id.text)
         addLeftHeaderView(view)
-
-
-//        val ss = getFromAsset("unit.json")
-//        L.e("JSON", ss)
-//        val list = JSON.parseArray(ss, UnitBean::class.java)
-//        withTabData(list)
-
         titleBar.setRightText("记录"){
             RecordActivity.jump(this)
         }
-    }
-
-    /**
-     * 从asset中获取文件并读取数据
-     * @param fileName
-     * @return
-     */
-    fun getFromAsset(fileName: String): String {
-        var result = ""
-        try {
-            val input = resources.assets.open(fileName)//从Assets中的文件获取输入流
-            val length = input.available()                           //获取文件的字节数
-            val buffer = ByteArray(length)                      //创建byte数组
-            input.read(buffer)                                    //将文件中的数据读取到byte数组中
-            result = String(buffer, Charset.forName("UTF-8"))         //将byte数组转换成指定格式的字符串
-            input.close()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-
-        return result
     }
 
     override fun requestData(requestCallBack: RequestCallBack<EditionBean>) {
@@ -92,16 +62,39 @@ class PractiseActivity: BaseListTabActivity<EditionBean, MultiItemEntity>() {
         return parent?.resultBookUnitOrCatalogVos
     }
 
+    override fun firstPageDataLoad(result: List<MultiItemEntity>) {
+        super.firstPageDataLoad(result)
+        if (adapter.itemCount > 0) {
+            try {
+                val position = (0 until adapter.itemCount).first { adapter.getItem(it) is UnitBean }
+                adapter.selectSub = (adapter.getItem(position) as UnitBean).resultBookUnitOrCatalogVos[0]
+                adapter.expand(position)
+            }catch (e: Exception){
+
+            }
+        }
+    }
+
+    private lateinit var adapter: UnitAdapter
     override fun getLeftAdapter(): BaseQuickAdapter<MultiItemEntity, BaseViewHolder> {
-        return UnitAdapter()
+        adapter = UnitAdapter()
+        return adapter
     }
 
     override fun getLayoutManager(adapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>): RecyclerView.LayoutManager? {
         return null
     }
 
+    private lateinit var fragment: PractiseFragment
     override fun getFragment(pagerIndex: Int, adapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>): Fragment {
-        return PractiseFragment.newInstance()
+        if(adapter.itemCount > 0){
+            val item = adapter.getItem(0)
+            if(item is UnitBean)
+                fragment = PractiseFragment.newInstance(item.resultBookUnitOrCatalogVos[0].unitCode)
+            return fragment
+        }
+        fragment = PractiseFragment.newInstance("")
+        return fragment
     }
 
     override fun getViewPagerSize(adapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>): Int {
@@ -117,8 +110,10 @@ class PractiseActivity: BaseListTabActivity<EditionBean, MultiItemEntity>() {
                 adapter.expand(position)
             }
         }else{
-            item as UnitBean.ChapterBean
+            item as UnitBean.ChapterBean?
             (adapter as UnitAdapter).selectSub = item
+
+            fragment.update(item?.unitCode)
         }
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import com.yzy.ebag.student.R
+import com.yzy.ebag.student.bean.Practise
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.util.T
 import ebag.core.util.VoicePlayerOnline
@@ -23,39 +24,34 @@ const val SIZE_FOUR = 13
 class WriteActivity: MVPActivity() {
 
 
-    private var pinyins: String = "ping,ha,he,wu"
-    private var mp3s: String = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/dʒ.mp3," +
-            "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/dr.mp3," +
-            "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/dz.mp3," +
-            "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/mp3/phonogram_en/m.mp3"
-
-    private lateinit var pinyinList: List<String>
-    private lateinit var mp3List: List<String>
     private var maxIndex = 0
     private var currentIndex = 0
 
+    private lateinit var list: ArrayList<Practise>
+
     private lateinit var animDrawable: AnimationDrawable
     companion object {
-        fun jump(context: Context){
-            context.startActivity(Intent(context,WriteActivity::class.java))
+        fun jump(context: Context, list: ArrayList<Practise>){
+            context.startActivity(
+                    Intent(context,WriteActivity::class.java)
+                            .putExtra("list", list)
+            )
         }
-    }
-
-    override fun destroyPresenter() {
-
     }
 
     override fun getLayoutId(): Int {
         return R.layout.activity_write
     }
 
+
     override fun initViews() {
+        val ser = intent.getSerializableExtra("list") ?: return
 
-        pinyinList = pinyins.split(",")
-        mp3List = mp3s.split(",")
-        maxIndex = Math.min(pinyinList.size, mp3List.size) - 1
+        list = ser as ArrayList<Practise>
 
-        tvPinyin.text = pinyinList[currentIndex]
+        maxIndex = list.size - 1
+
+        tvPinyin.text = list[currentIndex].hanzi
 
         drawView.setPenRawSize(resources.getDimension(R.dimen.x10))
 
@@ -94,15 +90,19 @@ class WriteActivity: MVPActivity() {
 
             }else{
                 drawView.clear()
-                tvPinyin.text = pinyinList[currentIndex++]
+                tvPinyin.text = list[++currentIndex].hanzi
             }
         }
 
         animDrawable = playAnim.background as AnimationDrawable
         playAnim.setOnClickListener {
             if(!player.isPlaying){
-                animDrawable.start()
-                player.playUrl(mp3List[currentIndex])
+                if(list[currentIndex].audio.isNullOrEmpty()){
+                    T.show(this,"暂无对应音频")
+                }else{
+                    animDrawable.start()
+                    player.playUrl(list[currentIndex].audio)
+                }
             }
         }
     }
@@ -121,4 +121,9 @@ class WriteActivity: MVPActivity() {
         pl
     }
     private val player by playerD
+
+    override fun destroyPresenter() {
+        if(playerD.isInitialized())
+            player.stop()
+    }
 }

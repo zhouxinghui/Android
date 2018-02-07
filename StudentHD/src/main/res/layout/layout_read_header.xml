@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -14,6 +15,7 @@
         android:gravity="center">
 
         <RadioButton
+            android:id="@+id/rbYw"
             android:layout_width="@dimen/x100"
             android:layout_height="@dimen/x50"
             android:text="语文"
@@ -25,6 +27,7 @@
             android:layout_marginEnd="@dimen/x15"
             android:background="@drawable/bac_read_subject_selector"/>
         <RadioButton
+            android:id="@+id/rbYy"
             android:layout_width="@dimen/x100"
             android:layout_height="@dimen/x50"
             android:text="英语"

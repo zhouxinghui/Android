@@ -84,7 +84,7 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
 
         // 第一次网络请求失败时点击重新加载
         stateView.setOnRetryClickListener{
-            requestData(requestCallBack)
+            request()
         }
         stateView.showEmpty()
         loadConfig()
@@ -92,6 +92,10 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
             // 加载各种数据
             requestData(requestCallBack)
         }
+    }
+
+    protected fun request(){
+        requestData(requestCallBack)
     }
 
     protected fun setTitleContent(message: String){
@@ -149,7 +153,7 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
     /**
      * 加载第一屏数据 的View的改变
      */
-    private fun firstPageDataLoad(result: List<E>){
+    open protected fun firstPageDataLoad(result: List<E>){
         if (result.isEmpty()) {
             //返回数据为空时，展示无数据
             stateView.showEmpty()

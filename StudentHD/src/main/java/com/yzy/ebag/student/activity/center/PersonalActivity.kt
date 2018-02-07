@@ -6,6 +6,8 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
+import com.yzy.ebag.student.TestFragment
+import com.yzy.ebag.student.activity.SettingActivity
 import com.yzy.ebag.student.activity.center.fragment.*
 import com.yzy.ebag.student.activity.growth.GrowthEnterTabFragment
 import com.yzy.ebag.student.dialog.PerformanceDialog
@@ -72,6 +74,10 @@ class PersonalActivity: MVPActivity() {
             finish()
         }
 
+        tvSetup.setOnClickListener{
+            SettingActivity.jump(this)
+        }
+
         changeFragment(0)
     }
 
@@ -96,7 +102,12 @@ class PersonalActivity: MVPActivity() {
                 6 -> {
                     YbCenterFragment.newInstance()
                 }
-                else ->{ PersonalFragment.newInstance() }
+                7 -> {
+                    TestFragment.newInstance()
+                }
+                else -> {
+                    TestFragment.newInstance()
+                }
             }
         }
 

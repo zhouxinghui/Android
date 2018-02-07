@@ -8,7 +8,14 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.activity.tools.practise.WriteActivity
+import com.yzy.ebag.student.bean.Practise
+import com.yzy.ebag.student.bean.WordsBean
+import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseFragment
+import ebag.core.http.network.MsgException
+import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
+import ebag.core.util.T
 import kotlinx.android.synthetic.main.fragment_practise.*
 
 /**
@@ -19,16 +26,21 @@ import kotlinx.android.synthetic.main.fragment_practise.*
 class PractiseFragment: BaseFragment(),BaseQuickAdapter.OnItemClickListener {
 
     companion object {
-        fun newInstance(): PractiseFragment{
-            return PractiseFragment()
+        fun newInstance(unitCode: String?): PractiseFragment{
+            val fragment = PractiseFragment()
+            val bundle = Bundle()
+            bundle.putString("unitCode",unitCode)
+            fragment.arguments = bundle
+            return fragment
         }
     }
     override fun getLayoutRes(): Int {
         return R.layout.fragment_practise
     }
 
+    private lateinit var unitCode: String
     override fun getBundle(bundle: Bundle?) {
-
+        unitCode = bundle?.getString("unitCode") ?: ""
     }
 
     lateinit var adapter: Adapter
@@ -38,40 +50,103 @@ class PractiseFragment: BaseFragment(),BaseQuickAdapter.OnItemClickListener {
         recyclerView.adapter = adapter
         adapter.onItemClickListener = this
 
-        val list = ArrayList<Practise>()
-        list.add(Practise())
-        list.add(Practise())
-        list.add(Practise())
-        list.add(Practise())
-        list.add(Practise())
-        list.add(Practise())
-        list.add(Practise())
-        list.add(Practise())
-        list.add(Practise())
-        adapter.setNewData(list)
-
         tvConfirm.setOnClickListener {
-            WriteActivity.jump(mContext)
+            val list = ArrayList<Practise>()
+            adapter.data.forEach {
+                if(it.isSelected)
+                    list.add(it)
+            }
+
+            if(list.isEmpty()){
+                T.show(mContext,"请选择生字")
+            }else{
+                WriteActivity.jump(mContext, list)
+            }
+        }
+        cbSelect.setOnClickListener { view ->
+            view.isSelected = !view.isSelected
+            adapter.data.forEach { it.isSelected = view.isSelected }
+            adapter.notifyDataSetChanged()
+        }
+        request()
+    }
+
+    fun update(unitCode: String?){
+        if(this.unitCode != unitCode){
+            this.unitCode = unitCode ?: ""
+            requestCallBack.cancelRequest()
+            request()
         }
     }
+
+    private fun request(){
+        StudentApi.getWordsList(this.unitCode, requestCallBack)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requestCallBack.cancelRequest()
+    }
+
+    private val requestCallBack by lazy { object: RequestCallBack<WordsBean>(){
+
+        override fun onStart() {
+            stateView.showLoading()
+        }
+
+        override fun onSuccess(entity: WordsBean?) {
+            if((entity?.newWordVo?.size ?: 0) == 0){
+                stateView.showEmpty()
+            }else{
+                val bean = entity!!.newWordVo[0]
+                val words = bean.word?.split(",")
+                val pinyins = bean.pinYin?.split(",")
+                val audios = bean.audioUrl?.split(",")
+
+
+                val length = Math.min(words?.size ?: -1, pinyins?.size ?: -1)
+
+                if (length == -1){
+                    stateView.showEmpty()
+                }else{
+                    stateView.showContent()
+
+                    val list = ArrayList<Practise>()
+                    (0 until length).forEach {
+                        if(audios != null && audios.size > it){
+                            list.add(Practise(pinyins!![it], words!![it], audios[it]))
+                        }else
+                            list.add(Practise(pinyins!![it], words!![it], ""))
+                    }
+
+                    adapter.setNewData(list)
+                }
+
+            }
+        }
+
+        override fun onError(exception: Throwable) {
+            if(exception is MsgException){
+                stateView.showError(exception.message)
+            }else{
+                stateView.showError()
+                exception.handleThrowable(mContext)
+            }
+        }
+
+    } }
 
     class Adapter: BaseQuickAdapter<Practise,BaseViewHolder>(R.layout.item_fragment_practise){
         override fun convert(helper: BaseViewHolder, item: Practise?) {
             helper.setText(R.id.tvPinyin, item?.pinyin)
                     .setText(R.id.tvChar, item?.hanzi)
-                    .getView<TextView>(R.id.tvChar).isSelected = item?.selected == true
+                    .getView<TextView>(R.id.tvChar).isSelected = item?.isSelected == true
         }
 
     }
 
     override fun onItemClick(a: BaseQuickAdapter<*,*>, view: View?, position: Int) {
-        adapter.getItem(position)?.selected = !(adapter.getItem(position)?.selected ?: true)
+        adapter.getItem(position)?.isSelected = !(adapter.getItem(position)?.isSelected ?: true)
         adapter.notifyItemChanged(position)
     }
-
-    data class Practise(
-        val pinyin: String = "hua",
-        val hanzi: String = "华",
-        var selected: Boolean = false
-    )
 }

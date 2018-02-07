@@ -3,6 +3,7 @@ package com.yzy.ebag.student.base;
 import com.chad.library.adapter.base.entity.IExpandable;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UnitBean implements
@@ -74,6 +75,17 @@ public class UnitBean implements
     }
 
     public List<ChapterBean> getResultBookUnitOrCatalogVos() {
+        if(resultBookUnitOrCatalogVos == null || resultBookUnitOrCatalogVos.size() == 0){
+            resultBookUnitOrCatalogVos = new ArrayList<>();
+            ChapterBean chapterBean = new ChapterBean();
+            chapterBean.setId(id);
+            chapterBean.setBookVersionId(bookVersionId);
+            chapterBean.setCode(code);
+            chapterBean.setName(name);
+            chapterBean.setPid(pid);
+            chapterBean.setUnitCode(unitCode);
+            resultBookUnitOrCatalogVos.add(chapterBean);
+        }
         return resultBookUnitOrCatalogVos;
     }
 

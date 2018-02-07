@@ -1,9 +1,6 @@
 package com.yzy.ebag.student.http
 
-import com.yzy.ebag.student.bean.ClassesInfoBean
-import com.yzy.ebag.student.bean.EditionBean
-import com.yzy.ebag.student.bean.SpaceBean
-import com.yzy.ebag.student.bean.SubjectBean
+import com.yzy.ebag.student.bean.*
 import ebag.core.bean.ResponseBean
 import ebag.core.bean.TypeQuestionBean
 import ebag.hd.bean.response.UserEntity
@@ -44,14 +41,28 @@ interface StudentService {
     fun clazzSpace(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<SpaceBean>>>
 
     /**
-     * 班级
+     * 获取单元数据
      */
     @POST("util/getBookVersionOrUnit/{version}")
     fun getUint(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<EditionBean>>
 
     /**
-     * 班级
+     * 获取作业详情
      */
     @POST("homeWork/getHomeWorkByQuestion/{version}")
     fun getQuestions(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<TypeQuestionBean>>>
+
+
+    /**
+     * 获取跟读列表
+     */
+    @POST("util/getOralLanguage/{version}")
+    fun getReadList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ReadOutBean>>
+
+    /**
+     * 获取练字列表
+     */
+    @POST("util/queryNewWord/{version}")
+    fun getWordsList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<WordsBean>>
+
 }

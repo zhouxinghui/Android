@@ -265,7 +265,7 @@ public class StateView extends View {
         mLoadingLayoutResource = a.getResourceId(R.styleable.StateView_loadingLayout, R.layout.base_loading);
         mErrorImageResource = a.getResourceId(R.styleable.StateView_errorDrawable, R.drawable.ic_state_layout_error);
         mEmptyImageResource = a.getResourceId(R.styleable.StateView_emptyDrawable, R.drawable.ic_state_layout_empty);
-        resBacground = a.getResourceId(R.styleable.StateView_state_background, R.color.white);
+        resBacground = a.getResourceId(R.styleable.StateView_state_background, R.color.pageBackground);
         a.recycle();
 
         mErrorString = getResources().getString(R.string.text_error);

@@ -115,6 +115,11 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
             android:screenOrientation="landscape"/>
+
+        <activity android:name=".activity.set.AboutUsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

@@ -1,9 +1,6 @@
 package com.yzy.ebag.student.http
 
-import com.yzy.ebag.student.bean.ClassesInfoBean
-import com.yzy.ebag.student.bean.EditionBean
-import com.yzy.ebag.student.bean.SpaceBean
-import com.yzy.ebag.student.bean.SubjectBean
+import com.yzy.ebag.student.bean.*
 import ebag.core.bean.TypeQuestionBean
 import ebag.core.http.network.RequestCallBack
 import ebag.hd.bean.response.UserEntity
@@ -54,16 +51,46 @@ object StudentApi{
         EBagApi.request(studentService.clazzSpace("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
+    /**
+     * 获取单元数据
+     */
     fun getUint(classId: String, subCode: String, callback: RequestCallBack<EditionBean>){
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
         jsonObject.put("subCode", subCode)
-        EBagApi.request(studentService.getUint("vi", EBagApi.createBody(jsonObject)), callback)
+        EBagApi.request(studentService.getUint("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
+    /**
+     * 获取作业详情
+     */
     fun getQuestions(questionId: String, callback: RequestCallBack<List<TypeQuestionBean>>){
         val jsonObject = JSONObject()
         jsonObject.put("id", questionId)
-        EBagApi.request(studentService.getQuestions("vi", EBagApi.createBody(jsonObject)), callback)
+        EBagApi.request(studentService.getQuestions("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 获取跟读列表
+     */
+    fun getReadList(unitCode: String, page: Int, pageSize: Int, callback: RequestCallBack<ReadOutBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("unitCode", unitCode)
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", pageSize)
+        EBagApi.request(studentService.getReadList("v1", EBagApi.createBody(jsonObject)), callback)
+
+    }
+
+    /**
+     * 获取练字列表
+     */
+    fun getWordsList(unitCode: String, callback: RequestCallBack<WordsBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("unitCode", unitCode)
+        jsonObject.put("page", 1)
+        jsonObject.put("pageSize", 10)
+        EBagApi.request(studentService.getWordsList("v1", EBagApi.createBody(jsonObject)), callback)
+
     }
 }

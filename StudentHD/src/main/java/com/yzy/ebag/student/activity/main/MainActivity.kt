@@ -136,7 +136,7 @@ class MainActivity : MVPActivity(), MainView {
         }
         //设置
         tvSetup.setOnClickListener{
-            startActivity(Intent(this, SettingActivity::class.java))
+            SettingActivity.jump(this)
         }
         //定位
         tvPosition.setOnClickListener{
