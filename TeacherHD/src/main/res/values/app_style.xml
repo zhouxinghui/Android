@@ -222,8 +222,10 @@
     <style name="publish_item">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/y8</item>
         <item name="android:padding">@dimen/x15</item>
         <item name="android:background">@color/white</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
     <style name="publish_item_tv">
         <item name="android:layout_width">match_parent</item>
@@ -233,6 +235,19 @@
         <item name="android:background">@color/white</item>
         <item name="android:textSize">@dimen/tv_normal</item>
         <item name="android:textColor">@color/assignment_tv</item>
+        <item name="leftDrawableWidth">@dimen/x36</item>
+        <item name="leftDrawableHeight">@dimen/x36</item>
+        <item name="android:drawablePadding">@dimen/x15</item>
+    </style>
+    <style name="deadline_btn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/x32</item>
+        <item name="android:layout_marginStart">@dimen/x15</item>
+        <item name="android:textColor">@color/assignment_tv</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:button">@null</item>
+        <item name="android:drawableLeft">@drawable/assign_deadline_radio_button</item>
+        <item name="android:drawablePadding">@dimen/x10</item>
     </style>
     <!--布置作业end-->
 </resources>

@@ -18,6 +18,9 @@ class DatePickerDialog(context: Context): BaseDialog(context) {
         return R.layout.dialog_date_picker
     }
 
+    override fun setWidth(): Int {
+        return context.resources.getDimensionPixelSize(R.dimen.x500)
+    }
     init {
         confirmTv.setOnClickListener {
             val pickDate = "${datePicker.year}-${datePicker.month}-${datePicker.day}"

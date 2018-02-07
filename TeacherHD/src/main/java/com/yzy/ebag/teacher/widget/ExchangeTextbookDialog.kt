@@ -53,12 +53,28 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
                 exception.handleThrowable(context)
             }
     }
+    private val addCourseRequest = object: RequestCallBack<String>(){
+        override fun onStart() {
+            T.showLong(context, "正在添加...")
+        }
+        override fun onSuccess(entity: String?) {
+            T.show(context, "添加成功")
+            onAddCourseSuccess?.invoke()
+            dismiss()
+        }
+
+        override fun onError(exception: Throwable) {
+            exception.handleThrowable(context)
+        }
+    }
     private var subCode = ""
     private var subName = ""
     private var versionId = ""
     private var versionName = ""
+    private var versionCode = ""
     private var semesterCode = "1"
     private var semesterName = "上学期"
+    private var isAddCourse = false
     var onConfirmClick: ((
             versionName: String,
             versionId: String,
@@ -66,6 +82,7 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
             semesterName: String,
             subCode: String,
             subName: String) -> Unit)? = null
+    var onAddCourseSuccess: (() -> Unit)? = null
     private val gradeAdapter = GradeAdapter()
     private val versionAdapter = VersionAdapter()
     private var idList: ArrayList<String>? = null
@@ -88,8 +105,12 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
                 T.show(context, "请选择版本")
                 return@setOnClickListener
             }
-            onConfirmClick?.invoke(versionName, versionId, semesterCode, semesterName, subCode, subName)
-            dismiss()
+            if (isAddCourse)
+                TeacherApi.addCourse(idList!![0], versionId, versionCode, versionName, subCode, subName, semesterCode, semesterName, addCourseRequest)
+            else {
+                onConfirmClick?.invoke(versionName, versionId, semesterCode, semesterName, subCode, subName)
+                dismiss()
+            }
         }
         gradeRecycler.layoutManager = LinearLayoutManager(context)
         gradeRecycler.adapter = gradeAdapter
@@ -121,6 +142,15 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
         super.show()
     }
 
+    fun show(classId: String){
+        this.isAddCourse = true
+        val idList = ArrayList<String>()
+        idList.add(classId)
+        this.idList = idList
+        TeacherApi.searchBookVersion(idList, versionRequest)
+        super.show()
+    }
+
     inner class GradeAdapter: RecyclerAdapter<BookVersionBean>(R.layout.item_textbook_grade){
         var selectPosition = -1
         set(value) {
@@ -140,6 +170,7 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
                 field = value
                 versionId = versionAdapter.datas[selectPosition].bookVersionId
                 versionName = versionAdapter.datas[selectPosition].versionName
+                versionCode = versionAdapter.datas[selectPosition].versionCode
                 notifyDataSetChanged()
             }
         override fun fillData(setter: RecyclerViewHolder, position: Int, entity: BookVersionBean.BookVersionVoListBean) {

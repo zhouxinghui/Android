@@ -8,9 +8,15 @@
     <ebag.hd.widget.DatePicker android:id="@+id/datePicker"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"
+        />
     <TextView android:id="@+id/confirmTv"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y50"
+        android:background="?attr/selectableItemBackground"
         android:textSize="@dimen/title_bar_title_sub_size"
         android:gravity="center"
         android:text="@string/confirm"

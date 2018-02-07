@@ -26,6 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/question_item_start_margin"
+            android:layout_marginEnd="@dimen/x10"
+            android:layout_marginBottom="@dimen/y10"
             />
         <include layout="@layout/question_bottom_view"/>
     </LinearLayout>

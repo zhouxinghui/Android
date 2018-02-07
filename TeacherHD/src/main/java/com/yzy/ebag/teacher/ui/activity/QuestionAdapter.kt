@@ -1,6 +1,8 @@
 package com.yzy.ebag.teacher.ui.activity
 
+import android.graphics.Color
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -77,7 +79,11 @@ class QuestionAdapter(private val isPreviewPage: Boolean = false): BaseMultiItem
         helper.addOnClickListener(R.id.analyseTv)
         helper.addOnClickListener(R.id.selectTv)
 
-        helper.getView<View>(R.id.question_item_root).isSelected = selectItem != -1 && selectItem == helper.adapterPosition
+//        helper.getView<View>(R.id.question_item_root).isSelected = selectItem != -1 && selectItem == helper.adapterPosition
+        if(selectItem != -1 && selectItem == helper.adapterPosition){
+            helper.getView<ViewGroup>(R.id.question_item_root).setBackgroundColor(Color.parseColor("#FFF9F0"))
+        }else
+            helper.getView<ViewGroup>(R.id.question_item_root).setBackgroundColor(Color.parseColor("#FFFFFF"))
         val selectTv = helper.getView<TextView>(R.id.selectTv)
         if (item!!.isChoose){
             selectTv.text = "移除"
