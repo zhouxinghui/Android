@@ -62,8 +62,8 @@ class DemoActivity : AppCompatActivity() {
 
         recorderUtil.setFinalFileName(FileUtil.getRecorderPath() + "1.amr")
         adapter.setOnItemChildClickListener { holder, view, position ->
-            when {
-                view.id == R.id.recorder_id -> {
+            when (view.id){
+                R.id.recorder_id -> {
                     //点了其他item的录音按钮并且前面已经有item处于录音状态了
                     if(tempPosition != position && recorderAnim != null){
                         //有正在录音的item
@@ -101,10 +101,10 @@ class DemoActivity : AppCompatActivity() {
                         }
                     }
                 }
-                view.id == R.id.recorder_upload_id -> {
+                R.id.recorder_upload_id -> {
                     uploadFile()
                 }
-                view.id == R.id.recorder_play_id -> {
+                R.id.recorder_play_id -> {
                     recorderUtil.playRecord("http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com"
                             + "/personal/" + "test2018/" + "1.amr")
                 }

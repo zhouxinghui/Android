@@ -59,10 +59,20 @@ interface StudentService {
     @POST("util/getOralLanguage/{version}")
     fun getReadList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ReadOutBean>>
 
+
+    /**
+     * 获取跟读列表里头的每个句子的详情
+     */
+    @POST("util/getOralLanguageDetail/{version}")
+    fun getReadDetailList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<ReadDetailBean>>>
+
     /**
      * 获取练字列表
      */
     @POST("util/getNewWord/{version}")
     fun getWordsList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<WordsBean>>
+
+    @POST("user/addMyOralLanguage/{version}")
+    fun uploadRecord(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
 }

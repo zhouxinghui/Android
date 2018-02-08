@@ -8,11 +8,11 @@ import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
+import com.yzy.ebag.student.activity.tools.read.ReadDetailActivity
 import com.yzy.ebag.student.bean.ReadOutBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
-import ebag.core.util.T
 import ebag.core.util.loadImage
 
 /**
@@ -70,13 +70,13 @@ class ReadFragment: BaseListFragment<ReadOutBean, ReadOutBean.OralLanguageBean>(
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-        T.show(mContext,"$position")
+        ReadDetailActivity.jump(mContext, adapter?.getItem(position) as ReadOutBean.OralLanguageBean?)
     }
 
     class Adapter: BaseQuickAdapter<ReadOutBean.OralLanguageBean, BaseViewHolder>(R.layout.item_fragment_tools_read){
         override fun convert(helper: BaseViewHolder, item: ReadOutBean.OralLanguageBean?) {
             helper.setText(R.id.text, item?.fileName)
-                    .getView<ImageView>(R.id.image).loadImage(item?.coveUrl)
+                    .getView<ImageView>(R.id.image).loadImage(if("video" == item?.type) item.languageUrl else item?.coveUrl)
         }
     }
 }

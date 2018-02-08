@@ -1,4 +1,4 @@
-package ebag.core.util;
+package com.yzy.ebag.student.util;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,18 +9,23 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import ebag.core.util.T;
+
 /**
- * 录制音频文件工具类
- * Created by liyimin on 2017/6/17.
+ * @author caoyu
+ * @date 2018/2/8
+ * @description
  */
 
 public class RecorderUtil {
+
     private Context context;
 
     private OnTimeChangeListener onTimeChangeListener;
@@ -29,8 +34,6 @@ public class RecorderUtil {
     // 语音文件
     private String fileName = "";
     private String finalFileName = "";//语音文件的最终路径
-    // 音频文件保存的路径
-    private String path = "";
 
     // 语音操作对象
     private MediaPlayer mPlayer = null;// 播放器
@@ -48,11 +51,22 @@ public class RecorderUtil {
 
     public static boolean IS_PLAYING_VOICE = false;
 
-    public RecorderUtil(Context context) {
-        this.context = context;
-        //        path = Environment.getExternalStorageDirectory().getAbsolutePath()
-//                + "/ysb/" + context.getPackageName() + "/Record";
+    private String basePath;
 
+    public RecorderUtil(Context context, String basePath) {
+        this.basePath = basePath;
+        this.context = context;
+
+        mRecorder = new MediaRecorder();
+        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        // 选择amr格式
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.RAW_AMR);
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        File file = new File(basePath);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
         initList();
     }
 
@@ -60,14 +74,13 @@ public class RecorderUtil {
      * 初始化录音列表
      */
     private void initList() {
-        path = FileUtil.getRecorderPath();
         // 判断SD卡是否存在
         if (!Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED)) {
             Toast.makeText(context, "SD卡状态异常，无法获取录音列表！", Toast.LENGTH_LONG).show();
         } else {    //else 以下在项目中暂时没有用处
             // 根据后缀名进行判断、获取文件夹中的音频文件
-            File file = new File(path);
+            File file = new File(basePath);
             File files[] = file.listFiles();
             if (files != null) {
                 for (int i = 0; i < files.length; i++) {
@@ -89,23 +102,25 @@ public class RecorderUtil {
     /**
      * 开始录音
      */
-    public void startRecord() {
-        File file = new File(path);
-        if (!file.exists()) {
-            file.mkdirs();
+    public void startRecord(String fileName) {
+
+        if(isRecording){
+            mRecorder.stop();
+            mRecorder.release();
         }
-        File file1 = new File(finalFileName);
-        if (file1.exists()) {
-            file1.delete();
+
+        if(fileName == null) {
+            T.INSTANCE.show(context,"传入了空路径");
+            return;
         }
-        fileName = path + System.currentTimeMillis() + ".amr";
+
+
+        File file = new File(basePath, fileName);
+        if (file.exists()) {
+            file.delete();
+        }
         isPause = false;
-        mRecorder = new MediaRecorder();
-        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        // 选择amr格式
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.RAW_AMR);
-        mRecorder.setOutputFile(fileName);
-        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        mRecorder.setOutputFile(file.getAbsolutePath());
         try {
             mRecorder.prepare();
         } catch (Exception e) {
@@ -140,7 +155,6 @@ public class RecorderUtil {
         if (mRecorder != null) {
             mRecorder.stop();
             mRecorder.release();
-            mRecorder = null;
             timer.cancel();
             isPause = true;
             isRecording = false;
@@ -162,16 +176,19 @@ public class RecorderUtil {
         }
         if (mRecorder != null) {
             mRecorder.release();
-            mRecorder = null;
             isPause = true;
             isRecording = false;
         }
         timer.cancel();
         // 最后合成的音频文件
         FileOutputStream fileOutputStream = null;
-        FileInputStream fileInputStream = null;
         try {
             fileOutputStream = new FileOutputStream(finalFileName);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        FileInputStream fileInputStream = null;
+        try {
             for (int i = 0; i < mList.size(); i++) {
                 File file = new File(mList.get(i));
                 // 把因为暂停所录出的多段录音进行读取
@@ -197,13 +214,8 @@ public class RecorderUtil {
             Toast.makeText(context, "录音合成出错，请重试！", Toast.LENGTH_LONG).show();
         } finally {
             try {
-                if(fileOutputStream != null){
-                    fileOutputStream.flush();
-                    fileOutputStream.close();
-                }
-                if(fileInputStream != null){
-                    fileInputStream.close();
-                }
+                fileOutputStream.flush();
+                fileInputStream.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -263,8 +275,8 @@ public class RecorderUtil {
                     public void run() {
                         if (onTimeChangeListener != null)
                             onTimeChangeListener.onTimeChange(
-                                String.format(Locale.getDefault(),
-                                "%1$02d:%2$02d:%3$02d", hour, minute, second));
+                                    String.format(Locale.getDefault(),
+                                            "%1$02d:%2$02d:%3$02d", hour, minute, second));
                     }
                 });
             }
@@ -366,11 +378,7 @@ public class RecorderUtil {
             mPlayer.start();
             return;
         }
-        // 对按钮的可点击事件的控制是保证不出现空指针的重点！！
-        /*if (mPlayer != null) {
-            mPlayer.release();
-            mPlayer = null;
-        }*/
+
         mPlayer = new MediaPlayer();
         // 播放完毕的监听
         mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -409,7 +417,6 @@ public class RecorderUtil {
         if (null != mRecorder) {
             mRecorder.stop();
             mRecorder.release();
-            mRecorder = null;
         }
         if (timer != null) {
             timer.cancel();

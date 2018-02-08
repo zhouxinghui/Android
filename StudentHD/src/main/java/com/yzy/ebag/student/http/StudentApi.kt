@@ -79,7 +79,15 @@ object StudentApi{
         jsonObject.put("page", page)
         jsonObject.put("pageSize", pageSize)
         EBagApi.request(studentService.getReadList("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 
+    /**
+     * 获取跟读详情里头 句子的详情
+     */
+    fun getReadDetailList(languageId: String, callback: RequestCallBack<List<ReadDetailBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("languageId", languageId)
+        EBagApi.request(studentService.getReadDetailList("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
     /**
@@ -89,6 +97,15 @@ object StudentApi{
         val jsonObject = JSONObject()
         jsonObject.put("unitCode", unitCode)
         EBagApi.request(studentService.getWordsList("v1", EBagApi.createBody(jsonObject)), callback)
+
+    }
+
+    fun uploadRecord(languageId: String, languageDetailId: String, myAudioUrl: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("languageId", languageId)
+        jsonObject.put("languageDetailId", languageDetailId)
+        jsonObject.put("myAudioUrl", myAudioUrl)
+        EBagApi.request(studentService.uploadRecord("v1", EBagApi.createBody(jsonObject)), callback)
 
     }
 }
