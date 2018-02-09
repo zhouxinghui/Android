@@ -80,7 +80,7 @@
             android:layout_height="@dimen/y80"
             android:paddingRight="@dimen/x10"
             android:gravity="start|center_vertical"
-            android:textColor="@color/assignment_tv_sub"
+            android:textColor="@color/tv_normal"
             android:textSize="@dimen/tv_sub"
             android:maxLines="2"
             android:ellipsize="end"

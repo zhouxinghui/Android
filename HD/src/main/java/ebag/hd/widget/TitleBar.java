@@ -147,8 +147,8 @@ public class TitleBar extends RelativeLayout {
         //设置了右侧的点击图片，或者设置了回到首页
         if(rightImage != null || toMainTab){
             rightView = new ImageView(context);
-            rightView.setPadding((int) getResources().getDimension(R.dimen.x13),(int) getResources().getDimension(R.dimen.x11)
-                    ,(int) getResources().getDimension(R.dimen.x13),(int) getResources().getDimension(R.dimen.x11));
+            rightView.setPadding((int) getResources().getDimension(R.dimen.x15),(int) getResources().getDimension(R.dimen.x8)
+                    ,(int) getResources().getDimension(R.dimen.x15),(int) getResources().getDimension(R.dimen.x8));
             if(toMainTab){
                 ((ImageView)rightView).setImageResource(R.drawable.invite_register_tip);
 
@@ -273,10 +273,10 @@ public class TitleBar extends RelativeLayout {
     }
 
     private void addRight(boolean isText){
-        if(isText)
+//        if(isText)
             rightParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, (int) getResources().getDimension(R.dimen.title_bar_height));
-        else
-            rightParams = new LayoutParams((int) getResources().getDimension(R.dimen.x45), (int) getResources().getDimension(R.dimen.title_bar_height));
+//        else
+//            rightParams = new LayoutParams((int) getResources().getDimension(R.dimen.x45), (int) getResources().getDimension(R.dimen.title_bar_height));
         rightParams.addRule(ALIGN_PARENT_RIGHT, TRUE);
         if(rightBackground != null){
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){

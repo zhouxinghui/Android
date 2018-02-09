@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="@dimen/x10"
+    android:paddingEnd="@dimen/x10"
+    android:paddingTop="@dimen/y10"
+    android:paddingBottom="@dimen/y10"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/x20"
+            android:background="@drawable/home_tv_btn_bg"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/tv_normal"
+                android:textSize="@dimen/tv_normal"
+                android:text="请输入题目标题"
+                />
+            <EditText android:id="@+id/titleEdit"
+                style="@style/custom_question_edit"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y15"
+                android:textColor="@color/tv_normal"
+                android:textSize="@dimen/tv_normal"
+                android:text="请输入题目内容"
+                />
+            <EditText android:id="@+id/contentEdit"
+                style="@style/custom_question_edit"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y15"
+            android:orientation="vertical"
+            android:padding="@dimen/x20"
+            android:background="@drawable/home_tv_btn_bg"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/tv_normal"
+                android:textSize="@dimen/tv_normal"
+                android:text="正确答案"
+                />
+            <EditText android:id="@+id/answerEdit"
+                style="@style/custom_question_edit"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y15"
+                android:textColor="@color/tv_normal"
+                android:textSize="@dimen/tv_normal"
+                android:text="答案分析"
+                />
+            <EditText android:id="@+id/analyseEdit"
+                style="@style/custom_question_edit"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

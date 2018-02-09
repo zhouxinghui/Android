@@ -5,11 +5,14 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.os.Build
+import android.support.annotation.RequiresApi
 import android.support.v4.view.PagerAdapter
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
@@ -19,6 +22,7 @@ import ebag.core.base.BaseActivity
 import ebag.core.util.*
 import ebag.hd.R
 import ebag.hd.bean.ReaderBean
+import ebag.hd.widget.BookCatalogPopup
 import ebag.hd.widget.PaletteView
 import ebag.hd.widget.TitleBar
 import kotlinx.android.synthetic.main.activity_reader.*
@@ -96,8 +100,9 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
                 else
                     finish()
             }
-            override fun rightClick() {
-
+            @RequiresApi(Build.VERSION_CODES.KITKAT)
+            override fun rightClick() {//目录
+                BookCatalogPopup(this@ReaderActivity).showAsDropDown(titleBar, 0, 0, Gravity.END)
             }
         })
 

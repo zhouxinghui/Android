@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicReference;
 
+import ebag.core.http.network.MsgException;
 import ebag.core.util.IOUtil;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -116,7 +117,7 @@ public class DownloadManager {
         DownloadInfo downloadInfo = new DownloadInfo(url);
         long contentLength = getContentLength(url);//获得文件大小
         downloadInfo.setTotal(contentLength);
-        String fileName = url.substring(url.lastIndexOf("/"));
+        String fileName = url.substring(url.lastIndexOf("/") + 1);
         downloadInfo.setFileName(fileName);
         return downloadInfo;
     }
@@ -193,7 +194,9 @@ public class DownloadManager {
                 }
                 fileOutputStream.flush();
                 downCalls.remove(url);
-            } finally {
+            }catch (Exception e1) {
+                e.onError(new MsgException("102", "下载失败"));
+            }finally {
                 //关闭IO流
                 IOUtil.closeAll(is, fileOutputStream);
 

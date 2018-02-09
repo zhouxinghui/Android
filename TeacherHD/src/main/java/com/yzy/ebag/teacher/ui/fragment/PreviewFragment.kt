@@ -7,10 +7,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.ui.activity.QuestionAdapter
+import com.yzy.ebag.teacher.widget.FeedbackDialog
 import ebag.core.base.BaseListFragment
 import ebag.core.bean.QuestionBean
 import ebag.core.http.network.RequestCallBack
-import ebag.core.util.T
 
 /**
  * Created by YZY on 2018/1/31.
@@ -18,6 +18,7 @@ import ebag.core.util.T
 class PreviewFragment : BaseListFragment<List<QuestionBean>, QuestionBean>() {
     private lateinit var previewList: ArrayList<QuestionBean>
     private var isSmartPush = false
+    private val feedbackDialog by lazy { FeedbackDialog(mContext) }
     companion object {
         fun newInstance(previewList: ArrayList<QuestionBean>): PreviewFragment {
             val fragment = PreviewFragment()
@@ -39,7 +40,7 @@ class PreviewFragment : BaseListFragment<List<QuestionBean>, QuestionBean>() {
         adapter as QuestionAdapter
         when(view?.id){
             R.id.feedBackTv ->{
-                T.show(mContext, "错题反馈")
+                feedbackDialog.show()
             }
             R.id.selectTv ->{
                 val questionBean = adapter.getItem(position)

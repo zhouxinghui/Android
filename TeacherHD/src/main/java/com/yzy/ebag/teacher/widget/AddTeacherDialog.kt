@@ -76,6 +76,8 @@ class AddTeacherDialog(context: Context): BaseDialog(context) {
     }
     fun show(classId: String, gradeCode: String){
         this.classId = classId
+        subjectAdapter.data.clear()
+        subjectAdapter.notifyDataSetChanged()
         TeacherApi.getSubject(gradeCode, subjectRequest)
         super.show()
     }

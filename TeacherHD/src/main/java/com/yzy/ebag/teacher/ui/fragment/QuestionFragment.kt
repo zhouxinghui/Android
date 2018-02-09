@@ -9,10 +9,10 @@ import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.AssignUnitBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.ui.activity.QuestionAdapter
+import com.yzy.ebag.teacher.widget.FeedbackDialog
 import ebag.core.base.BaseListFragment
 import ebag.core.bean.QuestionBean
 import ebag.core.http.network.RequestCallBack
-import ebag.core.util.T
 
 /**
  * Created by YZY on 2018/1/31.
@@ -23,6 +23,7 @@ class QuestionFragment: BaseListFragment<List<QuestionBean>, QuestionBean>() {
     private lateinit var type: String
     private lateinit var previewList: ArrayList<QuestionBean>
     private var isPreview = false
+    private val feedbackDialog by lazy { FeedbackDialog(mContext) }
     companion object {
         fun newInstance(previewList: ArrayList<QuestionBean>, unitBean: AssignUnitBean.UnitSubBean, difficulty: String?, type: String): QuestionFragment{
             val fragment = QuestionFragment()
@@ -65,7 +66,7 @@ class QuestionFragment: BaseListFragment<List<QuestionBean>, QuestionBean>() {
         adapter as QuestionAdapter
         when(view?.id){
             R.id.feedBackTv ->{
-                T.show(mContext, "错题反馈")
+                feedbackDialog.show()
             }
             R.id.selectTv ->{
                 val questionBean = adapter.getItem(position)

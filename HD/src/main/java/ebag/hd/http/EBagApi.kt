@@ -4,6 +4,7 @@ import ebag.core.base.App
 import ebag.core.bean.ResponseBean
 import ebag.core.http.baseBean.RequestBean
 import ebag.core.http.network.*
+import ebag.hd.bean.BookBean
 import ebag.hd.bean.ChildNodeBean
 import ebag.hd.bean.SchoolBean
 import ebag.hd.bean.response.NoticeBean
@@ -166,6 +167,13 @@ object EBagApi {
         jsonObject.put("page", page)
         jsonObject.put("classId", classId)
         EBagApi.request(eBagService.noticeList("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 我的课本
+     */
+    fun myBookList(callback: RequestCallBack<List<BookBean>>){
+        EBagApi.request(eBagService.myBookList("v1"), callback)
     }
 
 }

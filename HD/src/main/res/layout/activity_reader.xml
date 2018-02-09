@@ -10,6 +10,7 @@
     <ebag.hd.widget.TitleBar android:id="@+id/titleBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:rightImage="@drawable/icon_catalog"
         app:layout_constraintTop_toTopOf="parent"
         />
     <ebag.hd.widget.PageView android:id="@+id/pageView"

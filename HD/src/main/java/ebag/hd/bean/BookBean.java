@@ -1,75 +1,121 @@
 package ebag.hd.bean;
 
-import com.alibaba.fastjson.annotation.JSONField;
-
 /**
  * Created by caoyu on 2018/1/8.
  */
 
 public class BookBean {
+    /**
+     * bookCode : sx
+     * bookName : 数学
+     * bookVersionId : 39
+     * bookVersionName : 人民教育出版社
+     * gradeCode : 1
+     * gradeName : 一年级
+     * semesterCode : 1
+     * semester : 上学期
+     * pageImageUrl : http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/CAI/grade1/phase1/sx/page1.jpg
+     * downloadUrl : http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/CAI/39/grade1/phase1/sx.zip
+     * bookId : 39
+     */
 
-    public BookBean(String edition, String time, String item, String subject, String classX){
-        this.image = image;
-        this.edition = edition;
-        this.time = time;
-        this.item = item;
-        this.subject = subject;
-        this.classX = classX;
+    private String bookCode;
+    private String bookName;
+    private String bookVersionId;
+    private String bookVersionName;
+    private String gradeCode;
+    private String gradeName;
+    private String semesterCode;
+    private String semester;
+    private String pageImageUrl;
+    private String downloadUrl;
+    private int bookId;
+
+    public String getBookCode() {
+        return bookCode;
     }
 
-    private String image = "http://pic32.nipic.com/20130827/12906030_123121414000_2.png";
-    private String edition;
-    private String time;
-    private String item;
-    private String subject;
-    @JSONField(name = "class")
-    private String classX;
-
-    public String getImage() {
-        return image;
+    public void setBookCode(String bookCode) {
+        this.bookCode = bookCode;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public String getBookName() {
+        return bookName;
     }
 
-    public String getEdition() {
-        return edition;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 
-    public void setEdition(String edition) {
-        this.edition = edition;
+    public String getBookVersionId() {
+        return bookVersionId;
     }
 
-    public String getTime() {
-        return time;
+    public void setBookVersionId(String bookVersionId) {
+        this.bookVersionId = bookVersionId;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public String getBookVersionName() {
+        return bookVersionName;
     }
 
-    public String getItem() {
-        return item;
+    public void setBookVersionName(String bookVersionName) {
+        this.bookVersionName = bookVersionName;
     }
 
-    public void setItem(String item) {
-        this.item = item;
+    public String getGradeCode() {
+        return gradeCode;
     }
 
-    public String getSubject() {
-        return subject;
+    public void setGradeCode(String gradeCode) {
+        this.gradeCode = gradeCode;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public String getGradeName() {
+        return gradeName;
     }
 
-    public String getClassX() {
-        return classX;
+    public void setGradeName(String gradeName) {
+        this.gradeName = gradeName;
     }
 
-    public void setClassX(String classX) {
-        this.classX = classX;
+    public String getSemesterCode() {
+        return semesterCode;
+    }
+
+    public void setSemesterCode(String semesterCode) {
+        this.semesterCode = semesterCode;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
+
+    public String getPageImageUrl() {
+        return pageImageUrl;
+    }
+
+    public void setPageImageUrl(String pageImageUrl) {
+        this.pageImageUrl = pageImageUrl;
+    }
+
+    public String getDownloadUrl() {
+        return downloadUrl;
+    }
+
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
+    }
+
+    public int getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
     }
 }

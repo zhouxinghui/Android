@@ -7,6 +7,7 @@
     <color name="background">#FFFFFF</color>
     <color name="common_background">#F7F7FA</color>
     <color name="navigationBarColor">#6FB1FF</color>
+    <color name="tv_normal">#5B5852</color>
 
     <color name="red">#FD7E74</color>
     <color name="green">#97E14F</color>

@@ -41,7 +41,7 @@ class FragmentMine : BaseFragment(), View.OnClickListener {
         val userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.TEACHER_USER_ENTITY)
         if (userEntity != null) {
             headImg.loadHead(userEntity.headUrl)
-            subjectTv.text = "英"
+//            subjectTv.text = "英"
             name.text = userEntity.name
             bagNumber.text = getString(R.string.bag_number, userEntity.ysbCode)
         }
