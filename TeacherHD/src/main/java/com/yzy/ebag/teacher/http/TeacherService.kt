@@ -124,6 +124,4 @@ interface TeacherService {
      */
     @POST("clazz/addTaughtCoruses/{version}")
     fun addCourse(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
-
-
 }

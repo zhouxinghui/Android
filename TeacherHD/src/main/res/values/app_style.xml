@@ -3,15 +3,17 @@
     <!--首页start-->
     <style name="home_navigation">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">@dimen/y120</item>
         <item name="android:gravity">center</item>
         <item name="android:button">@null</item>
         <item name="android:background">@drawable/home_navigation_background</item>
         <item name="android:textColor">@color/home_navigation_text_color</item>
         <item name="android:paddingTop">@dimen/y15</item>
         <item name="android:paddingBottom">@dimen/y15</item>
+        <item name="android:paddingStart">@dimen/x15</item>
+        <item name="android:paddingEnd">@dimen/x15</item>
         <item name="android:drawablePadding">@dimen/y10</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/tv_sub</item>
     </style>
     <style name="home_tv_btn">
         <item name="android:layout_width">0dp</item>
@@ -211,7 +213,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">@dimen/title_bar_height</item>
         <item name="android:textSize">@dimen/tv_sub</item>
-        <item name="android:textColor">@color/assignment_tv</item>
+        <item name="android:textColor">@color/tv_normal</item>
         <item name="android:gravity">center</item>
         <item name="android:background">?attr/selectableItemBackground</item>
         <item name="android:paddingStart">@dimen/x20</item>
@@ -234,7 +236,7 @@
         <item name="android:padding">@dimen/x15</item>
         <item name="android:background">@color/white</item>
         <item name="android:textSize">@dimen/tv_normal</item>
-        <item name="android:textColor">@color/assignment_tv</item>
+        <item name="android:textColor">@color/tv_normal</item>
         <item name="leftDrawableWidth">@dimen/x36</item>
         <item name="leftDrawableHeight">@dimen/x36</item>
         <item name="android:drawablePadding">@dimen/x15</item>
@@ -243,11 +245,37 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">@dimen/x32</item>
         <item name="android:layout_marginStart">@dimen/x15</item>
-        <item name="android:textColor">@color/assignment_tv</item>
+        <item name="android:textColor">@color/tv_normal</item>
         <item name="android:textSize">@dimen/tv_normal</item>
         <item name="android:button">@null</item>
         <item name="android:drawableLeft">@drawable/assign_deadline_radio_button</item>
         <item name="android:drawablePadding">@dimen/x10</item>
     </style>
     <!--布置作业end-->
+    <!--自定义：录题start-->
+    <style name="custom_question_edit">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/y15</item>
+        <item name="android:minHeight">@dimen/y50</item>
+        <item name="android:textColor">@color/tv_normal</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:background">@drawable/gray_corners_bg</item>
+        <item name="android:padding">@dimen/x10</item>
+    </style>
+    <style name="custom_choice_option_tv">
+        <item name="android:layout_width">@dimen/y50</item>
+        <item name="android:layout_height">@dimen/y50</item>
+        <item name="android:background">@drawable/gray_corners_bg</item>
+        <item name="android:layout_marginTop">@dimen/y15</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="custom_add_image">
+        <item name="android:layout_width">@dimen/x120</item>
+        <item name="android:layout_height">@dimen/x120</item>
+        <item name="android:layout_marginTop">@dimen/y15</item>
+        <item name="android:src">@drawable/add_pic</item>
+    </style>
+    <!--自定义：录题end-->
 </resources>

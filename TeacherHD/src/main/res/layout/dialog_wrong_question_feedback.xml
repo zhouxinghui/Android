@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/textbook_version_bg"
+    >
+    <TextView android:id="@+id/title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/assignment_tv_sub"
+        android:textSize="@dimen/title_bar_title_size"
+        android:text="@string/wrong_question_feedback"
+        android:padding="@dimen/x20"
+        android:gravity="center"
+        />
+    <EditText android:id="@+id/feedbackEdit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y200"
+        android:gravity="start"
+        android:padding="@dimen/x10"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="@color/tv_normal"
+        android:hint="@string/wrong_question_feedback_hint"
+        android:background="@drawable/publish_edit_bg"
+        app:layout_constraintTop_toBottomOf="@id/title_tv"
+        android:layout_margin="@dimen/x15"
+        />
+    <TextView android:id="@+id/confirmBtn"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/y75"
+        android:background="@drawable/textbook_confirm_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <TextView android:id="@+id/gou"
+        android:layout_width="@dimen/x54"
+        android:layout_height="@dimen/x40"
+        android:background="@drawable/icon_version_gou"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/confirmBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <ebag.core.widget.empty.StateView android:id="@+id/stateView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</android.support.constraint.ConstraintLayout>

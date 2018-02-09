@@ -105,11 +105,11 @@ class PreviewActivity: BaseActivity() {
         })
     }
     private fun backEvent(){
-        if (previewList.size != 0){
-            val intent = Intent()
-            intent.putExtra("previewList", previewList)
-            setResult(Constants.QUESTION_RESULT, intent)
-        }
+        if(previewList.isEmpty())
+            previewList = ArrayList()
+        val intent = Intent()
+        intent.putExtra("previewList", previewList)
+        setResult(Constants.QUESTION_RESULT, intent)
     }
     override fun onBackPressed() {
         backEvent()

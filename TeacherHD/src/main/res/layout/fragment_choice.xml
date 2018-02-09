@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="@dimen/x10"
+    android:paddingEnd="@dimen/x10"
+    android:paddingTop="@dimen/y10"
+    android:paddingBottom="@dimen/y10"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/x20"
+            android:background="@drawable/home_tv_btn_bg"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/tv_normal"
+                android:textSize="@dimen/tv_normal"
+                android:text="请输入题目标题"
+                />
+            <EditText android:id="@+id/titleEdit"
+                style="@style/custom_question_edit"
+                android:layout_marginTop="@dimen/y15"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y15"
+                android:textColor="@color/tv_normal"
+                android:textSize="@dimen/tv_normal"
+                android:text="添加图片（可选）"
+                />
+            <ImageView android:id="@+id/titleImage"
+                style="@style/custom_add_image"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/y15"
+                >
+                <TextView android:id="@+id/contentTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/tv_normal"
+                    android:textSize="@dimen/tv_normal"
+                    android:text="选项内容（如果不足四个选项请按顺序填写）"
+                    />
+                <TextView android:id="@+id/picWordBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textSize="@dimen/tv_normal"
+                    android:text="图⇌文"
+                    />
+            </LinearLayout>
+            <android.support.constraint.ConstraintLayout android:id="@+id/wordLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y15"
+                >
+                <TextView android:id="@+id/option_a"
+                    style="@style/custom_choice_option_tv"
+                    android:text="A"
+                    />
+                <EditText android:id="@+id/optionAEdit"
+                    android:layout_width="0dp"
+                    style="@style/custom_question_edit"
+                    android:layout_marginStart="@dimen/x10"
+                    android:text="大量积分阿佛就奥斯积分"
+                    app:layout_constraintStart_toEndOf="@id/option_a"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+                <TextView android:id="@+id/option_b"
+                    style="@style/custom_choice_option_tv"
+                    app:layout_constraintTop_toBottomOf="@id/option_a"
+                    android:text="B"
+                    />
+                <EditText android:id="@+id/optionBEdit"
+                    android:layout_width="0dp"
+                    style="@style/custom_question_edit"
+                    android:layout_marginStart="@dimen/x10"
+                    app:layout_constraintTop_toBottomOf="@id/option_a"
+                    app:layout_constraintStart_toEndOf="@id/option_b"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+                <TextView android:id="@+id/option_c"
+                    style="@style/custom_choice_option_tv"
+                    app:layout_constraintTop_toBottomOf="@id/option_b"
+                    android:text="C"
+                    />
+                <EditText android:id="@+id/optionCEdit"
+                    android:layout_width="0dp"
+                    style="@style/custom_question_edit"
+                    android:layout_marginStart="@dimen/x10"
+                    app:layout_constraintTop_toBottomOf="@id/option_b"
+                    app:layout_constraintStart_toEndOf="@id/option_c"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+                <TextView android:id="@+id/option_d"
+                    style="@style/custom_choice_option_tv"
+                    app:layout_constraintTop_toBottomOf="@id/option_c"
+                    android:text="D"
+                    />
+                <EditText android:id="@+id/optionDEdit"
+                    android:layout_width="0dp"
+                    style="@style/custom_question_edit"
+                    android:layout_marginStart="@dimen/x10"
+                    app:layout_constraintTop_toBottomOf="@id/option_c"
+                    app:layout_constraintStart_toEndOf="@id/option_d"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+            </android.support.constraint.ConstraintLayout>
+            <LinearLayout android:id="@+id/picLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
+                <TextView
+                    style="@style/custom_choice_option_tv"
+                    android:text="A"
+                    />
+                <ImageView android:id="@+id/image_a"
+                    android:layout_marginStart="@dimen/x10"
+                    style="@style/custom_add_image"
+                    />
+                <TextView
+                    style="@style/custom_choice_option_tv"
+                    android:layout_marginStart="@dimen/x20"
+                    android:text="B"
+                    />
+                <ImageView android:id="@+id/image_b"
+                    android:layout_marginStart="@dimen/x10"
+                    style="@style/custom_add_image"
+                    />
+                <TextView
+                    style="@style/custom_choice_option_tv"
+                    android:layout_marginStart="@dimen/x20"
+                    android:text="C"
+                    />
+                <ImageView android:id="@+id/image_c"
+                    android:layout_marginStart="@dimen/x10"
+                    style="@style/custom_add_image"
+                    />
+                <TextView
+                    style="@style/custom_choice_option_tv"
+                    android:layout_marginStart="@dimen/x20"
+                    android:text="D"
+                    />
+                <ImageView android:id="@+id/image_d"
+                    android:layout_marginStart="@dimen/x10"
+                    style="@style/custom_add_image"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y15"
+            android:orientation="vertical"
+            android:padding="@dimen/x20"
+            android:background="@drawable/home_tv_btn_bg"
+            >
+            <TextView android:id="@+id/rightAnswerTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/tv_normal"
+                android:textSize="@dimen/tv_normal"
+                android:text="正确答案（请用选项字母表示）"
+                />
+            <EditText android:id="@+id/answerEdit"
+                style="@style/custom_question_edit"
+                android:layout_marginTop="@dimen/y15"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y15"
+                android:textColor="@color/tv_normal"
+                android:textSize="@dimen/tv_normal"
+                android:text="答案分析"
+                />
+            <EditText android:id="@+id/analyseEdit"
+                style="@style/custom_question_edit"
+                android:layout_marginTop="@dimen/y15"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

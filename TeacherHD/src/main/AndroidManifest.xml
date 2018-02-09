@@ -18,11 +18,7 @@
         <activity
             android:name=".ui.activity.WelcomeActivity"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ui.activity.account.LoginActivity"
@@ -32,9 +28,8 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".ui.activity.AssignmentActivity"
-            android:screenOrientation="landscape"
             android:launchMode="singleTask"
-            />
+            android:screenOrientation="landscape" />
         <activity
             android:name=".ui.activity.SpaceActivity"
             android:screenOrientation="landscape" />
@@ -72,14 +67,21 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".ui.activity.QuestionActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".ui.activity.PreviewActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.activity.PublishWorkActivity"
+        <activity
+            android:name=".ui.activity.PublishWorkActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            />
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity android:name=".TestXmlActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

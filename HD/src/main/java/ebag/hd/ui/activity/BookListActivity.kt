@@ -17,6 +17,7 @@ import ebag.core.util.*
 import ebag.hd.R
 import ebag.hd.activity.ReaderActivity
 import ebag.hd.bean.BookBean
+import ebag.hd.http.EBagApi
 import java.io.File
 import java.io.IOException
 import java.util.zip.ZipException
@@ -33,18 +34,10 @@ class BookListActivity: BaseListActivity<List<BookBean>, BookBean>() {
     }
     override fun loadConfig(intent: Intent) {
         setPageTitle("学习课本")
-        val list = ArrayList<BookBean>()
-        list.add(BookBean("人教版", "2010-10-24", "上学期", "语文", "三年级"))
-        list.add(BookBean("人教版", "2010-10-24", "上学期", "英语", "三年级"))
-        list.add(BookBean("人教版", "2010-10-24", "上学期", "数学", "三年级"))
-        list.add(BookBean("人教版", "2010-10-24", "上学期", "生物", "三年级"))
-        list.add(BookBean("人教版", "2010-10-24", "上学期", "化学", "三年级"))
-        list.add(BookBean("人教版", "2010-10-24", "上学期", "历史", "三年级"))
-        list.add(BookBean("人教版", "2010-10-24", "上学期", "社会", "三年级"))
-        withFirstPageData(list)
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<BookBean>>) {
+        EBagApi.myBookList(requestCallBack)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<BookBean>?): List<BookBean>? {
@@ -60,18 +53,21 @@ class BookListActivity: BaseListActivity<List<BookBean>, BookBean>() {
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        //TODO replace url
-        val url = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/CAI/grade1/phase1/ddyfz.zip"
-        val imagePath = FileUtil.getBookPath() + "123456/" + url.substring(url.lastIndexOf("/") + 1, url.lastIndexOf("."))
-        val file = FileUtil.getBookPath() + url.substring(url.lastIndexOf("/"))
+        adapter as BookListAdapter
+        val bookBean = adapter.getItem(position)!!
+        val url = bookBean.downloadUrl
+        val downloadPath = FileUtil.getBookPath() + "${bookBean.bookId}/"
+        val imagePath = downloadPath + url.substring(url.lastIndexOf("/") + 1, url.lastIndexOf("."))
+        val file = downloadPath + url.substring(url.lastIndexOf("/") + 1)
 
-        if (FileUtil.isFileExists(file)) {
+        if (FileUtil.isFileExists(imagePath)) {
             ReaderActivity.jump(this, imagePath)
             return
         }
+        FileUtil.createDir(downloadPath)
         DownloadManager.getInstance().download(
                 url,
-                FileUtil.getBookPath(),
+                downloadPath,
                 object : DownLoadObserver(){
             override fun onNext(downloadInfo: DownloadInfo) {
                 super.onNext(downloadInfo)
@@ -79,10 +75,8 @@ class BookListActivity: BaseListActivity<List<BookBean>, BookBean>() {
             }
 
             override fun onComplete() {
-                //TODO replace fileName
-                val fileName = FileUtil.getBookPath() + url.substring(url.lastIndexOf("/"))
                 try {
-                    ZipUtils.upZipFile(File(fileName), FileUtil.getBookPath() + "123456")
+                    ZipUtils.upZipFile(File(file), downloadPath)
                 } catch (e: ZipException) {
                     T.show(this@BookListActivity, "文件解压失败")
                     e.printStackTrace()
@@ -92,7 +86,9 @@ class BookListActivity: BaseListActivity<List<BookBean>, BookBean>() {
                 }
 
                 LoadingDialogUtil.closeLoadingDialog()
+                FileUtil.deleteFile(file)
                 T.show(this@BookListActivity, "下载完成")
+                ReaderActivity.jump(this@BookListActivity, imagePath)
             }
 
             override fun onError(e: Throwable) {
@@ -106,12 +102,12 @@ class BookListActivity: BaseListActivity<List<BookBean>, BookBean>() {
 
     class BookListAdapter: BaseQuickAdapter<BookBean, BaseViewHolder>(R.layout.item_activity_book_list){
         override fun convert(helper: BaseViewHolder, item: BookBean) {
-            helper.getView<ImageView>(R.id.ivBook).loadImage(item.image)
-            helper.setText(R.id.tvEdition,item.edition)
-                    .setText(R.id.tvTime,"[添加时间:${item.time}]")
-                    .setText(R.id.tvSemester,item.item)
-                    .setText(R.id.tvSubject,item.subject)
-                    .setText(R.id.tvClass,item.classX)
+            helper.getView<ImageView>(R.id.ivBook).loadImage(item.pageImageUrl)
+            helper.setText(R.id.tvEdition,item.bookVersionName)
+                    .setText(R.id.tvTime,"[添加时间:${System.currentTimeMillis()}]")
+                    .setText(R.id.tvSemester,item.semester)
+                    .setText(R.id.tvSubject,item.bookName)
+                    .setText(R.id.tvClass,item.gradeName)
         }
     }
 }

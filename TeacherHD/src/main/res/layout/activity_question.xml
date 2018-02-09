@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/tv_normal"
-                android:textColor="@color/assignment_tv"
+                android:textColor="@color/tv_normal"
                 android:text="@string/answer_analyse"
                 android:layout_marginStart="@dimen/x10"
                 />
@@ -98,7 +98,7 @@
             <TextView android:id="@+id/analyseContentTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/assignment_tv"
+                android:textColor="@color/tv_normal"
                 android:textSize="@dimen/tv_sub"
                 android:paddingStart="@dimen/x10"
                 android:paddingEnd="@dimen/x10"

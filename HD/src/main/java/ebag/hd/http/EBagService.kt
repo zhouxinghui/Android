@@ -1,6 +1,7 @@
 package ebag.hd.http
 
 import ebag.core.bean.ResponseBean
+import ebag.hd.bean.BookBean
 import ebag.hd.bean.ChildNodeBean
 import ebag.hd.bean.SchoolBean
 import ebag.hd.bean.response.NoticeBean
@@ -77,6 +78,11 @@ interface EBagService {
     @POST("notice/queryClassNotice/{version}")
     fun noticeList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<NoticeBean>>>
 
+    /**
+     * 我的课本
+     */
+    @POST("book/myBook/{version}")
+    fun myBookList(@Path("version") version: String): Observable<ResponseBean<List<BookBean>>>
 
     //TODO 接口名称，注意替换
     /**
