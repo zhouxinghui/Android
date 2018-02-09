@@ -4,8 +4,10 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -13,8 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import ebag.core.bean.QuestionBean;
-import ebag.core.xRecyclerView.ItemTouchHelperAdapter;
-import ebag.core.xRecyclerView.SimpleItemTouchHelperCallback;
+import ebag.core.util.StringUtils;
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder;
 import ebag.hd.R;
@@ -34,7 +35,6 @@ public class SortVerticalView extends BaseQuestionView {
     private List<SortBean> sortList;
     private String studentAnswer;
     private String rightAnswer;
-    private SimpleItemTouchHelperCallback callback;
 
     public SortVerticalView(Context context) {
         super(context);
@@ -59,21 +59,6 @@ public class SortVerticalView extends BaseQuestionView {
         sortAdapter = new SortAdapter();
         optionRecycler.setAdapter(sortAdapter);
 
-        callback = new SimpleItemTouchHelperCallback(new ItemTouchHelperAdapter() {
-            @Override
-            public void onItemMove(int fromPosition, int toPosition) {
-                sortAdapter.moveItem(fromPosition-sortAdapter.getHeaderSize(),toPosition-sortAdapter.getHeaderSize());
-                SortVerticalView.this.questionBean.setStudentAnswer(SortVerticalView.this.getAnswer());
-            }
-
-            @Override
-            public void onItemDismiss(int position) {
-
-            }
-        });
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
-        itemTouchHelper.attachToRecyclerView(optionRecycler);
-
         addView(optionRecycler,layoutParams);
     }
 
@@ -84,7 +69,7 @@ public class SortVerticalView extends BaseQuestionView {
         String[] split = questionBean.getContent().split("#R#");
         sortList = new ArrayList<>();
         for(int i = 0; i < split.length; i++){
-            sortList.add(new SortBean(String.valueOf(i+1),split[i]));
+            sortList.add(new SortBean(split[i]));
         }
         studentAnswer = questionBean.getStudentAnswer();
         rightAnswer = questionBean.getAnswer();
@@ -92,52 +77,41 @@ public class SortVerticalView extends BaseQuestionView {
 
     @Override
     public void show(boolean active) {
-        callback.setDragEnable(active);
         setTitle(titleList);
         sortAdapter.setResult(false);
-
-//        if(!StringUtils.INSTANCE.isEmpty(studentAnswer)){
-//            //学生答案
-//            String[] answers = studentAnswer.split(",");
-//            for(int i = 0; i < sortList.size(); i++){
-//                if(i < answers.length)
-//                    sortList.get(i).answer = answers[i];
-//                else
-//                    sortList.get(i).answer = "";
-//            }
-//
-//        }else{
-            sortAdapter.setDatas(sortList);
-//        }
+        sortAdapter.setEnable(true);
+        if(!StringUtils.INSTANCE.isEmpty(studentAnswer)){
+            //学生答案
+            String[] answers = studentAnswer.split(",");
+            for(int i = 0; i < sortList.size(); i++){
+                if(i < answers.length)
+                    sortList.get(i).answer = answers[i];
+                else
+                    sortList.get(i).answer = "";
+            }
+        }
+        sortAdapter.setDatas(sortList);
     }
 
     @Override
     public void questionActive(boolean active) {
-        callback.setDragEnable(active);
+        sortAdapter.setEnable(active);
     }
 
     @Override
     public boolean isQuestionActive() {
-        return callback.dragEnable();
+        return sortAdapter.isEnable();
     }
 
     @Override
     public void showResult() {
-        callback.setDragEnable(false);
+        sortAdapter.setEnable(false);
         setTitle(titleList);
-        //学生答案
-        String[] answers = studentAnswer.split(",");
-        for(int i = 0; i < sortList.size(); i++){
-            if(i < answers.length)
-                sortList.get(i).answer = answers[i];
-            else
-                sortList.get(i).answer = "";
-        }
 
         //判断当前的题目是否正确
         String[] strings = rightAnswer.split(",");
         for(int i = 0; i < strings.length; i++){
-            sortAdapter.getItem(i).isRight = sortAdapter.getItem(i).position.equals(strings[i]);
+            sortAdapter.getItem(i).isRight = sortAdapter.getItem(i).answer.equals(strings[i]);
         }
         sortAdapter.setResult(true);
         sortAdapter.notifyDataSetChanged();
@@ -147,7 +121,7 @@ public class SortVerticalView extends BaseQuestionView {
     public String getAnswer() {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i< sortAdapter.getDatas().size(); i++){
-            sb.append(sortAdapter.getDatas().get(i).position);
+            sb.append(sortAdapter.getDatas().get(i).answer);
             if(i < sortAdapter.getDatas().size() -1)
                 sb.append(",");
         }
@@ -159,12 +133,17 @@ public class SortVerticalView extends BaseQuestionView {
 
     }
 
-    private class SortAdapter extends RecyclerAdapter<SortBean>{
+    private class SortAdapter extends RecyclerAdapter<SortBean> implements OnFocusChangeListener, TextWatcher{
 
         //是否显示 结果
         private boolean isResult = false;
         private int colorNormal = 0;
         private int colorSelected = 0;
+
+        private SortBean focusSortBean;
+        private RecyclerViewHolder focusHolder;
+
+        private boolean enable = true;
 
         public void setResult(boolean result) {
             isResult = result;
@@ -176,31 +155,73 @@ public class SortVerticalView extends BaseQuestionView {
             colorSelected = getResources().getColor(R.color.white);
         }
 
+        public boolean isEnable() {
+            return enable;
+        }
+
+        public void setEnable(boolean enable) {
+            this.enable = enable;
+            notifyDataSetChanged();
+        }
+
         @Override
         protected void fillData(RecyclerViewHolder setter, int position, SortBean entity) {
+            setter.getEditText(R.id.tvSort).setEnabled(enable);
             setter.setText(R.id.tvContent,entity.content);
+            setter.setText(R.id.tvSort,entity.answer);
+
+            setter.setTag(R.id.tvSort, setter);
+            setter.getEditText(R.id.tvSort).setOnFocusChangeListener(this);
+            setter.getEditText(R.id.tvSort).addTextChangedListener(this);
             if(isResult) {
                 setter.setTextColor(R.id.tvSort,colorSelected);
-                setter.setText(R.id.tvSort,entity.answer);
                 setter.setBackgroundRes(R.id.tvSort,R.drawable.bg_question_sort_rightable);
                 setter.getTextView(R.id.tvSort).setSelected(entity.isRight);
             }else{
                 setter.setTextColor(R.id.tvSort,colorNormal);
                 setter.setBackgroundRes(R.id.tvSort,R.drawable.bg_question_sort_normal);
-                setter.setText(R.id.tvSort,entity.position);
             }
+        }
+
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if(hasFocus){
+                focusHolder = (RecyclerViewHolder) v.getTag();
+                focusSortBean = getItem(focusHolder.getHolderPosition());
+            }
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if(focusSortBean != null)
+                focusSortBean.answer = s.toString();
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            SortVerticalView.this.questionBean.setStudentAnswer(SortVerticalView.this.getAnswer());
         }
     }
 
     private class SortBean{
-        String position = "";
         String content = "";
         String answer = "";
         boolean isRight = true;
 
-        SortBean(String position, String content){
-            this.position = position;
+        SortBean(String content){
             this.content = content;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            return !StringUtils.INSTANCE.isEmpty(this.content) && this.content.equals(((SortBean) obj).content);
         }
     }
 }

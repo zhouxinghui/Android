@@ -10,7 +10,7 @@
     android:baselineAligned="false"
     android:gravity="top">
 
-    <TextView
+    <EditText
         android:id="@+id/tvSort"
         android:layout_width="@dimen/x26"
         android:layout_height="@dimen/x26"

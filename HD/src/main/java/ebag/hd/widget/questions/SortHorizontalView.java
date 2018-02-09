@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import ebag.core.bean.QuestionBean;
+import ebag.core.util.StringUtils;
 import ebag.core.xRecyclerView.ItemTouchHelperAdapter;
 import ebag.core.xRecyclerView.adapter.OnItemClickListener;
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
@@ -148,8 +149,18 @@ public class SortHorizontalView extends BaseQuestionView {
         String[] split = questionContent.split("#R#");
         for(String str : split)
             contentList.add(new SortBean(str));
-        contentAdapter.setDatas(contentList);
+
+
         answerList = new ArrayList<>();
+        if(!StringUtils.INSTANCE.isEmpty(studentAnswer)){
+            String[] answerSplit = studentAnswer.split(",");
+            for(String str: answerSplit){
+                SortBean sortBean = new SortBean(str);
+                answerList.add(sortBean);
+                contentList.remove(sortBean);
+            }
+        }
+        contentAdapter.setDatas(contentList);
         answerAdapter.setDatas(answerList);
     }
 
@@ -246,6 +257,13 @@ public class SortHorizontalView extends BaseQuestionView {
         SortBean(String content, boolean isRight){
             this.content = content;
             this.isRight = isRight;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            return !StringUtils.INSTANCE.isEmpty(this.content) && this.content.equals(((SortBean) obj).content);
         }
     }
 
