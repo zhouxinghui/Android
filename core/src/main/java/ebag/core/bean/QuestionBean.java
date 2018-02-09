@@ -62,6 +62,8 @@ public class QuestionBean implements Serializable, MultiItemEntity, Cloneable {
     }
 
     public String getStudentAnswer() {
+        if(studentAnswer == null)
+            studentAnswer = "";
         return studentAnswer;
     }
 
