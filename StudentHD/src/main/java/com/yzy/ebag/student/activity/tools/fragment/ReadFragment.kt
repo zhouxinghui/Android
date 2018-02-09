@@ -24,10 +24,11 @@ class ReadFragment: BaseListFragment<ReadOutBean, ReadOutBean.OralLanguageBean>(
 
 
     companion object {
-        fun newInstance(unitCode: String?): ReadFragment{
+        fun newInstance(classId: String, unitCode: String?): ReadFragment{
             val fragment = ReadFragment()
             val bundle = Bundle()
             bundle.putString("unitCode", unitCode)
+            bundle.putString("classId", classId)
             fragment.arguments = bundle
             return fragment
         }
@@ -38,8 +39,10 @@ class ReadFragment: BaseListFragment<ReadOutBean, ReadOutBean.OralLanguageBean>(
     }
 
     private lateinit var unitCode: String
+    private lateinit var classId: String
     override fun getBundle(bundle: Bundle?) {
         unitCode = bundle?.getString("unitCode") ?: ""
+        classId = bundle?.getString("classId") ?: ""
     }
 
     fun update(unitCode: String?){
@@ -70,7 +73,7 @@ class ReadFragment: BaseListFragment<ReadOutBean, ReadOutBean.OralLanguageBean>(
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-        ReadDetailActivity.jump(mContext, adapter?.getItem(position) as ReadOutBean.OralLanguageBean?)
+        ReadDetailActivity.jump(mContext, classId, adapter?.getItem(position) as ReadOutBean.OralLanguageBean?)
     }
 
     class Adapter: BaseQuickAdapter<ReadOutBean.OralLanguageBean, BaseViewHolder>(R.layout.item_fragment_tools_read){

@@ -21,7 +21,7 @@
             />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/resultRecycler"
+            android:id="@+id/historyRecycler"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_below="@id/videoPlayer"
@@ -32,17 +32,16 @@
             android:id="@+id/emptyLayout"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_alignTop="@id/resultRecycler"
-            android:layout_alignBottom="@id/resultRecycler"
-            android:layout_alignStart="@id/resultRecycler"
-            android:layout_alignEnd="@id/resultRecycler">
+            android:layout_alignTop="@id/historyRecycler"
+            android:layout_alignBottom="@id/historyRecycler"
+            android:layout_alignStart="@id/historyRecycler"
+            android:layout_alignEnd="@id/historyRecycler">
 
-            <ImageView
-                android:layout_width="@dimen/x109"
-                android:layout_height="@dimen/x127"
-                android:src="@drawable/img_empty"
-                android:layout_gravity="center"/>
-            
+            <ebag.core.widget.empty.StateView
+                android:id="@+id/historyStateView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
         </FrameLayout>
 
         <android.support.v7.widget.RecyclerView

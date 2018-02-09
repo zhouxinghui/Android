@@ -8,6 +8,7 @@ import android.os.Message
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.ProgressBar
 import cn.jzvd.JZVideoPlayer
 import cn.jzvd.JZVideoPlayerStandard
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -15,10 +16,12 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.bean.ReadDetailBean
 import com.yzy.ebag.student.bean.ReadOutBean
+import com.yzy.ebag.student.bean.RecordHistory
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
 import ebag.core.util.*
 import ebag.hd.bean.response.UserEntity
 import kotlinx.android.synthetic.main.activity_read_detail.*
@@ -33,9 +36,10 @@ import java.io.File
 class ReadDetailActivity: BaseActivity() {
 
     companion object {
-        fun jump(context: Context, readBean: ReadOutBean.OralLanguageBean?){
+        fun jump(context: Context,classId: String, readBean: ReadOutBean.OralLanguageBean?){
             context.startActivity(
                     Intent(context, ReadDetailActivity::class.java)
+                            .putExtra("classId", classId)
                             .putExtra("oralLanguageBean", readBean)
             )
         }
@@ -51,32 +55,32 @@ class ReadDetailActivity: BaseActivity() {
 
         voicePlayer.setOnPlayChangeListener(object : VoicePlayerOnline.OnPlayChangeListener{
             override fun onProgressChange(progress: Int) {
-
+                progressBar?.progress = progress
             }
             override fun onCompletePlay() {
-                isLocalRecord = false
-                isNetRecord = false
                 playingUrl = null
                 anim?.stop()
                 anim?.selectDrawable(0)
+                progressBar?.progress = 0
+                progressBar = null
             }
         })
         voicePlayer
     }
     private var playingUrl: String? = null
     private var anim : AnimationDrawable? = null
+    private var progressBar : ProgressBar? = null
     private lateinit var basePath: String
     private var readDetailBean: ReadDetailBean? = null
     private lateinit var userId: String
-    private var isNetRecord = false
-    private var isLocalRecord = false
+    private lateinit var classId: String
 
     private val uploadDialog by lazy {
         ProgressDialog(this)
     }
     override fun initViews() {
         readBean = intent.getSerializableExtra("oralLanguageBean") as ReadOutBean.OralLanguageBean?
-
+        classId = intent.getStringExtra("classId") ?: ""
         val userEntity = SerializableUtils.getSerializable<UserEntity>(ebag.hd.base.Constants.STUDENT_USER_ENTITY)
         userId = userEntity?.uid ?: "userId"
         basePath = FileUtil.getRecorderPath() +File.separator + userId + File.separator + "read"
@@ -97,6 +101,9 @@ class ReadDetailActivity: BaseActivity() {
             contentRecycler.layoutManager = LinearLayoutManager(this)
             contentRecycler.adapter = adapter
 
+            historyRecycler.layoutManager = LinearLayoutManager(this)
+            historyRecycler.adapter = historyAdapter
+
             adapter.setOnItemClickListener { _, view, position ->
                 if(recorderUtil.isRecording){
                     T.show(this,"请先结束录音")
@@ -106,7 +113,11 @@ class ReadDetailActivity: BaseActivity() {
             }
 
             stateView.setOnRetryClickListener {
-                StudentApi.getReadDetailList(readBean?.id ?: "", request)
+                getContent()
+            }
+
+            historyStateView.setOnRetryClickListener {
+                getHistory()
             }
 
 
@@ -126,9 +137,10 @@ class ReadDetailActivity: BaseActivity() {
                                 if(anim != null) {
                                     anim!!.stop()
                                     anim!!.selectDrawable(0)
+                                    progressBar?.progress = 0
+                                    progressBar = null
                                 }
                                 anim = view.background as AnimationDrawable
-                                isNetRecord = true
                                 voicePlayer.playUrl(urlStr)
                                 anim?.start()
                                 playingUrl = urlStr
@@ -184,7 +196,12 @@ class ReadDetailActivity: BaseActivity() {
                                 adapter.notifyItemChanged(position)
                             }else{// 本地存在录音文件
                                 if(playingUrl != recordFile.absolutePath){
-                                    isLocalRecord = true
+                                    if(anim != null) {
+                                        anim!!.stop()
+                                        anim!!.selectDrawable(0)
+                                        progressBar?.progress = 0
+                                        progressBar = null
+                                    }
                                     voicePlayer.playUrl(recordFile.absolutePath)
                                     playingUrl = recordFile.absolutePath
                                 }else{
@@ -206,28 +223,86 @@ class ReadDetailActivity: BaseActivity() {
                         if(recorderUtil.isRecording) {
                             T.show(this, "请先结束录音")
                         }else {
-                            // 本地不存在录音
-                            if(!recordFile.exists()){
-                                T.show(this,"暂未找到您的本地录音文件，请重新录制")
-                                adapter.notifyItemChanged(position)
-                            }else{// 本地存在录音文件
-                                uploadFile()
+                            // 服务器存在录音
+                            if(readDetailBean?.checkLanguage == "Y"){
+                                dialogNetExist.show()
+                            }else{
+                                upload()
+                            }
+
+                        }
+                    }
+                }
+            }
+
+            historyAdapter.setOnItemChildClickListener { _, view, position ->
+                if(view.id == R.id.play_id){
+                    val recordHistory = historyAdapter.getItem(position)
+
+                    if(recordHistory?.myAudioUrl == null){
+                        T.show(this,"对不起文件丢失，请重新录制上传")
+                    }else{
+                        if(playingUrl != recordHistory.myAudioUrl){
+                            if(anim != null) {
+                                anim!!.stop()
+                                anim!!.selectDrawable(0)
+                                progressBar?.progress = 0
+                                progressBar = null
+                            }
+                            anim = (view.getTag(R.id.image_id) as View).background as AnimationDrawable
+                            progressBar = view.getTag(R.id.progress_id) as ProgressBar
+                            anim?.start()
+                            progressBar?.progress = 0
+                            voicePlayer.playUrl(recordHistory.myAudioUrl)
+                            playingUrl = recordHistory.myAudioUrl
+                        }else{
+                            if (voicePlayer.isPlaying && !voicePlayer.isPause){
+                                voicePlayer.pause()
+                                anim?.stop()
+                            }else{
+                                voicePlayer.play()
+                                anim?.start()
                             }
                         }
                     }
                 }
             }
 
-            StudentApi.getReadDetailList(readBean?.id ?: "", request)
+            getHistory()
+            getContent()
+        }
+
+
+    }
+
+    /**
+     * 上传文件
+     */
+    private fun upload(){
+
+        val recordFile = File(readDetailBean?.localPath)
+        // 本地不存在录音
+        if(!recordFile.exists()){
+            T.show(this,"暂未找到您的本地录音文件，请重新录制")
+            adapter.notifyItemChanged(readDetailBean?.position ?: 0)
+        }else{// 本地存在录音文件
+            uploadFile()
         }
     }
 
+    /**
+     * 上传阿里云
+     */
     private fun uploadFile(){
+        if(classId.isEmpty()){
+            T.show(this,"现在不能上传您的录音，请返回首页获取，当前班级")
+            return
+        }
         //上传录音
         OSSUploadUtils.getInstance().uploadFileToOss(
                 this,
                 File(readDetailBean?.localPath),
-                "personal/$userId/read/",
+                "personal/$userId/read",
                 "${readDetailBean?.languageDetailId}.amr",
                 mHandler)
         uploadDialog.setMessage("正在上传录音...")
@@ -285,6 +360,9 @@ class ReadDetailActivity: BaseActivity() {
     }
     private var tempPosition: Int = -1
 
+    /**
+     * 本地存在录音的提示
+     */
     private val dialogExists by lazy {
         AlertDialog.Builder(this)
                 .setMessage("录音已存在，是否重新录制？")
@@ -300,6 +378,25 @@ class ReadDetailActivity: BaseActivity() {
                 .create()
     }
 
+    /**
+     * 服务器存在 当前句子录音的提示
+     */
+    private val dialogNetExist by lazy {
+        AlertDialog.Builder(this)
+                .setMessage("服务器已存在录音，是否覆盖？")
+                .setCancelable(false)
+                .setNegativeButton("取消", { dialog, _ ->
+                    dialog.dismiss()
+                })
+                .setPositiveButton("覆盖", {_, _ ->
+                    upload()
+                })
+                .create()
+    }
+
+    /**
+     * 右侧的adapter
+     */
     inner class Adapter: BaseQuickAdapter<ReadDetailBean, BaseViewHolder>(R.layout.item_activity_read_load){
 
         private var oldPosition = -1
@@ -317,6 +414,7 @@ class ReadDetailActivity: BaseActivity() {
         override fun convert(helper: BaseViewHolder, item: ReadDetailBean?) {
             val file = File(basePath, "${item?.languageDetailId}.amr")
             item?.localPath = file.absolutePath
+            item?.position = helper.adapterPosition
             val isSelected = selectedPosition == helper.adapterPosition
             helper.setText(R.id.tvFirst, item?.languageEn)
                     .setText(R.id.tvSecond, item?.languageCn)
@@ -334,16 +432,35 @@ class ReadDetailActivity: BaseActivity() {
 
     }
 
+    private fun getContent(){
+        StudentApi.getReadDetailList(readBean?.id ?: "", request)
+    }
+    private fun getHistory(){
+        StudentApi.recordHistory(readBean?.id ?: "", historyRequest)
+    }
 
+    inner class HistoryAdapter: BaseQuickAdapter<RecordHistory, BaseViewHolder>(R.layout.item_activity_record_history){
+        override fun convert(helper: BaseViewHolder, item: RecordHistory?) {
+            helper.setText(R.id.tvContent, item?.languageEn)
+                    .addOnClickListener(R.id.play_id)
+                    .setTag(R.id.play_id, R.id.image_id, helper.getView(R.id.image_id))
+                    .setTag(R.id.play_id, R.id.progress_id, helper.getView(R.id.progress_id))
+        }
+    }
+
+
+    /**
+     * 阿里云 上传文件
+     */
     private val mHandler = MyHandler(this)
     class MyHandler(activity: ReadDetailActivity): HandlerUtil<ReadDetailActivity>(activity){
         override fun handleMessage(activity: ReadDetailActivity?, msg: Message?) {
             when {
                 msg!!.what == Constants.UPLOAD_SUCCESS ->{//上传文件成功
 
-                    val url = "${Constants.OSS_BASE_URL}/personal/${activity!!.userId}read/${activity.readDetailBean?.languageDetailId}.amr"
+                    val url = "${Constants.OSS_BASE_URL}/personal/${activity!!.userId}/read/${activity.readDetailBean?.languageDetailId}.amr"
 
-                    StudentApi.uploadRecord(activity.readDetailBean?.languageId ?: "", activity.readDetailBean?.languageDetailId ?: ""
+                    StudentApi.uploadRecord(activity.classId,activity.readDetailBean?.languageId ?: "", activity.readDetailBean?.languageDetailId ?: ""
                             ,url , activity.uploadRequest)
                 }
                 msg.what == Constants.UPLOAD_FAIL ->{//上传文件失败
@@ -354,10 +471,14 @@ class ReadDetailActivity: BaseActivity() {
         }
     }
 
+    /**
+     * 上传录音url
+     */
     private val uploadRequest = object: RequestCallBack<String>(){
 
         override fun onSuccess(entity: String?) {
             uploadDialog.dismiss()
+            getHistory()
             T.show(this@ReadDetailActivity, entity ?: "我的录音上传成功")
         }
 
@@ -368,7 +489,36 @@ class ReadDetailActivity: BaseActivity() {
             }else{
                 T.show(this@ReadDetailActivity, "录音上传失败，请重试")
             }
+        }
+    }
 
+    private val historyAdapter = HistoryAdapter()
+    private val historyRequest = object :RequestCallBack<List<RecordHistory>>(){
+
+        override fun onStart() {
+            emptyLayout.visibility = View.VISIBLE
+            historyStateView.showLoading()
+        }
+
+        override fun onSuccess(entity: List<RecordHistory>?) {
+            historyAdapter.setNewData(entity)
+            if(entity != null && entity.isNotEmpty()){
+                emptyLayout.visibility = View.GONE
+                historyStateView.showContent()
+            }else{
+                emptyLayout.visibility = View.VISIBLE
+                historyStateView.showEmpty()
+            }
+        }
+
+        override fun onError(exception: Throwable) {
+            emptyLayout.visibility = View.VISIBLE
+            if(exception is MsgException){
+                historyStateView.showError(exception.message)
+            }else{
+                historyStateView.showError()
+            }
+            exception.handleThrowable(this@ReadDetailActivity)
         }
 
     }

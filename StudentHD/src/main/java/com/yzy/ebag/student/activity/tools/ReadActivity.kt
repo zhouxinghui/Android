@@ -104,10 +104,10 @@ class ReadActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
         if(adapter.itemCount > 0){
             val item = adapter.getItem(0)
             if(item is UnitBean)
-                fragment = ReadFragment.newInstance(item.resultBookUnitOrCatalogVos[0].unitCode)
+                fragment = ReadFragment.newInstance(classId,item.resultBookUnitOrCatalogVos[0].unitCode)
                 return fragment
         }
-        fragment = ReadFragment.newInstance("")
+        fragment = ReadFragment.newInstance(classId,"")
         return fragment
 
     }

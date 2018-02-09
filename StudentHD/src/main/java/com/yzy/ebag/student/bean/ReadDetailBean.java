@@ -25,8 +25,18 @@ public class ReadDetailBean {
     private String languageCn;
     private String languageEn;
     private String languageUrl;
+    private String checkLanguage;
     private String level;
     private String localPath;
+    private int position;
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
 
     public String getLocalPath() {
         return localPath;
@@ -90,5 +100,13 @@ public class ReadDetailBean {
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    public String getCheckLanguage() {
+        return checkLanguage;
+    }
+
+    public void setCheckLanguage(String checkLanguage) {
+        this.checkLanguage = checkLanguage;
     }
 }

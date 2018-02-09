@@ -100,12 +100,21 @@ object StudentApi{
 
     }
 
-    fun uploadRecord(languageId: String, languageDetailId: String, myAudioUrl: String, callback: RequestCallBack<String>){
+    /**
+     * 上传跟读录音文件
+     */
+    fun uploadRecord(classId: String, languageId: String, languageDetailId: String, myAudioUrl: String, callback: RequestCallBack<String>){
         val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
         jsonObject.put("languageId", languageId)
         jsonObject.put("languageDetailId", languageDetailId)
         jsonObject.put("myAudioUrl", myAudioUrl)
         EBagApi.request(studentService.uploadRecord("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 
+    fun recordHistory(languageId: String, callback: RequestCallBack<List<RecordHistory>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("languageId", languageId)
+        EBagApi.request(studentService.recordHistory("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }
