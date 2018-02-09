@@ -31,6 +31,7 @@ import ebag.hd.widget.questions.base.ConnectionLineView;
  */
 
 public class ConnectionView extends BaseQuestionView {
+    private QuestionBean questionBean;
     /**
      * 标题
      */
@@ -154,6 +155,8 @@ public class ConnectionView extends BaseQuestionView {
                         tempConnection = connectionBean;
                     }
                     adapter.notifyDataSetChanged();
+
+                    ConnectionView.this.questionBean.setStudentAnswer(getAnswer());
                 }
             }
         });
@@ -177,6 +180,7 @@ public class ConnectionView extends BaseQuestionView {
                     unLine(connectionBean);
                 }
                 adapter.notifyDataSetChanged();
+                ConnectionView.this.questionBean.setStudentAnswer(getAnswer());
                 return true;
             }
         });
@@ -203,6 +207,7 @@ public class ConnectionView extends BaseQuestionView {
 
     @Override
     public void setData(QuestionBean questionBean) {
+        this.questionBean = questionBean;
         connectionLineView.questionId = questionBean.getId();
         titleList = new ArrayList<>();
         titleList.add(questionBean.getTitle());

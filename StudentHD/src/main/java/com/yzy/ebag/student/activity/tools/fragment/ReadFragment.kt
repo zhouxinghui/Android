@@ -57,7 +57,7 @@ class ReadFragment: BaseListFragment<ReadOutBean, ReadOutBean.OralLanguageBean>(
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<ReadOutBean>) {
-        StudentApi.getReadList(unitCode, page, getPageSize(), requestCallBack)
+        StudentApi.getReadList("7658", page, getPageSize(), requestCallBack)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: ReadOutBean?): List<ReadOutBean.OralLanguageBean>? {

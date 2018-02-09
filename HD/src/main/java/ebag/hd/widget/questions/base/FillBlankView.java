@@ -193,6 +193,8 @@ public class FillBlankView extends FrameLayout {
                     // 填写答案
                     String answer = etInput.getText().toString();
                     fillAnswer(answer, position,normal_color);
+                    if(onBlankChangedListener != null)
+                        onBlankChangedListener.onAnswerChanged();
                     popupWindow.dismiss();
                 }
             });
@@ -257,6 +259,15 @@ public class FillBlankView extends FrameLayout {
             rangeList.get(i).start = rangeList.get(i).start + difference;
             rangeList.get(i).end = rangeList.get(i).end + difference;
         }
+    }
+
+    OnBlankChangedListener onBlankChangedListener;
+    public interface OnBlankChangedListener{
+        void onAnswerChanged();
+    }
+
+    public void setOnBlankChangedListener(OnBlankChangedListener onBlankChangedListener) {
+        this.onBlankChangedListener = onBlankChangedListener;
     }
 
     public boolean isActive() {

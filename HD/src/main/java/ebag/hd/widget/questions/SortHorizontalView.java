@@ -30,6 +30,8 @@ import ebag.hd.widget.questions.base.BaseQuestionView;
 
 public class SortHorizontalView extends BaseQuestionView {
 
+    private QuestionBean questionBean;
+
     private SortAdapter contentAdapter;
     private SortAdapter answerAdapter;
     private String questionContent;
@@ -76,6 +78,7 @@ public class SortHorizontalView extends BaseQuestionView {
                     SortBean content = contentAdapter.getItem(position);
                     contentAdapter.removeItem(content);
                     answerAdapter.addLastItem(content);
+                    SortHorizontalView.this.questionBean.setStudentAnswer(SortHorizontalView.this.getAnswer());
                 }
             }
         });
@@ -97,6 +100,7 @@ public class SortHorizontalView extends BaseQuestionView {
                     SortBean content = answerAdapter.getItem(position);
                     answerAdapter.removeItem(content);
                     contentAdapter.addLastItem(content);
+                    SortHorizontalView.this.questionBean.setStudentAnswer(SortHorizontalView.this.getAnswer());
                 }
             }
         });
@@ -108,6 +112,7 @@ public class SortHorizontalView extends BaseQuestionView {
             @Override
             public void onItemMove(int fromPosition, int toPosition) {
                 answerAdapter.moveItem(fromPosition-answerAdapter.getHeaderSize(),toPosition-answerAdapter.getHeaderSize());
+                SortHorizontalView.this.questionBean.setStudentAnswer(SortHorizontalView.this.getAnswer());
             }
 
             @Override
@@ -128,6 +133,7 @@ public class SortHorizontalView extends BaseQuestionView {
 
     @Override
     public void setData(QuestionBean questionBean) {
+        this.questionBean = questionBean;
         titleList = Arrays.asList(questionBean.getTitle().split("#R#"));
         questionContent = questionBean.getContent();
         rightAnswer = questionBean.getAnswer();

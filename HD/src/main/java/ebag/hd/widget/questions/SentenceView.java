@@ -2,6 +2,8 @@ package ebag.hd.widget.questions;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -22,6 +24,7 @@ import ebag.hd.widget.questions.util.QuestionTypeUtils;
  */
 
 public class SentenceView extends BaseQuestionView {
+    private QuestionBean questionBean;
     private List<String> titleList;
     private String studentAnswer;
     private LineEditText lineEditText;
@@ -50,12 +53,29 @@ public class SentenceView extends BaseQuestionView {
         lineEditText.setBackground(null);
         lineEditText.setGravity(Gravity.TOP | Gravity.START);
         lineEditText.setMinLines(1);
+        lineEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                SentenceView.this.questionBean.setStudentAnswer(SentenceView.this.getAnswer());
+            }
+        });
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         addView(lineEditText,layoutParams);
     }
 
     @Override
     public void setData(QuestionBean questionBean) {
+        this.questionBean = questionBean;
         titleList = new ArrayList<>();
         Collections.addAll(titleList,questionBean.getTitle().split("#R#"));
         //听写

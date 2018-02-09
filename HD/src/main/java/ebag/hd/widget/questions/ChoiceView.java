@@ -30,6 +30,7 @@ import ebag.hd.widget.questions.util.QuestionTypeUtils;
 public class ChoiceView extends BaseQuestionView implements OnItemClickListener {
 
     private OptionAdapter optionAdapter;
+    private QuestionBean questionBean;
 
     private GridLayoutManager layoutManager;
     private boolean isOneLineSet;
@@ -82,6 +83,7 @@ public class ChoiceView extends BaseQuestionView implements OnItemClickListener 
 
     @Override
     public void setData(QuestionBean questionBean) {
+        this.questionBean = questionBean;
         title = new ArrayList<>();
         switch (QuestionTypeUtils.getIntType(questionBean)){
             case QuestionTypeUtils.QUESTIONS_CHOOSE_PIC_BY_WORD://看单词选图
@@ -212,6 +214,8 @@ public class ChoiceView extends BaseQuestionView implements OnItemClickListener 
         }else{//选择题
             answer = String.valueOf((char)('A' + position));
         }
+
+        questionBean.setStudentAnswer(answer);
     }
 
 

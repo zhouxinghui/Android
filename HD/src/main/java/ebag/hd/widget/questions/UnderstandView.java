@@ -16,8 +16,9 @@ import ebag.hd.widget.questions.base.FillBlankView;
  * Created by caoyu on 2018/1/2.
  */
 
-public class UnderstandView extends BaseQuestionView {
+public class UnderstandView extends BaseQuestionView implements FillBlankView.OnBlankChangedListener {
 
+    private QuestionBean questionBean;
     /**
      * 题目内容
      */
@@ -44,16 +45,17 @@ public class UnderstandView extends BaseQuestionView {
     protected void addBody(Context context) {
         //隐藏主标题
         headAdapter.setHideTitle(true);
-
         fillBlankView = new FillBlankView(context);
         LayoutParams fillBlankParams = new LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         addView(fillBlankView,fillBlankParams);
+        fillBlankView.setOnBlankChangedListener(this);
     }
 
     @Override
     public void setData(QuestionBean questionBean) {
+        this.questionBean = questionBean;
         titleList = new ArrayList<>();
         if (questionBean.getTitle().startsWith("#W#")) {
             int index = questionBean.getTitle().indexOf("#R##Z#");
@@ -101,5 +103,10 @@ public class UnderstandView extends BaseQuestionView {
     public void reset() {
         questionActive(true);
         fillBlankView.setData(questionContent);
+    }
+
+    @Override
+    public void onAnswerChanged() {
+        this.questionBean.setStudentAnswer(getAnswer());
     }
 }

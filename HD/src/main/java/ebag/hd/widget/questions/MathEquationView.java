@@ -28,6 +28,8 @@ import ebag.hd.widget.questions.base.MathLine;
 
 public class MathEquationView extends BaseQuestionView {
 
+    private QuestionBean questionBean;
+
     private MathEquationAdapter adapter;
 
     private List<String> titleList = new ArrayList<>();
@@ -64,6 +66,8 @@ public class MathEquationView extends BaseQuestionView {
 
     @Override
     public void setData(QuestionBean questionBean) {
+        this.questionBean = questionBean;
+
         //数据初始化
         rightAnswer.clear();
         contentList.clear();
@@ -212,7 +216,7 @@ public class MathEquationView extends BaseQuestionView {
 
     }
 
-    private static class MathEquationAdapter extends RecyclerAdapter<MathBean>
+    private class MathEquationAdapter extends RecyclerAdapter<MathBean>
             implements OnFocusChangeListener, TextWatcher {
 
         private final static int NORMAL = 1;
@@ -305,7 +309,9 @@ public class MathEquationView extends BaseQuestionView {
         }
 
         @Override
-        public void afterTextChanged(Editable s) {}
+        public void afterTextChanged(Editable s) {
+            MathEquationView.this.questionBean.setStudentAnswer(MathEquationView.this.getAnswer());
+        }
     }
 
     private class MathBean{

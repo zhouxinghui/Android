@@ -278,7 +278,21 @@ public class MathView extends RecyclerView {
         }
 
         @Override
-        public void afterTextChanged(Editable s) {}
+        public void afterTextChanged(Editable s) {
+            if(onAnswerChangedListener != null){
+                onAnswerChangedListener.onAnswerChanged();
+            }
+        }
+    }
+
+    public interface OnAnswerChangedListener{
+        void onAnswerChanged();
+    }
+
+    private OnAnswerChangedListener onAnswerChangedListener;
+
+    public void setOnAnswerChangedListener(OnAnswerChangedListener onAnswerChangedListener) {
+        this.onAnswerChangedListener = onAnswerChangedListener;
     }
 
     private static class MathBean{

@@ -36,6 +36,7 @@ import ebag.hd.widget.questions.base.BaseQuestionView;
  */
 
 public class WriteView extends BaseQuestionView{
+    private QuestionBean questionBean;
     private Context context;
     /**
      * 是否是英语
@@ -216,6 +217,7 @@ public class WriteView extends BaseQuestionView{
 
     @Override
     public void setData(QuestionBean questionBean) {
+        this.questionBean = questionBean;
         //TODO 初始化bagId，homeworkId
         questionId = questionBean.getId();
         questionHead = questionBean.getTitle();

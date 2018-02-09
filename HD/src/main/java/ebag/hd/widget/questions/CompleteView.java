@@ -20,8 +20,9 @@ import ebag.hd.widget.questions.util.QuestionTypeUtils;
  * Created by caoyu on 2017/12/23.
  */
 
-public class CompleteView extends BaseQuestionView {
+public class CompleteView extends BaseQuestionView implements FillBlankView.OnBlankChangedListener {
     private List<String> title;
+    private QuestionBean questionBean;
     /**
      * 题目内容
      */
@@ -48,10 +49,12 @@ public class CompleteView extends BaseQuestionView {
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         fillBlankParams.topMargin = getResources().getDimensionPixelSize(R.dimen.y10);
         addView(fillBlankView,fillBlankParams);
+        fillBlankView.setOnBlankChangedListener(this);
     }
 
     @Override
     public void setData(QuestionBean questionBean) {
+        this.questionBean = questionBean;
         title = new ArrayList<>();
         switch (QuestionTypeUtils.getIntType(questionBean)) {
             case QuestionTypeUtils.QUESTIONS_COMPLETION_BY_VOICE://听录音填空
@@ -104,5 +107,10 @@ public class CompleteView extends BaseQuestionView {
     public void reset() {
         questionActive(true);
         fillBlankView.setData(questionContent);
+    }
+
+    @Override
+    public void onAnswerChanged() {
+        this.questionBean.setStudentAnswer(fillBlankView.getAnswer("#R#"));
     }
 }

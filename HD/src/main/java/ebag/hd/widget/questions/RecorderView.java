@@ -103,6 +103,7 @@ public class RecorderView extends BaseQuestionView {
 
     @Override
     public void setData(QuestionBean questionBean) {
+        this.questionBean = questionBean;
         title = new ArrayList<>();
         switch (QuestionTypeUtils.getIntType(questionBean)) {
             case QuestionTypeUtils.QUESTIONS_FOLLOW_READ://跟读作业
@@ -114,7 +115,6 @@ public class RecorderView extends BaseQuestionView {
                 title.add(questionBean.getContent());
                 break;
         }
-        this.questionBean = questionBean;
         rightAnswer = questionBean.getAnswer();
     }
 

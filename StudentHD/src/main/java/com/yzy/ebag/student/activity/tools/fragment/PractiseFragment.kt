@@ -96,6 +96,7 @@ class PractiseFragment: BaseFragment(),BaseQuickAdapter.OnItemClickListener {
 
         override fun onStart() {
             stateView.showLoading()
+            cbSelect.isSelected = false
         }
 
         override fun onSuccess(entity: WordsBean?) {

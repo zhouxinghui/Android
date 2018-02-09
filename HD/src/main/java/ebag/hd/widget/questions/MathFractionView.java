@@ -23,6 +23,8 @@ import ebag.hd.widget.questions.base.MathView;
 
 public class MathFractionView extends BaseQuestionView {
 
+    private QuestionBean questionBean;
+
     private List<String> titleList = new ArrayList<>();
     private FractionAdapter adapter;
     private List<Fraction> contentList = new ArrayList<>();
@@ -53,6 +55,7 @@ public class MathFractionView extends BaseQuestionView {
 
     @Override
     public void setData(QuestionBean questionBean) {
+        this.questionBean = questionBean;
         titleList.clear();
         titleList.add(questionBean.getTitle());
 
@@ -119,7 +122,7 @@ public class MathFractionView extends BaseQuestionView {
 
     }
 
-    private static class FractionAdapter extends RecyclerAdapter<Fraction>{
+    private class FractionAdapter extends RecyclerAdapter<Fraction> implements MathView.OnAnswerChangedListener {
 
         private boolean isActive = true;
 
@@ -153,9 +156,15 @@ public class MathFractionView extends BaseQuestionView {
         @Override
         protected void fillData(RecyclerViewHolder setter, int position, Fraction entity) {
             MathView mathView = setter.getView(R.id.mathView);
+            mathView.setOnAnswerChangedListener(this);
             mathView.setData(entity,MathView.MathType.FRACTION);
             mathView.questionActive(isActive);
             mathView.showResult(isResult);
+        }
+
+        @Override
+        public void onAnswerChanged() {
+            MathFractionView.this.questionBean.setStudentAnswer(MathFractionView.this.getAnswer());
         }
     }
 

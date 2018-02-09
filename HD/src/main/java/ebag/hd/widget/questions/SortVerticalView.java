@@ -27,12 +27,13 @@ import ebag.hd.widget.questions.base.BaseQuestionView;
 
 public class SortVerticalView extends BaseQuestionView {
 
+    private QuestionBean questionBean;
+
     private SortAdapter sortAdapter;
     private List<String> titleList;
     private List<SortBean> sortList;
     private String studentAnswer;
     private String rightAnswer;
-    private boolean isMoved = false;
     private SimpleItemTouchHelperCallback callback;
 
     public SortVerticalView(Context context) {
@@ -61,8 +62,8 @@ public class SortVerticalView extends BaseQuestionView {
         callback = new SimpleItemTouchHelperCallback(new ItemTouchHelperAdapter() {
             @Override
             public void onItemMove(int fromPosition, int toPosition) {
-                isMoved = true;
                 sortAdapter.moveItem(fromPosition-sortAdapter.getHeaderSize(),toPosition-sortAdapter.getHeaderSize());
+                SortVerticalView.this.questionBean.setStudentAnswer(SortVerticalView.this.getAnswer());
             }
 
             @Override
@@ -78,6 +79,7 @@ public class SortVerticalView extends BaseQuestionView {
 
     @Override
     public void setData(QuestionBean questionBean) {
+        this.questionBean = questionBean;
         titleList = Arrays.asList(questionBean.getTitle().split("#R#"));
         String[] split = questionBean.getContent().split("#R#");
         sortList = new ArrayList<>();
@@ -143,16 +145,13 @@ public class SortVerticalView extends BaseQuestionView {
 
     @Override
     public String getAnswer() {
-        if(isMoved){
-            StringBuilder sb = new StringBuilder();
-            for(int i = 0; i< sortAdapter.getDatas().size(); i++){
-                sb.append(sortAdapter.getDatas().get(i).position);
-                if(i < sortAdapter.getDatas().size() -1)
-                    sb.append(",");
-            }
-            return sb.toString();
-        }else
-            return "";
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i< sortAdapter.getDatas().size(); i++){
+            sb.append(sortAdapter.getDatas().get(i).position);
+            if(i < sortAdapter.getDatas().size() -1)
+                sb.append(",");
+        }
+        return sb.toString();
     }
 
     @Override

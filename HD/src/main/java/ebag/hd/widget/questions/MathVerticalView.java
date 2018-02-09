@@ -34,6 +34,8 @@ public class MathVerticalView extends BaseQuestionView{
 
     private MathVerticalAdapter adapter;
 
+    private QuestionBean questionBean;
+
     private RecyclerView recyclerView;
     private GridLayoutManager manager;
     private TextView tvDivisor;
@@ -93,7 +95,7 @@ public class MathVerticalView extends BaseQuestionView{
 
     @Override
     public void setData(QuestionBean questionBean) {
-
+        this.questionBean = questionBean;
         //数据初始化
         rightAnswer.clear();
         contentList.clear();
@@ -242,7 +244,7 @@ public class MathVerticalView extends BaseQuestionView{
     }
 
 
-    public static class MathVerticalAdapter extends RecyclerAdapter<MathBean>
+    public class MathVerticalAdapter extends RecyclerAdapter<MathBean>
             implements OnFocusChangeListener, TextWatcher{
 
         private final static int BLANK_VIEW = 1;
@@ -329,7 +331,9 @@ public class MathVerticalView extends BaseQuestionView{
         }
 
         @Override
-        public void afterTextChanged(Editable s) {}
+        public void afterTextChanged(Editable s) {
+            MathVerticalView.this.questionBean.setStudentAnswer(MathVerticalView.this.getAnswer());
+        }
     }
 
     private class MathBean{

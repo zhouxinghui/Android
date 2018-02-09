@@ -2,13 +2,23 @@ package com.yzy.ebag.student.activity.tools.practise
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.drawable.AnimationDrawable
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.bean.Practise
 import ebag.core.base.mvp.MVPActivity
+import ebag.core.util.FileUtil
+import ebag.core.util.SerializableUtils
 import ebag.core.util.T
 import ebag.core.util.VoicePlayerOnline
+import ebag.hd.bean.response.UserEntity
 import kotlinx.android.synthetic.main.activity_write.*
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
+
+
 
 /**
  * @author caoyu
@@ -22,6 +32,8 @@ class WriteActivity: MVPActivity() {
     private var currentIndex = 0
 
     private lateinit var list: ArrayList<Practise>
+    private lateinit var userId: String
+    private lateinit var practise: Practise
 
     private lateinit var animDrawable: AnimationDrawable
     companion object {
@@ -39,9 +51,14 @@ class WriteActivity: MVPActivity() {
 
 
     override fun initViews() {
+
+
         val ser = intent.getSerializableExtra("list") ?: return
 
         list = ser as ArrayList<Practise>
+
+        val userEntity = SerializableUtils.getSerializable<UserEntity>(ebag.hd.base.Constants.STUDENT_USER_ENTITY)
+        userId = userEntity?.uid ?: "userId"
 
         maxIndex = list.size - 1
 
@@ -76,7 +93,7 @@ class WriteActivity: MVPActivity() {
                 T.show(this,"需要默写才能进行下一步操作哦")
                 return@setOnClickListener
             }
-
+            practise = list[currentIndex]
             // 这里写 保存bitmap到本地的操作
 
 
@@ -101,6 +118,8 @@ class WriteActivity: MVPActivity() {
         }
     }
 
+
+
     private val playerD = lazy {
         val pl = VoicePlayerOnline(this)
         pl.setOnPlayChangeListener(object : VoicePlayerOnline.OnPlayChangeListener{
@@ -119,5 +138,24 @@ class WriteActivity: MVPActivity() {
     override fun destroyPresenter() {
         if(playerD.isInitialized())
             player.stop()
+    }
+
+    /** 保存方法  */
+    fun saveBitmap(bm: Bitmap, pinyin: String) {
+
+        val f = File("${FileUtil.getRecorderPath()}/$userId/write", pinyin)
+        if (f.exists()) {
+            f.delete()
+        }
+        try {
+            val out = FileOutputStream(f)
+            bm.compress(Bitmap.CompressFormat.PNG, 90, out)
+            out.flush()
+            out.close()
+        } catch (e: FileNotFoundException) {
+            e.printStackTrace()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
     }
 }

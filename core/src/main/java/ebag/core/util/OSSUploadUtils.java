@@ -54,7 +54,7 @@ public class OSSUploadUtils {
 	 *            文件名不带后缀
 	 * @return
 	 */
-	public void UploadPhotoToOSS(Context context, final Bitmap photo, String folder,
+	public void uploadPhotoToOSS(Context context, final Bitmap photo, String folder,
                                  String name, final Handler handler) {
 		byte[] dataToUpload = bitmap2Bytes(photo);
 		String photoName = folder + "/" + name;

@@ -43,6 +43,7 @@ import ebag.hd.widget.questions.base.BaseQuestionView;
 
 public class ClassificationView extends BaseQuestionView implements  View.OnTouchListener, View.OnClickListener{
     private Context context;
+    private QuestionBean questionBean;
     /**
      * 标题
      */
@@ -134,6 +135,7 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
 
     @Override
     public void setData(QuestionBean questionBean) {
+        this.questionBean = questionBean;
         questionHead = questionBean.getTitle();
         questionContent = questionBean.getContent();
         rightAnswer = questionBean.getAnswer();
@@ -509,6 +511,8 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
                         elementLayout.getChildAt((Integer) mDragImageView.getTag()).setVisibility(View.VISIBLE);
                         break;
                     }
+
+                    this.questionBean.setStudentAnswer(getAnswer());
                     break;
             }
         }

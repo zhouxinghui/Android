@@ -61,6 +61,7 @@ class ReadDetailActivity: BaseActivity() {
                 playingUrl = null
                 anim?.stop()
                 anim?.selectDrawable(0)
+                anim = null
                 progressBar?.progress = 0
                 progressBar = null
             }
@@ -83,7 +84,7 @@ class ReadDetailActivity: BaseActivity() {
         classId = intent.getStringExtra("classId") ?: ""
         val userEntity = SerializableUtils.getSerializable<UserEntity>(ebag.hd.base.Constants.STUDENT_USER_ENTITY)
         userId = userEntity?.uid ?: "userId"
-        basePath = FileUtil.getRecorderPath() +File.separator + userId + File.separator + "read"
+        basePath = "${FileUtil.getRecorderPath()}/$userId/read"
         val file = File(basePath)
         if(!file.exists()){
             file.mkdirs()
@@ -95,7 +96,12 @@ class ReadDetailActivity: BaseActivity() {
         }else{
             videoPlayer.setUp(readBean!!.languageUrl
                     , JZVideoPlayerStandard.SCREEN_STATE_ON, readBean!!.fileName)
-            videoPlayer.thumbImageView.loadImage(readBean!!.languageUrl)
+            if(readBean!!.type == "video"){
+                videoPlayer.thumbImageView.loadImage(readBean!!.languageUrl)
+            }else{
+                videoPlayer.thumbImageView.loadImage(readBean!!.coveUrl)
+            }
+
 
             titleBar.setTitle(readBean!!.fileName)
             contentRecycler.layoutManager = LinearLayoutManager(this)
@@ -290,28 +296,6 @@ class ReadDetailActivity: BaseActivity() {
         }
     }
 
-    /**
-     * 上传阿里云
-     */
-    private fun uploadFile(){
-        if(classId.isEmpty()){
-            T.show(this,"现在不能上传您的录音，请返回首页获取，当前班级")
-            return
-        }
-        //上传录音
-        OSSUploadUtils.getInstance().uploadFileToOss(
-                this,
-                File(readDetailBean?.localPath),
-                "personal/$userId/read",
-                "${readDetailBean?.languageDetailId}.amr",
-                mHandler)
-        uploadDialog.setMessage("正在上传录音...")
-        uploadDialog.setCanceledOnTouchOutside(false)
-        uploadDialog.show()
-
-    }
-
-
     private val adapter = Adapter()
     private var request = object :RequestCallBack<List<ReadDetailBean>>(){
         override fun onStart() {
@@ -332,12 +316,20 @@ class ReadDetailActivity: BaseActivity() {
 
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
-        voicePlayer.stop()
+        if(voicePlayer.isPlaying){
+            voicePlayer.stop()
+        }
+
+        if(recorderUtil.isRecording){
+            recorderUtil.stopPlayRecord()
+            recorderUtil.finishRecord()
+        }
         request.cancelRequest()
     }
+
+
 
     override fun onBackPressed() {
         if (JZVideoPlayer.backPress()) {
@@ -448,6 +440,30 @@ class ReadDetailActivity: BaseActivity() {
         }
     }
 
+
+//    private lateinit var systemTime: String
+    /**
+     * 上传阿里云，如果多条历史记录 用systemTime 上传，单挑用ID上传
+     */
+    private fun uploadFile(){
+        if(classId.isEmpty()){
+            T.show(this,"现在不能上传您的录音，请返回首页获取，当前班级")
+            return
+        }
+
+//        systemTime = System.currentTimeMillis().toString()
+        //上传录音
+        OSSUploadUtils.getInstance().uploadFileToOss(
+                this,
+                File(readDetailBean?.localPath),
+                "personal/$userId/read",
+                "${readDetailBean?.languageDetailId}.amr",
+                mHandler)
+        uploadDialog.setMessage("正在上传录音...")
+        uploadDialog.setCanceledOnTouchOutside(false)
+        uploadDialog.show()
+
+    }
 
     /**
      * 阿里云 上传文件
