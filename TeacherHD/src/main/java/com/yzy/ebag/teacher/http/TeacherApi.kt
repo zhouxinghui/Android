@@ -180,11 +180,11 @@ object TeacherApi {
      */
     fun searchQuestion(unitBean: AssignUnitBean.UnitSubBean, difficulty: String?, type: String, page: Int, callback: RequestCallBack<List<QuestionBean>>){
         val jsonObject = JSONObject()
-        if (unitBean.id != 0) {
+        if (unitBean.unitCode != null) {
             if (unitBean.isUnit)
-                jsonObject.put("bookUnit", unitBean.id)
+                jsonObject.put("bookUnit", unitBean.unitCode)
             else
-                jsonObject.put("bookCatalog", unitBean.id)
+                jsonObject.put("bookCatalog", unitBean.unitCode)
         }
         difficulty ?: jsonObject.put("level",difficulty)
         jsonObject.put("type",type)

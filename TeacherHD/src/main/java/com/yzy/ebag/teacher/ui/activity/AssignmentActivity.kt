@@ -152,7 +152,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 totalUnitTv.isSelected = true
                 cacheMap[currentGradeCode]!!.isTotal = true
                 assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
-                        if (cache.currentUnitBean.id == 0) null else cache.currentUnitBean.id.toString())
+                        if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode)
             }
         }
 
@@ -229,7 +229,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     currentTestType = "1"
                     val cache = cacheMap[currentGradeCode]!!
                     assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
-                            if (cache.currentUnitBean.id == 0) null else cache.currentUnitBean.id.toString())
+                            if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode)
                 }
                 testImg[1] -> {//组卷
                     isOrganizeTest = true
@@ -246,7 +246,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     currentTestType = "2"
                     val cache = cacheMap[currentGradeCode]!!
                     assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
-                            if (cache.currentUnitBean.id == 0) null else cache.currentUnitBean.id.toString())
+                            if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode)
                 }
                 testImg[3] -> {//发布小组
                     if(cacheMap[currentGradeCode]!!.classes.size > 1){
@@ -286,7 +286,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 totalUnitTv.isSelected = false
                 cache?.isTotal = false
                 assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
-                        item.id.toString())
+                        item.unitCode)
             }
         }
         //切换版本

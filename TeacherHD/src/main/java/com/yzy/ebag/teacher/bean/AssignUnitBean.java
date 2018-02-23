@@ -37,7 +37,7 @@ public class AssignUnitBean implements
     }
 
     public int getId() {
-        return Integer.parseInt(unitCode);
+        return id;
     }
 
     public void setId(int id) {
@@ -147,7 +147,7 @@ public class AssignUnitBean implements
         }
 
         public int getId() {
-            return Integer.parseInt(unitCode);
+            return id;
         }
 
         public void setId(int id) {
