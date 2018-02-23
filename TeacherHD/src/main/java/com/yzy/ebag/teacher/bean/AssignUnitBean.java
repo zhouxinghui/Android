@@ -147,7 +147,7 @@ public class AssignUnitBean implements
         }
 
         public int getId() {
-            return id;
+            return Integer.parseInt(unitCode);
         }
 
         public void setId(int id) {
