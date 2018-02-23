@@ -181,6 +181,7 @@
                 />
             <EditText android:id="@+id/answerEdit"
                 style="@style/custom_question_edit"
+                android:maxLength="1"
                 android:layout_marginTop="@dimen/y15"
                 />
             <TextView

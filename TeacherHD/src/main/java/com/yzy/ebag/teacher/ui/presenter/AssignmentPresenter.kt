@@ -1,6 +1,7 @@
 package com.yzy.ebag.teacher.ui.presenter
 
 import com.yzy.ebag.teacher.bean.AssignmentBean
+import com.yzy.ebag.teacher.bean.TestPaperListBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.ui.view.AssignmentView
 import ebag.core.base.mvp.BasePresenter
@@ -38,10 +39,28 @@ class AssignmentPresenter(view: AssignmentView, listener: OnToastListener): Base
             }
         })
     }
+    private val testRequest by lazy {
+        createRequest(object : RequestCallBack<List<TestPaperListBean>>(){
+            override fun onStart() {
+                getView()?.loadTestListStart()
+            }
+            override fun onSuccess(entity: List<TestPaperListBean>?) {
+                getView()?.getTestList(entity)
+            }
+
+            override fun onError(exception: Throwable) {
+                getView()?.loadBaseError(exception)
+            }
+
+        })
+    }
     fun loadBaseData(type: String){
         TeacherApi.assignmentData(type, baseRequest)
     }
     fun loadUnitAndQuestion(type: String, gradeCode: String, bookVersionId: String? = null){
         TeacherApi.unitAndQuestion(type, gradeCode, bookVersionId, unitRequest)
+    }
+    fun loadTestListData(testPaperFlag: String, gradeCode: String, unitId: String?){
+        TeacherApi.testPaperList(testPaperFlag, gradeCode, unitId, testRequest)
     }
 }

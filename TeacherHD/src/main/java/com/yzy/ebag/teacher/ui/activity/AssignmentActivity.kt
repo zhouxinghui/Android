@@ -3,16 +3,15 @@ package com.yzy.ebag.teacher.ui.activity
 import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.base.Constants
-import com.yzy.ebag.teacher.bean.AssignClassBean
-import com.yzy.ebag.teacher.bean.AssignGradeBean
-import com.yzy.ebag.teacher.bean.AssignUnitBean
-import com.yzy.ebag.teacher.bean.AssignmentBean
+import com.yzy.ebag.teacher.bean.*
 import com.yzy.ebag.teacher.ui.presenter.AssignmentPresenter
 import com.yzy.ebag.teacher.ui.view.AssignmentView
 import com.yzy.ebag.teacher.widget.ExchangeTextbookDialog
@@ -58,6 +57,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     private val classAdapter by lazy { ClassAdapter() }
     private val questionAdapter by lazy { QuestionsAdapter() }
     private val unitAdapter by lazy { UnitAdapter(ArrayList()) }
+    val testAdapter by lazy { TestAdapter() }
     private val assignmentPresenter by lazy { AssignmentPresenter(this,this) }
     //数据保存
     private val cacheMap by lazy { HashMap<String, Cache>() }
@@ -65,6 +65,11 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     //因为切换单元和切换版本访问的是同一个接口，但是返回的版本数据是不会因为版本的改变而改变，而是返回固定年级的班级的所教课程，所以切换版本的时候自己本地变版本名称和版本id（服务器人员太懒），所以用一个boolean值控制，当为true的时候接口请求成功的时候就根据返回参数修改版本名称和版本id，为false的时候就手动修改（见showData方法）
     private var isGradeRequest = true
     private var difficulty: String? = null
+    /**
+     * 1   系统试卷  2  我的试卷
+     */
+    private var currentTestType = "1"
+    private var isOrganizeTest = false
 
     override fun destroyPresenter() {
         assignmentPresenter.onDestroy()
@@ -122,6 +127,35 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         unitRecycler.adapter = unitAdapter
         unitRecycler.layoutManager = LinearLayoutManager(this)
 
+        //试卷
+        val list = ArrayList<String>()
+        for (i in 0..9){
+            list.add("")
+        }
+        if (workCategory == Constants.ASSIGN_TEST_PAPER){
+            val testLayoutManager = GridLayoutManager(this, 2)
+            testRecycler.adapter = testAdapter
+            testRecycler.layoutManager = testLayoutManager
+            questionsRecycler.visibility = View.GONE
+            testRecycler.visibility = View.VISIBLE
+
+            testAdapter.setOnItemClickListener { adapter, view, position ->
+                testAdapter.selectPosition = position
+            }
+        }
+        totalUnitTv.isSelected = true
+        totalUnitTv.setOnClickListener {
+            if (!totalUnitTv.isSelected){
+                val cache = cacheMap[currentGradeCode]!!
+                cache.currentUnitBean = AssignUnitBean.UnitSubBean()
+                unitAdapter.selectSub = cache.currentUnitBean
+                totalUnitTv.isSelected = true
+                cacheMap[currentGradeCode]!!.isTotal = true
+                assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
+                        if (cache.currentUnitBean.id == 0) null else cache.currentUnitBean.id.toString())
+            }
+        }
+
         difficultyGroup.setOnCheckedChangeListener { group, checkedId ->
             when(checkedId){
                 R.id.unlimitedBtn ->{
@@ -140,11 +174,11 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         }
 
         questionAdapter.setOnItemClickListener { holder, view, position ->
-            val unitBean = cacheMap[currentGradeCode]!!.currentUnitBean
+            /*val unitBean = cacheMap[currentGradeCode]!!.currentUnitBean
             if (unitBean.id == 0){
                 T.show(this, "请选择单元")
                 return@setOnItemClickListener
-            }
+            }*/
             QuestionActivity.jump(
                     this,
                     questionAdapter.datas[position].questionList,
@@ -163,10 +197,13 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             if (unitList.isEmpty()) {
                 isGradeRequest = true
                 assignmentPresenter.loadUnitAndQuestion(workCategory.toString(), currentGradeCode)
+                totalUnitTv.isSelected = true
+                cache.isTotal = true
             }else {
                 unitAdapter.setNewData(unitList as List<MultiItemEntity>)
                 questionAdapter.datas = questionList
                 setVersionTv(cache.versionName, cache.semesterName, cache.subName)
+                totalUnitTv.isSelected = cache.isTotal
             }
         }
 
@@ -185,13 +222,31 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             val tag: Int = view.tag as Int
             when (tag) {
                 testImg[0] -> {//系统试卷
-                    toast("系统试卷")
+                    titleBar.setTitle(getString(R.string.assign_system_test_paper))
+                    isOrganizeTest = false
+                    testRecycler.visibility = View.VISIBLE
+                    questionsRecycler.visibility = View.GONE
+                    currentTestType = "1"
+                    val cache = cacheMap[currentGradeCode]!!
+                    assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
+                            if (cache.currentUnitBean.id == 0) null else cache.currentUnitBean.id.toString())
                 }
                 testImg[1] -> {//组卷
-                    toast("组卷")
+                    isOrganizeTest = true
+                    if (emptyTestTv.visibility == View.VISIBLE)
+                        emptyTestTv.visibility = View.GONE
+                    testRecycler.visibility = View.GONE
+                    questionsRecycler.visibility = View.VISIBLE
                 }
                 testImg[2] -> {//我的试卷
-                    toast("我的试卷")
+                    titleBar.setTitle(getString(R.string.assign_my_test_paper))
+                    isOrganizeTest = false
+                    testRecycler.visibility = View.VISIBLE
+                    questionsRecycler.visibility = View.GONE
+                    currentTestType = "2"
+                    val cache = cacheMap[currentGradeCode]!!
+                    assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
+                            if (cache.currentUnitBean.id == 0) null else cache.currentUnitBean.id.toString())
                 }
                 testImg[3] -> {//发布小组
                     if(cacheMap[currentGradeCode]!!.classes.size > 1){
@@ -228,6 +283,10 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 val cache = cacheMap[currentGradeCode]
                 cache?.currentUnitBean = item
                 unitAdapter.selectSub = item
+                totalUnitTv.isSelected = false
+                cache?.isTotal = false
+                assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
+                        item.id.toString())
             }
         }
         //切换版本
@@ -282,7 +341,8 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         gradeAdapter.datas = gradeList
         classAdapter.datas = assignmentBean?.sendHomePageClazzInfoVos!![0].homeClazzInfoVos
         gradeAdapter.selectPosition = 0
-
+        if (workCategory == Constants.ASSIGN_TEST_PAPER)
+            assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null)
         gradeList?.forEach {
             if(cacheMap[it.gradeCode] == null) {
                 val cache = Cache()
@@ -313,6 +373,26 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
 
     override fun loadUnitAndQuestionError(t: Throwable) {
         LoadingDialogUtil.closeLoadingDialog()
+        t.handleThrowable(this)
+    }
+
+    override fun loadTestListStart() {
+
+    }
+
+    override fun getTestList(testList: List<TestPaperListBean>?) {
+        if(testList == null || testList.isEmpty()){
+            if (!isOrganizeTest)
+                emptyTestTv.visibility = View.VISIBLE
+        }else{
+            testAdapter.setNewData(testList)
+            emptyTestTv.visibility = View.GONE
+        }
+    }
+
+    override fun loadTestListError(t: Throwable) {
+        if (!isOrganizeTest)
+            emptyTestTv.visibility = View.VISIBLE
         t.handleThrowable(this)
     }
 
@@ -371,6 +451,10 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         cacheMap[currentGradeCode]!!.subCode = subCode
         cacheMap[currentGradeCode]!!.subName = subName
     }
+
+    /**
+     * 年级
+     */
     inner class GradeAdapter : RecyclerAdapter<AssignGradeBean>(R.layout.item_assignment_grade){
         var selectPosition = -1
         set(value) {
@@ -382,9 +466,12 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             val textView: TextView = setter.getTextView(R.id.grade)
             textView.text = entity!!.gradeName
             textView.isSelected = selectPosition != -1 && selectPosition == position
-
         }
     }
+
+    /**
+     * 班级
+     */
     inner class ClassAdapter: RecyclerAdapter<AssignClassBean>(R.layout.item_assignment_class){
         override fun fillData(setter: RecyclerViewHolder, position: Int, entity: AssignClassBean) {
             val textView: TextView = setter.getTextView(R.id.Class)
@@ -395,6 +482,10 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             textView.isSelected = classes!!.contains(entity)
         }
     }
+
+    /**
+     * 试题
+     */
     inner class QuestionsAdapter: RecyclerAdapter<AssignmentBean.QuestionsBean>(R.layout.item_assignment_questions){
         override fun fillData(setter: RecyclerViewHolder, position: Int, entity: AssignmentBean.QuestionsBean) {
             if(entity.questionList.size != 0) {
@@ -408,6 +499,9 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         }
     }
 
+    /**
+     * 单元
+     */
     inner class UnitAdapter(list: ArrayList<MultiItemEntity>): BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder>(list){
         init {
             addItemType(1, ebag.hd.R.layout.unit_group_item)
@@ -434,7 +528,21 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 }
             }
         }
+    }
 
+    /**
+     * 试卷
+     */
+    inner class TestAdapter(): BaseQuickAdapter<TestPaperListBean, BaseViewHolder>(R.layout.item_assignment_test){
+        var selectPosition = -1
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+        override fun convert(helper: BaseViewHolder, item: TestPaperListBean?) {
+            helper.setText(R.id.tv_id, item?.testPaperName)
+            helper.getView<TextView>(R.id.tv_id).isSelected = selectPosition == helper.adapterPosition
+        }
     }
 
     val workImg = intArrayOf(R.drawable.icon_smart_push, R.drawable.icon_custom, R.drawable.icon_assign_group, R.drawable.icon_assign_class)
@@ -508,6 +616,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     inner class Cache{
         var classes = ArrayList<AssignClassBean>()
         var unitList = ArrayList<AssignUnitBean>()
+        var isTotal = true
         var questionList = ArrayList<AssignmentBean.QuestionsBean>()
         var currentUnitBean = AssignUnitBean.UnitSubBean()
         var versionId = ""

@@ -69,7 +69,7 @@ class FragmentFirstPage : BaseFragment() {
         testPaper.setOnClickListener {
             startActivity(intent
                     .putExtra(Constants.ASSIGN_CATEGORY, Constants.ASSIGN_TEST_PAPER)
-                    .putExtra(Constants.ASSIGN_TITLE, resources.getString(R.string.assign_test_paper)))
+                    .putExtra(Constants.ASSIGN_TITLE, getString(R.string.assign_system_test_paper)))
         }
         checkHomework.setOnClickListener {
             startActivity(Intent(mContext, CorrectingActivity::class.java))

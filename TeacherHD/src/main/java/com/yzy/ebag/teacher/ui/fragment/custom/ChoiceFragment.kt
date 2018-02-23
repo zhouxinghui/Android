@@ -34,7 +34,9 @@ class ChoiceFragment : BaseFragment(), ICustomQuestionView, View.OnClickListener
         }
     }
     private var isPic = false
-    //1：题目标题图片；2：选项A图片；3：选项B图片；4：选项C图片；5：选项D图片
+    /**
+     * 1：题目标题图片；2：选项A图片；3：选项B图片；4：选项C图片；5：选项D图片
+     */
     private var currentImage = 1
     private var titleImagePath = ""
     private var tempTitleUrl = ""
@@ -79,16 +81,15 @@ class ChoiceFragment : BaseFragment(), ICustomQuestionView, View.OnClickListener
     }
     override fun getTitle(): String? {
         var str = titleEdit.text.toString()
-        if (StringUtils.isEmpty(str)){
-            T.show(mContext, "请输入题目标题")
-            return null
+        if (!StringUtils.isEmpty(titleUrl)){
+            str = "$titleUrl#R#$str"
         }
         return str
     }
 
     override fun getContent(): String? {
         if (isPic){
-
+            return sb.substring(0, sb.lastIndexOf(","))
         }else{
             return getWordOptions()
         }
@@ -96,44 +97,40 @@ class ChoiceFragment : BaseFragment(), ICustomQuestionView, View.OnClickListener
     }
 
     override fun getAnswer(): String? {
-        val str = answerEdit.text.toString()
-        if (StringUtils.isEmpty(str)){
-            T.show(mContext, "请输入题目正确答案")
-            return null
-        }
-        return str
+        return answerEdit.text.toString().toUpperCase()
     }
 
     override fun getAnalyse(): String? {
-        val str = analyseEdit.text.toString()
-        if (StringUtils.isEmpty(str)){
-            T.show(mContext, "请输入题目分析")
-            return null
-        }
-        return str
+        return analyseEdit.text.toString()
     }
 
     override fun upload(onConfirmClickListener: OnConfirmClickListener) {
         this.onConfirmClickListener = onConfirmClickListener
-        if (!StringUtils.isEmpty(titleImagePath)) {
-            val fileName = System.currentTimeMillis().toString()
-            tempTitleUrl = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/customQuestion/$fileName"
-            OSSUploadUtils.getInstance().UploadPhotoToOSS(
-                    mContext,
-                    File(titleImagePath),
-                    "personal/customQuestion",
-                    fileName,
-                    titleHandler)
+        if (!isReadyToUpload())
+            return
+        if (isPic) {
+            if (!StringUtils.isEmpty(titleImagePath)) {
+                val fileName = System.currentTimeMillis().toString()
+                tempTitleUrl = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/customQuestion/$fileName"
+                OSSUploadUtils.getInstance().UploadPhotoToOSS(
+                        mContext,
+                        File(titleImagePath),
+                        "personal/customQuestion",
+                        fileName,
+                        titleHandler)
+            } else {
+                val fileName = System.currentTimeMillis().toString()
+                val url = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/customQuestion/$fileName"
+                OSSUploadUtils.getInstance().UploadPhotoToOSS(
+                        mContext,
+                        File(imagePaths[0]),
+                        "personal/customQuestion",
+                        fileName,
+                        optionHandler)
+                sb.append("$url,")
+            }
         }else{
-            val fileName = System.currentTimeMillis().toString()
-            val url = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/customQuestion/$fileName"
-            OSSUploadUtils.getInstance().UploadPhotoToOSS(
-                    mContext,
-                    File(imagePaths[0]),
-                    "personal/customQuestion",
-                    fileName,
-                    optionHandler)
-            sb.append("$url,")
+            onConfirmClickListener.onConfirmClick(getTitle(), getContent(), getAnswer(), getAnalyse())
         }
     }
 
@@ -225,11 +222,12 @@ class ChoiceFragment : BaseFragment(), ICustomQuestionView, View.OnClickListener
                                 fragment.optionHandler)
                         fragment.sb.append("$url,")
                     }else{
-                        fragment.sb.substring(0, fragment.sb.lastIndexOf(","))
+                        fragment.onConfirmClickListener?.onConfirmClick(fragment.getTitle(), fragment.getContent(), fragment.getAnswer(), fragment.getAnalyse())
                     }
                 }
                 Constants.UPLOAD_FAIL ->{
                     T.show(fragment.mContext, "上传图片失败，请稍后重试")
+                    LoadingDialogUtil.closeLoadingDialog()
                 }
             }
         }
@@ -239,19 +237,22 @@ class ChoiceFragment : BaseFragment(), ICustomQuestionView, View.OnClickListener
         override fun handleMessage(fragment: ChoiceFragment, msg: Message) {
             when(msg.what){
                 Constants.UPLOAD_SUCCESS ->{
-                    val fileName = System.currentTimeMillis().toString()
-                    val url = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/customQuestion/$fileName"
-                    OSSUploadUtils.getInstance().UploadPhotoToOSS(
-                            fragment.mContext,
-                            File(fragment.imagePaths[0]),
-                            "personal/customQuestion",
-                            fileName,
-                            fragment.optionHandler)
-                    fragment.sb.append("$url,")
+                    if (fragment.isPic) {
+                        val fileName = System.currentTimeMillis().toString()
+                        val url = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/customQuestion/$fileName"
+                        OSSUploadUtils.getInstance().UploadPhotoToOSS(
+                                fragment.mContext,
+                                File(fragment.imagePaths[0]),
+                                "personal/customQuestion",
+                                fileName,
+                                fragment.optionHandler)
+                        fragment.sb.append("$url,")
+                    }
                     fragment.titleUrl = fragment.tempTitleUrl
                 }
                 Constants.UPLOAD_FAIL ->{
                     T.show(fragment.mContext, "上传图片失败，请稍后重试")
+                    LoadingDialogUtil.closeLoadingDialog()
                 }
             }
         }
@@ -271,10 +272,25 @@ class ChoiceFragment : BaseFragment(), ICustomQuestionView, View.OnClickListener
         return sb.substring(0, sb.lastIndexOf(","))
     }
 
-    fun isReadyToUpload(): Boolean{
-        var str = titleEdit.text.toString()
+    private fun isReadyToUpload(): Boolean{
+        val str = titleEdit.text.toString()
         if (StringUtils.isEmpty(str)){
             T.show(mContext, "请输入题目标题")
+            return false
+        }
+        if (!isPic && StringUtils.isEmpty(getWordOptions())){
+            return false
+        }
+        if (imagePaths.size < 2 && isPic){
+            T.show(mContext, "选项少于2项")
+            return false
+        }
+        if (StringUtils.isEmpty(answerEdit.text.toString())){
+            T.show(mContext, "请输入题目正确答案")
+            return false
+        }
+        if (StringUtils.isEmpty(analyseEdit.text.toString())){
+            T.show(mContext, "请输入题目分析")
             return false
         }
         return true

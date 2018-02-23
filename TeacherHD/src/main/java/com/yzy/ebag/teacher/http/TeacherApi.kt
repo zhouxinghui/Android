@@ -180,15 +180,31 @@ object TeacherApi {
      */
     fun searchQuestion(unitBean: AssignUnitBean.UnitSubBean, difficulty: String?, type: String, page: Int, callback: RequestCallBack<List<QuestionBean>>){
         val jsonObject = JSONObject()
-        if (unitBean.isUnit)
-            jsonObject.put("bookUnit",unitBean.id)
-        else
-            jsonObject.put("bookCatalog",unitBean.id)
+        if (unitBean.id != 0) {
+            if (unitBean.isUnit)
+                jsonObject.put("bookUnit", unitBean.id)
+            else
+                jsonObject.put("bookCatalog", unitBean.id)
+        }
         difficulty ?: jsonObject.put("level",difficulty)
         jsonObject.put("type",type)
         jsonObject.put("page",page)
         jsonObject.put("pageSize",10)
         EBagApi.request(teacherService.searchQuestion("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 试卷列表
+     */
+    fun testPaperList(testPaperFlag: String, gradeCode: String, unitId: String?, callback: RequestCallBack<List<TestPaperListBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("testPaperFlag",testPaperFlag)
+        jsonObject.put("gradeCode",gradeCode)
+        if (unitId != null)
+            jsonObject.put("unitId",unitId)
+        jsonObject.put("page",1)
+        jsonObject.put("pageSize",100)
+        EBagApi.request(teacherService.testPaperList("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
     /**

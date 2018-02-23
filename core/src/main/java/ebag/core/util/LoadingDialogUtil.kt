@@ -19,8 +19,9 @@ object LoadingDialogUtil {
     }
 
     fun closeLoadingDialog(){
-        if (loadingDialog != null)
+        if (loadingDialog != null) {
             loadingDialog!!.dismiss()
-        loadingDialog = null
+            loadingDialog = null
+        }
     }
 }

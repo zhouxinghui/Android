@@ -31,7 +31,8 @@
     <string name="hard">困难</string>
     <string name="assign_class_test">课堂检测</string>
     <string name="assign_after_class">课后作业</string>
-    <string name="assign_test_paper">考试试卷</string>
+    <string name="assign_system_test_paper">系统试卷</string>
+    <string name="assign_my_test_paper">我的试卷</string>
     <string name="wrong_question_feedback">错题反馈</string>
     <string name="wrong_question_feedback_hint">如果您发现题目错误，请及时反馈给我们，感谢您的大力支持</string>
     <array name="bottom_work">

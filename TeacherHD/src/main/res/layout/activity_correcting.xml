@@ -41,7 +41,7 @@
                 />
             <RadioButton android:id="@+id/testPaper"
                 style="@style/correct_title_tv"
-                android:text="@string/assign_test_paper"
+                android:text="@string/assign_system_test_paper"
                 />
         </RadioGroup>
         <View

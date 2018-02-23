@@ -7,8 +7,7 @@
     android:orientation="vertical"
     android:background="@color/white"
     tools:context="com.yzy.ebag.teacher.ui.activity.AssignmentActivity">
-    <ebag.hd.widget.TitleBar
-        android:id="@+id/titleBar"
+    <ebag.hd.widget.TitleBar android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleText="课后作业"
@@ -102,11 +101,33 @@
             app:layout_constraintTop_toBottomOf="@id/version_tv_id"
             app:layout_constraintRight_toLeftOf="@id/line2"
             />
+        <!--全部-->
+        <ebag.hd.widget.drawable.DrawableTextView
+            android:id="@+id/totalUnitTv"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/y10"
+            android:paddingStart="@dimen/x25"
+            android:paddingEnd="@dimen/x24"
+            android:textColor="@color/unit_tv"
+            android:text="全部"
+            android:textSize="@dimen/x26"
+            android:drawablePadding="@dimen/x15"
+            app:leftDrawable="@drawable/unit_sub_icon"
+            app:leftDrawableHeight="@dimen/x19"
+            app:leftDrawableWidth="@dimen/x18"
+            app:layout_constraintTop_toBottomOf="@id/line3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/line2"
+            />
         <!--单元-->
         <android.support.v7.widget.RecyclerView android:id="@+id/unitRecycler"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="@id/line3"
+            app:layout_constraintTop_toBottomOf="@id/totalUnitTv"
             app:layout_constraintBottom_toTopOf="@id/line4"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/line2"
@@ -150,11 +171,37 @@
                 android:text="@string/hard"
                 />
         </RadioGroup>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/questionsRecycler"
+        <!--试题列表-->
+        <android.support.v7.widget.RecyclerView android:id="@+id/questionsRecycler"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintTop_toBottomOf="@id/difficulty_tv_id"
+            app:layout_constraintBottom_toTopOf="@id/line4"
+            app:layout_constraintLeft_toRightOf="@id/line2"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+        <!--试卷列表-->
+        <android.support.v7.widget.RecyclerView android:id="@+id/testRecycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            android:paddingStart="@dimen/x15"
+            app:layout_constraintTop_toBottomOf="@id/line1"
+            app:layout_constraintBottom_toTopOf="@id/line4"
+            app:layout_constraintLeft_toRightOf="@id/line2"
+            app:layout_constraintRight_toRightOf="parent"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+        <TextView android:id="@+id/emptyTestTv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:textSize="@dimen/tv_normal"
+            android:text="暂无试卷"
+            android:background="@color/white"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/line1"
             app:layout_constraintBottom_toTopOf="@id/line4"
             app:layout_constraintLeft_toRightOf="@id/line2"
             app:layout_constraintRight_toRightOf="parent"

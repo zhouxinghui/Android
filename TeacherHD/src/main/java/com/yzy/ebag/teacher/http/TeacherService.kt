@@ -102,6 +102,12 @@ interface TeacherService {
     fun searchQuestion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<QuestionBean>>>
 
     /**
+     * 试卷列表
+     */
+    @POST("sendHome/queryTestPaper/{version}")
+    fun testPaperList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<TestPaperListBean>>>
+
+    /**
      * 发布作业
      */
     @POST("sendHome/sendHome/{version}")
