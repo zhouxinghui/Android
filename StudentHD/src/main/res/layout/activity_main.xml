@@ -389,50 +389,65 @@
             android:text="@string/main_learn_place_tip"/>
     </LinearLayout>
 
-
-    <ImageView
-        android:id="@+id/btnMyError"
-        android:layout_width="@dimen/x218"
-        android:layout_height="@dimen/x142"
+    <FrameLayout android:id="@+id/btnMyError"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="?attr/selectableItemBackground"
-        app:srcCompat="@drawable/home_btn_mine_error"
-        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintTop_toBottomOf="@id/llLearnGroup"
         app:layout_constraintStart_toStartOf="@id/ivAnnounce"
         app:layout_constraintEnd_toStartOf="@id/btnMyClassmate"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent">
+        <ImageView
 
-    <ImageView
-        android:id="@+id/btnMyClassmate"
-        android:layout_width="@dimen/x218"
-        android:layout_height="@dimen/x142"
+            android:layout_width="@dimen/x218"
+            android:layout_height="@dimen/x142"
+            app:srcCompat="@drawable/home_btn_mine_error"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+    <FrameLayout android:id="@+id/btnMyClassmate"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="?attr/selectableItemBackground"
-        app:srcCompat="@drawable/home_btn_mine_classmate"
         app:layout_constraintStart_toEndOf="@id/btnMyError"
         app:layout_constraintEnd_toStartOf="@id/btnMyBook"
         app:layout_constraintTop_toBottomOf="@id/llLearnGroup"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent">
+        <ImageView
+            android:layout_width="@dimen/x218"
+            android:layout_height="@dimen/x142"
+            app:srcCompat="@drawable/home_btn_mine_classmate"
+            android:layout_gravity="center" />
+    </FrameLayout>
 
-    <ImageView
-        android:id="@+id/btnMyBook"
-        android:layout_width="@dimen/x218"
-        android:layout_height="@dimen/x142"
+    <FrameLayout android:id="@+id/btnMyBook"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="?attr/selectableItemBackground"
-        app:srcCompat="@drawable/home_btn_mine_stack_room"
         app:layout_constraintStart_toEndOf="@id/btnMyClassmate"
         app:layout_constraintEnd_toStartOf="@id/btnDailyPractice"
         app:layout_constraintTop_toBottomOf="@id/llLearnGroup"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent">
+        <ImageView
+            android:layout_width="@dimen/x218"
+            android:layout_height="@dimen/x142"
+            app:srcCompat="@drawable/home_btn_mine_stack_room"
+            android:layout_gravity="center" />
+    </FrameLayout>
 
-    <ImageView
-        android:id="@+id/btnDailyPractice"
-        android:layout_width="@dimen/x218"
-        android:layout_height="@dimen/x142"
+    <FrameLayout android:id="@+id/btnDailyPractice"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="?attr/selectableItemBackground"
-        app:srcCompat="@drawable/home_btn_daily_practice"
         app:layout_constraintStart_toEndOf="@id/btnMyBook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/llLearnGroup"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent">
+        <ImageView
+            android:layout_width="@dimen/x218"
+            android:layout_height="@dimen/x142"
+            app:srcCompat="@drawable/home_btn_daily_practice"
+            android:layout_gravity="center" />
+    </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

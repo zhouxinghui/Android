@@ -8,7 +8,6 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.bean.Achievement
 import ebag.core.base.LazyFragment
-import ebag.core.util.T
 import kotlinx.android.synthetic.main.fragment_achievement.*
 
 /**
@@ -68,9 +67,9 @@ class AchievementFragment: LazyFragment() {
         )
         chartView.show()
 
-        chartView.setOnValueItemClickListener { lineIndex, position ->
-            T.show(mContext,"第${lineIndex+1}条线的第${position + 1}个的Value")
-        }
+//        chartView.setOnValueItemClickListener { lineIndex, position ->
+//            T.show(mContext,"第${lineIndex+1}条线的第${position + 1}个的Value")
+//        }
 
         recyclerView.layoutManager = LinearLayoutManager(mContext)
         val adapter = Adapter()
