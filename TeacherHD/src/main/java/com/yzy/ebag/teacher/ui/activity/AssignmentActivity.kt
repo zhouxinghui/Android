@@ -259,6 +259,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 setVersionTv(cache.versionName, cache.semesterName, cache.subName)
                 totalUnitTv.isSelected = cache.isTotal
             }
+            assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null)
         }
 
         classAdapter.setOnItemClickListener { holder, view, position ->
