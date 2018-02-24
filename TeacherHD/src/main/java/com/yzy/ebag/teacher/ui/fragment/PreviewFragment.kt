@@ -17,7 +17,6 @@ import ebag.core.http.network.RequestCallBack
  */
 class PreviewFragment : BaseListFragment<List<QuestionBean>, QuestionBean>() {
     private lateinit var previewList: ArrayList<QuestionBean>
-    private var isSmartPush = false
     private val feedbackDialog by lazy { FeedbackDialog(mContext) }
     companion object {
         fun newInstance(previewList: ArrayList<QuestionBean>): PreviewFragment {

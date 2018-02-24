@@ -7,10 +7,13 @@ import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.base.Constants
 import com.yzy.ebag.teacher.bean.AssignClassBean
 import com.yzy.ebag.teacher.bean.AssignUnitBean
+import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.ui.fragment.PreviewFragment
 import ebag.core.base.BaseActivity
 import ebag.core.bean.QuestionBean
 import ebag.core.bean.QuestionTypeUtils
+import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
 import ebag.core.util.StringUtils
 import ebag.core.util.T
 import ebag.hd.widget.TitleBar
@@ -26,15 +29,67 @@ class PreviewActivity: BaseActivity() {
         return R.layout.activity_question
     }
     private lateinit var previewList: ArrayList<QuestionBean>
+    private var isPreview = true
+    /**
+     * 智能推送
+     */
+    private val smartPushRequest = object: RequestCallBack<List<QuestionBean>>(){
+        override fun onStart() {
+            stateView.showLoading()
+        }
+        override fun onSuccess(entity: List<QuestionBean>?) {
+            if (entity == null || entity.isEmpty()){
+                stateView.showEmpty()
+            }else{
+                previewList = entity as ArrayList<QuestionBean>
+                setFragmentEvent(previewList)
+                stateView.showContent()
+            }
+        }
+
+        override fun onError(exception: Throwable) {
+            stateView.showError()
+            exception.handleThrowable(this@PreviewActivity)
+        }
+
+    }
+
+    /**
+     * 预览试卷
+     */
+    private val previewPaperRequest = object : RequestCallBack<List<QuestionBean>>(){
+        override fun onStart() {
+            stateView.showLoading()
+        }
+        override fun onSuccess(entity: List<QuestionBean>?) {
+            if (entity == null || entity.isEmpty()){
+                stateView.showEmpty()
+            }else{
+                previewList = entity as ArrayList<QuestionBean>
+                setFragmentEvent(previewList)
+                stateView.showContent()
+            }
+        }
+
+        override fun onError(exception: Throwable) {
+            stateView.showError()
+            exception.handleThrowable(this@PreviewActivity)
+        }
+
+    }
     companion object {
         fun jump(activity: Activity,
                  isTest: Boolean,
                  classes: java.util.ArrayList<AssignClassBean>,
                  unitBean: AssignUnitBean.UnitSubBean,
-                 previewList: java.util.ArrayList<QuestionBean>,
+                 previewList: ArrayList<QuestionBean>,
                  workType: Int,
                  subCode: String,
-                 bookVersionId: String){
+                 bookVersionId: String,
+                 isPreview: Boolean,
+                 paperId: String? = null,
+                 count: Int = 0
+                 ){
             activity.startActivityForResult(
                     Intent(activity, PreviewActivity::class.java)
                             .putExtra("isTest", isTest)
@@ -44,6 +99,9 @@ class PreviewActivity: BaseActivity() {
                             .putExtra("workType", workType)
                             .putExtra("subCode", subCode)
                             .putExtra("bookVersionId", bookVersionId)
+                            .putExtra("isPreview", isPreview)
+                            .putExtra("paperId", paperId)
+                            .putExtra("count", count)
                     , Constants.PREVIEW_REQUEST)
         }
     }
@@ -55,10 +113,25 @@ class PreviewActivity: BaseActivity() {
         val workType = intent.getIntExtra("workType", 0)
         val subCode = intent.getStringExtra("subCode")
         val bookVersionId = intent.getStringExtra("bookVersionId")
-        previewList = intent.getSerializableExtra("previewList") as ArrayList<QuestionBean>
-
+        isPreview = intent.getBooleanExtra("isPreview", false)
+        if (isPreview) {
+            val paperId = intent.getStringExtra("paperId")
+            if (paperId != null){
+                TeacherApi.previewTestPaper(paperId, previewPaperRequest)
+            }else {
+                previewList = intent.getSerializableExtra("previewList") as ArrayList<QuestionBean>
+                setFragmentEvent(previewList)
+            }
+        }else{
+            val count = intent.getIntExtra("count", 0)
+            TeacherApi.smartPush(count, unitBean, null, workType.toString(), bookVersionId, smartPushRequest)
+        }
         previewTv.text = "发布小组"
         publishTv.text = "发布班级"
+        if (isTest){
+            previewTv.visibility = View.GONE
+            publishTv.visibility = View.GONE
+        }
         previewTv.setOnClickListener {
             if (classes.isEmpty()){
                 T.show(this, "未选择班级")
@@ -73,10 +146,35 @@ class PreviewActivity: BaseActivity() {
             }
             PublishWorkActivity.jump(this, false, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId)
         }
+
+        titleBar.setOnTitleBarClickListener(object : TitleBar.OnTitleBarClickListener{
+            override fun leftClick() {
+                backEvent()
+                finish()
+            }
+            override fun rightClick() {
+            }
+        })
+    }
+    private fun backEvent(){
+        if (isPreview) {
+            if (previewList.isEmpty())
+                previewList = ArrayList()
+            val intent = Intent()
+            intent.putExtra("previewList", previewList)
+            setResult(Constants.QUESTION_RESULT, intent)
+        }
+    }
+    override fun onBackPressed() {
+        backEvent()
+        super.onBackPressed()
+    }
+
+    private fun setFragmentEvent(previewList: ArrayList<QuestionBean>){
         val fragment = PreviewFragment.newInstance(previewList)
         supportFragmentManager.beginTransaction().replace(R.id.questionLayout, fragment)
                 .commitAllowingStateLoss()
-
+        questionNumTv.text = "${previewList.size}题"
         fragment.onAnalyseClick = {
             when {
                 it == null -> {
@@ -91,29 +189,9 @@ class PreviewActivity: BaseActivity() {
                 }
             }
         }
-        questionNumTv.text = "${previewList.size}题"
         fragment.onSelectClick = {
             questionNumTv.text = "${previewList.size}题"
         }
-        titleBar.setOnTitleBarClickListener(object : TitleBar.OnTitleBarClickListener{
-            override fun leftClick() {
-                backEvent()
-                finish()
-            }
-            override fun rightClick() {
-            }
-        })
-    }
-    private fun backEvent(){
-        if(previewList.isEmpty())
-            previewList = ArrayList()
-        val intent = Intent()
-        intent.putExtra("previewList", previewList)
-        setResult(Constants.QUESTION_RESULT, intent)
-    }
-    override fun onBackPressed() {
-        backEvent()
-        super.onBackPressed()
     }
 
     private fun showAnalyse(questionBean: QuestionBean){

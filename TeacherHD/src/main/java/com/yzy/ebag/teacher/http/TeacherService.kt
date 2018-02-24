@@ -102,10 +102,28 @@ interface TeacherService {
     fun searchQuestion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<QuestionBean>>>
 
     /**
+     * 智能推送
+     */
+    @POST("question/smartChoice/{version}")
+    fun smartPush(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<QuestionBean>>>
+
+    /**
      * 试卷列表
      */
     @POST("sendHome/queryTestPaper/{version}")
     fun testPaperList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<TestPaperListBean>>>
+
+    /**
+     * 组卷
+     */
+    @POST("sendHome/addTestPaper/{version}")
+    fun organizePaper(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 预览试卷
+     */
+    @POST("sendHome/queryTestPaperQuestion/{version}")
+    fun previewTestPaper(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<QuestionBean>>>
 
     /**
      * 发布作业
