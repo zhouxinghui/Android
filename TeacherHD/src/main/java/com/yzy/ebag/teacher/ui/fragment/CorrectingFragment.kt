@@ -53,7 +53,7 @@ class CorrectingFragment: BaseFragment() {
             //不能用foreach,用了会让你怀疑人生的
             (0 until entity.size)
                     .filter {
-                        //必须判断，因为if中100%会有false返回
+                        //必须判断，因为is中100%会有false返回
                         entity[it] is CorrectingBean
                     }
                     .forEach { i ->

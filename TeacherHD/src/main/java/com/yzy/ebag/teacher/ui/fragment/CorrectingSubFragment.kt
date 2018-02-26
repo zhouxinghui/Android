@@ -2,11 +2,13 @@ package com.yzy.ebag.teacher.ui.fragment
 
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.CorrectingBean
+import com.yzy.ebag.teacher.ui.activity.CorrectingDescActivity
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
 
@@ -50,6 +52,10 @@ class CorrectingSubFragment: BaseListFragment<List<CorrectingBean.SubjectVosBean
 
     override fun getLayoutManager(adapter: BaseQuickAdapter<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean, BaseViewHolder>): RecyclerView.LayoutManager? {
         return null
+    }
+
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+        CorrectingDescActivity.jump(mContext)
     }
 
     inner class MyAdapter: BaseQuickAdapter<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean, BaseViewHolder>(R.layout.fragment_correct_sub_item){

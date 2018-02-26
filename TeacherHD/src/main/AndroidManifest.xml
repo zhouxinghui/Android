@@ -79,9 +79,11 @@
             android:name=".ui.activity.PublishWorkActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".TestXmlActivity">
-
-        </activity>
+        <activity android:name=".TestXmlActivity"/>
+        <activity android:name=".ui.activity.CorrectingDescActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
     </application>
 
 </manifest>
