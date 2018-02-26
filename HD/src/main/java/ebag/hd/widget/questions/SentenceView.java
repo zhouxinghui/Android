@@ -66,7 +66,9 @@ public class SentenceView extends BaseQuestionView {
 
             @Override
             public void afterTextChanged(Editable s) {
-                SentenceView.this.questionBean.setStudentAnswer(SentenceView.this.getAnswer());
+                if(onDoingListener != null)
+                    onDoingListener.onDoing(SentenceView.this);
+                SentenceView.this.questionBean.setAnswer(SentenceView.this.getAnswer());
             }
         });
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -91,7 +93,7 @@ public class SentenceView extends BaseQuestionView {
                 lineEditText.setMinLines(5);
             titleList.add(questionBean.getContent());
         }
-        studentAnswer = questionBean.getStudentAnswer();
+        studentAnswer = questionBean.getAnswer();
     }
 
     @Override

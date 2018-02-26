@@ -219,7 +219,7 @@ public class WriteView extends BaseQuestionView{
     public void setData(QuestionBean questionBean) {
         this.questionBean = questionBean;
         //TODO 初始化bagId，homeworkId
-        questionId = questionBean.getId();
+        questionId = questionBean.getQuestionId();
         questionHead = questionBean.getTitle();
         titleList = new ArrayList<>();
         titleList.add(questionHead);

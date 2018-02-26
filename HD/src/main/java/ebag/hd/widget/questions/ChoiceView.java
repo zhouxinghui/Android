@@ -129,8 +129,8 @@ public class ChoiceView extends BaseQuestionView implements OnItemClickListener 
             options = Arrays.asList(questionBean.getContent().split(";"));
         }
 
-        rightAnswer = questionBean.getAnswer();
-        studentAnswer = questionBean.getStudentAnswer();
+        rightAnswer = questionBean.getRightAnswer();
+        studentAnswer = questionBean.getAnswer();
     }
 
     @Override
@@ -215,7 +215,9 @@ public class ChoiceView extends BaseQuestionView implements OnItemClickListener 
             answer = String.valueOf((char)('A' + position));
         }
 
-        questionBean.setStudentAnswer(answer);
+        if(onDoingListener != null)
+            onDoingListener.onDoing(this);
+        questionBean.setAnswer(answer);
     }
 
 

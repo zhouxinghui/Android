@@ -150,7 +150,7 @@ public class DatePicker extends LinearLayout implements NormalWheelView.OnSelect
     @Override
     public void endSelect(View view, int id, String text) {
         // 滚轮滑动停止后调用
-        /*switch (view.getId()) {
+        /*switch (view.getQuestionId()) {
             case R.id.year:
             case R.id.month:
                 // 记录当前选择的天数

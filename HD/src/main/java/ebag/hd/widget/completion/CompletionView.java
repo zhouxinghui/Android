@@ -332,7 +332,7 @@ public class CompletionView extends RelativeLayout {
         for (int i = 0; i < editTexts.size(); i++) {
             answer = editTexts.get(i).getText().toString().trim();
 //            if(TextUtils.isEmpty(answer)) {
-//                LogApi.e("Completion","getAnswer");
+//                LogApi.e("Completion","getRightAnswer");
 //                return "";
 //            }else {
                 if(i != editTexts.size() - 1) {
@@ -344,7 +344,7 @@ public class CompletionView extends RelativeLayout {
 //            }
         }
 
-        L.INSTANCE.e("Completion","getAnswer"+sb.toString());
+        L.INSTANCE.e("Completion","getRightAnswer"+sb.toString());
         return sb.toString().equals(sb1.toString()) ? "" : sb.toString();
     }
 
@@ -371,7 +371,7 @@ public class CompletionView extends RelativeLayout {
      * @param regex
      */
     public void setAnswer(String answerStr, String regex){
-        L.INSTANCE.e("Completion","message----setAnswer---");
+        L.INSTANCE.e("Completion","message----setRightAnswer---");
         this.answerStr = answerStr;
         this.regex = regex;
         handler.sendEmptyMessage(SET_ANSWER);
@@ -382,7 +382,7 @@ public class CompletionView extends RelativeLayout {
             if(TextUtils.isEmpty(regex)){
                 regex = "#R#";
             }
-            Log.e("Completion","setAnswer---" + answerStr);
+            Log.e("Completion","setRightAnswer---" + answerStr);
             if (!TextUtils.isEmpty(answerStr)) {
                 String[] split = answerStr.split(regex);
                 for (int i = 0; i < split.length; i++) {

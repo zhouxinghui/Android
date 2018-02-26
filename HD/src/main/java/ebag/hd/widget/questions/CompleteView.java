@@ -69,8 +69,8 @@ public class CompleteView extends BaseQuestionView implements FillBlankView.OnBl
 
         questionContent = questionBean.getContent();
 
-        studentAnswer = questionBean.getStudentAnswer();
-        rightAnswer = questionBean.getAnswer();
+        studentAnswer = questionBean.getAnswer();
+        rightAnswer = questionBean.getRightAnswer();
     }
 
     @Override
@@ -111,6 +111,8 @@ public class CompleteView extends BaseQuestionView implements FillBlankView.OnBl
 
     @Override
     public void onAnswerChanged() {
-        this.questionBean.setStudentAnswer(fillBlankView.getAnswer("#R#"));
+        if(onDoingListener != null)
+            onDoingListener.onDoing(this);
+        this.questionBean.setAnswer(fillBlankView.getAnswer("#R#"));
     }
 }

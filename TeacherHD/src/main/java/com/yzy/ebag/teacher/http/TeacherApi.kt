@@ -244,7 +244,7 @@ object TeacherApi {
         val questionArray = JSONArray()
         questionList.forEach {
             val questionJson = JSONObject()
-            questionJson.put("questionId", it.id)
+            questionJson.put("questionId", it.questionId)
             questionJson.put("questionType", it.type)
             questionArray.put(questionJson)
         }

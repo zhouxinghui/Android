@@ -50,7 +50,7 @@ public class RecorderView extends BaseQuestionView {
     protected void addBody(Context context) {
         //录音时间
         /*TextView timeTv = new TextView(context);
-        timeTv.setId(R.id.recorder_time_tv_id);
+        timeTv.setQuestionId(R.id.recorder_time_tv_id);
         timeTv.setTextColor(getResources().getColor(R.color.question_normal));
         timeTv.setText("00:00:00");
         timeTv.setPadding(
@@ -115,7 +115,7 @@ public class RecorderView extends BaseQuestionView {
                 title.add(questionBean.getContent());
                 break;
         }
-        rightAnswer = questionBean.getAnswer();
+        rightAnswer = questionBean.getRightAnswer();
     }
 
     @Override
@@ -142,7 +142,7 @@ public class RecorderView extends BaseQuestionView {
 
     @Override
     public String getAnswer() {
-        return questionBean.getStudentAnswer();
+        return questionBean.getAnswer();
     }
 
     @Override

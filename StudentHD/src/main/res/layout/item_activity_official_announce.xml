@@ -39,10 +39,11 @@
         android:paddingTop="@dimen/x12"
         android:paddingBottom="@dimen/x12"
         android:paddingStart="@dimen/x24"
-        android:paddingEnd="@dimen/x12"
+        android:paddingEnd="@dimen/x24"
         android:text="TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView"
         android:textColor="@color/color_edit_color"
         android:textSize="@dimen/x24"
         app:layout_constraintStart_toEndOf="@+id/ivAnnouncePortrait"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ivAnnouncePortrait" />
 </android.support.constraint.ConstraintLayout>

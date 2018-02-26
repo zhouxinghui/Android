@@ -102,8 +102,8 @@ public class MathVerticalView extends BaseQuestionView{
         studentAnswer.clear();
         titleList.clear();
         //初始化数据
-        Collections.addAll(rightAnswer,questionBean.getAnswer().split(","));
-        Collections.addAll(studentAnswer,questionBean.getStudentAnswer().split(","));
+        Collections.addAll(rightAnswer,questionBean.getRightAnswer().split(","));
+        Collections.addAll(studentAnswer,questionBean.getAnswer().split(","));
         titleList.add(questionBean.getTitle());
 
         //判断这个竖式是不是除式
@@ -332,7 +332,9 @@ public class MathVerticalView extends BaseQuestionView{
 
         @Override
         public void afterTextChanged(Editable s) {
-            MathVerticalView.this.questionBean.setStudentAnswer(MathVerticalView.this.getAnswer());
+            if(onDoingListener != null)
+                onDoingListener.onDoing(MathVerticalView.this);
+            MathVerticalView.this.questionBean.setAnswer(MathVerticalView.this.getAnswer());
         }
     }
 

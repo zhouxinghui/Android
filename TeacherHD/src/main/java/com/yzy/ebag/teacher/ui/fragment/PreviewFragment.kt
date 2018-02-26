@@ -54,7 +54,7 @@ class PreviewFragment : BaseListFragment<List<QuestionBean>, QuestionBean>() {
             R.id.analyseTv ->{
                 adapter.selectItem = position
                 val questionBean = adapter.getItem(position)?.clone() as QuestionBean
-                questionBean.studentAnswer = questionBean.answer
+                questionBean.answer = questionBean.rightAnswer
                 onAnalyseClick?.invoke(questionBean)
             }
         }

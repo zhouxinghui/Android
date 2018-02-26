@@ -57,7 +57,7 @@ public class ExpandableViewHolder extends RecyclerView.ViewHolder implements
     @Override
     public void onClick(View v) {
         //如果设置了mOnRVItemClickListener的点击事件会屏蔽mOnItemChildClickListener最外层的点击事件
-//        if (v.getId() == this.itemView.getId() && null != this.adapter.getOnItemClickListener()) {
+//        if (v.getQuestionId() == this.itemView.getQuestionId() && null != this.adapter.getOnItemClickListener()) {
 //            this.adapter.getOnItemClickListener().onItemClick(this, v, this.getHolderPosition());
 //        }else if(this.adapter.getOnItemChildClickListener() != null) {
 //            this.adapter.getOnItemChildClickListener().onItemChildClick(this, v, this.getHolderPosition());
@@ -67,7 +67,7 @@ public class ExpandableViewHolder extends RecyclerView.ViewHolder implements
     @Override
     public boolean onLongClick(View v) {
         //如果设置了mOnRVItemClickListener的长按事件会屏蔽mOnItemChildClickListener最外层的长按事件
-//        if (v.getId() == this.itemView.getId() && null != this.adapter.getOnItemLongClickListener())
+//        if (v.getQuestionId() == this.itemView.getQuestionId() && null != this.adapter.getOnItemLongClickListener())
 //            return this.adapter.getOnItemLongClickListener().onItemLongClick(this, v, this.getHolderPosition());
 //        else
 //            return this.adapter.getOnItemChildLongClickListener() != null

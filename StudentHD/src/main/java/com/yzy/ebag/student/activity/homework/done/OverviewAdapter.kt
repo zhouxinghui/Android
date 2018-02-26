@@ -12,6 +12,7 @@ import com.yzy.ebag.student.R
 import ebag.core.bean.QuestionBean
 import ebag.core.bean.QuestionTypeUtils
 import ebag.core.bean.TypeQuestionBean
+import ebag.core.util.StringUtils
 
 /**
  * @author caoyu
@@ -48,6 +49,11 @@ class OverviewAdapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>(null){
         layouts!!.put(type, layoutResId)
     }
 
+    var showResult = false
+    set(value) {
+        field = value
+        notifyDataSetChanged()
+    }
 
     override fun convert(helper: BaseViewHolder, item: MultiItemEntity?) {
         val tv = helper.getView<TextView>(R.id.tv)
@@ -60,6 +66,19 @@ class OverviewAdapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>(null){
             else ->{
                 item as QuestionBean?
                 tv.text = ((item?.position ?: 0) + 1).toString()
+                if(showResult){
+                    if(item?.isCorrect == true){
+                        tv.setBackgroundResource(R.drawable.bac_overview_green)
+                    }else{
+                        tv.setBackgroundResource(R.drawable.bac_overview_red)
+                    }
+                }else{
+                    if(StringUtils.isEmpty(item?.answer)){
+                        tv.setBackgroundResource(R.drawable.bac_overview_grey)
+                    }else{
+                        tv.setBackgroundResource(R.drawable.bac_overview_blue)
+                    }
+                }
             }
         }
     }

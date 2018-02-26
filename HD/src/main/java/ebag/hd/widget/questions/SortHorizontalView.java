@@ -79,7 +79,9 @@ public class SortHorizontalView extends BaseQuestionView {
                     SortBean content = contentAdapter.getItem(position);
                     contentAdapter.removeItem(content);
                     answerAdapter.addLastItem(content);
-                    SortHorizontalView.this.questionBean.setStudentAnswer(SortHorizontalView.this.getAnswer());
+                    if(onDoingListener != null)
+                        onDoingListener.onDoing(SortHorizontalView.this);
+                    SortHorizontalView.this.questionBean.setAnswer(SortHorizontalView.this.getAnswer());
                 }
             }
         });
@@ -101,7 +103,9 @@ public class SortHorizontalView extends BaseQuestionView {
                     SortBean content = answerAdapter.getItem(position);
                     answerAdapter.removeItem(content);
                     contentAdapter.addLastItem(content);
-                    SortHorizontalView.this.questionBean.setStudentAnswer(SortHorizontalView.this.getAnswer());
+                    if(onDoingListener != null)
+                        onDoingListener.onDoing(SortHorizontalView.this);
+                    SortHorizontalView.this.questionBean.setAnswer(SortHorizontalView.this.getAnswer());
                 }
             }
         });
@@ -113,7 +117,9 @@ public class SortHorizontalView extends BaseQuestionView {
             @Override
             public void onItemMove(int fromPosition, int toPosition) {
                 answerAdapter.moveItem(fromPosition-answerAdapter.getHeaderSize(),toPosition-answerAdapter.getHeaderSize());
-                SortHorizontalView.this.questionBean.setStudentAnswer(SortHorizontalView.this.getAnswer());
+                if(onDoingListener != null)
+                    onDoingListener.onDoing(SortHorizontalView.this);
+                SortHorizontalView.this.questionBean.setAnswer(SortHorizontalView.this.getAnswer());
             }
 
             @Override
@@ -137,8 +143,8 @@ public class SortHorizontalView extends BaseQuestionView {
         this.questionBean = questionBean;
         titleList = Arrays.asList(questionBean.getTitle().split("#R#"));
         questionContent = questionBean.getContent();
-        rightAnswer = questionBean.getAnswer();
-        studentAnswer = questionBean.getStudentAnswer();
+        rightAnswer = questionBean.getRightAnswer();
+        studentAnswer = questionBean.getAnswer();
     }
 
     @Override

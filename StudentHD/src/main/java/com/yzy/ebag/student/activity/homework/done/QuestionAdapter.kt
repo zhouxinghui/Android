@@ -14,6 +14,8 @@ import ebag.hd.widget.questions.base.BaseQuestionView
  */
 class QuestionAdapter: BaseMultiItemQuickAdapter<QuestionBean, BaseViewHolder>(null) {
 
+    var onDoingListener: BaseQuestionView.OnDoingListener? = null
+
     init {
         //看单词选图
         addItemType(QuestionTypeUtils.QUESTIONS_CHOOSE_PIC_BY_WORD, R.layout.item_question_choice)
@@ -67,5 +69,7 @@ class QuestionAdapter: BaseMultiItemQuickAdapter<QuestionBean, BaseViewHolder>(n
         val questionView = helper.getView<BaseQuestionView>(R.id.questionView)
         questionView.setData(item)
         questionView.show(true)
+        questionView.tag = item
+        questionView.setOnDoingListener(onDoingListener)
     }
 }

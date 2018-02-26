@@ -60,6 +60,10 @@ object EBagApi {
         return RequestBody.create(JSON_TYPE, jsonObject.toString())
     }
 
+    fun createBody(string: String): RequestBody {
+        return RequestBody.create(JSON_TYPE, string)
+    }
+
     fun <T> getRequestBean(body: T): RequestBean<T> {
         val request = RequestBean<T>()
         request.setBody(body)

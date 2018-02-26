@@ -328,7 +328,7 @@ public class FillBlankView extends FrameLayout {
         for (int i = 0; i < answerList.size(); i++) {
             sb.append(answerList.get(i).trim()).append(regex);
         }
-        L.INSTANCE.e("Completion","getStudentAnswer"+sb.toString());
+        L.INSTANCE.e("Completion","getAnswer"+sb.toString());
         return sb.toString();
     }
 

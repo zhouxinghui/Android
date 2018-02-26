@@ -138,8 +138,8 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
         this.questionBean = questionBean;
         questionHead = questionBean.getTitle();
         questionContent = questionBean.getContent();
-        rightAnswer = questionBean.getAnswer();
-        studentAnswer = questionBean.getStudentAnswer();
+        rightAnswer = questionBean.getRightAnswer();
+        studentAnswer = questionBean.getAnswer();
 
         titleList = new ArrayList<>();
         titleList.add(questionHead);
@@ -274,40 +274,46 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
 
     @Override
     public String getAnswer() {
-        /*for (int i = 0; i < elementLayout.getChildCount(); i++) {
-            if(elementLayout.getChildAt(i).getVisibility() == View.VISIBLE)
-                return "";//打开这个注释就意味着未答完题就提交空答案了
-        }*/
-        StringBuilder sb = new StringBuilder("");
-        for (int i = 0; i < parentCategory.getChildCount(); i++) {
-            LinearLayout categoryOut = (LinearLayout) parentCategory.getChildAt(i);
-            NestedScrollView scrollView = (NestedScrollView) categoryOut.getChildAt(1);
-            FlowLayout categoryInside = (FlowLayout) scrollView.getChildAt(0);
-            TextView categoryText = (TextView) categoryOut.getChildAt(0);
-            sb.append(categoryText.getText().toString()).append("#R#");
-            for (int j = 0; j < categoryInside.getChildCount(); j++) {
-                if (j == categoryInside.getChildCount() - 1)
-                    sb.append(categoryInside.getChildAt(j).getTag().toString()).append(";");
-                else
-                    sb.append(categoryInside.getChildAt(j).getTag().toString()).append(",");
-            }
+        boolean hasDone = false;
+        for (int i = 0; i < elementLayout.getChildCount(); i++) {
+            if(elementLayout.getChildAt(i).getVisibility() != View.VISIBLE)
+                hasDone = true;
         }
-        String answer = sb.substring(0, sb.length());
-        String[] split_stu = answer.split(";");
-        String[] split_right = rightAnswer.split(";");
-        for (int i = 0; i < split_stu.length; i++) {
-            String[] split_stu_1 = split_stu[i].split("#R#");
-            String[] split_right_1 = split_right[i].split("#R#");
-            if (split_stu_1.length > 1 && split_right_1.length > 1) {
-                List<String> stuList = Arrays.asList(split_stu_1[1].split(","));
-                List<String> rightList = Arrays.asList(split_right_1[1].split(","));
-                if (stuList.size() != rightList.size() && !stuList.containsAll(rightList))
+        if(!hasDone){
+            return "";
+        }else{
+            StringBuilder sb = new StringBuilder("");
+            for (int i = 0; i < parentCategory.getChildCount(); i++) {
+                LinearLayout categoryOut = (LinearLayout) parentCategory.getChildAt(i);
+                NestedScrollView scrollView = (NestedScrollView) categoryOut.getChildAt(1);
+                FlowLayout categoryInside = (FlowLayout) scrollView.getChildAt(0);
+                TextView categoryText = (TextView) categoryOut.getChildAt(0);
+                sb.append(categoryText.getText().toString()).append("#R#");
+                for (int j = 0; j < categoryInside.getChildCount(); j++) {
+                    if (j == categoryInside.getChildCount() - 1)
+                        sb.append(categoryInside.getChildAt(j).getTag().toString()).append(";");
+                    else
+                        sb.append(categoryInside.getChildAt(j).getTag().toString()).append(",");
+                }
+            }
+            String answer = sb.substring(0, sb.length());
+            String[] split_stu = answer.split(";");
+            String[] split_right = rightAnswer.split(";");
+            for (int i = 0; i < split_stu.length; i++) {
+                String[] split_stu_1 = split_stu[i].split("#R#");
+                String[] split_right_1 = split_right[i].split("#R#");
+                if (split_stu_1.length > 1 && split_right_1.length > 1) {
+                    List<String> stuList = Arrays.asList(split_stu_1[1].split(","));
+                    List<String> rightList = Arrays.asList(split_right_1[1].split(","));
+                    if (stuList.size() != rightList.size() && !stuList.containsAll(rightList))
+                        return answer;
+                } else {
                     return answer;
-            } else {
-                return answer;
+                }
             }
+            return "";
         }
-        return "";
+
     }
 
     @Override
@@ -442,10 +448,16 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
                             addChildPic(mTag, llChild0, (Integer) mDragImageView.getTag(), false, true);
                         else
                             addChildWorld(mTag, llChild0, (Integer) mDragImageView.getTag(), false,true);
+                        if(onDoingListener != null)
+                            onDoingListener.onDoing(this);
+                        this.questionBean.setAnswer(getAnswer());
                         break;
                     }
                     if (parentCategory.getChildCount() == 1) {
                         elementLayout.getChildAt((Integer) mDragImageView.getTag()).setVisibility(View.VISIBLE);
+                        if(onDoingListener != null)
+                            onDoingListener.onDoing(this);
+                        this.questionBean.setAnswer(getAnswer());
                         break;
                     }
                     LinearLayout categoryOut1 = (LinearLayout) parentCategory.getChildAt(1);
@@ -463,10 +475,16 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
                             addChildPic(mTag, llChild1, (Integer) mDragImageView.getTag(), false, true);
                         else
                             addChildWorld(mTag, llChild1, (Integer) mDragImageView.getTag(), false, true);
+                        if(onDoingListener != null)
+                            onDoingListener.onDoing(this);
+                        this.questionBean.setAnswer(getAnswer());
                         break;
                     }
                     if (parentCategory.getChildCount() == 2) {
                         elementLayout.getChildAt((Integer) mDragImageView.getTag()).setVisibility(View.VISIBLE);
+                        if(onDoingListener != null)
+                            onDoingListener.onDoing(this);
+                        this.questionBean.setAnswer(getAnswer());
                         break;
                     }
                     LinearLayout categoryOut2 = (LinearLayout) parentCategory.getChildAt(2);
@@ -484,10 +502,16 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
                             addChildPic(mTag, llChild2, (Integer) mDragImageView.getTag(), false, true);
                         else
                             addChildWorld(mTag, llChild2, (Integer) mDragImageView.getTag(), false, true);
+                        if(onDoingListener != null)
+                            onDoingListener.onDoing(this);
+                        this.questionBean.setAnswer(getAnswer());
                         break;
                     }
                     if (parentCategory.getChildCount() == 3) {
                         elementLayout.getChildAt((Integer) mDragImageView.getTag()).setVisibility(View.VISIBLE);
+                        if(onDoingListener != null)
+                            onDoingListener.onDoing(this);
+                        this.questionBean.setAnswer(getAnswer());
                         break;
                     }
                     LinearLayout categoryOut3 = (LinearLayout) parentCategory.getChildAt(3);
@@ -505,14 +529,18 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
                             addChildPic(mTag, llChild3, (Integer) mDragImageView.getTag(), false, true);
                         else
                             addChildWorld(mTag, llChild3, (Integer) mDragImageView.getTag(), false, true);
+                        if(onDoingListener != null)
+                            onDoingListener.onDoing(this);
+                        this.questionBean.setAnswer(getAnswer());
                         break;
                     }
                     if (parentCategory.getChildCount() == 4) {
                         elementLayout.getChildAt((Integer) mDragImageView.getTag()).setVisibility(View.VISIBLE);
+                        if(onDoingListener != null)
+                            onDoingListener.onDoing(this);
+                        this.questionBean.setAnswer(getAnswer());
                         break;
                     }
-
-                    this.questionBean.setStudentAnswer(getAnswer());
                     break;
             }
         }

@@ -71,8 +71,8 @@ public class SortVerticalView extends BaseQuestionView {
         for(int i = 0; i < split.length; i++){
             sortList.add(new SortBean(split[i]));
         }
-        studentAnswer = questionBean.getStudentAnswer();
-        rightAnswer = questionBean.getAnswer();
+        studentAnswer = questionBean.getAnswer();
+        rightAnswer = questionBean.getRightAnswer();
     }
 
     @Override
@@ -204,7 +204,9 @@ public class SortVerticalView extends BaseQuestionView {
 
         @Override
         public void afterTextChanged(Editable s) {
-            SortVerticalView.this.questionBean.setStudentAnswer(SortVerticalView.this.getAnswer());
+            if(onDoingListener != null)
+                onDoingListener.onDoing(SortVerticalView.this);
+            SortVerticalView.this.questionBean.setAnswer(SortVerticalView.this.getAnswer());
         }
     }
 

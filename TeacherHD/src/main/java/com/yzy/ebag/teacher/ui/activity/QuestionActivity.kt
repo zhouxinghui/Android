@@ -54,7 +54,7 @@ class QuestionActivity : BaseActivity() {
                 it == null -> {
                     emptyAnalyseLayout.visibility = View.VISIBLE
                 }
-                StringUtils.isEmpty(it.answer) -> { //正确答案为空
+                StringUtils.isEmpty(it.rightAnswer) -> { //正确答案为空
                     emptyAnalyseLayout.visibility = View.VISIBLE
                     T.show(this, "暂无解析")
                 }

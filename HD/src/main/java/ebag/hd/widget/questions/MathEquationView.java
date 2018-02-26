@@ -75,8 +75,8 @@ public class MathEquationView extends BaseQuestionView {
         titleList.clear();
 
         //初始化数据
-        Collections.addAll(rightAnswer,questionBean.getAnswer().split(","));
-        Collections.addAll(studentAnswer,questionBean.getStudentAnswer().split(","));
+        Collections.addAll(rightAnswer,questionBean.getRightAnswer().split(","));
+        Collections.addAll(studentAnswer,questionBean.getAnswer().split(","));
         titleList.add(questionBean.getTitle());
 
         boolean isFirstNum;
@@ -310,7 +310,9 @@ public class MathEquationView extends BaseQuestionView {
 
         @Override
         public void afterTextChanged(Editable s) {
-            MathEquationView.this.questionBean.setStudentAnswer(MathEquationView.this.getAnswer());
+            if(onDoingListener != null)
+                onDoingListener.onDoing(MathEquationView.this);
+            MathEquationView.this.questionBean.setAnswer(MathEquationView.this.getAnswer());
         }
     }
 

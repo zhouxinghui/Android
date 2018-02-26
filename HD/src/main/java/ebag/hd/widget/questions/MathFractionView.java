@@ -61,8 +61,8 @@ public class MathFractionView extends BaseQuestionView {
 
         contentList.clear();
         String[] contents = questionBean.getContent().split(";");
-        String[] rights = questionBean.getAnswer().split(";");
-        String[] students = questionBean.getStudentAnswer().split(";");
+        String[] rights = questionBean.getRightAnswer().split(";");
+        String[] students = questionBean.getAnswer().split(";");
 
         Fraction fraction;
         for(int i = 0; i < contents.length; i++){
@@ -164,7 +164,9 @@ public class MathFractionView extends BaseQuestionView {
 
         @Override
         public void onAnswerChanged() {
-            MathFractionView.this.questionBean.setStudentAnswer(MathFractionView.this.getAnswer());
+            if(onDoingListener != null)
+                onDoingListener.onDoing(MathFractionView.this);
+            MathFractionView.this.questionBean.setAnswer(MathFractionView.this.getAnswer());
         }
     }
 

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,6 +31,15 @@ public abstract class BaseQuestionView extends LinearLayout implements IQuestion
 
     protected Context mContext;
     protected HeadAdapter headAdapter;
+    protected OnDoingListener onDoingListener;
+    public interface OnDoingListener{
+        void onDoing(View view);
+    }
+
+    public void setOnDoingListener(OnDoingListener onDoingListener) {
+        this.onDoingListener = onDoingListener;
+    }
+
     public BaseQuestionView(Context context) {
         super(context);
         addTitle(context);

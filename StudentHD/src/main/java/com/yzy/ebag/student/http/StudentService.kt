@@ -52,6 +52,12 @@ interface StudentService {
     @POST("homeWork/getHomeWorkByQuestion/{version}")
     fun getQuestions(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<TypeQuestionBean>>>
 
+    /**
+     * 提交作业
+     */
+    @POST("correctHome/currentHomeWork/{version}")
+    fun commitHomework(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
 
     /**
      * 获取跟读列表

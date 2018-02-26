@@ -13,7 +13,7 @@ public class QuestionBean implements Serializable, MultiItemEntity, Cloneable {
 
     private boolean isChoose;
 
-    private String id;
+    private String questionId;
 
     private String bookUnit;
 
@@ -29,9 +29,9 @@ public class QuestionBean implements Serializable, MultiItemEntity, Cloneable {
 
     private String content;
 
-    private String answer;
+    private String rightAnswer;
 
-    private String studentAnswer;
+    private String answer;
 
     private String item;
 
@@ -61,14 +61,14 @@ public class QuestionBean implements Serializable, MultiItemEntity, Cloneable {
         this.position = position;
     }
 
-    public String getStudentAnswer() {
-        if(studentAnswer == null)
-            studentAnswer = "";
-        return studentAnswer;
+    public String getAnswer() {
+        if(answer == null)
+            answer = "";
+        return answer;
     }
 
-    public void setStudentAnswer(String studentAnswer) {
-        this.studentAnswer = studentAnswer;
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
     public boolean isChoose() {
@@ -79,12 +79,12 @@ public class QuestionBean implements Serializable, MultiItemEntity, Cloneable {
         isChoose = choose;
     }
 
-    public String getId() {
-        return id;
+    public String getQuestionId() {
+        return questionId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setQuestionId(String questionId) {
+        this.questionId = questionId;
     }
 
     public String getBookUnit() {
@@ -147,14 +147,14 @@ public class QuestionBean implements Serializable, MultiItemEntity, Cloneable {
         this.content = content;
     }
 
-    public String getAnswer() {
-        if(answer == null)
-            answer = "";
-        return answer;
+    public String getRightAnswer() {
+        if(rightAnswer == null)
+            rightAnswer = "";
+        return rightAnswer;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setRightAnswer(String rightAnswer) {
+        this.rightAnswer = rightAnswer;
     }
 
     public String getItem() {
@@ -210,8 +210,12 @@ public class QuestionBean implements Serializable, MultiItemEntity, Cloneable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        return this.getId() != null && this.getId().equals(((QuestionBean) o).getId());
+        return this.getQuestionId() != null && this.getQuestionId().equals(((QuestionBean) o).getQuestionId());
 
+    }
+
+    public boolean isCorrect(){
+        return answer != null && rightAnswer != null && answer.equals(rightAnswer);
     }
 
     @Override
@@ -222,7 +226,7 @@ public class QuestionBean implements Serializable, MultiItemEntity, Cloneable {
             e.printStackTrace();
             QuestionBean questionBean = new QuestionBean();
             questionBean.setChoose(isChoose);
-            questionBean.setId(id);
+            questionBean.setQuestionId(questionId);
             questionBean.setBookUnit(bookUnit);
             questionBean.setBookCatalog(bookCatalog);
             questionBean.setLevel(level);
@@ -230,8 +234,8 @@ public class QuestionBean implements Serializable, MultiItemEntity, Cloneable {
             questionBean.setMinType(minType);
             questionBean.setTitle(title);
             questionBean.setContent(content);
+            questionBean.setRightAnswer(rightAnswer);
             questionBean.setAnswer(answer);
-            questionBean.setStudentAnswer(studentAnswer);
             questionBean.setItem(item);
             questionBean.setAnalytical(analytical);
             questionBean.setIsOpen(isOpen);

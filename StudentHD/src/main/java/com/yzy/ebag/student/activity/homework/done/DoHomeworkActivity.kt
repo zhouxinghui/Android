@@ -2,6 +2,7 @@ package com.yzy.ebag.student.activity.homework.done
 
 import android.content.Context
 import android.content.Intent
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import com.yzy.ebag.student.R
@@ -12,6 +13,12 @@ import ebag.core.bean.TypeQuestionBean
 import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
+import ebag.core.util.LoadingDialogUtil
+import ebag.core.util.StringUtils
+import ebag.core.util.T
+import ebag.hd.bean.request.CommitQuestionVo
+import ebag.hd.bean.request.QuestionVo
+import ebag.hd.widget.questions.base.BaseQuestionView
 import kotlinx.android.synthetic.main.activity_do_homework.*
 
 /**
@@ -44,6 +51,7 @@ class DoHomeworkActivity: BaseActivity() {
 
         initQuestion()
 
+        // 设置标题
         when(type){
             com.yzy.ebag.student.base.Constants.KHZY_TYPE -> {
                 titleBar.setTitle("课后作业")
@@ -54,6 +62,37 @@ class DoHomeworkActivity: BaseActivity() {
             com.yzy.ebag.student.base.Constants.KSSJ_TYPE -> {
                 titleBar.setTitle("考试试卷")
             }
+        }
+
+        commitQuestionVo.homeWorkId = homeworkId
+        // 点击提交按钮
+        commitBtn.setOnClickListener {
+            var hasDone = false
+            var hasAllDone = true
+            commitQuestionVo.clear()
+            typeAdapter.data.forEach {
+                if(it is TypeQuestionBean?) {
+                    it?.questionVos?.forEach {
+                        commitQuestionVo.add(QuestionVo(it.questionId, it.answer, it.type))
+                        if (StringUtils.isEmpty(it.answer) && hasAllDone) {
+                            hasAllDone = false
+                        }
+                        if (!StringUtils.isEmpty(it.answer) && !hasDone) {
+                            hasDone = true
+                        }
+                    }
+                }
+            }
+
+            // 没有做作业
+            if(!hasDone){
+                T.show(this, "不准交白卷哦！")
+            }else if(hasAllDone){ // 做了作业, 并且全部做完
+                commit()
+            }else{ // 做了作业, 没有全部做完
+                commitTipDialog.show()
+            }
+
         }
 
         StudentApi.getQuestions(homeworkId, object :RequestCallBack<List<TypeQuestionBean>>(){
@@ -84,6 +123,8 @@ class DoHomeworkActivity: BaseActivity() {
         })
     }
 
+    private val commitQuestionVo = CommitQuestionVo()
+
     private val questionAdapter = QuestionAdapter()
     private val typeAdapter = OverviewAdapter()
     private lateinit var typeQuestionList: List<TypeQuestionBean?>
@@ -93,6 +134,10 @@ class DoHomeworkActivity: BaseActivity() {
     private fun initQuestion() {
         questionRecycler.layoutManager = questionManager
         questionRecycler.adapter = questionAdapter
+
+        questionAdapter.onDoingListener = BaseQuestionView.OnDoingListener {
+            typeAdapter.notifyDataSetChanged()
+        }
 
         typeRecycler.layoutManager = GridLayoutManager(this, 5)
         typeAdapter.setSpanSizeLookup { gridLayoutManager, position ->
@@ -127,5 +172,37 @@ class DoHomeworkActivity: BaseActivity() {
             }
 
         }
+    }
+
+    private val commitTipDialog by lazy {
+        AlertDialog.Builder(this)
+                .setMessage("题目没有完全做完确定提交么？")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("确定") { _, _ ->
+                    commit()
+                }
+                .create()
+    }
+
+    private val commitCallback = object :RequestCallBack<String>(){
+
+        override fun onStart() {
+            LoadingDialogUtil.showLoading(this@DoHomeworkActivity, "提交作业中，请稍等...")
+        }
+
+        override fun onSuccess(entity: String?) {
+            T.show(this@DoHomeworkActivity, "作业提交成功")
+            LoadingDialogUtil.closeLoadingDialog()
+        }
+
+        override fun onError(exception: Throwable) {
+            T.show(this@DoHomeworkActivity, "作业提交失败")
+            LoadingDialogUtil.closeLoadingDialog()
+        }
+
+    }
+
+    private fun commit(){
+        StudentApi.commitHomework(commitQuestionVo, commitCallback)
     }
 }

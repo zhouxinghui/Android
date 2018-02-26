@@ -156,7 +156,9 @@ public class ConnectionView extends BaseQuestionView {
                     }
                     adapter.notifyDataSetChanged();
 
-                    ConnectionView.this.questionBean.setStudentAnswer(getAnswer());
+                    if(onDoingListener != null)
+                        onDoingListener.onDoing(ConnectionView.this);
+                    ConnectionView.this.questionBean.setAnswer(getAnswer());
                 }
             }
         });
@@ -180,7 +182,9 @@ public class ConnectionView extends BaseQuestionView {
                     unLine(connectionBean);
                 }
                 adapter.notifyDataSetChanged();
-                ConnectionView.this.questionBean.setStudentAnswer(getAnswer());
+                if(onDoingListener != null)
+                    onDoingListener.onDoing(ConnectionView.this);
+                ConnectionView.this.questionBean.setAnswer(getAnswer());
                 return true;
             }
         });
@@ -208,12 +212,12 @@ public class ConnectionView extends BaseQuestionView {
     @Override
     public void setData(QuestionBean questionBean) {
         this.questionBean = questionBean;
-        connectionLineView.questionId = questionBean.getId();
+        connectionLineView.questionId = questionBean.getQuestionId();
         titleList = new ArrayList<>();
         titleList.add(questionBean.getTitle());
         questionContent = questionBean.getContent();
-        studentAnswer = questionBean.getStudentAnswer();
-        rightAnswer = questionBean.getAnswer();
+        studentAnswer = questionBean.getAnswer();
+        rightAnswer = questionBean.getRightAnswer();
         list = new ArrayList<>();
         String[] allSplit = questionContent.split(";");
         String[] elementSplit1 = allSplit[0].split(",");
