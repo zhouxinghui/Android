@@ -125,4 +125,12 @@
             android:src="@drawable/question_empty_analyse_icon"
             />
     </FrameLayout>
+    <ebag.core.widget.empty.StateView android:id="@+id/stateView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/titleBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 </android.support.constraint.ConstraintLayout>

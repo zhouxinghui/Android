@@ -104,7 +104,7 @@ class PublishWorkActivity : BaseActivity() {
         var isCustom = false
         publishTime.text = "布置时间：${DateUtil.getFormatDateTime(Date(System.currentTimeMillis()), "yyyy-M-d")}"
         dateTv.text = DateUtil.getFormatDateTime(Date(System.currentTimeMillis()), "yyyy-M-d")
-        publishContent.text = "发布内容：${unitBean.name} (共${questionList.size}题)"
+        publishContent.text = "发布内容：${if (unitBean.unitCode == null) "全部" else unitBean.name} (共${questionList.size}题)"
         if (isGroup){
             titleBar.setTitle("发布小组")
             publishPerson.text = "布置小组：点击选择小组"

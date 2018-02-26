@@ -233,4 +233,32 @@
         app:layout_constraintVertical_bias="0.85"
         />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y70"
+        android:layout_marginBottom="@dimen/y10"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_sign_in_weinxin"
+            android:layout_marginRight="@dimen/x130" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_sign_in_micro_blog" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_sign_in_micro_qq"
+            android:layout_marginLeft="@dimen/x130"/>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
