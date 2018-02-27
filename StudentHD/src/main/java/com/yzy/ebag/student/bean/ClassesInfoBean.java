@@ -2,6 +2,8 @@ package com.yzy.ebag.student.bean;
 
 import java.util.List;
 
+import ebag.hd.bean.response.NoticeBean;
+
 /**
  * Created by caoyu on 2018/1/12.
  */
@@ -24,6 +26,7 @@ public class ClassesInfoBean {
     private String teacherName;
     private List<ClassesInfoBean> resultClazzInfoVos;
     private List<ClassListInfoBean> resultAllClazzInfoVos;
+    private NoticeBean resultClassNoticeVo;
 
     public String getClassId() {
         return classId;
@@ -79,5 +82,13 @@ public class ClassesInfoBean {
 
     public void setResultAllClazzInfoVos(List<ClassListInfoBean> resultAllClazzInfoVos) {
         this.resultAllClazzInfoVos = resultAllClazzInfoVos;
+    }
+
+    public NoticeBean getResultClassNoticeVo() {
+        return resultClassNoticeVo;
+    }
+
+    public void setResultClassNoticeVo(NoticeBean resultClassNoticeVo) {
+        this.resultClassNoticeVo = resultClassNoticeVo;
     }
 }

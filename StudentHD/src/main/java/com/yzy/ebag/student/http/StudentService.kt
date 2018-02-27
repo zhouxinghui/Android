@@ -35,6 +35,11 @@ interface StudentService {
     fun subjectWorkList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<SubjectBean>>>
 
     /**
+     * 我的错题
+     */
+    @POST("homeWork/myErrorHomeWork/{version}")
+    fun errorTopic(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<ErrorTopicBean>>>
+    /**
      * 班级
      */
     @POST("clazz/queryMyClassInfo/{version}")

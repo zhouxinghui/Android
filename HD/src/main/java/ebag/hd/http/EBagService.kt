@@ -3,6 +3,7 @@ package ebag.hd.http
 import ebag.core.bean.ResponseBean
 import ebag.hd.bean.BookBean
 import ebag.hd.bean.ChildNodeBean
+import ebag.hd.bean.ReportBean
 import ebag.hd.bean.SchoolBean
 import ebag.hd.bean.response.NoticeBean
 import ebag.hd.bean.response.UserEntity
@@ -78,6 +79,11 @@ interface EBagService {
     @POST("notice/queryClassNotice/{version}")
     fun noticeList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<NoticeBean>>>
 
+    /**
+     * 作业报告
+     */
+    @POST("notice/queryClassNotice/{version}")
+    fun homeworkReport(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ReportBean>>
     /**
      * 我的课本
      */

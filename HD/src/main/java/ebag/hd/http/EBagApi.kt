@@ -6,6 +6,7 @@ import ebag.core.http.baseBean.RequestBean
 import ebag.core.http.network.*
 import ebag.hd.bean.BookBean
 import ebag.hd.bean.ChildNodeBean
+import ebag.hd.bean.ReportBean
 import ebag.hd.bean.SchoolBean
 import ebag.hd.bean.response.NoticeBean
 import ebag.hd.bean.response.UserEntity
@@ -178,6 +179,15 @@ object EBagApi {
      */
     fun myBookList(callback: RequestCallBack<List<BookBean>>){
         EBagApi.request(eBagService.myBookList("v1"), callback)
+    }
+
+    /**
+     * 作业报告
+     */
+    fun homeworkReport(homeworkId: String, callback: RequestCallBack<ReportBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("hwid", homeworkId)
+        EBagApi.request(eBagService.homeworkReport("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
 }
