@@ -239,7 +239,7 @@ object TeacherApi {
         val jsonArray = JSONArray()
         questionList.forEach {
             val jsonObj = JSONObject()
-            jsonObj.put("questionId", it.id)
+            jsonObj.put("questionId", it.questionId)
             jsonArray.put(jsonObj)
         }
         jsonObject.put("questionVos", jsonArray)
@@ -263,11 +263,13 @@ object TeacherApi {
             groupIds: ArrayList<String>? = null,
             isGroup: Boolean,
             type: String,
+            remark: String,
             content: String,
             endTime: String,
             subCode: String,
             bookVersionId: String,
-            questionList: ArrayList<QuestionBean>,
+            questionList: ArrayList<QuestionBean>? = null,
+            testPaperId: String? = null,
             callback: RequestCallBack<String>){
         val jsonObject = JSONObject()
         val classArray = JSONArray()
@@ -285,18 +287,24 @@ object TeacherApi {
         else
             jsonObject.put("groupType", "1")
         jsonObject.put("content", content)
+        jsonObject.put("remark", remark)
         jsonObject.put("type", type)
         jsonObject.put("endTime", endTime)
         jsonObject.put("subCode", subCode)
         jsonObject.put("bookVersionId", bookVersionId)
-        val questionArray = JSONArray()
-        questionList.forEach {
-            val questionJson = JSONObject()
-            questionJson.put("questionId", it.questionId)
-            questionJson.put("questionType", it.type)
-            questionArray.put(questionJson)
+        if (questionList != null) {
+            val questionArray = JSONArray()
+            questionList.forEach {
+                val questionJson = JSONObject()
+                questionJson.put("questionId", it.questionId)
+                questionJson.put("questionType", it.type)
+                questionArray.put(questionJson)
+            }
+            jsonObject.put("homeWorkQuestionDtos", questionArray)
         }
-        jsonObject.put("homeWorkQuestionDtos", questionArray)
+        if (testPaperId != null){
+            jsonObject.put("testPaperId", testPaperId)
+        }
         EBagApi.request(teacherService.publishHomework("v1", EBagApi.createBody(jsonObject)), callback)
     }
 

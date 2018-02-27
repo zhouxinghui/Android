@@ -78,7 +78,10 @@ class PublishWorkActivity : BaseActivity() {
                  questionList: ArrayList<QuestionBean>,
                  workType: Int,
                  subCode: String,
-                 bookVersionId: String){
+                 bookVersionId: String,
+                 testPaperId: String? = null,
+                 testPaperName: String? = null
+                 ){
             activity.startActivity(Intent(activity, PublishWorkActivity::class.java)
                     .putExtra("isGroup", isGroup)
                     .putExtra("isTest", isTest)
@@ -88,6 +91,8 @@ class PublishWorkActivity : BaseActivity() {
                     .putExtra("workType", workType)
                     .putExtra("subCode", subCode)
                     .putExtra("bookVersionId", bookVersionId)
+                    .putExtra("testPaperId", testPaperId)
+                    .putExtra("testPaperName", testPaperName)
             )
         }
     }
@@ -104,7 +109,8 @@ class PublishWorkActivity : BaseActivity() {
         var isCustom = false
         publishTime.text = "布置时间：${DateUtil.getFormatDateTime(Date(System.currentTimeMillis()), "yyyy-M-d")}"
         dateTv.text = DateUtil.getFormatDateTime(Date(System.currentTimeMillis()), "yyyy-M-d")
-        publishContent.text = "发布内容：${if (unitBean.unitCode == null) "全部" else unitBean.name} (共${questionList.size}题)"
+        var content = "${if (unitBean.unitCode == null) "全部" else unitBean.name} (共${questionList.size}题)"
+        publishContent.text = "发布内容：$content"
         if (isGroup){
             titleBar.setTitle("发布小组")
             publishPerson.text = "布置小组：点击选择小组"
@@ -122,12 +128,16 @@ class PublishWorkActivity : BaseActivity() {
             stringBuilder.deleteCharAt(stringBuilder.lastIndexOf("、"))
             publishPerson.text = stringBuilder.toString()
         }
+        var testPaperId: String? = null
         if(isTest){
             deadTimeTv.text = "考试时间："
             deadTime = "45"
             time_a.text = "45分钟"
             time_b.text = "90分钟"
             time_c.text = "120分钟"
+            testPaperId = intent.getStringExtra("testPaperId")
+            content = intent.getStringExtra("testPaperName")
+            publishContent.text = "发布内容：$content"
         }else{
             deadTimeTv.text = "截止时间："
             deadTime = DateUtil.getFormatDateAdd(Date(System.currentTimeMillis()), 0, "yyyy-M-d") + " 23:59"
@@ -196,9 +206,13 @@ class PublishWorkActivity : BaseActivity() {
                     T.show(this@PublishWorkActivity, "请选择小组")
                     return
                 }else if (isGroup){
-                    TeacherApi.publishHomework(classes, groupIds, isGroup, workType, attentionEdit.text.toString(), deadTime, subCode, bookVersionId, questionList, publishRequest)
+                    TeacherApi.publishHomework(classes, groupIds, isGroup, workType, attentionEdit.text.toString(), content, deadTime, subCode, bookVersionId, questionList, null, publishRequest)
                 }else{
-                    TeacherApi.publishHomework(classes,null, isGroup, workType, attentionEdit.text.toString(), deadTime, subCode, bookVersionId, questionList, publishRequest)
+                    if (isTest){
+                        TeacherApi.publishHomework(classes,null, isGroup, workType, attentionEdit.text.toString(), content, deadTime, subCode, bookVersionId, null, testPaperId, publishRequest)
+                    }else{
+                        TeacherApi.publishHomework(classes,null, isGroup, workType, attentionEdit.text.toString(), content, deadTime, subCode, bookVersionId, questionList, null, publishRequest)
+                    }
                 }
             }
         })

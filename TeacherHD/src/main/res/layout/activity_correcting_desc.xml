@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yzy.ebag.teacher.ui.activity.CorrectingDescActivity">
+    <ebag.hd.widget.TitleBar android:id="@+id/titleBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <android.support.constraint.Guideline android:id="@+id/midLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"
+        />
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/midLine"
+        app:layout_constraintTop_toBottomOf="@id/titleBar"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <LinearLayout android:id="@+id/rightAnswerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/x10"
+                />
+            <LinearLayout android:id="@+id/analyseLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView android:id="@+id/midTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/x15"
+                        android:text="试题解析"
+                        android:textSize="@dimen/tv_normal"
+                        android:textColor="@color/assignment_tv_sub"
+                        android:layout_centerInParent="true"
+                        />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/gray"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@id/midTv"
+                        />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/gray"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/midTv"
+                        />
+                </RelativeLayout>
+                <TextView android:id="@+id/analyseTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/tv_normal"
+                    android:textColor="@color/tv_normal"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+    <TextView android:id="@+id/answerTv"
+        android:layout_width="@dimen/x164"
+        android:layout_height="@dimen/x80"
+        android:gravity="center"
+        android:background="@drawable/question_preview_tv_icon"
+        android:text="学生答案"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/midLine"
+        app:layout_constraintTop_toBottomOf="@id/titleBar"
+        android:layout_marginStart="@dimen/x20"
+        />
+    <android.support.v7.widget.RecyclerView android:id="@+id/answerRecycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toEndOf="@id/midLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/answerTv"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y65"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray"
+            />
+        <TextView android:id="@+id/questionNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/tv_sub"
+            android:textColor="@color/assignment_tv_sub"
+            tools:text="第3题/共10题"
+            />
+        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/nextQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/x40"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:layout_alignParentEnd="true"
+            android:textSize="@dimen/tv_normal"
+            android:textColor="@color/blue"
+            android:text="下一题"
+            android:drawablePadding="@dimen/x10"
+            app:rightDrawable="@drawable/question_next_page_icon"
+            app:rightDrawableWidth="@dimen/x10"
+            app:rightDrawableHeight="@dimen/x19"
+            />
+        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/previewQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
+            android:layout_marginEnd="@dimen/x40"
+            android:gravity="center"
+            android:textSize="@dimen/tv_normal"
+            android:textColor="@color/blue"
+            android:text="上一题"
+            android:layout_toStartOf="@id/nextQuestion"
+            android:drawablePadding="@dimen/x10"
+            app:leftDrawable="@drawable/question_preview_page_icon"
+            app:leftDrawableWidth="@dimen/x10"
+            app:leftDrawableHeight="@dimen/x19"
+            />
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

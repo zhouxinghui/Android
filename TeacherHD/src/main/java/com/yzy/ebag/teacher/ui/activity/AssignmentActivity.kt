@@ -128,6 +128,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     private var isOrganizeTest = false
     private var isSaveTest = false
     private var currentPaperId: String? = null
+    private var currentPaperName: String? = null
 
     override fun destroyPresenter() {
         assignmentPresenter.onDestroy()
@@ -195,6 +196,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             testAdapter.setOnItemClickListener { adapter, view, position ->
                 testAdapter.selectPosition = position
                 currentPaperId = testAdapter.data[position].testPaperId
+                currentPaperName = testAdapter.data[position].testPaperName
             }
         }
         totalUnitTv.isSelected = true
@@ -336,7 +338,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                         return@setOnItemClickListener
                     jumpToPublish(true)
                 }
-                workImg[3] -> {//发布班级
+                workImg[3] -> {//发布班级\发布试卷
                     if (!isReadyToAssign())
                         return@setOnItemClickListener
                     jumpToPublish(false)
@@ -427,7 +429,10 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 getPreviewList(),
                 workCategory,
                 cacheMap[currentGradeCode]!!.subCode,
-                cacheMap[currentGradeCode]!!.versionId)
+                cacheMap[currentGradeCode]!!.versionId,
+                currentPaperId,
+                currentPaperName
+                )
     }
 
     override fun loadBaseStart() {
@@ -670,9 +675,16 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             T.show(this, "请选择班级")
             return false
         }
-        if (getPreviewList().isEmpty()){
-            T.show(this, "你还没有选题")
-            return false
+        if (workCategory == Constants.ASSIGN_TEST_PAPER){
+            if (currentPaperId == null){
+                T.show(this, "请选择你要发布的试卷")
+                return false
+            }
+        }else{
+            if (getPreviewList().isEmpty()){
+                T.show(this, "你还没有选题")
+                return false
+            }
         }
         return true
     }

@@ -5,6 +5,9 @@ import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.widget.EditText
+import com.umeng.socialize.UMAuthListener
+import com.umeng.socialize.UMShareAPI
+import com.umeng.socialize.bean.SHARE_MEDIA
 import ebag.core.base.App
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.http.network.MsgException
@@ -21,6 +24,7 @@ import ebag.hd.ui.presenter.LoginPresenter
 import ebag.hd.ui.view.CodeView
 import ebag.hd.ui.view.LoginView
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlin.math.log
 
 
 /**
@@ -36,22 +40,21 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
     }
 
     override fun destroyPresenter() {
-        if(lDelegate.isInitialized())
+        if (lDelegate.isInitialized())
             loginPresenter.onDestroy()
-        if(cDelegate.isInitialized())
+        if (cDelegate.isInitialized())
             codePresenter.onDestroy()
     }
 
     /**懒加载*/
     private val lDelegate = lazy { LoginPresenter(this, this) }
-    private val cDelegate = lazy { CodePresenter(this,this) }
-    private val loginPresenter : LoginPresenter by lDelegate
-    private val codePresenter : CodePresenter by cDelegate
+    private val cDelegate = lazy { CodePresenter(this, this) }
+    private val loginPresenter: LoginPresenter by lDelegate
+    private val codePresenter: CodePresenter by cDelegate
 
     override fun onLoginStart() {
         LoadingDialogUtil.showLoading(this)
     }
-
 
 
     override fun onLoginSuccess(userEntity: UserEntity) {
@@ -64,7 +67,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
                 else
                     Constants.TEACHER_USER_ENTITY,
                 userEntity)
-        if(isToMain)
+        if (isToMain)
             startActivity(getJumpIntent())
         else
             setResult(Constants.CODE_LOGIN_RESULT)
@@ -77,7 +80,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
     }
 
     override fun onCheckStart() {
-        LoadingDialogUtil.showLoading(this,"获取验证码中...")
+        LoadingDialogUtil.showLoading(this, "获取验证码中...")
     }
 
     override fun onUserIsExist(string: String?) {
@@ -97,13 +100,13 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
     override fun onCodeStart() {
 
     }
+
     val msgDialogFragment by lazy { MsgDialogFragment() }
     override fun onCodeSuccess(codeEntity: String?) {
-        msgDialogFragment.show(null,"$codeEntity","知道了", null, supportFragmentManager)
+        msgDialogFragment.show(null, "$codeEntity", "知道了", null, supportFragmentManager)
         LoadingDialogUtil.closeLoadingDialog()
         codePresenter.startCutDown()
     }
-
 
 
     override fun onCodeError(t: Throwable) {
@@ -112,12 +115,12 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
     }
 
     override fun onRegisterStart() {
-        LoadingDialogUtil.showLoading(this,"正在注册中...")
+        LoadingDialogUtil.showLoading(this, "正在注册中...")
     }
 
     override fun onRegisterSuccess(userEntity: UserEntity?) {
 
-        if(userEntity != null){
+        if (userEntity != null) {
             LoadingDialogUtil.closeLoadingDialog()
             App.modifyToken(userEntity.token)
             userEntity.roleCode = getRoleCode()
@@ -129,7 +132,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
                     userEntity)
             startActivity(getJumpIntent())
             finish()
-        }else{
+        } else {
             onRegisterError(MsgException("1", "无数据返回"))
         }
     }
@@ -150,7 +153,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
 
     override fun onBackPressed() {
-        if(!isToMain)
+        if (!isToMain)
             super.onBackPressed()
     }
 
@@ -162,7 +165,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         loginEdit = loginAccount
         pwdEdit = loginPwd
 
-        isToMain = intent.getBooleanExtra(Constants.KEY_TO_MAIN,false)
+        isToMain = intent.getBooleanExtra(Constants.KEY_TO_MAIN, false)
 
         launcher.setImageResource(getLogoResId())
         toggleLogin(true)
@@ -184,31 +187,39 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
         //点击登陆
         loginBtn.setOnClickListener {
-            if (isLoginState){//登陆状态
+            if (isLoginState) {//登陆状态
                 loginPresenter.login(loginAccount.text.toString(), loginPwd.text.toString(), getRoleCode())
-            }else{//注册
-                if(serveCheck.isChecked)
+            } else {//注册
+                if (serveCheck.isChecked)
                     loginPresenter.register(registerAccount.text.toString(), registerPhone.text.toString()
-                            , registerCode.text.toString(),registerPwd.text.toString())
+                            , registerCode.text.toString(), registerPwd.text.toString())
                 else
-                    toast("请勾选服务条款",true)
+                    toast("请勾选服务条款", true)
             }
         }
-
+        loginWeChat.setOnClickListener {
+            authorization(SHARE_MEDIA.WEIXIN)
+        }
+        loginSina.setOnClickListener {
+            authorization(SHARE_MEDIA.SINA)
+        }
+        loginQQ.setOnClickListener {
+            authorization(SHARE_MEDIA.QQ)
+        }
         imageSee.setOnClickListener {
             it.isSelected = !it.isSelected
-            if(it.isSelected){//可见状态
+            if (it.isSelected) {//可见状态
                 loginPwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
-            }else{
+            } else {
                 loginPwd.transformationMethod = PasswordTransformationMethod.getInstance()
             }
         }
 
         registerImageSee.setOnClickListener {
             it.isSelected = !it.isSelected
-            if(it.isSelected){//可见状态
+            if (it.isSelected) {//可见状态
                 registerPwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
-            }else{
+            } else {
                 registerPwd.transformationMethod = PasswordTransformationMethod.getInstance()
             }
         }
@@ -217,9 +228,9 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
     }
 
     /**切换是登陆或者注册*/
-    private fun toggleLogin(boolean: Boolean){
+    private fun toggleLogin(boolean: Boolean) {
         isLoginState = boolean
-        if (boolean){
+        if (boolean) {
 //            radio.setPadding(0,resources.getDimension(R.dimen.y40).toInt(),0,0)
             loginAccount.visibility = View.VISIBLE
             loginPwdLayout.visibility = View.VISIBLE
@@ -230,7 +241,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
             registerPwdLayout.visibility = View.GONE
             registerTip.visibility = View.GONE
             loginBtn.text = getText(R.string.login_login)
-        }else{
+        } else {
 //            radio.setPadding(0,resources.getDimension(R.dimen.y10).toInt(),0,0)
             loginAccount.visibility = View.GONE
             loginPwdLayout.visibility = View.GONE
@@ -247,13 +258,57 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
     /**
      * logo图标
      */
-    abstract protected fun getLogoResId() : Int
+    abstract protected fun getLogoResId(): Int
 
     /**
      * 登录角色名
      */
     abstract protected fun getRoleCode(): String
+
     abstract protected fun getJumpIntent(): Intent
 
     abstract protected fun forgetClick(view: View)
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data)
+    }
+
+    //第三方授权
+    private fun authorization(share_media: SHARE_MEDIA) {
+        UMShareAPI.get(this).getPlatformInfo(this, share_media, object : UMAuthListener {
+            //            授权完成
+            override fun onComplete(p0: SHARE_MEDIA?, p1: Int, p2: MutableMap<String, String>?) {
+                toast("完成")
+                //sdk是6.4.4的,但是获取值的时候用的是6.2以前的(access_token)才能获取到值,未知原因
+
+                val uid = p2?.get("uid")
+                val openid = p2?.get("openid")//微博没有
+                val unionid = p2?.get("unionid")//微博没有
+                val access_token = p2?.get("access_token")
+                val refresh_token = p2?.get("refresh_token")//微信,qq,微博都没有获取到
+                val expires_in = p2?.get("expires_in")
+                val name = p2?.get("name")
+                val gender = p2?.get("gender")
+                val iconurl = p2?.get("iconurl")
+                toast("uid = $uid,openid = $openid,unionid = $unionid,access_token = $access_token,refresh_token = $refresh_token,expires_in = $expires_in," +
+                        "name = $name,gender = $gender,iconurl = $iconurl")
+            }
+
+            //            授权取消
+            override fun onCancel(p0: SHARE_MEDIA?, p1: Int) {
+                toast("取消")
+            }
+
+            //            授权失败
+            override fun onError(p0: SHARE_MEDIA?, p1: Int, p2: Throwable?) {
+                toast("失败")
+            }
+
+            //            授权开始
+            override fun onStart(p0: SHARE_MEDIA?) {
+                toast("开始")
+            }
+        })
+    }
 }

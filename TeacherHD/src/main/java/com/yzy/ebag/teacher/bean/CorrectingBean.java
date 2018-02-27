@@ -4,6 +4,7 @@ import com.chad.library.adapter.base.entity.IExpandable;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.yzy.ebag.teacher.base.Constants;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * Created by YZY on 2018/2/4.
  */
 
-public class CorrectingBean implements IExpandable<CorrectingBean.SubjectVosBean>, MultiItemEntity{
+public class CorrectingBean implements IExpandable<CorrectingBean.SubjectVosBean>, MultiItemEntity, Serializable{
     private boolean isExpand = false;
     /**
      * classId : 226d966a5f954180b21fddba11082082
@@ -76,7 +77,7 @@ public class CorrectingBean implements IExpandable<CorrectingBean.SubjectVosBean
     }
 
 
-    public static class SubjectVosBean implements MultiItemEntity{
+    public static class SubjectVosBean implements MultiItemEntity, Serializable{
         /**
          * subCode : yw
          * subject : 语文
@@ -125,7 +126,7 @@ public class CorrectingBean implements IExpandable<CorrectingBean.SubjectVosBean
             return Constants.INSTANCE.getLEVEL_TWO();
         }
 
-        public static class HomeWorkInfoVosBean {
+        public static class HomeWorkInfoVosBean implements Serializable{
             /**
              * id : 1d2bd7bbc15b44d0aca85efabbe4c47b
              * content : 
