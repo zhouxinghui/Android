@@ -168,6 +168,13 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         isToMain = intent.getBooleanExtra(Constants.KEY_TO_MAIN, false)
 
         launcher.setImageResource(getLogoResId())
+
+        if (getRoleCode() == "student") {
+            loginQQ.visibility = View.GONE
+            loginSina.visibility = View.GONE
+            loginWeChat.visibility = View.GONE
+        }
+
         toggleLogin(true)
 
         //点击切换选中状态
