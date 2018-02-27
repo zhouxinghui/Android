@@ -8,7 +8,8 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.bean.SubjectBean
+import com.yzy.ebag.student.bean.ErrorTopicBean
+import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.DateUtil
@@ -19,13 +20,13 @@ import java.util.*
  * @date 2018/1/20
  * @description
  */
-class TopicListFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInfoBean>() {
+class TopicListFragment: BaseListFragment<List<ErrorTopicBean>, ErrorTopicBean.ErrorHomeWorkVosBean>() {
 
     private lateinit var subCode: String
     private lateinit var classId: String
-    private var list: List<SubjectBean.HomeWorkInfoBean>? = null
+    private var list: List<ErrorTopicBean.ErrorHomeWorkVosBean>? = null
     companion object {
-        fun newInstance(classId: String, subCode: String, list: List<SubjectBean.HomeWorkInfoBean>?): TopicListFragment{
+        fun newInstance(classId: String, subCode: String, list: List<ErrorTopicBean.ErrorHomeWorkVosBean>?): TopicListFragment{
             val fragment = TopicListFragment()
             val bundle = Bundle()
             bundle.putString("subject",subCode)
@@ -51,60 +52,38 @@ class TopicListFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWor
         setPadding(0,
                 resources.getDimensionPixelSize(R.dimen.x10), 0,0)
 
-        val list = ArrayList<SubjectBean.HomeWorkInfoBean>()
-        var info = SubjectBean.HomeWorkInfoBean()
-        info.content = "第一单元 看一看"
-        info.state = "1"
-        info.questionComplete = 1
-        info.questionCount = 3
-        info.endTime = 1515996933000
-        list.add(info)
-        info = SubjectBean.HomeWorkInfoBean()
-        info.content = "第一单元 看一看"
-        info.state = "1"
-        info.questionComplete = 2
-        info.questionCount = 3
-        info.endTime = 1515996933000
-        list.add(info)
-        info = SubjectBean.HomeWorkInfoBean()
-        info.content = "第一单元 看一看"
-        info.state = "1"
-        info.questionComplete = 3
-        info.questionCount = 3
-        info.endTime = 1515996933000
-        list.add(info)
-        withFirstPageData(list)
-//        if(list != null && list!!.isNotEmpty()){
-//            withFirstPageData(list,true)
-//        }
+        if(list != null && list!!.isNotEmpty()){
+            withFirstPageData(list,true)
+        }
     }
-    override fun requestData(page: Int, requestCallBack: RequestCallBack<List<SubjectBean>>) {
+    override fun requestData(page: Int, requestCallBack: RequestCallBack<List<ErrorTopicBean>>) {
+        StudentApi.errorTopic(classId,subCode,page,getPageSize(),requestCallBack)
     }
 
-    override fun parentToList(isFirstPage: Boolean, parent: List<SubjectBean>?): List<SubjectBean.HomeWorkInfoBean>? {
-        return parent?.get(0)?.homeWorkInfoVos
+    override fun parentToList(isFirstPage: Boolean, parent: List<ErrorTopicBean>?): List<ErrorTopicBean.ErrorHomeWorkVosBean>? {
+        return parent?.get(0)?.errorHomeWorkVos
     }
 
-    override fun getAdapter(): BaseQuickAdapter<SubjectBean.HomeWorkInfoBean, BaseViewHolder> {
+    override fun getAdapter(): BaseQuickAdapter<ErrorTopicBean.ErrorHomeWorkVosBean, BaseViewHolder> {
         return HomeWorkListAdapter()
     }
 
-    override fun getLayoutManager(adapter: BaseQuickAdapter<SubjectBean.HomeWorkInfoBean, BaseViewHolder>): RecyclerView.LayoutManager? {
+    override fun getLayoutManager(adapter: BaseQuickAdapter<ErrorTopicBean.ErrorHomeWorkVosBean, BaseViewHolder>): RecyclerView.LayoutManager? {
         return null
     }
 
-    inner class HomeWorkListAdapter: BaseQuickAdapter<SubjectBean.HomeWorkInfoBean, BaseViewHolder>(R.layout.item_fragment_error_topic_list){
+    inner class HomeWorkListAdapter: BaseQuickAdapter<ErrorTopicBean.ErrorHomeWorkVosBean, BaseViewHolder>(R.layout.item_fragment_error_topic_list){
 
-        override fun convert(helper: BaseViewHolder, item: SubjectBean.HomeWorkInfoBean?) {
+        override fun convert(helper: BaseViewHolder, item: ErrorTopicBean.ErrorHomeWorkVosBean?) {
 //            val spannableString = SpannableString("完成： ${item?.questionComplete}/${item?.questionCount}")
 //            spannableString.setSpan(ForegroundColorSpan(resources.getColor(R.color.color_homework_selected)), 4, 4 + "${entity.doneCount}".length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 //            setter.setText(R.id.tvCount, spannableString)
-            val time = DateUtil.getDateTime(item?.endTime ?: 0)
-            helper.setText(R.id.tvCount, Html.fromHtml("错题： <font color='#FF7800'>${item?.questionComplete}</font>/${item?.questionCount}"))
+            val time = DateUtil.getDateTime(item?.createDate ?: 0)
+            helper.setText(R.id.tvCount, Html.fromHtml("错题： <font color='#FF7800'>${(item?.errorQuestionNumber ?: 0) - (item?.notRevisedQuestionNum ?: 0)}</font>/${item?.errorQuestionNumber}"))
                     .setText(R.id.tvContent,"内容： ${item?.content}")
-                    .setText(R.id.tvTime,"截止时间： $time")
-                    .setText(R.id.tvStatus,if(item?.questionComplete == item?.questionCount) "已纠正" else "未纠正")
-            helper.getView<View>(R.id.tvStatus).isSelected = item?.questionComplete == item?.questionCount
+                    .setText(R.id.tvTime,"作业提交时间： $time")
+                    .setText(R.id.tvStatus,if(item?.notRevisedQuestionNum == 0) "已纠正" else "未纠正")
+            helper.getView<View>(R.id.tvStatus).isSelected = item?.notRevisedQuestionNum == 0
         }
     }
 }

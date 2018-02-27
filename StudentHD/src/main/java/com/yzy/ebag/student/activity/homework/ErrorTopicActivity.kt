@@ -10,9 +10,9 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.TestFragment
 import com.yzy.ebag.student.base.BaseListTabActivity
-import com.yzy.ebag.student.bean.SubjectBean
+import com.yzy.ebag.student.bean.ErrorTopicBean
+import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
 
 /**
@@ -20,7 +20,7 @@ import ebag.core.http.network.RequestCallBack
  * @date 2018/1/20
  * @description
  */
-class ErrorTopicActivity: BaseListTabActivity<ArrayList<SubjectBean>, SubjectBean>() {
+class ErrorTopicActivity: BaseListTabActivity<ArrayList<ErrorTopicBean>, ErrorTopicBean>() {
 
     companion object {
         fun jump(content: Context, classId: String){
@@ -38,60 +38,36 @@ class ErrorTopicActivity: BaseListTabActivity<ArrayList<SubjectBean>, SubjectBea
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x180))
         setTitleContent(R.string.main_error_topic)
 
-        val list = ArrayList<SubjectBean>()
-        var subjectBean = SubjectBean()
-        subjectBean.itemType = 1
-        list.add(subjectBean)
-
-        subjectBean = SubjectBean()
-        subjectBean.subCode = "yw"
-        subjectBean.subject = "语文"
-        subjectBean.homeWorkComplete = "1"
-        list.add(subjectBean)
-
-        subjectBean = SubjectBean()
-        subjectBean.subCode = "sx"
-        subjectBean.subject = "数学"
-        subjectBean.homeWorkComplete = "1"
-        list.add(subjectBean)
-
-        subjectBean = SubjectBean()
-        subjectBean.subCode = "yy"
-        subjectBean.subject = "英语"
-        subjectBean.homeWorkComplete = "0"
-        list.add(subjectBean)
-
-        withTabData(list)
-
     }
 
-    override fun requestData(requestCallBack: RequestCallBack<ArrayList<SubjectBean>>) {
+    override fun requestData(requestCallBack: RequestCallBack<ArrayList<ErrorTopicBean>>) {
+        StudentApi.errorTopic(classId, "", 1, 10, requestCallBack)
     }
 
-    override fun parentToList(parent: ArrayList<SubjectBean>?): List<SubjectBean>? {
-        val bean = SubjectBean()
+    override fun parentToList(parent: ArrayList<ErrorTopicBean>?): List<ErrorTopicBean>? {
+        val bean = ErrorTopicBean()
         bean.itemType = 1
         parent?.add(0, bean)
         return parent
     }
 
-    override fun getLeftAdapter(): BaseQuickAdapter<SubjectBean, BaseViewHolder> {
+    override fun getLeftAdapter(): BaseQuickAdapter<ErrorTopicBean, BaseViewHolder> {
         return Adapter()
     }
 
-    override fun getLayoutManager(adapter: BaseQuickAdapter<SubjectBean, BaseViewHolder>): RecyclerView.LayoutManager? {
+    override fun getLayoutManager(adapter: BaseQuickAdapter<ErrorTopicBean, BaseViewHolder>): RecyclerView.LayoutManager? {
         return null
     }
 
-    override fun getFragment(pagerIndex: Int, adapter: BaseQuickAdapter<SubjectBean, BaseViewHolder>): Fragment {
+    override fun getFragment(pagerIndex: Int, adapter: BaseQuickAdapter<ErrorTopicBean, BaseViewHolder>): Fragment {
         return TopicListFragment.newInstance(
                 classId,
                 adapter.getItem(pagerIndex + 1)?.subCode ?: "",
-                adapter.getItem(pagerIndex + 1)?.homeWorkInfoVos
+                adapter.getItem(pagerIndex + 1)?.errorHomeWorkVos
         )
     }
 
-    override fun getViewPagerSize(adapter: BaseQuickAdapter<SubjectBean, BaseViewHolder>): Int {
+    override fun getViewPagerSize(adapter: BaseQuickAdapter<ErrorTopicBean, BaseViewHolder>): Int {
         return adapter.data.size - 1
     }
 
@@ -102,7 +78,7 @@ class ErrorTopicActivity: BaseListTabActivity<ArrayList<SubjectBean>, SubjectBea
         }
     }
 
-    private class Adapter: BaseMultiItemQuickAdapter<SubjectBean, BaseViewHolder>(null){
+    private class Adapter: BaseMultiItemQuickAdapter<ErrorTopicBean, BaseViewHolder>(null){
 
         init {
             addItemType(0, R.layout.item_activity_homework_subject)
@@ -115,14 +91,14 @@ class ErrorTopicActivity: BaseListTabActivity<ArrayList<SubjectBean>, SubjectBea
                 notifyDataSetChanged()
             }
 
-        override fun convert(helper: BaseViewHolder, entity: SubjectBean?) {
+        override fun convert(helper: BaseViewHolder, entity: ErrorTopicBean?) {
             if(helper.itemViewType == 0){
                 helper.setText(R.id.text,entity?.subject ?: "")
                 helper.setBackgroundRes(
                         R.id.dot,
                         // null 或  已完成
-                        // 0 未完成 1 已完成
-                        if(entity?.homeWorkComplete != "0")
+                        // 0 未纠正 1 已纠正
+                        if(entity?.errorState != "0")
                             R.drawable.homework_subject_dot_done_selector
                         else
                             R.drawable.homework_subject_dot_undo_selector

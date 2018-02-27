@@ -28,6 +28,9 @@ object StudentApi{
         EBagApi.request(studentService.login("v1", EBagApi.createBody(jsonObj)), callback)
     }
 
+    /**
+     * 首页
+     */
     fun mainInfo(classId: String, callback: RequestCallBack<ClassesInfoBean>){
         val jsonObj = JSONObject()
         jsonObj.put("classId",classId)
@@ -35,6 +38,9 @@ object StudentApi{
         EBagApi.request(studentService.mainInfo("v1", EBagApi.createBody(jsonObj)), callback)
     }
 
+    /**
+     * 作业列表
+     */
     fun subjectWorkList(type: String, classId: String, subCode: String, page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<SubjectBean>>){
         val jsonObj = JSONObject()
         jsonObj.put("classId", classId)
@@ -43,6 +49,18 @@ object StudentApi{
         jsonObj.put("page", page)
         jsonObj.put("pageSize", pageSize)
         EBagApi.request(studentService.subjectWorkList("v1", EBagApi.createBody(jsonObj)), callback)
+    }
+
+    /**
+     * 我的错题
+     */
+    fun errorTopic(classId: String, subCode: String, page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<ErrorTopicBean>>){
+        val jsonObj = JSONObject()
+        jsonObj.put("classId", classId)
+        jsonObj.put("subCode", subCode)
+        jsonObj.put("page", page)
+        jsonObj.put("pageSize", pageSize)
+        EBagApi.request(studentService.errorTopic("v1", EBagApi.createBody(jsonObj)), callback)
     }
 
     /**
