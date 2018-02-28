@@ -206,12 +206,15 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         }
         loginWeChat.setOnClickListener {
             authorization(SHARE_MEDIA.WEIXIN)
+            threeParty(it)
         }
         loginSina.setOnClickListener {
             authorization(SHARE_MEDIA.SINA)
+            threeParty(it)
         }
         loginQQ.setOnClickListener {
             authorization(SHARE_MEDIA.QQ)
+            threeParty(it)
         }
         imageSee.setOnClickListener {
             it.isSelected = !it.isSelected
@@ -275,6 +278,8 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
     abstract protected fun getJumpIntent(): Intent
 
     abstract protected fun forgetClick(view: View)
+
+    abstract protected fun threeParty(view: View)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
