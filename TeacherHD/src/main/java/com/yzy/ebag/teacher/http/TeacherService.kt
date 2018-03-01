@@ -148,4 +148,36 @@ interface TeacherService {
      */
     @POST("clazz/addTaughtCoruses/{version}")
     fun addCourse(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 检查作业
+     */
+    @POST("homeWork/getHomeWorkByQuestion/{version}")
+    fun correctWork(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<QuestionBean>>>
+
+    /**
+     * 检查作业学生答案
+     */
+    @POST("correctHome/studentHomeWorkAnswer/{version}")
+    fun correctStudentAnswer(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<CorrectAnswerBean>>>
+
+    /**
+     * 打分
+     */
+    @POST("correctHome/teacherCurrent/{version}")
+    fun markScore(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 评语列表
+     */
+    @POST("correctHome/studentHomeWorkComment/{version}")
+    fun commentList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<CommentBean>>>
+
+    /**
+     * 提交评语
+     */
+    @POST("correctHome/correctComment/{version}")
+    fun uploadComment(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+
 }

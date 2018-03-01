@@ -30,4 +30,10 @@ object Constants {
     val QUESTION_REQUEST = 120
     val QUESTION_RESULT = 121
     val PREVIEW_REQUEST = 130
+
+    //状态 1 未批改 2 已批改 0 未完成 3 老师评语完成 4 家长签名和评语完成
+    val CORRECT_UNFINISH =  "0"
+    val CORRECT_UNCORRECT =  "1"
+    val CORRECT_CORRECTED =  "2"
+    val CORRECT_REMARKED = "3"
 }

@@ -55,7 +55,8 @@ class CorrectingSubFragment: BaseListFragment<List<CorrectingBean.SubjectVosBean
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-        CorrectingDescActivity.jump(mContext)
+        adapter as MyAdapter
+        CorrectingDescActivity.jump(mContext, adapter.data[position].id)
     }
 
     inner class MyAdapter: BaseQuickAdapter<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean, BaseViewHolder>(R.layout.fragment_correct_sub_item){

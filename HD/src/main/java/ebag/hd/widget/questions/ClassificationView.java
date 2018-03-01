@@ -248,7 +248,7 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
                 return;
             List<String> rightList = Arrays.asList(rightAnswers);
             for (int j = 0; j < categoryInside.getChildCount(); j++) {
-                String answer = (String) categoryInside.getChildAt(j).getTag();
+                String answer = (String) categoryInside.getChildAt(j).getTag(R.id.tv_id);
                 if (!rightList.contains(answer))
                     categoryInside.getChildAt(j).setSelected(true);
             }
@@ -291,9 +291,9 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
                 sb.append(categoryText.getText().toString()).append("#R#");
                 for (int j = 0; j < categoryInside.getChildCount(); j++) {
                     if (j == categoryInside.getChildCount() - 1)
-                        sb.append(categoryInside.getChildAt(j).getTag().toString()).append(";");
+                        sb.append(categoryInside.getChildAt(j).getTag(R.id.tv_id).toString()).append(";");
                     else
-                        sb.append(categoryInside.getChildAt(j).getTag().toString()).append(",");
+                        sb.append(categoryInside.getChildAt(j).getTag(R.id.tv_id).toString()).append(",");
                 }
             }
             String answer = sb.substring(0, sb.length());
@@ -339,7 +339,7 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
         params.rightMargin = (int) getResources().getDimension(R.dimen.x8);
         params.bottomMargin = (int) getResources().getDimension(R.dimen.y10);
         elementTv.setLayoutParams(params);
-        elementTv.setTag(text);
+        elementTv.setTag(R.id.tv_id, text);
         elementTv.setTag(R.id.image_id, index);
 //        elementTv.setPressed(false);
         if (isTouch){
@@ -369,7 +369,7 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
         params.bottomMargin = (int) getResources().getDimension(R.dimen.y10);
         imageView.setLayoutParams(params);
         SingleImageLoader.getInstance().setImage(url, imageView);
-        imageView.setTag(url);
+        imageView.setTag(R.id.tv_id, url);
         imageView.setTag(R.id.image_id, index);
         imageView.setPressed(false);
         if (isTouch){
@@ -563,7 +563,7 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
         mDragImageView = new ImageView(getContext());
         mDragImageView.setImageBitmap(bitmap);
         int index = elementLayout.indexOfChild(view);
-        mDragImageView.setTag(R.id.image_id, view.getTag());
+        mDragImageView.setTag(R.id.image_id, view.getTag(R.id.tv_id));
         mDragImageView.setTag(index);
         windowManager.addView(mDragImageView, windowManagerParams);
     }

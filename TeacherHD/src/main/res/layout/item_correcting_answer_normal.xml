@@ -9,6 +9,10 @@
     android:paddingEnd="@dimen/x10"
     android:paddingTop="@dimen/y10"
     android:paddingBottom="@dimen/y10"
+    android:background="@drawable/white_clickable_bg"
+    android:layout_marginStart="@dimen/x20"
+    android:layout_marginEnd="@dimen/x20"
+    android:layout_marginBottom="@dimen/y15"
     >
     <TextView android:id="@+id/studentName"
         android:layout_width="wrap_content"

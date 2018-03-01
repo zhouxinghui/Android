@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.base
+package ebag.hd.base
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
