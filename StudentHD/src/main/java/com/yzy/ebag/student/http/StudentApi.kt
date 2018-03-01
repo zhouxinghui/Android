@@ -91,10 +91,26 @@ object StudentApi{
     }
 
     /**
+     * 获取作业详情
+     */
+    fun getErrorDetail(questionId: String, callback: RequestCallBack<List<TypeQuestionBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("homeWorkId", questionId)
+        EBagApi.request(studentService.getErrorDetail("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
      * 提交作业
      */
     fun commitHomework(commitQuestionVo: CommitQuestionVo, callback: RequestCallBack<String>){
         EBagApi.request(studentService.commitHomework("v1", EBagApi.createBody(JSON.toJSONString(commitQuestionVo))), callback)
+    }
+
+    /**
+     * 错题纠正
+     */
+    fun errorCorrection(commitQuestionVo: CommitQuestionVo, callback: RequestCallBack<String>){
+        EBagApi.request(studentService.errorCorrection("v1", EBagApi.createBody(JSON.toJSONString(commitQuestionVo))), callback)
     }
 
     /**

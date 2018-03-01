@@ -30,10 +30,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan"
             />
-
-        <activity android:name=".ui.activity.account.BForgetActivity"
-            android:screenOrientation="landscape"
-            android:configChanges="screenSize|keyboardHidden|orientation"/>
     </application>
 
 </manifest>

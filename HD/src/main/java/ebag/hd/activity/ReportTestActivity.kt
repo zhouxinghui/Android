@@ -1,13 +1,24 @@
 package ebag.hd.activity
 
+import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.AbsoluteSizeSpan
+import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import ebag.core.base.BaseActivity
+import ebag.core.http.network.MsgException
+import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
+import ebag.core.util.SerializableUtils
 import ebag.hd.R
+import ebag.hd.base.Constants
+import ebag.hd.bean.ReportBean
+import ebag.hd.bean.response.UserEntity
+import ebag.hd.http.EBagApi
 import kotlinx.android.synthetic.main.activity_report_test.*
 
 /**
@@ -18,70 +29,103 @@ import kotlinx.android.synthetic.main.activity_report_test.*
 class ReportTestActivity: BaseActivity() {
 
 
+    companion object {
+        fun jump(context: Context, homeworkId: String){
+            context.startActivity(
+                    Intent(context, ReportTestActivity::class.java)
+                            .putExtra("homeworkId", homeworkId)
+            )
+        }
+    }
     override fun getLayoutId(): Int {
         return R.layout.activity_report_test
     }
 
+    private lateinit var homeworkId: String
     override fun initViews() {
+        homeworkId = intent.getStringExtra("homeworkId") ?: ""
         showData()
     }
 
     private fun  showData() {
-        titleView.setTitle("李毅敏")
+        val userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.STUDENT_USER_ENTITY)
+        if(userEntity != null){
+            titleView.setTitle(userEntity.name)
+            tvName.visibility = View.VISIBLE
+            tvName.text = userEntity.name
+        }else{
+            tvName.visibility = View.INVISIBLE
+            titleView.setTitle("作业报告")
+        }
         titleView.setRightText("作业详情"){
 
         }
 
-        scoreRound.progress = 90
-        var spannableString = SpannableString("总分\n90")
-        spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.x28))
-                , 3, 3 + "90".length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        scoreTv.text = spannableString
-
-        heightRound.progress = 90
-        spannableString = SpannableString("最高分\n90")
-        spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.x28))
-                , 4, 4 + "90".length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        heightTv.text = spannableString
-
-        errorRound.progress = 4
-        spannableString = SpannableString("错题\n4")
-        spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.x28))
-                , 3, 3 + "4".length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        errorTv.text = spannableString
-
-        editTeacher.setText("做得不错，继续努力")
-        tvName.text = "李毅敏"
-
-        val adapter = Adapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val list = ArrayList<Result>()
-        list.add(Result())
-        list.add(Result())
-        list.add(Result())
-        list.add(Result())
-        list.add(Result())
-        list.add(Result())
-        list.add(Result())
-        list.add(Result())
+        stateView.setOnRetryClickListener {
+            getReport()
+        }
 
-        adapter.setNewData(list)
+        getReport()
     }
 
-    data class Result(
-            val leixing: String = "选择题",
-            val count: Int = 10,
-            val errorCount: Int = 1,
-            val score: Int = 90
-    )
+    private val adapter = Adapter()
+    private val reportRequest = object : RequestCallBack<ReportBean>(){
 
-    inner class Adapter: BaseQuickAdapter<Result, BaseViewHolder>(R.layout.item_activity_report_test){
+        override fun onStart() {
+            stateView.showLoading()
+        }
 
-        override fun convert(helper: BaseViewHolder, item: Result?) {
-            helper.setText(R.id.questionType, item?.leixing)
-                    .setText(R.id.count, "${item?.count}")
+        override fun onSuccess(entity: ReportBean?) {
+            if(entity == null){
+                stateView.showEmpty("暂未生成报告，请稍后重试！")
+            }else{
+                stateView.showContent()
+                adapter.setNewData(entity.homeWorkRepDetailVos)
+
+                scoreRound.progress = entity.totalScore
+                var spannableString = SpannableString("总分\n${entity.totalScore}")
+                spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.x34))
+                        , 3, 3 + "${entity.totalScore}".length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                scoreTv.text = spannableString
+
+                heightRound.progress = entity.maxScore
+                spannableString = SpannableString("最高分\n${entity.maxScore}")
+                spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.x34))
+                        , 4, 4 + "${entity.maxScore}".length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                heightTv.text = spannableString
+
+                errorRound.progress = entity.errorNum
+                spannableString = SpannableString("错题\n${entity.errorNum}")
+                spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.x34))
+                        , 3, 3 + "${entity.errorNum}".length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                errorTv.text = spannableString
+            }
+
+        }
+
+        override fun onError(exception: Throwable) {
+            if(exception is MsgException){
+                exception.handleThrowable(this@ReportTestActivity)
+                stateView.showError(exception.message)
+            }else{
+                stateView.showError()
+            }
+
+        }
+
+    }
+
+    private fun getReport(){
+        EBagApi.homeworkReport(homeworkId, reportRequest)
+    }
+    inner class Adapter: BaseQuickAdapter<ReportBean.ReportDetailBean, BaseViewHolder>(R.layout.item_activity_report_test){
+
+        override fun convert(helper: BaseViewHolder, item: ReportBean.ReportDetailBean?) {
+            helper.setText(R.id.questionType, item?.typeName)
+                    .setText(R.id.count, "${item?.questionNum}")
                     .setText(R.id.errorCount, "${item?.errorCount}")
                     .setBackgroundRes(R.id.layout,if(helper.adapterPosition % 2 == 0) R.color.light_blue else R.color.white)
         }

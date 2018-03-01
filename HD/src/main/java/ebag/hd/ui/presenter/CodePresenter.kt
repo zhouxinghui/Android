@@ -34,7 +34,7 @@ open class CodePresenter(view: CodeView, listener: OnToastListener): BasePresent
             phone = account
         }else{
             ysbCode = account
-            if(ysbCode.length != 7){
+            if(ysbCode.length < 7){
                 showToast("请输入正确的手机号或书包号",true)
                 return
             }

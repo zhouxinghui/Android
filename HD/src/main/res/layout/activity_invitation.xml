@@ -49,7 +49,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/codeEdit"
         app:layout_constraintStart_toEndOf="@+id/codeEdit"
         app:layout_constraintTop_toTopOf="@+id/codeEdit"
-        app:srcCompat="@drawable/invite_code_nextstep" />
+        android:src="@drawable/invite_code_nextstep" />
 
     <ImageView
         android:id="@+id/tipIcon"
@@ -84,11 +84,5 @@
         android:lineSpacingExtra="@dimen/x12"
         app:layout_constraintStart_toStartOf="@+id/tipText1"
         app:layout_constraintTop_toBottomOf="@+id/tipText1" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/invite_code_nextstep_pressed"
-        android:visibility="gone"/>
 
 </android.support.constraint.ConstraintLayout>

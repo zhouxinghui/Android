@@ -71,7 +71,7 @@ class ReportClassActivity: BaseActivity() {
         getReport()
     }
 
-    val adapter = Adapter()
+    private val adapter = Adapter()
     private val reportRequest = object :RequestCallBack<ReportBean>(){
 
         override fun onStart() {

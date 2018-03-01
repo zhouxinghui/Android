@@ -437,6 +437,14 @@
             app:leftDrawableHeight="@dimen/x24"
             app:leftDrawableWidth="@dimen/x24" />
 
+        <ebag.core.widget.empty.StateView
+            android:id="@+id/stateView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
     </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>

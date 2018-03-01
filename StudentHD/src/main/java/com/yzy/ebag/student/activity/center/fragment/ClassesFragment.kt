@@ -53,7 +53,6 @@ class ClassesFragment: BaseListFragment<List<SpaceBean>,SpaceBean>() {
         p.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,RelativeLayout.TRUE)
         rootView.addView(button,p)
         rootView.setPadding(0,resources.getDimensionPixelOffset(R.dimen.x20),0,0)
-
         button.setOnClickListener {
             joinDialog.show(childFragmentManager,"joinDialog")
         }
@@ -82,7 +81,11 @@ class ClassesFragment: BaseListFragment<List<SpaceBean>,SpaceBean>() {
 
 
     private val joinDialog by lazy {
-        ClassJoinDialog.newInstance()
+        val dialog = ClassJoinDialog.newInstance()
+        dialog.successListener = {
+            onRefresh()
+        }
+        dialog
     }
 
     inner class Adapter: BaseQuickAdapter<SpaceBean,BaseViewHolder>(R.layout.item_fragment_class){

@@ -63,7 +63,7 @@ public class ReportBean {
 
         private String type;
         private String typeName;
-        private String questionNum;
+        private int questionNum;
         private int errorCount;
         private float score;
 
@@ -83,11 +83,11 @@ public class ReportBean {
             this.typeName = typeName;
         }
 
-        public String getQuestionNum() {
+        public int getQuestionNum() {
             return questionNum;
         }
 
-        public void setQuestionNum(String questionNum) {
+        public void setQuestionNum(int questionNum) {
             this.questionNum = questionNum;
         }
 

@@ -21,7 +21,7 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
             if (account.isEmpty() || pwd.isEmpty()){
                 showToast("请输入账号密码！",true)
                 false
-            }else if(account.length != 11 && account.length != 7) {
+            }else if(account.length < 7) {
                 showToast("请输入正确的账号！", true)
                 false
             }else if(account.length == 11 && !StringUtils.isMobileNo(account)){

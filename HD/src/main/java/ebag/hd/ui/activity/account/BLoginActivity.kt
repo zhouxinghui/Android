@@ -24,7 +24,6 @@ import ebag.hd.ui.presenter.LoginPresenter
 import ebag.hd.ui.view.CodeView
 import ebag.hd.ui.view.LoginView
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlin.math.log
 
 
 /**
@@ -61,12 +60,8 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         LoadingDialogUtil.closeLoadingDialog()
         App.modifyToken(userEntity.token)
         userEntity.roleCode = getRoleCode()
-        SerializableUtils.setSerializable(
-                if (getRoleCode() == "student")
-                    Constants.STUDENT_USER_ENTITY
-                else
-                    Constants.TEACHER_USER_ENTITY,
-                userEntity)
+        SerializableUtils.deleteSerializable(getRoleCode())
+        SerializableUtils.setSerializable(getRoleCode(), userEntity)
         if (isToMain)
             startActivity(getJumpIntent())
         else
@@ -124,12 +119,8 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
             LoadingDialogUtil.closeLoadingDialog()
             App.modifyToken(userEntity.token)
             userEntity.roleCode = getRoleCode()
-            SerializableUtils.setSerializable(
-                    if (getRoleCode() == "student")
-                        Constants.STUDENT_USER_ENTITY
-                    else
-                        Constants.TEACHER_USER_ENTITY,
-                    userEntity)
+            SerializableUtils.deleteSerializable(getRoleCode())
+            SerializableUtils.setSerializable(getRoleCode(), userEntity)
             startActivity(getJumpIntent())
             finish()
         } else {

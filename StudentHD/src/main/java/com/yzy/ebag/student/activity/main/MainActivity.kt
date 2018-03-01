@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.activity.SettingActivity
+import com.yzy.ebag.student.activity.account.InviteActivity
 import com.yzy.ebag.student.activity.center.PersonalActivity
 import com.yzy.ebag.student.activity.homework.ErrorTopicActivity
 import com.yzy.ebag.student.activity.homework.HomeworkActivity
@@ -15,6 +16,7 @@ import com.yzy.ebag.student.bean.ClassListInfoBean
 import com.yzy.ebag.student.bean.ClassesInfoBean
 import com.yzy.ebag.student.dialog.ClassesDialog
 import ebag.core.base.mvp.MVPActivity
+import ebag.core.http.network.MsgException
 import ebag.core.util.SerializableUtils
 import ebag.core.util.StringUtils
 import ebag.core.util.T
@@ -22,6 +24,7 @@ import ebag.core.util.loadHead
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.ui.activity.BookListActivity
+import ebag.hd.ui.activity.account.BInviteActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : MVPActivity(), MainView {
@@ -52,6 +55,7 @@ class MainActivity : MVPActivity(), MainView {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
+        initUserInfo()
         getMainClassInfo()
     }
 
@@ -67,12 +71,21 @@ class MainActivity : MVPActivity(), MainView {
     }
 
     override fun mainInfoError(exception: Throwable) {
-        stateView.showError()
+        tvAnnounceContent.text = "暂无公告"
+        if(exception is MsgException){
+            stateView.showError(exception.message)
+            if(exception.code == "2001"){// 没有加入班级
+                InviteActivity.jump(this, BInviteActivity.CODE_INVITE)
+            }
+        }else{
+            stateView.showError()
+        }
+
     }
 
     private fun showTeachers(classesInfoBean: ClassesInfoBean){
         classesInfo = classesInfoBean.resultAllClazzInfoVos
-        classId = classesInfoBean.classId
+        classId = classesInfoBean.classId ?: ""
         tvGrade.text = getString(R.string.main_class_name,classesInfoBean.className)
         tvClassTeacher.text = getString(R.string.main_teacher_name, classesInfoBean.teacherName)
         tvTeachersTip.text = getString(R.string.main_teachers_tip)
@@ -154,7 +167,11 @@ class MainActivity : MVPActivity(), MainView {
 
         //我的错题
         btnMyError.setOnClickListener{
-            ErrorTopicActivity.jump(this, classId)
+            if(StringUtils.isEmpty(classId)) {
+                T.show(this, "请点击加载左侧班级数据！")
+            }else{
+                ErrorTopicActivity.jump(this, classId)
+            }
         }
         //我的同学
         btnMyClassmate.setOnClickListener{

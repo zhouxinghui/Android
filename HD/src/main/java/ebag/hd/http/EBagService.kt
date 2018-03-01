@@ -22,19 +22,27 @@ import retrofit2.http.Path
 interface EBagService {
 
     /**
-     * 获取验证码
-     * @return
-     */
-    @POST("util/sendMessage/{version}")
-    @Headers("EBag-Special-Url: special/url")
-    fun getCheckCode(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
-
-    /**
      * 省市区县基础数据
      * @return
      */
     @POST("data/getAreaData/{version}")
     fun cityData(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<ChildNodeBean>>>
+
+    /**
+     * 获取验证码
+     * @return
+     */
+
+    @Headers("EBag-Special-Url: special/url")
+    @POST("util/sendMessage/{version}")
+    fun getCheckCode(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+
+    /**
+     * 加入班级
+     */
+    @POST("clazz/joinByClass/{version}")
+    fun joinClass(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /**
      * 登录
@@ -82,7 +90,7 @@ interface EBagService {
     /**
      * 作业报告
      */
-    @POST("notice/queryClassNotice/{version}")
+    @POST("correctHome/createHomeWorkRep/{version}")
     fun homeworkReport(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ReportBean>>
     /**
      * 我的课本

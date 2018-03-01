@@ -1,5 +1,6 @@
 package com.yzy.ebag.student.activity.homework
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v7.widget.RecyclerView
@@ -8,6 +9,8 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
+import com.yzy.ebag.student.activity.homework.done.DoHomeworkActivity
+import com.yzy.ebag.student.base.Constants
 import com.yzy.ebag.student.bean.ErrorTopicBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseListFragment
@@ -22,6 +25,7 @@ import java.util.*
  */
 class TopicListFragment: BaseListFragment<List<ErrorTopicBean>, ErrorTopicBean.ErrorHomeWorkVosBean>() {
 
+    private val REQUEST_CODE = 11
     private lateinit var subCode: String
     private lateinit var classId: String
     private var list: List<ErrorTopicBean.ErrorHomeWorkVosBean>? = null
@@ -70,6 +74,22 @@ class TopicListFragment: BaseListFragment<List<ErrorTopicBean>, ErrorTopicBean.E
 
     override fun getLayoutManager(adapter: BaseQuickAdapter<ErrorTopicBean.ErrorHomeWorkVosBean, BaseViewHolder>): RecyclerView.LayoutManager? {
         return null
+    }
+
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+        DoHomeworkActivity.jumpForResult(
+                activity,
+                (adapter as HomeWorkListAdapter).getItem(position)?.homeWorkId ?: "",
+                Constants.ERROR_TOPIC_TYPE,
+                REQUEST_CODE
+        )
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == REQUEST_CODE && resultCode == DoHomeworkActivity.RESULT_CODE){
+            onRefresh()
+        }
     }
 
     inner class HomeWorkListAdapter: BaseQuickAdapter<ErrorTopicBean.ErrorHomeWorkVosBean, BaseViewHolder>(R.layout.item_fragment_error_topic_list){

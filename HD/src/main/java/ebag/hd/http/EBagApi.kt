@@ -139,8 +139,13 @@ object EBagApi {
         request(EBagClient.eBagService.getCheckCode("v1", createBody(jsonObject)), callback)
     }
 
-    fun joinClass(code: String, role: String = "student"){
-
+    /**
+     * 加入班级
+     */
+    fun joinClass(code: String, callback: RequestCallBack<String>, role: String = "student"){
+        val jsonObject = JSONObject()
+        jsonObject.put("inviteCode", code)
+        request(EBagClient.eBagService.joinClass("v1", createBody(jsonObject)), callback)
     }
 
     /**
