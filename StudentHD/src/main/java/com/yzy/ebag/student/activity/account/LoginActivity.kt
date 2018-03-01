@@ -7,6 +7,9 @@ import com.yzy.ebag.student.activity.main.MainActivity
 import ebag.hd.ui.activity.account.BLoginActivity
 
 class LoginActivity : BLoginActivity() {
+    override fun threeParty(view: View) {
+    }
+
     override fun forgetClick(view: View) {
         startActivity(Intent(this, ForgetActivity::class.java))
     }
@@ -16,6 +19,7 @@ class LoginActivity : BLoginActivity() {
         loginEdit.setText("1000723")
         pwdEdit.setText("ysb123456")
     }
+
     override fun getJumpIntent(): Intent {
         return Intent(this, MainActivity::class.java)
     }

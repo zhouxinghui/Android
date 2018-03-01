@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EFF2F4"
+    android:orientation="vertical"
+    tools:context="com.yzy.ebag.teacher.ui.activity.LoginSelectActivity">
+    <include layout="@layout/common_title_bar"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x203"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/login_selector"
+        >
+
+        <ImageView
+            android:id="@+id/iv_thirdly"
+            android:layout_width="@dimen/x225"
+            android:layout_height="@dimen/y110"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/icon_sign_in_micro_blog"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/x79"
+            android:layout_height="@dimen/x79"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/icon_yun"/>
+        <TextView
+            android:id="@+id/tv_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="9dp"
+            android:layout_gravity="center_vertical"
+            android:textColor="#292A2B"
+            android:textSize="18sp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingTop="112dp"
+        android:background="#F2F2F2"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_create"
+            android:layout_width="@dimen/x405"
+            android:layout_height="@dimen/y70"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/common_green_button_bg_radius"
+            android:text="创建账号"
+            android:textColor="#fff"
+            android:textSize="22sp"/>
+
+        <Button
+            android:id="@+id/btn_binding"
+            android:layout_width="@dimen/x405"
+            android:layout_height="@dimen/y70"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/common_blue_button_bg_radius"
+            android:text="绑定账号"
+            android:textColor="#fff"
+            android:textSize="22sp" />
+    </LinearLayout>
+
+</LinearLayout>

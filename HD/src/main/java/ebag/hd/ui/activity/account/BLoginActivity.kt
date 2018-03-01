@@ -159,6 +159,13 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         isToMain = intent.getBooleanExtra(Constants.KEY_TO_MAIN, false)
 
         launcher.setImageResource(getLogoResId())
+
+        if (getRoleCode() == "student") {
+            loginQQ.visibility = View.GONE
+            loginSina.visibility = View.GONE
+            loginWeChat.visibility = View.GONE
+        }
+
         toggleLogin(true)
 
         //点击切换选中状态
@@ -190,12 +197,15 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         }
         loginWeChat.setOnClickListener {
             authorization(SHARE_MEDIA.WEIXIN)
+            threeParty(it)
         }
         loginSina.setOnClickListener {
             authorization(SHARE_MEDIA.SINA)
+            threeParty(it)
         }
         loginQQ.setOnClickListener {
             authorization(SHARE_MEDIA.QQ)
+            threeParty(it)
         }
         imageSee.setOnClickListener {
             it.isSelected = !it.isSelected
@@ -259,6 +269,8 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
     abstract protected fun getJumpIntent(): Intent
 
     abstract protected fun forgetClick(view: View)
+
+    abstract protected fun threeParty(view: View)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

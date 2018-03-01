@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EFF2F4"
+    tools:context="com.yzy.ebag.teacher.ui.activity.BindingActivity"
+    android:orientation="vertical">
+    <include layout="@layout/common_title_bar"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x180"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/login_selector">
+
+        <ImageView
+            android:id="@+id/iv_thirdly"
+            android:layout_width="@dimen/x110"
+            android:layout_height="@dimen/x110"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/icon_sign_in_micro_blog"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/x86"
+            android:layout_height="@dimen/x86"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/icon_yun_shu_bao"/>
+        <TextView
+            android:id="@+id/tv_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="9dp"
+            android:layout_gravity="center_vertical"
+            android:textColor="#292A2B"
+            android:textSize="18sp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_bind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_user"
+            android:layout_width="@dimen/x540"
+            android:layout_height="@dimen/y64"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/common_white_edittext_bg_radius"
+            android:hint="请输入书包号或手机号"
+            android:inputType="number"
+            android:paddingLeft="10dp"
+            android:textColor="#8C9195"
+            android:textColorHint="#8C9195"
+            android:maxLength="11"
+            android:textSize="20sp"
+            />
+        <EditText
+            android:id="@+id/et_pwd"
+            android:layout_width="@dimen/x540"
+            android:layout_height="@dimen/y64"
+            android:background="@drawable/common_white_edittext_bg_radius"
+            android:hint="请输入密码"
+            android:inputType="textPassword"
+            android:paddingLeft="10dp"
+            android:textColor="#8C9195"
+            android:textColorHint="#8C9195"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:textSize="20sp"
+            />
+
+        <!--<TextView-->
+        <!--android:id="@+id/tv_pwd"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:text="设置您的密码"-->
+        <!--android:textColor="#292A2B"-->
+        <!--android:textSize="12sp"-->
+        <!--android:visibility="gone"/>-->
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_binding"
+        android:layout_width="@dimen/x450"
+        android:layout_height="@dimen/y75"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="37dp"
+        android:background="@drawable/login_selector"
+        android:text="完成"
+        android:textColor="#fff"
+        android:textSize="23sp"/>
+
+</LinearLayout>

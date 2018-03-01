@@ -4,9 +4,14 @@ import android.content.Intent
 import android.view.View
 import com.yzy.ebag.teacher.MainActivity
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.ui.activity.LoginSelectActivity
 import ebag.hd.ui.activity.account.BLoginActivity
 
 class LoginActivity : BLoginActivity() {
+    override fun threeParty(view: View) {
+        startActivity(Intent(this, LoginSelectActivity::class.java))
+    }
+
     override fun forgetClick(view: View) {
         startActivity(Intent(this, ForgetActivity::class.java))
     }
