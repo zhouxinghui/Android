@@ -152,8 +152,8 @@ object EBagApi {
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
         jsonObject.put("groupType", groupType)
-        jsonObject.put("page", groupType)
-        jsonObject.put("pageSize", groupType)
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", pageSize)
         request(EBagClient.eBagService.albums("v1", createBody(jsonObject)), callback)
     }
 
