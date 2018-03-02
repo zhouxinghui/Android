@@ -12,9 +12,13 @@ import kotlinx.android.synthetic.main.activity_login_select.*
 class LoginSelectActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(p0: View) {
         when (p0.id) {
-            R.id.btn_create -> {
-                startActivity(Intent(this, BindingActivity::class.java))
+            R.id.btn_binding -> {
+                startActivity(Intent(this, BindingActivity::class.java).putExtra("name","b"))
             }
+            R.id.btn_create ->{
+                startActivity(Intent(this,BindingActivity::class.java).putExtra("name","x"))
+            }
+
         }
     }
 

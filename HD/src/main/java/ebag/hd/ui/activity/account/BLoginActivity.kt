@@ -186,7 +186,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         //点击登陆
         loginBtn.setOnClickListener {
             if (isLoginState) {//登陆状态
-                loginPresenter.login(loginAccount.text.toString(), loginPwd.text.toString(), getRoleCode())
+                loginPresenter.login(loginAccount.text.toString(), loginPwd.text.toString(), getRoleCode(),null,null)
             } else {//注册
                 if (serveCheck.isChecked)
                     loginPresenter.register(registerAccount.text.toString(), registerPhone.text.toString()
@@ -197,16 +197,17 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         }
         loginWeChat.setOnClickListener {
             authorization(SHARE_MEDIA.WEIXIN)
-            threeParty(it)
+            threeParty(it,"weixin")
         }
         loginSina.setOnClickListener {
             authorization(SHARE_MEDIA.SINA)
-            threeParty(it)
+            threeParty(it,"sina")
         }
         loginQQ.setOnClickListener {
             authorization(SHARE_MEDIA.QQ)
-            threeParty(it)
+            threeParty(it,"QQ")
         }
+
         imageSee.setOnClickListener {
             it.isSelected = !it.isSelected
             if (it.isSelected) {//可见状态
@@ -270,7 +271,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
     abstract protected fun forgetClick(view: View)
 
-    abstract protected fun threeParty(view: View)
+    abstract protected fun threeParty(view: View,threeparty: String)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

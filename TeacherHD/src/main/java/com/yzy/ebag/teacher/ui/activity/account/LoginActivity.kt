@@ -8,8 +8,8 @@ import com.yzy.ebag.teacher.ui.activity.LoginSelectActivity
 import ebag.hd.ui.activity.account.BLoginActivity
 
 class LoginActivity : BLoginActivity() {
-    override fun threeParty(view: View) {
-        startActivity(Intent(this, LoginSelectActivity::class.java))
+    override fun threeParty(view: View,threeparty: String) {
+        startActivity(Intent(this, LoginSelectActivity::class.java).putExtra("name",threeparty))
     }
 
     override fun forgetClick(view: View) {

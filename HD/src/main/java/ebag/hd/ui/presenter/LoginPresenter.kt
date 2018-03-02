@@ -14,7 +14,7 @@ import ebag.hd.ui.view.LoginView
  * presenter 登录页面的控制类
  * Created by caoyu on 2017/11/2.
  */
-internal class LoginPresenter(view: LoginView, listener: OnToastListener): BasePresenter<LoginView>(view,listener) {
+open class LoginPresenter(view: LoginView, listener: OnToastListener): BasePresenter<LoginView>(view,listener) {
 
     /**判断账号和密码格式是否输入错误*/
     private fun isLoginInfoCorrect(account: String, pwd: String): Boolean =
@@ -39,7 +39,7 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
     /**
      * 登录
      */
-    fun login(account: String, pwd: String, roleCode: String){
+    fun login(account: String, pwd: String, roleCode: String,thirdPartyToken:String?,thirdPartyUnionid:String?){
         if(isLoginInfoCorrect(account,pwd)) {
             if(loginRequest == null) {
                 loginRequest = createRequest(object : RequestCallBack<UserEntity>() {
@@ -62,12 +62,10 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
                 })
             }
             if(StringUtils.isMobileNo(account)){
-                EBagApi.login(account, pwd, 3, roleCode, loginRequest!!)
+                EBagApi.login(account, pwd, 3, roleCode,thirdPartyToken,thirdPartyUnionid, loginRequest!!)
             }else{
-                EBagApi.login(account, pwd, 1, roleCode, loginRequest!!)
+                EBagApi.login(account, pwd, 1, roleCode, thirdPartyToken,thirdPartyUnionid,loginRequest!!)
             }
-
-
         }
     }
 
