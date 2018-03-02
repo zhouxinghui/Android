@@ -67,8 +67,9 @@ public class UnderstandView extends BaseQuestionView implements FillBlankView.On
             titleList.add(questionBean.getTitle().replace("#R#", "").replace("#F#", "\n").replace("#Z#", "\u3000\u3000"));
         }
 
+        questionContent = questionBean.getContent();
         rightAnswer = questionBean.getRightAnswer();
-        studentAnswer = questionBean.getContent();
+        studentAnswer = questionBean.getAnswer();
     }
 
     @Override
