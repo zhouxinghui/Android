@@ -84,18 +84,19 @@ object StudentApi{
     /**
      * 获取作业详情
      */
-    fun getQuestions(questionId: String, callback: RequestCallBack<List<TypeQuestionBean>>){
+    fun getQuestions(homeWorkId: String, type: String, callback: RequestCallBack<List<TypeQuestionBean>>){
         val jsonObject = JSONObject()
-        jsonObject.put("id", questionId)
+        jsonObject.put("homeWorkId", homeWorkId)
+        jsonObject.put("type", type)
         EBagApi.request(studentService.getQuestions("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
     /**
-     * 获取作业详情
+     * 获取错题详情
      */
-    fun getErrorDetail(questionId: String, callback: RequestCallBack<List<TypeQuestionBean>>){
+    fun getErrorDetail(homeWorkId: String, callback: RequestCallBack<List<TypeQuestionBean>>){
         val jsonObject = JSONObject()
-        jsonObject.put("homeWorkId", questionId)
+        jsonObject.put("homeWorkId", homeWorkId)
         EBagApi.request(studentService.getErrorDetail("v1", EBagApi.createBody(jsonObject)), callback)
     }
 

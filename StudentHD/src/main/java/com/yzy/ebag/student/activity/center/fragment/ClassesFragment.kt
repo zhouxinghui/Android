@@ -11,6 +11,7 @@ import android.widget.RelativeLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
+import com.yzy.ebag.student.activity.album.AlbumActivity
 import com.yzy.ebag.student.bean.SpaceBean
 import com.yzy.ebag.student.dialog.ClassJoinDialog
 import com.yzy.ebag.student.http.StudentApi
@@ -75,7 +76,8 @@ class ClassesFragment: BaseListFragment<List<SpaceBean>,SpaceBean>() {
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-
+        if(view?.id == R.id.class_photo_btn)
+            AlbumActivity.jump(mContext, (adapter as Adapter).getItem(position)?.classId ?: "")
     }
 
 
@@ -93,8 +95,8 @@ class ClassesFragment: BaseListFragment<List<SpaceBean>,SpaceBean>() {
         val adapter = PersonAdapter()
         override fun convert(helper: BaseViewHolder, item: SpaceBean?) {
             helper.setText(R.id.class_name_id, item?.clazzName)
-            helper.setText(R.id.class_desc_id, "邀请码: ${item?.inviteCode}\n班级学生: ${item?.studentCount}")
-            helper.addOnClickListener(R.id.class_space_btn)
+                    .setText(R.id.class_desc_id, "邀请码: ${item?.inviteCode}\n班级学生: ${item?.studentCount}")
+                    .addOnClickListener(R.id.class_photo_btn)
             val recyclerView = helper.getView<RecyclerView>(R.id.recyclerView)
             if(recyclerView.layoutManager == null)
                 recyclerView.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)

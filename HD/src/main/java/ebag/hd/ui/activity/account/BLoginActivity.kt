@@ -32,6 +32,11 @@ import kotlinx.android.synthetic.main.activity_login.*
  */
 abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
+    companion object {
+        const val STUDENT_ROLE = "1"
+        const val TEACHER_ROLE = "2"
+        const val PARENT_ROLE = "3"
+    }
     private var isToMain = false
 
     override fun getLayoutId(): Int {
@@ -60,8 +65,19 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         LoadingDialogUtil.closeLoadingDialog()
         App.modifyToken(userEntity.token)
         userEntity.roleCode = getRoleCode()
-        SerializableUtils.deleteSerializable(getRoleCode())
-        SerializableUtils.setSerializable(getRoleCode(), userEntity)
+        SerializableUtils.deleteSerializable(
+                if(getRoleCode() == STUDENT_ROLE){
+                    Constants.STUDENT_USER_ENTITY
+                }else{
+                    Constants.TEACHER_USER_ENTITY
+                }
+        )
+        SerializableUtils.setSerializable(
+                if(getRoleCode() == STUDENT_ROLE){
+                    Constants.STUDENT_USER_ENTITY
+                }else{
+                    Constants.TEACHER_USER_ENTITY
+                }, userEntity)
         if (isToMain)
             startActivity(getJumpIntent())
         else
@@ -119,8 +135,19 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
             LoadingDialogUtil.closeLoadingDialog()
             App.modifyToken(userEntity.token)
             userEntity.roleCode = getRoleCode()
-            SerializableUtils.deleteSerializable(getRoleCode())
-            SerializableUtils.setSerializable(getRoleCode(), userEntity)
+            SerializableUtils.deleteSerializable(
+                    if(getRoleCode() == STUDENT_ROLE){
+                        Constants.STUDENT_USER_ENTITY
+                    }else{
+                        Constants.TEACHER_USER_ENTITY
+                    }
+            )
+            SerializableUtils.setSerializable(
+                    if(getRoleCode() == STUDENT_ROLE){
+                        Constants.STUDENT_USER_ENTITY
+                    }else{
+                        Constants.TEACHER_USER_ENTITY
+                    }, userEntity)
             startActivity(getJumpIntent())
             finish()
         } else {
@@ -160,7 +187,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
         launcher.setImageResource(getLogoResId())
 
-        if (getRoleCode() == "student") {
+        if (getRoleCode() == STUDENT_ROLE) {
             loginQQ.visibility = View.GONE
             loginSina.visibility = View.GONE
             loginWeChat.visibility = View.GONE

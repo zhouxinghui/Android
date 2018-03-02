@@ -26,7 +26,7 @@ class LoginActivity : BLoginActivity() {
     }
 
     override fun getRoleCode(): String {
-        return "teacher"
+        return BLoginActivity.TEACHER_ROLE
     }
 
     override fun getLogoResId() : Int {
