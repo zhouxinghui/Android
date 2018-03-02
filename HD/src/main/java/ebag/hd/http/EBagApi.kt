@@ -4,10 +4,7 @@ import ebag.core.base.App
 import ebag.core.bean.ResponseBean
 import ebag.core.http.baseBean.RequestBean
 import ebag.core.http.network.*
-import ebag.hd.bean.BookBean
-import ebag.hd.bean.ChildNodeBean
-import ebag.hd.bean.ReportBean
-import ebag.hd.bean.SchoolBean
+import ebag.hd.bean.*
 import ebag.hd.bean.response.NoticeBean
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagClient.eBagService
@@ -149,6 +146,18 @@ object EBagApi {
     }
 
     /**
+     * 获取相册
+     */
+    fun albums(classId: String, groupType: String, page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<AlbumBean>>, role: String = "student"){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("groupType", groupType)
+        jsonObject.put("page", groupType)
+        jsonObject.put("pageSize", groupType)
+        request(EBagClient.eBagService.albums("v1", createBody(jsonObject)), callback)
+    }
+
+    /**
      * 省市区县基础数据
      */
     fun cityData(callback: RequestCallBack<List<ChildNodeBean>>){
@@ -191,7 +200,7 @@ object EBagApi {
      */
     fun homeworkReport(homeworkId: String, callback: RequestCallBack<ReportBean>){
         val jsonObject = JSONObject()
-        jsonObject.put("hwid", homeworkId)
+        jsonObject.put("homeWorkId", homeworkId)
         EBagApi.request(eBagService.homeworkReport("v1", EBagApi.createBody(jsonObject)), callback)
     }
 

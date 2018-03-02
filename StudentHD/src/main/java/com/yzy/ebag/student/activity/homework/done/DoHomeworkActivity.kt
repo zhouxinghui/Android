@@ -303,7 +303,7 @@ class DoHomeworkActivity: BaseActivity() {
      * 获取作业详情
      */
     private fun getHomeworkDetail(){
-        StudentApi.getQuestions(homeworkId, detailRequest)
+        StudentApi.getQuestions(homeworkId, type,  detailRequest)
     }
 
     /**

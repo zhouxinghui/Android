@@ -1,10 +1,7 @@
 package ebag.hd.http
 
 import ebag.core.bean.ResponseBean
-import ebag.hd.bean.BookBean
-import ebag.hd.bean.ChildNodeBean
-import ebag.hd.bean.ReportBean
-import ebag.hd.bean.SchoolBean
+import ebag.hd.bean.*
 import ebag.hd.bean.response.NoticeBean
 import ebag.hd.bean.response.UserEntity
 import io.reactivex.Observable
@@ -43,6 +40,12 @@ interface EBagService {
      */
     @POST("clazz/joinByClass/{version}")
     fun joinClass(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 相册
+     */
+    @POST("clazz/queryPhotoGroup/{version}")
+    fun albums(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<AlbumBean>>>
 
     /**
      * 登录

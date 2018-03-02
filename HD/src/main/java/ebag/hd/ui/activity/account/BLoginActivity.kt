@@ -32,6 +32,11 @@ import kotlinx.android.synthetic.main.activity_login.*
  */
 abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
+    companion object {
+        const val STUDENT_ROLE = "1"
+        const val TEACHER_ROLE = "2"
+        const val PARENT_ROLE = "3"
+    }
     private var isToMain = false
 
     override fun getLayoutId(): Int {
