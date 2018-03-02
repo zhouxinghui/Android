@@ -44,8 +44,6 @@
         style="@style/home_tv_btn"
         android:text="@string/class_test"
         app:leftDrawable="@drawable/home_icon_class_test"
-        app:leftDrawableWidth="@dimen/x95"
-        app:leftDrawableHeight="@dimen/x95"
         app:layout_constraintTop_toBottomOf="@id/horizontal_1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/afterClass"
@@ -56,8 +54,6 @@
         style="@style/home_tv_btn"
         android:text="@string/after_class"
         app:leftDrawable="@drawable/home_icon_after_class"
-        app:leftDrawableWidth="@dimen/x95"
-        app:leftDrawableHeight="@dimen/x95"
         app:layout_constraintTop_toBottomOf="@id/horizontal_1"
         app:layout_constraintLeft_toRightOf="@id/classTest"
         app:layout_constraintRight_toLeftOf="@id/testPaper"
@@ -68,8 +64,6 @@
         style="@style/home_tv_btn"
         android:text="@string/test_paper"
         app:leftDrawable="@drawable/home_icon_test_paper"
-        app:leftDrawableWidth="@dimen/x95"
-        app:leftDrawableHeight="@dimen/x95"
         app:layout_constraintTop_toBottomOf="@id/horizontal_1"
         app:layout_constraintLeft_toRightOf="@id/afterClass"
         app:layout_constraintRight_toLeftOf="@id/checkHomework"
@@ -80,49 +74,71 @@
         style="@style/home_tv_btn"
         android:text="@string/check_homework"
         app:leftDrawable="@drawable/home_icon_check_homework"
-        app:leftDrawableWidth="@dimen/x95"
-        app:leftDrawableHeight="@dimen/x95"
         app:layout_constraintTop_toBottomOf="@id/horizontal_1"
         app:layout_constraintLeft_toRightOf="@id/testPaper"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/horizontal_2"
         />
     <!--我的课本-->
-    <TextView android:id="@+id/book"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:background="@drawable/home_book_bg"
-        android:text="@string/my_book"
+    <RelativeLayout android:id="@+id/book"
+        style="@style/home_rl_btn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/horizontal_2"
         app:layout_constraintRight_toLeftOf="@id/prepare"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        >
+        <LinearLayout
+            style="@style/home_ll">
+            <TextView
+                style="@style/home_ll_img"
+                android:background="@drawable/home_icon_book"
+                />
+            <TextView
+                style="@style/home_ll_tv"
+                android:text="@string/my_book"
+                />
+        </LinearLayout>
+    </RelativeLayout>
     <!--我的备课-->
-    <TextView android:id="@+id/prepare"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:text="@string/my_prepare"
-        android:background="@drawable/home_prepare_bg"
+    <RelativeLayout android:id="@+id/prepare"
+        style="@style/home_rl_btn"
         app:layout_constraintLeft_toRightOf="@id/book"
         app:layout_constraintTop_toBottomOf="@id/horizontal_2"
         app:layout_constraintRight_toLeftOf="@id/zixi"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        >
+        <LinearLayout
+            style="@style/home_ll">
+            <TextView
+                style="@style/home_ll_img"
+                android:background="@drawable/home_icon_prepare"
+                />
+            <TextView
+                style="@style/home_ll_tv"
+                android:text="@string/my_prepare"
+                />
+        </LinearLayout>
+    </RelativeLayout>
     <!--自习室-->
-    <TextView android:id="@+id/zixi"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:text="@string/study_room"
-        android:background="@drawable/home_zixi_bg"
+    <RelativeLayout android:id="@+id/zixi"
+        style="@style/home_rl_btn"
         app:layout_constraintLeft_toRightOf="@id/prepare"
         app:layout_constraintTop_toBottomOf="@id/horizontal_2"
         app:layout_constraintRight_toLeftOf="@id/vertical_center"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        >
+        <LinearLayout
+            style="@style/home_ll">
+            <TextView
+                style="@style/home_ll_img"
+                android:background="@drawable/home_icon_zixi"
+                />
+            <TextView
+                style="@style/home_ll_tv"
+                android:text="@string/study_room"
+                />
+        </LinearLayout>
+    </RelativeLayout>
     <!--作业进度背景-->
     <TextView android:id="@+id/homeworkSchedule"
         android:layout_width="0dp"

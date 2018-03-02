@@ -30,6 +30,9 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan"
             />
+        <activity android:name=".activity.DisplayOfficeFileActivity"
+            android:screenOrientation="landscape"
+            />
     </application>
 
 </manifest>

@@ -23,6 +23,32 @@
         <item name="android:background">@drawable/home_tv_bg</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:drawablePadding">@dimen/x20</item>
+        <item name="leftDrawableWidth">@dimen/x95</item>
+        <item name="leftDrawableHeight">@dimen/x95</item>
+    </style>
+    <style name="home_rl_btn">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:background">@drawable/home_tv_bg</item>
+    </style>
+    <style name="home_ll">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+    <style name="home_ll_img">
+        <item name="android:layout_width">@dimen/x50</item>
+        <item name="android:layout_height">@dimen/x50</item>
+    </style>
+    <style name="home_ll_tv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/y20</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:ems">1</item>
     </style>
     <!--首页end-->
     <!--布置作业start-->

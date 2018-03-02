@@ -129,7 +129,6 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     private var isSaveTest = false
     private var currentPaperId: String? = null
     private var currentPaperName: String? = null
-
     override fun destroyPresenter() {
         assignmentPresenter.onDestroy()
     }
@@ -141,10 +140,6 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
      */
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        setIntent(intent)
-    }
-    override fun onResume() {
-        super.onResume()
         val isClearQuestion = intent.getBooleanExtra("clearQuestion", false)
         if (cacheMap[currentGradeCode] != null && isClearQuestion){
             cacheMap[currentGradeCode]!!.clearQuestionSelected()

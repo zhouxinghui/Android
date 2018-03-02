@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.util.TypedValue
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -160,9 +161,19 @@ class CorrectingDescActivity : BaseActivity() {
             addItemType(QuestionTypeUtils.QUESTIONS_CHINESE_WRITE_BY_VOICE, R.layout.item_correcting_answer_normal)
         }
         override fun convert(helper: BaseViewHolder, item: CorrectAnswerBean) {
+            val studentAnswer = item.studentAnswer
             helper.setText(R.id.studentName, item.studentName)
                     .setText(R.id.bagId, "书包号：${item.ysbCode}")
-                    .setText(R.id.commitTime, "提交时间：${DateUtil.getFormatDateTime(Date(item.endTime.toLong()), "yyyy-MM-dd HH:mm:ss")}")
+            if(StringUtils.isEmpty(studentAnswer)){
+                helper.getView<TextView>(R.id.commitTime).visibility = View.GONE
+                helper.setText(R.id.answerTv, "未完成")
+                helper.getView<TextView>(R.id.correctIcon).visibility = View.GONE
+                return
+            }
+            helper.getView<TextView>(R.id.commitTime).visibility = View.VISIBLE
+            helper.getView<TextView>(R.id.correctIcon).visibility = View.VISIBLE
+            helper.setText(R.id.commitTime, "提交时间：${DateUtil.getFormatDateTime(Date(item.endTime.toLong()), "yyyy-MM-dd HH:mm:ss")}")
+            helper.setText(R.id.answerTv, "学生答案：")
             when(helper.itemViewType){
                 //纯文字
                 QuestionTypeUtils.QUESTIONS_CHOOSE_PIC_BY_WORD,
@@ -178,20 +189,20 @@ class CorrectingDescActivity : BaseActivity() {
                 QuestionTypeUtils.QUESTION_MATH_FRACTION,
                 QuestionTypeUtils.QUESTIONS_CHINESE_WRITE_BY_VOICE
                 ->{
-                    helper.setText(R.id.studentAnswer, item.studentAnswer)
+                    helper.setText(R.id.studentAnswer, studentAnswer)
                 }
                 //#R#分隔
                 QuestionTypeUtils.QUESTIONS_WRITE_WORD_BY_PIC,
                 QuestionTypeUtils.QUESTIONS_COMPLETION_BY_VOICE,
                 QuestionTypeUtils.QUESTIONS_COMPLETION
                 ->{
-                    helper.setText(R.id.studentAnswer, item.studentAnswer.replace("#R#","、"))
+                    helper.setText(R.id.studentAnswer, studentAnswer.replace("#R#","、"))
                 }
                 //连线题
                 QuestionTypeUtils.QUESTIONS_DRAW_LINE ->{
                     val connectionView = helper.getView<ConnectionView>(R.id.connectionView)
                     val questionBean = questionList!![currentQuestionIndex].clone() as QuestionBean
-                    questionBean.answer = item.studentAnswer
+                    questionBean.answer = studentAnswer
                     connectionView.setData(questionBean)
                     connectionView.show(false)
                     connectionView.showResult()
@@ -200,8 +211,7 @@ class CorrectingDescActivity : BaseActivity() {
                 QuestionTypeUtils.QUESTIONS_CLASSIFICATION ->{
                     val linearLayout = helper.getView<LinearLayout>(R.id.classifyLayout)
                     linearLayout.removeAllViews()
-                    val answer = item.studentAnswer
-                    val splitCategory = answer.split(";")
+                    val splitCategory = studentAnswer.split(";")
                     splitCategory.forEach {
                         val category = it.split("#R#")
                         val categoryName = category[0]

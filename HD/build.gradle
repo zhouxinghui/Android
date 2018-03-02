@@ -3,9 +3,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 26
-
-
-
     defaultConfig {
         minSdkVersion 17
         targetSdkVersion 21
@@ -13,6 +10,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk { abiFilters "armeabi" }
 
     }
 

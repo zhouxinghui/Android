@@ -28,6 +28,7 @@ import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.loadImage
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
+import ebag.hd.activity.DisplayOfficeFileActivity
 import ebag.hd.ui.activity.BookListActivity
 import kotlinx.android.synthetic.main.fragment_first_page.*
 
@@ -71,6 +72,9 @@ class FragmentFirstPage : BaseFragment() {
                     .putExtra(Constants.ASSIGN_CATEGORY, Constants.ASSIGN_TEST_PAPER)
                     .putExtra(Constants.ASSIGN_TITLE, getString(R.string.assign_system_test_paper)))
         }
+        prepare.setOnClickListener {
+            DisplayOfficeFileActivity.jump(mContext)
+        }
         checkHomework.setOnClickListener {
             startActivity(Intent(mContext, CorrectingActivity::class.java))
         }
@@ -82,9 +86,6 @@ class FragmentFirstPage : BaseFragment() {
         setTextStyle(afterClass.text.toString(), afterClass)
         setTextStyle(testPaper.text.toString(), testPaper)
         setTextStyle(checkHomework.text.toString(), checkHomework)
-        setTextStyle(book.text.toString(), book)
-        setTextStyle(prepare.text.toString(), prepare)
-        setTextStyle(zixi.text.toString(), zixi)
 
         val adapter = HomeProgressAdapter()
         val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
