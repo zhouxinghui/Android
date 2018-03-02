@@ -83,7 +83,12 @@
         <activity
             android:name=".ui.activity.CorrectingDescActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity android:name=".ui.activity.CommentActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
         <activity
             android:name=".ui.activity.LoginSelectActivity"
             android:screenOrientation="landscape" />

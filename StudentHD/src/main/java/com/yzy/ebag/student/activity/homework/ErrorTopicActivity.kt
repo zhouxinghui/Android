@@ -10,10 +10,10 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.base.BaseListTabActivity
 import com.yzy.ebag.student.bean.ErrorTopicBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
+import ebag.hd.base.BaseListTabActivity
 
 /**
  * @author caoyu

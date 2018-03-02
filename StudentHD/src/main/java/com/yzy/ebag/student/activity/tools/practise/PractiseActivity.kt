@@ -11,12 +11,12 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.activity.tools.fragment.PractiseFragment
-import com.yzy.ebag.student.base.BaseListTabActivity
-import com.yzy.ebag.student.base.UnitAdapter
-import com.yzy.ebag.student.base.UnitBean
 import com.yzy.ebag.student.bean.EditionBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
+import ebag.hd.adapter.UnitAdapter
+import ebag.hd.base.BaseListTabActivity
+import ebag.hd.bean.UnitBean
 
 
 /**

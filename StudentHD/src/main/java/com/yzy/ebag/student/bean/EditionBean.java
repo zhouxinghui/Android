@@ -1,8 +1,8 @@
 package com.yzy.ebag.student.bean;
 
-import com.yzy.ebag.student.base.UnitBean;
-
 import java.util.List;
+
+import ebag.hd.bean.UnitBean;
 
 /**
  * @author caoyu

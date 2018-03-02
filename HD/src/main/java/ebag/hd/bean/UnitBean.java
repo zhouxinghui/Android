@@ -1,10 +1,12 @@
-package com.yzy.ebag.student.base;
+package ebag.hd.bean;
 
 import com.chad.library.adapter.base.entity.IExpandable;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ebag.hd.adapter.UnitAdapter;
 
 public class UnitBean implements
         IExpandable<UnitBean.ChapterBean>, MultiItemEntity {

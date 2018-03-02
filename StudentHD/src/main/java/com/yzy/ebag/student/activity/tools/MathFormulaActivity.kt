@@ -7,13 +7,13 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.base.BaseListTabActivity
 import ebag.core.http.network.RequestCallBack
+import ebag.hd.base.BaseListTabActivity
 
 /**
  * Created by caoyu on 2018/1/13.
  */
-class MathFormulaActivity: BaseListTabActivity<String,String>() {
+class MathFormulaActivity: BaseListTabActivity<String, String>() {
 
     override fun loadConfig() {
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x200))
