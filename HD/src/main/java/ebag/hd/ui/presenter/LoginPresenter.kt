@@ -39,7 +39,7 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener): BasePrese
     /**
      * 登录
      */
-    fun login(account: String, pwd: String, roleCode: String,thirdPartyToken:String?,thirdPartyUnionid:String?){
+    fun login(account: String, pwd: String, roleCode: String, thirdPartyToken:String?,thirdPartyUnionid:String?){
         if(isLoginInfoCorrect(account,pwd)) {
             if(loginRequest == null) {
                 loginRequest = createRequest(object : RequestCallBack<UserEntity>() {

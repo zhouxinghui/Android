@@ -3,20 +3,19 @@ package com.yzy.ebag.teacher.ui.activity
 import android.content.Intent
 import android.util.Log
 import android.view.View
+import com.umeng.socialize.utils.Log.toast
 import com.yzy.ebag.teacher.MainActivity
 import com.yzy.ebag.teacher.R
 import ebag.core.base.App
 import ebag.core.base.BaseActivity
-import ebag.core.base.mvp.OnToastListener
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.SerializableUtils
-import ebag.hd.base.Constants
+import ebag.core.util.StringUtils
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
+import ebag.hd.ui.activity.account.BLoginActivity
 import kotlinx.android.synthetic.main.activity_binding.*
-import ebag.hd.ui.presenter.LoginPresenter
-import ebag.hd.ui.view.LoginView
 
 class BindingActivity : BaseActivity() {
 
@@ -25,33 +24,40 @@ class BindingActivity : BaseActivity() {
     }
 
     override fun initViews() {
-       var name = intent.getStringExtra("name")
-        if (name == "b"){
-//            loginPresenter!!.login("1", "2", "teacher",null,null)
+        var name = intent.getStringExtra("name")
+        var uid = intent.getStringExtra("uid")
+        var thirdPartyToken = intent.getStringExtra("access_token")
+        var account = et_user.text.toString()
+        var pwd = et_user.text.toString()
+        if (name == "b") {
             btn_binding.setOnClickListener {
-//            loginPresenter.login("1000857", "ysb123456", "teacher",null,null)
-                EBagApi.login("1000857", "ysb123456", 1,"teacher",null,null,object : RequestCallBack<UserEntity>(){
-                    override fun onSuccess(entity: UserEntity?) {
-                        Log.d("wy",entity.toString())
-                        LoadingDialogUtil.closeLoadingDialog()
-                        if (entity != null) {
-                            App.modifyToken(entity.token)
-                        }
-                        if (entity != null) {
-                            entity.roleCode = "teacher"
-                        }
-                        SerializableUtils.deleteSerializable("teacher")
-                        SerializableUtils.setSerializable("teacher", entity)
+                Log.d("aa","$thirdPartyToken,$uid,$name,")
+                if (
+//                isLoginInfoCorrect(account, pwd)
+                    true
+                ) {
+                    EBagApi.login("1000857", "ysb123456", 1, BLoginActivity.TEACHER_ROLE, thirdPartyToken, uid, object : RequestCallBack<UserEntity>() {
+                        override fun onSuccess(entity: UserEntity?) {
+                            LoadingDialogUtil.closeLoadingDialog()
+                            if (entity != null) {
+                                App.modifyToken(entity.token)
+                            }
+                            if (entity != null) {
+                                entity.roleCode = "teacher"
+                            }
+                            SerializableUtils.deleteSerializable("teacher")
+                            SerializableUtils.setSerializable("teacher", entity)
 //                        setResult(Constants.CODE_LOGIN_RESULT)
-                        startActivity(Intent(this@BindingActivity, MainActivity::class.java))
-                        finish()
+                            startActivity(Intent(this@BindingActivity, MainActivity::class.java))
+                            finish()
 
-                    }
+                        }
 
-                    override fun onError(exception: Throwable) {
-                        Log.d("wy","错误")
-                    }
-                })
+                        override fun onError(exception: Throwable) {
+                            Log.d("wy", "错误")
+                        }
+                    })
+                }
             }
 
         }
@@ -59,5 +65,23 @@ class BindingActivity : BaseActivity() {
             et_user.visibility = View.GONE
         }
     }
+
+    /**判断账号和密码格式是否输入错误*/
+    private fun isLoginInfoCorrect(account: String, pwd: String): Boolean =
+            if (account.isEmpty() || pwd.isEmpty()) {
+                toast(this, "请输入账号密码！")
+                false
+            } else if (account.length < 7) {
+                toast(this, "请输入正确的账号！")
+                false
+            } else if (account.length == 11 && !StringUtils.isMobileNo(account)) {
+                toast(this, "手机格式输入错误！")
+                false
+            } else if (!StringUtils.isPassword(pwd)) {
+                toast(this, "请输入6~20位字母数字混合密码")
+                false
+            } else {
+                true
+            }
 
 }

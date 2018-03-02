@@ -7,7 +7,7 @@ import com.yzy.ebag.student.activity.main.MainActivity
 import ebag.hd.ui.activity.account.BLoginActivity
 
 class LoginActivity : BLoginActivity() {
-    override fun threeParty(view: View) {
+    override fun threeParty(view: View, threeparty: String, uid: String?, unionid: String?, access_token: String?) {
     }
 
     override fun forgetClick(view: View) {
