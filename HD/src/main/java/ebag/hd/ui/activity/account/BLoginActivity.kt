@@ -215,11 +215,11 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         //点击登陆
         loginBtn.setOnClickListener {
             if (isLoginState) {//登陆状态
-                loginPresenter.login(loginAccount.text.toString(), loginPwd.text.toString(), getRoleCode(), null, null)
+                loginPresenter.login(loginAccount.text.toString(), loginPwd.text.toString(),null, getRoleCode(), null, null)
             } else {//注册
                 if (serveCheck.isChecked)
                     loginPresenter.register(registerAccount.text.toString(), registerPhone.text.toString()
-                            , registerCode.text.toString(), registerPwd.text.toString())
+                            , registerCode.text.toString(), registerPwd.text.toString(),null,null)
                 else
                     toast("请勾选服务条款", true)
             }
@@ -297,7 +297,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
     abstract protected fun forgetClick(view: View)
 
-    abstract protected fun threeParty(view: View, threeparty: String, uid: String?, unionid: String?, access_token: String?)
+    abstract protected fun threeParty(view: View,uid : String?, accessToken: String?, name: String?, iconurl: String?, gender: String?,share_media:String?)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -324,8 +324,9 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
                 toast("uid = $uid,openid = $openid,unionid = $unionid,access_token = $access_token,refresh_token = $refresh_token,expires_in = $expires_in," +
                         "name = $name,gender = $gender,iconurl = $iconurl")
                 Log.d("wy", "uid = $uid,openid = $openid,unionid = $unionid,access_token = $access_token,refresh_token = $refresh_token,expires_in = $expires_in," +
-                        "name = $name,gender = $gender,iconurl = $iconurl")
-                threeParty(view, share_media.toString(), uid, unionid, access_token)
+                        "name = $name,gender = $gender,iconurl = $iconurl,${share_media.toString()}")
+                threeParty(view,uid,access_token,name,iconurl,gender,share_media.toString())
+                loginPresenter.login(null,null,share_media.toString(), getRoleCode(), access_token, uid)
 
             }
 

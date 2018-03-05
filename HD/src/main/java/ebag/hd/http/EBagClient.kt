@@ -95,7 +95,7 @@ object EBagClient {
                 .addConverterFactory(FastJsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 //                .baseUrl("http://www.yun-bag.com/ebag-portal/")
-                .baseUrl("http://192.168.1.155:9001/")
+                .baseUrl("http://192.168.1.107:9001/")
 //                .baseUrl("http://192.168.1.112:9001/")
 //                .baseUrl("http://192.168.1.186:9001/")
                 .build()

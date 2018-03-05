@@ -90,7 +90,7 @@ object EBagApi {
     /**
      * 登录
      */
-    fun login(account: String, pwd: String, loginType: Int, roleCode: String,thirdPartyToken: String?,thirdPartyUnionid:String?, callback: RequestCallBack<UserEntity>){
+    fun login(account: String?, pwd: String?, loginType: Int, roleCode: String,thirdPartyToken: String?,thirdPartyUnionid:String?, callback: RequestCallBack<UserEntity>){
         val jsonObj = JSONObject()
         jsonObj.put("loginAccount",account)
         jsonObj.put("password",pwd)
@@ -104,12 +104,16 @@ object EBagApi {
     /**
      * 注册
      */
-    fun register(name: String, phone: String, code: String, pwd: String, callback: RequestCallBack<UserEntity>){
+    fun register(name: String, phone: String?, code: String,roleCode:Int?, pwd: String,thirdPartyToken: String?,thirdPartyUnionid:String?, loginType:Int,callback: RequestCallBack<UserEntity>){
         val jsonObj = JSONObject()
         jsonObj.put("name",name)
         jsonObj.put("phone",phone)
         jsonObj.put("verifyCode",code)
         jsonObj.put("password",pwd)
+        jsonObj.put("loginType",loginType)
+        jsonObj.put("thirdPartyToken",thirdPartyToken)
+        jsonObj.put("thirdPartyUnionid",thirdPartyUnionid)
+        jsonObj.put("roleCode",roleCode)
         request(EBagClient.eBagService.register("v1", createBody(jsonObj)), callback)
     }
 

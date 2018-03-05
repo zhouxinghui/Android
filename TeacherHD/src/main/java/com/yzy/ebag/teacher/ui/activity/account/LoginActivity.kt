@@ -9,12 +9,15 @@ import ebag.hd.ui.activity.account.BLoginActivity
 import kotlinx.android.synthetic.main.item_notice_history.view.*
 
 class LoginActivity : BLoginActivity() {
-    override fun threeParty(view: View, threeparty: String, uid: String?, unionid: String?, access_token: String?) {
+    override fun threeParty(view: View,uid : String?, accessToken: String?, name: String?, iconurl: String?, gender: String?,share_media:String?) {
+//        threeParty(view,uid,access_token,name,iconurl,gender)
         startActivity(Intent(this, LoginSelectActivity::class.java)
-                .putExtra("name", threeparty)
                 .putExtra("uid", uid)
-                .putExtra("unionid", unionid)
-                .putExtra("access_token", access_token))
+                .putExtra("accessToken", accessToken)
+                .putExtra("name", name)
+                .putExtra("iconurl",iconurl)
+                .putExtra("gender", gender)
+                .putExtra("share_media",share_media))
     }
 
     override fun forgetClick(view: View) {
