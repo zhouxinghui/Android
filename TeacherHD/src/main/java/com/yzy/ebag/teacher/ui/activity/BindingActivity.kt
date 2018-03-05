@@ -77,7 +77,7 @@ class BindingActivity : BaseActivity() {
         if (BX == "x") {
             et_user.visibility = View.GONE
             btn_binding.setOnClickListener {
-                EBagApi.register(name,null,BLoginActivity.TEACHER_ROLE,2,"ysb123456",accessToken,uid,judge(shareMedia),object : RequestCallBack<UserEntity>() {
+                EBagApi.register(name,null,BLoginActivity.TEACHER_ROLE,2,"ysb123456",accessToken,uid,1,object : RequestCallBack<UserEntity>() {
                 override fun onSuccess(entity: UserEntity?) {
 
                     if (entity != null) {
