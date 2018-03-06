@@ -14,7 +14,7 @@ import ebag.hd.ui.view.LoginView
  * presenter 登录页面的控制类
  * Created by caoyu on 2017/11/2.
  */
-internal class LoginPresenter(view: LoginView, listener: OnToastListener): BasePresenter<LoginView>(view,listener) {
+open class LoginPresenter(view: LoginView, listener: OnToastListener): BasePresenter<LoginView>(view,listener) {
 
     /**判断账号和密码格式是否输入错误*/
     private fun isLoginInfoCorrect(account: String, pwd: String): Boolean =
@@ -39,20 +39,48 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
     /**
      * 登录
      */
-    fun login(account: String, pwd: String, roleCode: String){
-        if(isLoginInfoCorrect(account,pwd)) {
-            if(loginRequest == null) {
+    fun login(account: String?, pwd: String?,loginType:String?, roleCode: String, thirdPartyToken:String?,thirdPartyUnionid:String?){
+        if (account !=null&&pwd !=null&&thirdPartyToken==null&&thirdPartyUnionid==null) {
+            if (isLoginInfoCorrect(account, pwd)) {
+                if (loginRequest == null) {
+                    loginRequest = createRequest(object : RequestCallBack<UserEntity>() {
+                        override fun onStart() {
+                            getView()?.onLoginStart()
+                        }
+
+                        override fun onSuccess(entity: UserEntity?) {
+                            if (entity != null) {
+                                getView()?.onLoginSuccess(entity)
+                                L.e(entity.token)
+                            } else {
+                                getView()?.onLoginError(MsgException("1", "无数据返回，请稍后重试"))
+                            }
+                        }
+
+                        override fun onError(exception: Throwable) {
+                            getView()?.onLoginError(exception)
+                        }
+                    })
+                }
+                if (StringUtils.isMobileNo(account)) {
+                    EBagApi.login(account, pwd, 3, roleCode, thirdPartyToken, thirdPartyUnionid, loginRequest!!)
+                } else {
+                    EBagApi.login(account, pwd, 1, roleCode, thirdPartyToken, thirdPartyUnionid, loginRequest!!)
+                }
+            }
+        }else{
+            if (loginRequest == null) {
                 loginRequest = createRequest(object : RequestCallBack<UserEntity>() {
                     override fun onStart() {
                         getView()?.onLoginStart()
                     }
 
                     override fun onSuccess(entity: UserEntity?) {
-                        if(entity!= null){
+                        if (entity != null) {
                             getView()?.onLoginSuccess(entity)
                             L.e(entity.token)
-                        }else{
-                            getView()?.onLoginError(MsgException("1","无数据返回，请稍后重试"))
+                        } else {
+                            getView()?.onLoginError(MsgException("1", "无数据返回，请稍后重试"))
                         }
                     }
 
@@ -61,13 +89,11 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
                     }
                 })
             }
-            if(StringUtils.isMobileNo(account)){
-                EBagApi.login(account, pwd, 3, roleCode, loginRequest!!)
-            }else{
-                EBagApi.login(account, pwd, 1, roleCode, loginRequest!!)
+                when (loginType){
+                "QQ" -> EBagApi.login(null,null,4,roleCode,thirdPartyToken,thirdPartyUnionid,loginRequest!!)
+                "WEIXIN" -> EBagApi.login(null,null,5,roleCode,thirdPartyToken,thirdPartyUnionid,loginRequest!!)
+                "SINA" -> EBagApi.login(null,null,6,roleCode,thirdPartyToken,thirdPartyUnionid,loginRequest!!)
             }
-
-
         }
     }
 
@@ -96,7 +122,7 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
     /**
      * 注册
      */
-    fun register(name: String, phone: String, code: String, pwd: String){
+    fun register(name: String, phone: String, code: String, pwd: String,thirdPartyToken:String?,thirdPartyUnionid:String?){
         if(isRegisterInfoCorrect(phone,code,pwd)){
             if(registerRequest == null)
                 registerRequest = createRequest(object: RequestCallBack<UserEntity>(){
@@ -112,7 +138,7 @@ internal class LoginPresenter(view: LoginView, listener: OnToastListener): BaseP
                     }
 
                 })
-            EBagApi.register(name,phone,code,pwd,registerRequest!!)
+            EBagApi.register(name,phone,code,null,pwd,thirdPartyToken,thirdPartyUnionid,3,registerRequest!!)
         }
 
     }

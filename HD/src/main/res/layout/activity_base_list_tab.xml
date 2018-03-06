@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         app:titleText="我的作业"/>
 
-    <RelativeLayout
+    <RelativeLayout android:id="@+id/rootView"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -37,7 +37,7 @@
 
         <ebag.core.widget.empty.StateView
             android:id="@+id/stateView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
     </RelativeLayout>
 </LinearLayout>

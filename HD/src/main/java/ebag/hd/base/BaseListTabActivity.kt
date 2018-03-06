@@ -94,6 +94,15 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
         }
     }
 
+    protected fun addExtraView(view: View, index: Int = 0){
+        if (index == 0){
+            rootView.addView(view)
+        }else{
+            rootView.addView(view, index)
+        }
+
+    }
+
     protected fun request(){
         requestData(requestCallBack)
     }

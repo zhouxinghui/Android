@@ -3,6 +3,7 @@ package ebag.hd.ui.activity.account
 import android.content.Intent
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import com.umeng.socialize.UMAuthListener
@@ -37,6 +38,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         const val TEACHER_ROLE = "2"
         const val PARENT_ROLE = "3"
     }
+
     private var isToMain = false
 
     override fun getLayoutId(): Int {
@@ -66,16 +68,16 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         App.modifyToken(userEntity.token)
         userEntity.roleCode = getRoleCode()
         SerializableUtils.deleteSerializable(
-                if(getRoleCode() == STUDENT_ROLE){
+                if (getRoleCode() == STUDENT_ROLE) {
                     Constants.STUDENT_USER_ENTITY
-                }else{
+                } else {
                     Constants.TEACHER_USER_ENTITY
                 }
         )
         SerializableUtils.setSerializable(
-                if(getRoleCode() == STUDENT_ROLE){
+                if (getRoleCode() == STUDENT_ROLE) {
                     Constants.STUDENT_USER_ENTITY
-                }else{
+                } else {
                     Constants.TEACHER_USER_ENTITY
                 }, userEntity)
         if (isToMain)
@@ -136,16 +138,16 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
             App.modifyToken(userEntity.token)
             userEntity.roleCode = getRoleCode()
             SerializableUtils.deleteSerializable(
-                    if(getRoleCode() == STUDENT_ROLE){
+                    if (getRoleCode() == STUDENT_ROLE) {
                         Constants.STUDENT_USER_ENTITY
-                    }else{
+                    } else {
                         Constants.TEACHER_USER_ENTITY
                     }
             )
             SerializableUtils.setSerializable(
-                    if(getRoleCode() == STUDENT_ROLE){
+                    if (getRoleCode() == STUDENT_ROLE) {
                         Constants.STUDENT_USER_ENTITY
-                    }else{
+                    } else {
                         Constants.TEACHER_USER_ENTITY
                     }, userEntity)
             startActivity(getJumpIntent())
@@ -213,27 +215,25 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         //点击登陆
         loginBtn.setOnClickListener {
             if (isLoginState) {//登陆状态
-                loginPresenter.login(loginAccount.text.toString(), loginPwd.text.toString(), getRoleCode())
+                loginPresenter.login(loginAccount.text.toString(), loginPwd.text.toString(),null, getRoleCode(), null, null)
             } else {//注册
                 if (serveCheck.isChecked)
                     loginPresenter.register(registerAccount.text.toString(), registerPhone.text.toString()
-                            , registerCode.text.toString(), registerPwd.text.toString())
+                            , registerCode.text.toString(), registerPwd.text.toString(),null,null)
                 else
                     toast("请勾选服务条款", true)
             }
         }
         loginWeChat.setOnClickListener {
-            authorization(SHARE_MEDIA.WEIXIN)
-            threeParty(it)
+            authorization(SHARE_MEDIA.WEIXIN, it)
         }
         loginSina.setOnClickListener {
-            authorization(SHARE_MEDIA.SINA)
-            threeParty(it)
+            authorization(SHARE_MEDIA.SINA, it)
         }
         loginQQ.setOnClickListener {
-            authorization(SHARE_MEDIA.QQ)
-            threeParty(it)
+            authorization(SHARE_MEDIA.QQ, it)
         }
+
         imageSee.setOnClickListener {
             it.isSelected = !it.isSelected
             if (it.isSelected) {//可见状态
@@ -297,7 +297,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
     abstract protected fun forgetClick(view: View)
 
-    abstract protected fun threeParty(view: View)
+    abstract protected fun threeParty(view: View,uid : String?, accessToken: String?, name: String?, iconurl: String?, gender: String?,share_media:String?)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -305,24 +305,29 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
     }
 
     //第三方授权
-    private fun authorization(share_media: SHARE_MEDIA) {
+    private fun authorization(share_media: SHARE_MEDIA, view: View) {
         UMShareAPI.get(this).getPlatformInfo(this, share_media, object : UMAuthListener {
             //            授权完成
             override fun onComplete(p0: SHARE_MEDIA?, p1: Int, p2: MutableMap<String, String>?) {
                 toast("完成")
                 //sdk是6.4.4的,但是获取值的时候用的是6.2以前的(access_token)才能获取到值,未知原因
 
-                val uid = p2?.get("uid")
-                val openid = p2?.get("openid")//微博没有
-                val unionid = p2?.get("unionid")//微博没有
-                val access_token = p2?.get("access_token")
-                val refresh_token = p2?.get("refresh_token")//微信,qq,微博都没有获取到
-                val expires_in = p2?.get("expires_in")
-                val name = p2?.get("name")
-                val gender = p2?.get("gender")
-                val iconurl = p2?.get("iconurl")
+                var uid = p2?.get("uid")
+                var openid = p2?.get("openid")//微博没有
+                var unionid = p2?.get("unionid")//微博没有
+                var access_token = p2?.get("access_token")
+                var refresh_token = p2?.get("refresh_token")//微信,qq,微博都没有获取到
+                var expires_in = p2?.get("expires_in")
+                var name = p2?.get("name")
+                var gender = p2?.get("gender")
+                var iconurl = p2?.get("iconurl")
                 toast("uid = $uid,openid = $openid,unionid = $unionid,access_token = $access_token,refresh_token = $refresh_token,expires_in = $expires_in," +
                         "name = $name,gender = $gender,iconurl = $iconurl")
+                Log.d("wy", "uid = $uid,openid = $openid,unionid = $unionid,access_token = $access_token,refresh_token = $refresh_token,expires_in = $expires_in," +
+                        "name = $name,gender = $gender,iconurl = $iconurl,${share_media.toString()}")
+                threeParty(view,uid,access_token,name,iconurl,gender,share_media.toString())
+                loginPresenter.login(null,null,share_media.toString(), getRoleCode(), access_token, uid)
+
             }
 
             //            授权取消

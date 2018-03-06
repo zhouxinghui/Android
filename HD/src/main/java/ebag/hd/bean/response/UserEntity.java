@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 public class UserEntity implements Serializable{
 
+
     /**
      * id : 1326
      * uid : 1596
@@ -23,6 +24,9 @@ public class UserEntity implements Serializable{
      * headUrl :
      * depId : 1
      * schoolName :
+     * 下为第三方登录
+     * thirdPartyToken
+     * thirdPartyUnionid
      */
 
     private String uid;
@@ -39,6 +43,24 @@ public class UserEntity implements Serializable{
     private String schoolName;
     private String roleCode;
     private String token;
+    private String thirdPartyToken;
+    private String thirdPartyUnionid;
+
+    public String getThirdPartyToken() {
+        return thirdPartyToken;
+    }
+
+    public void setThirdPartyToken(String thirdPartyToken) {
+        this.thirdPartyToken = thirdPartyToken;
+    }
+
+    public String getThirdPartyUnionid() {
+        return thirdPartyUnionid;
+    }
+
+    public void setThirdPartyUnionid(String thirdPartyUnionid) {
+        this.thirdPartyUnionid = thirdPartyUnionid;
+    }
 
     public String getToken() {
         return token;
@@ -150,5 +172,27 @@ public class UserEntity implements Serializable{
 
     public void setSchoolName(String schoolName) {
         this.schoolName = schoolName;
+    }
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "uid='" + uid + '\'' +
+                ", ysbCode='" + ysbCode + '\'' +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", county='" + county + '\'' +
+                ", address='" + address + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", headUrl='" + headUrl + '\'' +
+                ", depId='" + depId + '\'' +
+                ", schoolName='" + schoolName + '\'' +
+                ", roleCode='" + roleCode + '\'' +
+                ", token='" + token + '\'' +
+                ", thirdPartyToken='" + thirdPartyToken + '\'' +
+                ", thirdPartyUnionid='" + thirdPartyUnionid + '\'' +
+                '}';
     }
 }

@@ -83,19 +83,20 @@
         <activity
             android:name=".ui.activity.CorrectingDescActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            />
-        <activity android:name=".ui.activity.CommentActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".ui.activity.CommentActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            />
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".ui.activity.LoginSelectActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".ui.activity.BindingActivity"
             android:screenOrientation="landscape" />
-
+        <activity android:name=".ui.activity.MyPrepareActivity"
+            android:screenOrientation="landscape"
+            />
         <!-- 友盟分享 -->
         <!-- 微信 -->
         <activity
@@ -103,7 +104,6 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="landscape"
-
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- 新浪微博 -->
         <activity
@@ -127,7 +127,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- 这里的scheme是qq分享要用的-->
+                <!-- 这里的scheme是qq分享要用的 -->
                 <data android:scheme="tencent1105151620" />
             </intent-filter>
         </activity>
@@ -146,7 +146,6 @@
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="599bd2c34544cb06cc000f95" />
-
     </application>
 
 </manifest>
