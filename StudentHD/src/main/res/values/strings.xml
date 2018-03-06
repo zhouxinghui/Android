@@ -96,16 +96,6 @@
     <string name="my_parents_id_input">输入书包号</string>
     <string name="my_parents_relation_input">输入你们的关系 例：妈妈</string>
 
-
-    <!--课程表-->
-    <string name="monday">星期一</string>
-    <string name="tuesday">星期二</string>
-    <string name="wednesday">星期三</string>
-    <string name="thursday">星期四</string>
-    <string name="friday">星期五</string>
-    <string name="morning">上午</string>
-    <string name="afternoon">下午</string>
-
     <!--工具-->
     <string name="tool">工具</string>
 </resources>

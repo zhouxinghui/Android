@@ -248,4 +248,12 @@ object EBagApi {
         EBagApi.request(eBagService.homeworkReport("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
+    /**
+     * 课程表
+     */
+    fun classSchedule(classId: String, callback: RequestCallBack<ArrayList<ClassScheduleBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        EBagApi.request(eBagService.classSchedule("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

@@ -139,7 +139,11 @@ class MainActivity : MVPActivity(), MainView {
 
         //考试试卷
         tvKSSJ.setOnClickListener{
-            HomeworkActivity.jump(this, com.yzy.ebag.student.base.Constants.KSSJ_TYPE, classId)
+            if(StringUtils.isEmpty(classId)) {
+                T.show(this, "请点击加载左侧班级数据！")
+            }else{
+                HomeworkActivity.jump(this,com.yzy.ebag.student.base.Constants.KSSJ_TYPE,classId)
+            }
         }
         //学习课本点击事件
         tvXXKB.setOnClickListener{
