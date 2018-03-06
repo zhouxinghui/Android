@@ -28,4 +28,6 @@
     <dimen name="title_bar_height">@dimen/x55</dimen>
     <dimen name="title_bar_title_size">@dimen/x32</dimen>
     <dimen name="title_bar_title_sub_size">@dimen/x24</dimen>
+
+    <dimen name="class_schedule_table_width">@dimen/x1</dimen>
 </resources>
