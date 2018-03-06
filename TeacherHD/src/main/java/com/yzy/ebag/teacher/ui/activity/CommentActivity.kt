@@ -12,7 +12,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.base.BaseListActivity
 import com.yzy.ebag.teacher.R
-import com.yzy.ebag.teacher.base.Constants
 import com.yzy.ebag.teacher.bean.CommentBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.http.network.RequestCallBack
@@ -22,6 +21,7 @@ import ebag.core.util.StringUtils
 import ebag.core.util.T
 import ebag.core.util.loadHead
 import ebag.hd.activity.ReportClassActivity
+import ebag.hd.base.Constants
 
 /**
  * Created by YZY on 2018/3/1.
@@ -45,7 +45,7 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
 
         override fun onSuccess(entity: String?) {
             LoadingDialogUtil.closeLoadingDialog()
-            adapter.data[currentPosition].correctState = Constants.CORRECT_REMARKED
+            adapter.data[currentPosition].correctState = Constants.CORRECT_TEACHER_REMARKED
             adapter.notifyDataSetChanged()
             T.show(this@CommentActivity, "提交评语成功")
         }
@@ -116,7 +116,7 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
                     checkReportBtn.text = "查看作业"
                     commitCommentBtn.text = "提交评语"
                 }
-                Constants.CORRECT_REMARKED ->{ //已评价
+                Constants.CORRECT_TEACHER_REMARKED ->{ //已评价
                     commentEdit.isEnabled = false
                     checkReportBtn.isEnabled = true
                     commitCommentBtn.isEnabled = false

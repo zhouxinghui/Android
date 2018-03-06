@@ -9,7 +9,7 @@ import com.luck.picture.lib.config.PictureMimeType
 /**
  * Created by YZY on 2018/1/17.
  */
-fun Activity.startSelectPicture(cropEnable: Boolean = false, circleCrop: Boolean = false, maxSelectNum: Int = 8){
+fun Activity.startSelectPicture(maxSelectNum: Int = 8, cropEnable: Boolean = false, circleCrop: Boolean = false){
     PictureSelector.create(this)
             .openGallery(PictureMimeType.ofImage())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
 //            .theme(R.style.picture.default.style)//主题样式(不设置为默认样式) 也可参考demo values/styles下 例如：R.style.picture.white.style

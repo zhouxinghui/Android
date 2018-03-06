@@ -107,4 +107,17 @@ interface StudentService {
     fun recordHistory(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<RecordHistory>>>
 
 
+    /**
+     * 获取学习小组
+     */
+    @POST("clazz/getMyClazzByGroup/{version}")
+    fun groups(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<GroupBean>>>
+
+    /**
+     * 获取小组成员
+     */
+    @POST("clazz/getMyClazzByGroup/{version}")
+    fun groupMember(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<GroupUserBean>>>
+
+
 }

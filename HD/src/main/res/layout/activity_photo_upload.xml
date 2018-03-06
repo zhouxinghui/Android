@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ebag.hd.widget.TitleBar
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="上传照片"/>
+
+    <View
+        android:id="@+id/bottomView"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/x80"
+        android:background="@color/white"
+        android:layout_marginBottom="@dimen/x40"
+        android:layout_marginStart="@dimen/x25"
+        android:layout_marginEnd="@dimen/x25"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="共享到班级相册"
+        android:layout_marginStart="@dimen/x20"
+        android:textSize="@dimen/x34"
+        android:textColor="@color/normal_text_color"
+        app:layout_constraintTop_toTopOf="@id/bottomView"
+        app:layout_constraintBottom_toBottomOf="@id/bottomView"
+        app:layout_constraintStart_toStartOf="@id/bottomView"/>
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/switchView"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/x40"
+        android:layout_marginEnd="@dimen/x25"
+        android:thumb="@drawable/switch_dot"
+        app:track="@drawable/switch_bg"
+        android:checked="false"
+        app:layout_constraintTop_toTopOf="@id/bottomView"
+        app:layout_constraintBottom_toBottomOf="@id/bottomView"
+        app:layout_constraintEnd_toEndOf="@id/bottomView"/>
+    <View
+        android:id="@+id/topView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/x25"
+        android:layout_marginBottom="@dimen/x25"
+        app:layout_constraintTop_toBottomOf="@id/titleView"
+        app:layout_constraintBottom_toTopOf="@id/bottomView"
+        app:layout_constraintStart_toStartOf="@id/bottomView"
+        app:layout_constraintEnd_toEndOf="@id/bottomView"
+        android:background="@color/white"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/x130"
+        android:layout_margin="@dimen/x25"
+        app:layout_constraintBottom_toBottomOf="@id/topView"
+        app:layout_constraintStart_toStartOf="@id/topView"
+        app:layout_constraintEnd_toEndOf="@id/topView"/>
+
+    <TextView
+        android:id="@+id/tipView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/x25"
+        android:textSize="@dimen/x18"
+        android:text="0/100"
+        app:layout_constraintBottom_toTopOf="@id/recyclerView"
+        app:layout_constraintEnd_toEndOf="@id/topView" />
+
+    <EditText
+        android:id="@+id/editView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="@dimen/x25"
+        android:hint="输入内容"
+        android:gravity="top|start"
+        android:textSize="@dimen/x24"
+        android:maxLength="100"
+        android:textColor="@color/normal_text_color"
+        android:textColorHint="@color/color_edit_hint"
+        android:background="@null"
+        app:layout_constraintTop_toTopOf="@id/topView"
+        app:layout_constraintStart_toStartOf="@id/topView"
+        app:layout_constraintEnd_toEndOf="@id/topView"
+        app:layout_constraintBottom_toTopOf="@id/tipView"/>
+</android.support.constraint.ConstraintLayout>

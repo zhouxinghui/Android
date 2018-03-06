@@ -3,6 +3,7 @@ package com.yzy.ebag.student.dialog
 import android.os.Bundle
 import android.view.View
 import com.yzy.ebag.student.R
+import ebag.hd.base.BaseFragmentDialog
 import kotlinx.android.synthetic.main.dialog_class_add.*
 
 /**

@@ -17,7 +17,6 @@ abstract class BAlbumActivity: BaseActivity() {
     companion object {
         const val STUDENT = 1
         const val TEACHER = 2
-
     }
 
     override fun getLayoutId(): Int {
@@ -43,7 +42,7 @@ abstract class BAlbumActivity: BaseActivity() {
         }
         viewPager.adapter = SectionsPagerAdapter(supportFragmentManager, arrayOfNulls(3))
         viewPager.offscreenPageLimit = 1
-        viewPager.setCurrentItem(2,false)
+        viewPager.setCurrentItem(1,false)
 
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {
@@ -74,11 +73,11 @@ abstract class BAlbumActivity: BaseActivity() {
             if (fragments[position] == null) {
                 fragments[position] = when(position){
                     // 班级荣誉
-                    0 -> AlbumFragment.newInstance(classId, AlbumFragment.HONOR_TYPE)
+                    0 -> AlbumFragment.newInstance(getRole(), classId, AlbumFragment.HONOR_TYPE)
                     // 个人
-                    1 -> AlbumFragment.newInstance(classId, AlbumFragment.PERSONAL_TYPE)
+                    1 -> AlbumFragment.newInstance(getRole(), classId, AlbumFragment.PERSONAL_TYPE)
                     // 班级相册
-                    else -> AlbumFragment.newInstance(classId, AlbumFragment.CLASS_TYPE)
+                    else -> AlbumFragment.newInstance(getRole(), classId, AlbumFragment.CLASS_TYPE)
                 }
             }
             return fragments[position]!!

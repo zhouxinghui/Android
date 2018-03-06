@@ -9,6 +9,7 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
+import ebag.hd.base.BaseFragmentDialog
 import ebag.hd.http.EBagApi
 import kotlinx.android.synthetic.main.dialog_class_add.*
 
@@ -37,7 +38,7 @@ class ClassJoinDialog: BaseFragmentDialog() {
         return R.layout.dialog_class_add
     }
 
-    public var successListener: (() -> Unit)? = null
+    var successListener: (() -> Unit)? = null
 
     override fun initView(view: View) {
         btnClose.setOnClickListener {
