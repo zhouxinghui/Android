@@ -125,7 +125,7 @@ class ReportClassActivity: BaseActivity() {
     inner class Adapter: BaseQuickAdapter<ReportBean.ReportDetailBean, BaseViewHolder>(R.layout.item_activity_report_class){
 
         override fun convert(helper: BaseViewHolder, item: ReportBean.ReportDetailBean?) {
-            helper.setText(R.id.questionType, item?.typeName)
+            helper.setText(R.id.questionType, item?.questionTypeName)
                     .setText(R.id.count, "${item?.questionNum}")
                     .setText(R.id.errorCount, "${item?.errorCount}")
                     .setText(R.id.score, "${item?.score}")

@@ -124,7 +124,7 @@ class ReportTestActivity: BaseActivity() {
     inner class Adapter: BaseQuickAdapter<ReportBean.ReportDetailBean, BaseViewHolder>(R.layout.item_activity_report_test){
 
         override fun convert(helper: BaseViewHolder, item: ReportBean.ReportDetailBean?) {
-            helper.setText(R.id.questionType, item?.typeName)
+            helper.setText(R.id.questionType, item?.questionTypeName)
                     .setText(R.id.count, "${item?.questionNum}")
                     .setText(R.id.errorCount, "${item?.errorCount}")
                     .setBackgroundRes(R.id.layout,if(helper.adapterPosition % 2 == 0) R.color.light_blue else R.color.white)

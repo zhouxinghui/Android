@@ -219,13 +219,13 @@ class DoHomeworkActivity: BaseActivity() {
             T.show(this@DoHomeworkActivity, "提交成功")
             when(type){
                 com.yzy.ebag.student.base.Constants.STZY_TYPE -> {
-                    finish()
                     ReportClassActivity.jump(this@DoHomeworkActivity, homeworkId)
+                    finish()
                 }
                 com.yzy.ebag.student.base.Constants.KHZY_TYPE,
                 com.yzy.ebag.student.base.Constants.KSSJ_TYPE -> {
-                    finish()
                     ReportTestActivity.jump(this@DoHomeworkActivity, homeworkId)
+                    finish()
                 }
                 com.yzy.ebag.student.base.Constants.ERROR_TOPIC_TYPE -> {
                     finish()

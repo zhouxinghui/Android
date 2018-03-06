@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import ebag.core.util.SerializableUtils
 import ebag.core.util.loadHead
+import ebag.hd.base.BaseFragmentDialog
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
 import kotlinx.android.synthetic.main.dialog_performance.*

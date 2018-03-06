@@ -104,7 +104,7 @@ class DiaryDetailActivity: BaseActivity() {
                     return@setOnItemClickListener
                 }
                 if (position == adapter.data.size - 1){
-                    startSelectPicture()
+                    startSelectPicture(9 - imgAdapter.itemCount)
                 }
             }
             imgList.add("")
@@ -151,7 +151,8 @@ class DiaryDetailActivity: BaseActivity() {
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                     selectList.forEach { urlList.add(it.path) }
-                    imgAdapter.addData(0, urlList)
+                    imgAdapter.addData(imgAdapter.itemCount - 1, urlList)
+                    urlList.clear()
                 }
             }
         }

@@ -48,6 +48,31 @@ interface EBagService {
     fun albums(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<AlbumBean>>>
 
     /**
+     * 创建相册
+     */
+    @POST("clazz/addPhotos/{version}")
+    fun createAlbum(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+
+    /**
+     * 相册详情
+     */
+    @POST("clazz/queryPhotos/{version}")
+    fun albumDetail(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<PhotoBean>>>
+
+    /**
+     * 照片分享
+     */
+    @POST("clazz/sharePhoto/{version}")
+    fun photosShare(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 照片分享
+     */
+    @POST("clazz/deletePhoto/{version}")
+    fun photosDelete(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
      * 登录
      * @return
      */

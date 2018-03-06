@@ -17,6 +17,11 @@ public class AlbumBean {
         this.isAdd = isAdd;
     }
 
+    /**
+     * 需有默认的构造函数， 用以json解析框架
+     */
+    public AlbumBean(){}
+
     private boolean isAdd = false;
     private String photoGroupId;
     private String photosName;

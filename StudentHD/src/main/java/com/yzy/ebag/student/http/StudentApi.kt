@@ -156,9 +156,31 @@ object StudentApi{
         EBagApi.request(studentService.uploadRecord("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
+    /**
+     * 获取当前段落的录音历史
+     */
     fun recordHistory(languageId: String, callback: RequestCallBack<List<RecordHistory>>){
         val jsonObject = JSONObject()
         jsonObject.put("languageId", languageId)
         EBagApi.request(studentService.recordHistory("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**
+     * 学习小组列表
+     */
+    fun groups(classId: String, callback: RequestCallBack<ArrayList<GroupBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        EBagApi.request(studentService.groups("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 学习小组列表
+     */
+    fun groupMember(groupId: String, callback: RequestCallBack<ArrayList<GroupUserBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("groupId", groupId)
+        EBagApi.request(studentService.groupMember("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
 }

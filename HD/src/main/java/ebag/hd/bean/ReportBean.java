@@ -61,26 +61,26 @@ public class ReportBean {
          * errorCount : 3
          */
 
-        private String type;
-        private String typeName;
+        private String questionType;
+        private String questionTypeName;
         private int questionNum;
         private int errorCount;
         private float score;
 
-        public String getType() {
-            return type;
+        public String getQuestionType() {
+            return questionType;
         }
 
-        public void setType(String type) {
-            this.type = type;
+        public void setQuestionType(String questionType) {
+            this.questionType = questionType;
         }
 
-        public String getTypeName() {
-            return typeName;
+        public String getQuestionTypeName() {
+            return questionTypeName;
         }
 
-        public void setTypeName(String typeName) {
-            this.typeName = typeName;
+        public void setQuestionTypeName(String questionTypeName) {
+            this.questionTypeName = questionTypeName;
         }
 
         public int getQuestionNum() {

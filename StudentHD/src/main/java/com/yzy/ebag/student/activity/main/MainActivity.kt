@@ -9,6 +9,7 @@ import com.yzy.ebag.student.R
 import com.yzy.ebag.student.activity.SettingActivity
 import com.yzy.ebag.student.activity.account.InviteActivity
 import com.yzy.ebag.student.activity.center.PersonalActivity
+import com.yzy.ebag.student.activity.group.GroupListActivity
 import com.yzy.ebag.student.activity.homework.ErrorTopicActivity
 import com.yzy.ebag.student.activity.homework.HomeworkActivity
 import com.yzy.ebag.student.activity.tools.ToolsActivity
@@ -158,7 +159,11 @@ class MainActivity : MVPActivity(), MainView {
         }
         //学习小组
         llLearnGroup.setOnClickListener{
-
+            if(StringUtils.isEmpty(classId)) {
+                T.show(this, "请点击加载左侧班级数据！")
+            }else{
+                GroupListActivity.jump(this, classId)
+            }
         }
         //学习园地
         llLearnPlace.setOnClickListener{

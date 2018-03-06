@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -51,6 +52,8 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
     protected var mCurrentPage = 1
     protected lateinit var rootLayout: RelativeLayout
     protected lateinit var titleBar: TitleBar
+    protected lateinit var contentView: FrameLayout
+    protected lateinit var mRecyclerView: RecyclerView
 
     protected abstract fun loadConfig(intent: Intent)
 
@@ -141,6 +144,8 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
     }
 
     override fun initViews() {
+        mRecyclerView = recyclerView
+        contentView = content_view
         rootLayout = layout
         titleBar = titleView
         // 设置 recyclerView 的 Adapter

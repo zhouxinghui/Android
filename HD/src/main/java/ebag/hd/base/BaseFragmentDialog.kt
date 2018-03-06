@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.dialog
+package ebag.hd.base
 
 import android.content.Context
 import android.os.Bundle

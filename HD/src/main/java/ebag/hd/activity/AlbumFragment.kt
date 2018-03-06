@@ -3,6 +3,7 @@ package ebag.hd.activity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -10,6 +11,7 @@ import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.loadImage
 import ebag.hd.R
+import ebag.hd.base.AlbumAddDialog
 import ebag.hd.bean.AlbumBean
 import ebag.hd.http.EBagApi
 
@@ -22,9 +24,10 @@ class AlbumFragment: BaseListFragment<ArrayList<AlbumBean>, AlbumBean>() {
         const val CLASS_TYPE = "2"
         const val PERSONAL_TYPE = "3"
         const val HONOR_TYPE = "1"
-        fun newInstance(classId: String, groupType: String): AlbumFragment{
+        fun newInstance(role: Int, classId: String, groupType: String): AlbumFragment{
             val fragment = AlbumFragment()
             val bundle = Bundle()
+            bundle.putInt("role", role)
             bundle.putString("groupType", groupType)
             bundle.putString("classId", classId)
             fragment.arguments = bundle
@@ -34,9 +37,11 @@ class AlbumFragment: BaseListFragment<ArrayList<AlbumBean>, AlbumBean>() {
 
     lateinit var groupType: String
     lateinit var classId: String
+    var role: Int = BAlbumActivity.STUDENT
     override fun getBundle(bundle: Bundle?) {
         groupType = bundle?.getString("groupType") ?: ""
         classId = bundle?.getString("classId") ?: ""
+        role = bundle?.getInt("role") ?: BAlbumActivity.STUDENT
     }
 
     override fun loadConfig() {
@@ -55,8 +60,8 @@ class AlbumFragment: BaseListFragment<ArrayList<AlbumBean>, AlbumBean>() {
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: ArrayList<AlbumBean>?): ArrayList<AlbumBean>? {
-        if(isFirstPage)
-            parent?.add(AlbumBean(true))
+        if(isFirstPage && (role == BAlbumActivity.TEACHER || (role == BAlbumActivity.STUDENT && groupType == PERSONAL_TYPE)))
+            parent?.add(0, AlbumBean(true))
         return parent
     }
 
@@ -66,6 +71,28 @@ class AlbumFragment: BaseListFragment<ArrayList<AlbumBean>, AlbumBean>() {
 
     override fun getLayoutManager(adapter: BaseQuickAdapter<AlbumBean, BaseViewHolder>): RecyclerView.LayoutManager? {
         return GridLayoutManager(mContext, 6)
+    }
+
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+        adapter as Adapter
+        if(adapter.getItem(position)?.isAdd == true){
+            albumAddDialog.updateGroupType(groupType)
+            albumAddDialog.show(fragmentManager, "album_add")
+        }else{
+            AlbumDetailActivity.jump(mContext,
+                    classId,
+                    adapter.getItem(position)?.photoGroupId ?: "",
+                    adapter.getItem(position)?.photosName ?: "",
+                    groupType)
+        }
+    }
+
+    private val albumAddDialog by lazy {
+        val dialog = AlbumAddDialog.newInstance(role, classId)
+        dialog.successListener = {
+            onRefresh()
+        }
+        dialog
     }
 
     inner class Adapter: BaseQuickAdapter<AlbumBean, BaseViewHolder>(R.layout.item_fragment_album){

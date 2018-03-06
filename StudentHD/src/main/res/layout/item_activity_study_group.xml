@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_clickable_bg"
+    android:layout_margin="@dimen/x10">
+
+    <ImageView
+        android:id="@+id/ivHead"
+        android:layout_width="@dimen/x76"
+        android:layout_height="@dimen/x76"
+        android:layout_marginStart="@dimen/x14"
+        android:layout_marginTop="@dimen/x14"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/head_default" />
+
+    <View
+        android:id="@+id/moreIcon"
+        android:layout_width="@dimen/x12"
+        android:layout_height="@dimen/x20"
+        android:layout_marginEnd="@dimen/x14"
+        android:background="@drawable/right_arrow"
+        android:layout_marginTop="@dimen/x44"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/groupNameTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/x14"
+        android:layout_marginStart="@dimen/x24"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="@color/question_normal"
+        android:textSize="@dimen/x28"
+        app:layout_constraintEnd_toStartOf="@id/moreIcon"
+        app:layout_constraintStart_toEndOf="@id/ivHead"
+        app:layout_constraintTop_toTopOf="@id/ivHead"
+        tools:text="人教版" />
+
+    <TextView
+        android:id="@+id/studentCount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x12"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="#BCC1CA"
+        android:textSize="@dimen/x20"
+        app:layout_constraintEnd_toEndOf="@id/groupNameTv"
+        app:layout_constraintStart_toStartOf="@id/groupNameTv"
+        app:layout_constraintTop_toBottomOf="@id/groupNameTv"
+        tools:text="[添加时间：2017-07-25]" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/y1"
+        android:layout_marginTop="@dimen/x14"
+        android:layout_marginBottom="@dimen/x14"
+        android:background="@color/login_line"
+        app:layout_constraintEnd_toEndOf="@id/moreIcon"
+        app:layout_constraintStart_toStartOf="@id/ivHead"
+        app:layout_constraintTop_toBottomOf="@id/ivHead" />
+
+    <TextView
+        android:id="@+id/leaderTv"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/x54"
+        android:textSize="@dimen/x24"
+        android:textColor="#5B626D"
+        android:gravity="center_vertical"
+        android:text="haha"
+        android:drawablePadding="@dimen/x10"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintEnd_toEndOf="@id/line"/>
+
+    <View
+        android:id="@+id/tagView"
+        android:layout_width="@dimen/x26"
+        android:layout_height="@dimen/x28"
+        android:background="@drawable/icon_group_leader"
+        android:layout_marginEnd="@dimen/x10"
+        app:layout_constraintEnd_toStartOf="@id/leaderTv"
+        app:layout_constraintTop_toTopOf="@id/leaderTv"
+        app:layout_constraintBottom_toBottomOf="@id/leaderTv"/>
+
+</android.support.constraint.ConstraintLayout>
