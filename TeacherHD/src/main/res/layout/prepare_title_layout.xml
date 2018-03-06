@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--标题-->
+<RadioGroup android:id="@+id/titleGroup"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center"
+    >
+    <RadioButton android:id="@+id/schoolResource"
+        android:checked="true"
+        style="@style/correct_title_tv"
+        android:text="校产资源"
+        />
+    <RadioButton android:id="@+id/shareResource"
+        style="@style/correct_title_tv"
+        android:text="共享资源"
+        />
+</RadioGroup>

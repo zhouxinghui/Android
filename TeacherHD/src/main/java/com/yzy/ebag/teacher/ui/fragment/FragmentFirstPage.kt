@@ -22,13 +22,13 @@ import com.yzy.ebag.teacher.bean.FirstPageBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.ui.activity.AssignmentActivity
 import com.yzy.ebag.teacher.ui.activity.CorrectingActivity
+import com.yzy.ebag.teacher.ui.activity.MyPrepareActivity
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.loadImage
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
-import ebag.hd.activity.DisplayOfficeFileActivity
 import ebag.hd.ui.activity.BookListActivity
 import kotlinx.android.synthetic.main.fragment_first_page.*
 
@@ -73,7 +73,7 @@ class FragmentFirstPage : BaseFragment() {
                     .putExtra(Constants.ASSIGN_TITLE, getString(R.string.assign_system_test_paper)))
         }
         prepare.setOnClickListener {
-            DisplayOfficeFileActivity.jump(mContext)
+            MyPrepareActivity.jump(mContext)
         }
         checkHomework.setOnClickListener {
             startActivity(Intent(mContext, CorrectingActivity::class.java))

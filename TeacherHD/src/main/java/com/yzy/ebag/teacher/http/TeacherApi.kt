@@ -401,5 +401,34 @@ object TeacherApi {
         EBagApi.request(teacherService.uploadComment("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
+    /**
+     * 备课文件-首次进入的数据
+     */
+    fun prepareBaseData(prepareType: String, callback: RequestCallBack<PrepareBaseBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("share", prepareType)
+        EBagApi.request(teacherService.prepareBaseData("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 
+    /**
+     * 备课文件列表
+     */
+    fun prepareList(gradeCode: String, subCode: String, unitId: String, page: Int, pageSize: Int, callback: RequestCallBack<List<PrepareFileBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("gradeCode", gradeCode)
+        jsonObject.put("subCode", subCode)
+        jsonObject.put("unit", unitId)
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", pageSize)
+        EBagApi.request(teacherService.prepareList("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 删除指定备课文件
+     */
+    fun deletePrepareFile(id: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("id", id)
+        EBagApi.request(teacherService.deletePrepareFile("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }
