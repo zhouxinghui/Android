@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
+import com.luck.picture.lib.tools.PictureFileUtils
 import ebag.core.base.BaseActivity
 import ebag.core.util.*
 import ebag.hd.R
@@ -148,6 +149,7 @@ class PhotoUploadActivity: BaseActivity() {
 //                                activity.contentEdit.text.toString(),
 //                                activity.sb.substring(0, activity.sb.lastIndexOf(","))
 //                        )
+                        PictureFileUtils.deleteCacheDirFile(activity)//上传完毕之后删除本地缓存
                     }
                 }
                 Constants.UPLOAD_FAIL ->{

@@ -53,6 +53,18 @@ public class FileUtil {
             + File.separator;
 
     /**
+     * 备课文件保路径
+     * @return
+     */
+    public static String getPrepareFilePath(){
+        String path = EBAG_PATH
+                + "PrepareFile"
+                + File.separator;
+        if (!isFileExists(path))
+            createDir(path);
+        return path;
+    }
+    /**
      * 课本草稿保存路径
      * @return
      */

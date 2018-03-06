@@ -9,14 +9,14 @@ import com.luck.picture.lib.config.PictureMimeType
 /**
  * Created by YZY on 2018/1/17.
  */
-fun Activity.startSelectPicture(maxSelectNum: Int = 8, cropEnable: Boolean = false, circleCrop: Boolean = false){
+fun Activity.startSelectPicture(maxSelectNum: Int = 8, cropEnable: Boolean = false, circleCrop: Boolean = false, isMultiple: Boolean = true){
     PictureSelector.create(this)
             .openGallery(PictureMimeType.ofImage())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
 //            .theme(R.style.picture.default.style)//主题样式(不设置为默认样式) 也可参考demo values/styles下 例如：R.style.picture.white.style
             .maxSelectNum(maxSelectNum)// 最大图片选择数量 int
 //            .minSelectNum()// 最小选择数量 int
             .imageSpanCount(4)// 每行显示个数 int
-            .selectionMode(PictureConfig.MULTIPLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
+            .selectionMode(if (isMultiple) PictureConfig.MULTIPLE else PictureConfig.SINGLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
             .previewImage(true)// 是否可预览图片 true or false
 //            .previewVideo(true)// 是否可预览视频 true or false
 //            .enablePreviewAudio() // 是否可播放音频 true or false

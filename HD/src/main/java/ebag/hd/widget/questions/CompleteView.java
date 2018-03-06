@@ -59,7 +59,7 @@ public class CompleteView extends BaseQuestionView implements FillBlankView.OnBl
         switch (QuestionTypeUtils.getIntType(questionBean)) {
             case QuestionTypeUtils.QUESTIONS_COMPLETION_BY_VOICE://听录音填空
                 title.add("听录音填空");
-                title.add("#M#" + questionBean.getTitle());
+                title.add("#M#" + questionBean.getAudioUrl());
                 break;
             case QuestionTypeUtils.QUESTIONS_COMPLETION://填空题
             case QuestionTypeUtils.QUESTIONS_WRITE_WORD_BY_PIC://看图写单词

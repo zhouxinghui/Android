@@ -179,5 +179,27 @@ interface TeacherService {
     @POST("correctHome/correctComment/{version}")
     fun uploadComment(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
+    /**
+     * 备课-默认数据
+     */
+    @POST("util/getUnitAndCatalog/{version}")
+    fun prepareBaseData(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<PrepareBaseBean>>
 
+    /**
+     * 备课文件列表
+     */
+    @POST("clazzSpace/getLessonFileInfoByPage/{version}")
+    fun prepareList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<PrepareFileBean>>>
+
+    /**
+     * 删除指定备课文件
+     */
+    @POST("clazzSpace/delLessonFileInfoById/{version}")
+    fun deletePrepareFile(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 修改个人信息
+     */
+    @POST("user/modifyPersonalCenter/{version}")
+    fun modifyPersonalInfo(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 }
