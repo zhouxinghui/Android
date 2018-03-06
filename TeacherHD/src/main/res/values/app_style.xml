@@ -176,6 +176,7 @@
         <item name="android:background">@drawable/correct_title_tv_bg</item>
         <item name="android:layout_marginLeft">@dimen/x30</item>
         <item name="android:layout_marginRight">@dimen/x30</item>
+        <item name="android:gravity">center</item>
     </style>
     <!--检查作业end-->
     <!--创建班级start-->

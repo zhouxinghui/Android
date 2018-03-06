@@ -49,7 +49,7 @@ class HomeworkActivity : BaseListTabActivity<ArrayList<SubjectBean>, SubjectBean
 
             else -> {
                 setTitleContent(R.string.main_kssj)
-                enableNetWork(false)
+//                enableNetWork(false)
             }
         }
     }
@@ -59,9 +59,11 @@ class HomeworkActivity : BaseListTabActivity<ArrayList<SubjectBean>, SubjectBean
     }
 
     override fun parentToList(parent: ArrayList<SubjectBean>?): List<SubjectBean>? {
-        val bean = SubjectBean()
-        bean.itemType = 1
-        parent?.add(0, bean)
+        if(parent != null && parent.size > 0){
+            val bean = SubjectBean()
+            bean.itemType = 1
+            parent.add(0, bean)
+        }
         return parent
     }
 

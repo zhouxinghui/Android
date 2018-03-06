@@ -2,12 +2,14 @@ package com.yzy.ebag.teacher.ui.activity
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.AnimationDrawable
 import android.support.v7.widget.LinearLayoutManager
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -20,10 +22,9 @@ import ebag.core.bean.QuestionBean
 import ebag.core.bean.QuestionTypeUtils
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
-import ebag.core.util.DateUtil
-import ebag.core.util.LoadingDialogUtil
-import ebag.core.util.StringUtils
-import ebag.core.util.loadImage
+import ebag.core.util.*
+import ebag.core.xRecyclerView.adapter.OnItemChildClickListener
+import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
 import ebag.hd.widget.FlowLayout
 import ebag.hd.widget.TitleBar
 import ebag.hd.widget.questions.*
@@ -127,6 +128,10 @@ class CorrectingDescActivity : BaseActivity() {
             }
 
         })
+
+        answerAdapter.setOnItemChildClickListener { adapter, view, position ->
+            voicePlaySetting(view)
+        }
     }
     private fun setAnswerDesc(){
         questionNum.text = "第${currentQuestionIndex + 1}题/共${questionList?.size}题"
@@ -161,17 +166,18 @@ class CorrectingDescActivity : BaseActivity() {
             addItemType(QuestionTypeUtils.QUESTIONS_CHINESE_WRITE_BY_VOICE, R.layout.item_correcting_answer_normal)
         }
         override fun convert(helper: BaseViewHolder, item: CorrectAnswerBean) {
+            val isComplete = false
             val studentAnswer = item.studentAnswer
             helper.setText(R.id.studentName, item.studentName)
                     .setText(R.id.bagId, "书包号：${item.ysbCode}")
             if(StringUtils.isEmpty(studentAnswer)){
                 helper.getView<TextView>(R.id.commitTime).visibility = View.GONE
                 helper.setText(R.id.answerTv, "未完成")
-                helper.getView<TextView>(R.id.correctIcon).visibility = View.GONE
+//                helper.getView<TextView>(R.id.correctIcon).visibility = View.GONE
                 return
             }
             helper.getView<TextView>(R.id.commitTime).visibility = View.VISIBLE
-            helper.getView<TextView>(R.id.correctIcon).visibility = View.VISIBLE
+//            helper.getView<TextView>(R.id.correctIcon).visibility = View.VISIBLE
             helper.setText(R.id.commitTime, "提交时间：${DateUtil.getFormatDateTime(Date(item.endTime.toLong()), "yyyy-MM-dd HH:mm:ss")}")
             helper.setText(R.id.answerTv, "学生答案：")
             when(helper.itemViewType){
@@ -266,8 +272,15 @@ class CorrectingDescActivity : BaseActivity() {
                     }
                 }
                 //跟读
-                QuestionTypeUtils.QUESTIONS_FOLLOW_READ ->{
-
+                QuestionTypeUtils.QUESTIONS_FOLLOW_READ,QuestionTypeUtils.QUESTIONS_CHINESE_WRITE_BY_VOICE ->{
+                    val linearLayout = helper.getView<LinearLayout>(R.id.play_id)
+                    val imageView = helper.getView<ImageView>(R.id.image_id)
+                    val progressBar = helper.getView<ProgressBar>(R.id.progress_id)
+                    val drawable = imageView.background as AnimationDrawable
+                    linearLayout.setTag(ebag.hd.R.id.image_id, drawable)
+                    linearLayout.setTag(ebag.hd.R.id.progress_id, progressBar)
+                    linearLayout.setTag(ebag.hd.R.id.play_id, "#M#${item.studentAnswer}")
+                    helper.addOnClickListener(R.id.play_id)
                 }
                 QuestionTypeUtils.QUESTIONS_CHINESE_READ_UNDERSTAND,    //阅读理解
                 QuestionTypeUtils.QUESTION_MATH_APPLICATION,            //应用题
@@ -287,6 +300,71 @@ class CorrectingDescActivity : BaseActivity() {
             }
         }
     }
+    private val questionClickListener : QuestionItemChildClickListener by lazy { QuestionItemChildClickListener() }
+    private val voicePlayer : VoicePlayerOnline by lazy {
+        val player = VoicePlayerOnline(this)
+        player.setOnPlayChangeListener(object : VoicePlayerOnline.OnPlayChangeListener{
+            override fun onProgressChange(progress: Int) {
+                progressBar!!.progress = progress
+            }
+            override fun onCompletePlay() {
+                tempUrl = null
+                anim!!.stop()
+                anim!!.selectDrawable(0)
+                progressBar!!.progress = 0
+            }
+        })
+        player
+    }
+    private var anim : AnimationDrawable? = null
+    private var progressBar : ProgressBar? = null
+    private var tempUrl: String? = null
+
+    inner class QuestionItemChildClickListener : OnItemChildClickListener {
+        override fun onItemChildClick(holder: RecyclerViewHolder, view: View, position: Int) {
+            voicePlaySetting(view)
+        }
+    }
+    private fun voicePlaySetting(view: View){
+        var url : String = view.getTag(R.id.play_id) as String
+        url = url.substring(3, url.length)
+        if (StringUtils.isEmpty(url))
+            return
+        if (url != tempUrl){
+            if(anim != null) {
+                anim!!.stop()
+                anim!!.selectDrawable(0)
+                progressBar!!.progress = 0
+            }
+            anim = view.getTag(R.id.image_id) as AnimationDrawable
+            progressBar = view.getTag(R.id.progress_id) as ProgressBar
+            voicePlayer.playUrl(url)
+            anim!!.start()
+            tempUrl = url
+        }else{
+            if (voicePlayer.isPlaying && !voicePlayer.isPause){
+                voicePlayer.pause()
+                anim!!.stop()
+            }else{
+                voicePlayer.play()
+                anim!!.start()
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (voicePlayer.isPlaying && !voicePlayer.isPause) {
+            voicePlayer.pause()
+            anim!!.stop()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        voicePlayer.stop()
+    }
+
     private fun showQuestion(questionBean: QuestionBean){
         questionLayout.removeAllViews()
 
@@ -318,6 +396,7 @@ class CorrectingDescActivity : BaseActivity() {
             }
             QuestionTypeUtils.QUESTIONS_READ_ALOUD, QuestionTypeUtils.QUESTIONS_FOLLOW_READ->{
                 questionView = RecorderView(this)
+                questionView.setOnItemChildClickListener(questionClickListener)
             }
             QuestionTypeUtils.QUESTIONS_WRITE_COMPOSITION_BY_PIC,
             QuestionTypeUtils.QUESTIONS_CHINESE_SENTENCE,

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ebag.hd.widget.TitleBar
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="课程表"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/tagMorning"
+                android:layout_width="@dimen/x68"
+                android:layout_height="@dimen/y230"
+                android:background="@drawable/class_schedule_morning_bg"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x24"
+                android:text="@string/setting_about_us"
+                app:layout_constraintTop_toBottomOf="@id/tagMonday"
+                app:layout_constraintEnd_toStartOf="@id/tagMonday"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/tagAfternoon"
+                android:layout_width="@dimen/x68"
+                android:layout_height="@dimen/y230"
+                android:background="@drawable/class_schedule_afternoon_bg"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/y33"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x24"
+                android:text="@string/tuesday"
+                app:layout_constraintTop_toBottomOf="@id/tagMorning"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/tagMonday"
+                android:layout_width="@dimen/x220"
+                android:layout_height="@dimen/y68"
+                android:background="@drawable/class_schedule_monday_bg"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x24"
+                android:text="@string/tuesday"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tagMorning"
+                app:layout_constraintBottom_toTopOf="@id/tagMorning"/>
+
+            <TextView
+                android:id="@+id/tagTuesday"
+                android:layout_width="@dimen/x220"
+                android:layout_height="@dimen/y68"
+                android:background="@drawable/class_schedule_tuesday_bg"
+                android:layout_marginStart="@dimen/x1"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x24"
+                android:text="@string/tuesday"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tagMonday"/>
+
+            <TextView
+                android:id="@+id/tagWednesday"
+                android:layout_width="@dimen/x220"
+                android:layout_height="@dimen/y68"
+                android:background="@drawable/class_schedule_wednesday_bg"
+                android:layout_marginStart="@dimen/x1"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x24"
+                android:text="@string/tuesday"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tagTuesday"/>
+
+            <TextView
+                android:id="@+id/tagThursday"
+                android:layout_width="@dimen/x220"
+                android:layout_height="@dimen/y68"
+                android:background="@drawable/class_schedule_thursday_bg"
+                android:layout_marginStart="@dimen/x1"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x24"
+                android:text="@string/tuesday"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tagWednesday"/>
+
+            <TextView
+                android:id="@+id/tagFriday"
+                android:layout_width="@dimen/x220"
+                android:layout_height="@dimen/y68"
+                android:background="@drawable/class_schedule_friday_bg"
+                android:layout_marginStart="@dimen/x1"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x24"
+                android:text="@string/tuesday"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tagThursday"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvSchedule"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/tagMonday"
+                app:layout_constraintStart_toEndOf="@id/tagMorning"
+                app:layout_constraintEnd_toEndOf="@id/tagFriday"
+                app:layout_constraintBottom_toBottomOf="@id/tagAfternoon"/>
+        </android.support.constraint.ConstraintLayout>
+    </FrameLayout>
+
+
+</LinearLayout>

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -43,9 +44,9 @@ class MemberListActivity: BaseListActivity<ArrayList<GroupUserBean>, GroupUserBe
         titleBar.setTitle(groupBean?.groupName)
         loadMoreEnabled(false)
         refreshEnabled(false)
-        if(groupBean?.clazzUserVos != null){
-            withFirstPageData(groupBean?.clazzUserVos)
-        }
+//        if(groupBean?.clazzUserVos != null){
+//            withFirstPageData(groupBean?.clazzUserVos)
+//        }
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<ArrayList<GroupUserBean>>) {
@@ -62,6 +63,12 @@ class MemberListActivity: BaseListActivity<ArrayList<GroupUserBean>, GroupUserBe
 
     override fun getLayoutManager(adapter: BaseQuickAdapter<GroupUserBean, BaseViewHolder>): RecyclerView.LayoutManager? {
         return GridLayoutManager(this, 8)
+    }
+
+    private val dialog by lazy { MemberDetailDialog.newInstance() }
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        dialog.updateData((adapter as Adapter).getItem(position))
+        dialog.show(supportFragmentManager, "MemberDetail")
     }
 
     inner class Adapter: BaseQuickAdapter<GroupUserBean, BaseViewHolder>(R.layout.item_group_member){

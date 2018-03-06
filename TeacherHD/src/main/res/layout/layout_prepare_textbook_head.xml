@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:id="@+id/textbookLayout"
+    >
+    <TextView android:id="@+id/version_tv_id"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/assignment_tv_height"
+        android:gravity="center"
+        android:paddingLeft="@dimen/x15"
+        android:paddingRight="@dimen/x15"
+        android:text="@string/text_book"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="@color/title_text_color"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line1"
+        />
+    <!--教材版本-->
+    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/textBookVersion"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/y80"
+        android:paddingRight="@dimen/x10"
+        android:gravity="start|center_vertical"
+        android:textColor="@color/assignment_tv_sub"
+        android:textSize="@dimen/tv_sub"
+        android:maxLines="2"
+        android:ellipsize="end"
+        app:rightDrawable="@drawable/right_arrow"
+        app:rightDrawableWidth="@dimen/x13"
+        app:rightDrawableHeight="@dimen/x23"
+        app:layout_constraintTop_toBottomOf="@id/line1"
+        app:layout_constraintLeft_toRightOf="@id/version_tv_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+</android.support.constraint.ConstraintLayout>

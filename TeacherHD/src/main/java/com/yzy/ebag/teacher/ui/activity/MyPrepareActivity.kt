@@ -2,76 +2,184 @@ package com.yzy.ebag.teacher.ui.activity
 
 import android.content.Context
 import android.content.Intent
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
-import android.util.TypedValue
-import android.view.Gravity
 import android.view.View
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.bean.PrepareBaseBean
+import com.yzy.ebag.teacher.http.TeacherApi
+import com.yzy.ebag.teacher.ui.fragment.PrepareFragment
+import com.yzy.ebag.teacher.widget.PrepareSubjectPopup
+import com.yzy.ebag.teacher.widget.PrepareTextbookPopup
 import ebag.core.http.network.RequestCallBack
 import ebag.hd.adapter.UnitAdapter
 import ebag.hd.base.BaseListTabActivity
+import ebag.hd.bean.UnitBean
 
-class MyPrepareActivity : BaseListTabActivity<List<MultiItemEntity>, MultiItemEntity>() {
+class MyPrepareActivity : BaseListTabActivity<PrepareBaseBean, MultiItemEntity>() {
     companion object {
         fun jump(context: Context){
             context.startActivity(Intent(context, MyPrepareActivity::class.java))
         }
     }
+    private var type = "1"
+    private lateinit var subjectTv : TextView
+    private lateinit var textBookTv : TextView
+    private var parent: PrepareBaseBean? = null
+    private var unitId = ""
+    private var gradeCode = ""
+    private var subjectCode = ""
+    private var semesterCode = ""
+    private var textbookCode = ""
+    private val subjectPopup by lazy {
+        val popup = PrepareSubjectPopup(this)
+        popup.onSubjectSelectListener = { gradeCode, gradeName, subjectCode, SubjectName ->
+            this.gradeCode = gradeCode
+            this.subjectCode = subjectCode
+            subjectTv.text = "$gradeName $SubjectName"
+            fragment.notifyRequest(gradeCode, subjectCode, unitId)
+        }
+        popup
+    }
+    private val textbookPopup by lazy {
+        val popup = PrepareTextbookPopup(this)
+
+        popup
+    }
     override fun loadConfig() {
         titleBar.setTitle("教学课件")
-        titleBar.setRightText("资源库", {
-
-        })
-
-        val changeGradeTv = TextView(this)
-        changeGradeTv.text = "更换\n班级"
-        changeGradeTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.tv_normal))
-        changeGradeTv.setTextColor(resources.getColor(R.color.white))
-        changeGradeTv.setBackgroundResource(R.drawable.blue_oval)
-        changeGradeTv.gravity = Gravity.CENTER
-        val params = RelativeLayout.LayoutParams(resources.getDimensionPixelSize(R.dimen.x80), resources.getDimensionPixelSize(R.dimen.x80))
-        params.addRule(RelativeLayout.ALIGN_PARENT_END)
-        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
-        params.rightMargin = resources.getDimensionPixelSize(R.dimen.x20)
-        params.bottomMargin = resources.getDimensionPixelSize(R.dimen.y20)
-        changeGradeTv.layoutParams = params
-        addExtraView(changeGradeTv, 2)
-
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x368))
+
+        val subjectView = layoutInflater.inflate(R.layout.layout_prepare_subject_head, null)
+        addLeftHeaderView(subjectView)
+        subjectTv = subjectView.findViewById(R.id.subjectTv)
+        val subjectLayout = subjectView.findViewById<ConstraintLayout>(R.id.subjectLayout)
+        subjectTv.setOnClickListener { //更换科目
+            subjectPopup.showAsDropDown(subjectLayout)
+        }
+
+        val textBookView = layoutInflater.inflate(R.layout.layout_prepare_textbook_head, null)
+        addLeftHeaderView(textBookView)
+        textBookTv = textBookView.findViewById(R.id.textBookVersion)
+        val textbookLayout = textBookView.findViewById<ConstraintLayout>(R.id.textbookLayout)
+        textBookTv.setOnClickListener { //更换教材
+            textbookPopup.showAsDropDown(textbookLayout)
+        }
+        textBookView.visibility = View.GONE
+
+        val titleView = layoutInflater.inflate(R.layout.prepare_title_layout, null)
+        val titleGroup = titleView.findViewById<RadioGroup>(R.id.titleGroup)
+        titleGroup.setOnCheckedChangeListener { group, checkedId ->
+            when(checkedId){
+                R.id.schoolResource ->{
+                    type = "2"
+                }
+                R.id.shareResource ->{
+                    type = "3"
+                }
+            }
+            request()
+        }
+        val schoolResourceBtn = titleView.findViewById<RadioButton>(R.id.schoolResource)
+        val params = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.MATCH_PARENT)
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL)
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+        titleView.layoutParams = params
+        titleBar.addView(titleView)
+        titleView.visibility = View.GONE
+        titleBar.setRightText("资源库", {
+            if (titleView.visibility == View.GONE) {
+                titleView.visibility = View.VISIBLE
+                titleBar.setRightText("课件")
+                titleBar.setTitle("")
+                type = if (type == "1" && schoolResourceBtn.isChecked)
+                    "2"
+                else
+                    "3"
+                textBookView.visibility = View.VISIBLE
+            }else{
+                titleView.visibility = View.GONE
+                titleBar.setRightText("资源库")
+                titleBar.setTitle("教学课件")
+                type = "1"
+                textBookView.visibility = View.GONE
+            }
+            request()
+        })
     }
 
-    override fun requestData(requestCallBack: RequestCallBack<List<MultiItemEntity>>) {
-
+    override fun requestData(requestCallBack: RequestCallBack<PrepareBaseBean>) {
+        TeacherApi.prepareBaseData(type, requestCallBack)
     }
 
-    override fun parentToList(parent: List<MultiItemEntity>?): List<MultiItemEntity>? {
-        return parent
+    override fun parentToList(parent: PrepareBaseBean?): List<MultiItemEntity>? {
+        this.parent = parent
+        gradeCode = parent?.resultSubjectVo!!.gradeCode
+        subjectCode = parent.resultSubjectVo.subCode
+        subjectTv.text = "${parent?.resultSubjectVo?.gradeName} ${parent?.resultSubjectVo?.subject}"
+        if (type != "1") {
+            textBookTv.text = "${parent?.resultSubjectVo?.bookVersionName} ${parent?.resultSubjectVo?.semesterName}"
+            semesterCode = parent.resultSubjectVo.semesterCode
+            textbookCode = parent.resultSubjectVo.bookVersionId
+        }
+        return parent.resultSubjectVo?.resultBookUnitOrCatalogVos
     }
 
+    override fun firstPageDataLoad(result: List<MultiItemEntity>) {
+        super.firstPageDataLoad(result)
+        if (adapter.itemCount > 0) {
+            try {
+                val position = (0 until adapter.itemCount).first { adapter.getItem(it) is UnitBean }
+                adapter.selectSub = (adapter.getItem(position) as UnitBean).resultBookUnitOrCatalogVos[0]
+                adapter.expand(position)
+            }catch (e: Exception){
+
+            }
+        }
+    }
+
+    private lateinit var adapter: UnitAdapter
     override fun getLeftAdapter(): BaseQuickAdapter<MultiItemEntity, BaseViewHolder> {
-        return UnitAdapter()
+        adapter = UnitAdapter()
+        return adapter
     }
 
     override fun getLayoutManager(adapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>): RecyclerView.LayoutManager? {
         return null
     }
 
+    private lateinit var fragment: PrepareFragment
     override fun getFragment(pagerIndex: Int, adapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>): Fragment {
-        return Fragment()
+        fragment = PrepareFragment.newInstance(parent?.lessonFileInfoVos)
+        return fragment
     }
 
     override fun getViewPagerSize(adapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>): Int {
         return 1
     }
 
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {
+        val item = adapter.getItem(position)
+        if(item is UnitBean) {
+            if (item.isExpanded) {
+                adapter.collapse(position)
+            } else {
+                adapter.expand(position)
+            }
+        }else{
+            item as UnitBean.ChapterBean?
+            (adapter as UnitAdapter).selectSub = item
+            unitId = item?.unitCode!!
+            fragment.notifyRequest(gradeCode, subjectCode, unitId)
+        }
     }
 
 }

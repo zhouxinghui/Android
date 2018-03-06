@@ -7,23 +7,38 @@ import java.io.Serializable;
  */
 
 public class GroupUserBean implements Serializable{
+
     /**
-     * uid : 1592
-     * name : test学生
+     * uid : 5064d86cb55c4da4bf645af028cf7ea4
+     * name : 1号
      * subCode : null
      * duties : 3
      * rid : 1
      * roleName : null
-     * headUrl : http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/11/17675/ht/201708100307302
+     * headUrl : null
+     * sex : null
+     * birthday : null
+     * city : null
+     * county : null
+     * schoolName : null
+     * ysbCode : 10000118
+     * phone :
      */
 
     private String uid;
     private String name;
-    private Object subCode;
+    private String subCode;
     private String duties;
     private String rid;
-    private Object roleName;
+    private String roleName;
     private String headUrl;
+    private String sex;
+    private String birthday;
+    private String city;
+    private String county;
+    private String schoolName;
+    private String ysbCode;
+    private String phone;
 
     public String getUid() {
         return uid;
@@ -41,11 +56,11 @@ public class GroupUserBean implements Serializable{
         this.name = name;
     }
 
-    public Object getSubCode() {
+    public String getSubCode() {
         return subCode;
     }
 
-    public void setSubCode(Object subCode) {
+    public void setSubCode(String subCode) {
         this.subCode = subCode;
     }
 
@@ -65,11 +80,11 @@ public class GroupUserBean implements Serializable{
         this.rid = rid;
     }
 
-    public Object getRoleName() {
+    public String getRoleName() {
         return roleName;
     }
 
-    public void setRoleName(Object roleName) {
+    public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
 
@@ -79,5 +94,61 @@ public class GroupUserBean implements Serializable{
 
     public void setHeadUrl(String headUrl) {
         this.headUrl = headUrl;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
+    public String getSchoolName() {
+        return schoolName;
+    }
+
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
+    }
+
+    public String getYsbCode() {
+        return ysbCode;
+    }
+
+    public void setYsbCode(String ysbCode) {
+        this.ysbCode = ysbCode;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

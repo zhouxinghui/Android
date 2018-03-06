@@ -46,4 +46,14 @@
     <string name="about_us_desc">\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020云书包通过“互联网+教育”的平台搭建模式，
         平台打破了传统的教育信息化边界，为全国所有的中小学老师、学生、家长打造一个集家校沟通、教学管理、学习、分享、交流、评测于一体，
         以“人人通”的广泛、深度应用进一步体现“校校通”、“班班通”的综合效能；具有个性化、社会化、智能化、开放性特征的教育云平台。</string>
+
+
+    <!--课程表-->
+    <string name="monday">星期一</string>
+    <string name="tuesday">星期二</string>
+    <string name="wednesday">星期三</string>
+    <string name="thursday">星期四</string>
+    <string name="friday">星期五</string>
+    <string name="morning">上午</string>
+    <string name="afternoon">下午</string>
 </resources>

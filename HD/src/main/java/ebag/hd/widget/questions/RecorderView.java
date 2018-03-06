@@ -108,7 +108,7 @@ public class RecorderView extends BaseQuestionView {
         switch (QuestionTypeUtils.getIntType(questionBean)) {
             case QuestionTypeUtils.QUESTIONS_FOLLOW_READ://跟读作业
                 title.add(questionBean.getTitle());
-                title.add("#M#" + questionBean.getContent());
+                title.add("#M#" + questionBean.getAudioUrl());
                 break;
             case QuestionTypeUtils.QUESTIONS_READ_ALOUD://朗读作业
                 title.add(questionBean.getTitle());

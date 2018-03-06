@@ -116,7 +116,7 @@ interface StudentService {
     /**
      * 获取小组成员
      */
-    @POST("clazz/getMyClazzByGroup/{version}")
+    @POST("clazz/getClazzUserByGroup/{version}")
     fun groupMember(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<GroupUserBean>>>
 
 

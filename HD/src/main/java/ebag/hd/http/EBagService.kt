@@ -50,7 +50,7 @@ interface EBagService {
     /**
      * 创建相册
      */
-    @POST("clazz/addPhotos/{version}")
+    @POST("clazz/addAlbum/{version}")
     fun createAlbum(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
 
@@ -125,6 +125,14 @@ interface EBagService {
      */
     @POST("book/myBook/{version}")
     fun myBookList(@Path("version") version: String): Observable<ResponseBean<List<BookBean>>>
+
+    /**
+     * 课程表
+     */
+    @POST("clazzSpace/queryScheduleCard/{version}")
+    fun classSchedule(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<ClassScheduleBean>>>
+
+
 
     //TODO 接口名称，注意替换
     /**
