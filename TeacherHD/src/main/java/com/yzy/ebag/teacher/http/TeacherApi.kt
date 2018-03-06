@@ -431,4 +431,13 @@ object TeacherApi {
         jsonObject.put("id", id)
         EBagApi.request(teacherService.deletePrepareFile("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**
+     * 修改个人信息
+     */
+    fun modifyPersonalInfo(key: String, value: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put(key, value)
+        EBagApi.request(teacherService.modifyPersonalInfo("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

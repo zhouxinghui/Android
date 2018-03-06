@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
+import com.luck.picture.lib.tools.PictureFileUtils
 import ebag.core.base.BaseActivity
 import ebag.core.util.*
 import ebag.hd.R
@@ -71,7 +72,7 @@ abstract class BPublishContentActivity: BaseActivity() {
                 return@setOnItemClickListener
             }
             if (position == adapter.data.size - 1){
-                startSelectPicture()
+                startSelectPicture(9 - adapter.itemCount)
             }
         }
 
@@ -106,7 +107,8 @@ abstract class BPublishContentActivity: BaseActivity() {
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                     selectList.forEach { urlList.add(it.path) }
-                    imgAdapter.addData(0, urlList)
+                    imgAdapter.addData(imgAdapter.itemCount - 1, urlList)
+                    urlList.clear()
                 }
             }
         }
@@ -132,6 +134,7 @@ abstract class BPublishContentActivity: BaseActivity() {
                         activity.commit(
                                 activity.contentEdit.text.toString(),
                                 activity.sb.substring(0, activity.sb.lastIndexOf(",")))
+                        PictureFileUtils.deleteCacheDirFile(activity)
                     }
                 }
                 Constants.UPLOAD_FAIL ->{
