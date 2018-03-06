@@ -50,7 +50,7 @@ interface EBagService {
     /**
      * 创建相册
      */
-    @POST("clazz/addPhotos/{version}")
+    @POST("clazz/addAlbum/{version}")
     fun createAlbum(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
 
