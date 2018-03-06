@@ -57,10 +57,13 @@ class LoginSelectActivity : BaseActivity(), View.OnClickListener {
 
     fun judge(threeparty: String): SHARE_MEDIA {
         if ("QQ".equals(threeparty, true)) {
+            iv_thirdly.setImageResource(R.drawable.icon_third_party_login_qq)
             return SHARE_MEDIA.QQ
         } else if ("sina".equals(threeparty, true)) {
+            iv_thirdly.setImageResource(R.drawable.icon_third_party_login_micro_blog)
             return SHARE_MEDIA.SINA
         } else {
+            iv_thirdly.setImageResource(R.drawable.icon_third_party_login_weinxin)
             return SHARE_MEDIA.WEIXIN
         }
     }
@@ -72,6 +75,15 @@ class LoginSelectActivity : BaseActivity(), View.OnClickListener {
         iconurl = intent.getStringExtra("iconurl")
         gender = intent.getStringExtra("gender")
         shareMedia = intent.getStringExtra("share_media")
+        if ("QQ".equals(shareMedia, true)) {
+            iv_thirdly.setImageResource(R.drawable.icon_third_party_login_qq)
+        } else if ("sina".equals(shareMedia, true)) {
+            iv_thirdly.setImageResource(R.drawable.icon_third_party_login_micro_blog)
+        } else {
+            iv_thirdly.setImageResource(R.drawable.icon_third_party_login_weinxin)
+
+        }
+
         btn_create.setOnClickListener(this)
         btn_binding.setOnClickListener(this)
         back_text.setOnClickListener(this)
