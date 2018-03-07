@@ -43,7 +43,7 @@ class TopicListFragment: BaseListFragment<List<ErrorTopicBean>, ErrorTopicBean.E
     }
 
     override fun getPageSize(): Int {
-        return 1
+        return 10
     }
 
     override fun getBundle(bundle: Bundle?) {

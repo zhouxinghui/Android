@@ -106,6 +106,10 @@ public abstract class ListBottomShowDialog<SourceData> extends Dialog implements
         return this;
     }
 
+    public void setData(List<SourceData> mData){
+        adapter.setNewData(mData);
+    }
+
     public void show(List<SourceData> mData) {
         adapter.setNewData(mData);
         super.show();

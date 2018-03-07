@@ -62,5 +62,5 @@
     <color name="unit_text_normal_color">#5B5852</color>
     <color name="unit_text_selected_color">#70AEFF</color>
 
-    <color name="schedule_line_color">#B8B8B8</color>
+    <color name="schedule_line_color">#979797</color>
 </resources>

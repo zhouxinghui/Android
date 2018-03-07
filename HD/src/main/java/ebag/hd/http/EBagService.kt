@@ -2,6 +2,7 @@ package ebag.hd.http
 
 import ebag.core.bean.ResponseBean
 import ebag.hd.bean.*
+import ebag.hd.bean.response.BaseInfoEntity
 import ebag.hd.bean.response.NoticeBean
 import ebag.hd.bean.response.UserEntity
 import io.reactivex.Observable
@@ -130,9 +131,19 @@ interface EBagService {
      * 课程表
      */
     @POST("clazzSpace/queryScheduleCard/{version}")
-    fun classSchedule(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<ClassScheduleBean>>>
+    fun classSchedule(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ClassScheduleBean>>
 
+    /**
+     * 编辑课程表
+     */
+    @POST("clazzSpace/addScheduleCard/{version}")
+    fun editSchedule(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
+    /**
+     * 编辑课程表
+     */
+    @POST("data/queryBaserData/{version}")
+    fun getBaseInfo(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<BaseInfoEntity>>>
 
     //TODO 接口名称，注意替换
     /**

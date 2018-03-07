@@ -5,6 +5,8 @@ import ebag.core.bean.ResponseBean
 import ebag.core.http.baseBean.RequestBean
 import ebag.core.http.network.*
 import ebag.hd.bean.*
+import ebag.hd.bean.request.ClassScheduleEditVo
+import ebag.hd.bean.response.BaseInfoEntity
 import ebag.hd.bean.response.NoticeBean
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagClient.eBagService
@@ -251,9 +253,26 @@ object EBagApi {
     /**
      * 课程表
      */
-    fun classSchedule(classId: String, callback: RequestCallBack<ArrayList<ClassScheduleBean>>){
+    fun classSchedule(classId: String, callback: RequestCallBack<ClassScheduleBean>){
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
         EBagApi.request(eBagService.classSchedule("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 编辑课程表
+     */
+    fun editSchedule(schedulesVo: ClassScheduleEditVo, callback: RequestCallBack<String>){
+        EBagApi.request(eBagService.editSchedule("v1", EBagApi.createBody(JSON.toJSONString(schedulesVo))), callback)
+    }
+
+    /**
+     * 获取基础数据信息
+     * subject 科目信息
+     */
+    fun getBaseInfo(groupCode: String, callback: RequestCallBack<ArrayList<BaseInfoEntity>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("groupCode", groupCode)
+        EBagApi.request(eBagService.getBaseInfo("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

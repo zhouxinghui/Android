@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/x160"
+    android:layout_height="@dimen/x55"
+    android:orientation="horizontal"
+    android:gravity="center">
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/x50"
+        tools:text="英语"
+        android:gravity="center"
+        android:textSize="@dimen/x24"
+        android:textColor="#37394c"
+        />
+    <ImageView
+        android:id="@+id/arrowView"
+        android:layout_width="@dimen/x16"
+        android:layout_height="@dimen/x10"
+        android:layout_marginStart="@dimen/x15"
+        android:src="@drawable/icon_class_schedule_arrow"/>
+</LinearLayout>
+

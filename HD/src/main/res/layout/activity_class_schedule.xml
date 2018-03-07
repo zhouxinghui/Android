@@ -2,7 +2,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -13,15 +12,17 @@
         android:layout_height="wrap_content"
         app:titleText="课程表"/>
 
-    <FrameLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/x10">
+        android:layout_height="match_parent">
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_class_schedule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:paddingStart="@dimen/x70"
+            android:paddingEnd="@dimen/x70"
+            android:paddingTop="@dimen/x10"
+            android:paddingBottom="@dimen/x10"
             android:orientation="vertical"
             android:gravity="end">
             <LinearLayout
@@ -32,19 +33,21 @@
                 app:layout_constraintEnd_toEndOf="parent">
                 <TextView
                     android:id="@+id/tagMonday"
-                    android:layout_width="@dimen/x125"
+                    android:layout_width="@dimen/x126"
                     android:layout_height="@dimen/x59"
                     android:background="@drawable/class_schedule_monday_bg"
+                    android:layout_marginEnd="@dimen/x32"
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:textSize="@dimen/x24"
-                    android:text="@string/tuesday"/>
+                    android:text="@string/monday"/>
 
                 <TextView
                     android:id="@+id/tagTuesday"
-                    android:layout_width="@dimen/x125"
+                    android:layout_width="@dimen/x126"
                     android:layout_height="@dimen/x59"
                     android:background="@drawable/class_schedule_tuesday_bg"
+                    android:layout_marginEnd="@dimen/x32"
                     android:layout_marginStart="@dimen/x1"
                     android:gravity="center"
                     android:textColor="@color/white"
@@ -53,80 +56,334 @@
 
                 <TextView
                     android:id="@+id/tagWednesday"
-                    android:layout_width="@dimen/x125"
+                    android:layout_width="@dimen/x126"
                     android:layout_height="@dimen/x59"
                     android:background="@drawable/class_schedule_wednesday_bg"
+                    android:layout_marginEnd="@dimen/x32"
                     android:layout_marginStart="@dimen/x1"
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:textSize="@dimen/x24"
-                    android:text="@string/tuesday"/>
+                    android:text="@string/wednesday"/>
 
                 <TextView
                     android:id="@+id/tagThursday"
-                    android:layout_width="@dimen/x125"
+                    android:layout_width="@dimen/x126"
                     android:layout_height="@dimen/x59"
                     android:background="@drawable/class_schedule_thursday_bg"
+                    android:layout_marginEnd="@dimen/x32"
                     android:layout_marginStart="@dimen/x1"
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:textSize="@dimen/x24"
-                    android:text="@string/tuesday"/>
+                    android:text="@string/thursday"/>
 
                 <TextView
                     android:id="@+id/tagFriday"
-                    android:layout_width="@dimen/x125"
+                    android:layout_width="@dimen/x126"
                     android:layout_height="@dimen/x59"
                     android:background="@drawable/class_schedule_friday_bg"
+                    android:layout_marginEnd="@dimen/x16"
                     android:layout_marginStart="@dimen/x1"
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:textSize="@dimen/x24"
-                    android:text="@string/tuesday"/>
+                    android:text="@string/friday"/>
             </LinearLayout>
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/x550"
+                android:layout_marginTop="@dimen/x10"
                 android:background="@drawable/bg_class_schedule_stroke">
+                <View
+                    android:layout_width="@dimen/x781"
+                    android:layout_height="@dimen/x539"
+                    android:background="@drawable/bg_class_schedule"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
                 <TextView
                     android:id="@+id/tagMorning"
-                    android:layout_width="@dimen/x68"
-                    android:layout_height="@dimen/y230"
+                    android:layout_width="@dimen/x139"
+                    android:layout_height="0dp"
                     android:gravity="center"
-                    android:textColor="#47495E"
-                    android:textSize="@dimen/x24"
+                    android:textColor="#37394c"
+                    android:textSize="@dimen/x30"
                     android:text="上午"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toTopOf="@id/tagAfternoon"/>
                 <TextView
                     android:id="@+id/tagAfternoon"
-                    android:layout_width="@dimen/x68"
-                    android:layout_height="@dimen/y230"
+                    android:layout_width="@dimen/x139"
+                    android:layout_height="0dp"
                     android:gravity="center"
-                    android:layout_marginTop="@dimen/y33"
-                    android:textColor="#47495E"
-                    android:textSize="@dimen/x24"
+                    android:textColor="#37394c"
+                    android:textSize="@dimen/x30"
                     android:text="下午"
                     app:layout_constraintTop_toBottomOf="@id/tagMorning"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"/>
                 <View
+                    android:id="@+id/vLine1"
                     android:layout_width="@dimen/class_schedule_table_width"
                     android:layout_height="match_parent"
                     android:background="@color/schedule_line_color"
                     app:layout_constraintStart_toEndOf="@id/tagMorning"/>
 
                 <View
+                    android:id="@+id/middleLine"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/class_schedule_table_width"
                     android:background="@color/schedule_line_color"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
+                <View
+                    android:id="@+id/hLine1"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/class_schedule_table_width"
+                    android:background="@color/schedule_line_color"
+                    app:layout_constraintStart_toEndOf="@id/tagMorning"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/hLine2"/>
+
+                <View
+                    android:id="@+id/hLine2"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/class_schedule_table_width"
+                    android:background="@color/schedule_line_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/hLine1"
+                    app:layout_constraintTop_toBottomOf="@id/hLine1"
+                    app:layout_constraintBottom_toTopOf="@id/hLine3"/>
+
+                <View
+                    android:id="@+id/hLine3"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/class_schedule_table_width"
+                    android:background="@color/schedule_line_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/hLine1"
+                    app:layout_constraintTop_toBottomOf="@id/hLine2"
+                    app:layout_constraintBottom_toTopOf="@id/hLine4"/>
+
+                <View
+                    android:id="@+id/hLine4"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/class_schedule_table_width"
+                    android:background="@color/schedule_line_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/hLine1"
+                    app:layout_constraintTop_toBottomOf="@id/hLine3"
+                    app:layout_constraintBottom_toBottomOf="@id/middleLine"/>
+
+                <View
+                    android:id="@+id/hLine6"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/class_schedule_table_width"
+                    android:background="@color/schedule_line_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/hLine1"
+                    app:layout_constraintTop_toTopOf="@id/middleLine"
+                    app:layout_constraintBottom_toTopOf="@id/hLine7"/>
+
+                <View
+                    android:id="@+id/hLine7"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/class_schedule_table_width"
+                    android:background="@color/schedule_line_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/hLine1"
+                    app:layout_constraintTop_toBottomOf="@id/hLine6"
+                    app:layout_constraintBottom_toTopOf="@id/hLine8"/>
+
+                <View
+                    android:id="@+id/hLine8"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/class_schedule_table_width"
+                    android:background="@color/schedule_line_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/hLine1"
+                    app:layout_constraintTop_toBottomOf="@id/hLine7"
+                    app:layout_constraintBottom_toTopOf="@id/hLine9"/>
+
+                <View
+                    android:id="@+id/hLine9"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/class_schedule_table_width"
+                    android:background="@color/schedule_line_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/hLine1"
+                    app:layout_constraintTop_toBottomOf="@id/hLine8"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tvClassTime1"
+                    android:layout_width="@dimen/x200"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:textColor="#5b626d"
+                    android:textSize="@dimen/x20"
+                    android:text="早自习"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/hLine1"
+                    app:layout_constraintStart_toEndOf="@id/vLine1"/>
+                <TextView
+                    android:id="@+id/tvClassTime2"
+                    android:layout_width="@dimen/x200"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:textColor="#5b626d"
+                    android:textSize="@dimen/x20"
+                    android:text="第一节"
+                    app:layout_constraintTop_toBottomOf="@id/hLine1"
+                    app:layout_constraintBottom_toTopOf="@id/hLine2"
+                    app:layout_constraintStart_toEndOf="@id/vLine1"/>
+                <TextView
+                    android:id="@+id/tvClassTime3"
+                    android:layout_width="@dimen/x200"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:textColor="#5b626d"
+                    android:textSize="@dimen/x20"
+                    android:text="第二节"
+                    app:layout_constraintTop_toBottomOf="@id/hLine2"
+                    app:layout_constraintBottom_toTopOf="@id/hLine3"
+                    app:layout_constraintStart_toEndOf="@id/vLine1"/>
+                <TextView
+                    android:id="@+id/tvClassTime4"
+                    android:layout_width="@dimen/x200"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:textColor="#5b626d"
+                    android:textSize="@dimen/x20"
+                    android:text="第三节"
+                    app:layout_constraintTop_toBottomOf="@id/hLine3"
+                    app:layout_constraintBottom_toTopOf="@id/hLine4"
+                    app:layout_constraintStart_toEndOf="@id/vLine1"/>
+                <TextView
+                    android:id="@+id/tvClassTime5"
+                    android:layout_width="@dimen/x200"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:textColor="#5b626d"
+                    android:textSize="@dimen/x20"
+                    android:text="第四节"
+                    app:layout_constraintTop_toBottomOf="@id/hLine4"
+                    app:layout_constraintBottom_toTopOf="@id/middleLine"
+                    app:layout_constraintStart_toEndOf="@id/vLine1"/>
+                <TextView
+                    android:id="@+id/tvClassTime6"
+                    android:layout_width="@dimen/x200"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:textColor="#5b626d"
+                    android:textSize="@dimen/x20"
+                    android:text="第五节"
+                    app:layout_constraintTop_toBottomOf="@id/middleLine"
+                    app:layout_constraintBottom_toTopOf="@id/hLine6"
+                    app:layout_constraintStart_toEndOf="@id/vLine1"/>
+                <TextView
+                    android:id="@+id/tvClassTime7"
+                    android:layout_width="@dimen/x200"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:textColor="#5b626d"
+                    android:textSize="@dimen/x20"
+                    android:text="第六节"
+                    app:layout_constraintTop_toBottomOf="@id/hLine6"
+                    app:layout_constraintBottom_toTopOf="@id/hLine7"
+                    app:layout_constraintStart_toEndOf="@id/vLine1"/>
+                <TextView
+                    android:id="@+id/tvClassTime8"
+                    android:layout_width="@dimen/x200"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:textColor="#5b626d"
+                    android:textSize="@dimen/x20"
+                    android:text="第七节"
+                    app:layout_constraintTop_toBottomOf="@id/hLine7"
+                    app:layout_constraintBottom_toTopOf="@id/hLine8"
+                    app:layout_constraintStart_toEndOf="@id/vLine1"/>
+                <TextView
+                    android:id="@+id/tvClassTime9"
+                    android:layout_width="@dimen/x200"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:textColor="#5b626d"
+                    android:textSize="@dimen/x20"
+                    android:text="第八节"
+                    app:layout_constraintTop_toBottomOf="@id/hLine8"
+                    app:layout_constraintBottom_toTopOf="@id/hLine9"
+                    app:layout_constraintStart_toEndOf="@id/vLine1"/>
+                <TextView
+                    android:id="@+id/tvClassTime10"
+                    android:layout_width="@dimen/x200"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:textColor="#5b626d"
+                    android:textSize="@dimen/x20"
+                    android:text="第九节"
+                    app:layout_constraintTop_toBottomOf="@id/hLine9"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/vLine1"/>
+
+                <View
+                    android:id="@+id/vLine2"
+                    android:layout_width="@dimen/class_schedule_table_width"
+                    android:layout_height="match_parent"
+                    android:background="@color/schedule_line_color"
+                    app:layout_constraintStart_toEndOf="@id/tvClassTime1"/>
+                <View
+                    android:id="@+id/vLine3"
+                    android:layout_width="@dimen/class_schedule_table_width"
+                    android:layout_height="match_parent"
+                    android:background="@color/schedule_line_color"
+                    app:layout_constraintStart_toEndOf="@id/vLine2"
+                    app:layout_constraintEnd_toStartOf="@id/vLine4"/>
+                <View
+                    android:id="@+id/vLine4"
+                    android:layout_width="@dimen/class_schedule_table_width"
+                    android:layout_height="match_parent"
+                    android:background="@color/schedule_line_color"
+                    app:layout_constraintStart_toEndOf="@id/vLine3"
+                    app:layout_constraintEnd_toStartOf="@id/vLine5"/>
+                <View
+                    android:id="@+id/vLine5"
+                    android:layout_width="@dimen/class_schedule_table_width"
+                    android:layout_height="match_parent"
+                    android:background="@color/schedule_line_color"
+                    app:layout_constraintStart_toEndOf="@id/vLine4"
+                    app:layout_constraintEnd_toStartOf="@id/vLine6"/>
+                <View
+                    android:id="@+id/vLine6"
+                    android:layout_width="@dimen/class_schedule_table_width"
+                    android:layout_height="match_parent"
+                    android:background="@color/schedule_line_color"
+                    app:layout_constraintStart_toEndOf="@id/vLine5"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/scheduleRecycler"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="@id/vLine2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <ebag.core.widget.empty.StateView
+                    android:id="@+id/stateView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
             </android.support.constraint.ConstraintLayout>
 
         </LinearLayout>
-    </FrameLayout>
-
-
+    </ScrollView>
 </LinearLayout>

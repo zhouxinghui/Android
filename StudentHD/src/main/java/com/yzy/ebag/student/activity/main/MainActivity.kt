@@ -22,6 +22,7 @@ import ebag.core.util.SerializableUtils
 import ebag.core.util.StringUtils
 import ebag.core.util.T
 import ebag.core.util.loadHead
+import ebag.hd.activity.ClassScheduleActivity
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.ui.activity.BookListActivity
@@ -151,7 +152,11 @@ class MainActivity : MVPActivity(), MainView {
         }
         //课程表
         tvKCB.setOnClickListener{
-
+            if(StringUtils.isEmpty(classId)) {
+                T.show(this, "请点击加载左侧班级数据！")
+            }else{
+                ClassScheduleActivity.jump(this,classId)
+            }
         }
         //设置
         tvSetup.setOnClickListener{

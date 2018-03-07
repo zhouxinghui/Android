@@ -15,15 +15,21 @@
             android:screenOrientation="landscape"
             />
 
-        <activity android:name="ebag.hd.activity.PhotoUploadActivity"
-            android:screenOrientation="landscape"
-            android:label="@string/app_name"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden">
+        <!--<activity android:name="ebag.hd.activity.ClassScheduleActivity"-->
+            <!--android:screenOrientation="landscape"-->
+            <!--android:label="@string/app_name"-->
+            <!--android:windowSoftInputMode="adjustUnspecified|stateHidden">-->
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
 
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
+        <!--</activity>-->
+        <activity android:name="ebag.hd.activity.PhotoUploadActivity"
+            android:screenOrientation="landscape"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden">
+
         </activity>
         <activity android:name=".activity.WelcomeActivity"
             android:screenOrientation="landscape"
