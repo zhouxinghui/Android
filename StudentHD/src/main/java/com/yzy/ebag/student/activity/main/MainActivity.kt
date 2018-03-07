@@ -47,6 +47,7 @@ class MainActivity : MVPActivity(), MainView {
     override fun onResume() {
         super.onResume()
         checkUpdate(Constants.UPDATE_STUDENT, false)
+        getMainClassInfo()
     }
 
     override fun initViews() {
