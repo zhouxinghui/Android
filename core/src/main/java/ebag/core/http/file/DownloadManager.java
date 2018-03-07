@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import ebag.core.http.network.MsgException;
 import ebag.core.util.IOUtil;
+import ebag.core.util.StringUtils;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -59,6 +60,10 @@ public class DownloadManager {
      * @param downLoadObserver 用来回调的接口
      */
     public void download(String url, final String savePath, DownLoadObserver downLoadObserver) {
+        download(url, savePath, null, downLoadObserver);
+    }
+
+    public void download(String url, final String savePath, final String fileName, DownLoadObserver downLoadObserver) {
 //        Observable.just(url)
 //                .filter(s -> !downCalls.containsKey(s))//call的map已经有了,就证明正在下载,则这次不下载
 //                .flatMap(s -> Observable.just(createDownInfo(s)))
@@ -67,7 +72,6 @@ public class DownloadManager {
 //                .observeOn(AndroidSchedulers.mainThread())//在主线程回调
 //                .subscribeOn(Schedulers.io())//在子线程执行
 //                .subscribe(downLoadObserver);//添加观察者
-
         Observable.just(url)
                 .filter(new Predicate<String>() {//call的map已经有了,就证明正在下载,则这次不下载
                     @Override
@@ -78,7 +82,7 @@ public class DownloadManager {
                 .flatMap(new Function<String, ObservableSource<DownloadInfo>>() {
                     @Override
                     public ObservableSource<DownloadInfo> apply(@NonNull String s) throws Exception {
-                        return Observable.just(createDownInfo(s));
+                        return Observable.just(createDownInfo(s, fileName));
                     }
                 })
                 .map(new Function<DownloadInfo, DownloadInfo>() {//检测本地文件夹,生成新的文件名
@@ -113,11 +117,13 @@ public class DownloadManager {
      * @param url 请求网址
      * @return DownInfo
      */
-    private DownloadInfo createDownInfo(String url) {
+    private DownloadInfo createDownInfo(String url, String fileName) {
         DownloadInfo downloadInfo = new DownloadInfo(url);
         long contentLength = getContentLength(url);//获得文件大小
         downloadInfo.setTotal(contentLength);
-        String fileName = url.substring(url.lastIndexOf("/") + 1);
+        if (StringUtils.INSTANCE.isEmpty(fileName)){
+            fileName = url.substring(url.lastIndexOf("/") + 1);
+        }
         downloadInfo.setFileName(fileName);
         return downloadInfo;
     }

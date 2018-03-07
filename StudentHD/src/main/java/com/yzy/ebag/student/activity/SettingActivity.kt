@@ -11,7 +11,7 @@ import ebag.core.base.BaseActivity
 import ebag.core.util.SerializableUtils
 import ebag.core.util.T
 import ebag.hd.base.Constants
-import ebag.hd.dialog.UpdateDialog
+import ebag.hd.util.checkUpdate
 import kotlinx.android.synthetic.main.activity_setting.*
 
 /**
@@ -41,8 +41,7 @@ class SettingActivity: BaseActivity(), View.OnClickListener {
             }
 
             R.id.updateBtn -> {
-                val dialog = UpdateDialog()
-                dialog.show(supportFragmentManager,"update")
+                checkUpdate(Constants.UPDATE_STUDENT)
             }
 
             R.id.announceBtn -> {

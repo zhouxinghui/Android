@@ -14,10 +14,12 @@ import ebag.core.base.BaseActivity
 import ebag.core.util.AppManager
 import ebag.core.util.T
 import ebag.hd.base.Constants
+import ebag.hd.util.checkUpdate
 import kotlinx.android.synthetic.main.activity_setting.*
 
 class SettingActivity : BaseActivity(), View.OnClickListener{
     override fun getLayoutId(): Int { return R.layout.activity_setting }
+
 
     override fun initViews() {
         versionUpdate.setOnClickListener(this)
@@ -29,7 +31,7 @@ class SettingActivity : BaseActivity(), View.OnClickListener{
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.versionUpdate ->{
-                T.show(this, "版本更新")
+                checkUpdate(Constants.UPDATE_TEACHER)
             }
             R.id.officeNotice ->{
                 T.show(this, "官方公告")
@@ -51,7 +53,7 @@ class SettingActivity : BaseActivity(), View.OnClickListener{
             }
         }
     }
-    fun cancelThreeParty(share_media: SHARE_MEDIA) {
+    fun  cancelThreeParty(share_media: SHARE_MEDIA) {
         UMShareAPI.get(this).deleteOauth(this, share_media, object : UMAuthListener {
             override fun onComplete(p0: SHARE_MEDIA?, p1: Int, p2: MutableMap<String, String>?) {
                 Log.d("取消授权成功")

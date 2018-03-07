@@ -132,7 +132,12 @@ interface EBagService {
     @POST("clazzSpace/queryScheduleCard/{version}")
     fun classSchedule(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<ClassScheduleBean>>>
 
-
+    /**
+     * 检查版本更新
+     */
+    @Headers("EBag-Special-Url: special/url")
+    @POST("user/MobileAPPVersion/{version}")
+    fun checkUpdate(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<VersionUpdateBean>>
 
     //TODO 接口名称，注意替换
     /**

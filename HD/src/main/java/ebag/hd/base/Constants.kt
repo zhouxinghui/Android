@@ -32,4 +32,6 @@ object Constants {
     val CORRECT_TEACHER_REMARKED = "3"
     val CORRECT_PARENT_REMARKED = "4"
 
+    val UPDATE_TEACHER = "teacher"
+    val UPDATE_STUDENT = "student"
 }

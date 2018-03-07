@@ -256,4 +256,15 @@ object EBagApi {
         jsonObject.put("classId", classId)
         EBagApi.request(eBagService.classSchedule("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**
+     * 检查版本更新
+     */
+    fun checkUpdate(roleName: String, versionCode: String, callback: RequestCallBack<VersionUpdateBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("type", "3")
+        jsonObject.put("versionCode", roleName)
+        jsonObject.put("versionNumber", versionCode)
+        EBagApi.request(eBagService.checkUpdate("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }
