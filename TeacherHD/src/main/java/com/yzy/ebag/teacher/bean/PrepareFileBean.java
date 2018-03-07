@@ -1,10 +1,12 @@
 package com.yzy.ebag.teacher.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by YZY on 2018/3/5.
  */
 
-public class PrepareFileBean {
+public class PrepareFileBean implements Serializable{
     /**
      * id : 1
      * teacherId : 1727

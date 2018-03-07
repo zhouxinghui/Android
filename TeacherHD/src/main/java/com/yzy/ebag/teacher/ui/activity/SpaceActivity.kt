@@ -7,6 +7,7 @@ import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.base.Constants
 import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.base.BaseActivity
+import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.DateUtil
@@ -27,9 +28,10 @@ class SpaceActivity : BaseActivity(), View.OnClickListener {
             showContent(false, entity)
         }
         override fun onError(exception: Throwable) {
-            exception.handleThrowable(this@SpaceActivity, false, {_ ->
+            if(exception is MsgException)
                 showContent(true, null)
-            })
+            else
+                exception.handleThrowable(this@SpaceActivity)
         }
     }
     lateinit var classId: String

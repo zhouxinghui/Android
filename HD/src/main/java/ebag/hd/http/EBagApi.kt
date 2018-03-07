@@ -270,9 +270,20 @@ object EBagApi {
      * 获取基础数据信息
      * subject 科目信息
      */
-    fun getBaseInfo(groupCode: String, callback: RequestCallBack<ArrayList<BaseInfoEntity>>){
+    fun getBaseInfo(groupCode: String, callback: RequestCallBack<ArrayList<BaseInfoEntity>>) {
         val jsonObject = JSONObject()
         jsonObject.put("groupCode", groupCode)
         EBagApi.request(eBagService.getBaseInfo("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 检查版本更新
+     */
+    fun checkUpdate(roleName: String, versionCode: String, callback: RequestCallBack<VersionUpdateBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("type", "3")
+        jsonObject.put("versionCode", roleName)
+        jsonObject.put("versionNumber", versionCode)
+        EBagApi.request(eBagService.checkUpdate("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

@@ -9,7 +9,6 @@ import ebag.core.util.StringUtils
 import ebag.core.util.T
 import ebag.hd.R
 import ebag.hd.dialog.MsgDialogFragment
-import ebag.hd.dialog.UpdateDialog
 import ebag.hd.ui.presenter.CodePresenter
 import ebag.hd.ui.presenter.ForgetPresenter
 import ebag.hd.ui.view.CodeView
@@ -127,9 +126,6 @@ abstract class BForgetActivity : MVPActivity(), CodeView, ForgetView {
                 pwdEdit.transformationMethod = PasswordTransformationMethod.getInstance()
             }
         }
-
-        var updateDialog = UpdateDialog()
-        updateDialog.show(supportFragmentManager,"update")
 
         //获取验证码事件
         codeBtn.setOnClickListener {

@@ -27,6 +27,7 @@ import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.ui.activity.BookListActivity
 import ebag.hd.ui.activity.account.BInviteActivity
+import ebag.hd.util.checkUpdate
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : MVPActivity(), MainView {
@@ -42,6 +43,12 @@ class MainActivity : MVPActivity(), MainView {
 
     override fun getLayoutId(): Int {
         return R.layout.activity_main
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkUpdate(Constants.UPDATE_STUDENT, false)
+        getMainClassInfo()
     }
 
     override fun initViews() {

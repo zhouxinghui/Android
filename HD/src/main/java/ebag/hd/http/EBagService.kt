@@ -145,6 +145,13 @@ interface EBagService {
     @POST("data/queryBaserData/{version}")
     fun getBaseInfo(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<BaseInfoEntity>>>
 
+    /**
+     *     检查版本更新
+     */
+    @Headers("EBag-Special-Url: special/url")
+    @POST("user/MobileAPPVersion/{version}")
+    fun checkUpdate(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<VersionUpdateBean>>
+
     //TODO 接口名称，注意替换
     /**
      * 上传文件,多文件 和 单文件

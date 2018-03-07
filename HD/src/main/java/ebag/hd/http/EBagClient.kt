@@ -48,7 +48,7 @@ object EBagClient {
         createRetrofitService(EBagService::class.java)
     }
 
-    public fun <T> createRetrofitService(clazz: Class<T>): T{
+    fun <T> createRetrofitService(clazz: Class<T>): T{
         val builder = OkHttpClient.Builder()
                 //错误重连
                 .retryOnConnectionFailure(true)
@@ -97,6 +97,7 @@ object EBagClient {
 //                .baseUrl("http://www.yun-bag.com/ebag-portal/")
                 .baseUrl("http://192.168.1.155:9001/")
 //                .baseUrl("http://192.168.1.139:9001/")
+//                .baseUrl("http://192.168.1.144:9001/")
 //                .baseUrl("http://192.168.1.186:9001/")
                 .build()
         return retrofit.create(clazz)

@@ -53,6 +53,18 @@ public class FileUtil {
             + File.separator;
 
     /**
+     * apk下载路径
+     * @return
+     */
+    public static String getApkFilePath(){
+        String path = EBAG_PATH
+                + "file"
+                + File.separator;
+        if (!isFileExists(path))
+            createDir(path);
+        return path;
+    }
+    /**
      * 备课文件保路径
      * @return
      */

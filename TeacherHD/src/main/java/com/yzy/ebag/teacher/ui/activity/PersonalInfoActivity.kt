@@ -10,11 +10,13 @@ import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.tools.PictureFileUtils
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.http.TeacherApi
+import com.yzy.ebag.teacher.widget.ModifyInfoDialog
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.*
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
+import ebag.hd.widget.ListBottomShowDialog
 import ebag.hd.widget.startSelectPicture
 import kotlinx.android.synthetic.main.activity_personal_info.*
 import java.io.File
@@ -29,10 +31,43 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
      * 0: 修改头像 1：修改姓名 2：修改性别 3：修改家庭住址
      */
     private var modifyType = 0
+    private var key = "headUrl"
+    private var modifyStr = ""
+    private val modifyDialog by lazy {
+        val dialog = ModifyInfoDialog(this)
+        dialog.onConfirmClickListener = {
+            modifyStr = it
+            TeacherApi.modifyPersonalInfo(key, it, modifyRequest)
+            dialog.dismiss()
+        }
+        dialog
+    }
+    private val sexDialog by lazy {
+        val sexList = ArrayList<SexBean>()
+        val bean1 = SexBean()
+        bean1.sex = "1"
+        bean1.sexStr = "男"
+        sexList.add(bean1)
+        val bean2 = SexBean()
+        bean2.sex = "2"
+        bean2.sexStr = "女"
+        sexList.add(bean2)
+        val dialog = object : ListBottomShowDialog<SexBean>(this, sexList){
+            override fun setText(data: SexBean?): String {
+                return data!!.sexStr
+            }
+        }
+        dialog.setOnDialogItemClickListener { _, data, position ->
+            modifyStr = data.sexStr
+            TeacherApi.modifyPersonalInfo(key, data.sex, modifyRequest)
+            dialog.dismiss()
+        }
+        dialog
+    }
     private val modifyRequest by lazy {
         object : RequestCallBack<String>(){
             override fun onStart() {
-
+                LoadingDialogUtil.showLoading(this@PersonalInfoActivity,"正在上传...")
             }
 
             override fun onSuccess(entity: String?) {
@@ -43,13 +78,16 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                         userEntity?.headUrl = uploadHeadUrl
                     }
                     1 ->{
-
+                        name.text = modifyStr
+                        userEntity?.name = modifyStr
                     }
                     2 ->{
-
+                        sex.text = modifyStr
+                        userEntity?.sex = if (modifyStr == "男") "1" else "2"
                     }
                     3 ->{
-
+                        familyAddress.text = modifyStr
+                        userEntity?.address = modifyStr
                     }
                 }
                 SerializableUtils.setSerializable(Constants.TEACHER_USER_ENTITY, userEntity)
@@ -75,7 +113,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
             headImage.loadHead(userEntity?.headUrl)
             setTv(name, userEntity?.name)
             setTv(bag, userEntity?.ysbCode)
-            setTv(sex, userEntity?.sex)
+            setTv(sex, if(userEntity?.sex == "1") "男" else "女")
 //            setTv(contactInformation, userEntity?.) //联系方式
             setTv(familyAddress, userEntity?.address)
             setTv(schoolName, userEntity?.schoolName)
@@ -91,22 +129,30 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.headImageBtn ->{
+                modifyType = 0
+                key = "headUrl"
                 startSelectPicture(1, true, true, false)
             }
             R.id.nameBtn ->{
-                T.show(this, "姓名")
+                modifyType = 1
+                key = "name"
+                modifyDialog.show("请输入姓名")
             }
             R.id.bagBtn ->{
                 T.show(this, "书包号")
             }
             R.id.sexBtn ->{
-                T.show(this, "性别")
+                modifyType = 2
+                key = "sex"
+                sexDialog.show()
             }
             R.id.contactBtn ->{
                 T.show(this, "联系方式")
             }
             R.id.addressBtn ->{
-                T.show(this, "家庭住址")
+                modifyType = 3
+                key = "address"
+                modifyDialog.show("请输入地址")
             }
             R.id.schoolBtn ->{
                 T.show(this, "所在学校")
@@ -139,7 +185,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
         override fun handleMessage(activity: PersonalInfoActivity, msg: Message) {
             when(msg.what){
                 ebag.core.util.Constants.UPLOAD_SUCCESS ->{
-                    TeacherApi.modifyPersonalInfo("headUrl", activity.uploadHeadUrl, activity.modifyRequest)
+                    TeacherApi.modifyPersonalInfo(activity.key, activity.uploadHeadUrl, activity.modifyRequest)
                     PictureFileUtils.deleteCacheDirFile(activity)
                 }
                 ebag.core.util.Constants.UPLOAD_FAIL ->{
@@ -148,5 +194,10 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                 }
             }
         }
+    }
+
+    inner class SexBean {
+        var sex = "1"
+        var sexStr = "男"
     }
 }

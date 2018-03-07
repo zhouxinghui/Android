@@ -30,13 +30,14 @@ import ebag.core.util.loadImage
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
 import ebag.hd.ui.activity.BookListActivity
+import ebag.hd.util.checkUpdate
 import kotlinx.android.synthetic.main.fragment_first_page.*
 
 /**
  * Created by YZY on 2017/12/21.
  */
 class FragmentFirstPage : BaseFragment() {
-    var request: RequestCallBack<FirstPageBean>? = null
+    private var request: RequestCallBack<FirstPageBean>? = null
     companion object {
         fun newInstance() : Fragment {
             val fragment = FragmentFirstPage()
@@ -49,6 +50,14 @@ class FragmentFirstPage : BaseFragment() {
 
     override fun getLayoutRes(): Int {
         return R.layout.fragment_first_page
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden){
+            mContext.checkUpdate(ebag.hd.base.Constants.UPDATE_TEACHER, false)
+            TeacherApi.firstPage(request!!)
+        }
     }
 
     override fun getBundle(bundle: Bundle?) {

@@ -23,6 +23,7 @@ class SmartPushDialog(context: Context): BaseDialog(context) {
 
     var onConfirmClickListener: ((count: Int) -> Unit)? = null
     init {
+        title_tv.text = "智能推送"
         confirmBtn.setOnClickListener {
             val count = countEdit.text.toString()
             if (StringUtils.isEmpty(count)){
