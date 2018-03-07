@@ -92,7 +92,7 @@
             </LinearLayout>
 
             <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/x1141"
                 android:layout_height="@dimen/x550"
                 android:layout_marginTop="@dimen/x10"
                 android:background="@drawable/bg_class_schedule_stroke">
@@ -369,7 +369,7 @@
                     android:id="@+id/scheduleRecycler"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:layout_constraintStart_toStartOf="@id/vLine2"
+                    app:layout_constraintStart_toEndOf="@id/tvClassTime1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>

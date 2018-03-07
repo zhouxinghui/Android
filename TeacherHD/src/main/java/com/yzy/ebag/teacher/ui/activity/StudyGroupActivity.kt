@@ -2,6 +2,7 @@ package com.yzy.ebag.teacher.ui.activity
 
 import android.content.Context
 import android.content.Intent
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -12,6 +13,7 @@ import com.yzy.ebag.teacher.bean.GroupBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.widget.GroupManageDialog
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
 
 class StudyGroupActivity : BaseListActivity<List<GroupBean>, GroupBean>() {
@@ -32,6 +34,36 @@ class StudyGroupActivity : BaseListActivity<List<GroupBean>, GroupBean>() {
         }
         dialog
     }
+    private var currentGroupId = ""
+    private val deleteDialog by lazy {
+        val dialog = AlertDialog.Builder(this)
+                .setMessage("确定删除小组？")
+                .setNegativeButton("取消", { dialog, which ->
+                    dialog.dismiss()
+                })
+                .setPositiveButton("删除", {dialog, which ->
+                    dialog.dismiss()
+                    TeacherApi.deleteGroup(classId, currentGroupId, deleteGroupRequest)
+                })
+                .create()
+        dialog
+    }
+    private val deleteGroupRequest = object : RequestCallBack<String>(){
+        override fun onStart() {
+            LoadingDialogUtil.showLoading(this@StudyGroupActivity, "正在删除...")
+        }
+        override fun onSuccess(entity: String?) {
+            LoadingDialogUtil.closeLoadingDialog()
+            T.show(this@StudyGroupActivity, "删除成功")
+            onRetryClick()
+        }
+
+        override fun onError(exception: Throwable) {
+            LoadingDialogUtil.closeLoadingDialog()
+            T.show(this@StudyGroupActivity, "请求失败")
+        }
+
+    }
     override fun loadConfig(intent: Intent) {
         loadMoreEnabled(false)
         refreshEnabled(false)
@@ -48,7 +80,8 @@ class StudyGroupActivity : BaseListActivity<List<GroupBean>, GroupBean>() {
                     groupDialog.show(item?.clazzUserVos!!, item.groupName, item.groupId)
                 }
                 R.id.deleteTv ->{
-                    T.show(this, "删除小组")
+                    currentGroupId = adapter.data[position].groupId
+                    deleteDialog.show()
                 }
             }
         }
@@ -75,6 +108,7 @@ class StudyGroupActivity : BaseListActivity<List<GroupBean>, GroupBean>() {
             helper.setText(R.id.groupNameTv, item.groupName)
                     .setText(R.id.studentCount, resources.getString(R.string.student_count, item.clazzUserVos.size))
             helper.addOnClickListener(R.id.manageGroup)
+            helper.addOnClickListener(R.id.deleteTv)
         }
     }
 }

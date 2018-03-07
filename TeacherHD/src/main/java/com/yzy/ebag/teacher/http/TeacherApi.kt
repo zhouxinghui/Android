@@ -101,6 +101,16 @@ object TeacherApi {
     }
 
     /**
+     * 删除学习小组
+     */
+    fun deleteGroup(classId: String, groupId: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("groupId", groupId)
+        EBagApi.request(teacherService.deleteGroup("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
      * 根据年级 获取科目
      */
     fun getSubject(code: String, callback: RequestCallBack<List<BaseSubjectBean>>){
