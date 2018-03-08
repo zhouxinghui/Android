@@ -1,4 +1,4 @@
-package ebag.hd.activity
+package ebag.hd.activity.album
 
 import android.content.Context
 import android.content.Intent
@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.base.BaseListActivity
+import ebag.core.base.PhotoPreviewActivity
 import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
@@ -21,7 +22,8 @@ import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
 import ebag.core.util.loadImage
 import ebag.hd.R
-import ebag.hd.activity.AlbumDetailActivity.Adapter.Companion.TYPE_STICKY_HEAD
+import ebag.hd.activity.album.AlbumDetailActivity.Adapter.Companion.TYPE_STICKY_HEAD
+import ebag.hd.base.Constants
 import ebag.hd.bean.PhotoBean
 import ebag.hd.bean.PhotoRequestBean
 import ebag.hd.http.EBagApi
@@ -36,13 +38,14 @@ import ebag.hd.widget.stickyItem.StickyItemDecoration
 class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
 
     companion object {
-        fun jump(context: Context, classId: String, photoGroupId: String, groupName: String, groupType: String){
+        fun jump(context: Context, classId: String, photoGroupId: String, groupName: String, groupType: String, role: Int){
             context.startActivity(
                     Intent(context, AlbumDetailActivity::class.java)
                             .putExtra("classId", classId)
                             .putExtra("photoGroupId", photoGroupId)
                             .putExtra("groupName", groupName)
                             .putExtra("groupType", groupType)
+                            .putExtra("role", role)
             )
         }
     }
@@ -58,10 +61,14 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
     private lateinit var groupType: String
     private lateinit var classId: String
     private var isAllChoose = false
+    var role: Int = Constants.ROLE_STUDENT
+
     override fun loadConfig(intent: Intent) {
         photoGroupId = intent.getStringExtra("photoGroupId") ?: ""
         groupType = intent.getStringExtra("groupType") ?: ""
         classId = intent.getStringExtra("classId") ?: ""
+        role = intent.getIntExtra("role", Constants.ROLE_STUDENT)
+
         requestBean.photoGroupId = photoGroupId
         requestBean.groupType = groupType
         setPageTitle(intent.getStringExtra("groupName") ?: "")
@@ -105,6 +112,10 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
         deleteBtn = optionView.findViewById(R.id.deleteBtn)
         editBtn = optionView.findViewById(R.id.editBtn)
         uploadBtn = optionView.findViewById(R.id.uploadBtn)
+
+        if(role == Constants.ROLE_STUDENT && groupType != AlbumFragment.PERSONAL_TYPE){
+            editBtn.visibility = View.GONE
+        }
 
         // 取消
         cancelBtn.setOnClickListener {
@@ -158,6 +169,13 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
         }
 
         showOptions(false)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == Constants.UPLOAD_REQUEST && resultCode == Constants.UPLOAD_RESULT){
+            onRetryClick()
+        }
     }
 
     private val shareRequest by lazy {
@@ -237,7 +255,7 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
         if(showOption){
             cancelBtn.visibility = View.VISIBLE
             chooseBtn.visibility = View.VISIBLE
-            shareBtn.visibility = View.VISIBLE
+            shareBtn.visibility = if(groupType == AlbumFragment.PERSONAL_TYPE) View.VISIBLE else View.GONE
             deleteBtn.visibility = View.VISIBLE
             editBtn.visibility = View.GONE
             uploadBtn.visibility = View.GONE
@@ -292,10 +310,21 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         adapter as Adapter
-        if(adapter.showOption){
-            adapter.updateSelected(position)
-        }else{// 跳转照片预览
-
+        if(adapter.getItem(position)?.isPhoto == true){ // 点击的是照片
+            if(adapter.showOption){
+                adapter.updateSelected(position)
+            }else{// 跳转照片预览
+                val list = ArrayList<String>()
+                var index = -1
+                (0 until  adapter.itemCount).forEach {
+                    if(adapter.getItem(it)?.isPhoto == true) {
+                        list.add(adapter.getItem(it)!!.photoUrl)
+                        if(it <= position)
+                            index++
+                    }
+                }
+                PhotoPreviewActivity.jump(this, list, index)
+            }
         }
     }
 

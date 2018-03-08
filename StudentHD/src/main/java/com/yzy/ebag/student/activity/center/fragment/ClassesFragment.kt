@@ -11,13 +11,13 @@ import android.widget.RelativeLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.activity.album.AlbumActivity
 import com.yzy.ebag.student.bean.SpaceBean
 import com.yzy.ebag.student.dialog.ClassJoinDialog
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.loadHead
+import ebag.hd.activity.album.AlbumActivity
 
 /**
  * @author caoyu

@@ -1,22 +1,30 @@
-package ebag.hd.activity
+package ebag.hd.activity.album
 
+import android.content.Context
+import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
 import ebag.core.base.BaseActivity
 import ebag.hd.R
+import ebag.hd.base.Constants
 import kotlinx.android.synthetic.main.activity_album.*
 
 /**
  * Created by unicho on 2018/3/1.
  */
-abstract class BAlbumActivity: BaseActivity() {
+class AlbumActivity : BaseActivity() {
 
-    abstract fun getRole(): Int
     companion object {
-        const val STUDENT = 1
-        const val TEACHER = 2
+
+        fun jump(context: Context, classId: String, role: Int = Constants.ROLE_STUDENT){
+            context.startActivity(
+                    Intent(context, AlbumActivity::class.java)
+                            .putExtra("classId", classId)
+                            .putExtra("role", role)
+            )
+        }
     }
 
     override fun getLayoutId(): Int {
@@ -24,9 +32,10 @@ abstract class BAlbumActivity: BaseActivity() {
     }
 
     lateinit var classId: String
+    var role = Constants.ROLE_STUDENT
     override fun initViews() {
         classId = intent.getStringExtra("classId") ?: ""
-
+        role = intent.getIntExtra("role", Constants.ROLE_STUDENT)
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             when(checkedId){
                 R.id.rbHonorAlbum -> {// 班级荣誉
@@ -73,11 +82,11 @@ abstract class BAlbumActivity: BaseActivity() {
             if (fragments[position] == null) {
                 fragments[position] = when(position){
                     // 班级荣誉
-                    0 -> AlbumFragment.newInstance(getRole(), classId, AlbumFragment.HONOR_TYPE)
+                    0 -> AlbumFragment.newInstance(role, classId, AlbumFragment.HONOR_TYPE)
                     // 个人
-                    1 -> AlbumFragment.newInstance(getRole(), classId, AlbumFragment.PERSONAL_TYPE)
+                    1 -> AlbumFragment.newInstance(role, classId, AlbumFragment.PERSONAL_TYPE)
                     // 班级相册
-                    else -> AlbumFragment.newInstance(getRole(), classId, AlbumFragment.CLASS_TYPE)
+                    else -> AlbumFragment.newInstance(role, classId, AlbumFragment.CLASS_TYPE)
                 }
             }
             return fragments[position]!!

@@ -196,10 +196,17 @@ object EBagApi {
     }
 
     /**
-     * 照片分享
+     * 照片删除
      */
     fun photosDelete(photoShareBean: PhotoRequestBean, callback: RequestCallBack<String>){
         request(EBagClient.eBagService.photosDelete("v1", EBagApi.createBody(JSON.toJSONString(photoShareBean))), callback)
+    }
+
+    /**
+     * 照片上传
+     */
+    fun photosUpload(photoUploadBean: PhotoUploadBean, callback: RequestCallBack<String>){
+        request(EBagClient.eBagService.photosUpload("v1", EBagApi.createBody(JSON.toJSONString(photoUploadBean))), callback)
     }
 
 

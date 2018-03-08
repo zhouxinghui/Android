@@ -1,7 +1,6 @@
-package ebag.hd.activity
+package ebag.hd.activity.album
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Message
 import android.support.v7.widget.LinearLayoutManager
@@ -14,10 +13,17 @@ import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.tools.PictureFileUtils
 import ebag.core.base.BaseActivity
+import ebag.core.base.PhotoPreviewActivity
+import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
 import ebag.core.util.*
 import ebag.hd.R
+import ebag.hd.bean.PhotoUploadBean
+import ebag.hd.bean.response.UserEntity
+import ebag.hd.http.EBagApi
 import ebag.hd.widget.startSelectPicture
 import kotlinx.android.synthetic.main.activity_photo_upload.*
+import java.io.File
 
 /**
  * Created by unicho on 2018/3/3.
@@ -25,11 +31,12 @@ import kotlinx.android.synthetic.main.activity_photo_upload.*
 class PhotoUploadActivity: BaseActivity() {
 
     companion object {
-        fun jump(context: Context, classId: String, photoGroupId: String){
-            context.startActivity(
+        fun jump(context: Activity, classId: String, photoGroupId: String){
+            context.startActivityForResult(
                     Intent(context, PhotoUploadActivity::class.java)
                             .putExtra("classId", classId)
                             .putExtra("photoGroupId", photoGroupId)
+                    ,ebag.hd.base.Constants.UPLOAD_REQUEST
             )
         }
     }
@@ -38,30 +45,45 @@ class PhotoUploadActivity: BaseActivity() {
         return R.layout.activity_photo_upload
     }
 
-    lateinit var photoGroupId: String
-    lateinit var classId: String
     private val imgList = ArrayList<String>()
-    private val urlList by lazy { ArrayList<String>() }
     private val imgAdapter by lazy { Adapter() }
     private var uploadPosition = 0
-    private val photoUrls = StringBuilder()
+    private val photoUploadBean = PhotoUploadBean()
+    private lateinit var userId: String
+
+
     override fun initViews() {
 
-        classId = intent.getStringExtra("classId") ?: ""
-        photoGroupId = intent.getStringExtra("photoGroupId") ?: ""
+        photoUploadBean.classId = intent.getStringExtra("classId") ?: ""
+        photoUploadBean.photoGroupId = intent.getStringExtra("photoGroupId") ?: ""
+
+        val userEntity = SerializableUtils.getSerializable<UserEntity>(ebag.hd.base.Constants.STUDENT_USER_ENTITY)
+        userId = userEntity?.uid ?: "1"
 
         titleView.setRightText("确定"){
             if(StringUtils.isEmpty(editView.text.toString())){
                 T.show(this, "请输入一些内容")
                 return@setRightText
             }
+            photoUploadBean.comment = editView.text.toString()
+            if(imgAdapter.itemCount == 1){
+                T.show(this, "请选择一些照片")
+                return@setRightText
+            }
+            LoadingDialogUtil.showLoading(this, "正在上传...")
 
-
-
+            if(photoUploadBean.photoUrls.isEmpty()){// 照片没上传到过阿里云
+                val fileName = System.currentTimeMillis().toString()
+                val url = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/photo/$userId/$fileName"
+                OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(imgAdapter.getItem(0)), "photo/$userId", fileName, myHandler)
+                photoUploadBean.addPhoto(url)
+            }else{// 照片上传过阿里云， 但是上传到自己服务器时失败了
+                upload()
+            }
         }
 
         switchView.setOnCheckedChangeListener { buttonView, isChecked ->
-
+            photoUploadBean.isShare = isChecked.toString()
         }
 
         editView.addTextChangedListener(object :TextWatcher{
@@ -81,16 +103,44 @@ class PhotoUploadActivity: BaseActivity() {
         recyclerView.adapter = imgAdapter
 
         imgAdapter.setOnItemClickListener { adapter, _, position ->
-            if (adapter.data.size == 10){
-                T.show(this, "图片选择上限为：9张")
-                return@setOnItemClickListener
-            }
-            if (position == adapter.data.size - 1){
-                startSelectPicture( 10 - imgAdapter.itemCount)
+            adapter as Adapter
+            when {
+                // 当照片有9 张时 点击加号
+                adapter.data.size == 10 -> T.show(this, "图片选择上限为：9张")
+
+                // 不到9张时  点击加号
+                position == adapter.data.size - 1 -> startSelectPicture( 10 - imgAdapter.itemCount)
+
+                // 预览照片
+                else -> {
+                    val list = adapter.data.filter { !StringUtils.isEmpty(it) }
+                    PhotoPreviewActivity.jump(this, list , position)
+                }
             }
         }
         imgList.add("")
         imgAdapter.setNewData(imgList)
+    }
+
+    private var uploadRequest: RequestCallBack<String>? = null
+
+    private fun upload(){
+        if(uploadRequest == null)
+            uploadRequest = object :RequestCallBack<String>(){
+                override fun onSuccess(entity: String?) {
+                    LoadingDialogUtil.closeLoadingDialog()
+                    T.show(this@PhotoUploadActivity, "图片上传成功")
+                    setResult(ebag.hd.base.Constants.UPLOAD_RESULT)
+                    finish()
+                }
+
+                override fun onError(exception: Throwable) {
+                    LoadingDialogUtil.closeLoadingDialog()
+                    exception.handleThrowable(this@PhotoUploadActivity)
+                }
+            }
+
+        EBagApi.photosUpload(photoUploadBean, uploadRequest!!)
     }
 
     inner class Adapter: BaseQuickAdapter<String, BaseViewHolder>(ebag.hd.R.layout.imageview){
@@ -119,9 +169,7 @@ class PhotoUploadActivity: BaseActivity() {
                     // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
-                    selectList.forEach { urlList.add(it.path) }
-                    imgAdapter.addData(imgAdapter.itemCount - 1, urlList)
-                    urlList.clear()
+                    selectList.forEach { imgAdapter.addData(imgAdapter.itemCount - 1, it.path) }
                 }
             }
         }
@@ -133,26 +181,23 @@ class PhotoUploadActivity: BaseActivity() {
             when(msg.what){
                 Constants.UPLOAD_SUCCESS ->{
                     activity.uploadPosition ++
-                    if (activity.uploadPosition < activity.urlList.size) {
+                    if (activity.uploadPosition < activity.imgAdapter.itemCount - 1) {
                         val fileName = System.currentTimeMillis().toString()
-//                        val url = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/photo/${activity.userId}/$fileName"
-//                        OSSUploadUtils.getInstance().UploadPhotoToOSS(
-//                                activity,
-//                                File(activity.urlList[activity.uploadPosition]),
-//                                "personal/${activity.userId}",
-//                                fileName,
-//                                activity.myHandler)
-//                        activity.photoUrls.append("$url,")
+                        OSSUploadUtils.getInstance().UploadPhotoToOSS(
+                                activity,
+                                File(activity.imgAdapter.getItem(activity.uploadPosition)),
+                                "photo/${activity.userId}",
+                                fileName,
+                                activity.myHandler)
+                        val url = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/photo/${activity.userId}/$fileName"
+                        activity.photoUploadBean.addPhoto(url)
                     }else{
-//                        activity.commit(
-//                                activity.titleEdit.text.toString(),
-//                                activity.contentEdit.text.toString(),
-//                                activity.sb.substring(0, activity.sb.lastIndexOf(","))
-//                        )
+                        activity.upload()
                         PictureFileUtils.deleteCacheDirFile(activity)//上传完毕之后删除本地缓存
                     }
                 }
                 Constants.UPLOAD_FAIL ->{
+                    activity.photoUploadBean.clear()
                     LoadingDialogUtil.closeLoadingDialog()
                     T.show(activity, "上传图片失败，请稍后重试")
                 }

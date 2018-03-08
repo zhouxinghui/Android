@@ -8,6 +8,7 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.SerializableUtils
+import ebag.core.util.T
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.ui.activity.BPublishContentActivity
 
@@ -15,8 +16,9 @@ class PublishContentActivity : BPublishContentActivity() {
     private val uploadRequest by lazy { object : RequestCallBack<String>(){
         override fun onSuccess(entity: String?) {
             LoadingDialogUtil.closeLoadingDialog()
-            finish()
+            T.show(this@PublishContentActivity, "发布成功")
             setResult(Constants.PUBLISH_RESULT)
+            finish()
         }
 
         override fun onError(exception: Throwable) {

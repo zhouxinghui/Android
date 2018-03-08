@@ -1,4 +1,4 @@
-package ebag.hd.activity
+package ebag.hd.activity.album
 
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
@@ -12,6 +12,7 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.util.loadImage
 import ebag.hd.R
 import ebag.hd.base.AlbumAddDialog
+import ebag.hd.base.Constants
 import ebag.hd.bean.AlbumBean
 import ebag.hd.http.EBagApi
 
@@ -24,7 +25,7 @@ class AlbumFragment: BaseListFragment<ArrayList<AlbumBean>, AlbumBean>() {
         const val CLASS_TYPE = "2"
         const val PERSONAL_TYPE = "3"
         const val HONOR_TYPE = "1"
-        fun newInstance(role: Int, classId: String, groupType: String): AlbumFragment{
+        fun newInstance(role: Int, classId: String, groupType: String): AlbumFragment {
             val fragment = AlbumFragment()
             val bundle = Bundle()
             bundle.putInt("role", role)
@@ -37,11 +38,11 @@ class AlbumFragment: BaseListFragment<ArrayList<AlbumBean>, AlbumBean>() {
 
     lateinit var groupType: String
     lateinit var classId: String
-    var role: Int = BAlbumActivity.STUDENT
+    var role: Int = Constants.ROLE_STUDENT
     override fun getBundle(bundle: Bundle?) {
         groupType = bundle?.getString("groupType") ?: ""
         classId = bundle?.getString("classId") ?: ""
-        role = bundle?.getInt("role") ?: BAlbumActivity.STUDENT
+        role = bundle?.getInt("role") ?: Constants.ROLE_STUDENT
     }
 
     override fun loadConfig() {
@@ -60,7 +61,7 @@ class AlbumFragment: BaseListFragment<ArrayList<AlbumBean>, AlbumBean>() {
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: ArrayList<AlbumBean>?): ArrayList<AlbumBean>? {
-        if(isFirstPage && (role == BAlbumActivity.TEACHER || (role == BAlbumActivity.STUDENT && groupType == PERSONAL_TYPE)))
+        if(isFirstPage && (role == Constants.ROLE_TEACHER || (role == Constants.ROLE_STUDENT && groupType == PERSONAL_TYPE)))
             parent?.add(0, AlbumBean(true))
         return parent
     }
@@ -83,7 +84,8 @@ class AlbumFragment: BaseListFragment<ArrayList<AlbumBean>, AlbumBean>() {
                     classId,
                     adapter.getItem(position)?.photoGroupId ?: "",
                     adapter.getItem(position)?.photosName ?: "",
-                    groupType)
+                    groupType,
+                    role)
         }
     }
 
@@ -91,6 +93,7 @@ class AlbumFragment: BaseListFragment<ArrayList<AlbumBean>, AlbumBean>() {
         val dialog = AlbumAddDialog.newInstance(role, classId)
         dialog.successListener = {
             onRefresh()
+            dialog.dismiss()
         }
         dialog
     }

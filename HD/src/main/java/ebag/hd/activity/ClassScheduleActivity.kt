@@ -15,6 +15,7 @@ import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.StringUtils
 import ebag.core.util.T
 import ebag.hd.R
+import ebag.hd.base.Constants
 import ebag.hd.bean.ClassScheduleBean
 import ebag.hd.bean.request.ClassScheduleEditVo
 import ebag.hd.bean.response.BaseInfoEntity
@@ -28,9 +29,7 @@ import kotlinx.android.synthetic.main.activity_class_schedule.*
 class ClassScheduleActivity: BaseActivity(){
 
     companion object {
-        val ROLE_TEACHER = 1
-        val ROLE_STUDENT = 2
-        fun jump(context: Context, classId: String, role: Int = ROLE_STUDENT){
+        fun jump(context: Context, classId: String, role: Int = Constants.ROLE_STUDENT){
             context.startActivity(
                     Intent(context, ClassScheduleActivity::class.java)
                             .putExtra("classId", classId)
@@ -45,7 +44,7 @@ class ClassScheduleActivity: BaseActivity(){
     private val adapter = Adapter()
     private var currentWeek = ""
     private lateinit var classId: String
-    private var role = ROLE_STUDENT
+    private var role = Constants.ROLE_STUDENT
     private var subjectList : ArrayList<BaseInfoEntity>? = null
 
     private val mScheduleList = ArrayList<ClassScheduleBean.ScheduleBean>()
@@ -68,12 +67,12 @@ class ClassScheduleActivity: BaseActivity(){
 
     override fun initViews() {
         classId = intent.getStringExtra("classId") ?: ""
-        role = intent.getIntExtra("role", ROLE_STUDENT)
+        role = intent.getIntExtra("role", Constants.ROLE_STUDENT)
 
         scheduleRecycler.layoutManager = GridLayoutManager(this, 10, LinearLayoutManager.HORIZONTAL, false)
         scheduleRecycler.adapter = adapter
 
-        if(role == ROLE_TEACHER){
+        if(role == Constants.ROLE_TEACHER){
             titleView.setRightText("编辑"){
                 if(adapter.isEdit){
                     editSchedule()
@@ -85,7 +84,7 @@ class ClassScheduleActivity: BaseActivity(){
             }
         }
 
-        if(role == ROLE_TEACHER){
+        if(role == Constants.ROLE_TEACHER){
             adapter.setOnItemClickListener { _, _, pos ->
                 if(subjectList != null){
                     editPosition = pos
@@ -128,7 +127,7 @@ class ClassScheduleActivity: BaseActivity(){
                     }
                 }
                 adapter.isEdit = false
-            }else if(role == ROLE_TEACHER){ // 填充初始化假数据
+            }else if(role == Constants.ROLE_TEACHER){ // 填充初始化假数据
                 getSubjectInfo()
                 (0 until 50).forEach { position->
                     mScheduleList.add(ClassScheduleBean.ScheduleBean("${(position / 10) + 1}", "${(position % 10) + 1}", classId))

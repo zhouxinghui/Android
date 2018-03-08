@@ -109,11 +109,9 @@ class MainActivity : MVPActivity(), MainView {
     private fun initUserInfo(){
 
         val userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.STUDENT_USER_ENTITY)
-        if(userEntity != null){
-            tvName.text = userEntity.name
-            tvId.text = userEntity.ysbCode
-            ivHead.loadHead(userEntity.headUrl)
-        }
+        tvName.text = userEntity?.name
+        tvId.text = userEntity?.ysbCode
+        ivHead.loadHead(userEntity?.headUrl)
     }
 
     private fun initListener(){

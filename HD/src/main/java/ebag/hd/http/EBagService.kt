@@ -68,10 +68,17 @@ interface EBagService {
     fun photosShare(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /**
-     * 照片分享
+     * 照片删除
      */
     @POST("clazz/deletePhoto/{version}")
     fun photosDelete(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 照片上传
+     */
+    @POST("clazz/uploadPhotos/{version}")
+    fun photosUpload(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
 
     /**
      * 登录

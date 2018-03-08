@@ -4,7 +4,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.util.List;
 
-import ebag.hd.activity.AlbumDetailActivity;
+import ebag.hd.activity.album.AlbumDetailActivity;
 
 /**
  * 合并了一下外层的 有createDate 和 photoUrls两个字段

@@ -81,7 +81,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="@dimen/x25"
-        android:hint="输入内容"
+        android:hint="输入照片描述"
         android:gravity="top|start"
         android:textSize="@dimen/x24"
         android:maxLength="100"

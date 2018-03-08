@@ -16,6 +16,7 @@ import com.luck.picture.lib.config.PictureConfig
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.bean.Diary
 import ebag.core.base.BaseActivity
+import ebag.core.base.PhotoPreviewActivity
 import ebag.core.util.*
 import ebag.hd.widget.startSelectPicture
 import kotlinx.android.synthetic.main.activity_diary_detail.*
@@ -47,7 +48,6 @@ class DiaryDetailActivity: BaseActivity() {
     private val maxWordLength = 200
 
     private val imgList = ArrayList<String>()
-    private val urlList by lazy { ArrayList<String>() }
     private val imgAdapter by lazy { Adapter() }
     private var userId = "1"
     private var uploadPosition = 0
@@ -88,23 +88,25 @@ class DiaryDetailActivity: BaseActivity() {
                 }
 
                 LoadingDialogUtil.showLoading(this, "正在上传...")
-                if (urlList.isEmpty())
+                if (sb.isNotEmpty())
                     commit(titleEdit.text.toString(), contentEdit.text.toString())
                 else {
                     val fileName = System.currentTimeMillis().toString()
                     val url = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/diary/$userId/$fileName"
-                    OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(urlList[0]), "personal/$userId", fileName, myHandler)
+                    OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(imgAdapter.getItem(0)), "personal/$userId", fileName, myHandler)
                     sb.append("$url,")
                 }
             }
 
             imgAdapter.setOnItemClickListener { adapter, _, position ->
-                if (adapter.data.size == 9){
-                    T.show(this, "图片选择上限为：8张")
-                    return@setOnItemClickListener
-                }
-                if (position == adapter.data.size - 1){
-                    startSelectPicture(9 - imgAdapter.itemCount)
+                adapter as Adapter
+                when {
+                    adapter.data.size == 9 -> T.show(this, "图片选择上限为：8张")
+                    position == adapter.data.size - 1 -> startSelectPicture(9 - imgAdapter.itemCount)
+                    else -> {
+                        val list = adapter.data.filter { !StringUtils.isEmpty(it) }
+                        PhotoPreviewActivity.jump(this, list , position)
+                    }
                 }
             }
             imgList.add("")
@@ -150,9 +152,7 @@ class DiaryDetailActivity: BaseActivity() {
                     // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
-                    selectList.forEach { urlList.add(it.path) }
-                    imgAdapter.addData(imgAdapter.itemCount - 1, urlList)
-                    urlList.clear()
+                    selectList.forEach { imgAdapter.addData(imgAdapter.itemCount - 1, it.path) }
                 }
             }
         }
@@ -164,12 +164,12 @@ class DiaryDetailActivity: BaseActivity() {
             when(msg.what){
                 Constants.UPLOAD_SUCCESS ->{
                     activity.uploadPosition ++
-                    if (activity.uploadPosition < activity.urlList.size) {
+                    if (activity.uploadPosition < activity.imgAdapter.itemCount - 1) {
                         val fileName = System.currentTimeMillis().toString()
                         val url = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/diary/${activity.userId}/$fileName"
                         OSSUploadUtils.getInstance().UploadPhotoToOSS(
                                 activity,
-                                File(activity.urlList[activity.uploadPosition]),
+                                File(activity.imgAdapter.getItem(activity.uploadPosition)),
                                 "personal/${activity.userId}",
                                 fileName,
                                 activity.myHandler)

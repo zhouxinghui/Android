@@ -17,6 +17,12 @@ import kotlinx.android.synthetic.main.dialog_album_add_student.*
  */
 class AlbumAddDialog: BaseFragmentDialog() {
 
+    var successListener: (() -> Unit)? = null
+
+    private var role: Int = STUDENT_ROLE
+    private var groupType: String = ""
+    private var classId: String = ""
+
     companion object {
         const val TEACHER_ROLE = 1
         const val STUDENT_ROLE = 2
@@ -30,12 +36,11 @@ class AlbumAddDialog: BaseFragmentDialog() {
         }
     }
 
-    var successListener: (() -> Unit)? = null
-    private var isDataUpdate = false
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        isCancelable = false
+    }
 
-    private var role: Int = STUDENT_ROLE
-    private var groupType: String = ""
-    private var classId: String = ""
     override fun getBundle(bundle: Bundle?) {
         role = bundle?.getInt("role") ?: STUDENT_ROLE
         classId = bundle?.getString("classId") ?: ""
