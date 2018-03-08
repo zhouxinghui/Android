@@ -13,7 +13,6 @@
         tools:text="英语"
         android:gravity="center"
         android:textSize="@dimen/x24"
-        android:textColor="#37394c"
         />
     <ImageView
         android:id="@+id/arrowView"

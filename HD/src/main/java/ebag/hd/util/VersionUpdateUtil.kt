@@ -67,7 +67,7 @@ fun Context.installApk(apkPath: String){
     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
         val file = File(apkPath)
         //参数1 上下文, 参数2 Provider主机地址 和配置文件中保持一致   参数3  共享的文件
-        val apkUri = FileProvider.getUriForFile(context, "com.yzy.ebag", file)
+        val apkUri = FileProvider.getUriForFile(context, getProviderName(), file)
         //添加这一句表示对目标应用临时授权该Uri所代表的文件
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         intent.setDataAndType(apkUri, "application/vnd.android.package-archive")
@@ -90,4 +90,8 @@ fun Context.getVersionCode(): String{
     }
 
     return versionCode
+}
+
+fun Context.getProviderName(): String{
+    return "$packageName.fileprovider"
 }

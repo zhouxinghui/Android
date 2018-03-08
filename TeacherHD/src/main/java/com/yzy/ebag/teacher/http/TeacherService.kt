@@ -59,6 +59,12 @@ interface TeacherService {
     fun modifyGroup(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /**
+     * 删除学习小组
+     */
+    @POST("clazz/deleteClassByGroup/{version}")
+    fun deleteGroup(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
      * 获取基础数据的接口
      */
     @Headers("EBag-Special-Url: special/url")
