@@ -70,4 +70,10 @@ public class BaseSubjectBean implements Serializable {
     public void setParentCode(String parentCode) {
         this.parentCode = parentCode;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+
+    }
 }

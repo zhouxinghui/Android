@@ -7,6 +7,7 @@ import com.yzy.ebag.teacher.base.Constants
 import com.yzy.ebag.teacher.bean.BaseSubjectBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.ui.fragment.FragmentClass
+import com.yzy.ebag.teacher.widget.SelectSubjectDialog
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
@@ -71,16 +72,17 @@ class CreateClassActivity : BaseActivity(), View.OnClickListener {
         }
     }
     private val subjectDialog by lazy {
-        val dialog = object : ListBottomShowDialog<BaseSubjectBean>(this@CreateClassActivity, ArrayList<BaseSubjectBean>()){
-            override fun setText(data: BaseSubjectBean): String {
-                return data.keyValue
+        val dialog = SelectSubjectDialog(this)
+        dialog.onConfirmClick = {subjectList ->
+            val nameSb = StringBuilder()
+            val codeSb = StringBuilder()
+            subjectList.forEach {
+                nameSb.append("${it.keyValue}、")
+                codeSb.append("${it.keyCode},")
             }
-        }
-        dialog.setOnDialogItemClickListener { dialog, data, position ->
-            courseName.text = data.keyValue
+            courseName.text = nameSb.deleteCharAt(nameSb.length - 1)
             courseName.isSelected = true
-            subjectCode = data.keyCode
-            dialog.dismiss()
+            subjectCode = codeSb.deleteCharAt(codeSb.length - 1).toString()
         }
         dialog
     }
