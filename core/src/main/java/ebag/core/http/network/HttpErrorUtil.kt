@@ -24,7 +24,7 @@ fun Throwable.handleThrowable(mContext: Context, isToast: Boolean = true){
         is SocketException -> if(isToast) T.show(mContext, "连接服务器失败")
         is HttpException -> if (isToast){
             if (this.code() == 401) {
-                T.show(mContext, "认证信息失效，请重新登录")
+                T.show(mContext, "身份认证信息过期，请重新登录")
 
             } else
                 T.show(mContext, "网络异常，请稍后重试")

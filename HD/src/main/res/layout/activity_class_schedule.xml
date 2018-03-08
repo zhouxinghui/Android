@@ -92,7 +92,7 @@
             </LinearLayout>
 
             <android.support.constraint.ConstraintLayout
-                android:layout_width="@dimen/x1141"
+                android:layout_width="@dimen/x1140"
                 android:layout_height="@dimen/x550"
                 android:layout_marginTop="@dimen/x10"
                 android:background="@drawable/bg_class_schedule_stroke">
@@ -104,7 +104,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"/>
                 <TextView
                     android:id="@+id/tagMorning"
-                    android:layout_width="@dimen/x139"
+                    android:layout_width="@dimen/x138"
                     android:layout_height="0dp"
                     android:gravity="center"
                     android:textColor="#37394c"
@@ -115,7 +115,7 @@
                     app:layout_constraintBottom_toTopOf="@id/tagAfternoon"/>
                 <TextView
                     android:id="@+id/tagAfternoon"
-                    android:layout_width="@dimen/x139"
+                    android:layout_width="@dimen/x138"
                     android:layout_height="0dp"
                     android:gravity="center"
                     android:textColor="#37394c"

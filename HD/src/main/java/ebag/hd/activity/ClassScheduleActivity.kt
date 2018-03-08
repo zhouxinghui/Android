@@ -2,6 +2,7 @@ package ebag.hd.activity
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.TextView
@@ -240,17 +241,28 @@ class ClassScheduleActivity: BaseActivity(){
             notifyDataSetChanged()
         }
 
+        private val normalColor = Color.parseColor("#37394c")
+        private val mondayColor = Color.parseColor("#D44C8C")
+        private val tuesdayColor = Color.parseColor("#ff7801")
+        private val wednesdayColor = Color.parseColor("#4faf4e")
+        private val thursdayColor = Color.parseColor("#ff9f00")
+        private val fridayColor = Color.parseColor("#28acff")
+
         override fun convert(helper: BaseViewHolder, item: ClassScheduleBean.ScheduleBean?) {
             val tv = helper.getView<TextView>(R.id.text)
             tv.text = item?.subject
-            when(helper.adapterPosition / 5){
-                0 -> tv.setTextColor(resources.getColor(R.color.schedule_monday_color))
-                1 -> tv.setTextColor(resources.getColor(R.color.schedule_tuesday_color))
-                2 -> tv.setTextColor(resources.getColor(R.color.schedule_wednesday_color))
-                3 -> tv.setTextColor(resources.getColor(R.color.schedule_thursday_color))
-                4 -> tv.setTextColor(resources.getColor(R.color.schedule_friday_color))
+            if(currentWeek != item?.week){
+                tv.setTextColor(normalColor)
+            }else{
+                tv.setTextColor(when(helper.adapterPosition / 10){
+                    0 -> mondayColor
+                    1 -> tuesdayColor
+                    2 -> wednesdayColor
+                    3 -> thursdayColor
+                    4 -> fridayColor
+                    else -> normalColor
+                })
             }
-            tv.isSelected = currentWeek == item?.week
             helper.setGone(R.id.arrowView, isEdit)
         }
     }
