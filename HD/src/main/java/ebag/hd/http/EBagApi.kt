@@ -106,7 +106,7 @@ object EBagApi {
     /**
      * 注册
      */
-    fun register(name: String, phone: String?, code: String,roleCode:Int?, pwd: String,thirdPartyToken: String?,thirdPartyUnionid:String?, loginType:Int,callback: RequestCallBack<UserEntity>){
+    fun register(name: String, phone: String?, code: String,roleCode:String?, pwd: String,thirdPartyToken: String?,thirdPartyUnionid:String?, loginType:Int,callback: RequestCallBack<UserEntity>){
         val jsonObj = JSONObject()
         jsonObj.put("name",name)
         jsonObj.put("phone",phone)

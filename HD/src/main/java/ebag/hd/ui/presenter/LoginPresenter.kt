@@ -122,7 +122,7 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener): BasePrese
     /**
      * 注册
      */
-    fun register(name: String, phone: String, code: String, pwd: String,thirdPartyToken:String?,thirdPartyUnionid:String?){
+    fun register(name: String, phone: String, code: String, pwd: String, roleCode: String, thirdPartyToken:String?,thirdPartyUnionid:String?){
         if(isRegisterInfoCorrect(phone,code,pwd)){
             if(registerRequest == null)
                 registerRequest = createRequest(object: RequestCallBack<UserEntity>(){
@@ -138,7 +138,7 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener): BasePrese
                     }
 
                 })
-            EBagApi.register(name,phone,code,null,pwd,thirdPartyToken,thirdPartyUnionid,3,registerRequest!!)
+            EBagApi.register(name,phone,code,roleCode,pwd,thirdPartyToken,thirdPartyUnionid,3,registerRequest!!)
         }
 
     }

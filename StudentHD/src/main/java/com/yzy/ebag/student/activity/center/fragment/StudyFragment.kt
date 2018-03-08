@@ -11,7 +11,6 @@ import com.yzy.ebag.student.bean.SubjectBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
-import ebag.core.util.DateUtil
 
 /**
  * @author caoyu
@@ -40,7 +39,7 @@ class StudyFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInf
         var data = SubjectBean.HomeWorkInfoBean()
         data.content = "课后作业"
         data.remark = "回家好好做题。"
-        data.endTime = 1515661597000
+        data.endTime = ""
         data.state = "0"
         data.questionCount = 10
         data.questionComplete = 9
@@ -48,7 +47,7 @@ class StudyFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInf
         data = SubjectBean.HomeWorkInfoBean()
         data.content = "课后作业"
         data.remark = "回家好好做题。"
-        data.endTime = 1515661597000
+        data.endTime = ""
         data.state = "0"
         data.questionCount = 10
         data.questionComplete = 9
@@ -56,7 +55,7 @@ class StudyFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInf
         data = SubjectBean.HomeWorkInfoBean()
         data.content = "课后作业"
         data.remark = "回家好好做题。"
-        data.endTime = 1515661597000
+        data.endTime = ""
         data.state = "0"
         data.questionCount = 10
         data.questionComplete = 9
@@ -64,7 +63,7 @@ class StudyFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInf
         data = SubjectBean.HomeWorkInfoBean()
         data.content = "课后作业"
         data.remark = "回家好好做题。"
-        data.endTime = 1515661597000
+        data.endTime = ""
         data.state = "0"
         data.questionCount = 10
         data.questionComplete = 9
@@ -72,7 +71,7 @@ class StudyFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInf
         data = SubjectBean.HomeWorkInfoBean()
         data.content = "课后作业"
         data.remark = "回家好好做题。"
-        data.endTime = 1515661597000
+        data.endTime = ""
         data.state = "0"
         data.questionCount = 10
         data.questionComplete = 9
@@ -103,10 +102,9 @@ class StudyFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInf
 //            val spannableString = SpannableString("完成： ${item?.questionComplete}/${item?.questionCount}")
 //            spannableString.setSpan(ForegroundColorSpan(resources.getColor(R.color.color_homework_selected)), 4, 4 + "${entity.doneCount}".length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 //            setter.setText(R.id.tvCount, spannableString)
-            val time = DateUtil.getDateTime(item?.endTime ?: 0)
             helper.setText(R.id.tvCount, Html.fromHtml("完成： <font color='#FF7800'>${item?.questionComplete}</font>/${item?.questionCount}"))
                     .setText(R.id.tvContent,"内容： ${item?.content}")
-                    .setText(R.id.tvTime,"截止时间： $time")
+                    .setText(R.id.tvTime,"截止时间： ${item?.endTime ?: "无"}")
                     .setText(R.id.tvStatus,if(item?.questionComplete == item?.questionCount) "已完成" else "未完成")
             helper.getView<View>(R.id.tvStatus).isSelected = item?.questionComplete == item?.questionCount
         }

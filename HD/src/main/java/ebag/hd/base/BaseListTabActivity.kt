@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
 import ebag.hd.R
 import ebag.hd.widget.TitleBar
 import kotlinx.android.synthetic.main.activity_base_list_tab.*
@@ -145,6 +146,7 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
             }
 
             override fun onError(exception: Throwable) {
+                exception.handleThrowable(this@BaseListTabActivity)
                 if(exception is MsgException){
                     stateView.showError(exception.message)
                 }else{

@@ -81,7 +81,7 @@ public class SubjectBean implements MultiItemEntity {
         private String content;
         private String state;
         private String remark;
-        private long endTime;
+        private String endTime;
         private int questionCount;
         private int questionComplete;
 
@@ -118,11 +118,11 @@ public class SubjectBean implements MultiItemEntity {
             this.remark = remark;
         }
 
-        public long getEndTime() {
+        public String getEndTime() {
             return endTime;
         }
 
-        public void setEndTime(long endTime) {
+        public void setEndTime(String endTime) {
             this.endTime = endTime;
         }
 
@@ -154,7 +154,7 @@ public class SubjectBean implements MultiItemEntity {
             dest.writeString(this.content);
             dest.writeString(this.state);
             dest.writeString(this.remark);
-            dest.writeLong(this.endTime);
+            dest.writeString(this.endTime);
             dest.writeInt(this.questionCount);
             dest.writeInt(this.questionComplete);
         }
@@ -167,7 +167,7 @@ public class SubjectBean implements MultiItemEntity {
             this.content = in.readString();
             this.state = in.readString();
             this.remark = in.readString();
-            this.endTime = in.readLong();
+            this.endTime = in.readString();
             this.questionCount = in.readInt();
             this.questionComplete = in.readInt();
         }

@@ -13,7 +13,6 @@ import ebag.core.base.BaseActivity
 import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
-import ebag.core.util.T
 import ebag.core.widget.empty.StateView
 import ebag.hd.R
 import ebag.hd.widget.TitleBar
@@ -179,6 +178,7 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
     private val requestDelegate = lazy{ object: RequestCallBack<Parent>(){
 
             override fun onStart() {
+                isLoadMoreEnd = false
                 when (loadingStatus) {
                     FIRST -> stateView.showLoading()
                     REFRESH -> {
@@ -232,6 +232,7 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
             }
 
             override fun onError(exception: Throwable) {
+                exception.handleThrowable(this@BaseListActivity)
                 when (loadingStatus) {
                     //进入页面第一次加载出现的异常
                     FIRST -> {
@@ -245,7 +246,6 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
                     //刷新的时候出现的异常
                     REFRESH -> {
                         refreshLayout.isRefreshing = false
-                        T.show(this@BaseListActivity,"数据刷新失败，请重试")
                     }
                     //加载更多的时候出现的异常
                     LOAD_MORE -> {
@@ -257,6 +257,7 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
         }
     }
 
+    private var isLoadMoreEnd = false
     /**
      * 加载第一屏数据 的View的改变
      */
@@ -266,10 +267,12 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
             stateView.showEmpty()
         } else {
             mAdapter?.setNewData(result)
-            if(canLoadMore)
+            if(canLoadMore){
                 footerState(result)
-            else
+            } else{
                 mAdapter?.loadMoreEnd(true)
+            }
+
         }
     }
 
@@ -279,6 +282,7 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
     private fun footerState(result: List<E>){
         //没有更多了
         if(result.size < getPageSize()){
+            isLoadMoreEnd = true
             mAdapter?.loadMoreEnd()
         }else{//还可以加载更多
             mAdapter?.loadMoreComplete()
@@ -313,9 +317,13 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
     }
 
     override fun onLoadMoreRequested() {
-        loadingStatus = LOAD_MORE
-        mCurrentPage++
-        requestData(mCurrentPage, requestCallBack)
+        if(!isLoadMoreEnd){
+            loadingStatus = LOAD_MORE
+            mCurrentPage++
+            requestData(mCurrentPage, requestCallBack)
+        }else{
+            mAdapter?.loadMoreEnd()
+        }
     }
 
     override fun onRetryClick() {

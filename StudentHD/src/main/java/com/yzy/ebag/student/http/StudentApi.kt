@@ -183,4 +183,13 @@ object StudentApi{
         EBagApi.request(studentService.groupMember("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
+    /**
+     * 劳动任务
+     */
+    fun labourTasks(page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<LabourBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", pageSize)
+        EBagApi.request(studentService.labourTasks("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

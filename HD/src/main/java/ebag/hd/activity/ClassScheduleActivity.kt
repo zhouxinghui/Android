@@ -83,9 +83,6 @@ class ClassScheduleActivity: BaseActivity(){
                     adapter.isEdit = true
                 }
             }
-        }
-
-        if(role == Constants.ROLE_TEACHER){
             adapter.setOnItemClickListener { _, _, pos ->
                 if(subjectList != null){
                     editPosition = pos
@@ -129,7 +126,11 @@ class ClassScheduleActivity: BaseActivity(){
                 }
                 adapter.isEdit = false
             }else if(role == Constants.ROLE_TEACHER){ // 填充初始化假数据
-                getSubjectInfo()
+                if(entity != null && entity.duties == Constants.TEACHER_IN_CHARGE){
+                    getSubjectInfo()
+                }else{
+                    titleView.setRightBtnVisable(false)
+                }
                 (0 until 50).forEach { position->
                     mScheduleList.add(ClassScheduleBean.ScheduleBean("${(position / 10) + 1}", "${(position % 10) + 1}", classId))
                 }

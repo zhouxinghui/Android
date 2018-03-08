@@ -219,7 +219,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
             } else {//注册
                 if (serveCheck.isChecked)
                     loginPresenter.register(registerAccount.text.toString(), registerPhone.text.toString()
-                            , registerCode.text.toString(), registerPwd.text.toString(),null,null)
+                            , registerCode.text.toString(), registerPwd.text.toString(),getRoleCode(),null,null)
                 else
                     toast("请勾选服务条款", true)
             }

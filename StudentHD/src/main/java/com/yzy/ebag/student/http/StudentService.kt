@@ -119,5 +119,11 @@ interface StudentService {
     @POST("clazz/getClazzUserByGroup/{version}")
     fun groupMember(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<GroupUserBean>>>
 
+    /**
+     * 劳动任务
+     */
+    @POST("user/searchChildTargetList/{version}")
+    fun labourTasks(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<LabourBean>>>
+
 
 }

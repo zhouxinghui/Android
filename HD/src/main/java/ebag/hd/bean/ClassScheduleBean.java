@@ -15,6 +15,7 @@ public class ClassScheduleBean {
      */
 
     private String currentWeek;
+    private String duties = "";
     private List<ScheduleListBean> scheduleList;
 
     public String getCurrentWeek() {
@@ -23,6 +24,14 @@ public class ClassScheduleBean {
 
     public void setCurrentWeek(String currentWeek) {
         this.currentWeek = currentWeek;
+    }
+
+    public String getDuties() {
+        return duties;
+    }
+
+    public void setDuties(String duties) {
+        this.duties = duties;
     }
 
     public List<ScheduleListBean> getScheduleList() {

@@ -34,6 +34,7 @@ class BookListActivity: BaseListActivity<List<BookBean>, BookBean>() {
     }
     override fun loadConfig(intent: Intent) {
         setPageTitle("学习课本")
+        loadMoreEnabled(false)
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<BookBean>>) {

@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
+import com.yzy.ebag.student.bean.LabourBean
+import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
 
@@ -13,7 +15,7 @@ import ebag.core.http.network.RequestCallBack
  * @date 2018/1/17
  * @description
  */
-class LabourFragment: BaseListFragment<String, LabourFragment.Task>() {
+class LabourFragment: BaseListFragment<ArrayList<LabourBean>, LabourBean>() {
 
     companion object {
         fun newInstance(classId: String): LabourFragment{
@@ -31,55 +33,46 @@ class LabourFragment: BaseListFragment<String, LabourFragment.Task>() {
     }
 
     override fun loadConfig() {
-        val list = ArrayList<Task>()
-        list.add(Task())
-        list.add(Task())
-        list.add(Task())
-        list.add(Task())
-        list.add(Task())
-        list.add(Task())
-        list.add(Task())
-        list.add(Task())
-        list.add(Task())
-        list.add(Task())
-        withFirstPageData(list)
+//        val list = ArrayList<Task>()
+//        list.add(Task())
+//        list.add(Task())
+//        list.add(Task())
+//        list.add(Task())
+//        list.add(Task())
+//        list.add(Task())
+//        list.add(Task())
+//        list.add(Task())
+//        list.add(Task())
+//        list.add(Task())
+//        withFirstPageData(list)
     }
 
-    override fun requestData(page: Int, requestCallBack: RequestCallBack<String>) {
+    override fun requestData(page: Int, requestCallBack: RequestCallBack<ArrayList<LabourBean>>) {
+        StudentApi.labourTasks(page, getPageSize(), requestCallBack)
     }
 
-    override fun parentToList(isFirstPage: Boolean, parent: String?): List<Task>? {
-        return null
+    override fun parentToList(isFirstPage: Boolean, parent: ArrayList<LabourBean>?): List<LabourBean>? {
+        return parent
     }
 
-    override fun getAdapter(): BaseQuickAdapter<Task, BaseViewHolder> {
+    override fun getAdapter(): BaseQuickAdapter<LabourBean, BaseViewHolder> {
         return Adapter()
     }
 
-    override fun getLayoutManager(adapter: BaseQuickAdapter<Task, BaseViewHolder>): RecyclerView.LayoutManager? {
+    override fun getLayoutManager(adapter: BaseQuickAdapter<LabourBean, BaseViewHolder>): RecyclerView.LayoutManager? {
         return null
     }
 
-    class Adapter: BaseQuickAdapter<Task,BaseViewHolder>(R.layout.item_fragment_task_labour){
+    class Adapter: BaseQuickAdapter<LabourBean,BaseViewHolder>(R.layout.item_fragment_task_labour){
 
-        override fun convert(helper: BaseViewHolder, item: Task?) {
+        override fun convert(helper: BaseViewHolder, item: LabourBean?) {
             helper.setText(R.id.title, item?.title)
                     .setText(R.id.content, item?.content)
-                    .setText(R.id.time, item?.time)
-                    .setText(R.id.several, "${item?.times}遍")
-                    .setText(R.id.reward, "+${item?.reward}")
-                    .setVisible(R.id.complete, item?.status == 1)
+                    .setText(R.id.time, item?.createDate)
+                    .setText(R.id.several, "${item?.sum}遍")
+//                    .setText(R.id.reward, "+${item?.reward}")
+                    .setVisible(R.id.complete, item?.completed?.toUpperCase() == "Y")
         }
 
     }
-
-
-    data class Task(
-            val title: String = "打扫卫生",
-            val content: String = "把自己的脸扫干净",
-            val time: String = "2017-01-02",
-            val times: Int = 1,
-            val reward: Int = 100,
-            val status: Int = 1
-    )
 }

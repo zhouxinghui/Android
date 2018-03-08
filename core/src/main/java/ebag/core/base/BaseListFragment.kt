@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import ebag.core.R
 import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
-import ebag.core.util.T
+import ebag.core.http.network.handleThrowable
 import ebag.core.widget.empty.StateView
 import java.util.*
 
@@ -166,6 +166,7 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
 
     private val requestDelegate = lazy{ object: RequestCallBack<Parent>(){
             override fun onStart() {
+                isLoadMoreEnd = false
                 when (loadingStatus) {
                     FIRST -> stateView.showLoading()
                     REFRESH -> {
@@ -220,6 +221,7 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
             }
 
             override fun onError(exception: Throwable) {
+                exception.handleThrowable(mContext)
                 when (loadingStatus) {
                     //进入页面第一次加载出现的异常
                     FIRST -> {
@@ -232,7 +234,6 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
                     //刷新的时候出现的异常
                     REFRESH -> {
                         refreshLayout.isRefreshing = false
-                        T.show(mContext,"数据刷新失败，请重试")
                     }
                     //加载更多的时候出现的异常
                     LOAD_MORE -> {
@@ -244,6 +245,7 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
         }
     }
 
+    private var isLoadMoreEnd = false
     /**
      * 加载第一屏数据 的View的改变
      */
@@ -253,10 +255,11 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
             stateView.showEmpty()
         } else {
             mAdapter?.setNewData(result)
-            if(canLoadMore)
+            if(canLoadMore) {
                 footerState(result)
-            else
+            }else {
                 mAdapter?.loadMoreEnd(true)
+            }
         }
     }
 
@@ -266,6 +269,7 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
     private fun footerState(result: List<E>){
         //没有更多了
         if (result.size < getPageSize()) {
+            isLoadMoreEnd = true
             mAdapter?.loadMoreEnd()
         } else {//还可以加载更多
             mAdapter?.loadMoreComplete()
@@ -318,9 +322,13 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
      * 上拉加载
      */
     override fun onLoadMoreRequested() {
-        loadingStatus = LOAD_MORE
-        mCurrentPage++
-        requestData(mCurrentPage, requestCallBack)
+        if(!isLoadMoreEnd){
+            loadingStatus = LOAD_MORE
+            mCurrentPage++
+            requestData(mCurrentPage, requestCallBack)
+        }else{
+            mAdapter?.loadMoreEnd()
+        }
     }
 
     /**

@@ -75,7 +75,7 @@ class SpaceActivity : BaseActivity(), View.OnClickListener {
                 PublishContentActivity.jump(this, classId)
             }
             R.id.courseSchedule ->{
-                ClassScheduleActivity.jump(this, classId, ClassScheduleActivity.ROLE_TEACHER)
+                ClassScheduleActivity.jump(this, classId, ebag.hd.base.Constants.ROLE_TEACHER)
             }
         }
     }

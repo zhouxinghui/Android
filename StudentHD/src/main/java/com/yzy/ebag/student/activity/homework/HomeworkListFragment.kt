@@ -13,7 +13,6 @@ import com.yzy.ebag.student.bean.SubjectBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
-import ebag.core.util.DateUtil
 import ebag.hd.activity.ReportClassActivity
 import ebag.hd.activity.ReportTestActivity
 import ebag.hd.base.Constants
@@ -95,11 +94,10 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
 //            val spannableString = SpannableString("完成： ${item?.questionComplete}/${item?.questionCount}")
 //            spannableString.setSpan(ForegroundColorSpan(resources.getColor(R.color.color_homework_selected)), 4, 4 + "${entity.doneCount}".length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 //            setter.setText(R.id.tvCount, spannableString)
-            val time = DateUtil.getDateTime(item?.endTime ?: 0)
             helper.setText(R.id.tvCount, Html.fromHtml("完成： <font color='#FF7800'>${item?.questionComplete}</font>/${item?.questionCount}"))
                     .setText(R.id.tvContent,"内容： ${item?.content ?: "无"}")
                     .setText(R.id.tvRequire,"要求： ${item?.remark ?: "无"}")
-                    .setText(R.id.tvTime,"截止时间： ${time ?: "无"}")
+                    .setText(R.id.tvTime,"截止时间： ${item?.endTime ?: "无"}")
                     .setText(R.id.tvStatus,
                             when(item?.state){
                                 Constants.CORRECT_UNFINISH -> "未完成"
