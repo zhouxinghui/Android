@@ -146,7 +146,7 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
                 T.show(this,"请选择需要分享的图片")
             }else{
                 requestBean.clear()
-                list.forEach { requestBean.addPhoto(it.photoUrl) }
+                list.forEach { requestBean.addPhoto(it.id) }
                 shareDialog.show()
             }
         }
@@ -211,6 +211,7 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
                 }.create()
     }
     private fun share(){
+        requestBean.groupType = "2"
         EBagApi.photosShare(requestBean, shareRequest)
     }
 
@@ -248,6 +249,7 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
                 }.create()
     }
     private fun delete(){
+        requestBean.groupType = groupType
         EBagApi.photosDelete(requestBean, deleteRequest)
     }
 

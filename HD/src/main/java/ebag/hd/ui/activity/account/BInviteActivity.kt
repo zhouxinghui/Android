@@ -112,6 +112,6 @@ abstract class BInviteActivity : MVPActivity(), InviteView {
     abstract fun inviteSuccess()
 
     // 禁止返回
-    override fun onBackPressed() {
-    }
+//    override fun onBackPressed() {
+//    }
 }
