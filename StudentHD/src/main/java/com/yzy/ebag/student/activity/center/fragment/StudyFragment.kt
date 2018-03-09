@@ -11,12 +11,15 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
+import com.yzy.ebag.student.activity.homework.done.DoHomeworkActivity
 import com.yzy.ebag.student.bean.SubjectBean
 import com.yzy.ebag.student.dialog.ListPopupWindow
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.StringUtils
+import ebag.hd.activity.ReportClassActivity
+import ebag.hd.base.Constants
 
 /**
  * @author caoyu
@@ -149,6 +152,19 @@ class StudyFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInf
         return null
     }
 
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+        adapter as Adapter
+        if(adapter.getItem(position)?.state == Constants.CORRECT_UNFINISH){
+            DoHomeworkActivity.jump(
+                    mContext,
+                    adapter.getItem(position)?.id ?: "",
+                    com.yzy.ebag.student.base.Constants.PARENT_TYPE
+            )
+        }else{
+            ReportClassActivity.jump(mContext, adapter.getItem(position)?.id ?: "")
+        }
+    }
+
     class Adapter: BaseQuickAdapter<SubjectBean.HomeWorkInfoBean,BaseViewHolder>(R.layout.item_fragment_task_study){
 
         override fun convert(helper: BaseViewHolder, item: SubjectBean.HomeWorkInfoBean?) {
@@ -158,7 +174,16 @@ class StudyFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInf
             helper.setText(R.id.tvCount, Html.fromHtml("完成： <font color='#FF7800'>${item?.questionComplete}</font>/${item?.questionCount}"))
                     .setText(R.id.tvContent,"内容： ${item?.content}")
                     .setText(R.id.tvTime,"截止时间： ${item?.endTime ?: "无"}")
-                    .setText(R.id.tvStatus,if(item?.questionComplete == item?.questionCount) "已完成" else "未完成")
+                    .setText(R.id.tvStatus,
+                            when(item?.state){
+                                Constants.CORRECT_UNFINISH -> "未完成"
+                                Constants.CORRECT_UNCORRECT -> "未批改"
+                                Constants.CORRECT_CORRECTED -> "已批改"
+                                Constants.CORRECT_TEACHER_REMARKED -> "老师评语完成"
+                                Constants.CORRECT_PARENT_REMARKED -> "家长签名和评语完成"
+                                else -> "未知状态"
+                            }
+                    )
             helper.getView<View>(R.id.tvStatus).isSelected = item?.questionComplete == item?.questionCount
         }
     }
