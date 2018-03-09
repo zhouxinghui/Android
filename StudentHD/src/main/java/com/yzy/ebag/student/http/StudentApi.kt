@@ -192,4 +192,15 @@ object StudentApi{
         jsonObject.put("pageSize", pageSize)
         EBagApi.request(studentService.labourTasks("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**
+     * 数学公式
+     */
+    fun formula(formulaId: String, page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<FormulaTypeBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("formulaId", formulaId)
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", pageSize)
+        EBagApi.request(studentService.formula("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

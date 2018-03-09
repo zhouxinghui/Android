@@ -125,5 +125,11 @@ interface StudentService {
     @POST("user/searchChildTargetList/{version}")
     fun labourTasks(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<LabourBean>>>
 
+    /**
+     * 数学公式
+     */
+    @POST("util/queryFormulaTool/{version}")
+    fun formula(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<FormulaTypeBean>>>
+
 
 }
