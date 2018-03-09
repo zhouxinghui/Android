@@ -14,12 +14,12 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.StringUtils
-import ebag.core.util.T
 import ebag.hd.R
 import ebag.hd.base.Constants
 import ebag.hd.bean.ClassScheduleBean
 import ebag.hd.bean.request.ClassScheduleEditVo
 import ebag.hd.bean.response.BaseInfoEntity
+import ebag.hd.dialog.ScheduleEditDialog
 import ebag.hd.http.EBagApi
 import ebag.hd.widget.ListBottomShowDialog
 import kotlinx.android.synthetic.main.activity_class_schedule.*
@@ -42,6 +42,7 @@ class ClassScheduleActivity: BaseActivity(){
         return R.layout.activity_class_schedule
     }
 
+    private val EDIT_VALUE = "自定义"
     private val adapter = Adapter()
     private var currentWeek = ""
     private lateinit var classId: String
@@ -59,8 +60,12 @@ class ClassScheduleActivity: BaseActivity(){
         }
 
         dialog.setOnDialogItemClickListener { mDialog, data, position ->
-            adapter.getItem(editPosition)?.subject = data.keyValue
-            adapter.notifyItemChanged(editPosition)
+            if(data.keyValue == EDIT_VALUE){
+                editDialog.show()
+            }else{
+                adapter.getItem(editPosition)?.subject = data.keyValue
+                adapter.notifyItemChanged(editPosition)
+            }
             mDialog.dismiss()
         }
         dialog
@@ -127,6 +132,7 @@ class ClassScheduleActivity: BaseActivity(){
                 adapter.isEdit = false
             }else if(role == Constants.ROLE_TEACHER){ // 填充初始化假数据
                 if(entity != null && entity.duties == Constants.TEACHER_IN_CHARGE){
+                    adapter.isEdit = true
                     getSubjectInfo()
                 }else{
                     titleView.setRightBtnVisable(false)
@@ -134,7 +140,6 @@ class ClassScheduleActivity: BaseActivity(){
                 (0 until 50).forEach { position->
                     mScheduleList.add(ClassScheduleBean.ScheduleBean("${(position / 10) + 1}", "${(position % 10) + 1}", classId))
                 }
-                adapter.isEdit = true
             }
 
             adapter.setNewData(mScheduleList)
@@ -193,21 +198,20 @@ class ClassScheduleActivity: BaseActivity(){
 
                     override fun onSuccess(entity: ArrayList<BaseInfoEntity>?) {
                         LoadingDialogUtil.closeLoadingDialog()
-                        if(entity == null){
-                            T.show(this@ClassScheduleActivity, "无数据，请稍后再试")
-                            titleView.setRightText("编辑")
-                            adapter.isEdit = false
-                        }else{
-                            subjectDialog.setData(entity)
-                        }
-                        subjectList = entity
+                        subjectList = entity ?: ArrayList()
+                        val editInfo = BaseInfoEntity()
+                        editInfo.keyValue = EDIT_VALUE
+                        subjectList!!.add(editInfo)
+                        subjectDialog.setData(subjectList)
                     }
 
                     override fun onError(exception: Throwable) {
-                        exception.handleThrowable(this@ClassScheduleActivity)
                         LoadingDialogUtil.closeLoadingDialog()
-                        titleView.setRightText("编辑")
-                        adapter.isEdit = false
+                        subjectList = ArrayList()
+                        val editInfo = BaseInfoEntity()
+                        editInfo.keyValue = EDIT_VALUE
+                        subjectList!!.add(editInfo)
+                        subjectDialog.setData(subjectList)
                     }
                 }
             }
@@ -231,6 +235,15 @@ class ClassScheduleActivity: BaseActivity(){
         }else{
             super.onBackPressed()
         }
+    }
+
+    private val editDialog by lazy {
+        val dialog = ScheduleEditDialog(this)
+        dialog.onConfirmClickListener = {
+            adapter.getItem(editPosition)?.subject = it
+            adapter.notifyItemChanged(editPosition)
+        }
+        dialog
     }
 
     inner class Adapter: BaseQuickAdapter<ClassScheduleBean.ScheduleBean, BaseViewHolder>(R.layout.item_class_schedule){
