@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_name">VNC</string>
+<string name="address_caption_hint">VNC Server</string>
+<string name="alt_check">Alt</string>
+<string name="bvnc_app_name">bVNC Pro</string>
+
+<string name="button_send_text">发送文本</string>
+<string name="button_send_without_saving">发送文本/不保存</string>
+<string name="center_mouse">鼠标居中</string>
+<string name="close">关闭</string>
+<string name="color_mode">颜色模式</string>
+<string name="connect_button">连接</string>
+<string name="connection_type_vnc">基本VNC</string>
+<string name="connection_type_ultravnc">超级VNC</string>
+<string-array name="connection_type">
+    <item>@string/connection_type_vnc</item>
+    <item>@string/connection_type_ultravnc</item>
+</string-array>
+<string name="control_check">Ctrl</string>
+<string name="copy_list_button">复制列表</string>
+<string name="ctrl_alt_del">Ctrl-Alt-Del</string>
+<string name="delete_connection">删除链接</string>
+<string name="delete_key">删除选定的指令</string>
+<string name="delete_key_list">删除指令列表</string>
+<string name="dpad_as_arrows">使用D-Pad作为方向键，点击D-Pad作为Ctrl。</string>
+<string name="disconnect">断开连接</string>
+<string name="error_uri_noinfo_nosave">不明确的信息指定连接。</string>
+<string name="error_vnc_authentication">VNC身份验证失败！检查VNC密码（和用户，如果适用）。</string>
+<string name="error_out_of_memory">无法分配足够的内存来绘制远程屏幕。尝试重新启动应用程序，然后重新启动您的设备。您也可以尝试通过应用程序设置来减小远程桌面的大小。</string>
+<string name="error_pick_correct_item">请确保您选择了连接类型中的正确项目。</string>
+<string name="error_security_type">服务器没有提供受支持的安全类型。</string>
+<string name="error_vnc_unable_to_connect">" 与VNC服务器的连接失败，原因： "</string>
+<string name="error_connection_failed">连接失败。</string>
+<string name="enter_text_title">输入要发送的文本</string>
+<string name="enter_text">发送文本</string>
+<string name="extra_keys_enable">打开常用按键</string>
+<string name="extra_keys_disable">关闭常用按键</string>
+<string name="fit_to_screen">填充屏幕</string>
+<string name="immersive_mode_disable">禁用沉浸模式</string>
+<string name="input_mode_help">操作说明</string>
+<string name="info">连接信息</string>
+<string name="info_progress_dialog_connecting">连接中&#8230;</string>
+<string name="info_progress_dialog_establishing">正在连接。\n请稍等&#8230;</string>
+<string name="info_progress_dialog_downloading">正在加载第一帧动画。\n请稍等&#8230;</string>
+<string name="info_progress_dialog_aborted">连接中止！</string>
+<string name="info_update_color_model_to">更新颜色模型</string>
+<string name="info_encoding">" encoding, "</string>
+<string name="input_mode">操作模式</string>
+<string name="input_mode_help_text">
+在任何输入模式下，点击键盘图标即可获得屏幕键盘。\n
+\n
+使用模拟鼠标模式更直观的触摸屏控制。使用模拟触摸板模式更好地控制鼠标。\n
+\n
+模拟鼠标模式，滑动平移：\n
+  - 通过触摸直接控制鼠标。\n
+  - 轻扫以平移。\n
+  - 点击使得鼠标在你点击的地方点击。\n
+  - 滚动事件是在双指滑动开始的两个手指之间发送的。\n
+\n
+模拟鼠标模式，保持平移：\n
+  - 通过触摸直接控制鼠标。\n
+  - 长按开始平移模式。\n
+  - 点击使得鼠标在你点击的地方点击。\n
+  - 滚动事件是在双指滑动开始的两个手指之间发送的。\n
+\n
+模拟触摸板模式：\n
+  - 像触摸板一样使用你的屏幕。\n
+  - 滑动移动鼠标指针。\n
+  - 将鼠标移至屏幕边缘以平移。\n
+  - 点击使鼠标在指针所在的位置点击。\n
+  - 滚动事件在鼠标指针所在的位置发送。\n
+\n
+单手模式：\n
+  - 与直接，滑动平移模式相同，除了长按开启菜单和模式选择。\n
+  - 选择模式后，在屏幕上滑动手指执行选定的手势。\n
+  - 举起手指完成手势。\n
+\n
+所有输入模式：\n
+  - 左键单击：点击一次。\n
+  - 双击：双击。\n
+  - 右键单击​​：轻按并用另一个手指（屏幕上的任何其他位置）轻击。\n
+  - 备用右键单击：使用“返回”按钮或手势为您的设备。\n
+  - 中键：点按并用另外两个手指点击（屏幕上的任何其他位置）。\n
+  - 鼠标拖动：长按并轻扫。\n
+  - 滚轮：双指向上/向下和向左/向右拖动。快速拖动滚动更快。\n
+  - 放大/缩小：在可缩放缩放中，捏缩放控制缩放。\n
+  - Ctrl / Alt键：Menu-> Ctrl / Alt键。不要忘记完成后关闭！\n
+  - 键组合：菜单 - >更多 - >发送键。\n
+  - 发送文字：在屏幕键盘上输入文字，或使用菜单 - >更多 - >发送文字。\n
+</string>
+<string name="input_mode_touch_pan_zoom_mouse">模拟鼠标模式，滑动平移</string>
+<string name="input_method_direct_swipe_pan_description">模拟鼠标模式，滑动平移：轻扫以平移。一根手指左键单击，两根手指右键单击，三根手指中键单击即可轻击。用两根手指滑动即可滚动。长按即可拖放。</string>
+<string name="input_mode_drag_pan_zoom_mouse">模拟鼠标模式，保持平移</string>
+<string name="input_method_direct_drag_pan_description">模拟鼠标模式，保持平移：滑动即可拖放。一根手指左键单击，两根手指右键单击，用三根手指中键单击即可轻击。用两根手指滑动即可滚动。长按开始平移。</string>
+<string name="input_mode_single_handed">单手模式</string>
+<string name="input_method_single_handed_description">单手模式：轻扫以平移。一根手指左键点击。长按可选择左/右/中间拖动/滚动/缩放模式。平常的多点触控也可以。</string>
+<string name="input_mode_touchpad">模拟触摸板模式</string>
+<string name="input_method_touchpad_description">模拟触摸板模式：滑动移动指针。点击任何地方用一个手指左键单击，两个手指右键单击，三个手指中键单击。用两根手指滑动即可滚动。长按即可拖放。</string>
+<string name="keep_password_button">保存</string>
+<string name="keep_screen_awake_enable">保持屏幕常亮</string>
+<string name="keys_caption">按键</string>
+<string name="landscape_force">强制横屏</string>
+<string name="left_handed_mode">左手模式</string>
+<string name="list_caption">列表</string>
+<string name="list_name_caption">列表名称</string>
+<string name="local_mouse_check">本地鼠标指针（如果指针不可见则选择）</string>
+<string name="main_screen_help">使用说明</string>
+<string name="main_screen_help_text">
+当你第一次启动bVNC时，你会看到一个连接配置页面，在这里你可以建立一个新的VNC连接，或者选择一个已经存在的连接，页面分为两部分，最上面的部分包含连接配置你以前创建的，第一次运行bVNC，你只能建立一个新的连接，在列表旁边是连接按钮，连接按钮将启动VNC客户端和当前选择的配置。那就是你配置连接的地方。\n
+\n
+如果您正在寻求快速提升性能，请尝试将颜色模式设置为较低的值。另外，请尝试删除VNC服务器上的任何桌面背景图像。最后，确保您的设备具有良好的网络连接性，避免覆盖天线并降低信号强度。\n
+\n
+  - 连接类型：在这里您选择VNC连接类型。可用的连接类型是：\n
+   （a）所有VNC服务器都支持的普通VNC，但缺少加密功能，并且由于8个字符的密码限制而容易受到暴力攻击。\n
+   （b）UltraVNC，它为您提供Windows登录和UltraVNC中继器选项。使用Windows登录不受8字符密码限制的影响，但此模式不提供加密，因此您的会话很容易被嗅探。\n
+\n
+  - 标题：您创建的每个连接都可以有一个昵称，以便在列表中轻松识别它。\n
+ \n
+  - VNC连接设置：\n
+   （a）VNC服务器/端口：这是您输入您希望联系的运行VNC服务器的计算机的主机名或IP地址和端口的地方。在SSH模式下的VNC中，这个地址可以从SSH服务器上看到。如果SSH服务器和VNC服务器是同一台计算机，则可以使用localhost。 VNC服务器通常从端口5900开始监听（第一个VNC屏幕，屏幕：0）。\n
+   （b）VNC用户：在使用Windows登录模式的UltraVNC中可用，或在VeNCrypt上使用Secure VNC，您可以在此输入Windows / UNIX帐户用户名。\n
+   （c）VNC密码：如果您的VNC服务器配置需要密码，请在此输入密码。在具有Windows登录/ VeNCrypt模式的UltraVNC中，将您的Windows / UNIX帐户密码放在此处。安全存储不用于密码，只有在选中“保留”框后才能存储密码。如果您自上次输入bVNC之后还没有退出，密码将填写在此页面上。\n
+\n
+  - 颜色模式：客户端支持多种颜色模式。具有更多颜色的模式提供了更好的视觉体验，但代价是更大的带宽和更多的CPU计算。某些VNC服务器不支持所有颜色深度（例如，OS / X远程桌面需要24位颜色）。如果在连接时遇到问题，请尝试其他颜色深度。\n
+\n
+  - 使用D-Pad作为箭头：如果您愿意，可以使用蓝牙键盘的D-Pad或屏幕键盘上的箭头将箭头发送到VNC服务器。\n
+\n
+  - 旋转D-Pad：与蓝牙键盘配对的电话可能需要将键盘的D-pad逆时针旋转，才能向服务器发送正确的方向。\n
+    \n
+  - 本地鼠标指针：某些VNC服务器（例如OS / X远程桌面）不会在客户端上绘制鼠标指针。选中此选项将导致bVNC在鼠标位置绘制一个小方块。\n
+\n
+  - 自动/全屏位图：VNC客户端使用位图来表示远程显示。对于非常大的远程显示器，特别是在适合屏幕模式下，由于每个进程的内存限制，在适合屏幕模式时，您可能会遇到奇怪的视觉伪影。如果发生这种情况，请尝试检查此选项。请记住，检查该选项可能会导致bVNC在连接时退出。\n
+\n
+  - 中继器：仅在UltraVNC模式下可用。重要提示：如果您有一个UltraVNC中继器，请在“UltraVNC中继器”对话框外输入其地址和端口，然后在“UltraVNC中继器”对话框中输入实际的VNC服务器的地址和端口。用冒号分隔VNC服务器的地址和端口。 192.168.0.100:5900。</string>
+<string name="meta_key_title">发送特殊指令</string>
+<string name="new_list_button">新建列表</string>
+<string name="new_connection">新建链接</string>
+<string name="nickname_caption">昵称</string>
+<string name="nickname_caption_hint">标题（可选）</string>
+<!--<string name="off">关</string>-->
+<string name="force">全屏</string>
+    <string name="auto">自动</string>
+<string name="one_to_one">一对一</string>
+<string name="password_caption_hint">密码</string>
+<string name="right_alt_as_iso_l3_shift">右边的Alt作为系统的 L3 Shift键（仅限VNC）</string>
+<string name="save_as_copy">保存为副本</string>
+    <string name="port_hint">端口</string>
+<string name="scaling">缩放</string>
+<string name="scaling_zoomable">可缩放</string>
+<!-- Send selected metakey -->
+<string name="send_button">发送</string>
+<string name="send_key_again">再次发送</string>
+<string name="shift_check">Shift</string>
+<string name="shortcut_label">VNC 链接</string>
+<string name="single_cancel">单手模式取消</string>
+<string name="single_choose">选择单手模式或取消</string>
+<string name="single_left">左拖动模式 - 轻扫拖动/选择，抬起手指停止</string>
+<string name="single_middle">中间拖动模式 - 轻扫拖动/选择，提起手指停止</string>
+<string name="single_right">右键拖动模式 - 轻扫拖动/选择，抬起手指停止</string>
+<string name="single_scroll">滚动模式 - 向上/向下滑动滚动，抬起手指停止</string>
+<string name="single_reposition">鼠标指针重新定位为单手模式</string>
+<string name="single_zoom">缩放模式 - 向上/向下滑动放大/缩小，抬起手指停止</string>
+<string name="snap_one_to_one">屏幕到1：1缩放</string>
+<string name="special_keys">发送指令</string>
+<string name="username_hint_optional">用户名（可选）</string>
+<string name="view_only">仅查看模式</string>
+<string name="vnc_server_empty">VNC服务器或端口为空。无法连接！</string>
+<string name="super_check">Super</string>
+</resources>

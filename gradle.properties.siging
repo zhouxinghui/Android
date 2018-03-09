@@ -16,8 +16,9 @@ org.gradle.jvmargs=-Xmx1536m
 # http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects
 # org.gradle.parallel=true
 
-KEY_ALIAS=
 #这里写keystore文件路径
-STORE_FILE=
-STORE_PASSWORD=
-KEY_PASSWORD=
+KEY_ALIAS = yzy
+STUDENT_STORE_FILE=
+TEACHER_STORE_FILE=
+STORE_PASSWORD = yzy2015
+KEY_PASSWORD = yzy2015

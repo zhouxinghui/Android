@@ -1,7 +1,6 @@
 package com.yzy.ebag.teacher
 
 import android.support.v4.app.Fragment
-import android.widget.Toast
 import com.yzy.ebag.teacher.ui.fragment.FragmentClass
 import com.yzy.ebag.teacher.ui.fragment.FragmentFirstPage
 import com.yzy.ebag.teacher.ui.fragment.FragmentMine
@@ -17,7 +16,7 @@ class MainActivity : MVPActivity() {
     override fun initViews() {
         changeFragment(0)
         shareScreen.setOnClickListener {
-            Toast.makeText(this, "同屏", Toast.LENGTH_SHORT).show()
+//            startActivity(Intent(this, VNCSetActivity))
         }
 
         leftGroup.setOnCheckedChangeListener { _, checkedId ->

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent">
+
+<LinearLayout
+	android:id="@+id/mainLayout"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:padding="0dip"
+	android:orientation="vertical">
+   	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+		<Spinner 
+			android:id="@+id/spinnerConnection"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:singleLine="true"/>
+		<Button 
+			android:id="@+id/buttonGO" 
+			android:text="@string/connect_button"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="0"
+			android:textSize="35sp"
+			android:singleLine="true"/>
+	</LinearLayout>	
+	<TableLayout 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:padding="5dip">
+		<TableRow>
+			<EditText android:id="@+id/textNickname" android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:singleLine="true" android:layout_weight="1" android:textAppearance="?android:attr/textAppearanceLarge"
+				android:hint="@string/nickname_caption_hint"/>
+		</TableRow>
+		<TableRow>
+		    <TextView
+				android:text="远程连接设置"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"/> 
+		</TableRow>
+		<TableRow>
+			<LinearLayout
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:layout_weight="1">
+				<EditText android:id="@+id/textIP" android:layout_width="fill_parent" android:layout_height="wrap_content"
+					android:singleLine="true" android:layout_weight="1" android:textAppearance="?android:attr/textAppearanceLarge"
+					android:hint="@string/address_caption_hint" android:nextFocusDown="@+id/textPORT"
+					android:inputType="textNoSuggestions|textVisiblePassword"/>
+				<EditText android:id="@+id/textPORT"
+					android:text="5900" android:hint="@string/port_hint"
+					android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true"
+					android:layout_weight="0" android:textAppearance="?android:attr/textAppearanceLarge"
+					android:inputType="textNoSuggestions|textVisiblePassword"/>
+			</LinearLayout>
+		</TableRow>
+		<TableRow>
+			<EditText android:id="@+id/textUsername" android:layout_width="fill_parent" 
+				android:hint="@string/username_hint_optional" android:layout_height="wrap_content"
+				android:singleLine="true" android:layout_weight="1" android:textAppearance="?android:attr/textAppearanceLarge"
+				android:inputType="textNoSuggestions|textVisiblePassword"/>
+		</TableRow>
+		<TableRow>
+			<LinearLayout
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:layout_weight="1">
+				<EditText android:id="@+id/textPASSWORD"
+					android:password="true"
+					android:layout_width="fill_parent" android:layout_height="wrap_content" android:singleLine="true" 
+					android:layout_weight="1" android:textAppearance="?android:attr/textAppearanceLarge"
+					android:hint="@string/password_caption_hint"
+					android:inputType="textNoSuggestions"/>
+				<CheckBox android:id="@+id/checkboxKeepPassword"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="@string/keep_password_button"	android:layout_weight="0"
+					android:textAppearance="?android:attr/textAppearanceLarge" android:singleLine="true"/>
+			</LinearLayout>
+		</TableRow>
+	</TableLayout>
+	
+	<LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dip"
+        android:orientation="horizontal">
+	    <ToggleButton
+	        android:id="@+id/toggleAdvancedSettings"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	    	android:textAppearance="?android:attr/textAppearanceMedium"/>
+	    <TextView
+            android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="显示高级设置"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+	
+    <LinearLayout
+        android:id="@+id/layoutAdvancedSettings"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:padding="5dip"
+        android:orientation="vertical">
+		<Spinner 
+		    android:id="@+id/colorformat" 
+		    android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"/>
+		<CheckBox
+			android:id="@+id/checkboxViewOnly"
+		    android:text="@string/view_only"
+		    android:textAppearance="?android:attr/textAppearanceLarge"
+		    android:layout_width="wrap_content"
+		    android:gravity="left|center_vertical"
+		    android:layout_height="wrap_content"/>
+        <CheckBox
+			android:id="@+id/checkboxUseDpadAsArrows"
+		    android:text="@string/dpad_as_arrows"
+		    android:textAppearance="?android:attr/textAppearanceLarge"
+		    android:layout_width="wrap_content"
+		    android:gravity="left|center_vertical"
+		    android:layout_height="wrap_content"/>
+		<CheckBox
+			android:id="@+id/checkboxUseLocalCursor"
+		    android:text="@string/local_mouse_check"
+		    android:textAppearance="?android:attr/textAppearanceLarge"
+		    android:layout_width="wrap_content"
+		    android:gravity="left|center_vertical"
+		    android:layout_height="wrap_content"/>
+		<CheckBox
+			android:id="@+id/checkboxPreferHextile"
+		    android:text="使用Hextile编码（用于chroot连接）"
+		    android:textAppearance="?android:attr/textAppearanceLarge"
+		    android:layout_width="wrap_content"
+		    android:gravity="left|center_vertical"
+		    android:layout_height="wrap_content"/>
+		<RadioGroup
+			android:id="@+id/groupForceFullScreen"
+			android:orientation="horizontal"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content">
+			<RadioButton
+				android:id="@+id/radioForceFullScreenAuto"
+			    android:text="@string/auto"
+			    android:textAppearance="?android:attr/textAppearanceLarge"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"/>
+			<RadioButton
+				android:id="@+id/radioForceFullScreenOn"
+			    android:text="@string/force"
+			    android:textAppearance="?android:attr/textAppearanceLarge"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"/>
+		</RadioGroup>
+	</LinearLayout>
+	
+	</LinearLayout>
+</ScrollView>
