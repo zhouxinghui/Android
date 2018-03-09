@@ -240,6 +240,7 @@ class ClassScheduleActivity: BaseActivity(){
     private val editDialog by lazy {
         val dialog = ScheduleEditDialog(this)
         dialog.onConfirmClickListener = {
+            dialog.dismiss()
             adapter.getItem(editPosition)?.subject = it
             adapter.notifyItemChanged(editPosition)
         }
