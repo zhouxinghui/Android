@@ -107,10 +107,10 @@ class AlbumFragment: BaseListFragment<ArrayList<AlbumBean>, AlbumBean>() {
                 val cover = item?.photoMap?.photo?.photoUrl?.split(",")
                 helper.setText(R.id.text,item?.photosName)
                         .getView<ImageView>(R.id.image).loadImage(
-                                if(cover != null && cover.size > 1)
-                                    cover[0]
-                                else
-                                    ""
+                            if(cover != null && cover.isNotEmpty())
+                                cover[0]
+                            else
+                                ""
                         )
             }
         }

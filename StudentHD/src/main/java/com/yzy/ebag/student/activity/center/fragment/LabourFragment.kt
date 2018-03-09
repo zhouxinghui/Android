@@ -18,33 +18,16 @@ import ebag.core.http.network.RequestCallBack
 class LabourFragment: BaseListFragment<ArrayList<LabourBean>, LabourBean>() {
 
     companion object {
-        fun newInstance(classId: String): LabourFragment{
-            val fragment = LabourFragment()
-            val bundle =Bundle()
-            bundle.putString("classId",classId)
-            fragment.arguments = bundle
-            return fragment
+        fun newInstance(): LabourFragment{
+            return LabourFragment()
         }
     }
 
-    lateinit var classId: String
     override fun getBundle(bundle: Bundle?) {
-        classId = bundle?.getString("classId") ?: ""
     }
 
     override fun loadConfig() {
-//        val list = ArrayList<Task>()
-//        list.add(Task())
-//        list.add(Task())
-//        list.add(Task())
-//        list.add(Task())
-//        list.add(Task())
-//        list.add(Task())
-//        list.add(Task())
-//        list.add(Task())
-//        list.add(Task())
-//        list.add(Task())
-//        withFirstPageData(list)
+        rootView.setPadding(0, resources.getDimensionPixelSize(R.dimen.x48), 0, 0)
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<ArrayList<LabourBean>>) {

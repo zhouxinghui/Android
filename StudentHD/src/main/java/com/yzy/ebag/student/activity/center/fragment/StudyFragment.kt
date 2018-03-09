@@ -1,16 +1,22 @@
 package com.yzy.ebag.student.activity.center.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.text.Html
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.RelativeLayout
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.bean.SubjectBean
+import com.yzy.ebag.student.dialog.ListPopupWindow
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.StringUtils
 
 /**
  * @author caoyu
@@ -20,72 +26,119 @@ import ebag.core.http.network.RequestCallBack
 class StudyFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInfoBean>() {
 
     companion object {
-        fun newInstance(classId: String): StudyFragment {
-            val fragment = StudyFragment()
-            val bundle =Bundle()
-            bundle.putString("classId",classId)
-            fragment.arguments = bundle
-            return fragment
+        fun newInstance(): StudyFragment {
+            return StudyFragment()
         }
     }
 
-    lateinit var classId: String
     override fun getBundle(bundle: Bundle?) {
-        classId = bundle?.getString("classId") ?: ""
     }
 
+    private var subCode = ""
+    lateinit var spinner: View
+    private lateinit var tvSelect: TextView
     override fun loadConfig() {
-        val list = ArrayList<SubjectBean.HomeWorkInfoBean>()
-        var data = SubjectBean.HomeWorkInfoBean()
-        data.content = "课后作业"
-        data.remark = "回家好好做题。"
-        data.endTime = ""
-        data.state = "0"
-        data.questionCount = 10
-        data.questionComplete = 9
-        list.add(data)
-        data = SubjectBean.HomeWorkInfoBean()
-        data.content = "课后作业"
-        data.remark = "回家好好做题。"
-        data.endTime = ""
-        data.state = "0"
-        data.questionCount = 10
-        data.questionComplete = 9
-        list.add(data)
-        data = SubjectBean.HomeWorkInfoBean()
-        data.content = "课后作业"
-        data.remark = "回家好好做题。"
-        data.endTime = ""
-        data.state = "0"
-        data.questionCount = 10
-        data.questionComplete = 9
-        list.add(data)
-        data = SubjectBean.HomeWorkInfoBean()
-        data.content = "课后作业"
-        data.remark = "回家好好做题。"
-        data.endTime = ""
-        data.state = "0"
-        data.questionCount = 10
-        data.questionComplete = 9
-        list.add(data)
-        data = SubjectBean.HomeWorkInfoBean()
-        data.content = "课后作业"
-        data.remark = "回家好好做题。"
-        data.endTime = ""
-        data.state = "0"
-        data.questionCount = 10
-        data.questionComplete = 9
-        list.add(data)
+        val params = refreshLayout.layoutParams as RelativeLayout.LayoutParams
+        params.topMargin = resources.getDimensionPixelSize(R.dimen.x48)
+        refreshLayout.layoutParams = params
+        stateView.layoutParams = params
 
-        withFirstPageData(list)
+//        rootView.setPadding(0, resources.getDimensionPixelSize(R.dimen.x48), 0, 0)
+        spinner = LayoutInflater.from(mContext).inflate(R.layout.item_study_task_spinner, null)
+        val rParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+        rParams.addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE)
+        rootView.addView(spinner, rParams)
+        tvSelect = spinner.findViewById(R.id.tvSelect)
+
+        spinner.visibility = View.GONE
+        spinner.setOnClickListener {
+            popZhWnd.show()
+        }
+
+//        val ll = ArrayList<SubjectBean>()
+//        var dd = SubjectBean()
+//        dd.subCode = "yw"
+//        dd.subject = "语文"
+//        ll.add(dd)
+//        dd = SubjectBean()
+//        dd.subCode = "yy"
+//        dd.subject = "英语"
+//        ll.add(dd)
+//        dd = SubjectBean()
+//        dd.subCode = "sx"
+//        dd.subject = "数学"
+//        ll.add(dd)
+//        spinner.visibility = View.VISIBLE
+//        tvSelect.text = ll[0].subject
+//        popZhWnd.setData(ll)
+//
+//        val list = ArrayList<SubjectBean.HomeWorkInfoBean>()
+//        var data = SubjectBean.HomeWorkInfoBean()
+//        data.content = "课后作业"
+//        data.remark = "回家好好做题。"
+//        data.endTime = ""
+//        data.state = "0"
+//        data.questionCount = 10
+//        data.questionComplete = 9
+//        list.add(data)
+//        data = SubjectBean.HomeWorkInfoBean()
+//        data.content = "课后作业"
+//        data.remark = "回家好好做题。"
+//        data.endTime = ""
+//        data.state = "0"
+//        data.questionCount = 10
+//        data.questionComplete = 9
+//        list.add(data)
+//        data = SubjectBean.HomeWorkInfoBean()
+//        data.content = "课后作业"
+//        data.remark = "回家好好做题。"
+//        data.endTime = ""
+//        data.state = "0"
+//        data.questionCount = 10
+//        data.questionComplete = 9
+//        list.add(data)
+//        data = SubjectBean.HomeWorkInfoBean()
+//        data.content = "课后作业"
+//        data.remark = "回家好好做题。"
+//        data.endTime = ""
+//        data.state = "0"
+//        data.questionCount = 10
+//        data.questionComplete = 9
+//        list.add(data)
+//        data = SubjectBean.HomeWorkInfoBean()
+//        data.content = "课后作业"
+//        data.remark = "回家好好做题。"
+//        data.endTime = ""
+//        data.state = "0"
+//        data.questionCount = 10
+//        data.questionComplete = 9
+//        list.add(data)
+//
+//        withFirstPageData(list)
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<SubjectBean>>) {
-        StudentApi.subjectWorkList("3", classId, "", page, getPageSize(), requestCallBack)
+        StudentApi.subjectWorkList(com.yzy.ebag.student.base.Constants.PARENT_TYPE, null, "", page, getPageSize(), requestCallBack)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<SubjectBean>?): List<SubjectBean.HomeWorkInfoBean>? {
-        return parent?.get(0)?.homeWorkInfoVos
+        if(subCode.isEmpty() && parent != null && parent.isNotEmpty()){
+            val list = parent.filter { !StringUtils.isEmpty(it.subject) }
+            if(list.isNotEmpty()){
+                spinner.visibility = View.VISIBLE
+                tvSelect.text = list[0].subject
+                subCode = list[0].subCode
+                popZhWnd.setData(list)
+            }else{
+                spinner.visibility = View.GONE
+            }
+        }
+        return if(parent != null && parent.isNotEmpty()){
+            parent[0].homeWorkInfoVos
+        }else{
+            null
+        }
+
     }
 
     override fun getAdapter(): BaseQuickAdapter<SubjectBean.HomeWorkInfoBean, BaseViewHolder> {
@@ -107,6 +160,38 @@ class StudyFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInf
                     .setText(R.id.tvTime,"截止时间： ${item?.endTime ?: "无"}")
                     .setText(R.id.tvStatus,if(item?.questionComplete == item?.questionCount) "已完成" else "未完成")
             helper.getView<View>(R.id.tvStatus).isSelected = item?.questionComplete == item?.questionCount
+        }
+    }
+
+    private val popZhWnd by lazy {
+        object :ListPopupWindow<SubjectBean>(mContext, spinner, resources.getDimensionPixelSize(R.dimen.x268)){
+
+            private val selected = Color.parseColor("#499DFF")
+            private val noDone = Color.parseColor("#FF666D")
+            private val normal = Color.parseColor("#373b45")
+            override fun popupVisible(visible: Boolean) {
+                spinner.isSelected = visible
+            }
+
+            override fun itemClick(item: SubjectBean?) {
+                if(subCode != item?.subCode){
+                    subCode = item?.subCode ?: ""
+                    tvSelect.text = item?.subject
+                    onRetryClick()
+                }
+            }
+
+            override fun fillData(helper: BaseViewHolder, item: SubjectBean?) {
+                helper.setText(R.id.text, item?.subject)
+                helper.setTextColor(
+                        R.id.text,
+                        when {
+                            subCode == item?.subCode -> selected
+                            item?.homeWorkComplete != "0" -> noDone
+                            else -> normal
+                        }
+                )
+            }
         }
     }
 }

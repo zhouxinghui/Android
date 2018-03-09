@@ -65,7 +65,11 @@ class TopicListFragment: BaseListFragment<List<ErrorTopicBean>, ErrorTopicBean.E
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<ErrorTopicBean>?): List<ErrorTopicBean.ErrorHomeWorkVosBean>? {
-        return parent?.get(0)?.errorHomeWorkVos
+        return if(parent != null && parent.isNotEmpty()){
+            parent[0].errorHomeWorkVos
+        }else{
+            null
+        }
     }
 
     override fun getAdapter(): BaseQuickAdapter<ErrorTopicBean.ErrorHomeWorkVosBean, BaseViewHolder> {

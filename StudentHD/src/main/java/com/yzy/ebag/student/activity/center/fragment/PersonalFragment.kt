@@ -54,7 +54,11 @@ class PersonalFragment: BaseFragment() {
             tvName.text = userEntity.name
             tvId.text = userEntity.ysbCode
             ivAvatar.loadHead(userEntity.headUrl)
-            tvGender.text = userEntity.sex
+            tvGender.text = when(userEntity.sex){
+                                "1" -> "男  "
+                                "2" -> "女  "
+                                else -> ""
+                            }
 //            tvContact.text = userEntity.
             tvAddress.text = userEntity.address
             tvSchool.text = userEntity.schoolName

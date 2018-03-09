@@ -61,7 +61,11 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<SubjectBean>?): List<SubjectBean.HomeWorkInfoBean>? {
-        return parent?.get(0)?.homeWorkInfoVos
+        return if(parent != null && parent.isNotEmpty()){
+            parent[0].homeWorkInfoVos
+        }else{
+            null
+        }
     }
 
     override fun getAdapter(): BaseQuickAdapter<SubjectBean.HomeWorkInfoBean,BaseViewHolder> {

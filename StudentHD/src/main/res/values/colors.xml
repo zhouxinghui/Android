@@ -40,7 +40,6 @@
     <!--设置-->
     <color name="setting_text_color">#2A2A2A</color>
     <color name="setting_item_pressed_color">#F4F4F4</color>
-    <color name="setting_line_color">#F4F4F4</color>
 
     <!--用户反馈-->
     <color name="feedback_tip_color">#4A4A4A</color>

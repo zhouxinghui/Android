@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android" 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="@dimen/x24"
     android:orientation="vertical">
-    
+
+    <ebag.core.widget.empty.NoScrollViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/x48"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/x24"
         android:layout_marginBottom="@dimen/x7">
         <RadioButton
             android:id="@+id/rbLabour"
             android:layout_width="@dimen/x133"
-            android:layout_height="@dimen/x48"
+            android:layout_height="match_parent"
             android:textSize="@dimen/x24"
             android:gravity="center"
             android:button="@null"
@@ -27,7 +32,7 @@
         <RadioButton
             android:id="@+id/rbStudy"
             android:layout_width="@dimen/x133"
-            android:layout_height="@dimen/x48"
+            android:layout_height="match_parent"
             android:background="@drawable/task_tab_bg"
             android:textColor="@color/color_task_text_selector"
             android:textSize="@dimen/x24"
@@ -35,10 +40,4 @@
             android:button="@null"
             android:text="学习任务"/>
     </RadioGroup>
-
-    <ebag.core.widget.empty.NoScrollViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-</LinearLayout>
+</FrameLayout>

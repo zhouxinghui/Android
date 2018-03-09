@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="?attr/selectableItemBackground"
+    android:paddingStart="@dimen/x24"
+    android:paddingEnd="@dimen/x24"
+    android:paddingTop="@dimen/x10"
+    android:paddingBottom="@dimen/x10">
+    <TextView
+        android:id="@+id/tvSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_subject_text_selector"
+        android:textSize="@dimen/tv_normal"
+        tools:text="语文"
+        />
+
+    <View
+        android:id="@+id/icon"
+        android:layout_marginStart="@dimen/x10"
+        android:layout_width="@dimen/x22"
+        android:layout_height="@dimen/x13"
+        android:background="@drawable/icon_spinner_selector"/>
+</LinearLayout>

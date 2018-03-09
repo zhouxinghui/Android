@@ -41,7 +41,7 @@ object StudentApi{
     /**
      * 作业列表
      */
-    fun subjectWorkList(type: String, classId: String, subCode: String, page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<SubjectBean>>){
+    fun subjectWorkList(type: String, classId: String?, subCode: String, page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<SubjectBean>>){
         val jsonObj = JSONObject()
         jsonObj.put("classId", classId)
         jsonObj.put("type", type)
