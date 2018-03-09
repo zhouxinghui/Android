@@ -144,10 +144,16 @@ interface TeacherService {
     fun searchPublish(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<CorrectingBean>>>
 
     /**
-     * 查询所教科目
+     * 查询所教课程
      */
     @POST("clazz/getTaughtCourses/{version}")
     fun searchCourse(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<MyCourseBean>>>
+
+    /**
+     * 添加所教课程-教材版本数据
+     */
+    @POST("clazz/getPublishedByGrade/{version}")
+    fun courseVersionData(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<BookVersionBean>>>
 
     /**
      * 老师添加班级所教科目
@@ -208,4 +214,10 @@ interface TeacherService {
      */
     @POST("user/modifyPersonalCenter/{version}")
     fun modifyPersonalInfo(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 课堂表现列表
+     */
+    @POST("clazzSpace/queryUserClazzRoomShowAll/{version}")
+    fun classPerformance(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<PerformanceBean>>>
 }

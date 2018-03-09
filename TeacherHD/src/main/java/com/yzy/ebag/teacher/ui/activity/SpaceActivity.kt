@@ -56,6 +56,7 @@ class SpaceActivity : BaseActivity(), View.OnClickListener {
         studyGroup.setOnClickListener(this)
         publishNoticeBtn.setOnClickListener(this)
         courseSchedule.setOnClickListener(this)
+        expression.setOnClickListener(this)
 
         TeacherApi.newestNotice(classId, noticeRequest)
     }
@@ -76,6 +77,9 @@ class SpaceActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.courseSchedule ->{
                 ClassScheduleActivity.jump(this, classId, ebag.hd.base.Constants.ROLE_TEACHER)
+            }
+            R.id.expression ->{
+                ClassPerformanceActivity.jump(this, classId)
             }
         }
     }

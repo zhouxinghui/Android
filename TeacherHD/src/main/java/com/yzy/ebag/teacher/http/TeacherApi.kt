@@ -168,11 +168,13 @@ object TeacherApi {
     /**
      * 添加老师
      */
-    fun addTeacher(classId: String, ysbCode: String, subCode: String, callback: RequestCallBack<String>){
+    fun addTeacher(classId: String, ysbCode: String, subCodeList: ArrayList<String>, callback: RequestCallBack<String>){
         val jsonObject = JSONObject()
         jsonObject.put("ysbCode",ysbCode)
         jsonObject.put("classId",classId)
-        jsonObject.put("subCode",subCode)
+        val sb = StringBuilder()
+        subCodeList.forEach { sb.append("$it,") }
+        jsonObject.put("subCode", sb.deleteCharAt(sb.length - 1))
         EBagApi.request(teacherService.addTeacher("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
@@ -337,6 +339,15 @@ object TeacherApi {
     }
 
     /**
+     * 添加所教课程-教材版本数据
+     */
+    fun courseVersionData(classId: String, callback: RequestCallBack<List<BookVersionBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        EBagApi.request(teacherService.courseVersionData("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
      * 添加所教课程
      */
     fun addCourse(classId: String,
@@ -449,5 +460,14 @@ object TeacherApi {
         val jsonObject = JSONObject()
         jsonObject.put(key, value)
         EBagApi.request(teacherService.modifyPersonalInfo("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 课堂表现列表
+     */
+    fun classPerformance(classId: String, callback: RequestCallBack<List<PerformanceBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        EBagApi.request(teacherService.classPerformance("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

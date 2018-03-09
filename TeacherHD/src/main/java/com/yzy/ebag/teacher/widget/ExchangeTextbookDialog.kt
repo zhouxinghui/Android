@@ -147,7 +147,7 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
         val idList = ArrayList<String>()
         idList.add(classId)
         this.idList = idList
-        TeacherApi.searchBookVersion(idList, versionRequest)
+        TeacherApi.courseVersionData(idList[0], versionRequest)
         super.show()
     }
 

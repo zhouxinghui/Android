@@ -12,6 +12,7 @@ import ebag.core.base.BaseDialog
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.DensityUtil
+import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.StringUtils
 import ebag.core.util.T
 import kotlinx.android.synthetic.main.dialog_add_teacher.*
@@ -39,30 +40,32 @@ class AddTeacherDialog(context: Context): BaseDialog(context) {
     }
     private val addRequest = object : RequestCallBack<String>(){
         override fun onStart() {
-            T.showLong(context, "正在添加...")
+            dismiss()
+            LoadingDialogUtil.showLoading(context, "正在添加...")
         }
 
         override fun onSuccess(entity: String?) {
             onAddSuccess?.invoke()
-            dismiss()
+            LoadingDialogUtil.closeLoadingDialog()
+            T.show(context, "添加成功")
         }
 
         override fun onError(exception: Throwable) {
+            LoadingDialogUtil.closeLoadingDialog()
             exception.handleThrowable(context)
         }
     }
     var onAddSuccess: (() -> Unit)? = null
-    private var subjectCode = ""
     private var classId = ""
     private var subjectAdapter: SubjectAdapter
-
+    private val subCodeList = ArrayList<String>()
     init {
         subjectAdapter = SubjectAdapter()
         recyclerView.adapter = subjectAdapter
         recyclerView.layoutManager = GridLayoutManager(context, 3)
         confirmBtn.setOnClickListener {
             if (isReadyToAdd()){
-                TeacherApi.addTeacher(classId, bagEdit.text.toString(), subjectCode, addRequest)
+                TeacherApi.addTeacher(classId, bagEdit.text.toString(), subCodeList, addRequest)
             }
         }
     }
@@ -88,7 +91,7 @@ class AddTeacherDialog(context: Context): BaseDialog(context) {
                 T.show(context, "请填写老师书包号")
                 false
             }
-            StringUtils.isEmpty(subjectCode) -> {
+            subCodeList.isEmpty() -> {
                 T.show(context, "请选择科目")
                 false
             }
@@ -97,20 +100,18 @@ class AddTeacherDialog(context: Context): BaseDialog(context) {
     }
 
     inner class SubjectAdapter: BaseQuickAdapter<BaseSubjectBean, BaseViewHolder>(R.layout.item_select_school){
-        private var selectPosition = -1
-            set(value) {
-                field = value
-                notifyDataSetChanged()
-            }
         override fun convert(helper: BaseViewHolder, item: BaseSubjectBean) {
-            val position = helper.adapterPosition
             helper.itemView.setOnClickListener {
-                selectPosition = position
-                subjectCode = item.keyCode
+                if (subCodeList.contains(item.keyCode)){
+                    subCodeList.remove(item.keyCode)
+                }else{
+                    subCodeList.add(item.keyCode)
+                }
+                notifyDataSetChanged()
             }
             val checkBox = helper.getView<CheckBox>(R.id.checkbox)
             checkBox.text = item.keyValue
-            checkBox.isChecked = selectPosition != -1 && selectPosition == position
+            checkBox.isChecked = subCodeList.contains(item.keyCode)
         }
     }
 }

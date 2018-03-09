@@ -61,7 +61,7 @@ class MyCourseActivity : BaseListActivity<List<MyCourseBean>,MyCourseBean>() {
             val imageView = helper.getView<ImageView>(R.id.ivBook)
             imageView.loadImage("")
             helper.setText(R.id.tvEdition,item.bookVersionName)
-                    .setText(R.id.tvTime,"[添加时间:${System.currentTimeMillis()}]")
+                    .setText(R.id.tvTime,"[添加时间:无返回字段]")
                     .setText(R.id.tvSemester,item.semeterName)
                     .setText(R.id.tvSubject,item.bookName)
                     .setText(R.id.tvClass,item.gradeName)
