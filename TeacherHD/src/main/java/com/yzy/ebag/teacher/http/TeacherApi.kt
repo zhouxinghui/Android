@@ -23,7 +23,7 @@ object TeacherApi {
      */
     fun firstPage(callback: RequestCallBack<FirstPageBean>){
         val jsonObject = JSONObject()
-        jsonObject.put("roleCode", "teacher")
+        jsonObject.put("roleCode", "2")
         EBagApi.request(teacherService.firstPage("v1", EBagApi.createBody(jsonObject)), callback)
     }
 

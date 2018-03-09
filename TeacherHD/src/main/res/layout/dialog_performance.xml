@@ -28,42 +28,70 @@
         app:layout_constraintTop_toBottomOf="@id/headImg"
         android:layout_marginBottom="@dimen/y20"
         />
-    <RadioGroup android:id="@+id/radioGroup"
+    <FrameLayout
+        android:id="@+id/praiseBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/nameTv"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintEnd_toStartOf="@id/correctionBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nameTv">
+        <ebag.hd.widget.drawable.DrawableTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="值得表扬"
+            android:padding="@dimen/x12"
+            android:drawablePadding="@dimen/x10"
+            android:textColor="@color/praise_tv"
+            android:textSize="@dimen/tv_normal"
+            app:leftDrawable="@drawable/icon_performance_praise"
+            app:leftDrawableHeight="@dimen/x26"
+            app:leftDrawableWidth="@dimen/x26"
+            android:gravity="center"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y1"
+            android:background="@drawable/performance_praise_btn_bg"
+            android:layout_gravity="bottom"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/correctionBtn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/praiseBtn"
+        app:layout_constraintTop_toTopOf="@id/praiseBtn"
+        app:layout_constraintBottom_toBottomOf="@id/praiseBtn">
+        <ebag.hd.widget.drawable.DrawableTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="需要改正"
+            android:drawablePadding="@dimen/x10"
+            android:textColor="@color/correction_tv"
+            android:textSize="@dimen/tv_normal"
+            android:gravity="center"
+            android:layout_gravity="center"
+            app:leftDrawable="@drawable/icon_performance_correction"
+            app:leftDrawableHeight="@dimen/x26"
+            app:leftDrawableWidth="@dimen/x26"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y1"
+            android:background="@drawable/performance_correction_btn_bg"
+            android:layout_gravity="bottom"
+            />
+    </FrameLayout>
+    <android.support.v7.widget.RecyclerView android:id="@+id/performanceRecycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/praiseBtn"
+        app:layout_constraintBottom_toTopOf="@id/confirmBtn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        >
-        <RadioButton android:id="@+id/praiseBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:button="@null"
-            android:textSize="@dimen/tv_normal"
-            android:drawablePadding="@dimen/x15"
-            android:text="值得表扬"
-            android:background="@drawable/correct_title_tv_bg"
-            android:textColor="@color/praise_tv"
-            android:drawableLeft="@drawable/icon_performance_praise"
-            />
-        <RadioButton android:id="@+id/correctionBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:button="@null"
-            android:textSize="@dimen/tv_normal"
-            android:drawablePadding="@dimen/x15"
-            android:text="需要改正"
-            android:background="@drawable/correct_title_tv_bg"
-            android:textColor="@color/correction_tv"
-            android:drawableLeft="@drawable/icon_performance_correction"
-            />
-    </RadioGroup>
+        />
     <TextView android:id="@+id/confirmBtn"
         android:layout_width="0dp"
         android:layout_height="@dimen/y75"

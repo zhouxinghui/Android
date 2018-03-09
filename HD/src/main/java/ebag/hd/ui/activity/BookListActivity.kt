@@ -62,7 +62,7 @@ class BookListActivity: BaseListActivity<List<BookBean>, BookBean>() {
         val file = downloadPath + url.substring(url.lastIndexOf("/") + 1)
 
         if (FileUtil.isFileExists(imagePath)) {
-            ReaderActivity.jump(this, imagePath)
+            ReaderActivity.jump(this, imagePath, bookBean.bookId)
             return
         }
         FileUtil.createDir(downloadPath)
@@ -89,7 +89,7 @@ class BookListActivity: BaseListActivity<List<BookBean>, BookBean>() {
                 LoadingDialogUtil.closeLoadingDialog()
                 FileUtil.deleteFile(file)
                 T.show(this@BookListActivity, "下载完成")
-                ReaderActivity.jump(this@BookListActivity, imagePath)
+                ReaderActivity.jump(this@BookListActivity, imagePath, bookBean.bookId)
             }
 
             override fun onError(e: Throwable) {

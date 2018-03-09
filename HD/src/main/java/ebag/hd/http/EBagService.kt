@@ -159,6 +159,9 @@ interface EBagService {
     @POST("user/MobileAPPVersion/{version}")
     fun checkUpdate(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<VersionUpdateBean>>
 
+    @POST("book/myBookChapter/{version}")
+    fun bookCategory(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<BookCategoryBean>>
+
     //TODO 接口名称，注意替换
     /**
      * 上传文件,多文件 和 单文件

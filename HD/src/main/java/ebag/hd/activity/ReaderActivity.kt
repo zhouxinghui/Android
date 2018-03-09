@@ -32,15 +32,29 @@ import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
 
-
+/**
+ * Created by YZY on 2018/2/8.
+ */
 class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, RadioGroup.OnCheckedChangeListener{
     override fun getLayoutId(): Int {
         return R.layout.activity_reader
     }
     companion object {
-        fun jump(context: Context, fileName: String){
-            context.startActivity(Intent(context, ReaderActivity::class.java).putExtra("fileName", fileName))
+        fun jump(context: Context, fileName: String, bookId: Int){
+            context.startActivity(
+                    Intent(context, ReaderActivity::class.java)
+                            .putExtra("fileName", fileName)
+                            .putExtra("bookId", bookId))
         }
+    }
+    private var bookId = 0
+    private var pageAdapter : PageViewAdapter? = null
+    private val bookCategoryPopup by lazy {
+        val popup = BookCatalogPopup(this)
+        popup.onCategoryClick = {
+            pageView.setAdapter(pageAdapter, it)
+        }
+        popup
     }
     private lateinit var trackAdapter: TrackAdapter
     private lateinit var noteAdapter: NoteAdapter
@@ -69,6 +83,7 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
     private var penSize = 0F
     private var penColor = "#000000"
     override fun initViews() {
+        bookId = intent.getIntExtra("bookId", 0)
         penSize = resources.getDimension(R.dimen.x2)
         initBook()
         baseFab.registerButton(noteBtn)
@@ -102,7 +117,8 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
             }
             @RequiresApi(Build.VERSION_CODES.KITKAT)
             override fun rightClick() {//目录
-                BookCatalogPopup(this@ReaderActivity).showAsDropDown(titleBar, 0, 0, Gravity.END)
+                bookCategoryPopup.showAsDropDown(titleBar, 0, 0, Gravity.END)
+                bookCategoryPopup.loadDate(bookId)
             }
         })
 
@@ -280,7 +296,8 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
             readerBean.notePath = tracks[i]
             list.add(readerBean)
         }
-        pageView.setAdapter(PageViewAdapter(this, imagePaths))
+        pageAdapter = PageViewAdapter(this, imagePaths)
+        pageView.setAdapter(pageAdapter)
         trackAdapter = TrackAdapter(tracks.asList())
         trackPager.offscreenPageLimit = 2
         trackPager.adapter = trackAdapter

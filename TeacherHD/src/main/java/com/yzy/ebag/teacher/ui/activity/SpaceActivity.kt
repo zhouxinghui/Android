@@ -12,6 +12,7 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.DateUtil
 import ebag.hd.activity.ClassScheduleActivity
+import ebag.hd.activity.album.AlbumActivity
 import ebag.hd.bean.response.NoticeBean
 import kotlinx.android.synthetic.main.activity_space.*
 import java.util.*
@@ -57,6 +58,7 @@ class SpaceActivity : BaseActivity(), View.OnClickListener {
         publishNoticeBtn.setOnClickListener(this)
         courseSchedule.setOnClickListener(this)
         expression.setOnClickListener(this)
+        classPhotos.setOnClickListener(this)
 
         TeacherApi.newestNotice(classId, noticeRequest)
     }
@@ -80,6 +82,9 @@ class SpaceActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.expression ->{
                 ClassPerformanceActivity.jump(this, classId)
+            }
+            R.id.classPhotos ->{
+                AlbumActivity.jump(this, classId, ebag.hd.base.Constants.ROLE_TEACHER)
             }
         }
     }

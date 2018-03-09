@@ -293,4 +293,13 @@ object EBagApi {
         jsonObject.put("versionNumber", versionCode)
         EBagApi.request(eBagService.checkUpdate("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**
+     * 课本目录
+     */
+    fun bookCategory(bookId: Int, callback: RequestCallBack<BookCategoryBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("bookId", bookId)
+        EBagApi.request(eBagService.bookCategory("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }
