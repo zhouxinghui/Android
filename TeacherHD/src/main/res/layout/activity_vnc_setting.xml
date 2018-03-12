@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@color/background">
+
+    <ebag.hd.widget.TitleBar android:id="@+id/title_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingRight="24dp"
+        android:paddingLeft="24dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/vnc_auto_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发现设备"
+            android:textSize="20sp"
+            android:textColor="#333333"
+            android:paddingRight="10dp"/>
+
+        <ebag.core.xRecyclerView.SimpleViewSwitcher
+            android:id="@+id/simpleViewSwitcher"
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
+
+        <TextView
+            android:id="@+id/vnc_auto_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设备自动连接"
+            android:textColor="#9b9b9b"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:paddingRight="10dp"/>
+        
+        <ImageView
+            android:id="@+id/vnc_auto_image"
+            android:layout_width="40dp"
+            android:layout_height="24dp"
+            android:src="@drawable/synch_icon_selector"/>
+
+        <TextView
+            android:id="@+id/vnc_auto_connect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="连接并进入"
+            android:textColor="#888888"
+            android:textSize="18sp"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/vnc_auto_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        android:text="IP 地址:"
+        android:paddingLeft="30dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp"
+        android:text="其他设备IP"
+        android:paddingLeft="30dp"
+        android:paddingBottom="12dp"/>
+
+    <EditText
+        android:id="@+id/textNickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingRight="24dp"
+        android:paddingLeft="24dp">
+
+        <EditText
+            android:id="@+id/ip_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入IP地址"
+            android:background="@color/white"
+            android:textColor="#333333"
+            android:textSize="20sp"
+            android:lines="1"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/vnc_connect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="连接"
+            android:textColor="#888888"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/spinnerConnection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:visibility="gone"/>
+
+
+    <Spinner
+        android:id="@+id/color_format"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

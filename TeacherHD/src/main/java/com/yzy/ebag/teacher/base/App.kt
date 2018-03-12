@@ -3,12 +3,12 @@ package com.yzy.ebag.teacher.base
 import com.umeng.socialize.Config
 import com.umeng.socialize.PlatformConfig
 import com.umeng.socialize.UMShareAPI
-import ebag.hd.base.BaseApp
+import com.yun.vnc.bVNC.VNCApp
 
 /**
  * Created by YZY on 2017/12/20.
  */
-class App : BaseApp() {
+class App : VNCApp() {
     override fun onCreate() {
         super.onCreate()
         UMShareAPI.get(this)//初始化sdk

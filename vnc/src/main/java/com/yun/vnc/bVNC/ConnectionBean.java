@@ -362,7 +362,7 @@ public class ConnectionBean extends AbstractConnectionBean implements Comparable
     /**
      * Return the object representing the app global state in the database, or null
      * if the object hasn't been set up yet
-     * @param db App's database -- only needs to be readable
+     * @param db VNCApp's database -- only needs to be readable
      * @return Object representing the single persistent instance of MostRecentBean, which
      * is the app's global state
      */

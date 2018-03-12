@@ -1,8 +1,8 @@
 package com.yun.vnc.bVNC;
 
-import android.app.Application;
+import ebag.hd.base.BaseApp;
 
-public class App extends Application {
+public class VNCApp extends BaseApp {
 
     private Database database;
 

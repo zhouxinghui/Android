@@ -180,7 +180,7 @@ public class RemoteCanvasActivity extends AppCompatActivity implements OnKeyList
         if (Utils.querySharedPreferenceBoolean(this, Constants.forceLandscapeTag,true))
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         
-        database = ((App)getApplication()).getDatabase();
+        database = ((VNCApp)getApplication()).getDatabase();
         
         Intent i = getIntent();
         connection = null;

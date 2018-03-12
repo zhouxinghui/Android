@@ -1,6 +1,8 @@
 package com.yzy.ebag.teacher
 
+import android.content.Intent
 import android.support.v4.app.Fragment
+import com.yzy.ebag.teacher.ui.activity.vnc.VNCSetActivity
 import com.yzy.ebag.teacher.ui.fragment.FragmentClass
 import com.yzy.ebag.teacher.ui.fragment.FragmentFirstPage
 import com.yzy.ebag.teacher.ui.fragment.FragmentMine
@@ -16,7 +18,7 @@ class MainActivity : MVPActivity() {
     override fun initViews() {
         changeFragment(0)
         shareScreen.setOnClickListener {
-//            startActivity(Intent(this, VNCSetActivity))
+            startActivity(Intent(this, VNCSetActivity::class.java))
         }
 
         leftGroup.setOnCheckedChangeListener { _, checkedId ->

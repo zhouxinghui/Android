@@ -61,7 +61,7 @@ public abstract class MainConfiguration extends FragmentActivity {
             }
         });
         
-        database = ((App)getApplication()).getDatabase();
+        database = ((VNCApp)getApplication()).getDatabase();
     }
     
     @Override
