@@ -158,7 +158,7 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
                 T.show(this,"请选择需要删除的图片")
             }else{
                 requestBean.clear()
-                list.forEach { requestBean.addPhoto(it.photoUrl) }
+                list.forEach { requestBean.addPhoto(it.id) }
                 deleteDialog.show()
             }
         }
@@ -330,6 +330,9 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
         }
     }
 
+    /**
+     * 照片的 adapter
+     */
     class Adapter: BaseMultiItemQuickAdapter<PhotoBean, BaseViewHolder>(null){
         companion object {
             const val TYPE_STICKY_HEAD = 1

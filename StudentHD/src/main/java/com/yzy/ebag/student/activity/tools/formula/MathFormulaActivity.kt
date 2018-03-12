@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.activity.tools
+package com.yzy.ebag.student.activity.tools.formula
 
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView

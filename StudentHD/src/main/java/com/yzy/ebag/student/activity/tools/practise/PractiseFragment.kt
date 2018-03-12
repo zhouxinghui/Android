@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.activity.tools.fragment
+package com.yzy.ebag.student.activity.tools.practise
 
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
@@ -7,7 +7,6 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.activity.tools.practise.WriteActivity
 import com.yzy.ebag.student.bean.Practise
 import com.yzy.ebag.student.bean.WordsBean
 import com.yzy.ebag.student.http.StudentApi
@@ -26,7 +25,7 @@ import kotlinx.android.synthetic.main.fragment_practise.*
 class PractiseFragment: BaseFragment(),BaseQuickAdapter.OnItemClickListener {
 
     companion object {
-        fun newInstance(unitCode: String?): PractiseFragment{
+        fun newInstance(unitCode: String?): PractiseFragment {
             val fragment = PractiseFragment()
             val bundle = Bundle()
             bundle.putString("unitCode",unitCode)

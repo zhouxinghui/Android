@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.activity.tools
+package com.yzy.ebag.student.activity.tools.read
 
 import android.content.Context
 import android.content.Intent
@@ -11,7 +11,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.activity.tools.fragment.ReadFragment
 import com.yzy.ebag.student.bean.EditionBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack

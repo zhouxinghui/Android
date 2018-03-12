@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.activity.tools.fragment
+package com.yzy.ebag.student.activity.tools.read
 
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
@@ -8,7 +8,6 @@ import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.activity.tools.read.ReadDetailActivity
 import com.yzy.ebag.student.bean.ReadOutBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseListFragment
@@ -24,7 +23,7 @@ class ReadFragment: BaseListFragment<ReadOutBean, ReadOutBean.OralLanguageBean>(
 
 
     companion object {
-        fun newInstance(classId: String, unitCode: String?): ReadFragment{
+        fun newInstance(classId: String, unitCode: String?): ReadFragment {
             val fragment = ReadFragment()
             val bundle = Bundle()
             bundle.putString("unitCode", unitCode)

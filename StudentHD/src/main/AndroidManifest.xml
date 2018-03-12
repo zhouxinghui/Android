@@ -38,10 +38,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="ebag.hd.activity.album.PhotoUploadActivity"
-            android:screenOrientation="landscape"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity android:name=".TestActivity2">
 
         </activity>
@@ -78,7 +74,7 @@
         <activity android:name=".activity.homework.HomeworkActivity"
             android:screenOrientation="landscape"
             />
-        <activity android:name=".activity.tools.MathFormulaActivity"
+        <activity android:name=".activity.tools.formula.MathFormulaActivity"
             android:screenOrientation="landscape"
             />
         <activity android:name=".activity.tools.LetterActivity"
@@ -93,7 +89,10 @@
         <activity android:name=".activity.tools.practise.PractiseActivity"
             android:screenOrientation="landscape"
             />
-        <activity android:name=".activity.tools.ReadActivity"
+        <activity android:name=".activity.tools.read.ReadActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".activity.tools.review.ReviewActivity"
             android:screenOrientation="landscape"
             />
         <activity android:name=".activity.tools.practise.WriteActivity"
