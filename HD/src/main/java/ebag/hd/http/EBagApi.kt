@@ -302,4 +302,35 @@ object EBagApi {
         jsonObject.put("bookId", bookId)
         EBagApi.request(eBagService.bookCategory("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**
+     * 新增课本笔记
+     */
+    fun addBookNote(bookId: String, note: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("bookId", bookId)
+        jsonObject.put("note", note)
+        EBagApi.request(eBagService.addBookNote("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 查询课本笔记列表
+     */
+    fun bookNoteList(bookId: String, page: Int, pageSize: Int, callback: RequestCallBack<List<BookNoteBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("bookId", bookId)
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", pageSize)
+        EBagApi.request(eBagService.bookNoteList("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 修改笔记
+     */
+    fun modifyNote(noteId: String, note: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("note", note)
+        jsonObject.put("id", noteId)
+        EBagApi.request(eBagService.modifyNote("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

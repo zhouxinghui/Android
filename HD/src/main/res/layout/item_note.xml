@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="@dimen/y80"
-    android:textColor="@color/normal_text_color" android:textSize="@dimen/x18"
-    android:maxLines="2" android:ellipsize="end"
-    android:lineSpacingExtra="@dimen/x5" android:padding="@dimen/x5"
-    android:background="?attr/selectableItemBackground"
-    android:id="@+id/content_tv"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="@dimen/y70"
     >
-
-</TextView>
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:textColor="@color/normal_text_color" android:textSize="@dimen/title_bar_title_sub_size"
+        android:maxLines="2" android:ellipsize="end"
+        android:lineSpacingExtra="@dimen/x5" android:padding="@dimen/x5"
+        android:background="?attr/selectableItemBackground"
+        android:id="@+id/content_tv"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray"
+        android:layout_gravity="bottom"
+        />
+</FrameLayout>

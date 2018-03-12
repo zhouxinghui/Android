@@ -153,6 +153,24 @@ interface EBagService {
     fun getBaseInfo(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<BaseInfoEntity>>>
 
     /**
+     * 新增课本笔记
+     */
+    @POST("book/addNotebook/{version}")
+    fun addBookNote(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 查询课本笔记列表
+     */
+    @POST("book/queryNotebook/{version}")
+    fun bookNoteList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<BookNoteBean>>>
+
+    /**
+     * 修改笔记
+     */
+    @POST("book/updateNotebook/{version}")
+    fun modifyNote(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
      *     检查版本更新
      */
     @Headers("EBag-Special-Url: special/url")

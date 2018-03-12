@@ -470,4 +470,5 @@ object TeacherApi {
         jsonObject.put("classId", classId)
         EBagApi.request(teacherService.classPerformance("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
 }

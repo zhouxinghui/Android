@@ -9,19 +9,20 @@ import android.os.Build
 import android.support.annotation.RequiresApi
 import android.support.v4.view.PagerAdapter
 import android.support.v7.app.AlertDialog
-import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
 import ebag.core.base.BaseActivity
+import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
 import ebag.core.util.*
 import ebag.hd.R
 import ebag.hd.bean.ReaderBean
+import ebag.hd.http.EBagApi
+import ebag.hd.ui.fragment.BookNoteFragment
 import ebag.hd.widget.BookCatalogPopup
 import ebag.hd.widget.PaletteView
 import ebag.hd.widget.TitleBar
@@ -35,7 +36,7 @@ import kotlin.collections.ArrayList
 /**
  * Created by YZY on 2018/2/8.
  */
-class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, RadioGroup.OnCheckedChangeListener{
+class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, RadioGroup.OnCheckedChangeListener, BookNoteFragment.NoteChangeListener{
     override fun getLayoutId(): Int {
         return R.layout.activity_reader
     }
@@ -57,11 +58,10 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         popup
     }
     private lateinit var trackAdapter: TrackAdapter
-    private lateinit var noteAdapter: NoteAdapter
-    private lateinit var layoutManager: LinearLayoutManager
     private var isEditNote = false
     private lateinit var lastNote: String
     private lateinit var currentNote: String
+    private lateinit var noteFragment: BookNoteFragment
     //记录当前笔记是新建还是旧的
     private var currentNotePosition = -1
     private var isModifyTrack = false
@@ -82,6 +82,48 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
     }
     private var penSize = 0F
     private var penColor = "#000000"
+    /**
+     * 修改笔记
+     */
+    private val modifyNoteRequest by lazy {
+        object : RequestCallBack<String>(){
+            override fun onStart() {
+                LoadingDialogUtil.showLoading(this@ReaderActivity, "正在修改...")
+            }
+
+            override fun onSuccess(entity: String?) {
+                LoadingDialogUtil.closeLoadingDialog()
+                T.show(this@ReaderActivity, "修改成功")
+                noteFragment.setNoteData(currentNotePosition, currentNote)
+                hideNoteEdit()
+            }
+
+            override fun onError(exception: Throwable) {
+                LoadingDialogUtil.closeLoadingDialog()
+                exception.handleThrowable(this@ReaderActivity)
+            }
+        }
+    }
+    private val addNoteRequest by lazy {
+        object : RequestCallBack<String>(){
+            override fun onStart() {
+                LoadingDialogUtil.showLoading(this@ReaderActivity, "正在添加...")
+            }
+
+            override fun onSuccess(entity: String?) {
+                LoadingDialogUtil.closeLoadingDialog()
+                T.show(this@ReaderActivity, "添加成功")
+                noteFragment.addNoteData(0, currentNote)
+                hideNoteEdit()
+                noteFragment.scrollToPosition(0)
+            }
+
+            override fun onError(exception: Throwable) {
+                LoadingDialogUtil.closeLoadingDialog()
+                exception.handleThrowable(this@ReaderActivity)
+            }
+        }
+    }
     override fun initViews() {
         bookId = intent.getIntExtra("bookId", 0)
         penSize = resources.getDimension(R.dimen.x2)
@@ -136,6 +178,9 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
             else
                 setNoteVisible(ScreenUtil.getScreenHeight(this)/2, true)
         }
+        noteFragment = BookNoteFragment.newInstance(bookId)
+        noteFragment.setNoteChangeListener(this)
+        supportFragmentManager.beginTransaction().replace(R.id.noteListLayout, noteFragment).commitAllowingStateLoss()
         noteTitle.setOnTitleBarClickListener(object : TitleBar.OnTitleBarClickListener{
             override fun leftClick() {
                 if (backEvent())
@@ -149,15 +194,12 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
                         T.show(this@ReaderActivity, "你未对笔记作任何更新操作")
                         return
                     }else{
-                        //TODO 保存笔记
+                        //保存笔记
                         if (currentNotePosition != -1){
-                            noteAdapter.setData(currentNotePosition, currentNote)
+                            EBagApi.modifyNote(noteFragment.getCurrentNote(currentNotePosition).id, currentNote, modifyNoteRequest)
                         }else{
-                            noteAdapter.addData(0, currentNote)
+                            EBagApi.addBookNote(bookId.toString(), currentNote, addNoteRequest)
                         }
-                        //TODO 保存笔记成功后
-                        hideNoteEdit()
-                        layoutManager.scrollToPosition(0)
                     }
                 }
             }
@@ -165,15 +207,6 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         rootView.setOnBottomHiddenChange { isShow ->  dragView.isSelected = isShow}
         noteEdit.addTextChangedListener(this)
 
-        val list = ArrayList<String>()
-        for (i in 0..9){
-            list.add("测试笔记测试笔记测试笔记测试笔记测试笔记测试笔记测试笔记测试笔记测试笔记测试笔记测试笔记")
-        }
-        noteAdapter = NoteAdapter()
-        layoutManager = LinearLayoutManager(this)
-        noteRecycler.adapter = noteAdapter
-        noteRecycler.layoutManager = layoutManager
-        noteAdapter.setNewData(list)
     }
 
     override fun onClick(v: View) {
@@ -352,15 +385,6 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         return trackAdapter.getPrimaryItem()
     }
 
-    private inner class NoteAdapter: BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_note){
-        override fun convert(helper: BaseViewHolder, item: String?) {
-            helper.setText(R.id.content_tv, item)
-                    .itemView.setOnClickListener {
-                showNoteEdit(item!!, helper.adapterPosition)
-            }
-        }
-    }
-
     override fun onBackPressed() {
         if (backEvent())
             super.onBackPressed()
@@ -395,7 +419,7 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         return noteEdit.visibility == View.VISIBLE
     }
 
-    private fun showNoteEdit(text: String, currentNotePosition: Int){
+    override fun showNoteEdit(text: String, currentNotePosition: Int){
         noteEdit.visibility = View.VISIBLE
         noteEdit.setText(text)
         noteEdit.setSelection(text.length)
