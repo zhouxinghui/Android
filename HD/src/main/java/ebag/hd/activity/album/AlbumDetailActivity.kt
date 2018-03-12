@@ -113,8 +113,9 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
         editBtn = optionView.findViewById(R.id.editBtn)
         uploadBtn = optionView.findViewById(R.id.uploadBtn)
 
-        if(role == Constants.ROLE_STUDENT && groupType != AlbumFragment.PERSONAL_TYPE){
+        if(role == Constants.ROLE_STUDENT && groupType != Constants.PERSONAL_TYPE){
             editBtn.visibility = View.GONE
+            uploadBtn.visibility = View.GONE
         }
 
         // 取消
@@ -158,14 +159,14 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
                 T.show(this,"请选择需要删除的图片")
             }else{
                 requestBean.clear()
-                list.forEach { requestBean.addPhoto(it.photoUrl) }
+                list.forEach { requestBean.addPhoto(it.id) }
                 deleteDialog.show()
             }
         }
 
         // 上传
         uploadBtn.setOnClickListener {
-            PhotoUploadActivity.jump(this, classId, photoGroupId)
+            PhotoUploadActivity.jump(this, classId, photoGroupId, groupType)
         }
 
         showOptions(false)
@@ -211,7 +212,7 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
                 }.create()
     }
     private fun share(){
-        requestBean.groupType = "2"
+        requestBean.groupType = Constants.CLASS_TYPE
         EBagApi.photosShare(requestBean, shareRequest)
     }
 
@@ -257,7 +258,7 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
         if(showOption){
             cancelBtn.visibility = View.VISIBLE
             chooseBtn.visibility = View.VISIBLE
-            shareBtn.visibility = if(groupType == AlbumFragment.PERSONAL_TYPE) View.VISIBLE else View.GONE
+            shareBtn.visibility = if(groupType == Constants.PERSONAL_TYPE) View.VISIBLE else View.GONE
             deleteBtn.visibility = View.VISIBLE
             editBtn.visibility = View.GONE
             uploadBtn.visibility = View.GONE
@@ -267,7 +268,7 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
             shareBtn.visibility = View.GONE
             deleteBtn.visibility = View.GONE
             editBtn.visibility = View.VISIBLE
-            uploadBtn.visibility = View.VISIBLE
+            uploadBtn.visibility = if(groupType != Constants.PERSONAL_TYPE && role == Constants.ROLE_STUDENT) View.GONE else View.VISIBLE
 
             adapter.data.filter { it.isPhoto }.forEach { it.isSelected = false}
         }
@@ -330,6 +331,9 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
         }
     }
 
+    /**
+     * 照片的 adapter
+     */
     class Adapter: BaseMultiItemQuickAdapter<PhotoBean, BaseViewHolder>(null){
         companion object {
             const val TYPE_STICKY_HEAD = 1

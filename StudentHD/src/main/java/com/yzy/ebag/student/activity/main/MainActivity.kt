@@ -181,7 +181,6 @@ class MainActivity : MVPActivity(), MainView {
         }
         //学习园地
         llLearnPlace.setOnClickListener{
-
         }
 
         //我的错题

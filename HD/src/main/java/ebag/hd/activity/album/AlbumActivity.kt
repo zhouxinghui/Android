@@ -82,11 +82,11 @@ class AlbumActivity : BaseActivity() {
             if (fragments[position] == null) {
                 fragments[position] = when(position){
                     // 班级荣誉
-                    0 -> AlbumFragment.newInstance(role, classId, AlbumFragment.HONOR_TYPE)
+                    0 -> AlbumFragment.newInstance(role, classId, Constants.HONOR_TYPE)
                     // 个人
-                    1 -> AlbumFragment.newInstance(role, classId, AlbumFragment.PERSONAL_TYPE)
+                    1 -> AlbumFragment.newInstance(role, classId, Constants.PERSONAL_TYPE)
                     // 班级相册
-                    else -> AlbumFragment.newInstance(role, classId, AlbumFragment.CLASS_TYPE)
+                    else -> AlbumFragment.newInstance(role, classId, Constants.CLASS_TYPE)
                 }
             }
             return fragments[position]!!

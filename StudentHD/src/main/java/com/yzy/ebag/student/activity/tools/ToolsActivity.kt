@@ -10,7 +10,9 @@ import android.widget.RelativeLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
+import com.yzy.ebag.student.activity.tools.formula.MathFormulaActivity
 import com.yzy.ebag.student.activity.tools.practise.PractiseActivity
+import com.yzy.ebag.student.activity.tools.read.ReadActivity
 import com.yzy.ebag.student.base.BaseListActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.T
@@ -103,7 +105,7 @@ class ToolsActivity : BaseListActivity<List<Int>,Int>() {
 
 
             R.drawable.tool_btn_formula -> {
-                startActivity(Intent(this,MathFormulaActivity::class.java))
+                startActivity(Intent(this, MathFormulaActivity::class.java))
             }
             R.drawable.tool_btn_pinyin -> {
                 startActivity(

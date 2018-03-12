@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.activity.tools
+package com.yzy.ebag.student.activity.tools.formula
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

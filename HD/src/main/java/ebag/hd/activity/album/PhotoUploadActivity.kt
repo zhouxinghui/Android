@@ -6,6 +6,7 @@ import android.os.Message
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -31,11 +32,12 @@ import java.io.File
 class PhotoUploadActivity: BaseActivity() {
 
     companion object {
-        fun jump(context: Activity, classId: String, photoGroupId: String){
+        fun jump(context: Activity, classId: String, photoGroupId: String, groupType: String){
             context.startActivityForResult(
                     Intent(context, PhotoUploadActivity::class.java)
                             .putExtra("classId", classId)
                             .putExtra("photoGroupId", photoGroupId)
+                            .putExtra("groupType", groupType)
                     ,ebag.hd.base.Constants.UPLOAD_REQUEST
             )
         }
@@ -51,9 +53,13 @@ class PhotoUploadActivity: BaseActivity() {
     private val photoUploadBean = PhotoUploadBean()
     private lateinit var userId: String
 
-
     override fun initViews() {
-
+        if(intent.getStringExtra("groupType") == ebag.hd.base.Constants.CLASS_TYPE){
+            photoUploadBean.isShare = "true"
+            bottomView.visibility = View.INVISIBLE
+            shareTip.visibility = View.INVISIBLE
+            switchView.visibility = View.INVISIBLE
+        }
         photoUploadBean.classId = intent.getStringExtra("classId") ?: ""
         photoUploadBean.photoGroupId = intent.getStringExtra("photoGroupId") ?: ""
 

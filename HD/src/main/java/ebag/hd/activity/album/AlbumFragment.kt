@@ -22,9 +22,6 @@ import ebag.hd.http.EBagApi
 class AlbumFragment: BaseListFragment<ArrayList<AlbumBean>, AlbumBean>() {
 
     companion object {
-        const val CLASS_TYPE = "2"
-        const val PERSONAL_TYPE = "3"
-        const val HONOR_TYPE = "1"
         fun newInstance(role: Int, classId: String, groupType: String): AlbumFragment {
             val fragment = AlbumFragment()
             val bundle = Bundle()
@@ -61,7 +58,7 @@ class AlbumFragment: BaseListFragment<ArrayList<AlbumBean>, AlbumBean>() {
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: ArrayList<AlbumBean>?): ArrayList<AlbumBean>? {
-        if(isFirstPage && (role == Constants.ROLE_TEACHER || (role == Constants.ROLE_STUDENT && groupType == PERSONAL_TYPE)))
+        if(isFirstPage && (role == Constants.ROLE_TEACHER || (role == Constants.ROLE_STUDENT && groupType == Constants.PERSONAL_TYPE)))
             parent?.add(0, AlbumBean(true))
         return parent
     }

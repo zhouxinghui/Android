@@ -1,15 +1,17 @@
-package com.yzy.ebag.student.activity.tools.practise
+package com.yzy.ebag.student.activity.tools.review
 
 import android.content.Context
 import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.RadioGroup
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.yzy.ebag.student.R
+import com.yzy.ebag.student.activity.tools.read.ReadFragment
 import com.yzy.ebag.student.bean.EditionBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
@@ -17,18 +19,15 @@ import ebag.hd.adapter.UnitAdapter
 import ebag.hd.base.BaseListTabActivity
 import ebag.hd.bean.UnitBean
 
-
 /**
- * @author caoyu
- * @date 2018/1/21
- * @description
+ * Created by unicho on 2018/3/9.
  */
-class PractiseActivity: BaseListTabActivity<EditionBean, MultiItemEntity>() {
+class ReviewActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
 
     companion object {
         fun jump(context: Context, classId: String){
             context.startActivity(
-                    Intent(context, PractiseActivity::class.java)
+                    Intent(context, ReviewActivity::class.java)
                             .putExtra("classId", classId)
             )
         }
@@ -36,23 +35,36 @@ class PractiseActivity: BaseListTabActivity<EditionBean, MultiItemEntity>() {
 
     private lateinit var tvMaterial: TextView
     private lateinit var classId: String
+    private var subCode = "yy"
     override fun loadConfig() {
         classId = intent.getStringExtra("classId") ?: ""
-        setTitleContent("选择汉字")
+        setTitleContent("跟读")
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x368))
-        setMiddleDistance(resources.getDimensionPixelSize(R.dimen.x20))
 
-
-        val view = layoutInflater.inflate(R.layout.layout_practise_material_header,null)
+        val view = layoutInflater.inflate(R.layout.layout_read_header,null)
         tvMaterial = view.findViewById(R.id.text)
-        addLeftHeaderView(view)
-        titleBar.setRightText("记录"){
-            RecordActivity.jump(this)
+        tvMaterial.text = "这是教材名字"
+
+        val radioGroup = view.findViewById<RadioGroup>(R.id.radioGroup)
+        radioGroup.check(R.id.rbYy)
+        radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            when(checkedId){
+                R.id.rbYw -> {// 语文
+                    subCode = "yw"
+                    request()
+                }
+
+                R.id.rbYy -> {// 英语
+                    subCode = "yy"
+                    request()
+                }
+            }
         }
+        addLeftHeaderView(view)
     }
 
     override fun requestData(requestCallBack: RequestCallBack<EditionBean>) {
-        StudentApi.getUint(classId, "yw", requestCallBack)
+        StudentApi.getUint(classId, subCode, requestCallBack)
     }
 
     override fun parentToList(parent: EditionBean?): List<UnitBean>? {
@@ -83,16 +95,18 @@ class PractiseActivity: BaseListTabActivity<EditionBean, MultiItemEntity>() {
         return null
     }
 
-    private lateinit var fragment: PractiseFragment
+    private lateinit var fragment: ReadFragment
     override fun getFragment(pagerIndex: Int, adapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>): Fragment {
+
         if(adapter.itemCount > 0){
             val item = adapter.getItem(0)
             if(item is UnitBean)
-                fragment = PractiseFragment.newInstance(item.resultBookUnitOrCatalogVos[0].unitCode)
+                fragment = ReadFragment.newInstance(classId,item.resultBookUnitOrCatalogVos[0].unitCode)
             return fragment
         }
-        fragment = PractiseFragment.newInstance("")
+        fragment = ReadFragment.newInstance(classId,"")
         return fragment
+
     }
 
     override fun getViewPagerSize(adapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>): Int {
