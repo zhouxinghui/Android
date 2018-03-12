@@ -1,6 +1,7 @@
 package ebag.hd.ui.fragment
 
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -8,6 +9,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
+import ebag.core.util.LoadingDialogUtil
+import ebag.core.util.T
 import ebag.hd.R
 import ebag.hd.bean.BookNoteBean
 import ebag.hd.http.EBagApi
@@ -20,6 +24,38 @@ class BookNoteFragment: BaseListFragment<List<BookNoteBean>, BookNoteBean>() {
     private var bookId = 0
     private var noteChangeListener: NoteChangeListener? = null
     private lateinit var layoutManager: LinearLayoutManager
+    private var currentPosition = 0
+    private val deleteNoteRequest by lazy {
+        object : RequestCallBack<String>(){
+            override fun onStart() {
+                LoadingDialogUtil.showLoading(mContext, "正在删除...")
+            }
+
+            override fun onSuccess(entity: String?) {
+                LoadingDialogUtil.closeLoadingDialog()
+                T.show(mContext, "删除成功")
+                adapter.remove(currentPosition)
+            }
+
+            override fun onError(exception: Throwable) {
+                LoadingDialogUtil.closeLoadingDialog()
+                exception.handleThrowable(mContext)
+            }
+        }
+    }
+    private val deleteDialog by lazy {
+        val mDialog = AlertDialog.Builder(mContext)
+                .setMessage("删除此条笔记？")
+                .setPositiveButton("删除", { dialog, which ->
+                    dialog.dismiss()
+                    EBagApi.deleteNote(adapter.data[currentPosition].id, deleteNoteRequest)
+                })
+                .setNegativeButton("取消", {dialog, which ->
+                    dialog.dismiss()
+                })
+                .create()
+        mDialog
+    }
     companion object {
         fun newInstance(bookId: Int): BookNoteFragment{
             val fragment = BookNoteFragment()
@@ -39,7 +75,11 @@ class BookNoteFragment: BaseListFragment<List<BookNoteBean>, BookNoteBean>() {
     }
 
     override fun loadConfig() {
-
+        adapter.setOnItemLongClickListener { _, view, position ->
+            currentPosition = position
+            deleteDialog.show()
+            true
+        }
     }
 
     override fun getPageSize(): Int {

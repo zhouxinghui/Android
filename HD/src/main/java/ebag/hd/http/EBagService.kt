@@ -171,6 +171,12 @@ interface EBagService {
     fun modifyNote(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /**
+     * 删除笔记
+     */
+    @POST("book/deleteNotebook/{version}")
+    fun deleteNote(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
      *     检查版本更新
      */
     @Headers("EBag-Special-Url: special/url")

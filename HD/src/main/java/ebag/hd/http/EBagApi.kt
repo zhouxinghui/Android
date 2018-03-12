@@ -333,4 +333,13 @@ object EBagApi {
         jsonObject.put("id", noteId)
         EBagApi.request(eBagService.modifyNote("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**
+     * 删除笔记
+     */
+    fun deleteNote(noteId: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("id", noteId)
+        EBagApi.request(eBagService.deleteNote("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }
