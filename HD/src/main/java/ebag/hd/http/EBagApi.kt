@@ -383,6 +383,7 @@ object EBagApi {
     }
 
     fun queryYBCurrent(callback: RequestCallBack<YBCurrentBean>){
-        EBagApi.request(eBagService.queryYBCurrent("v1"),callback)
+        val jsonObject = JSONObject()
+        EBagApi.request(eBagService.queryYBCurrent("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

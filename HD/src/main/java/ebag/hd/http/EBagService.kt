@@ -222,5 +222,5 @@ interface EBagService {
     fun uploadHead(@Body file: MultipartBody): Observable<String>
 
     @POST("user/serchYsbMoneyDetail/{version}")
-    fun queryYBCurrent(@Path("version")version: String):Observable<ResponseBean<YBCurrentBean>>
+    fun queryYBCurrent(@Path("version")version: String, @Body requestBody: RequestBody):Observable<ResponseBean<YBCurrentBean>>
 }
