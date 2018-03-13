@@ -94,6 +94,9 @@ class BookListActivity: BaseListActivity<List<BookBean>, BookBean>() {
 
             override fun onError(e: Throwable) {
                 super.onError(e)
+                if (FileUtil.isFileExists(file)) {
+                    FileUtil.deleteFile(file)
+                }
                 LoadingDialogUtil.closeLoadingDialog()
                 T.show(this@BookListActivity, "下载失败，请稍后重试")
                 DownloadManager.getInstance().cancel(url)

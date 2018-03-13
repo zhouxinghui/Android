@@ -94,7 +94,8 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
             override fun onSuccess(entity: String?) {
                 LoadingDialogUtil.closeLoadingDialog()
                 T.show(this@ReaderActivity, "修改成功")
-                noteFragment.setNoteData(currentNotePosition, currentNote)
+                noteFragment.onRetryClick()
+//                noteFragment.setNoteData(currentNotePosition, currentNote)
                 hideNoteEdit()
             }
 
@@ -113,7 +114,8 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
             override fun onSuccess(entity: String?) {
                 LoadingDialogUtil.closeLoadingDialog()
                 T.show(this@ReaderActivity, "添加成功")
-                noteFragment.addNoteData(0, currentNote)
+                noteFragment.onRetryClick()
+//                noteFragment.addNoteData(0, currentNote)
                 hideNoteEdit()
                 noteFragment.scrollToPosition(0)
             }

@@ -125,6 +125,7 @@ class BookNoteFragment: BaseListFragment<List<BookNoteBean>, BookNoteBean>() {
     }
 
     fun addNoteData(position: Int, note: String){
+
         val noteBean = adapter.data[position]
         noteBean.note = note
         adapter.addData(position, noteBean)

@@ -18,6 +18,7 @@ import ebag.hd.base.BaseListTabActivity
 class MathFormulaActivity: BaseListTabActivity<ArrayList<FormulaTypeBean>, FormulaTypeBean>() {
 
     override fun loadConfig() {
+        setTitleContent("数学公式")
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x200))
 //        val list = arrayListOf("几何公式","数学定律","数量关系","单位换算","特殊问题")
 //        withTabData(list)
