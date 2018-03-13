@@ -101,7 +101,7 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
             helper.setText(R.id.tvCount, Html.fromHtml("完成： <font color='#FF7800'>${item?.questionComplete}</font>/${item?.questionCount}"))
                     .setText(R.id.tvContent,"内容： ${item?.content ?: "无"}")
                     .setText(R.id.tvRequire,"要求： ${item?.remark ?: "无"}")
-                    .setText(R.id.tvTime,"截止时间： ${item?.endTime ?: "无"}")
+                    .setText(R.id.tvTime,if(type == "4") "考试时长：${item?.endTime ?: "00"}分钟" else "截止时间： ${item?.endTime ?: "无"}")
                     .setText(R.id.tvStatus,
                             when(item?.state){
                                 Constants.CORRECT_UNFINISH -> "未完成"

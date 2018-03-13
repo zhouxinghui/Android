@@ -140,8 +140,12 @@ public class VNCSetActivity extends MainConfiguration implements View.OnClickLis
         selected.setUserName("");
         selected.setForceFull(0);
         UserEntity userEntity = SerializableUtils.getSerializable(Constants.INSTANCE.getTEACHER_USER_ENTITY());
-        int userId = Integer.parseInt(userEntity.getUid());
-        selected.setPassword(String.valueOf(userId));
+        if (userEntity == null){
+            T.INSTANCE.show(this, "用户信息丢失");
+            finish();
+            return;
+        }
+        selected.setPassword(userEntity.getUid() );
         selected.setKeepPassword(true);
         selected.setUseDpadAsArrows(true);
         selected.setUseLocalCursor(false);
@@ -236,7 +240,7 @@ public class VNCSetActivity extends MainConfiguration implements View.OnClickLis
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         String top3ip = intToIp(wifiInfo.getIpAddress());
         UserEntity userEntity = SerializableUtils.getSerializable(Constants.INSTANCE.getTEACHER_USER_ENTITY());
-        int userId = Integer.parseInt(userEntity.getUid());
+        String userId = userEntity.getUid();
 
         portScan.scanLargePorts(top3ip,5900,userId,4,300);
     }

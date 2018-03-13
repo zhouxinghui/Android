@@ -39,9 +39,9 @@ public class PortScan {
      * @param timeout
      *            连接超时时间
      * */
-    public void scanLargePorts(String ip, int port, int userId, int threadNumber, int timeout) {
+    public void scanLargePorts(String ip, int port, String userId, int threadNumber, int timeout) {
         isCancel = false;
-        this.userId = String.valueOf(userId);
+        this.userId = userId;
         if(weakReference.get() != null && onScanListener != null)
             onScanListener.start();
         ExecutorService threadPool = Executors.newCachedThreadPool();
