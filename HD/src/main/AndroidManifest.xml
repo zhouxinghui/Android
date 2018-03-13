@@ -53,6 +53,8 @@
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity android:name=".activity.YBCenterActivity" />
+
         <activity android:name=".homework.DoHomeworkActivity"
             android:screenOrientation="landscape"
             />

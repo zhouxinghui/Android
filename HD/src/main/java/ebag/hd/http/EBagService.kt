@@ -220,4 +220,7 @@ interface EBagService {
      */
     @POST("Ui/Image/uploadUnlimited.html")
     fun uploadHead(@Body file: MultipartBody): Observable<String>
+
+    @POST("user/serchYsbMoneyDetail/{version}")
+    fun queryYBCurrent(@Path("version")version: String):Observable<ResponseBean<YBCurrentBean>>
 }

@@ -64,4 +64,8 @@
     <color name="unit_text_selected_color">#70AEFF</color>
 
     <color name="schedule_line_color">#979797</color>
+
+    <color name="ybcenter_current_normal_color">#3892FF</color>
+    <color name="ybcenter_income_normal_color">#7970FF</color>
+    <color name="ybcenter_expend_normal_color">#FF6565</color>
 </resources>

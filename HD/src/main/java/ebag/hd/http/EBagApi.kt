@@ -381,4 +381,8 @@ object EBagApi {
         jsonObject.put("homeWorkId", homeWorkId)
         EBagApi.request(eBagService.getErrorDetail("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    fun queryYBCurrent(callback: RequestCallBack<YBCurrentBean>){
+        EBagApi.request(eBagService.queryYBCurrent("v1"),callback)
+    }
 }
