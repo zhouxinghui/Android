@@ -66,6 +66,8 @@
         app:topDrawable="@drawable/yb_center_my_mall_btn_address"
         app:topDrawableWidth="@dimen/x152"
         app:topDrawableHeight="@dimen/x152"
+
+        
         android:text="收货地址"
         android:gravity="center"
         android:drawablePadding="@dimen/x24"
