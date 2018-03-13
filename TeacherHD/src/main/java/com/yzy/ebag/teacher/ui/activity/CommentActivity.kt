@@ -21,6 +21,7 @@ import ebag.core.util.StringUtils
 import ebag.core.util.T
 import ebag.core.util.loadHead
 import ebag.hd.activity.ReportClassActivity
+import ebag.hd.activity.ReportTestActivity
 import ebag.hd.base.Constants
 
 /**
@@ -28,14 +29,16 @@ import ebag.hd.base.Constants
  */
 class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
     companion object {
-        fun jump(context: Context, homeworkId: String){
+        fun jump(context: Context, homeworkId: String, type: String){
             context.startActivity(
                     Intent(context, CommentActivity::class.java)
                             .putExtra("homeworkId", homeworkId)
+                            .putExtra("type", type)
             )
         }
     }
     private var homeworkId = ""
+    private var type = ""
     private val adapter = MyAdapter()
     private var currentPosition = 0
     private val uploadRequest = object : RequestCallBack<String>(){
@@ -57,6 +60,7 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
     }
     override fun loadConfig(intent: Intent) {
         homeworkId = intent.getStringExtra("homeworkId")
+        type = intent.getStringExtra("type")
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<CommentBean>>) {
@@ -80,7 +84,10 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
         val commentBean = adapter.data[position] as CommentBean
         when(view.id){
             R.id.checkReportBtn ->{
-                ReportClassActivity.jump(this, homeworkId)
+                if (type == Constants.KSSJ_TYPE)
+                    ReportTestActivity.jump(this, homeworkId, commentBean.uid)
+                else
+                    ReportClassActivity.jump(this, homeworkId, commentBean.uid)
             }
             R.id.commitCommentBtn ->{
                 val commentEdit = view.tag as EditText

@@ -44,4 +44,11 @@ object Constants {
     val CLASS_TYPE = "2" // 班级相册
     val PERSONAL_TYPE = "3" // 个人相册
     val HONOR_TYPE = "1" // 班级荣誉
+
+    val STZY_TYPE = "1"
+    val KHZY_TYPE = "2"
+    val PARENT_TYPE = "3"
+    val KSSJ_TYPE = "4"
+    val ERROR_TOPIC_TYPE = "5"
+    val REPORT_TYPE = "6"
 }

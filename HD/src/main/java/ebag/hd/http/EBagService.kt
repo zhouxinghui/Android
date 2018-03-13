@@ -1,6 +1,7 @@
 package ebag.hd.http
 
 import ebag.core.bean.ResponseBean
+import ebag.core.bean.TypeQuestionBean
 import ebag.hd.bean.*
 import ebag.hd.bean.response.BaseInfoEntity
 import ebag.hd.bean.response.NoticeBean
@@ -175,6 +176,30 @@ interface EBagService {
      */
     @POST("book/deleteNotebook/{version}")
     fun deleteNote(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 提交作业
+     */
+    @POST("correctHome/currentHomeWork/{version}")
+    fun commitHomework(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 错题纠正
+     */
+    @POST("homeWork/updateErrorQuestion/{version}")
+    fun errorCorrection(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 获取作业详情
+     */
+    @POST("homeWork/getHomeWorkQuestion/{version}")
+    fun getQuestions(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<TypeQuestionBean>>>
+
+    /**
+     * 获取错题详情
+     */
+    @POST("homeWork/myErrorQuestion/{version}")
+    fun getErrorDetail(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<TypeQuestionBean>>>
 
     /**
      *     检查版本更新

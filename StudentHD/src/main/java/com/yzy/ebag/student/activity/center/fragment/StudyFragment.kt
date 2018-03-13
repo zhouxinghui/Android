@@ -11,7 +11,6 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.activity.homework.done.DoHomeworkActivity
 import com.yzy.ebag.student.bean.SubjectBean
 import com.yzy.ebag.student.dialog.ListPopupWindow
 import com.yzy.ebag.student.http.StudentApi
@@ -20,6 +19,7 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.util.StringUtils
 import ebag.hd.activity.ReportClassActivity
 import ebag.hd.base.Constants
+import ebag.hd.homework.DoHomeworkActivity
 
 /**
  * @author caoyu

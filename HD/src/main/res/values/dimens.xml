@@ -3,6 +3,8 @@
     <dimen name="question_tag_height">@dimen/x40</dimen>
     <dimen name="question_tag_radius">@dimen/x4</dimen>
 
+    <dimen name="tv_normal">@dimen/x24</dimen>
+
     <dimen name="question_tag_hor_padding">@dimen/x15</dimen>
 
     <dimen name="question_head">@dimen/x22</dimen>

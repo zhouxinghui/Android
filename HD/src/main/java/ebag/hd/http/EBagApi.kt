@@ -2,10 +2,13 @@ package ebag.hd.http
 import com.alibaba.fastjson.JSON
 import ebag.core.base.App
 import ebag.core.bean.ResponseBean
+import ebag.core.bean.TypeQuestionBean
 import ebag.core.http.baseBean.RequestBean
 import ebag.core.http.network.*
+import ebag.core.util.StringUtils
 import ebag.hd.bean.*
 import ebag.hd.bean.request.ClassScheduleEditVo
+import ebag.hd.bean.request.CommitQuestionVo
 import ebag.hd.bean.response.BaseInfoEntity
 import ebag.hd.bean.response.NoticeBean
 import ebag.hd.bean.response.UserEntity
@@ -341,5 +344,41 @@ object EBagApi {
         val jsonObject = JSONObject()
         jsonObject.put("id", noteId)
         EBagApi.request(eBagService.deleteNote("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 提交作业
+     */
+    fun commitHomework(commitQuestionVo: CommitQuestionVo, callback: RequestCallBack<String>){
+        EBagApi.request(eBagService.commitHomework("v1", EBagApi.createBody(JSON.toJSONString(commitQuestionVo))), callback)
+    }
+
+    /**
+     * 错题纠正
+     */
+    fun errorCorrection(commitQuestionVo: CommitQuestionVo, callback: RequestCallBack<String>){
+        EBagApi.request(eBagService.errorCorrection("v1", EBagApi.createBody(JSON.toJSONString(commitQuestionVo))), callback)
+    }
+
+    /**
+     * 获取作业详情
+     */
+    fun getQuestions(homeWorkId: String, type: String, studentId: String?, callback: RequestCallBack<List<TypeQuestionBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("homeWorkId", homeWorkId)
+        jsonObject.put("type", type)
+        if(!StringUtils.isEmpty(studentId)){
+            jsonObject.put("uid", studentId)
+        }
+        EBagApi.request(eBagService.getQuestions("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 获取错题详情
+     */
+    fun getErrorDetail(homeWorkId: String, callback: RequestCallBack<List<TypeQuestionBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("homeWorkId", homeWorkId)
+        EBagApi.request(eBagService.getErrorDetail("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

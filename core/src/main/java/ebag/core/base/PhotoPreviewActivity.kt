@@ -45,7 +45,7 @@ class PhotoPreviewActivity : BaseActivity() {
     }
 
     inner class ViewPagerAdapter(private val urlList: List<String>): PagerAdapter(){
-        override fun isViewFromObject(view: View?, `object`: Any?): Boolean {
+        override fun isViewFromObject(view: View, `object`: Any): Boolean {
             return view == `object`
         }
 

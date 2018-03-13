@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.activity.homework.done
+package ebag.hd.homework
 
 import android.support.annotation.LayoutRes
 import android.util.SparseIntArray
@@ -8,11 +8,11 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter.TYPE_NOT_FOUND
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
-import com.yzy.ebag.student.R
 import ebag.core.bean.QuestionBean
 import ebag.core.bean.QuestionTypeUtils
 import ebag.core.bean.TypeQuestionBean
 import ebag.core.util.StringUtils
+import ebag.hd.R
 
 /**
  * @author caoyu

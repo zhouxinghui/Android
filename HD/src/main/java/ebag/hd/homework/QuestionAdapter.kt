@@ -1,10 +1,12 @@
-package com.yzy.ebag.student.activity.homework.done
+package ebag.hd.homework
 
+import android.view.View
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.yzy.ebag.student.R
 import ebag.core.bean.QuestionBean
 import ebag.core.bean.QuestionTypeUtils
+import ebag.hd.R
 import ebag.hd.widget.questions.base.BaseQuestionView
 
 /**
@@ -15,7 +17,16 @@ import ebag.hd.widget.questions.base.BaseQuestionView
 class QuestionAdapter: BaseMultiItemQuickAdapter<QuestionBean, BaseViewHolder>(null) {
 
     var onDoingListener: BaseQuestionView.OnDoingListener? = null
-
+    var isShowAnalyseTv = false
+    set(value) {
+        field = value
+        notifyDataSetChanged()
+    }
+    var canDo = true
+    set(value) {
+        field = value
+        notifyDataSetChanged()
+    }
     init {
         //看单词选图
         addItemType(QuestionTypeUtils.QUESTIONS_CHOOSE_PIC_BY_WORD, R.layout.item_question_choice)
@@ -68,8 +79,11 @@ class QuestionAdapter: BaseMultiItemQuickAdapter<QuestionBean, BaseViewHolder>(n
     override fun convert(helper: BaseViewHolder, item: QuestionBean?) {
         val questionView = helper.getView<BaseQuestionView>(R.id.questionView)
         questionView.setData(item)
-        questionView.show(true)
         questionView.tag = item
         questionView.setOnDoingListener(onDoingListener)
+        questionView.show(canDo)
+
+        helper.getView<TextView>(R.id.analyseTv).visibility = if (isShowAnalyseTv) View.VISIBLE else View.GONE
+        helper.addOnClickListener(R.id.analyseTv)
     }
 }

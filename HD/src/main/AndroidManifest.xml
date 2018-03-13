@@ -53,6 +53,12 @@
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity android:name=".homework.DoHomeworkActivity"
+            android:screenOrientation="landscape"
+            />
+        <service android:name=".service.AIDLTestService"
+            android:process=":countdown"
+            />
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"

@@ -11,6 +11,7 @@ import com.yzy.ebag.teacher.bean.CorrectingBean
 import com.yzy.ebag.teacher.ui.activity.CorrectingDescActivity
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
+import ebag.hd.base.Constants
 
 /**
  * Created by YZY on 2018/1/13.
@@ -56,7 +57,7 @@ class CorrectingSubFragment: BaseListFragment<List<CorrectingBean.SubjectVosBean
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
         adapter as MyAdapter
-        CorrectingDescActivity.jump(mContext, adapter.data[position].id)
+        CorrectingDescActivity.jump(mContext, adapter.data[position].id, type)
     }
 
     inner class MyAdapter: BaseQuickAdapter<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean, BaseViewHolder>(R.layout.fragment_correct_sub_item){
@@ -69,7 +70,7 @@ class CorrectingSubFragment: BaseListFragment<List<CorrectingBean.SubjectVosBean
             classNameTv.text = item.className
             contentTv.text = item.content
             completeTv.text = "完成： ${item.homeWorkCompleteCount}/${item.studentCount}"
-            if (type ==  "3")
+            if (type ==  Constants.KSSJ_TYPE)
                 timeTv.text = "考试时间： ${item.endTime}"
             else
                 timeTv.text = "截止时间： ${item.endTime}"

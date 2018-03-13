@@ -1,10 +1,7 @@
 package com.yzy.ebag.student.http
 
-import com.alibaba.fastjson.JSON
 import com.yzy.ebag.student.bean.*
-import ebag.core.bean.TypeQuestionBean
 import ebag.core.http.network.RequestCallBack
-import ebag.hd.bean.request.CommitQuestionVo
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
 import ebag.hd.http.EBagClient
@@ -79,39 +76,6 @@ object StudentApi{
         jsonObject.put("classId", classId)
         jsonObject.put("subCode", subCode)
         EBagApi.request(studentService.getUint("v1", EBagApi.createBody(jsonObject)), callback)
-    }
-
-    /**
-     * 获取作业详情
-     */
-    fun getQuestions(homeWorkId: String, type: String, callback: RequestCallBack<List<TypeQuestionBean>>){
-        val jsonObject = JSONObject()
-        jsonObject.put("homeWorkId", homeWorkId)
-        jsonObject.put("type", type)
-        EBagApi.request(studentService.getQuestions("v1", EBagApi.createBody(jsonObject)), callback)
-    }
-
-    /**
-     * 获取错题详情
-     */
-    fun getErrorDetail(homeWorkId: String, callback: RequestCallBack<List<TypeQuestionBean>>){
-        val jsonObject = JSONObject()
-        jsonObject.put("homeWorkId", homeWorkId)
-        EBagApi.request(studentService.getErrorDetail("v1", EBagApi.createBody(jsonObject)), callback)
-    }
-
-    /**
-     * 提交作业
-     */
-    fun commitHomework(commitQuestionVo: CommitQuestionVo, callback: RequestCallBack<String>){
-        EBagApi.request(studentService.commitHomework("v1", EBagApi.createBody(JSON.toJSONString(commitQuestionVo))), callback)
-    }
-
-    /**
-     * 错题纠正
-     */
-    fun errorCorrection(commitQuestionVo: CommitQuestionVo, callback: RequestCallBack<String>){
-        EBagApi.request(studentService.errorCorrection("v1", EBagApi.createBody(JSON.toJSONString(commitQuestionVo))), callback)
     }
 
     /**

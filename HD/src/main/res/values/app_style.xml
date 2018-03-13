@@ -166,4 +166,20 @@
         <item name="android:layout_height">@dimen/x68</item>
         <item name="android:button">@null</item>
     </style>
+
+    <style name="question_item_type">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/x20</item>
+        <item name="android:padding">@dimen/x20</item>
+    </style>
+    <style name="question_item_analyse_tv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:textColor">@color/normal_text_color</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:text">查看解析</item>
+        <item name="android:padding">@dimen/x10</item>
+    </style>
 </resources>

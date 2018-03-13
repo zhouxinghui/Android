@@ -18,6 +18,7 @@ import ebag.hd.R
 import ebag.hd.base.Constants
 import ebag.hd.bean.ReportBean
 import ebag.hd.bean.response.UserEntity
+import ebag.hd.homework.DoHomeworkActivity
 import ebag.hd.http.EBagApi
 import kotlinx.android.synthetic.main.activity_report_test.*
 
@@ -30,10 +31,11 @@ class ReportTestActivity: BaseActivity() {
 
 
     companion object {
-        fun jump(context: Context, homeworkId: String){
+        fun jump(context: Context, homeworkId: String, studentId: String = ""){
             context.startActivity(
                     Intent(context, ReportTestActivity::class.java)
                             .putExtra("homeworkId", homeworkId)
+                            .putExtra("studentId", studentId)
             )
         }
     }
@@ -42,8 +44,10 @@ class ReportTestActivity: BaseActivity() {
     }
 
     private lateinit var homeworkId: String
+    private var studentId = ""
     override fun initViews() {
         homeworkId = intent.getStringExtra("homeworkId") ?: ""
+        studentId = intent.getStringExtra("studentId") ?: ""
         showData()
     }
 
@@ -58,7 +62,7 @@ class ReportTestActivity: BaseActivity() {
             titleView.setTitle("作业报告")
         }
         titleView.setRightText("作业详情"){
-
+            DoHomeworkActivity.jump(this, homeworkId, Constants.REPORT_TYPE, studentId)
         }
 
         recyclerView.adapter = adapter

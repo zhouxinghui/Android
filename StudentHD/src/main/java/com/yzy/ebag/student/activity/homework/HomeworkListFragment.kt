@@ -2,13 +2,13 @@ package com.yzy.ebag.student.activity.homework
 
 import android.os.Bundle
 import android.os.Parcelable
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.RecyclerView
 import android.text.Html
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.activity.homework.done.DoHomeworkActivity
 import com.yzy.ebag.student.bean.SubjectBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseListFragment
@@ -16,6 +16,7 @@ import ebag.core.http.network.RequestCallBack
 import ebag.hd.activity.ReportClassActivity
 import ebag.hd.activity.ReportTestActivity
 import ebag.hd.base.Constants
+import ebag.hd.homework.DoHomeworkActivity
 import java.util.*
 
 
@@ -28,6 +29,18 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
     private lateinit var type: String
     private lateinit var classId: String
     private var list: List<SubjectBean.HomeWorkInfoBean>? = null
+    private val adapter = HomeWorkListAdapter()
+    private var currentClickIndex = 0
+    private val testDialog by lazy {
+        AlertDialog.Builder(mContext).setCancelable(false)
+                .setTitle("重要提示！！")
+                .setMessage("你即将进行一场考试，在考试完成前（时间到达或完成全部题目）将不能退出！！")
+                .setPositiveButton("现在开始"){ dialog, which ->
+                    val bean = adapter.getItem(currentClickIndex)
+                    DoHomeworkActivity.jump(mContext, bean?.id ?: "", type, null, bean?.endTime!!.toInt())
+                }.setNegativeButton("稍后再做",null)
+                .create()
+    }
     companion object {
         fun newInstance(type: String, classId: String, subCode: String, list: List<SubjectBean.HomeWorkInfoBean>?): HomeworkListFragment{
             val fragment = HomeworkListFragment()
@@ -69,7 +82,7 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
     }
 
     override fun getAdapter(): BaseQuickAdapter<SubjectBean.HomeWorkInfoBean,BaseViewHolder> {
-        return HomeWorkListAdapter()
+        return adapter
     }
 
     override fun getLayoutManager(adapter: BaseQuickAdapter<SubjectBean.HomeWorkInfoBean, BaseViewHolder>): RecyclerView.LayoutManager? {
@@ -78,7 +91,12 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
         if((adapter as HomeWorkListAdapter).getItem(position)?.state == Constants.CORRECT_UNFINISH){// 未完成
-            DoHomeworkActivity.jump(mContext, adapter.getItem(position)?.id ?: "", type)
+            if (type == Constants.KSSJ_TYPE) {
+                currentClickIndex = position
+                testDialog.show()
+            }else {
+                DoHomeworkActivity.jump(mContext, adapter.getItem(position)?.id ?: "", type)
+            }
         } else{
             when(type){
                 com.yzy.ebag.student.base.Constants.STZY_TYPE -> {
@@ -101,7 +119,7 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
             helper.setText(R.id.tvCount, Html.fromHtml("完成： <font color='#FF7800'>${item?.questionComplete}</font>/${item?.questionCount}"))
                     .setText(R.id.tvContent,"内容： ${item?.content ?: "无"}")
                     .setText(R.id.tvRequire,"要求： ${item?.remark ?: "无"}")
-                    .setText(R.id.tvTime,if(type == "4") "考试时长：${item?.endTime ?: "00"}分钟" else "截止时间： ${item?.endTime ?: "无"}")
+                    .setText(R.id.tvTime,if(type == Constants.KSSJ_TYPE) "考试时长：${item?.endTime ?: "00"}分钟" else "截止时间： ${item?.endTime ?: "无"}")
                     .setText(R.id.tvStatus,
                             when(item?.state){
                                 Constants.CORRECT_UNFINISH -> "未完成"

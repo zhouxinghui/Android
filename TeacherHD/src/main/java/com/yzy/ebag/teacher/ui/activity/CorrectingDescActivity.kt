@@ -37,15 +37,17 @@ class CorrectingDescActivity : BaseActivity() {
         return R.layout.activity_correcting_desc
     }
     companion object {
-        fun jump(context: Context, homeworkId: String){
+        fun jump(context: Context, homeworkId: String, type: String){
             context.startActivity(
                     Intent(context, CorrectingDescActivity::class.java)
                             .putExtra("homeworkId", homeworkId)
+                            .putExtra("type", type)
             )
         }
     }
     private var isFirstRequest: Boolean = true
     private var homeworkId: String = ""
+    private var type = ""
     private var questionList : ArrayList<QuestionBean>? = null
     private var currentQuestionIndex = 0
     private val answerAdapter by lazy { StudentAnswerAdapter() }
@@ -100,6 +102,7 @@ class CorrectingDescActivity : BaseActivity() {
     }
     override fun initViews() {
         homeworkId = intent.getStringExtra("homeworkId") ?: ""
+        type = intent.getStringExtra("type") ?: ""
         TeacherApi.correctWork(homeworkId, questionRequest)
         nextQuestion.setOnClickListener {
             if (questionList == null || currentQuestionIndex >= questionList!!.size -1){
@@ -124,7 +127,7 @@ class CorrectingDescActivity : BaseActivity() {
             }
 
             override fun rightClick() {
-                CommentActivity.jump(this@CorrectingDescActivity, homeworkId)
+                CommentActivity.jump(this@CorrectingDescActivity, homeworkId, type)
             }
 
         })

@@ -65,12 +65,4 @@
         <item name="android:background">@drawable/icon_more</item>
     </style>
 
-
-    <style name="question_item_type">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">@dimen/x20</item>
-        <item name="android:background">@drawable/bac_question</item>
-        <item name="android:padding">@dimen/x20</item>
-    </style>
 </resources>

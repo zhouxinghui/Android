@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ebag.hd.widget.questions.RecorderView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/questionView"
-    style="@style/question_item_type"/>
