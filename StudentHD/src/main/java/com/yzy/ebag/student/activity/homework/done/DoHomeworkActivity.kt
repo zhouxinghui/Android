@@ -11,7 +11,6 @@ import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseActivity
 import ebag.core.bean.QuestionBean
 import ebag.core.bean.TypeQuestionBean
-import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
@@ -281,8 +280,9 @@ class DoHomeworkActivity: BaseActivity() {
         }
 
         override fun onError(exception: Throwable) {
-            if(exception is MsgException)
-                stateView.showError(exception.message)
+//            if(exception is MsgException)
+//                stateView.showError(exception.message)
+            stateView.showError()
             exception.handleThrowable(this@DoHomeworkActivity)
         }
     }
