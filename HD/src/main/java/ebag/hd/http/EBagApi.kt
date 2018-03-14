@@ -382,8 +382,18 @@ object EBagApi {
         EBagApi.request(eBagService.getErrorDetail("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    fun queryYBCurrent(callback: RequestCallBack<YBCurrentBean>){
+    fun queryYBCurrent(page:Int,pageSize:Int,callback: RequestCallBack<YBCurrentBean>){
         val jsonObject = JSONObject()
+        jsonObject.put("page",page)
+        jsonObject.put("pageSize",pageSize)
+        EBagApi.request(eBagService.queryYBCurrent("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun queryYB(page:Int,pageSize:Int,type:String,callback: RequestCallBack<YBCurrentBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("page",page)
+        jsonObject.put("pageSize",pageSize)
+        jsonObject.put("type",type)
         EBagApi.request(eBagService.queryYBCurrent("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

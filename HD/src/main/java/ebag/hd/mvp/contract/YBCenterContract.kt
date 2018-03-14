@@ -12,25 +12,26 @@ interface YBCenterContract{
 
     interface Presenter:BasePresenter{
 
-        fun request()
+        fun request(page:Int,pageSize:Int,isFirst:Boolean,isLoadmore:Boolean)
+        fun switch(page: Int,pageSize: Int,type:String,isLoadmore:Boolean)
     }
 
 
     interface View:BaseView<Presenter>{
 
-        fun setSpannableString()
         fun showSuccess(currentMoney:String,incomeMoney:String,expendMoney:String,data:MutableList<YBCenterModel>)
         fun showError()
-        fun showEmpty()
         fun showLoading()
         fun loadmoreError()
-        fun loadmoreFail()
+        fun loadmoreComplete(data:MutableList<YBCenterModel>)
         fun showTimePicker()
         fun showDataLoading()
         fun showDataError()
         fun showDataEmpty()
+        fun dataLoadSuccess(data:MutableList<YBCenterModel>)
         fun showIncome()
         fun showExpend()
         fun showAll()
+        fun loadmoreEnd()
     }
 }

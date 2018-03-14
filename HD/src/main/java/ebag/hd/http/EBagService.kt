@@ -223,4 +223,5 @@ interface EBagService {
 
     @POST("user/serchYsbMoneyDetail/{version}")
     fun queryYBCurrent(@Path("version")version: String, @Body requestBody: RequestBody):Observable<ResponseBean<YBCurrentBean>>
+
 }
