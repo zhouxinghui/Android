@@ -97,8 +97,11 @@ object EBagApi {
      */
     fun login(account: String?, pwd: String?, loginType: Int, roleCode: String,thirdPartyToken: String?,thirdPartyUnionid:String?, callback: RequestCallBack<UserEntity>){
         val jsonObj = JSONObject()
-        jsonObj.put("loginAccount",account)
         jsonObj.put("password",pwd)
+        if(loginType == 3)//手机
+            jsonObj.put("phone",account)
+        if (loginType == 1)//书包号
+            jsonObj.put("ysbCode",account)
         jsonObj.put("loginType",loginType)
         jsonObj.put("roleCode",roleCode)
         jsonObj.put("thirdPartyUnionid",thirdPartyUnionid)
@@ -122,6 +125,9 @@ object EBagApi {
         request(EBagClient.eBagService.register("v1", createBody(jsonObj)), callback)
     }
 
+    /**
+     * 忘记密码
+     */
     fun resetPassword(phone: String, ysbCode: String, code: String, password: String,callback: RequestCallBack<String>){
         val jsonObj = JSONObject()
         jsonObj.put("ysbCode",ysbCode)

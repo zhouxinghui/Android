@@ -108,7 +108,7 @@ interface EBagService {
      * 重置密码
      */
     @Headers("EBag-Special-Url: special/url")
-    @POST("user/updatePwdByPhone/{version}")
+    @POST("user/updatePassword/{version}")
     fun resetPassword(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /**

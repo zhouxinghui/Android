@@ -1,6 +1,7 @@
 package ebag.hd.homework
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -76,6 +77,12 @@ class QuestionAdapter: BaseMultiItemQuickAdapter<QuestionBean, BaseViewHolder>(n
         addItemType(QuestionTypeUtils.QUESTIONS_WRITE, R.layout.item_question_write)
     }
 
+    private var onItemChildClickListener: ebag.core.xRecyclerView.adapter.OnItemChildClickListener? = null
+
+    fun setOnItemChildClickListener(onItemChildClickListener: ebag.core.xRecyclerView.adapter.OnItemChildClickListener){
+        this.onItemChildClickListener = onItemChildClickListener
+    }
+
     override fun convert(helper: BaseViewHolder, item: QuestionBean?) {
         val questionView = helper.getView<BaseQuestionView>(R.id.questionView)
         questionView.setData(item)
@@ -85,5 +92,25 @@ class QuestionAdapter: BaseMultiItemQuickAdapter<QuestionBean, BaseViewHolder>(n
 
         helper.getView<TextView>(R.id.analyseTv).visibility = if (isShowAnalyseTv) View.VISIBLE else View.GONE
         helper.addOnClickListener(R.id.analyseTv)
+
+        when(helper.itemViewType){
+            QuestionTypeUtils.QUESTIONS_CHINESE_WRITE_BY_VOICE,
+            QuestionTypeUtils.QUESTIONS_CHOOSE_BY_VOICE,
+            QuestionTypeUtils.QUESTIONS_COMPLETION_BY_VOICE ->{
+                questionView.setOnItemChildClickListener(onItemChildClickListener)
+            }
+            QuestionTypeUtils.QUESTIONS_FOLLOW_READ ->{
+                questionView.setOnItemChildClickListener(onItemChildClickListener)
+
+                val recorderBtn = helper.getView<ImageView>(R.id.recorder_id)
+                val playBtn = helper.getView<TextView>(R.id.recorder_play_id)
+                val uploadBtn = helper.getView<TextView>(R.id.recorder_upload_id)
+                recorderBtn.setTag(R.id.recorder_upload_id, uploadBtn)
+                recorderBtn.setTag(R.id.recorder_play_id, playBtn)
+                helper.addOnClickListener(R.id.recorder_id)
+                helper.addOnClickListener(R.id.recorder_upload_id)
+                helper.addOnClickListener(R.id.recorder_play_id)
+            }
+        }
     }
 }

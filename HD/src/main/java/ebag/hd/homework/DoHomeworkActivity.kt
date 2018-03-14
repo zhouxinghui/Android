@@ -5,20 +5,24 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.graphics.drawable.AnimationDrawable
 import android.os.IBinder
+import android.os.Message
 import android.os.RemoteException
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.ProgressBar
+import android.widget.TextView
 import ebag.core.base.BaseActivity
 import ebag.core.bean.QuestionBean
 import ebag.core.bean.TypeQuestionBean
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
-import ebag.core.util.LoadingDialogUtil
-import ebag.core.util.StringUtils
-import ebag.core.util.T
+import ebag.core.util.*
+import ebag.core.xRecyclerView.adapter.OnItemChildClickListener
+import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
 import ebag.hd.IParticipateCallback
 import ebag.hd.ITestAidlInterface
 import ebag.hd.R
@@ -27,11 +31,13 @@ import ebag.hd.activity.ReportTestActivity
 import ebag.hd.base.Constants
 import ebag.hd.bean.request.CommitQuestionVo
 import ebag.hd.bean.request.QuestionVo
+import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
 import ebag.hd.service.AIDLTestService
 import ebag.hd.widget.QuestionAnalyseDialog
 import ebag.hd.widget.questions.base.BaseQuestionView
 import kotlinx.android.synthetic.main.activity_do_homework.*
+import java.io.File
 
 /**
  * @author caoyu
@@ -66,6 +72,7 @@ class DoHomeworkActivity: BaseActivity() {
     }
 
     private lateinit var homeworkId: String
+    private lateinit var uid: String
     private lateinit var type: String
     private var testTime = 45
     private var studentId = ""
@@ -110,7 +117,8 @@ class DoHomeworkActivity: BaseActivity() {
         }
     }
     override fun initViews() {
-
+        val userEntity: UserEntity = SerializableUtils.getSerializable(Constants.STUDENT_USER_ENTITY)
+        uid = userEntity.uid
         homeworkId = intent.getStringExtra("homeworkId") ?: ""
         type = intent.getStringExtra("type") ?: ""
         studentId = intent.getStringExtra("studentId") ?: ""
@@ -227,10 +235,14 @@ class DoHomeworkActivity: BaseActivity() {
             typeAdapter.notifyDataSetChanged()
         }
 
+        questionAdapter.setOnItemChildClickListener(questionClickListener)
+
         questionAdapter.setOnItemChildClickListener { adapter, view, position ->
+            adapter as QuestionAdapter
             if (view.id == R.id.analyseTv){
                 analyseDialog.show(questionAdapter.data[position])
             }
+            recorderClick(view, position, adapter)
         }
         when(type){
             Constants.REPORT_TYPE ->{
@@ -407,6 +419,7 @@ class DoHomeworkActivity: BaseActivity() {
             }
             unbindService(mServiceConnection)
         }
+        voicePlayer.stop()
         super.onDestroy()
     }
     /**
@@ -423,4 +436,196 @@ class DoHomeworkActivity: BaseActivity() {
         EBagApi.getErrorDetail(homeworkId, detailRequest)
     }
 
+    //-----------------------------------------语音播放相关
+    private val questionClickListener : QuestionItemChildClickListener by lazy { QuestionItemChildClickListener() }
+    private val voicePlayer : VoicePlayerOnline by lazy {
+        val player = VoicePlayerOnline(this)
+        player.setOnPlayChangeListener(object : VoicePlayerOnline.OnPlayChangeListener{
+            override fun onProgressChange(progress: Int) {
+                progressBar!!.progress = progress
+            }
+            override fun onCompletePlay() {
+                tempUrl = null
+                anim!!.stop()
+                anim!!.selectDrawable(0)
+                progressBar!!.progress = 0
+            }
+        })
+        player
+    }
+    private var anim : AnimationDrawable? = null
+    private var progressBar : ProgressBar? = null
+    private var tempUrl: String? = null
+
+    inner class QuestionItemChildClickListener : OnItemChildClickListener {
+        override fun onItemChildClick(holder: RecyclerViewHolder, view: View, position: Int) {
+            voicePlaySetting(view)
+        }
+    }
+    private fun voicePlaySetting(view: View){
+        var url : String = view.getTag(R.id.play_id) as String
+        url = url.substring(3, url.length)
+        if (StringUtils.isEmpty(url))
+            return
+        if (url != tempUrl){
+            if(anim != null) {
+                anim!!.stop()
+                anim!!.selectDrawable(0)
+                progressBar!!.progress = 0
+            }
+            anim = view.getTag(R.id.image_id) as AnimationDrawable
+            progressBar = view.getTag(R.id.progress_id) as ProgressBar
+            voicePlayer.playUrl(url)
+            anim!!.start()
+            tempUrl = url
+        }else{
+            if (voicePlayer.isPlaying && !voicePlayer.isPause){
+                voicePlayer.pause()
+                anim!!.stop()
+            }else{
+                voicePlayer.play()
+                anim!!.start()
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (voicePlayer.isPlaying && !voicePlayer.isPause) {
+            voicePlayer.pause()
+            anim!!.stop()
+        }
+    }
+    //----------------------------------录音相关
+    private var recorderAnim : AnimationDrawable? = null
+    private val recorderUtil by lazy {
+        val recorderUtil = RecorderUtil(this)
+        recorderUtil.setFinalFileName(FileUtil.getRecorderPath() + "questionRecorder.amr")
+        recorderUtil
+    }
+    private var playBtn: TextView? = null
+    private var uploadBtn: TextView? = null
+    private var tempPosition: Int = -1
+    private lateinit var currentQuestionBean: QuestionBean
+    private lateinit var cloudFileName: String
+    private val alertDialog by lazy {
+        AlertDialog.Builder(this)
+                .setMessage("你有录音正在进行中！")
+                .setCancelable(false)
+                .setNegativeButton("继续录音", { dialog, which ->
+                    recorderAnim!!.start()
+                    recorderUtil.startRecord()
+                    dialog.dismiss()
+                }).setPositiveButton("上传录音", {dialog, which ->
+                    uploadFile()
+                })
+                .create() }
+    private val dialogNew by lazy {
+        AlertDialog.Builder(this)
+                .setMessage("录音已存在，是否重新录制？")
+                .setCancelable(false)
+                .setNegativeButton("取消", { dialog, which ->
+                    dialog.dismiss()
+                }).setPositiveButton("重新录音", {dialog, which ->
+                    recorderUtil.startRecord()
+                    recorderAnim!!.start()
+                    uploadBtn!!.visibility = View.VISIBLE
+                    playBtn!!.visibility = View.VISIBLE
+                })
+                .create()
+    }
+    private fun startNewRecorder(view: View, position: Int){
+        recorderAnim = view.background as AnimationDrawable?
+        recorderAnim!!.start()
+        recorderUtil.startRecord()
+        tempPosition = position
+        uploadBtn = view.getTag(R.id.recorder_upload_id) as TextView
+        playBtn = view.getTag(R.id.recorder_play_id) as TextView
+        uploadBtn!!.visibility = View.VISIBLE
+        playBtn!!.visibility = View.INVISIBLE
+    }
+
+    private fun uploadFile(){
+        cloudFileName = "$uid$homeworkId${currentQuestionBean.questionId}.amr"
+        recorderAnim!!.stop()
+        recorderAnim!!.selectDrawable(0)
+        recorderUtil.finishRecord()
+        //上传录音
+        OSSUploadUtils.getInstance().uploadFileToOss(
+                this,
+                File(FileUtil.getRecorderPath() + "questionRecorder.amr"),
+                "personal/questionRecorder",
+                cloudFileName,
+                mHandler)
+        LoadingDialogUtil.showLoading(this, "上传录音...")
+    }
+
+    private val mHandler = MyHandler(this)
+    class MyHandler(activity: DoHomeworkActivity): HandlerUtil<DoHomeworkActivity>(activity){
+        override fun handleMessage(activity: DoHomeworkActivity?, msg: Message?) {
+            when {
+                msg!!.what == ebag.core.util.Constants.UPLOAD_SUCCESS ->{//上传文件成功
+                    activity!!.playBtn!!.visibility = View.VISIBLE
+                    activity.uploadBtn!!.visibility = View.INVISIBLE
+                    LoadingDialogUtil.closeLoadingDialog()
+                    T.show(activity, "上传成功")
+                    activity.currentQuestionBean.answer = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/questionRecorder/${activity.cloudFileName}"
+                    activity.typeAdapter.notifyDataSetChanged()
+                }
+                msg.what == ebag.core.util.Constants.UPLOAD_FAIL ->{//上传文件失败
+                    LoadingDialogUtil.closeLoadingDialog()
+                    T.show(activity!!, "录音上传失败，请点击上传按钮重试")
+                }
+            }
+        }
+    }
+    private fun recorderClick(view: View, position: Int, adapter: QuestionAdapter){
+        currentQuestionBean = adapter.data[position]
+        when (view.id){
+            R.id.recorder_id -> {
+                //点了其他item的录音按钮并且前面已经有item处于录音状态了
+                if(tempPosition != position && recorderAnim != null){
+                    //有正在录音的item
+                    if (recorderUtil.isRecording){
+                        //暂停录音
+                        recorderAnim!!.stop()
+                        recorderUtil.pauseRecord()
+                        alertDialog.show()
+                    }else{
+                        //前面的item录音文件未上传
+                        if(uploadBtn!!.visibility == View.VISIBLE) {
+                            alertDialog.show()
+                            //前面的item录音文件已经上传，直接开始录音
+                        }else{
+                            startNewRecorder(view, position)
+                        }
+                    }
+                    //第一次点击item的录音按钮
+                }else if (tempPosition != position && recorderAnim == null){
+                    startNewRecorder(view, position)
+                    //点击同一个item
+                }else if (tempPosition == position){
+                    if(recorderUtil.isRecording){
+                        recorderUtil.pauseRecord()
+                        recorderAnim!!.stop()
+                    }else{
+                        //已经录音了，点击录音按钮提示用户是否重新录音
+                        if(uploadBtn!!.visibility == View.INVISIBLE)
+                            dialogNew.show()
+                        //已经暂停录音，点击录音按钮继续录音
+                        else{
+                            recorderUtil.startRecord()
+                            recorderAnim!!.start()
+                        }
+                    }
+                }
+            }
+            R.id.recorder_upload_id -> {
+                uploadFile()
+            }
+            R.id.recorder_play_id -> {
+                recorderUtil.playRecord(currentQuestionBean.answer)
+            }
+        }
+    }
 }
