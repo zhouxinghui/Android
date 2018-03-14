@@ -84,7 +84,7 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
         val commentBean = adapter.data[position] as CommentBean
         when(view.id){
             R.id.checkReportBtn ->{
-                if (type == Constants.KSSJ_TYPE)
+                if (type == Constants.KSSJ_TYPE || type == Constants.KHZY_TYPE)
                     ReportTestActivity.jump(this, homeworkId, commentBean.uid)
                 else
                     ReportClassActivity.jump(this, homeworkId, commentBean.uid)

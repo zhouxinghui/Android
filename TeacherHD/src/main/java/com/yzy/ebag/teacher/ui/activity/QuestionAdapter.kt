@@ -70,6 +70,12 @@ class QuestionAdapter(private val isPreviewPage: Boolean = false): BaseMultiItem
         }
     var previewList = ArrayList<QuestionBean>()
 
+    private var onItemChildClickListener: ebag.core.xRecyclerView.adapter.OnItemChildClickListener? = null
+
+    fun setOnItemChildClickListener(onItemChildClickListener: ebag.core.xRecyclerView.adapter.OnItemChildClickListener){
+        this.onItemChildClickListener = onItemChildClickListener
+    }
+
     override fun convert(helper: BaseViewHolder, item: QuestionBean?) {
         val questionView = helper.getView<BaseQuestionView>(R.id.questionView)
         questionView.setData(item)
@@ -106,6 +112,15 @@ class QuestionAdapter(private val isPreviewPage: Boolean = false): BaseMultiItem
             }
         }else{
             helper.getView<TextView>(R.id.typeNameTv).visibility = View.GONE
+        }
+
+        when(helper.itemViewType){
+            QuestionTypeUtils.QUESTIONS_CHINESE_WRITE_BY_VOICE,
+            QuestionTypeUtils.QUESTIONS_CHOOSE_BY_VOICE,
+            QuestionTypeUtils.QUESTIONS_COMPLETION_BY_VOICE,
+            QuestionTypeUtils.QUESTIONS_FOLLOW_READ ->{
+                questionView.setOnItemChildClickListener(onItemChildClickListener)
+            }
         }
     }
 }

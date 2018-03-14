@@ -84,19 +84,20 @@ class DoHomeworkActivity: BaseActivity() {
                     dialog.show()
                     //重新设置点击方法  让点击button后对话框不消失
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-
+                        getRequestData()
+                        commit()
                     }
                 }
             }
         }
     }
-    private lateinit var mService: ITestAidlInterface
+    private var mService: ITestAidlInterface? = null
     private val mServiceConnection by lazy {
         object : ServiceConnection {
             override fun onServiceConnected(componentName: ComponentName, iBinder: IBinder) {
                 mService = ITestAidlInterface.Stub.asInterface(iBinder)
                 try {
-                    mService.start(mParticipateCallback, testTime)
+                    mService!!.start(mParticipateCallback, testTime)
                 } catch (e: RemoteException) {
                     e.printStackTrace()
                 }
@@ -104,7 +105,7 @@ class DoHomeworkActivity: BaseActivity() {
             }
 
             override fun onServiceDisconnected(componentName: ComponentName) {
-//                mService = null
+                mService = null
             }
         }
     }
@@ -149,46 +150,33 @@ class DoHomeworkActivity: BaseActivity() {
         commitQuestionVo.homeWorkId = homeworkId
         // 点击提交按钮
         commitBtn.setOnClickListener {
-            var hasDone = false
-            var hasAllDone = true
-            commitQuestionVo.clear()
-            typeAdapter.data.forEach {
-                if(it is TypeQuestionBean?) {
-                    it?.questionVos?.forEach {
-                        commitQuestionVo.add(QuestionVo(it.questionId, it.answer, it.type))
-                        if (StringUtils.isEmpty(it.answer) && hasAllDone) {
-                            hasAllDone = false
+
+            val status = getRequestData()
+            when(status){
+                1 -> {// 没有做作业
+                    // 设置标题
+                    when(type){
+                        Constants.KHZY_TYPE -> {
+                            T.show(this, "作业要做哦！")
                         }
-                        if (!StringUtils.isEmpty(it.answer) && !hasDone) {
-                            hasDone = true
+                        Constants.STZY_TYPE -> {
+                            T.show(this, "作业要做哦！")
+                        }
+                        Constants.KSSJ_TYPE -> {
+                            T.show(this, "不准交白卷哦！")
+                        }
+                        Constants.ERROR_TOPIC_TYPE -> {
+                            T.show(this, "错题需要纠正哦！")
                         }
                     }
                 }
-            }
-
-            // 没有做作业
-            if(!hasDone){
-                // 设置标题
-                when(type){
-                    Constants.KHZY_TYPE -> {
-                        T.show(this, "作业要做哦！")
-                    }
-                    Constants.STZY_TYPE -> {
-                        T.show(this, "作业要做哦！")
-                    }
-                    Constants.KSSJ_TYPE -> {
-                        T.show(this, "不准交白卷哦！")
-                    }
-                    Constants.ERROR_TOPIC_TYPE -> {
-                        T.show(this, "错题需要纠正哦！")
-                    }
+                2 -> {// 做了作业, 并且全部做完
+                    commit()
                 }
-            }else if(hasAllDone){ // 做了作业, 并且全部做完
-                commit()
-            }else{ // 做了作业, 没有全部做完
-                commitTipDialog.show()
+                3 -> {// 做了作业, 没有全部做完
+                    commitTipDialog.show()
+                }
             }
-
         }
 
         stateView.setOnRetryClickListener {
@@ -197,6 +185,26 @@ class DoHomeworkActivity: BaseActivity() {
 
         deatilRequest()
 
+    }
+
+    private fun getRequestData() : Int{
+        var hasDone = false
+        var hasAllDone = true
+        commitQuestionVo.clear()
+        typeAdapter.data.forEach {
+            if(it is TypeQuestionBean?) {
+                it?.questionVos?.forEach {
+                    commitQuestionVo.add(QuestionVo(it.questionId, it.answer, it.type))
+                    if (StringUtils.isEmpty(it.answer) && hasAllDone) {
+                        hasAllDone = false
+                    }
+                    if (!StringUtils.isEmpty(it.answer) && !hasDone) {
+                        hasDone = true
+                    }
+                }
+            }
+        }
+        return if(!hasDone) 1 else if(hasAllDone) 2 else 3
     }
 
     private val commitQuestionVo = CommitQuestionVo()
@@ -209,6 +217,8 @@ class DoHomeworkActivity: BaseActivity() {
         QuestionAnalyseDialog(this)
     }
     private val questionManager = LinearLayoutManager(this)
+
+
     private fun initQuestion() {
         questionRecycler.layoutManager = questionManager
         questionRecycler.adapter = questionAdapter
@@ -383,6 +393,21 @@ class DoHomeworkActivity: BaseActivity() {
                 getHomeworkDetail()
             }
         }
+    }
+
+    override fun onDestroy() {
+        if (type == Constants.KSSJ_TYPE) {
+            if (mService != null) {
+                try {
+                    mService!!.unregisterParticipateCallback(mParticipateCallback)
+                } catch (e: RemoteException) {
+                    e.printStackTrace()
+                }
+
+            }
+            unbindService(mServiceConnection)
+        }
+        super.onDestroy()
     }
     /**
      * 获取作业详情
