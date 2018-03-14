@@ -134,7 +134,6 @@
 
         <activity android:name=".activity.tools.read.ReadDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
             android:screenOrientation="landscape"/>
 
         <activity android:name=".activity.account.InviteActivity"
