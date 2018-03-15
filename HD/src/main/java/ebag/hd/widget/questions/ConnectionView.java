@@ -233,35 +233,9 @@ public class ConnectionView extends BaseQuestionView {
     public void show(boolean active) {
         questionActive(active);
         setTitle(titleList);
+        connectionLineView.clearLines();
         if (list != null && list.size() > 0)
             adapter.setDatas(list);
-        else
-            return;
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (!StringUtils.INSTANCE.isEmpty(studentAnswer)){
-                    String[] studentAnswers = studentAnswer.split(";");
-                    for (String answer : studentAnswers) {
-                        String[] answers = answer.split(",");
-                        ConnectionBean connectionLeft = null;
-                        ConnectionBean connectionRight = null;
-                        for(int i = 0; i < list.size(); i +=2) {
-                            if (list.get(i).content.equals(answers[0]))
-                                connectionLeft = list.get(i);
-                            if (list.get(i + 1).content.equals(answers[1]))
-                                connectionRight = list.get(i + 1);
-                        }
-                        //建立连接
-                        if(connectionLeft != null && connectionRight != null){
-                            line(connectionLeft,connectionRight);
-                            connectionLineView.setLine(connectionLeft, true);
-                        }
-                    }
-                    adapter.notifyDataSetChanged();
-                }
-            }
-        }, 50);
     }
 
     @Override
@@ -281,22 +255,6 @@ public class ConnectionView extends BaseQuestionView {
     }
 
     private void setWrong(){
-        if (StringUtils.INSTANCE.isEmpty(rightAnswer))
-            return;
-        String[] rightSplit = rightAnswer.split(";");
-        List<ConnectionBean> lines = connectionLineView.getLines();
-        if (lines == null || lines.size() == 0)
-            return ;
-        for (int i = 0; i < lines.size(); i++) {
-
-            ConnectionBean connectionBean = lines.get(i);
-            if(!ConnectionLineView.isConnectionRegular(connectionBean))
-                continue;
-
-            if(!isAnswerRight(connectionBean,rightSplit)){
-                connectionLineView.setWrongLine(connectionBean);
-            }
-        }
         adapter.setResult(true);
     }
 
@@ -397,6 +355,55 @@ public class ConnectionView extends BaseQuestionView {
             }else{
                 setter.setBackgroundRes(R.id.element_id,R.drawable.connection_element_bg);
                 setter.getView(R.id.element_id).setSelected(entity.selected);
+            }
+
+            if(position == getItemCount() - 1){
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+//                        connectionLineView.clearLines();
+                        if (StringUtils.INSTANCE.isEmpty(studentAnswer))
+                            return;
+
+                        String[] studentAnswers = studentAnswer.split(";");
+                        for (String answer : studentAnswers) {
+                            String[] answers = answer.split(",");
+                            ConnectionBean connectionLeft = null;
+                            ConnectionBean connectionRight = null;
+                            for(int i = 0; i < list.size(); i +=2) {
+                                if (list.get(i).content.equals(answers[0]))
+                                    connectionLeft = list.get(i);
+                                if (list.get(i + 1).content.equals(answers[1]))
+                                    connectionRight = list.get(i + 1);
+                            }
+                            //建立连接
+                            if(connectionLeft != null && connectionRight != null){
+                                line(connectionLeft,connectionRight);
+                                connectionLineView.setLine(connectionLeft, true);
+                            }
+                        }
+
+                        if(isResult){
+                            if (StringUtils.INSTANCE.isEmpty(rightAnswer))
+                                return;
+                            String[] rightSplit = rightAnswer.split(";");
+                            List<ConnectionBean> lines = connectionLineView.getLines();
+                            if (lines == null || lines.size() == 0)
+                                return ;
+                            for (int i = 0; i < lines.size(); i++) {
+                                ConnectionBean connectionBean = lines.get(i);
+                                if(!ConnectionLineView.isConnectionRegular(connectionBean))
+                                    continue;
+
+                                if(!isAnswerRight(connectionBean,rightSplit)){
+                                    connectionLineView.setWrongLine(connectionBean);
+                                }
+                            }
+                        }
+
+                        adapter.notifyDataSetChanged();
+                    }
+                }, 50);
             }
         }
 

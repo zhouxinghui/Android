@@ -139,6 +139,11 @@ public class ConnectionLineView extends View {
         return list;
     }
 
+    public void clearLines(){
+        list.clear();
+//        invalidate();
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
 //        mPaint.setColor(Color.TRANSPARENT);
