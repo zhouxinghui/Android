@@ -29,6 +29,15 @@ public class MyCourseBean implements Serializable {
     private String gradeName;
     private String semeterCode;
     private String semeterName;
+    private long createDate;
+
+    public long getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(long createDate) {
+        this.createDate = createDate;
+    }
 
     public String getClassId() {
         return classId;
