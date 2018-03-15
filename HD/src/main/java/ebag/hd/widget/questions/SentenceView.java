@@ -82,7 +82,7 @@ public class SentenceView extends BaseQuestionView {
         Collections.addAll(titleList,questionBean.getTitle().split("#R#"));
         //听写
         if (QuestionTypeUtils.getIntType(questionBean) == QuestionTypeUtils.QUESTIONS_CHINESE_WRITE_BY_VOICE) {
-            titleList.add(questionBean.getAudioUrl());
+            titleList.add("#M#" + questionBean.getAudioUrl());
             lineEditText.setMinLines(2);
         } else {
             //词组或句子&应用题

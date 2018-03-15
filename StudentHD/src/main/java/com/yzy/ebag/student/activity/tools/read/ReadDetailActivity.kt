@@ -3,12 +3,15 @@ package com.yzy.ebag.student.activity.tools.read
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.graphics.drawable.AnimationDrawable
 import android.os.Message
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ProgressBar
+import cn.jzvd.JZUtils
 import cn.jzvd.JZVideoPlayer
 import cn.jzvd.JZVideoPlayerStandard
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -537,5 +540,10 @@ class ReadDetailActivity: BaseActivity() {
             exception.handleThrowable(this@ReadDetailActivity)
         }
 
+    }
+    //视频播放退出全屏的时候要保持横屏
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
+        JZUtils.setRequestedOrientation(this, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
     }
 }

@@ -1,10 +1,13 @@
 package com.yzy.ebag.student.activity.center.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.yzy.ebag.student.R
 import ebag.core.base.BaseFragment
 import ebag.core.util.T
+import ebag.hd.activity.AddressListActivity
+import ebag.hd.activity.YBCenterActivity
 import kotlinx.android.synthetic.main.fragment_yb_center.*
 
 /**
@@ -28,7 +31,7 @@ class YbCenterFragment: BaseFragment() {
 
     override fun initViews(rootView: View) {
         btnAddress.setOnClickListener {
-            T.show(mContext,"暂未开放")
+            startActivity(Intent(activity,AddressListActivity::class.java))
         }
 
         btnGift.setOnClickListener {
@@ -40,7 +43,7 @@ class YbCenterFragment: BaseFragment() {
         }
 
         btnCenter.setOnClickListener {
-            T.show(mContext,"暂未开放")
+            startActivity(Intent(activity,YBCenterActivity::class.java))
         }
     }
 }

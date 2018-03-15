@@ -13,7 +13,9 @@ import com.yzy.ebag.teacher.bean.MyCourseBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.widget.ExchangeTextbookDialog
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.DateUtil
 import ebag.core.util.loadImage
+import java.util.*
 
 class MyCourseActivity : BaseListActivity<List<MyCourseBean>,MyCourseBean>() {
     private val adapter by lazy { MyAdapter() }
@@ -61,7 +63,7 @@ class MyCourseActivity : BaseListActivity<List<MyCourseBean>,MyCourseBean>() {
             val imageView = helper.getView<ImageView>(R.id.ivBook)
             imageView.loadImage("")
             helper.setText(R.id.tvEdition,item.bookVersionName)
-                    .setText(R.id.tvTime,"[添加时间:无返回字段]")
+                    .setText(R.id.tvTime,"[添加时间:${DateUtil.getFormatDateTime(Date(item.createDate), "yyyy-MM-dd HH-mm-ss")}]")
                     .setText(R.id.tvSemester,item.semeterName)
                     .setText(R.id.tvSubject,item.bookName)
                     .setText(R.id.tvClass,item.gradeName)

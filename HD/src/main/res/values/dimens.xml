@@ -3,6 +3,8 @@
     <dimen name="question_tag_height">@dimen/x40</dimen>
     <dimen name="question_tag_radius">@dimen/x4</dimen>
 
+    <dimen name="tv_normal">@dimen/x24</dimen>
+
     <dimen name="question_tag_hor_padding">@dimen/x15</dimen>
 
     <dimen name="question_head">@dimen/x22</dimen>
@@ -30,4 +32,6 @@
     <dimen name="title_bar_title_sub_size">@dimen/x24</dimen>
 
     <dimen name="class_schedule_table_width">@dimen/x1</dimen>
+
+    <dimen name="question_item_bottom_margin">@dimen/y10</dimen>
 </resources>

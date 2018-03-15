@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.ui.fragment.CorrectingFragment
 import ebag.core.base.BaseActivity
+import ebag.hd.base.Constants
 import kotlinx.android.synthetic.main.activity_correcting.*
 
 class CorrectingActivity : BaseActivity() {
@@ -31,7 +32,7 @@ class CorrectingActivity : BaseActivity() {
     }
 
     private var tempFragment : Fragment? = null
-    private val fragmentArrays = arrayOf(CorrectingFragment.newInstance("1"), CorrectingFragment.newInstance("2"), CorrectingFragment.newInstance("3"))
+    private val fragmentArrays = arrayOf(CorrectingFragment.newInstance(Constants.STZY_TYPE), CorrectingFragment.newInstance(Constants.KHZY_TYPE), CorrectingFragment.newInstance(Constants.KSSJ_TYPE))
     /**
      * 显示指定的Fragment
      *

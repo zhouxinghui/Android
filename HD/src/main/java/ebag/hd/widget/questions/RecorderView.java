@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ebag.core.bean.QuestionBean;
+import ebag.core.util.StringUtils;
 import ebag.hd.R;
 import ebag.hd.widget.questions.base.BaseQuestionView;
 import ebag.hd.widget.questions.util.QuestionTypeUtils;
@@ -33,6 +34,7 @@ public class RecorderView extends BaseQuestionView {
      */
     private String studentAnswer;
     private ImageView recorderBtn;
+    private TextView playBtn;
     private QuestionBean questionBean;
     public RecorderView(Context context) {
         super(context);
@@ -88,7 +90,7 @@ public class RecorderView extends BaseQuestionView {
         uploadBtn.setVisibility(View.INVISIBLE);
 
         //播放录音按钮
-        TextView playBtn = new TextView(context);
+        playBtn = new TextView(context);
         playBtn.setId(R.id.recorder_play_id);
         params = new LayoutParams(getResources().getDimensionPixelSize(R.dimen.x50),
                 getResources().getDimensionPixelSize(R.dimen.x50));
@@ -116,18 +118,22 @@ public class RecorderView extends BaseQuestionView {
                 break;
         }
         rightAnswer = questionBean.getRightAnswer();
+        studentAnswer = questionBean.getAnswer();
     }
 
     @Override
     public void show(boolean active) {
         questionActive(active);
         setTitle(title);
-
     }
 
     @Override
     public void questionActive(boolean active) {
         recorderBtn.setEnabled(active);
+        if (!StringUtils.INSTANCE.isEmpty(studentAnswer))
+            playBtn.setVisibility(View.VISIBLE);
+        else
+            playBtn.setVisibility(View.INVISIBLE);
     }
 
     @Override

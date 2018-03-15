@@ -146,11 +146,6 @@
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
             android:screenOrientation="landscape"/>
 
-        <activity android:name=".activity.homework.done.DoHomeworkActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
-            android:screenOrientation="landscape"/>
-
         <activity android:name=".activity.set.AboutUsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
@@ -158,7 +153,6 @@
 
         <activity android:name=".activity.tools.read.ReadDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
             android:screenOrientation="landscape"/>
 
         <activity android:name=".activity.account.InviteActivity"

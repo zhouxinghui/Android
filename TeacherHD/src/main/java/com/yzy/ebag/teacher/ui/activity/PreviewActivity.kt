@@ -39,6 +39,8 @@ class PreviewActivity: BaseActivity() {
         override fun onSuccess(entity: List<QuestionBean>?) {
             if (entity == null || entity.isEmpty()){
                 stateView.showEmpty()
+                previewTv.isEnabled = false
+                publishTv.isEnabled = false
             }else{
                 previewList = entity as ArrayList<QuestionBean>
                 setFragmentEvent(previewList)
@@ -47,6 +49,8 @@ class PreviewActivity: BaseActivity() {
         }
 
         override fun onError(exception: Throwable) {
+            previewTv.isEnabled = false
+            publishTv.isEnabled = false
             stateView.showError()
             exception.handleThrowable(this@PreviewActivity)
         }

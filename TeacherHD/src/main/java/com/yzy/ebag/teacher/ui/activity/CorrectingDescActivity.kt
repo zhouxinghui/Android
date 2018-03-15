@@ -36,15 +36,17 @@ class CorrectingDescActivity : BaseActivity() {
         return R.layout.activity_correcting_desc
     }
     companion object {
-        fun jump(context: Context, homeworkId: String){
+        fun jump(context: Context, homeworkId: String, type: String){
             context.startActivity(
                     Intent(context, CorrectingDescActivity::class.java)
                             .putExtra("homeworkId", homeworkId)
+                            .putExtra("type", type)
             )
         }
     }
     private var isFirstRequest: Boolean = true
     private var homeworkId: String = ""
+    private var type = ""
     private var questionList : ArrayList<QuestionBean>? = null
     private var currentQuestionIndex = 0
     private val answerAdapter by lazy { StudentAnswerAdapter() }
@@ -99,6 +101,7 @@ class CorrectingDescActivity : BaseActivity() {
     }
     override fun initViews() {
         homeworkId = intent.getStringExtra("homeworkId") ?: ""
+        type = intent.getStringExtra("type") ?: ""
         TeacherApi.correctWork(homeworkId, questionRequest)
         nextQuestion.setOnClickListener {
             if (questionList == null || currentQuestionIndex >= questionList!!.size -1){
@@ -118,7 +121,7 @@ class CorrectingDescActivity : BaseActivity() {
         answerRecycler.layoutManager = LinearLayoutManager(this)
 
         titleBar.setOnRightClickListener {
-            CommentActivity.jump(this@CorrectingDescActivity, homeworkId)
+            CommentActivity.jump(this@CorrectingDescActivity, homeworkId, type)
         }
 
         answerAdapter.setOnItemChildClickListener { adapter, view, position ->
@@ -149,7 +152,6 @@ class CorrectingDescActivity : BaseActivity() {
             addItemType(QuestionTypeUtils.QUESTIONS_JUDGE, R.layout.item_correcting_answer_normal)
             addItemType(QuestionTypeUtils.QUESTIONS_CHOICE, R.layout.item_correcting_answer_normal)
             addItemType(QuestionTypeUtils.QUESTIONS_CHOOSE_BY_VOICE, R.layout.item_correcting_answer_normal)
-            addItemType(QuestionTypeUtils.QUESTIONS_DRAW_LINE, R.layout.item_correcting_answer_normal)
             addItemType(QuestionTypeUtils.QUESTIONS_COMPLETION, R.layout.item_correcting_answer_normal)
             addItemType(QuestionTypeUtils.QUESTION_MATH_VERTICAL, R.layout.item_correcting_answer_normal)
             addItemType(QuestionTypeUtils.QUESTION_MATH_EQUATION, R.layout.item_correcting_answer_normal)

@@ -20,7 +20,9 @@
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/head_default" />
+        app:srcCompat="@drawable/head_default"
+        android:visibility="invisible"
+        />
 
     <View
         android:id="@+id/moreIcon"
@@ -30,7 +32,9 @@
         android:background="@drawable/right_arrow"
         android:layout_marginTop="@dimen/x44"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
+        />
 
     <TextView
         android:id="@+id/tvEdition"
@@ -38,13 +42,14 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/x14"
         android:layout_marginStart="@dimen/x24"
+        android:layout_marginTop="@dimen/x14"
         android:ellipsize="end"
         android:lines="1"
         android:textColor="@color/question_normal"
         android:textSize="@dimen/x28"
-        app:layout_constraintEnd_toStartOf="@id/moreIcon"
-        app:layout_constraintStart_toEndOf="@id/ivBook"
-        app:layout_constraintTop_toTopOf="@id/ivBook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="人教版" />
 
     <TextView

@@ -297,7 +297,8 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
                 }
             }
             String answer = sb.substring(0, sb.length());
-            String[] split_stu = answer.split(";");
+            return answer;
+            /*String[] split_stu = answer.split(";");
             String[] split_right = rightAnswer.split(";");
             for (int i = 0; i < split_stu.length; i++) {
                 String[] split_stu_1 = split_stu[i].split("#R#");
@@ -311,7 +312,7 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
                     return answer;
                 }
             }
-            return "";
+            return "";*/
         }
 
     }

@@ -2,10 +2,13 @@ package ebag.hd.http
 import com.alibaba.fastjson.JSON
 import ebag.core.base.App
 import ebag.core.bean.ResponseBean
+import ebag.core.bean.TypeQuestionBean
 import ebag.core.http.baseBean.RequestBean
 import ebag.core.http.network.*
+import ebag.core.util.StringUtils
 import ebag.hd.bean.*
 import ebag.hd.bean.request.ClassScheduleEditVo
+import ebag.hd.bean.request.CommitQuestionVo
 import ebag.hd.bean.response.BaseInfoEntity
 import ebag.hd.bean.response.NoticeBean
 import ebag.hd.bean.response.UserEntity
@@ -94,8 +97,8 @@ object EBagApi {
      */
     fun login(account: String?, pwd: String?, loginType: Int, roleCode: String,thirdPartyToken: String?,thirdPartyUnionid:String?, callback: RequestCallBack<UserEntity>){
         val jsonObj = JSONObject()
-        jsonObj.put("loginAccount",account)
         jsonObj.put("password",pwd)
+        jsonObj.put("loginAccount",account)
         jsonObj.put("loginType",loginType)
         jsonObj.put("roleCode",roleCode)
         jsonObj.put("thirdPartyUnionid",thirdPartyUnionid)
@@ -119,6 +122,9 @@ object EBagApi {
         request(EBagClient.eBagService.register("v1", createBody(jsonObj)), callback)
     }
 
+    /**
+     * 忘记密码
+     */
     fun resetPassword(phone: String, ysbCode: String, code: String, password: String,callback: RequestCallBack<String>){
         val jsonObj = JSONObject()
         jsonObj.put("ysbCode",ysbCode)
@@ -341,5 +347,86 @@ object EBagApi {
         val jsonObject = JSONObject()
         jsonObject.put("id", noteId)
         EBagApi.request(eBagService.deleteNote("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 提交作业
+     */
+    fun commitHomework(commitQuestionVo: CommitQuestionVo, callback: RequestCallBack<String>){
+        EBagApi.request(eBagService.commitHomework("v1", EBagApi.createBody(JSON.toJSONString(commitQuestionVo))), callback)
+    }
+
+    /**
+     * 错题纠正
+     */
+    fun errorCorrection(commitQuestionVo: CommitQuestionVo, callback: RequestCallBack<String>){
+        EBagApi.request(eBagService.errorCorrection("v1", EBagApi.createBody(JSON.toJSONString(commitQuestionVo))), callback)
+    }
+
+    /**
+     * 获取作业详情
+     */
+    fun getQuestions(homeWorkId: String, type: String, studentId: String?, callback: RequestCallBack<List<TypeQuestionBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("homeWorkId", homeWorkId)
+        jsonObject.put("type", type)
+        if(!StringUtils.isEmpty(studentId)){
+            jsonObject.put("uid", studentId)
+        }
+        EBagApi.request(eBagService.getQuestions("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 获取错题详情
+     */
+    fun getErrorDetail(homeWorkId: String, callback: RequestCallBack<List<TypeQuestionBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("homeWorkId", homeWorkId)
+        EBagApi.request(eBagService.getErrorDetail("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun queryYBCurrent(page:Int,pageSize:Int,callback: RequestCallBack<YBCurrentBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("page",page)
+        jsonObject.put("pageSize",pageSize)
+        EBagApi.request(eBagService.queryYBCurrent("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun queryYB(page:Int,pageSize:Int,type:String,callback: RequestCallBack<YBCurrentBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("page",page)
+        jsonObject.put("pageSize",pageSize)
+        jsonObject.put("type",type)
+        EBagApi.request(eBagService.queryYBCurrent("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun queryAddress(callback: RequestCallBack<MutableList<AddressListBean>>){
+        val jsonObject = JSONObject()
+        EBagApi.request(eBagService.queryAddress("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun deleteAddress(id:String,callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("id",id)
+        EBagApi.request(eBagService.deleteAddress("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun saveAddress(consignee:String,phone:String,preAddress:String,address:String,callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("consignee",consignee)
+        jsonObject.put("phone",phone)
+        jsonObject.put("preAddress",preAddress)
+        jsonObject.put("address",address)
+        EBagApi.request(eBagService.saveAddress("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun updateAddress(id:String,consignee:String,phone:String,preAddress:String,address:String,callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("consignee",consignee)
+        jsonObject.put("id",id)
+        jsonObject.put("phone",phone)
+        jsonObject.put("preAddress",preAddress)
+        jsonObject.put("address",address)
+        EBagApi.request(eBagService.updateAddress("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

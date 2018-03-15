@@ -159,7 +159,7 @@ class FragmentFirstPage : BaseFragment() {
      * 作业进度字体样式
      */
     private fun setWorkTextStyle(current: String, total: String, name: String, textView: TextView){
-        val spannableString = SpannableString(current + "/" + total + "\n" + name)
+        val spannableString = SpannableString("$current/$total\n$name")
         spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.x30),false), 0, current.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(ForegroundColorSpan(resources.getColor(R.color.progress_second_bg)), 0, current.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.x22),false), current.length, spannableString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ebag.hd.widget.TitleBar
+        android:id="@+id/actvity_ybcenter_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rightText="云币说明"
+        app:titleText="云币中心"/>
+
+    <ebag.core.widget.empty.StateView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/activity_ybcenter_stateview"
+        app:loadingLayout="@layout/base_loading"
+        app:emptyLayout="@layout/base_empty"
+        app:errorLayout="@layout/base_error"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="#fff">
+
+            <TextView
+                android:id="@+id/activity_ybcenter_sumtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/x18"
+                android:paddingTop="@dimen/y15"
+                android:text="总金额收支"
+                android:textColor="#747474"
+                android:textSize="@dimen/x30" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/yb_center_money_shouzhi" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:id="@+id/activity_ybcenter_radiogroup"
+                android:layout_below="@+id/activity_ybcenter_sumtitle"
+                android:layout_marginTop="@dimen/y20"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/x40"
+                android:paddingStart="@dimen/x40">
+
+                <RadioButton
+                    android:layout_width="@dimen/x320"
+                    android:layout_height="@dimen/y160"
+                    android:background="@drawable/ybcenter_currentybselector"
+                    android:button="@null"
+                    android:gravity="end|bottom"
+                    android:text="5000YB"
+                    android:textColor="@color/ybcenter_currentybcolor"
+                    android:id="@+id/activity_ybcenter_currentyb"
+                    android:paddingBottom="@dimen/y25"
+                    android:paddingEnd="@dimen/x20"
+                    android:textSize="@dimen/x40" />
+
+                <RadioButton
+                    android:layout_width="@dimen/x320"
+                    android:layout_height="@dimen/y160"
+                    android:background="@drawable/ybcenter_incomeybselector"
+                    android:button="@null"
+                    android:gravity="end|bottom"
+                    android:id="@+id/activity_ybcenter_incomeyb"
+                    android:text="5000YB"
+                    android:textColor="@color/ybcenter_incomecolor"
+                    android:paddingBottom="@dimen/y25"
+                    android:paddingEnd="@dimen/x20"
+                    android:textSize="@dimen/x40"
+                    />
+
+                <RadioButton
+                    android:layout_width="@dimen/x320"
+                    android:layout_height="@dimen/y160"
+                    android:background="@drawable/ybcenter_expendybselector"
+                    android:button="@null"
+                    android:gravity="end|bottom"
+                    android:text="5000YB"
+                    android:textColor="@color/ybcenter_expendybcolor"
+                    android:paddingBottom="@dimen/y25"
+                    android:paddingEnd="@dimen/x20"
+                    android:id="@+id/activity_ybcenter_expendyb"
+                    android:textSize="@dimen/x40"
+
+                    />
+
+            </RadioGroup>
+
+            <View
+                android:layout_width="@dimen/x2"
+                android:layout_height="match_parent"
+                android:background="#e4e4e4"
+                android:layout_alignParentEnd="true"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:background="#fff"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/x10"
+            android:layout_weight="3">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y90"
+                android:minHeight="@dimen/y90"
+                android:id="@+id/activity_ybcenter_dataheader"
+                android:orientation="horizontal"
+                android:background="#fff"
+                >
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/x35"
+                    android:textColor="#747474"
+                    android:text="YB收支明细"
+                    android:gravity="center"
+                    />
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="收入 8000YB"
+                        android:textSize="@dimen/x25"
+                        android:textColor="#9b9b9b"
+                        android:id="@+id/ybcenter_header_income"
+                        />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="支出 8000YB"
+                        android:textSize="@dimen/x25"
+                        android:id="@+id/ybcenter_header_expend"
+                        android:textColor="#9b9b9b"
+                        />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="选择时间"
+                    android:id="@+id/ybcenter_header_choosetime"
+                    android:gravity="center"
+                    android:textSize="@dimen/x30"
+                    android:textColor="#9b9b9b"
+
+                    />
+
+            </LinearLayout>
+
+           <android.support.v7.widget.RecyclerView
+               android:background="#fff"
+               android:paddingStart="@dimen/x80"
+               android:layout_below="@+id/activity_ybcenter_dataheader"
+               android:paddingEnd="@dimen/x80"
+               android:id="@+id/activity_ybcenter_recyclerview"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"/>
+
+
+            <ebag.core.widget.empty.StateView
+                android:id="@+id/activity_ybcenter_datastateview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/activity_ybcenter_dataheader"
+                app:errorLayout="@layout/base_error"
+                app:loadingLayout="@layout/base_loading"
+                app:emptyLayout="@layout/base_empty"
+                />
+
+
+
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -6,7 +6,6 @@ import com.yzy.ebag.teacher.MainActivity
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.ui.activity.LoginSelectActivity
 import ebag.hd.ui.activity.account.BLoginActivity
-import kotlinx.android.synthetic.main.item_notice_history.view.*
 
 class LoginActivity : BLoginActivity() {
     override fun threeParty(view: View,uid : String?, accessToken: String?, name: String?, iconurl: String?, gender: String?,share_media:String?) {
@@ -26,7 +25,7 @@ class LoginActivity : BLoginActivity() {
 
     override fun initViews() {
         super.initViews()
-        loginEdit.setText("1000857")
+        loginEdit.setText("10000123")
         pwdEdit.setText("ysb123456")
     }
 

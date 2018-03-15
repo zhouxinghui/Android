@@ -2,7 +2,6 @@ package com.yzy.ebag.student.http
 
 import com.yzy.ebag.student.bean.*
 import ebag.core.bean.ResponseBean
-import ebag.core.bean.TypeQuestionBean
 import ebag.hd.bean.EditionBean
 import ebag.hd.bean.response.UserEntity
 import io.reactivex.Observable
@@ -51,30 +50,6 @@ interface StudentService {
      */
     @POST("util/getBookVersionOrUnit/{version}")
     fun getUint(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<EditionBean>>
-
-    /**
-     * 获取作业详情
-     */
-    @POST("homeWork/getHomeWorkQuestion/{version}")
-    fun getQuestions(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<TypeQuestionBean>>>
-
-    /**
-     * 获取错题详情
-     */
-    @POST("homeWork/myErrorQuestion/{version}")
-    fun getErrorDetail(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<TypeQuestionBean>>>
-
-    /**
-     * 提交作业
-     */
-    @POST("correctHome/currentHomeWork/{version}")
-    fun commitHomework(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
-
-    /**
-     * 错题纠正
-     */
-    @POST("homeWork/updateErrorQuestion/{version}")
-    fun errorCorrection(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /**
      * 获取跟读列表

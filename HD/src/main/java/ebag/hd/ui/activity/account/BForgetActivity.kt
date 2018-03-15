@@ -60,7 +60,7 @@ abstract class BForgetActivity : MVPActivity(), CodeView, ForgetView {
     }
 
     override fun onUserNotExist(string: String?) {
-        T.show(this, string ?: "用户已注册")
+        T.show(this, string ?: "用户未注册")
         LoadingDialogUtil.closeLoadingDialog()
     }
 

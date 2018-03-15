@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/y85"
+    android:background="#fff"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="商场"
+        android:textSize="@dimen/x28"
+        android:textColor="#2a2a2a"
+        android:layout_marginTop="@dimen/y10"
+        android:id="@+id/item_ybcenter_title"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-1800YB"
+        android:id="@+id/item_ybcenter_quantity"
+        android:textColor="#FF6565"
+        android:layout_marginTop="@dimen/y10"
+        android:textSize="@dimen/x28"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="妈妈，英语课后作业"
+        android:id="@+id/item_ybcenter_details"
+        android:textSize="@dimen/x22"
+        android:layout_marginBottom="@dimen/y10"
+        android:textColor="#666"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2018-03-13 14:25:00"
+        android:id="@+id/item_ybcenter_time"
+        android:textSize="@dimen/x22"
+        android:textColor="#666"
+        android:layout_marginBottom="@dimen/y10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,6 +1,7 @@
 package ebag.hd.http
 
 import ebag.core.bean.ResponseBean
+import ebag.core.bean.TypeQuestionBean
 import ebag.hd.bean.*
 import ebag.hd.bean.response.BaseInfoEntity
 import ebag.hd.bean.response.NoticeBean
@@ -107,7 +108,7 @@ interface EBagService {
      * 重置密码
      */
     @Headers("EBag-Special-Url: special/url")
-    @POST("user/updatePwdByPhone/{version}")
+    @POST("user/updatePassword/{version}")
     fun resetPassword(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /**
@@ -177,6 +178,30 @@ interface EBagService {
     fun deleteNote(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /**
+     * 提交作业
+     */
+    @POST("correctHome/currentHomeWork/{version}")
+    fun commitHomework(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 错题纠正
+     */
+    @POST("homeWork/updateErrorQuestion/{version}")
+    fun errorCorrection(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 获取作业详情
+     */
+    @POST("homeWork/getHomeWorkQuestion/{version}")
+    fun getQuestions(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<TypeQuestionBean>>>
+
+    /**
+     * 获取错题详情
+     */
+    @POST("homeWork/myErrorQuestion/{version}")
+    fun getErrorDetail(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<TypeQuestionBean>>>
+
+    /**
      *     检查版本更新
      */
     @Headers("EBag-Special-Url: special/url")
@@ -195,4 +220,16 @@ interface EBagService {
      */
     @POST("Ui/Image/uploadUnlimited.html")
     fun uploadHead(@Body file: MultipartBody): Observable<String>
+
+    @POST("user/serchYsbMoneyDetail/{version}")
+    fun queryYBCurrent(@Path("version")version: String, @Body requestBody: RequestBody):Observable<ResponseBean<YBCurrentBean>>
+
+    @POST("shop/serchShopAddress/{version}")
+    fun queryAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<MutableList<AddressListBean>>>
+    @POST("shop/deleteShopAddress/{version}")
+    fun deleteAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    @POST("shop/saveShopAddress/{version}")
+    fun saveAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    @POST("shop/updateShopAddress/{version}")
+    fun updateAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
 }
