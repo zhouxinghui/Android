@@ -3,6 +3,7 @@ package com.yzy.ebag.student.http
 import com.yzy.ebag.student.bean.*
 import ebag.core.bean.ResponseBean
 import ebag.core.bean.TypeQuestionBean
+import ebag.hd.bean.EditionBean
 import ebag.hd.bean.response.UserEntity
 import io.reactivex.Observable
 import okhttp3.RequestBody

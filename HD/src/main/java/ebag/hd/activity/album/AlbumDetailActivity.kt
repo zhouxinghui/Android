@@ -267,7 +267,7 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
             chooseBtn.visibility = View.GONE
             shareBtn.visibility = View.GONE
             deleteBtn.visibility = View.GONE
-            editBtn.visibility = View.VISIBLE
+            editBtn.visibility = if(groupType != Constants.PERSONAL_TYPE && role == Constants.ROLE_STUDENT) View.GONE else View.VISIBLE
             uploadBtn.visibility = if(groupType != Constants.PERSONAL_TYPE && role == Constants.ROLE_STUDENT) View.GONE else View.VISIBLE
 
             adapter.data.filter { it.isPhoto }.forEach { it.isSelected = false}

@@ -12,6 +12,19 @@ android {
         targetSdkVersion 26
         versionCode 18
         versionName "3.0"
+        multiDexEnabled true
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi'
+            // 还可以添加 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : "com.yzy.ebag.student",
+                JPUSH_APPKEY : "6bd8d03a24c76d3830cd7e7b", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     //签名配置
@@ -50,6 +63,8 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'cn.jzvd:jiaozivideoplayer:6.2.7'
+    implementation 'cn.jiguang.sdk:jpush:3.1.1'  // 此处以JPush 3.1.1 版本为例。
+    implementation 'cn.jiguang.sdk:jcore:1.1.9'  // 此处以JCore 1.1.9 版本为例。
 //    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

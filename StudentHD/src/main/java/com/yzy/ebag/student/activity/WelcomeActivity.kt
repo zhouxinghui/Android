@@ -2,6 +2,7 @@ package com.yzy.ebag.student.activity
 
 import android.content.Intent
 import android.os.Handler
+import cn.jpush.android.api.JPushInterface
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.activity.account.LoginActivity
 import com.yzy.ebag.student.activity.main.MainActivity
@@ -17,6 +18,8 @@ class WelcomeActivity : BaseActivity() {
     }
 
     override fun initViews() {
+
+        JPushInterface.init(applicationContext)
         val token: String = App.TOKEN
         L.e("token", token)
         Handler().postDelayed({

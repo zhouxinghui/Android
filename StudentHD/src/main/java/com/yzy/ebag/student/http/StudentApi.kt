@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON
 import com.yzy.ebag.student.bean.*
 import ebag.core.bean.TypeQuestionBean
 import ebag.core.http.network.RequestCallBack
+import ebag.hd.bean.EditionBean
 import ebag.hd.bean.request.CommitQuestionVo
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi

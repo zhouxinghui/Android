@@ -1,22 +1,22 @@
-package com.yzy.ebag.student.activity.tools.review
+package ebag.hd.activity.tools
 
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.yzy.ebag.student.R
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
+import ebag.hd.R
 
 /**
- * Created by unicho on 2018/3/9.
+ * Created by unicho on 2018/3/13.
  */
-class ReviewFragment : BaseListFragment<ArrayList<String>, String>(){
+class LetterRecordFragment: BaseListFragment<ArrayList<String>, String>() {
     private var unitCode = ""
     companion object {
-        fun newInstance(): ReviewFragment{
-            val fragment = ReviewFragment()
+        fun newInstance(): LetterRecordFragment{
+            val fragment = LetterRecordFragment()
             val bundle = Bundle()
             fragment.arguments = bundle
             return fragment
@@ -39,10 +39,6 @@ class ReviewFragment : BaseListFragment<ArrayList<String>, String>(){
         }
     }
 
-    override fun isPagerFragment(): Boolean {
-        return false
-    }
-
     override fun requestData(page: Int, requestCallBack: RequestCallBack<ArrayList<String>>) {
     }
 
@@ -58,8 +54,9 @@ class ReviewFragment : BaseListFragment<ArrayList<String>, String>(){
         return GridLayoutManager(mContext, 2)
     }
 
-    inner class Adapter: BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_review){
+    inner class Adapter: BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_tools_record_history){
         override fun convert(helper: BaseViewHolder?, item: String?) {
         }
+
     }
 }

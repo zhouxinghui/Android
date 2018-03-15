@@ -8,9 +8,41 @@
     android:padding="@dimen/x24">
 
     <TextView
+        android:id="@+id/tvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:textColor="#393b3f"
+        android:textSize="@dimen/x24"
+        tools:text="2017年12月23日"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:background="#B5D77F"
+        android:layout_marginTop="@dimen/x24"
+        app:layout_constraintTop_toBottomOf="@id/tvTime"
+        />
+
+    <TextView
+        android:id="@+id/tvNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="18人练习口语"
+        android:textColor="#5b626d"
+        android:textSize="@dimen/x20"
+        android:layout_marginTop="@dimen/x24"
+        app:layout_constraintTop_toBottomOf="@id/line"/>
+
+    <TextView
+        android:id="@+id/tvClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="18人练习口语"
+        android:textColor="#5b626d"
+        android:textSize="@dimen/x20"
+        app:layout_constraintTop_toTopOf="@id/tvNumber"
         app:layout_constraintEnd_toEndOf="parent"/>
 </android.support.constraint.ConstraintLayout>

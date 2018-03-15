@@ -11,12 +11,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.activity.tools.read.ReadFragment
-import com.yzy.ebag.student.bean.EditionBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
 import ebag.hd.adapter.UnitAdapter
 import ebag.hd.base.BaseListTabActivity
+import ebag.hd.bean.EditionBean
 import ebag.hd.bean.UnitBean
 
 /**
@@ -95,16 +94,16 @@ class ReviewActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
         return null
     }
 
-    private lateinit var fragment: ReadFragment
+    private lateinit var fragment: ReviewFragment
     override fun getFragment(pagerIndex: Int, adapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>): Fragment {
 
         if(adapter.itemCount > 0){
             val item = adapter.getItem(0)
             if(item is UnitBean)
-                fragment = ReadFragment.newInstance(classId,item.resultBookUnitOrCatalogVos[0].unitCode)
+                fragment = ReviewFragment.newInstance()
             return fragment
         }
-        fragment = ReadFragment.newInstance(classId,"")
+        fragment = ReviewFragment.newInstance()
         return fragment
 
     }

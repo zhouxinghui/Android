@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.activity.tools.read
+package ebag.hd.activity.tools
 
 import android.content.Context
 import android.content.Intent
@@ -10,26 +10,22 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
-import com.yzy.ebag.student.R
-import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
+import ebag.hd.R
 import ebag.hd.adapter.UnitAdapter
 import ebag.hd.base.BaseListTabActivity
 import ebag.hd.bean.EditionBean
 import ebag.hd.bean.UnitBean
 
-
 /**
- * @author caoyu
- * @date 2018/1/21
- * @description
+ * Created by unicho on 2018/3/13.
  */
-class ReadActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
+class LetterRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
 
     companion object {
         fun jump(context: Context, classId: String){
             context.startActivity(
-                    Intent(context, ReadActivity::class.java)
+                    Intent(context, LetterRecordActivity::class.java)
                             .putExtra("classId", classId)
             )
         }
@@ -40,7 +36,7 @@ class ReadActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
     private var subCode = "yy"
     override fun loadConfig() {
         classId = intent.getStringExtra("classId") ?: ""
-        setTitleContent("跟读")
+        setTitleContent("学生生字默写")
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x368))
 
         val view = layoutInflater.inflate(R.layout.layout_read_header,null)
@@ -66,7 +62,7 @@ class ReadActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
     }
 
     override fun requestData(requestCallBack: RequestCallBack<EditionBean>) {
-        StudentApi.getUint(classId, subCode, requestCallBack)
+//        StudentApi.getUint(classId, subCode, requestCallBack)
     }
 
     override fun parentToList(parent: EditionBean?): List<UnitBean>? {
@@ -97,16 +93,16 @@ class ReadActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
         return null
     }
 
-    private lateinit var fragment: ReadFragment
+    private lateinit var fragment: LetterRecordFragment
     override fun getFragment(pagerIndex: Int, adapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>): Fragment {
 
         if(adapter.itemCount > 0){
             val item = adapter.getItem(0)
             if(item is UnitBean)
-                fragment = ReadFragment.newInstance(classId,item.resultBookUnitOrCatalogVos[0].unitCode)
-                return fragment
+                fragment = LetterRecordFragment.newInstance()
+            return fragment
         }
-        fragment = ReadFragment.newInstance(classId,"")
+        fragment = LetterRecordFragment.newInstance()
         return fragment
 
     }

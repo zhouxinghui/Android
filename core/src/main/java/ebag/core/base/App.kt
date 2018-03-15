@@ -1,13 +1,13 @@
 package ebag.core.base
 
-import android.app.Application
+import android.support.multidex.MultiDexApplication
 import ebag.core.util.Constants
 import ebag.core.util.SPUtils
 
 /**
  * Created by YZY on 2018/1/8.
  */
-open class App: Application(){
+open class App: MultiDexApplication(){
 
     companion object {
         lateinit var TOKEN: String
