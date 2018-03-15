@@ -22,6 +22,7 @@ import ebag.core.base.BaseDialog
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.DensityUtil
+import ebag.core.util.StringUtils
 import ebag.core.util.T
 import ebag.hd.base.Constants
 import kotlinx.android.synthetic.main.dialog_group_manager.*
@@ -118,6 +119,10 @@ class GroupManageDialog(context: Context, private val classId: String): BaseDial
 
         confirmTv.setOnClickListener {
             val groupName = groupNameEdit.text.toString()
+            if(StringUtils.isEmpty(groupName)){
+                T.show(context, "小组名称不能为空")
+                return@setOnClickListener
+            }
             if(isModify)
                 TeacherApi.modifyGroup(groupId, classId, groupName, groupMemberList, createGroupRequest)
             else

@@ -156,6 +156,8 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
         set(value) {
             field = value
             versionAdapter.datas = datas[selectPosition].bookVersionVoList
+            subCode = datas[selectPosition].subjectCode
+            subName = datas[selectPosition].subjectName
             notifyDataSetChanged()
         }
         override fun fillData(setter: RecyclerViewHolder, position: Int, entity: BookVersionBean) {
@@ -168,9 +170,9 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
         var selectPosition = -1
             set(value) {
                 field = value
-                versionId = versionAdapter.datas[selectPosition].bookVersionId
-                versionName = versionAdapter.datas[selectPosition].versionName
-                versionCode = versionAdapter.datas[selectPosition].versionCode
+                versionId = datas[selectPosition].bookVersionId
+                versionName = datas[selectPosition].versionName
+                versionCode = datas[selectPosition].versionCode
                 notifyDataSetChanged()
             }
         override fun fillData(setter: RecyclerViewHolder, position: Int, entity: BookVersionBean.BookVersionVoListBean) {
