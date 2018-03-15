@@ -399,4 +399,34 @@ object EBagApi {
         jsonObject.put("type",type)
         EBagApi.request(eBagService.queryYBCurrent("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    fun queryAddress(callback: RequestCallBack<MutableList<AddressListBean>>){
+        val jsonObject = JSONObject()
+        EBagApi.request(eBagService.queryAddress("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun deleteAddress(id:String,callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("id",id)
+        EBagApi.request(eBagService.deleteAddress("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun saveAddress(consignee:String,phone:String,preAddress:String,address:String,callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("consignee",consignee)
+        jsonObject.put("phone",phone)
+        jsonObject.put("preAddress",preAddress)
+        jsonObject.put("address",address)
+        EBagApi.request(eBagService.saveAddress("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun updateAddress(id:String,consignee:String,phone:String,preAddress:String,address:String,callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("consignee",consignee)
+        jsonObject.put("id",id)
+        jsonObject.put("phone",phone)
+        jsonObject.put("preAddress",preAddress)
+        jsonObject.put("address",address)
+        EBagApi.request(eBagService.updateAddress("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

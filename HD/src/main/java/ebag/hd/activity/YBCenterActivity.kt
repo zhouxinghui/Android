@@ -38,7 +38,14 @@ class YBCenterActivity : BaseActivity(),YBCenterContract.View,RadioGroup.OnCheck
         activity_ybcenter_currentyb.performClick()
         activity_ybcenter_radiogroup.setOnCheckedChangeListener(this)
         activity_ybcenter_datastateview.setOnRetryClickListener {
-
+            when(nowSelected){
+                CURRENT -> mPresenter.request(page,10,false,false)
+                INCOME -> mPresenter.switch(page,10,"1",false)
+                EXPEND -> mPresenter.switch(page,10,"2",false)
+            }
+        }
+        activity_ybcenter_stateview.setOnRetryClickListener {
+            mPresenter.request(page,10,true,false)
         }
         mAdapter = YBCenterAdapter(R.layout.item_ybcenter,mData)
         activity_ybcenter_recyclerview.layoutManager = LinearLayoutManager(this)
