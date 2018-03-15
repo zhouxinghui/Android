@@ -34,6 +34,7 @@
         android:gravity="center"
         android:textSize="@dimen/x22"
         android:hint="请输入相册名称"
+        android:maxLength="10"
         android:textColor="@color/color_edit_color"
         android:textColorHint="@color/color_edit_hint"
         android:inputType="textPersonName"
