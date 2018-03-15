@@ -225,13 +225,21 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
             }
         }
         loginWeChat.setOnClickListener {
-            authorization(SHARE_MEDIA.WEIXIN, it)
+            if (UMShareAPI.get(this).isInstall(this, SHARE_MEDIA.WEIXIN)) {
+                authorization(SHARE_MEDIA.WEIXIN, it)
+            }else{
+                toast("请安装微信客户端", true)
+            }
         }
         loginSina.setOnClickListener {
             authorization(SHARE_MEDIA.SINA, it)
         }
         loginQQ.setOnClickListener {
-            authorization(SHARE_MEDIA.QQ, it)
+            if (UMShareAPI.get(this).isInstall(this,SHARE_MEDIA.QQ)){
+                authorization(SHARE_MEDIA.QQ, it)
+            }else{
+                toast("请安装QQ客户端",true)
+            }
         }
 
         imageSee.setOnClickListener {
