@@ -1,5 +1,6 @@
 package ebag.hd.activity.album
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -58,9 +59,15 @@ class AlbumFragment: BaseListFragment<ArrayList<AlbumBean>, AlbumBean>() {
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: ArrayList<AlbumBean>?): ArrayList<AlbumBean>? {
-        if(isFirstPage && (role == Constants.ROLE_TEACHER || (role == Constants.ROLE_STUDENT && groupType == Constants.PERSONAL_TYPE)))
-            parent?.add(0, AlbumBean(true))
-        return parent
+        var result = parent
+        if(isFirstPage && (role == Constants.ROLE_TEACHER || (role == Constants.ROLE_STUDENT && groupType == Constants.PERSONAL_TYPE))){
+            if(result == null){
+                result = ArrayList<AlbumBean>()
+            }
+            result.add(0, AlbumBean(true))
+        }
+
+        return result
     }
 
     override fun getAdapter(): BaseQuickAdapter<AlbumBean, BaseViewHolder> {
@@ -77,7 +84,7 @@ class AlbumFragment: BaseListFragment<ArrayList<AlbumBean>, AlbumBean>() {
             albumAddDialog.updateGroupType(groupType)
             albumAddDialog.show(fragmentManager, "album_add")
         }else{
-            AlbumDetailActivity.jump(mContext,
+            AlbumDetailActivity.jump(this,
                     classId,
                     adapter.getItem(position)?.photoGroupId ?: "",
                     adapter.getItem(position)?.photosName ?: "",
@@ -110,6 +117,13 @@ class AlbumFragment: BaseListFragment<ArrayList<AlbumBean>, AlbumBean>() {
                                 ""
                         )
             }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == Constants.NORMAL_REQUEST && resultCode == Constants.NORMAL_RESULT){
+            onRefresh()
         }
     }
 }

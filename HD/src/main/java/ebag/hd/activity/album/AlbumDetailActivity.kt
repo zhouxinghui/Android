@@ -1,7 +1,7 @@
 package ebag.hd.activity.album
 
-import android.content.Context
 import android.content.Intent
+import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -38,14 +38,15 @@ import ebag.hd.widget.stickyItem.StickyItemDecoration
 class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
 
     companion object {
-        fun jump(context: Context, classId: String, photoGroupId: String, groupName: String, groupType: String, role: Int){
-            context.startActivity(
-                    Intent(context, AlbumDetailActivity::class.java)
+        fun jump(fragment: Fragment, classId: String, photoGroupId: String, groupName: String, groupType: String, role: Int){
+            fragment.startActivityForResult(
+                    Intent(fragment.context, AlbumDetailActivity::class.java)
                             .putExtra("classId", classId)
                             .putExtra("photoGroupId", photoGroupId)
                             .putExtra("groupName", groupName)
                             .putExtra("groupType", groupType)
-                            .putExtra("role", role)
+                            .putExtra("role", role),
+                    Constants.NORMAL_REQUEST
             )
         }
     }
@@ -62,6 +63,8 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
     private lateinit var classId: String
     private var isAllChoose = false
     var role: Int = Constants.ROLE_STUDENT
+    // 是否有数据更改
+    private var dataChanged = false
 
     override fun loadConfig(intent: Intent) {
         photoGroupId = intent.getStringExtra("photoGroupId") ?: ""
@@ -72,6 +75,12 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
         requestBean.photoGroupId = photoGroupId
         requestBean.groupType = groupType
         setPageTitle(intent.getStringExtra("groupName") ?: "")
+        titleBar.setOnLeftClickListener {
+            if(dataChanged){
+                setResult(Constants.NORMAL_RESULT)
+            }
+            finish()
+        }
         refreshEnabled(false)
         initStickyView()
         initOptionViews()
@@ -174,7 +183,8 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == Constants.UPLOAD_REQUEST && resultCode == Constants.UPLOAD_RESULT){
+        if(requestCode == Constants.NORMAL_REQUEST && resultCode == Constants.NORMAL_RESULT){
+            dataChanged = true
             onRetryClick()
         }
     }
@@ -187,6 +197,7 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
             }
 
             override fun onSuccess(entity: String?) {
+                dataChanged = true
                 T.show(this@AlbumDetailActivity, "分享成功")
                 showOptions(false)
                 LoadingDialogUtil.closeLoadingDialog()
@@ -225,6 +236,7 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
             }
 
             override fun onSuccess(entity: String?) {
+                dataChanged = true
                 T.show(this@AlbumDetailActivity, "删除成功")
                 showOptions(false)
                 onRefresh()
@@ -384,5 +396,12 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
                 }
             }
         }
+    }
+
+    override fun onBackPressed() {
+        if(dataChanged){
+            setResult(Constants.NORMAL_RESULT)
+        }
+        super.onBackPressed()
     }
 }

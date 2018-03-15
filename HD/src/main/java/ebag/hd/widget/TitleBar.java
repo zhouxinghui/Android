@@ -44,7 +44,9 @@ public class TitleBar extends RelativeLayout {
     private int rightTextColor;   //标题文字颜色
     private int titleTextColor;   //标题文字颜色
     private float titleTextSize;    //标题文字大小
-    public OnTitleBarClickListener listener;
+    private OnLeftClickListener leftListener;
+    private OnRightClickListener rightListener;
+
     private boolean needBottomLine;
     private boolean toMainTab;
 
@@ -175,11 +177,11 @@ public class TitleBar extends RelativeLayout {
         backView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(listener == null){
+                if(leftListener == null){
                     if(context instanceof Activity)
                         ((Activity)context).finish();
                 }else{
-                    listener.leftClick();
+                    leftListener.onClick(v);
                 }
             }
         });
@@ -187,8 +189,8 @@ public class TitleBar extends RelativeLayout {
             rightView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(listener != null){
-                        listener.rightClick();
+                    if(rightListener != null){
+                        rightListener.onClick(v);
                     }
                 }
             });
@@ -301,22 +303,22 @@ public class TitleBar extends RelativeLayout {
         super.onMeasure(widthMeasureSpec, (int) getResources().getDimension(R.dimen.title_bar_height));
     }
 
-    /**
-     * 定义按钮点击接口，实现回调机制，通过映射的接口对象调用接口中的方法
-     * 而不用去考虑如何实现，具体实现由调用者去创建
-     */
-    public interface OnTitleBarClickListener{
-        void leftClick();   //左侧按钮点击事件
-        void rightClick();  //右侧按钮点击事件
+    public interface OnLeftClickListener{
+        void onClick(View v);   //左侧按钮点击事件
     }
 
-    /**
-     * 通过接口来获得回调者对接口的实现
-     * @param listener
-     */
-    public void setOnTitleBarClickListener(OnTitleBarClickListener listener) {
-        this.listener = listener;
+    public interface OnRightClickListener{
+        void onClick(View v);   //右侧按钮点击事件
     }
+
+    public void setOnLeftClickListener(OnLeftClickListener leftListener) {
+        this.leftListener = leftListener;
+    }
+
+    public void setOnRightClickListener(OnRightClickListener rightListener) {
+        this.rightListener = rightListener;
+    }
+
 
     public void setTitle(String str){
         titleTv.setText(str);

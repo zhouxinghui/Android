@@ -35,8 +35,8 @@ object Constants {
     val UPDATE_TEACHER = "teacher"
     val UPDATE_STUDENT = "student"
 
-    val UPLOAD_REQUEST = 111
-    val UPLOAD_RESULT = 111
+    val NORMAL_REQUEST = 111
+    val NORMAL_RESULT = 112
 
     val ROLE_STUDENT = 1
     val ROLE_TEACHER = 2

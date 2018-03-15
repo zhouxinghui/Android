@@ -37,7 +37,8 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
     protected var mAdapter: BaseQuickAdapter<E,BaseViewHolder>? = null
     protected var mCurrentPage = 1
     protected var needFirstLoad = true
-//    protected var isInit = false
+    // 是否进行过网络请求
+    var isRequested = false
 
     /**可刷新*/
     private var canRefresh = true
@@ -177,6 +178,7 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
             }
 
             override fun onSuccess(entity: Parent?) {
+                isRequested = true
                 when (loadingStatus) {
                     /** 刚进入页面，第一次请求成功 */
                     FIRST -> {
@@ -222,6 +224,7 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
 
             override fun onError(exception: Throwable) {
                 exception.handleThrowable(mContext)
+                isRequested = true
                 when (loadingStatus) {
                     //进入页面第一次加载出现的异常
                     FIRST -> {

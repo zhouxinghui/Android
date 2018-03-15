@@ -60,6 +60,7 @@ class ReviewFragment : BaseListFragment<ArrayList<String>, String>(){
 
     inner class Adapter: BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_review){
         override fun convert(helper: BaseViewHolder?, item: String?) {
+
         }
     }
 }

@@ -38,7 +38,7 @@ class PhotoUploadActivity: BaseActivity() {
                             .putExtra("classId", classId)
                             .putExtra("photoGroupId", photoGroupId)
                             .putExtra("groupType", groupType)
-                    ,ebag.hd.base.Constants.UPLOAD_REQUEST
+                    ,ebag.hd.base.Constants.NORMAL_REQUEST
             )
         }
     }
@@ -54,7 +54,8 @@ class PhotoUploadActivity: BaseActivity() {
     private lateinit var userId: String
 
     override fun initViews() {
-        if(intent.getStringExtra("groupType") == ebag.hd.base.Constants.CLASS_TYPE){
+        if(intent.getStringExtra("groupType") == ebag.hd.base.Constants.CLASS_TYPE
+            || intent.getStringExtra("groupType") == ebag.hd.base.Constants.HONOR_TYPE){
             photoUploadBean.isShare = "true"
             bottomView.visibility = View.INVISIBLE
             shareTip.visibility = View.INVISIBLE
@@ -136,7 +137,7 @@ class PhotoUploadActivity: BaseActivity() {
                 override fun onSuccess(entity: String?) {
                     LoadingDialogUtil.closeLoadingDialog()
                     T.show(this@PhotoUploadActivity, "图片上传成功")
-                    setResult(ebag.hd.base.Constants.UPLOAD_RESULT)
+                    setResult(ebag.hd.base.Constants.NORMAL_RESULT)
                     finish()
                 }
 
@@ -149,7 +150,7 @@ class PhotoUploadActivity: BaseActivity() {
         EBagApi.photosUpload(photoUploadBean, uploadRequest!!)
     }
 
-    inner class Adapter: BaseQuickAdapter<String, BaseViewHolder>(ebag.hd.R.layout.imageview){
+    inner class Adapter: BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_imageview){
         override fun convert(helper: BaseViewHolder, item: String) {
             val position = helper.adapterPosition
             val imageView = helper.getView<ImageView>(ebag.hd.R.id.imageView)

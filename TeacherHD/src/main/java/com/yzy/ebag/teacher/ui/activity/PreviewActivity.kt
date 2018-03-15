@@ -16,7 +16,6 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.StringUtils
 import ebag.core.util.T
-import ebag.hd.widget.TitleBar
 import ebag.hd.widget.questions.*
 import ebag.hd.widget.questions.base.BaseQuestionView
 import kotlinx.android.synthetic.main.activity_question.*
@@ -147,14 +146,10 @@ class PreviewActivity: BaseActivity() {
             PublishWorkActivity.jump(this, false, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId)
         }
 
-        titleBar.setOnTitleBarClickListener(object : TitleBar.OnTitleBarClickListener{
-            override fun leftClick() {
-                backEvent()
-                finish()
-            }
-            override fun rightClick() {
-            }
-        })
+        titleBar.setOnLeftClickListener {
+            backEvent()
+            finish()
+        }
     }
     private fun backEvent(){
         if (isPreview) {

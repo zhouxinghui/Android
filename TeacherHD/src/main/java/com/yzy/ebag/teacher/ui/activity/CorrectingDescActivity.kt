@@ -26,7 +26,6 @@ import ebag.core.util.*
 import ebag.core.xRecyclerView.adapter.OnItemChildClickListener
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
 import ebag.hd.widget.FlowLayout
-import ebag.hd.widget.TitleBar
 import ebag.hd.widget.questions.*
 import ebag.hd.widget.questions.base.BaseQuestionView
 import kotlinx.android.synthetic.main.activity_correcting_desc.*
@@ -118,16 +117,9 @@ class CorrectingDescActivity : BaseActivity() {
         answerRecycler.adapter = answerAdapter
         answerRecycler.layoutManager = LinearLayoutManager(this)
 
-        titleBar.setOnTitleBarClickListener(object : TitleBar.OnTitleBarClickListener{
-            override fun leftClick() {
-                finish()
-            }
-
-            override fun rightClick() {
-                CommentActivity.jump(this@CorrectingDescActivity, homeworkId)
-            }
-
-        })
+        titleBar.setOnRightClickListener {
+            CommentActivity.jump(this@CorrectingDescActivity, homeworkId)
+        }
 
         answerAdapter.setOnItemChildClickListener { adapter, view, position ->
             voicePlaySetting(view)

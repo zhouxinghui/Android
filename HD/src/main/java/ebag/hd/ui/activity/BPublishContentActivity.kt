@@ -84,7 +84,7 @@ abstract class BPublishContentActivity: BaseActivity() {
     abstract fun commit(content: String, urls: String = "")
     abstract fun getUid(): String
 
-    inner class MyAdapter(list: ArrayList<String>): BaseQuickAdapter<String, BaseViewHolder>(R.layout.imageview, list){
+    inner class MyAdapter(list: ArrayList<String>): BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_imageview, list){
         override fun convert(helper: BaseViewHolder, item: String) {
             val position = helper.adapterPosition
             val imageView = helper.getView<ImageView>(R.id.imageView)

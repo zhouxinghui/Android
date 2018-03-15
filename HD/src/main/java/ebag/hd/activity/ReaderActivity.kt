@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Build
-import android.support.annotation.RequiresApi
 import android.support.v4.view.PagerAdapter
 import android.support.v7.app.AlertDialog
 import android.text.Editable
@@ -25,7 +24,6 @@ import ebag.hd.http.EBagApi
 import ebag.hd.ui.fragment.BookNoteFragment
 import ebag.hd.widget.BookCatalogPopup
 import ebag.hd.widget.PaletteView
-import ebag.hd.widget.TitleBar
 import kotlinx.android.synthetic.main.activity_reader.*
 import java.io.File
 import java.io.FileOutputStream
@@ -152,19 +150,19 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         }
         getPaletteView().setCanDraw(false)
         getPaletteView().setFirstLoadBitmap(FileUtil.getBookTrackPath() + "textTrack.png")
-        titleBar.setOnTitleBarClickListener(object : TitleBar.OnTitleBarClickListener{
-            override fun leftClick() {
-                if (isModifyTrack)
-                    saveTrackDialog.show()
-                else
-                    finish()
-            }
-            @RequiresApi(Build.VERSION_CODES.KITKAT)
-            override fun rightClick() {//目录
+        titleBar.setOnLeftClickListener {
+            if (isModifyTrack)
+                saveTrackDialog.show()
+            else
+                finish()
+        }
+
+        titleBar.setOnRightClickListener {
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
                 bookCategoryPopup.showAsDropDown(titleBar, 0, 0, Gravity.END)
                 bookCategoryPopup.loadDate(bookId)
             }
-        })
+        }
 
         dragView.setOnTouchListener { v, event ->
             if(!baseFab.isDraftable) {
@@ -183,29 +181,27 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         noteFragment = BookNoteFragment.newInstance(bookId)
         noteFragment.setNoteChangeListener(this)
         supportFragmentManager.beginTransaction().replace(R.id.noteListLayout, noteFragment).commitAllowingStateLoss()
-        noteTitle.setOnTitleBarClickListener(object : TitleBar.OnTitleBarClickListener{
-            override fun leftClick() {
-                if (backEvent())
-                    finish()//占位代码，永远不会执行
-            }
-            override fun rightClick() {
-                if (!isEditNote) {
-                    showNoteEdit("", -1)
+        noteTitle.setOnLeftClickListener {
+            if (backEvent())
+                finish()//占位代码，永远不会执行
+        }
+        noteTitle.setOnRightClickListener {
+            if (!isEditNote) {
+                showNoteEdit("", -1)
+            }else{
+                if (lastNote == currentNote){
+                    T.show(this@ReaderActivity, "你未对笔记作任何更新操作")
+                    return@setOnRightClickListener
                 }else{
-                    if (lastNote == currentNote){
-                        T.show(this@ReaderActivity, "你未对笔记作任何更新操作")
-                        return
+                    //保存笔记
+                    if (currentNotePosition != -1){
+                        EBagApi.modifyNote(noteFragment.getCurrentNote(currentNotePosition).id, currentNote, modifyNoteRequest)
                     }else{
-                        //保存笔记
-                        if (currentNotePosition != -1){
-                            EBagApi.modifyNote(noteFragment.getCurrentNote(currentNotePosition).id, currentNote, modifyNoteRequest)
-                        }else{
-                            EBagApi.addBookNote(bookId.toString(), currentNote, addNoteRequest)
-                        }
+                        EBagApi.addBookNote(bookId.toString(), currentNote, addNoteRequest)
                     }
                 }
             }
-        })
+        }
         rootView.setOnBottomHiddenChange { isShow ->  dragView.isSelected = isShow}
         noteEdit.addTextChangedListener(this)
 
