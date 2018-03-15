@@ -25,9 +25,10 @@
         android:layout_height="@dimen/x20"
         android:layout_marginEnd="@dimen/x14"
         android:background="@drawable/right_arrow"
-        android:layout_marginTop="@dimen/x44"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/line"
+        />
 
     <TextView
         android:id="@+id/tvEdition"
@@ -56,7 +57,10 @@
         app:layout_constraintEnd_toEndOf="@id/tvEdition"
         app:layout_constraintStart_toStartOf="@id/tvEdition"
         app:layout_constraintTop_toBottomOf="@id/tvEdition"
-        tools:text="[添加时间：2017-07-25]" />
+        tools:text="[添加时间：2017-07-25]"
+        tools:visibility="visible"
+        android:visibility="invisible"
+        />
 
     <View
         android:id="@+id/line"

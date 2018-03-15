@@ -25,7 +25,6 @@ import ebag.core.util.T
 import ebag.core.util.loadImage
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
-import ebag.hd.widget.TitleBar
 import kotlinx.android.synthetic.main.activity_assignment.*
 
 class AssignmentActivity : MVPActivity(), AssignmentView{
@@ -371,45 +370,41 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             exchangeDialog.show(cacheMap[currentGradeCode]!!.classes)
         }
         //预览
-        titleBar.setOnTitleBarClickListener(object : TitleBar.OnTitleBarClickListener{
-            override fun leftClick() {
-                finish()
-            }
-            override fun rightClick() {
-                if (!isOrganizeTest && workCategory == Constants.ASSIGN_TEST_PAPER){
-                    if(currentPaperId == null){
-                        T.show(this@AssignmentActivity, "请选择你需要预览的试卷")
-                        return
-                    }
-                    PreviewActivity.jump(this@AssignmentActivity,
-                            workCategory == Constants.ASSIGN_TEST_PAPER,
-                            cacheMap[currentGradeCode]!!.classes,
-                            cacheMap[currentGradeCode]!!.currentUnitBean,
-                            getPreviewList(),
-                            workCategory,
-                            cacheMap[currentGradeCode]!!.subCode,
-                            cacheMap[currentGradeCode]!!.versionId,
-                            true,
-                            currentPaperId
-                    )
-                }else{
-                    if(getPreviewList().isEmpty()){
-                        T.show(this@AssignmentActivity, "你还没有选题")
-                        return
-                    }
-                    PreviewActivity.jump(this@AssignmentActivity,
-                            workCategory == Constants.ASSIGN_TEST_PAPER,
-                            cacheMap[currentGradeCode]!!.classes,
-                            cacheMap[currentGradeCode]!!.currentUnitBean,
-                            getPreviewList(),
-                            workCategory,
-                            cacheMap[currentGradeCode]!!.subCode,
-                            cacheMap[currentGradeCode]!!.versionId,
-                            true
-                    )
+        titleBar.setOnRightClickListener {
+            if (!isOrganizeTest && workCategory == Constants.ASSIGN_TEST_PAPER){
+                if(currentPaperId == null){
+                    T.show(this@AssignmentActivity, "请选择你需要预览的试卷")
+                    return@setOnRightClickListener
                 }
+                PreviewActivity.jump(this@AssignmentActivity,
+                        workCategory == Constants.ASSIGN_TEST_PAPER,
+                        cacheMap[currentGradeCode]!!.classes,
+                        cacheMap[currentGradeCode]!!.currentUnitBean,
+                        getPreviewList(),
+                        workCategory,
+                        cacheMap[currentGradeCode]!!.subCode,
+                        cacheMap[currentGradeCode]!!.versionId,
+                        true,
+                        currentPaperId
+                )
+            }else{
+                if(getPreviewList().isEmpty()){
+                    T.show(this@AssignmentActivity, "你还没有选题")
+                    return@setOnRightClickListener
+                }
+                PreviewActivity.jump(this@AssignmentActivity,
+                        workCategory == Constants.ASSIGN_TEST_PAPER,
+                        cacheMap[currentGradeCode]!!.classes,
+                        cacheMap[currentGradeCode]!!.currentUnitBean,
+                        getPreviewList(),
+                        workCategory,
+                        cacheMap[currentGradeCode]!!.subCode,
+                        cacheMap[currentGradeCode]!!.versionId,
+                        true
+                )
             }
-        })
+        }
+
         assignmentPresenter.loadBaseData(workCategory.toString())
         stateView.setOnRetryClickListener {
             assignmentPresenter.loadBaseData(workCategory.toString())

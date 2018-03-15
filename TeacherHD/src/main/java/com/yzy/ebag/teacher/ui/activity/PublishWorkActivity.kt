@@ -17,7 +17,6 @@ import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.StringUtils
 import ebag.core.util.T
 import ebag.hd.widget.DatePickerDialog
-import ebag.hd.widget.TitleBar
 import kotlinx.android.synthetic.main.activity_publish_work.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -184,37 +183,32 @@ class PublishWorkActivity : BaseActivity() {
         }
         dateTv.setOnClickListener { datePickerDialog.show() }
 
-        titleBar.setOnTitleBarClickListener(object : TitleBar.OnTitleBarClickListener{
-            override fun leftClick() {
-                finish()
-            }
-            override fun rightClick() {
-                if (isTest && isCustom){
-                    if (StringUtils.isEmpty(testTimeEdit.text.toString())){
-                        T.show(this@PublishWorkActivity, "请输入自定义考试时间")
-                        return
-                    }
-                    deadTime = testTimeEdit.text.toString()
-                }else{
+        titleBar.setOnRightClickListener {
+            if (isTest && isCustom){
+                if (StringUtils.isEmpty(testTimeEdit.text.toString())){
+                    T.show(this@PublishWorkActivity, "请输入自定义考试时间")
+                    return@setOnRightClickListener
+                }
+                deadTime = testTimeEdit.text.toString()
+            }else{
 
-                }
-                if (classes.isEmpty()){
-                    T.show(this@PublishWorkActivity, "未选择班级")
-                    return
-                }
-                if (isGroup && (groupIds == null || groupIds!!.isEmpty())){
-                    T.show(this@PublishWorkActivity, "请选择小组")
-                    return
-                }else if (isGroup){
-                    TeacherApi.publishHomework(classes, groupIds, isGroup, workType, attentionEdit.text.toString(), content, deadTime, subCode, bookVersionId, questionList, null, publishRequest)
+            }
+            if (classes.isEmpty()){
+                T.show(this@PublishWorkActivity, "未选择班级")
+                return@setOnRightClickListener
+            }
+            if (isGroup && (groupIds == null || groupIds!!.isEmpty())){
+                T.show(this@PublishWorkActivity, "请选择小组")
+                return@setOnRightClickListener
+            }else if (isGroup){
+                TeacherApi.publishHomework(classes, groupIds, isGroup, workType, attentionEdit.text.toString(), content, deadTime, subCode, bookVersionId, questionList, null, publishRequest)
+            }else{
+                if (isTest){
+                    TeacherApi.publishHomework(classes,null, isGroup, workType, attentionEdit.text.toString(), content, deadTime, subCode, bookVersionId, null, testPaperId, publishRequest)
                 }else{
-                    if (isTest){
-                        TeacherApi.publishHomework(classes,null, isGroup, workType, attentionEdit.text.toString(), content, deadTime, subCode, bookVersionId, null, testPaperId, publishRequest)
-                    }else{
-                        TeacherApi.publishHomework(classes,null, isGroup, workType, attentionEdit.text.toString(), content, deadTime, subCode, bookVersionId, questionList, null, publishRequest)
-                    }
+                    TeacherApi.publishHomework(classes,null, isGroup, workType, attentionEdit.text.toString(), content, deadTime, subCode, bookVersionId, questionList, null, publishRequest)
                 }
             }
-        })
+        }
     }
 }

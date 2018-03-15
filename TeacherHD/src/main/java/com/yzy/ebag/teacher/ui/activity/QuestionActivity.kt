@@ -12,7 +12,6 @@ import ebag.core.bean.QuestionBean
 import ebag.core.bean.QuestionTypeUtils
 import ebag.core.util.StringUtils
 import ebag.core.util.T
-import ebag.hd.widget.TitleBar
 import ebag.hd.widget.questions.*
 import ebag.hd.widget.questions.base.BaseQuestionView
 import kotlinx.android.synthetic.main.activity_question.*
@@ -80,14 +79,10 @@ class QuestionActivity : BaseActivity() {
             }
         }
 
-        titleBar.setOnTitleBarClickListener(object : TitleBar.OnTitleBarClickListener{
-            override fun leftClick() {
-                backEvent()
-                finish()
-            }
-            override fun rightClick() {
-            }
-        })
+        titleBar.setOnLeftClickListener {
+            backEvent()
+            finish()
+        }
     }
     private fun backEvent(){
         val intent = Intent()

@@ -126,7 +126,7 @@ class DiaryDetailActivity: BaseActivity() {
 
     }
 
-    inner class Adapter: BaseQuickAdapter<String, BaseViewHolder>(ebag.hd.R.layout.imageview){
+    inner class Adapter: BaseQuickAdapter<String, BaseViewHolder>(ebag.hd.R.layout.item_imageview){
         override fun convert(helper: BaseViewHolder, item: String) {
             val position = helper.adapterPosition
             val imageView = helper.getView<ImageView>(ebag.hd.R.id.imageView)

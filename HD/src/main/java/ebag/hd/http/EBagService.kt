@@ -224,4 +224,12 @@ interface EBagService {
     @POST("user/serchYsbMoneyDetail/{version}")
     fun queryYBCurrent(@Path("version")version: String, @Body requestBody: RequestBody):Observable<ResponseBean<YBCurrentBean>>
 
+    @POST("shop/serchShopAddress/{version}")
+    fun queryAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<MutableList<AddressListBean>>>
+    @POST("shop/deleteShopAddress/{version}")
+    fun deleteAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    @POST("shop/saveShopAddress/{version}")
+    fun saveAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    @POST("shop/updateShopAddress/{version}")
+    fun updateAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
 }

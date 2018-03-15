@@ -16,7 +16,6 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.StringUtils
 import ebag.core.util.T
-import ebag.hd.widget.TitleBar
 import ebag.hd.widget.questions.*
 import ebag.hd.widget.questions.base.BaseQuestionView
 import kotlinx.android.synthetic.main.activity_question.*
@@ -40,6 +39,8 @@ class PreviewActivity: BaseActivity() {
         override fun onSuccess(entity: List<QuestionBean>?) {
             if (entity == null || entity.isEmpty()){
                 stateView.showEmpty()
+                previewTv.isEnabled = false
+                publishTv.isEnabled = false
             }else{
                 previewList = entity as ArrayList<QuestionBean>
                 setFragmentEvent(previewList)
@@ -48,6 +49,8 @@ class PreviewActivity: BaseActivity() {
         }
 
         override fun onError(exception: Throwable) {
+            previewTv.isEnabled = false
+            publishTv.isEnabled = false
             stateView.showError()
             exception.handleThrowable(this@PreviewActivity)
         }
@@ -147,14 +150,10 @@ class PreviewActivity: BaseActivity() {
             PublishWorkActivity.jump(this, false, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId)
         }
 
-        titleBar.setOnTitleBarClickListener(object : TitleBar.OnTitleBarClickListener{
-            override fun leftClick() {
-                backEvent()
-                finish()
-            }
-            override fun rightClick() {
-            }
-        })
+        titleBar.setOnLeftClickListener {
+            backEvent()
+            finish()
+        }
     }
     private fun backEvent(){
         if (isPreview) {

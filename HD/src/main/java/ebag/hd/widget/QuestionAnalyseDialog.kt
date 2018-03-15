@@ -28,7 +28,9 @@ class QuestionAnalyseDialog(private val mContext: Context): BaseDialog(mContext)
     }
 
     fun show(questionBean: QuestionBean) {
-        showAnalyse(questionBean)
+        val bean = questionBean.clone() as QuestionBean
+        bean.answer = bean.rightAnswer
+        showAnalyse(bean)
         super.show()
     }
 

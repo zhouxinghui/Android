@@ -3,6 +3,7 @@ package ebag.hd.activity.album
 import android.app.Activity
 import android.content.Intent
 import android.os.Message
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
@@ -38,7 +39,7 @@ class PhotoUploadActivity: BaseActivity() {
                             .putExtra("classId", classId)
                             .putExtra("photoGroupId", photoGroupId)
                             .putExtra("groupType", groupType)
-                    ,ebag.hd.base.Constants.UPLOAD_REQUEST
+                    ,ebag.hd.base.Constants.NORMAL_REQUEST
             )
         }
     }
@@ -52,9 +53,19 @@ class PhotoUploadActivity: BaseActivity() {
     private var uploadPosition = 0
     private val photoUploadBean = PhotoUploadBean()
     private lateinit var userId: String
-
+    private var currentPosition = 0
+    private val deleteDialog by lazy {
+        AlertDialog.Builder(this)
+                .setTitle("温馨提示")
+                .setMessage("是否删除所选图片？")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("删除", {dialog, which ->
+                    imgAdapter.remove(currentPosition)
+                }).create()
+    }
     override fun initViews() {
-        if(intent.getStringExtra("groupType") == ebag.hd.base.Constants.CLASS_TYPE){
+        if(intent.getStringExtra("groupType") == ebag.hd.base.Constants.CLASS_TYPE
+            || intent.getStringExtra("groupType") == ebag.hd.base.Constants.HONOR_TYPE){
             photoUploadBean.isShare = "true"
             bottomView.visibility = View.INVISIBLE
             shareTip.visibility = View.INVISIBLE
@@ -124,6 +135,15 @@ class PhotoUploadActivity: BaseActivity() {
                 }
             }
         }
+        imgAdapter.setOnItemLongClickListener { adapter, view, position ->
+            if (position < imgAdapter.data.size - 1) {
+                currentPosition = position
+                deleteDialog.show()
+                true
+            }else{
+                false
+            }
+        }
         imgList.add("")
         imgAdapter.setNewData(imgList)
     }
@@ -136,7 +156,7 @@ class PhotoUploadActivity: BaseActivity() {
                 override fun onSuccess(entity: String?) {
                     LoadingDialogUtil.closeLoadingDialog()
                     T.show(this@PhotoUploadActivity, "图片上传成功")
-                    setResult(ebag.hd.base.Constants.UPLOAD_RESULT)
+                    setResult(ebag.hd.base.Constants.NORMAL_RESULT)
                     finish()
                 }
 
@@ -149,7 +169,7 @@ class PhotoUploadActivity: BaseActivity() {
         EBagApi.photosUpload(photoUploadBean, uploadRequest!!)
     }
 
-    inner class Adapter: BaseQuickAdapter<String, BaseViewHolder>(ebag.hd.R.layout.imageview){
+    inner class Adapter: BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_imageview){
         override fun convert(helper: BaseViewHolder, item: String) {
             val position = helper.adapterPosition
             val imageView = helper.getView<ImageView>(ebag.hd.R.id.imageView)

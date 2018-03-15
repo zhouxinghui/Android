@@ -2,6 +2,7 @@ package com.yzy.ebag.student.http
 
 import com.yzy.ebag.student.bean.*
 import ebag.core.http.network.RequestCallBack
+import ebag.hd.bean.EditionBean
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
 import ebag.hd.http.EBagClient

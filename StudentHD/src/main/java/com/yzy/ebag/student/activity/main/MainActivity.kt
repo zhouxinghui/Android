@@ -53,6 +53,7 @@ class MainActivity : MVPActivity(), MainView {
 
     override fun initViews() {
 
+
         rvTeacherName.layoutManager = LinearLayoutManager(this)
         rvTeacherName.adapter = adapter
 

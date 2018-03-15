@@ -16,8 +16,13 @@ import kotlinx.android.synthetic.main.activity_album.*
  */
 class AlbumActivity : BaseActivity() {
 
-    companion object {
 
+    lateinit var classId: String
+    var role = Constants.ROLE_STUDENT
+    private val fragments: Array<AlbumFragment?> = arrayOfNulls(3)
+
+
+    companion object {
         fun jump(context: Context, classId: String, role: Int = Constants.ROLE_STUDENT){
             context.startActivity(
                     Intent(context, AlbumActivity::class.java)
@@ -31,8 +36,6 @@ class AlbumActivity : BaseActivity() {
         return R.layout.activity_album
     }
 
-    lateinit var classId: String
-    var role = Constants.ROLE_STUDENT
     override fun initViews() {
         classId = intent.getStringExtra("classId") ?: ""
         role = intent.getIntExtra("role", Constants.ROLE_STUDENT)
@@ -49,7 +52,7 @@ class AlbumActivity : BaseActivity() {
                 }
             }
         }
-        viewPager.adapter = SectionsPagerAdapter(supportFragmentManager, arrayOfNulls(3))
+        viewPager.adapter = SectionsPagerAdapter(supportFragmentManager)
         viewPager.offscreenPageLimit = 1
         viewPager.setCurrentItem(1,false)
 
@@ -72,12 +75,18 @@ class AlbumActivity : BaseActivity() {
                         radioGroup.check(R.id.rbClassAlbum)
                     }
                 }
+
+                if(fragments[position]?.isRequested == true)
+                    fragments[position]?.onRefresh()
+//                if(fragments[position]?.isLoaded() == true){
+//                    fragments[position]?.onRefresh()
+//                }
             }
 
         })
     }
 
-    inner class SectionsPagerAdapter(fm: FragmentManager, private val fragments: Array<Fragment?>) : FragmentStatePagerAdapter(fm) {
+    inner class SectionsPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
         override fun getItem(position: Int): Fragment {
             if (fragments[position] == null) {
                 fragments[position] = when(position){

@@ -19,55 +19,66 @@
             android:name="com.luck.picture.lib.PicturePreviewActivity"
             android:screenOrientation="landscape"
             tools:replace="android:screenOrientation" />
-        <activity android:name=".ui.activity.BookListActivity"
-            android:screenOrientation="landscape"
+        <activity
+            android:name=".ui.activity.BookListActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
-            />
-        <activity android:name=".activity.ReportClassActivity"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".activity.ReportTestActivity"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".activity.ReaderActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan"
-            />
-
-        <activity android:name=".activity.album.AlbumDetailActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".activity.DisplayOfficeFileActivity"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".activity.ClassScheduleActivity"
-            android:screenOrientation="landscape"
-            />
-
-        <activity android:name=".activity.album.AlbumActivity"
+        <activity
+            android:name=".activity.ReportClassActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.ReportTestActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.ReaderActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".activity.album.PhotoUploadActivity"
-            android:screenOrientation="landscape"
+        <activity
+            android:name=".activity.album.AlbumDetailActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.DisplayOfficeFileActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.ClassScheduleActivity"
+            android:screenOrientation="landscape" />
+
+        <activity
+            android:name=".activity.album.AlbumActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
-        <activity android:name=".activity.YBCenterActivity"
             android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
+
+        <activity
+            android:name=".activity.album.PhotoUploadActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".activity.YBCenterActivity"
+            android:screenOrientation="landscape" />
+
+        <activity
+            android:name=".homework.DoHomeworkActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.AddressListActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".activity.EditAddressActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             />
 
-        <activity android:name=".homework.DoHomeworkActivity"
-            android:screenOrientation="landscape"
-            />
-        <service android:name=".service.AIDLTestService"
-            android:process=":countdown"
-            />
+        <service
+            android:name=".service.AIDLTestService"
+            android:process=":countdown" />
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <!--元数据-->
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
