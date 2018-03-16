@@ -230,12 +230,18 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 T.show(this, "请选择单元")
                 return@setOnItemClickListener
             }*/
+            val cache = cacheMap[currentGradeCode]!!
             QuestionActivity.jump(
                     this,
                     questionAdapter.datas[position].questionList,
-                    cacheMap[currentGradeCode]!!.currentUnitBean,
+                    cache.currentUnitBean,
                     difficulty,
-                    questionAdapter.datas[position].adverCode)
+                    questionAdapter.datas[position].adverCode,
+                    currentGradeCode,
+                    cache.semesterCode,
+                    cache.subCode,
+                    cache.versionId
+                    )
         }
 
         gradeAdapter.setOnItemClickListener { holder, view, position ->

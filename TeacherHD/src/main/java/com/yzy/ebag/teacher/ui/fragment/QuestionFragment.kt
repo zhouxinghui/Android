@@ -27,17 +27,33 @@ class QuestionFragment: BaseListFragment<List<QuestionBean>, QuestionBean>() {
     private lateinit var unitBean: AssignUnitBean.UnitSubBean
     private var difficulty: String? = null
     private lateinit var type: String
+    private var gradeCode = ""
+    private var semeterCode = ""
+    private var course = ""
+    private var bookVersionId = ""
     private lateinit var previewList: ArrayList<QuestionBean>
     private var isPreview = false
     private val feedbackDialog by lazy { FeedbackDialog(mContext) }
     companion object {
-        fun newInstance(previewList: ArrayList<QuestionBean>, unitBean: AssignUnitBean.UnitSubBean, difficulty: String?, type: String): QuestionFragment{
+        fun newInstance(
+                previewList: ArrayList<QuestionBean>,
+                unitBean: AssignUnitBean.UnitSubBean,
+                difficulty: String?,
+                type: String,
+                gradeCode: String,
+                semeterCode: String,
+                course: String,
+                bookVersionId: String): QuestionFragment{
             val fragment = QuestionFragment()
             val bundle = Bundle()
             bundle.putSerializable("previewList", previewList)
             bundle.putSerializable("unitBean", unitBean)
             bundle.putString("difficulty", difficulty)
             bundle.putString("type", type)
+            bundle.putString("gradeCode", gradeCode)
+            bundle.putString("semeterCode", semeterCode)
+            bundle.putString("course", course)
+            bundle.putString("bookVersionId", bookVersionId)
             fragment.arguments = bundle
             return fragment
         }
@@ -46,6 +62,10 @@ class QuestionFragment: BaseListFragment<List<QuestionBean>, QuestionBean>() {
         unitBean = bundle?.getSerializable("unitBean") as AssignUnitBean.UnitSubBean
         difficulty = bundle.getString("difficulty")
         type = bundle.getString("type")
+        gradeCode = bundle.getString("gradeCode")
+        semeterCode = bundle.getString("semeterCode")
+        course = bundle.getString("course")
+        bookVersionId = bundle.getString("bookVersionId")
         previewList = bundle.getSerializable("previewList") as ArrayList<QuestionBean>
     }
 
@@ -106,7 +126,7 @@ class QuestionFragment: BaseListFragment<List<QuestionBean>, QuestionBean>() {
     var onSelectClick: ((questionBean: QuestionBean) -> Unit)? = null
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<QuestionBean>>) {
-        TeacherApi.searchQuestion(unitBean, difficulty, type, page, requestCallBack)
+        TeacherApi.searchQuestion(unitBean, difficulty, type, gradeCode, semeterCode, course, bookVersionId, page, requestCallBack)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<QuestionBean>?): List<QuestionBean>? {

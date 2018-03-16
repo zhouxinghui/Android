@@ -190,7 +190,7 @@ object TeacherApi {
     /**
      * 查询试题
      */
-    fun searchQuestion(unitBean: AssignUnitBean.UnitSubBean, difficulty: String?, type: String, page: Int, callback: RequestCallBack<List<QuestionBean>>){
+    fun searchQuestion(unitBean: AssignUnitBean.UnitSubBean, difficulty: String?, type: String, gradeCode: String, semeterCode: String, course: String, bookVersionId: String, page: Int, callback: RequestCallBack<List<QuestionBean>>){
         val jsonObject = JSONObject()
         if (unitBean.unitCode != null) {
             if (unitBean.isUnit)
@@ -199,6 +199,11 @@ object TeacherApi {
                 jsonObject.put("bookCatalog", unitBean.unitCode)
         }
         difficulty ?: jsonObject.put("level",difficulty)
+        jsonObject.put("gradeCode",gradeCode)
+        jsonObject.put("semesterCode",semeterCode)
+        jsonObject.put("course",course)
+        jsonObject.put("bookVersionId",bookVersionId)
+
         jsonObject.put("type",type)
         jsonObject.put("page",page)
         jsonObject.put("pageSize",10)
