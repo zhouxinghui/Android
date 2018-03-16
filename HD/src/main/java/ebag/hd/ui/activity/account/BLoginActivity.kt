@@ -65,6 +65,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
     override fun onLoginSuccess(userEntity: UserEntity) {
         LoadingDialogUtil.closeLoadingDialog()
+
         App.modifyToken(userEntity.token)
         userEntity.roleCode = getRoleCode()
         SerializableUtils.deleteSerializable(

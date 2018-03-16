@@ -6,9 +6,7 @@ import ebag.hd.bean.EditionBean
 import ebag.hd.bean.response.UserEntity
 import io.reactivex.Observable
 import okhttp3.RequestBody
-import retrofit2.http.Body
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 /**
  * Created by caoyu on 2018/1/8.
@@ -107,5 +105,19 @@ interface StudentService {
     @POST("util/queryFormulaTool/{version}")
     fun formula(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<FormulaTypeBean>>>
 
+    /**
+     *
+     */
+    @Headers("EBag-Special-Url: special/url")
+    @GET("https://openapi.baidu.com/oauth/2.0/token")
+    fun baiduOauth(
+            @Query("grant_type") grant_type: String,
+            @Query("client_id") client_id: String,
+            @Query("client_secret") client_secret: String
+        ): Observable<BaiduOauthBean>
+
+    @Headers("EBag-Special-Url: special/url")
+    @POST("http://vop.baidu.com/server_api")
+    fun speachRecognize(@Body requestBody: RequestBody): Observable<SpeechRecognizeBean>
 
 }

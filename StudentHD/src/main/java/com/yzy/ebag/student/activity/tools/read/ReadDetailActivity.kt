@@ -17,9 +17,7 @@ import cn.jzvd.JZVideoPlayerStandard
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.bean.ReadDetailBean
-import com.yzy.ebag.student.bean.ReadOutBean
-import com.yzy.ebag.student.bean.RecordHistory
+import com.yzy.ebag.student.bean.*
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.MsgException
@@ -38,21 +36,32 @@ import java.io.File
  */
 class ReadDetailActivity: BaseActivity() {
 
-    companion object {
-        fun jump(context: Context,classId: String, readBean: ReadOutBean.OralLanguageBean?){
-            context.startActivity(
-                    Intent(context, ReadDetailActivity::class.java)
-                            .putExtra("classId", classId)
-                            .putExtra("oralLanguageBean", readBean)
-            )
-        }
-    }
-
-    override fun getLayoutId(): Int {
-        return R.layout.activity_read_detail
-    }
-
+    var baiduToken = ""
     private var readBean: ReadOutBean.OralLanguageBean? = null
+    private var playingUrl: String? = null
+    private var anim : AnimationDrawable? = null
+    private var progressBar : ProgressBar? = null
+    private lateinit var basePath: String
+    private var readDetailBean: ReadDetailBean? = null
+    private lateinit var userId: String
+    private lateinit var classId: String
+    private var tempRecognizeString = ""
+    private var tempUrl = ""
+    // 上传文件是否成功
+    private var ossSuccess = false
+    // 语音识别是否成功
+    private var recognizeSuccess = false
+    // 是否正在上传到阿里云
+    private var isOssUploading = false
+    // 是否正在语音识别
+    private var isRecognizing = false
+
+    private val uploadDialog by lazy {
+        val dialog = ProgressDialog(this)
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog
+    }
     private val voicePlayer by lazy {
         val voicePlayer = VoicePlayerOnline(this)
 
@@ -71,17 +80,20 @@ class ReadDetailActivity: BaseActivity() {
         })
         voicePlayer
     }
-    private var playingUrl: String? = null
-    private var anim : AnimationDrawable? = null
-    private var progressBar : ProgressBar? = null
-    private lateinit var basePath: String
-    private var readDetailBean: ReadDetailBean? = null
-    private lateinit var userId: String
-    private lateinit var classId: String
-
-    private val uploadDialog by lazy {
-        ProgressDialog(this)
+    companion object {
+        fun jump(context: Context,classId: String, readBean: ReadOutBean.OralLanguageBean?){
+            context.startActivity(
+                    Intent(context, ReadDetailActivity::class.java)
+                            .putExtra("classId", classId)
+                            .putExtra("oralLanguageBean", readBean)
+            )
+        }
     }
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_read_detail
+    }
+
     override fun initViews() {
         readBean = intent.getSerializableExtra("oralLanguageBean") as ReadOutBean.OralLanguageBean?
         classId = intent.getStringExtra("classId") ?: ""
@@ -329,7 +341,11 @@ class ReadDetailActivity: BaseActivity() {
             recorderUtil.stopPlayRecord()
             recorderUtil.finishRecord()
         }
+        historyRequest.cancelRequest()
         request.cancelRequest()
+        uploadRequest.cancelRequest()
+        baiduOauthRequest?.cancelRequest()
+        speechRecognizeRequest?.cancelRequest()
     }
 
 
@@ -454,18 +470,103 @@ class ReadDetailActivity: BaseActivity() {
             return
         }
 
-//        systemTime = System.currentTimeMillis().toString()
-        //上传录音
-        OSSUploadUtils.getInstance().uploadFileToOss(
-                this,
-                File(readDetailBean?.localPath),
-                "personal/$userId/read",
-                "${readDetailBean?.languageDetailId}.amr",
-                mHandler)
         uploadDialog.setMessage("正在上传录音...")
-        uploadDialog.setCanceledOnTouchOutside(false)
         uploadDialog.show()
 
+        // 所有数据上传 到 我们服务器后  recognizeSuccess 和 ossSuccess 才会重新置位 false
+        // 语音识别 和 文件上传都成功了， 点击直接上传
+        // loading 和 isRecognizing 主要是用来控制 加载中的 对话框的 显示与否
+        if(recognizeSuccess && ossSuccess){
+            StudentApi.uploadRecord(classId,readDetailBean?.languageId ?: "", readDetailBean?.languageDetailId ?: "",
+                    tempRecognizeString, tempUrl , uploadRequest)
+        }else{
+            // 语音识别没成功
+            if(!recognizeSuccess){
+                tempRecognizeString = ""
+                isRecognizing = true
+                baiduToken = SPUtils.get(this, "baiduToken", "") as String
+                if(baiduToken == ""){
+                    baiduOauth()
+                }else{
+                    speechRecognize()
+                }
+            }
+
+            // 文件上传没成功
+            if(!ossSuccess){
+                isOssUploading = true
+                //上传录音
+                tempUrl = ""
+                OSSUploadUtils.getInstance().uploadFileToOss(
+                        this,
+                        File(readDetailBean?.localPath),
+                        "personal/$userId/read",
+                        "${readDetailBean?.languageDetailId}.amr",
+                        mHandler)
+            }
+//
+        }
+    }
+
+    private var baiduOauthRequest: RequestCallBack<BaiduOauthBean>? = null
+
+    private fun baiduOauth(){
+        if(baiduOauthRequest == null){
+            baiduOauthRequest = object :RequestCallBack<BaiduOauthBean>(){
+
+                override fun onSuccess(entity: BaiduOauthBean?) {
+                    baiduToken = entity?.access_token ?: ""
+                    SPUtils.put(this@ReadDetailActivity, "baiduToken", baiduToken)
+                    speechRecognize()
+                }
+
+                override fun onError(exception: Throwable) {
+                    isRecognizing = false
+                    if(isOssUploading == false){
+                        uploadDialog.dismiss()
+                        T.show(this@ReadDetailActivity, "录音上传失败，请重试")
+                    }
+                }
+            }
+        }
+        StudentApi.baiduOauth(baiduOauthRequest!!)
+    }
+
+    private var speechRecognizeRequest: RequestCallBack<SpeechRecognizeBean>? = null
+
+    private fun speechRecognize(){
+        if(speechRecognizeRequest == null){
+            speechRecognizeRequest = object :RequestCallBack<SpeechRecognizeBean>(){
+                override fun onSuccess(entity: SpeechRecognizeBean?) {
+                    if(entity?.err_no == 3302){
+                        baiduOauth()
+                    }else{
+                        if(entity != null && entity.result.isNotEmpty()){
+                            tempRecognizeString = entity.result[0]
+                        }
+                        isRecognizing = false
+                        recognizeSuccess = true
+                        if(ossSuccess){
+                            StudentApi.uploadRecord(classId,readDetailBean?.languageId ?: "", readDetailBean?.languageDetailId ?: "",
+                                     tempRecognizeString, tempUrl , uploadRequest)
+                        }else if(isOssUploading == false){
+                            uploadDialog.dismiss()
+                            T.show(this@ReadDetailActivity, "录音上传失败，请重试")
+                        }
+                    }
+                }
+
+                override fun onError(exception: Throwable) {
+                    isRecognizing = false
+                    if(isOssUploading == false){
+                        uploadDialog.dismiss()
+                        T.show(this@ReadDetailActivity, "录音上传失败，请重试")
+                    }
+                }
+            }
+        }
+
+        StudentApi.speechRecognize(readDetailBean?.localPath ?: "", baiduToken, speechRecognizeRequest!!)
     }
 
     /**
@@ -476,15 +577,22 @@ class ReadDetailActivity: BaseActivity() {
         override fun handleMessage(activity: ReadDetailActivity?, msg: Message?) {
             when {
                 msg!!.what == Constants.UPLOAD_SUCCESS ->{//上传文件成功
+                    activity?.isOssUploading = false
+                    activity?.ossSuccess = true
+                    activity?.tempUrl = "${Constants.OSS_BASE_URL}/personal/${activity!!.userId}/read/${activity.readDetailBean?.languageDetailId}.amr"
 
-                    val url = "${Constants.OSS_BASE_URL}/personal/${activity!!.userId}/read/${activity.readDetailBean?.languageDetailId}.amr"
-
-                    StudentApi.uploadRecord(activity.classId,activity.readDetailBean?.languageId ?: "", activity.readDetailBean?.languageDetailId ?: ""
-                            ,url , activity.uploadRequest)
+                    if(activity.recognizeSuccess){
+                        StudentApi.uploadRecord(activity.classId,activity.readDetailBean?.languageId ?: "", activity.readDetailBean?.languageDetailId ?: ""
+                                , activity.tempRecognizeString, activity.tempUrl , activity.uploadRequest)
+                    }
                 }
                 msg.what == Constants.UPLOAD_FAIL ->{//上传文件失败
-                    activity!!.uploadDialog.dismiss()
-                    T.show(activity, "录音上传失败，请重试")
+                    activity?.isOssUploading = false
+                    if(activity?.isRecognizing == false){
+                        activity.uploadDialog.dismiss()
+                        T.show(activity, "录音上传失败，请重试")
+                    }
+
                 }
             }
         }
@@ -497,6 +605,9 @@ class ReadDetailActivity: BaseActivity() {
 
         override fun onSuccess(entity: String?) {
             uploadDialog.dismiss()
+            ossSuccess = false
+            recognizeSuccess = false
+            tempUrl = ""
             getHistory()
             T.show(this@ReadDetailActivity, entity ?: "我的录音上传成功")
         }
@@ -546,4 +657,5 @@ class ReadDetailActivity: BaseActivity() {
         super.onConfigurationChanged(newConfig)
         JZUtils.setRequestedOrientation(this, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
     }
+
 }

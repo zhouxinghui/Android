@@ -3,6 +3,7 @@ package com.yzy.ebag.student.activity
 import android.content.Context
 import android.content.Intent
 import android.view.View
+import cn.jpush.android.api.JPushInterface
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.activity.account.LoginActivity
 import com.yzy.ebag.student.activity.set.AboutUsActivity
@@ -30,6 +31,9 @@ class SettingActivity: BaseActivity(), View.OnClickListener {
             R.id.logoutBtn -> {
                 App.deleteToken()
                 SerializableUtils.deleteSerializable(ebag.hd.base.Constants.STUDENT_USER_ENTITY)
+//                删除别名， 停止推送
+                JPushInterface.deleteAlias(this, 0)
+                JPushInterface.stopPush(this)
                 startActivity(
                         Intent(this, LoginActivity::class.java)
                                 .putExtra(Constants.KEY_TO_MAIN,true)

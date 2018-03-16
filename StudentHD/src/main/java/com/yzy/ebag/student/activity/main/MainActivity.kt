@@ -3,6 +3,7 @@ package com.yzy.ebag.student.activity.main
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import cn.jpush.android.api.JPushInterface
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
@@ -53,7 +54,7 @@ class MainActivity : MVPActivity(), MainView {
 
     override fun initViews() {
 
-
+        JPushInterface.init(applicationContext)
         rvTeacherName.layoutManager = LinearLayoutManager(this)
         rvTeacherName.adapter = adapter
 

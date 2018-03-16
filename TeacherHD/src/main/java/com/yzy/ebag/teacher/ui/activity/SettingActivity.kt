@@ -3,6 +3,7 @@ package com.yzy.ebag.teacher.ui.activity
 import android.content.Intent
 import android.view.View
 import android.widget.Toast
+import cn.jpush.android.api.JPushInterface
 import com.umeng.socialize.UMAuthListener
 import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.bean.SHARE_MEDIA
@@ -43,6 +44,9 @@ class SettingActivity : BaseActivity(), View.OnClickListener{
                 startActivity(Intent(this, AboutUsActivity::class.java))
             }
             R.id.exitLogin ->{
+                //                删除别名， 停止推送
+                JPushInterface.deleteAlias(this, 0)
+                JPushInterface.stopPush(this)
                 App.deleteToken()
                 startActivity(Intent(this, LoginActivity::class.java).putExtra(Constants.KEY_TO_MAIN, true))
                 AppManager.finishAllActivity()

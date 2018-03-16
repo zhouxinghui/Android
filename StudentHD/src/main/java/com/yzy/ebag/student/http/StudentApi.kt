@@ -1,12 +1,19 @@
 package com.yzy.ebag.student.http
 
+import android.util.Base64
+import com.alibaba.fastjson.JSON
 import com.yzy.ebag.student.bean.*
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.L
 import ebag.hd.bean.EditionBean
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
 import ebag.hd.http.EBagClient
 import org.json.JSONObject
+import java.io.File
+import java.io.FileInputStream
+
+
 
 /**
  * Created by caoyu on 2018/1/8.
@@ -112,9 +119,10 @@ object StudentApi{
     /**
      * 上传跟读录音文件
      */
-    fun uploadRecord(classId: String, languageId: String, languageDetailId: String, myAudioUrl: String, callback: RequestCallBack<String>){
+    fun uploadRecord(classId: String, languageId: String, languageDetailId: String, language: String, myAudioUrl: String, callback: RequestCallBack<String>){
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
+        jsonObject.put("language", language)
         jsonObject.put("languageId", languageId)
         jsonObject.put("languageDetailId", languageDetailId)
         jsonObject.put("myAudioUrl", myAudioUrl)
@@ -167,5 +175,55 @@ object StudentApi{
         jsonObject.put("page", page)
         jsonObject.put("pageSize", pageSize)
         EBagApi.request(studentService.formula("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 百度授权
+     */
+    fun baiduOauth(callback: RequestCallBack<BaiduOauthBean>){
+        EBagApi.startNormalRequest(
+                studentService.baiduOauth(
+                        "client_credentials",
+                        "QOgyuYouUa3L7WECI8B44dOX",
+                        "b8c2cff26fda439e47eae9bc46c17ed2"),
+                callback
+        )
+    }
+
+    /**
+     * 语音识别
+     */
+    fun speechRecognize(filePath: String, token: String, callback: RequestCallBack<SpeechRecognizeBean>){
+        val file = File(filePath)
+        if(!file.exists() || !file.isFile){
+            return
+        }
+        val speech = base64(file)
+        if(speech == ""){
+            return
+        }
+        val speechRecognizeVo = SpeechRecognizeVo()
+        speechRecognizeVo.token = token
+        speechRecognizeVo.len = file.length()
+        speechRecognizeVo.speech = speech
+        EBagApi.startNormalRequest(
+                studentService.speachRecognize(EBagApi.createBody(JSON.toJSONString(speechRecognizeVo))),
+                callback
+        )
+    }
+
+    private fun base64(file: File): String{
+        try {
+            var inputFile = FileInputStream(file)
+            val buffer = ByteArray(file.length().toInt())
+            inputFile.read(buffer)
+            inputFile.close()
+            val encodedString = Base64.encodeToString(buffer, Base64.DEFAULT)
+            L.e("Base64", "Base64---->" + encodedString)
+            return encodedString
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return ""
     }
 }

@@ -2,9 +2,12 @@ package com.yzy.ebag.teacher.ui.activity.account
 
 import android.content.Intent
 import android.view.View
+import cn.jpush.android.api.JPushInterface
 import com.yzy.ebag.teacher.MainActivity
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.ui.activity.LoginSelectActivity
+import ebag.core.util.L
+import ebag.hd.bean.response.UserEntity
 import ebag.hd.ui.activity.account.BLoginActivity
 
 class LoginActivity : BLoginActivity() {
@@ -39,5 +42,16 @@ class LoginActivity : BLoginActivity() {
 
     override fun getLogoResId(): Int {
         return R.drawable.teacher_logo
+    }
+
+    override fun onLoginSuccess(userEntity: UserEntity) {
+        L.e("Teacher", "[user] uid:${userEntity.uid}")
+//        JPushInterface.deleteAlias(this, 0)
+//        设置别名 开启推送
+        if(JPushInterface.isPushStopped(this))
+            JPushInterface.resumePush(this)
+        JPushInterface.setAlias(this, 0, userEntity.uid)
+        super.onLoginSuccess(userEntity)
+
     }
 }

@@ -1,5 +1,6 @@
 package com.yzy.ebag.teacher.base
 
+import cn.jpush.android.api.JPushInterface
 import com.umeng.socialize.Config
 import com.umeng.socialize.PlatformConfig
 import com.umeng.socialize.UMShareAPI
@@ -25,5 +26,8 @@ class App : VNCApp() {
         PlatformConfig.setSinaWeibo("2231742216", "f894753343fa80a5f11bcb06659f489e", "http://www.yun-bag.com/ebag-portal/oauth/sina/back")
         //QQ
         PlatformConfig.setQQZone("1105151620", "MWJSD2sjd20VTHUz")
+
+        JPushInterface.setDebugMode(true)    // 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this)            // 初始化 JPush
     }
 }
