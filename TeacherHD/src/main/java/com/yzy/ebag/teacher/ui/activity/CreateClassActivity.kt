@@ -201,6 +201,12 @@ class CreateClassActivity : BaseActivity(), View.OnClickListener {
                     phaseName.isSelected = true
                     stage = data.gradeCode
                     dialog.dismiss()
+
+                    courseName.text = "请选择课程"
+                    courseName.isSelected = false
+
+                    gradeName.text = "请选择年级"
+                    gradeName.isSelected = false
                 }
                 gradeDialog.show(stageList)
             }
@@ -214,6 +220,9 @@ class CreateClassActivity : BaseActivity(), View.OnClickListener {
                     gradeName.isSelected = true
                     currentGradeCode = data.gradeCode
                     dialog.dismiss()
+
+                    courseName.text = "请选择课程"
+                    courseName.isSelected = false
                 }
                 when(stage){
                     Constants.PRIMARY_SCHOOL ->{
