@@ -27,7 +27,7 @@ class PreviewActivity: BaseActivity() {
     override fun getLayoutId(): Int {
         return R.layout.activity_question
     }
-    private lateinit var previewList: ArrayList<QuestionBean>
+    private var previewList = ArrayList<QuestionBean>()
     private var isPreview = true
     /**
      * 智能推送

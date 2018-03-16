@@ -71,13 +71,13 @@ interface StudentService {
     /**
      * 上传跟读录音文件
      */
-    @POST("user/addMyOralLanguage/{version}")
+    @POST("util/addMyOralLanguage/{version}")
     fun uploadRecord(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /**
      * 获取当前段落的录音历史
      */
-    @POST("user/searchMyOralLanguageByUid/{version}")
+    @POST("util/searchMyOralLanguageByUid/{version}")
     fun recordHistory(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<RecordHistory>>>
 
 
