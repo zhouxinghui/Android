@@ -263,6 +263,7 @@ class CorrectingDescActivity : BaseActivity() {
                             elementTv.text = category[1]
                             answerLayout.addView(elementTv)
                         }
+                        linearLayout.addView(answerLayout)
                     }
                 }
                 //跟读
