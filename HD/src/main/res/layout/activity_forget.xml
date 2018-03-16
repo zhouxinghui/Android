@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleView"
         android:drawableLeft="@drawable/login_icon_phone"
-        android:inputType="phone"
+        android:inputType="number"
         android:maxLength="11"/>
     <FrameLayout
         android:id="@+id/forgetCodeLayout"
