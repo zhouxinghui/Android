@@ -48,7 +48,7 @@ class GroupManageDialog(context: Context, private val classId: String): BaseDial
         override fun onSuccess(entity: ClassMemberBean?) {
             val studentList = entity?.students
             if (studentList == null || studentList.isEmpty()) {
-                stateView.showEmpty()
+                stateView.showEmpty("该班级下还没有学生")
                 return
             }
             allAdapter.setNewData(studentList)
@@ -56,7 +56,7 @@ class GroupManageDialog(context: Context, private val classId: String): BaseDial
         }
 
         override fun onError(exception: Throwable) {
-            stateView.showError()
+            stateView.showError("${exception.message}")
             exception.handleThrowable(context)
         }
     }
