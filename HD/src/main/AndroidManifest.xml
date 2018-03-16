@@ -70,7 +70,9 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             />
-
+        <activity android:name=".activity.ProtocolActivity"
+            android:screenOrientation="landscape"
+            />
         <service
             android:name=".service.AIDLTestService"
             android:process=":countdown" />

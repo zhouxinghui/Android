@@ -193,6 +193,7 @@ class PublishWorkActivity : BaseActivity() {
                 if (deadTime.toInt() > 150 || deadTime.toInt() < 30){
                     T.show(this@PublishWorkActivity, "考试时间范围：30-150分钟")
                     return@setOnRightClickListener
+
                 }
             }else{
 

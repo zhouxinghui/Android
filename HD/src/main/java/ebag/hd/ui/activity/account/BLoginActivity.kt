@@ -17,6 +17,7 @@ import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.SerializableUtils
 import ebag.core.util.T
 import ebag.hd.R
+import ebag.hd.activity.ProtocolActivity
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.dialog.MsgDialogFragment
@@ -259,6 +260,10 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
             } else {
                 registerPwd.transformationMethod = PasswordTransformationMethod.getInstance()
             }
+        }
+        //用户服务协议
+        serveBtn.setOnClickListener {
+            startActivity(Intent(this, ProtocolActivity::class.java))
         }
 
         forgetPwd.setOnClickListener { forgetClick(it) }
