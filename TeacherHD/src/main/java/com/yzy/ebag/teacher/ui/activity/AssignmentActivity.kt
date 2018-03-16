@@ -88,6 +88,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         val dialog = OrganizePaperDialog(this)
         dialog.onOrganizeSuccess = {
             cacheMap[currentGradeCode]!!.clearQuestionSelected()
+            questionAdapter.notifyDataSetChanged()
         }
         dialog
     }
