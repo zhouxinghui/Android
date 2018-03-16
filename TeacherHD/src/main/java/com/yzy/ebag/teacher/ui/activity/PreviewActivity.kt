@@ -140,11 +140,19 @@ class PreviewActivity: BaseActivity() {
                 T.show(this, "未选择班级")
                 return@setOnClickListener
             }
+            if (previewList.isEmpty()){
+                T.show(this, "没有可发布的试题")
+                return@setOnClickListener
+            }
             PublishWorkActivity.jump(this, true, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId)
         }
         publishTv.setOnClickListener {
             if (classes.isEmpty()){
                 T.show(this, "未选择班级")
+                return@setOnClickListener
+            }
+            if (previewList.isEmpty()){
+                T.show(this, "没有可发布的试题")
                 return@setOnClickListener
             }
             PublishWorkActivity.jump(this, false, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId)
