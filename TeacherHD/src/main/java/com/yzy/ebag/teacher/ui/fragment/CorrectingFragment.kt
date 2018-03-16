@@ -46,6 +46,10 @@ class CorrectingFragment: BaseFragment() {
                 stateView.showEmpty()
                 return
             }
+            if (entity[0].subjectVos.isEmpty()) {
+                stateView.showEmpty()
+                return
+            }
             stateView.showContent()
             mAdapter.setNewData(entity)
             mAdapter.expand(0)

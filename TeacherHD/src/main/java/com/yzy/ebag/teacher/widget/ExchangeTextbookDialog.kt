@@ -74,6 +74,7 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
     private var versionCode = ""
     private var semesterCode = "1"
     private var semesterName = "上学期"
+    private var gradeCode = "1"
     private var isAddCourse = false
     var onConfirmClick: ((
             versionName: String,
@@ -106,7 +107,7 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
                 return@setOnClickListener
             }
             if (isAddCourse)
-                TeacherApi.addCourse(idList!![0], versionId, versionCode, versionName, subCode, subName, semesterCode, semesterName, addCourseRequest)
+                TeacherApi.addCourse(idList!![0], versionId, versionCode, versionName, subCode, subName, semesterCode, semesterName, gradeCode, addCourseRequest)
             else {
                 onConfirmClick?.invoke(versionName, versionId, semesterCode, semesterName, subCode, subName)
                 dismiss()
@@ -142,7 +143,8 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
         super.show()
     }
 
-    fun show(classId: String){
+    fun show(classId: String, gradeCode: String){
+        this.gradeCode = gradeCode
         this.isAddCourse = true
         val idList = ArrayList<String>()
         idList.add(classId)

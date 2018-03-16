@@ -358,6 +358,7 @@ object TeacherApi {
                   bookName: String,
                   semeterCode: String,
                   semeterName: String,
+                  gradeCode: String,
                   callback: RequestCallBack<String>){
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
@@ -368,6 +369,7 @@ object TeacherApi {
         jsonObject.put("bookName", bookName)
         jsonObject.put("semeterCode", semeterCode)
         jsonObject.put("semeterName", semeterName)
+        jsonObject.put("gradeCode", gradeCode)
         EBagApi.request(teacherService.addCourse("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
