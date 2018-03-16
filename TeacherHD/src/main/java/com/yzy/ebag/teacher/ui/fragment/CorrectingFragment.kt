@@ -146,6 +146,10 @@ class CorrectingFragment: BaseFragment() {
         override fun getCount(): Int {
             return pagerList.size
         }
+    }
 
+    override fun onDestroy() {
+        request.cancelRequest()
+        super.onDestroy()
     }
 }

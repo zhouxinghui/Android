@@ -433,12 +433,16 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     override fun showBaseData(assignmentBean: AssignmentBean?) {
         stateView.showContent()
         val gradeList = assignmentBean?.sendHomePageClazzInfoVos
+        if (gradeList == null || gradeList.isEmpty()){
+            stateView.showEmpty("未加入班级")
+            return
+        }
         gradeAdapter.datas = gradeList
-        classAdapter.datas = assignmentBean?.sendHomePageClazzInfoVos!![0].homeClazzInfoVos
+        classAdapter.datas = assignmentBean.sendHomePageClazzInfoVos!![0].homeClazzInfoVos
         gradeAdapter.selectPosition = 0
         if (workCategory == Constants.ASSIGN_TEST_PAPER)
             assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null)
-        gradeList?.forEach {
+        gradeList.forEach {
             if(cacheMap[it.gradeCode] == null) {
                 val cache = Cache()
                 cacheMap[it.gradeCode] = cache
