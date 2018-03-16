@@ -25,13 +25,26 @@ class QuestionActivity : BaseActivity() {
     private lateinit var tempList: ArrayList<QuestionBean>
     private var type = ""
     companion object {
-        fun jump(activity: Activity, previewList: ArrayList<QuestionBean>, unitBean: AssignUnitBean.UnitSubBean, difficulty: String?, type: String){
+        fun jump(
+                activity: Activity,
+                previewList: ArrayList<QuestionBean>,
+                unitBean: AssignUnitBean.UnitSubBean,
+                difficulty: String?,
+                type: String,
+                gradeCode: String,
+                semeterCode: String,
+                course: String,
+                bookVersionId: String){
             activity.startActivityForResult(
                     Intent(activity, QuestionActivity::class.java)
                             .putExtra("previewList", previewList)
                             .putExtra("unitBean", unitBean)
                             .putExtra("difficulty", difficulty)
                             .putExtra("type", type)
+                            .putExtra("gradeCode", gradeCode)
+                            .putExtra("semeterCode", semeterCode)
+                            .putExtra("course", course)
+                            .putExtra("bookVersionId", bookVersionId)
                     , Constants.QUESTION_REQUEST)
         }
     }
@@ -44,7 +57,11 @@ class QuestionActivity : BaseActivity() {
                 previewList,
                 intent.getSerializableExtra("unitBean") as AssignUnitBean.UnitSubBean,
                 intent.getStringExtra("difficulty"),
-                type)
+                type,
+                intent.getStringExtra("gradeCode"),
+                intent.getStringExtra("semeterCode"),
+                intent.getStringExtra("course"),
+                intent.getStringExtra("bookVersionId"))
         supportFragmentManager.beginTransaction().replace(R.id.questionLayout, fragment)
                 .commitAllowingStateLoss()
 

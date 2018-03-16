@@ -20,6 +20,7 @@ import java.util.*
 class MyCourseActivity : BaseListActivity<List<MyCourseBean>,MyCourseBean>() {
     private val adapter by lazy { MyAdapter() }
     private lateinit var classId: String
+    private var gradeCode = "1"
     private val addCourseDialog by lazy {
         val dialog = ExchangeTextbookDialog(this)
         dialog.onAddCourseSuccess = {
@@ -37,7 +38,7 @@ class MyCourseActivity : BaseListActivity<List<MyCourseBean>,MyCourseBean>() {
         refreshEnabled(false)
         titleBar.setTitle(R.string.course_teaching)
         titleBar.setRightText(resources.getString(R.string.add), {
-            addCourseDialog.show(classId)
+            addCourseDialog.show(classId, gradeCode)
         })
         classId = intent.getStringExtra("classId")
     }
@@ -47,6 +48,9 @@ class MyCourseActivity : BaseListActivity<List<MyCourseBean>,MyCourseBean>() {
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<MyCourseBean>?): List<MyCourseBean>? {
+        if(parent != null && !parent.isEmpty()){
+            gradeCode = parent[0].gradeCode
+        }
         return parent
     }
 

@@ -86,6 +86,7 @@ class ClassesFragment: BaseListFragment<List<SpaceBean>,SpaceBean>() {
         val dialog = ClassJoinDialog.newInstance()
         dialog.successListener = {
             onRefresh()
+            dialog.dismiss()
         }
         dialog
     }

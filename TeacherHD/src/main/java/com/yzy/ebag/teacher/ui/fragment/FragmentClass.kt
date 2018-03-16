@@ -50,7 +50,7 @@ class FragmentClass : BaseFragment() {
             }
 
             override fun onError(exception: Throwable) {
-                stateView.showError()
+                stateView.showError("${exception.message}")
                 exception.handleThrowable(mContext)
             }
 

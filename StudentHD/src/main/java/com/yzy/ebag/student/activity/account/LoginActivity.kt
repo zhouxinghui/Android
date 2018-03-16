@@ -19,7 +19,7 @@ class LoginActivity : BLoginActivity() {
 
     override fun initViews() {
         super.initViews()
-        loginEdit.setText("10000121")
+        loginEdit.setText("10000658")
         pwdEdit.setText("ysb123456")
     }
 

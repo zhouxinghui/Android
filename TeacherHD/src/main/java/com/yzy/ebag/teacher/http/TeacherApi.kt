@@ -190,7 +190,7 @@ object TeacherApi {
     /**
      * 查询试题
      */
-    fun searchQuestion(unitBean: AssignUnitBean.UnitSubBean, difficulty: String?, type: String, page: Int, callback: RequestCallBack<List<QuestionBean>>){
+    fun searchQuestion(unitBean: AssignUnitBean.UnitSubBean, difficulty: String?, type: String, gradeCode: String, semeterCode: String, course: String, bookVersionId: String, page: Int, callback: RequestCallBack<List<QuestionBean>>){
         val jsonObject = JSONObject()
         if (unitBean.unitCode != null) {
             if (unitBean.isUnit)
@@ -199,6 +199,11 @@ object TeacherApi {
                 jsonObject.put("bookCatalog", unitBean.unitCode)
         }
         difficulty ?: jsonObject.put("level",difficulty)
+        jsonObject.put("gradeCode",gradeCode)
+        jsonObject.put("semesterCode",semeterCode)
+        jsonObject.put("course",course)
+        jsonObject.put("bookVersionId",bookVersionId)
+
         jsonObject.put("type",type)
         jsonObject.put("page",page)
         jsonObject.put("pageSize",10)
@@ -358,6 +363,7 @@ object TeacherApi {
                   bookName: String,
                   semeterCode: String,
                   semeterName: String,
+                  gradeCode: String,
                   callback: RequestCallBack<String>){
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
@@ -368,6 +374,7 @@ object TeacherApi {
         jsonObject.put("bookName", bookName)
         jsonObject.put("semeterCode", semeterCode)
         jsonObject.put("semeterName", semeterName)
+        jsonObject.put("gradeCode", gradeCode)
         EBagApi.request(teacherService.addCourse("v1", EBagApi.createBody(jsonObject)), callback)
     }
 

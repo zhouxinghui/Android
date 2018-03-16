@@ -88,6 +88,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         val dialog = OrganizePaperDialog(this)
         dialog.onOrganizeSuccess = {
             cacheMap[currentGradeCode]!!.clearQuestionSelected()
+            questionAdapter.notifyDataSetChanged()
         }
         dialog
     }
@@ -229,12 +230,18 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 T.show(this, "请选择单元")
                 return@setOnItemClickListener
             }*/
+            val cache = cacheMap[currentGradeCode]!!
             QuestionActivity.jump(
                     this,
                     questionAdapter.datas[position].questionList,
-                    cacheMap[currentGradeCode]!!.currentUnitBean,
+                    cache.currentUnitBean,
                     difficulty,
-                    questionAdapter.datas[position].adverCode)
+                    questionAdapter.datas[position].adverCode,
+                    currentGradeCode,
+                    cache.semesterCode,
+                    cache.subCode,
+                    cache.versionId
+                    )
         }
 
         gradeAdapter.setOnItemClickListener { holder, view, position ->
@@ -433,12 +440,16 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     override fun showBaseData(assignmentBean: AssignmentBean?) {
         stateView.showContent()
         val gradeList = assignmentBean?.sendHomePageClazzInfoVos
+        if (gradeList == null || gradeList.isEmpty()){
+            stateView.showEmpty("未加入班级")
+            return
+        }
         gradeAdapter.datas = gradeList
-        classAdapter.datas = assignmentBean?.sendHomePageClazzInfoVos!![0].homeClazzInfoVos
+        classAdapter.datas = assignmentBean.sendHomePageClazzInfoVos!![0].homeClazzInfoVos
         gradeAdapter.selectPosition = 0
         if (workCategory == Constants.ASSIGN_TEST_PAPER)
             assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null)
-        gradeList?.forEach {
+        gradeList.forEach {
             if(cacheMap[it.gradeCode] == null) {
                 val cache = Cache()
                 cacheMap[it.gradeCode] = cache

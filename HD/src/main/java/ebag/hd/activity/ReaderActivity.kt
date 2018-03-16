@@ -55,6 +55,7 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         }
         popup
     }
+    private var currentPage = 0
     private lateinit var trackAdapter: TrackAdapter
     private var isEditNote = false
     private lateinit var lastNote: String
@@ -144,6 +145,7 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         hidePenSet.setOnClickListener(this)
 
         pageView.setOnPageTurnListener { count, currentPosition ->
+            currentPage = currentPosition
             if(!baseFab.isDraftable)
                 FabAnimationUtil.slideButtons(this,baseFab)
             trackPager.setCurrentItem(currentPosition, false)
@@ -151,10 +153,9 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         getPaletteView().setCanDraw(false)
         getPaletteView().setFirstLoadBitmap(FileUtil.getBookTrackPath() + "textTrack.png")
         titleBar.setOnLeftClickListener {
-            if (isModifyTrack)
-                saveTrackDialog.show()
-            else
-                finish()
+            val fileFolder = FileUtil.getBookTrackPath()
+            FileUtil.deleteFile(fileFolder.substring(0, fileFolder.length - 1))
+            finish()
         }
 
         titleBar.setOnRightClickListener {
@@ -211,7 +212,7 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         when(v.id){
             R.id.baseFab ->{
                 if (isModifyTrack){
-                    saveTrackDialog.show()
+                    saveTrack()
                 }
                 FabAnimationUtil.slideButtons(this,baseFab)
                 if(!baseFab.isDraftable) {
@@ -243,8 +244,7 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
             }
             R.id.saveBtn ->{
                 getPaletteView().setCanDraw(false)
-                val bitmap = getPaletteView().buildBitmap()
-                saveTrack(bitmap)
+                saveTrack()
             }
             R.id.hidePenSet ->{
                 penSetLayout.visibility = View.GONE
@@ -281,12 +281,9 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         getPaletteView().setPenRawSize(penSize)
         getPaletteView().setPenColor(Color.parseColor(penColor))
     }
-    private fun saveTrack(bitmap: Bitmap?){
-        if (bitmap == null) {
-            T.show(this,"没有可保存的笔记")
-            return
-        }
-        val fileName = FileUtil.getBookTrackPath() + "textTrack.png"
+    private fun saveTrack(){
+        val bitmap = getPaletteView().buildBitmap() ?: return
+        val fileName = "${FileUtil.getBookTrackPath()}Track$currentPage.png"
         val file = File(fileName)
         try {
             if (file.exists() && file.isFile)
@@ -305,7 +302,7 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
 
     private fun initBook(){
         val imagePaths = ZipUtils.getAllImgs(intent.getStringExtra("fileName"))
-        Collections.sort(imagePaths, { lhs, rhs ->
+        imagePaths.sortWith(Comparator { lhs, rhs ->
             val l = Integer.valueOf(lhs.substring(lhs.indexOf("page") + 4,
                     lhs.indexOf(".")))!!
             val r = Integer.valueOf(rhs.substring(rhs.indexOf("page") + 4,
@@ -353,7 +350,9 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             val palletView = PaletteView(this@ReaderActivity)
-            palletView.setFirstLoadBitmap(trackPaths[position])
+            val trackPath = "${FileUtil.getBookTrackPath()}Track$position.png"
+            if (FileUtil.isFileExists(trackPath))
+                palletView.setFirstLoadBitmap(trackPath)
             palletView.setCanDraw(false)
             container.addView(palletView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
             return palletView
@@ -395,10 +394,9 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         }else if(!isNoteEditVisible() && isNoteLayoutVisible()) {
             setNoteVisible(noteLayout.height)
             false
-        }else if (isModifyTrack){
-            saveTrackDialog.show()
-            false
         }else{
+            val fileFolder = FileUtil.getBookTrackPath()
+            FileUtil.deleteFile(fileFolder.substring(0, fileFolder.length - 1))
             true
         }
     }
