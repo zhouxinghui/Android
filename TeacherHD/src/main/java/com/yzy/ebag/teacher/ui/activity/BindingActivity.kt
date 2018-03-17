@@ -37,7 +37,6 @@ class BindingActivity : BaseActivity() {
         var shareMedia=   intent.getStringExtra("shareMedia")
         var accessToken=  intent.getStringExtra("accessToken")
         var uid = intent.getStringExtra("uid")
-        var account = et_user.text.toString()
 
         judgeImage(shareMedia)
 
@@ -45,7 +44,7 @@ class BindingActivity : BaseActivity() {
         if (BX == "b") {
             btn_binding.setOnClickListener {
                     var type:String
-                    if (StringUtils.isMobileNo(account)) {
+                    if (StringUtils.isMobileNo(et_user.text.toString())) {
                         type = BLoginActivity.PHONE_TYPE
                     } else {
                         type = BLoginActivity.EBAG_TYPE
@@ -81,7 +80,7 @@ class BindingActivity : BaseActivity() {
             et_user.visibility = View.GONE
             btn_binding.setOnClickListener {
                 var type:String
-                if (StringUtils.isMobileNo(account)) {
+                if (StringUtils.isMobileNo(et_user.text.toString())) {
                     type = BLoginActivity.PHONE_TYPE
                 } else {
                     type = BLoginActivity.EBAG_TYPE
