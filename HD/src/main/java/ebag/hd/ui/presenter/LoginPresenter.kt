@@ -7,6 +7,7 @@ import ebag.core.util.L
 import ebag.core.util.StringUtils
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
+import ebag.hd.ui.activity.account.BLoginActivity
 import ebag.hd.ui.view.LoginView
 
 
@@ -63,9 +64,9 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener): BasePrese
                     })
                 }
                 if (StringUtils.isMobileNo(account)) {
-                    EBagApi.login(account, pwd, 3, roleCode, thirdPartyToken, thirdPartyUnionid, loginRequest!!)
+                    EBagApi.login(account, pwd, BLoginActivity.PHONE_TYPE,null, roleCode, thirdPartyToken, thirdPartyUnionid, loginRequest!!)
                 } else {
-                    EBagApi.login(account, pwd, 1, roleCode, thirdPartyToken, thirdPartyUnionid, loginRequest!!)
+                    EBagApi.login(account, pwd, BLoginActivity.EBAG_TYPE,null,roleCode, thirdPartyToken, thirdPartyUnionid, loginRequest!!)
                 }
             }
         }else{
@@ -90,9 +91,9 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener): BasePrese
                 })
             }
                 when (loginType){
-                "QQ" -> EBagApi.login(null,null,4,roleCode,thirdPartyToken,thirdPartyUnionid,loginRequest!!)
-                "WEIXIN" -> EBagApi.login(null,null,5,roleCode,thirdPartyToken,thirdPartyUnionid,loginRequest!!)
-                "SINA" -> EBagApi.login(null,null,6,roleCode,thirdPartyToken,thirdPartyUnionid,loginRequest!!)
+                "QQ" -> EBagApi.login(null,null,null,BLoginActivity.QQ_TYPE,roleCode,thirdPartyToken,thirdPartyUnionid,loginRequest!!)
+                "WEIXIN" -> EBagApi.login(null,null,null,BLoginActivity.WEIXIN_TYPE,roleCode,thirdPartyToken,thirdPartyUnionid,loginRequest!!)
+                "SINA" -> EBagApi.login(null,null,null,BLoginActivity.SIAN_TYPE,roleCode,thirdPartyToken,thirdPartyUnionid,loginRequest!!)
             }
         }
     }
@@ -138,7 +139,7 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener): BasePrese
                     }
 
                 })
-            EBagApi.register(name,phone,code,roleCode,pwd,thirdPartyToken,thirdPartyUnionid,3,registerRequest!!)
+            EBagApi.register(name,null,null,phone,code,roleCode,pwd,thirdPartyToken,thirdPartyUnionid,BLoginActivity.PHONE_TYPE,null,registerRequest!!)
         }
 
     }

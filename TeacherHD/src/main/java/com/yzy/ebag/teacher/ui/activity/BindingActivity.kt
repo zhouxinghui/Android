@@ -3,6 +3,7 @@ package com.yzy.ebag.teacher.ui.activity
 import android.content.Intent
 import android.util.Log
 import android.view.View
+import com.umeng.socialize.bean.SHARE_MEDIA
 import com.umeng.socialize.utils.Log.toast
 import com.yzy.ebag.teacher.MainActivity
 import com.yzy.ebag.teacher.R
@@ -20,6 +21,7 @@ import ebag.hd.http.EBagApi
 import ebag.hd.ui.activity.account.BLoginActivity
 import kotlinx.android.synthetic.main.activity_binding.*
 import kotlinx.android.synthetic.main.common_title_bar.*
+import kotlin.math.log
 
 class BindingActivity : BaseActivity() {
 
@@ -35,18 +37,21 @@ class BindingActivity : BaseActivity() {
         var shareMedia=   intent.getStringExtra("shareMedia")
         var accessToken=  intent.getStringExtra("accessToken")
         var uid = intent.getStringExtra("uid")
-
         var account = et_user.text.toString()
-        var pwd = et_user.text.toString()
+
+        judgeImage(shareMedia)
 
         Log.d("haha","$BX,$name,$iconurl,$gender,$shareMedia,$accessToken,$uid")
         if (BX == "b") {
             btn_binding.setOnClickListener {
-                if (
-//                isLoginInfoCorrect(account, pwd)
-                    true
-                ) {
-                    EBagApi.login("1000857", "ysb123456", 1, BLoginActivity.TEACHER_ROLE, accessToken,uid,object : RequestCallBack<UserEntity>() {
+                    var type:String
+                    if (StringUtils.isMobileNo(account)) {
+                        type = BLoginActivity.PHONE_TYPE
+                    } else {
+                        type = BLoginActivity.EBAG_TYPE
+                    }
+
+                    EBagApi.login(et_user.text.toString(), et_pwd.text.toString(), type,judge(shareMedia), BLoginActivity.TEACHER_ROLE, accessToken,uid,object : RequestCallBack<UserEntity>() {
                         override fun onSuccess(entity: UserEntity?) {
                             LoadingDialogUtil.closeLoadingDialog()
                             if (entity != null) {
@@ -69,14 +74,19 @@ class BindingActivity : BaseActivity() {
 
                         }
                     })
-                }
             }
 
         }
         if (BX == "x") {
             et_user.visibility = View.GONE
             btn_binding.setOnClickListener {
-                EBagApi.register(name,null,BLoginActivity.TEACHER_ROLE,"2","ysb123456",accessToken,uid,1,object : RequestCallBack<UserEntity>() {
+                var type:String
+                if (StringUtils.isMobileNo(account)) {
+                    type = BLoginActivity.PHONE_TYPE
+                } else {
+                    type = BLoginActivity.EBAG_TYPE
+                }
+                EBagApi.register(name,iconurl,if (gender =="男"){"1"}else{"2"},null,null,BLoginActivity.TEACHER_ROLE,et_pwd.text.toString(),accessToken,uid,type,judge(shareMedia),object : RequestCallBack<UserEntity>() {
                 override fun onSuccess(entity: UserEntity?) {
 
                     if (entity != null) {
@@ -133,13 +143,25 @@ class BindingActivity : BaseActivity() {
             } else {
                 true
             }
-    fun judge(thirdParty:String):Int {
+    fun judge(thirdParty:String):String {
         if ("QQ".equals(thirdParty, true)) {
-            return 4
+            return "4"
         } else if ("sina".equals(thirdParty, true)) {
-            return 6
+            return "6"
         } else {
-            return 5
+            return "5"
+        }
+    }
+    fun judgeImage(threeparty: String): SHARE_MEDIA {
+        if ("QQ".equals(threeparty, true)) {
+            iv_thirdly.setImageResource(R.drawable.icon_third_party_login_qq)
+            return SHARE_MEDIA.QQ
+        } else if ("sina".equals(threeparty, true)) {
+            iv_thirdly.setImageResource(R.drawable.icon_third_party_login_micro_blog)
+            return SHARE_MEDIA.SINA
+        } else {
+            iv_thirdly.setImageResource(R.drawable.icon_third_party_login_weinxin)
+            return SHARE_MEDIA.WEIXIN
         }
     }
 }

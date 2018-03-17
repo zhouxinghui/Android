@@ -38,6 +38,13 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         const val STUDENT_ROLE = "1"
         const val TEACHER_ROLE = "2"
         const val PARENT_ROLE = "3"
+
+        const val EBAG_TYPE = "1"
+        const val EMAIL_TYPE = "2"
+        const val PHONE_TYPE = "3"
+        const val QQ_TYPE = "4"
+        const val WEIXIN_TYPE = "5"
+        const val SIAN_TYPE = "6"
     }
 
     private var isToMain = false
