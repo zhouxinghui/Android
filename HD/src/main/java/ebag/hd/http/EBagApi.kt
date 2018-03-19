@@ -449,4 +449,46 @@ object EBagApi {
         jsonObject.put("address",address)
         EBagApi.request(eBagService.updateAddress("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    fun queryOrder(callback: RequestCallBack<QueryOrderBean>){
+        val jsonObject = JSONObject()
+        EBagApi.request(eBagService.queryOrder("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun getShopList(page:Int,callback: RequestCallBack<ShopListBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("page",page)
+        jsonObject.put("pageSize",10)
+        EBagApi.request(eBagService.getShopList("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun queryShopCar(callback: RequestCallBack<MutableList<ShopListBean.ListBean>>){
+        val jsonObject = JSONObject()
+        EBagApi.request(eBagService.queryShopCar("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun addGoods2Car(id:String,count:String,callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("id",id)
+        jsonObject.put("numbers",count)
+        EBagApi.request(eBagService.addGoods2Car("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun shopDetails(id:String,callback: RequestCallBack<GoodsDetailsBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("id",id)
+        EBagApi.request(eBagService.shopDeatils("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun updateShopCar(numbers:String,id:String,callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("id",id)
+        jsonObject.put("numbers",numbers)
+        EBagApi.request(eBagService.updateShopCar("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun createShopOrderNo(callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        EBagApi.request(eBagService.createShopOrderNo("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff">
+
+    <ImageView
+        android:id="@+id/goods_img"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y180"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/x30"
+        android:layout_marginRight="@dimen/x30"
+        android:layout_marginTop="@dimen/y36"
+        android:scaleType="centerInside" />
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/goods_img"
+        android:layout_marginTop="@dimen/y36"
+        android:background="#f2f2f2" />
+
+    <TextView
+        android:id="@+id/goods_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_line"
+        android:layout_marginBottom="9dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="9dp"
+        android:textColor="#272727"
+        android:textSize="16sp"
+        tools:text="" />
+
+    <TextView
+        android:id="@+id/rmb_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/goods_name"
+        android:layout_marginLeft="8dp"
+        android:textColor="#FB0D0D"
+        android:textSize="16sp"
+        tools:text="¥ 3999.00" />
+
+    <TextView
+        android:id="@+id/sold_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/goods_name"
+        android:layout_marginRight="12dp"
+        android:drawableLeft="@drawable/icon_shop_mall_sold"
+        android:drawablePadding="4dp"
+        android:textColor="#939393"
+        android:textSize="14sp"
+        tools:text="0" />
+
+    <TextView
+        android:id="@+id/yb_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/goods_name"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/sold_num"
+        android:drawableLeft="@drawable/icon_shopping_yb_price"
+        android:drawablePadding="4dp"
+        android:textColor="#939393"
+        android:textSize="14sp"
+        tools:text="1200" />
+
+    <TextView
+        android:id="@+id/add_goods"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/goods_img"
+        android:layout_marginRight="26dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/icon_shop_home_to_buy"
+        android:gravity="center"
+        android:textColor="#f00"
+        android:textSize="36sp" />
+</RelativeLayout>
+

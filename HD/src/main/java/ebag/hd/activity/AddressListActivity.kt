@@ -23,10 +23,12 @@ class AddressListActivity:BaseActivity(),AddressContract.View {
     private var mData:MutableList<AddressListBean> = mutableListOf()
     private lateinit var mAdapter:AddressListAdapter
     private val mPresenter: AddressListPersenter by lazy { AddressListPersenter(this,this) }
+    private var flag = false
 
     override fun initViews() {
 
         mAdapter = AddressListAdapter(R.layout.item_address,mData)
+        flag = intent.getBooleanExtra("choose",false)
         activity_address_recyclerview.layoutManager = LinearLayoutManager(this)
         activity_address_recyclerview.adapter = mAdapter
         activity_address_recyclerview.addItemDecoration(ebag.core.xRecyclerView.manager.DividerItemDecoration(DividerItemDecoration.VERTICAL,1, Color.parseColor("#e0e0e0")))
@@ -43,6 +45,22 @@ class AddressListActivity:BaseActivity(),AddressContract.View {
                 }
 
             }
+        }
+
+        mAdapter.setOnItemClickListener { adapter, view, position ->
+
+            if (flag){
+                val build = StringBuilder()
+                build.append(mData[position].consignee+"/")
+                build.append(mData[position].phone+"/")
+                build.append(mData[position].preAddress+"/")
+                build.append(mData[position].address)
+                val intent = Intent()
+                intent.putExtra("result",build.toString())
+                setResult(666,intent)
+                finish()
+            }
+
         }
         activity_address_add_layout.setOnClickListener {
             val intent = Intent(this,EditAddressActivity::class.java)

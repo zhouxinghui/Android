@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/goods_img"
+        android:layout_width="114dp"
+        android:layout_height="90dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="22dp"
+        android:scaleType="centerInside"
+         />
+
+    <TextView
+        android:id="@+id/goods_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/goods_img"
+        android:textColor="#272727"
+        android:textSize="18sp"
+        tools:text="Onda/昂达 V10 PRO" />
+
+    <TextView
+        android:id="@+id/goods_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/goods_name"
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@+id/goods_img"
+        android:text="颜色：黑色"
+        android:textColor="#979797"
+        android:textSize="16sp"
+        tools:text="颜色：黑色" />
+
+    <TextView
+        android:id="@+id/goods_yun_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/goods_color"
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@+id/goods_img"
+        android:textColor="#272727"
+        android:textSize="16sp"
+        tools:text="云币：19999" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textColor="#f00"
+        android:textSize="18sp"
+        tools:text="¥ 3099.00" />
+
+    <TextView
+        android:id="@+id/tv_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/goods_yun_price"
+        android:layout_alignParentRight="true"
+        android:textColor="#979797"
+        android:textSize="20sp"
+        tools:text="x1"/>
+</RelativeLayout>

@@ -66,10 +66,26 @@
         <activity
             android:name=".activity.AddressListActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".activity.EditAddressActivity"
+        <activity
+            android:name=".activity.EditAddressActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
-            />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".activity.ShopOrderActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.OrderDetailsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.ShopActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.ShopCarActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.GoodsDetailActivity"
+            android:screenOrientation="landscape" />
+
         <activity android:name=".activity.ProtocolActivity"
             android:screenOrientation="landscape"
             />

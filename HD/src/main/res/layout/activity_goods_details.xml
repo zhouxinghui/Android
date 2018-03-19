@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+
+    <ebag.hd.widget.TitleBar
+        android:id="@+id/details_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="商品详情" />
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearLayout"
+        android:layout_below="@+id/details_titlebar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.youth.banner.Banner
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y400"
+                app:image_scale_type="center_crop"
+                app:indicator_height="@dimen/y5"
+                app:indicator_width="@dimen/x6"
+                android:id="@+id/banner"
+                app:indicator_margin="@dimen/x6"
+                app:indicator_drawable_selected="@drawable/banner_point_select"
+                app:indicator_drawable_unselected="@drawable/banner_point_normal"/>
+
+
+            <RelativeLayout
+                android:id="@+id/layout_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/banner">
+
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingBottom="12dp"
+                    android:paddingLeft="8dp"
+                    android:text="这是一个商品"
+                    android:textColor="#272727"
+                    android:textSize="@dimen/x30" />
+
+                <android.support.v7.widget.AppCompatRatingBar
+                    android:id="@+id/rating_bar"
+                    style="@style/Widget.AppCompat.RatingBar.Indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/white"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:rating="3" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_1"
+                android:background="#fff">
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingLeft="8dp"
+                    android:text="￥ 5000"
+                    android:textColor="#f00"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/goods_old_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/tv_price"
+                    android:layout_toRightOf="@+id/tv_price"
+                    android:background="@color/white"
+                    android:gravity="bottom"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="@dimen/x15"
+                    android:text="￥ 5000"
+                    android:textColor="#9b9b9b"
+                    android:textSize="14sp" />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/details_yb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_2"
+                android:layout_marginTop="@dimen/y15"
+                android:background="#fff"
+                android:paddingLeft="@dimen/x15"
+                android:text="云币: 1200"
+                android:textColor="#9b9b9b" />
+
+
+            <LinearLayout
+                android:id="@+id/layout_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/details_yb"
+                android:layout_marginTop="@dimen/y15"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:paddingEnd="@dimen/x15"
+                android:paddingStart="@dimen/x15">
+
+
+                <TextView
+                    android:id="@+id/yunfei"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="运费: 0"
+                    android:textColor="#9b9b9b"
+
+                    />
+
+                <TextView
+                    android:id="@+id/yuexiaoliang"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="月销量: 1200"
+                    android:textColor="#9b9b9b"
+
+                    />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="广东深圳"
+                    android:textColor="#9b9b9b"
+
+                    />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view_1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y20"
+                android:layout_below="@+id/layout_3"
+                android:layout_marginTop="@dimen/y10"
+                android:background="#f2f2f2" />
+
+            <TextView
+                android:id="@+id/tv_product_param"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_1"
+                android:layout_marginTop="@dimen/y6"
+                android:background="@color/white"
+                android:drawableBottom="@drawable/icon_shop_param_arrorw"
+                android:gravity="center_horizontal"
+                android:paddingBottom="12dp"
+                android:text="产品参数"
+                android:textColor="#272727"
+                android:textSize="22sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_product_param"
+                android:background="#fff">
+            </android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y67"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/fl_shop_car"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#fff"
+            android:descendantFocusability="blocksDescendants">
+
+            <ImageView
+                android:id="@+id/iv_right"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/icon_commodity_details_shopping_cart" />
+
+            <TextView
+                android:id="@+id/tv_tips"
+                android:layout_width="22dp"
+                android:visibility="gone"
+                android:layout_height="22dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/icon_shop_add_goods_shape"
+                android:enabled="false"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/add_to_car"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:background="#ff7021"
+            android:enabled="true"
+            android:gravity="center"
+            android:text="加入购物车"
+            android:textColor="@color/white"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/to_buy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:background="#FB0E0E"
+            android:gravity="center"
+            android:text="立即购买"
+            android:textColor="@color/white"
+            android:textSize="26sp" />
+    </LinearLayout>
+
+    <ebag.core.widget.empty.StateView
+        android:id="@+id/stateview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/details_titlebar"
+        app:errorLayout="@layout/base_error"
+        app:loadingLayout="@layout/base_loading" />
+
+</RelativeLayout>

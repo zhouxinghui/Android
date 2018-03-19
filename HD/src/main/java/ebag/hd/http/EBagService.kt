@@ -235,7 +235,6 @@ interface EBagService {
 
     @POST("user/serchYsbMoneyDetail/{version}")
     fun queryYBCurrent(@Path("version")version: String, @Body requestBody: RequestBody):Observable<ResponseBean<YBCurrentBean>>
-
     @POST("shop/serchShopAddress/{version}")
     fun queryAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<MutableList<AddressListBean>>>
     @POST("shop/deleteShopAddress/{version}")
@@ -244,4 +243,20 @@ interface EBagService {
     fun saveAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
     @POST("shop/updateShopAddress/{version}")
     fun updateAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    @POST("shop/serchOrderByStatus/{version}")
+    fun queryOrder(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<QueryOrderBean>>
+    @POST("shop/getShopList/{version}")
+    fun getShopList(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<ShopListBean>>
+    @POST("shop/serchShopCart/{version}")
+    fun queryShopCar(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<MutableList<ShopListBean.ListBean>>>
+    @POST("shop/addShop2Cart/{version}")
+    fun addGoods2Car(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    @POST("shop/getShopDetailInfo/{version}")
+    fun shopDeatils(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<GoodsDetailsBean>>
+    @POST("shop/updateShopCart/{version}")
+    fun updateShopCar(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    @POST("shop/createShopOrderNo/{version}")
+    fun createShopOrderNo(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+
+
 }

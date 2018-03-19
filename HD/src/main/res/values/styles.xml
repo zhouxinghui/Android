@@ -42,4 +42,8 @@
         <item name="android:windowEnterAnimation">@anim/catalog_popup_in</item>
         <item name="android:windowExitAnimation">@anim/catalog_popup_out</item>
     </style>
+
+    <style name="MyTabLayoutTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>

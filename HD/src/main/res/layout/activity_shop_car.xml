@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ebag.hd.widget.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/title_bar"
+        app:titleText="购物车"
+
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/title_bar"
+        android:id="@+id/shopcar_recyclerview"
+        android:layout_height="match_parent">
+
+
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y65"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/all_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="12dp"
+            android:background="@color/transparent"
+            android:button="@null"
+            android:checked="false"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/cb_shop_car_selector"
+            android:drawablePadding="@dimen/x4"
+            android:text="全选"
+            android:textColor="#979797"
+            android:textSize="20sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_total_price"
+            android:layout_width="@dimen/x124"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dp"
+            android:gravity="center_vertical|right"
+            android:text="¥ 0.0"
+            android:textColor="#f00"
+            android:textSize="26sp" />
+
+        <Button
+            android:id="@+id/btn_pay"
+            android:layout_width="@dimen/x320"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="#FF8100"
+            android:text="结算"
+            android:textColor="@color/white"
+            android:textSize="26sp" />
+    </LinearLayout>
+
+    <ebag.core.widget.empty.StateView
+        android:layout_below="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:id="@+id/shopcar_stateview"
+        app:loadingLayout="@layout/base_loading"
+        app:errorLayout="@layout/base_error"
+        app:emptyLayout="@layout/base_empty"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

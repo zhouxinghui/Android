@@ -45,4 +45,19 @@ abstract class BaseFragment : Fragment() {
     protected abstract fun getBundle(bundle: Bundle?)
     /**初始化View*/
     protected abstract fun initViews(rootView: View)
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser){
+            onVisiable()
+        }else{
+            onInvisiable()
+        }
+    }
+
+     open fun onVisiable(){
+
+    }
+
+     open fun onInvisiable(){}
 }

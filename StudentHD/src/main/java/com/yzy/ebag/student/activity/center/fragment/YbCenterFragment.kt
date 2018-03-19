@@ -7,6 +7,8 @@ import com.yzy.ebag.student.R
 import ebag.core.base.BaseFragment
 import ebag.core.util.T
 import ebag.hd.activity.AddressListActivity
+import ebag.hd.activity.ShopActivity
+import ebag.hd.activity.ShopOrderActivity
 import ebag.hd.activity.YBCenterActivity
 import kotlinx.android.synthetic.main.fragment_yb_center.*
 
@@ -35,11 +37,11 @@ class YbCenterFragment: BaseFragment() {
         }
 
         btnGift.setOnClickListener {
-            T.show(mContext,"暂未开放")
+            startActivity(Intent(activity,ShopActivity::class.java))
         }
 
         btnOrder.setOnClickListener {
-            T.show(mContext,"暂未开放")
+            startActivity(Intent(activity,ShopOrderActivity::class.java))
         }
 
         btnCenter.setOnClickListener {
