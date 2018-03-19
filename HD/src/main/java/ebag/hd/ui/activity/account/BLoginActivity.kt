@@ -346,10 +346,6 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
                 var name = p2?.get("name")
                 var gender = p2?.get("gender")
                 var iconurl = p2?.get("iconurl")
-                toast("uid = $uid,openid = $openid,unionid = $unionid,access_token = $access_token,refresh_token = $refresh_token,expires_in = $expires_in," +
-                        "name = $name,gender = $gender,iconurl = $iconurl")
-                Log.d("wy", "uid = $uid,openid = $openid,unionid = $unionid,access_token = $access_token,refresh_token = $refresh_token,expires_in = $expires_in," +
-                        "name = $name,gender = $gender,iconurl = $iconurl,${share_media.toString()}")
                 threeParty(view,uid,access_token,name,iconurl,gender,share_media.toString())
                 loginPresenter.login(null,null,share_media.toString(), getRoleCode(), access_token, uid)
 

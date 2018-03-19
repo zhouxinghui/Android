@@ -40,7 +40,6 @@ class BindingActivity : BaseActivity() {
 
         judgeImage(shareMedia)
 
-        Log.d("haha","$BX,$name,$iconurl,$gender,$shareMedia,$accessToken,$uid")
         if (BX == "b") {
             btn_binding.setOnClickListener {
                     var type:String
@@ -125,23 +124,6 @@ class BindingActivity : BaseActivity() {
         back_text.setOnClickListener { finish() }
     }
 
-    /**判断账号和密码格式是否输入错误*/
-    private fun isLoginInfoCorrect(account: String, pwd: String): Boolean =
-            if (account.isEmpty() || pwd.isEmpty()) {
-                toast(this, "请输入账号密码！")
-                false
-            } else if (account.length < 7) {
-                toast(this, "请输入正确的账号！")
-                false
-            } else if (account.length == 11 && !StringUtils.isMobileNo(account)) {
-                toast(this, "手机格式输入错误！")
-                false
-            } else if (!StringUtils.isPassword(pwd)) {
-                toast(this, "请输入6~20位字母数字混合密码")
-                false
-            } else {
-                true
-            }
     fun judge(thirdParty:String):String {
         if ("QQ".equals(thirdParty, true)) {
             return "4"

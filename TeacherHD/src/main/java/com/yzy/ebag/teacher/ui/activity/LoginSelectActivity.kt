@@ -87,7 +87,6 @@ class LoginSelectActivity : BaseActivity(), View.OnClickListener {
         btn_create.setOnClickListener(this)
         btn_binding.setOnClickListener(this)
         back_text.setOnClickListener(this)
-        Log.d("uuu",uid)
     }
 
     override fun getLayoutId(): Int {
@@ -96,7 +95,6 @@ class LoginSelectActivity : BaseActivity(), View.OnClickListener {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        Log.d("按下了返回键")
         cancelThreeParty(SHARE_MEDIA.QQ)
     }
 
