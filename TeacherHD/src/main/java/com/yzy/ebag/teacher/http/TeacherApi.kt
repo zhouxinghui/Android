@@ -381,9 +381,10 @@ object TeacherApi {
     /**
      * 检查作业
      */
-    fun correctWork(id: String, callback: RequestCallBack<List<QuestionBean>>){
+    fun correctWork(id: String, type: String, callback: RequestCallBack<List<QuestionBean>>){
         val jsonObject = JSONObject()
         jsonObject.put("id", id)
+        jsonObject.put("type", type)
         EBagApi.request(teacherService.correctWork("v1", EBagApi.createBody(jsonObject)), callback)
     }
 

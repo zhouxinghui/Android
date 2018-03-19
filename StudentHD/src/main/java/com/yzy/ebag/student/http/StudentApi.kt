@@ -39,7 +39,7 @@ object StudentApi{
     fun mainInfo(classId: String, callback: RequestCallBack<ClassesInfoBean>){
         val jsonObj = JSONObject()
         jsonObj.put("classId",classId)
-        jsonObj.put("roleCode","1")
+        jsonObj.put("roleCode","student")
         EBagApi.request(studentService.mainInfo("v1", EBagApi.createBody(jsonObj)), callback)
     }
 

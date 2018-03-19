@@ -102,7 +102,7 @@ class CorrectingDescActivity : BaseActivity() {
     override fun initViews() {
         homeworkId = intent.getStringExtra("homeworkId") ?: ""
         type = intent.getStringExtra("type") ?: ""
-        TeacherApi.correctWork(homeworkId, questionRequest)
+        TeacherApi.correctWork(homeworkId, type, questionRequest)
         nextQuestion.setOnClickListener {
             if (questionList == null || currentQuestionIndex >= questionList!!.size -1){
                 return@setOnClickListener
