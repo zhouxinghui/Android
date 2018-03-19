@@ -11,12 +11,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
 import ebag.hd.adapter.UnitAdapter
 import ebag.hd.base.BaseListTabActivity
 import ebag.hd.bean.EditionBean
 import ebag.hd.bean.UnitBean
+import ebag.hd.http.EBagApi
 
 /**
  * Created by unicho on 2018/3/9.
@@ -63,7 +63,7 @@ class ReviewActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
     }
 
     override fun requestData(requestCallBack: RequestCallBack<EditionBean>) {
-        StudentApi.getUint(classId, subCode, requestCallBack)
+        EBagApi.getUnit(classId, subCode, requestCallBack)
     }
 
     override fun parentToList(parent: EditionBean?): List<UnitBean>? {

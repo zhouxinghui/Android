@@ -390,6 +390,21 @@ object EBagApi {
         EBagApi.request(eBagService.getErrorDetail("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
+    /**
+     * 获取单元数据
+     */
+    fun getUnit(classId: String, subCode: String, callback: RequestCallBack<EditionBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("subCode", subCode)
+        EBagApi.request(eBagService.getUnit("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun getMyClasses(callback: RequestCallBack<List<BaseClassesBean>>){
+        val jsonObject = JSONObject()
+        EBagApi.request(eBagService.getMyClasses("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
     fun queryYBCurrent(page:Int,pageSize:Int,callback: RequestCallBack<YBCurrentBean>){
         val jsonObject = JSONObject()
         jsonObject.put("page",page)

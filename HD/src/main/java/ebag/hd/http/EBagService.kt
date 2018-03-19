@@ -98,7 +98,7 @@ interface EBagService {
     fun register(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<UserEntity>>
 
     /**
-     * 重置密码
+     * 检查用户是否存在
      */
     @Headers("EBag-Special-Url: special/url")
     @POST("user/checkUserIsExist/{version}")
@@ -200,6 +200,18 @@ interface EBagService {
      */
     @POST("homeWork/myErrorQuestion/{version}")
     fun getErrorDetail(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<TypeQuestionBean>>>
+
+    /**
+     * 获取单元数据
+     */
+    @POST("util/getBookVersionOrUnit/{version}")
+    fun getUnit(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<EditionBean>>
+
+    /**
+     * 获取用户的所有所在班级
+     */
+    @POST("clazz/queryAllClazzInfo/{version}")
+    fun getMyClasses(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<BaseClassesBean>>>
 
     /**
      *     检查版本更新
