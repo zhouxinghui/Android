@@ -73,6 +73,9 @@
         <activity android:name=".activity.ProtocolActivity"
             android:screenOrientation="landscape"
             />
+        <activity android:name=".activity.tools.LetterRecordActivity"
+            android:screenOrientation="landscape"
+            />
         <service
             android:name=".service.AIDLTestService"
             android:process=":countdown" />

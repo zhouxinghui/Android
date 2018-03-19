@@ -2,7 +2,6 @@ package com.yzy.ebag.student.http
 
 import com.yzy.ebag.student.bean.*
 import ebag.core.bean.ResponseBean
-import ebag.hd.bean.EditionBean
 import ebag.hd.bean.response.UserEntity
 import io.reactivex.Observable
 import okhttp3.RequestBody
@@ -42,12 +41,6 @@ interface StudentService {
      */
     @POST("clazz/queryMyClassInfo/{version}")
     fun clazzSpace(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<SpaceBean>>>
-
-    /**
-     * 获取单元数据
-     */
-    @POST("util/getBookVersionOrUnit/{version}")
-    fun getUint(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<EditionBean>>
 
     /**
      * 获取跟读列表

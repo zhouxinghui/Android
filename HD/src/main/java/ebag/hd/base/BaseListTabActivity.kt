@@ -16,7 +16,6 @@ import ebag.core.http.network.handleThrowable
 import ebag.hd.R
 import ebag.hd.widget.TitleBar
 import kotlinx.android.synthetic.main.activity_base_list_tab.*
-import java.util.*
 
 /**
  * Created by caoyu on 2018/1/13.
@@ -170,6 +169,23 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
             stateView.showEmpty()
         } else {
             stateView.showContent()
+            /*if (result[0] is UnitBean){
+                result as ArrayList<UnitBean>
+                result.forEach {
+                    val subList = it.resultBookUnitOrCatalogVos
+                    if (subList.isEmpty()){
+                        val subBean = AssignUnitBean.UnitSubBean()
+                        subBean.id = it.id
+                        subBean.code = it.code
+                        subBean.name = it.name
+                        subBean.bookVersionId = it.bookVersionId
+                        subBean.pid = it.pid
+                        subBean.unitCode = it.unitCode
+                        subBean.isUnit = true
+                        it.resultBookUnitOrCatalogVos.add(subBean)
+                    }
+                }
+            }*/
             mAdapter?.setNewData(result)
             val size = getViewPagerSize(mAdapter!!)
             viewPager.adapter = SectionsPagerAdapter(supportFragmentManager, arrayOfNulls(size))
@@ -204,6 +220,16 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
 
     protected fun setCurrentItem(index: Int){
         viewPager.setCurrentItem(index,false)
+    }
+
+    protected fun showLoading(){
+        stateView.showLoading()
+    }
+    protected fun showEmpty(str: String = "暂无数据"){
+        stateView.showEmpty(str)
+    }
+    protected fun showError(str: String = "网络异常，请稍后重试"){
+        stateView.showError(str)
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {}

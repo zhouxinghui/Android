@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSON
 import com.yzy.ebag.student.bean.*
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.L
-import ebag.hd.bean.EditionBean
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
 import ebag.hd.http.EBagClient
@@ -39,7 +38,7 @@ object StudentApi{
     fun mainInfo(classId: String, callback: RequestCallBack<ClassesInfoBean>){
         val jsonObj = JSONObject()
         jsonObj.put("classId",classId)
-        jsonObj.put("roleCode","student")
+        jsonObj.put("roleCode","1")
         EBagApi.request(studentService.mainInfo("v1", EBagApi.createBody(jsonObj)), callback)
     }
 
@@ -74,16 +73,6 @@ object StudentApi{
     fun clazzSpace(callback: RequestCallBack<List<SpaceBean>>){
         val jsonObject = JSONObject()
         EBagApi.request(studentService.clazzSpace("v1", EBagApi.createBody(jsonObject)), callback)
-    }
-
-    /**
-     * 获取单元数据
-     */
-    fun getUint(classId: String, subCode: String, callback: RequestCallBack<EditionBean>){
-        val jsonObject = JSONObject()
-        jsonObject.put("classId", classId)
-        jsonObject.put("subCode", subCode)
-        EBagApi.request(studentService.getUint("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
     /**
