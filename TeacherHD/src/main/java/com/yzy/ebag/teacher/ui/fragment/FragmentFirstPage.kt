@@ -23,13 +23,13 @@ import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.ui.activity.AssignmentActivity
 import com.yzy.ebag.teacher.ui.activity.CorrectingActivity
 import com.yzy.ebag.teacher.ui.activity.MyPrepareActivity
+import com.yzy.ebag.teacher.ui.activity.ZixiActivity
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.loadImage
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
-import ebag.hd.activity.tools.LetterRecordActivity
 import ebag.hd.ui.activity.BookListActivity
 import ebag.hd.util.checkUpdate
 import kotlinx.android.synthetic.main.fragment_first_page.*
@@ -92,7 +92,7 @@ class FragmentFirstPage : BaseFragment() {
             BookListActivity.jump(mContext)
         }
         zixi.setOnClickListener {
-            LetterRecordActivity.jump(mContext)
+            ZixiActivity.jump(mContext)
         }
 
         setTextStyle(classTest.text.toString(), classTest)

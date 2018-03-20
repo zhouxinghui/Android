@@ -133,6 +133,9 @@
         <activity android:name=".ui.activity.vnc.VNCSetActivity"
             android:screenOrientation="landscape"
             />
+        <activity android:name=".ui.activity.ZixiActivity"
+            android:screenOrientation="landscape"
+            />
         <!-- 友盟分享 -->
         <!-- 微信 -->
         <activity

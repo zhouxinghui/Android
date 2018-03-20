@@ -70,7 +70,7 @@ class LetterRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>()
     private var subCode = "yw"
     override fun loadConfig() {
         enableNetWork(false)
-        setTitleContent("学生生字默写")
+        setTitleContent("每日练字")
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x368))
 
         val view = layoutInflater.inflate(R.layout.layout_read_header,null)

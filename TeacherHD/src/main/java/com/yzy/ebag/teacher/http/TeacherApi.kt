@@ -346,7 +346,7 @@ object TeacherApi {
     /**
      * 添加所教课程-教材版本数据
      */
-    fun courseVersionData(classId: String, callback: RequestCallBack<List<BookVersionBean>>){
+    fun courseVersionData(classId: String, callback: RequestCallBack<AddCourseTextbookBean>){
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
         EBagApi.request(teacherService.courseVersionData("v1", EBagApi.createBody(jsonObject)), callback)

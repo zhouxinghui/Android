@@ -153,7 +153,7 @@ interface TeacherService {
      * 添加所教课程-教材版本数据
      */
     @POST("clazz/getPublishedByGrade/{version}")
-    fun courseVersionData(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<BookVersionBean>>>
+    fun courseVersionData(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<AddCourseTextbookBean>>
 
     /**
      * 老师添加班级所教科目

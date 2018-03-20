@@ -143,7 +143,7 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
         super.show()
     }
 
-    fun show(classId: String, gradeCode: String){
+    /*fun show(classId: String, gradeCode: String){
         this.gradeCode = gradeCode
         this.isAddCourse = true
         val idList = ArrayList<String>()
@@ -151,7 +151,7 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
         this.idList = idList
         TeacherApi.courseVersionData(idList[0], versionRequest)
         super.show()
-    }
+    }*/
 
     inner class GradeAdapter: RecyclerAdapter<BookVersionBean>(R.layout.item_textbook_grade){
         var selectPosition = -1

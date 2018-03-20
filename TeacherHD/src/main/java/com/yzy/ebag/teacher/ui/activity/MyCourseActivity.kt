@@ -11,7 +11,7 @@ import com.yzy.ebag.student.base.BaseListActivity
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.MyCourseBean
 import com.yzy.ebag.teacher.http.TeacherApi
-import com.yzy.ebag.teacher.widget.ExchangeTextbookDialog
+import com.yzy.ebag.teacher.widget.AddCourseDialog
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.DateUtil
 import ebag.core.util.loadImage
@@ -22,7 +22,7 @@ class MyCourseActivity : BaseListActivity<List<MyCourseBean>,MyCourseBean>() {
     private lateinit var classId: String
     private var gradeCode = "1"
     private val addCourseDialog by lazy {
-        val dialog = ExchangeTextbookDialog(this)
+        val dialog = AddCourseDialog(this)
         dialog.onAddCourseSuccess = {
             onRetryClick()
         }

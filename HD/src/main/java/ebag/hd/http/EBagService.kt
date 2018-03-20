@@ -232,6 +232,12 @@ interface EBagService {
     fun uploadReadScore(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /**
+     * 自习室-口语总览列表
+     */
+    @POST("/util/searchOralCount/{version}")
+    fun getReadRecord(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<ReadRecordBaseBean>>>
+
+    /**
      * 检查版本更新
      */
     @Headers("EBag-Special-Url: special/url")

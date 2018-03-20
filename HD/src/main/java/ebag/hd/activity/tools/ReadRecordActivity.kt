@@ -18,6 +18,7 @@ import ebag.hd.bean.BaseClassesBean
 import ebag.hd.bean.EditionBean
 import ebag.hd.bean.UnitBean
 import ebag.hd.http.EBagApi
+import ebag.hd.widget.ClazzListPopup
 
 /**
  * Created by unicho on 2018/3/13.
@@ -43,6 +44,8 @@ class ReadRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
                 return
             }
             classId = entity[0].classId
+            classesTv.text = entity[0].className
+            classes.addAll(entity)
             request()
         }
 
@@ -51,13 +54,25 @@ class ReadRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
         }
     }
 
+    private lateinit var classesTv: TextView
+    private val classesPopup by lazy {
+        val popupWindow = ClazzListPopup(this)
+        popupWindow.onClassSelectListener = {classBean ->
+            classesTv.text = classBean.className
+            classId = classBean.classId
+            request()
+        }
+        popupWindow
+    }
+    private val classes = ArrayList<BaseClassesBean>()
     private lateinit var tvMaterial: TextView
     private lateinit var classId: String
+    private lateinit var unitId: String
     private var subCode = "yy"
     override fun loadConfig() {
         enableNetWork(false)
         EBagApi.getMyClasses(classesRequest)
-        setTitleContent("学生英语口语")
+        setTitleContent("每日跟读")
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x368))
 
         val view = layoutInflater.inflate(R.layout.layout_read_header,null)
@@ -66,20 +81,15 @@ class ReadRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
 
         val radioGroup = view.findViewById<RadioGroup>(R.id.radioGroup)
         radioGroup.visibility = View.GONE
-        /*radioGroup.check(R.id.rbYy)
-        radioGroup.setOnCheckedChangeListener { group, checkedId ->
-            when(checkedId){
-                R.id.rbYw -> {// 语文
-                    subCode = "yw"
-                    request()
-                }
 
-                R.id.rbYy -> {// 英语
-                    subCode = "yy"
-                    request()
-                }
-            }
-        }*/
+        val subjectView = layoutInflater.inflate(R.layout.zixi_left_tv_head, null)
+        addLeftHeaderView(subjectView)
+        classesTv = subjectView.findViewById(R.id.clazzTv)
+        classesTv.setOnClickListener { //更换科目
+            classesPopup.setData(classes)
+            classesPopup.showAsDropDown(view, view.width, 0)
+        }
+
         addLeftHeaderView(view)
     }
 
@@ -117,11 +127,11 @@ class ReadRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
 
     private lateinit var fragment: ReadRecordFragment
     override fun getFragment(pagerIndex: Int, adapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>): Fragment {
-
         if(adapter.itemCount > 0){
-            val item = adapter.getItem(0)
+            val item = adapter.data[0]
             if(item is UnitBean)
-                fragment = ReadRecordFragment.newInstance()
+                unitId = item.resultBookUnitOrCatalogVos[0].unitCode
+            fragment = ReadRecordFragment.newInstance(unitId, classId)
             return fragment
         }
         fragment = ReadRecordFragment.newInstance()
@@ -144,8 +154,8 @@ class ReadRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
         }else{
             item as UnitBean.ChapterBean?
             (adapter as UnitAdapter).selectSub = item
-
-            fragment.update(item?.unitCode)
+            unitId = item?.unitCode!!
+            fragment.update(item?.unitCode, classId)
         }
     }
 }

@@ -448,6 +448,16 @@ object EBagApi {
 
     /*查询云币中心*/
 
+    /**
+     * 自习室-口语总览列表
+     */
+    fun getReadRecord(unitCode: String, classId: String, callback: RequestCallBack<List<ReadRecordBaseBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("unitCode", unitCode)
+        jsonObject.put("classId", classId)
+        EBagApi.request(eBagService.getReadRecord("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
     fun queryYBCurrent(page:Int,pageSize:Int,callback: RequestCallBack<YBCurrentBean>){
         val jsonObject = JSONObject()
         jsonObject.put("page",page)
