@@ -5,6 +5,10 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bac_review_selector"
+    android:layout_marginStart="@dimen/x10"
+    android:layout_marginEnd="@dimen/x10"
+    android:layout_marginTop="@dimen/y10"
+    android:layout_marginBottom="@dimen/y10"
     android:padding="@dimen/x24">
 
     <TextView

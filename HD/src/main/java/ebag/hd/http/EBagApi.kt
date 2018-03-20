@@ -19,6 +19,7 @@ import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
 
@@ -400,9 +401,49 @@ object EBagApi {
         EBagApi.request(eBagService.getUnit("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
+    /**
+     * 获取用户的所有所在班级
+     */
     fun getMyClasses(callback: RequestCallBack<List<BaseClassesBean>>){
         val jsonObject = JSONObject()
         EBagApi.request(eBagService.getMyClasses("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 自习室-生字总览列表
+     */
+    fun getLetterRecord(unitId: String, classId: String, callback: RequestCallBack<List<LetterRecordBaseBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("unitId", unitId)
+        jsonObject.put("classId", classId)
+        EBagApi.request(eBagService.getLetterRecord("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 自习室-生字详情
+     */
+    fun getLetterDesc(unitId: String, createDate: Long, classId: String, callback: RequestCallBack<LetterDescBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("unitId", unitId)
+        jsonObject.put("createDate", createDate)
+        jsonObject.put("classId", classId)
+        EBagApi.request(eBagService.getLetterDesc("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 自习室-上传生字评分
+     */
+    fun uploadReadScore(scoreList: ArrayList<LetterDescBean.NewWordsBean>, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        val jsonArray = JSONArray()
+        scoreList.forEach {
+            val jsonObj = JSONObject()
+            jsonObj.put("id", it.id)
+            jsonObj.put("score", it.score)
+            jsonArray.put(jsonObj)
+        }
+        jsonObject.put("wordrecordVoList", jsonArray)
+        EBagApi.request(eBagService.uploadReadScore("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
     fun queryYBCurrent(page:Int,pageSize:Int,callback: RequestCallBack<YBCurrentBean>){

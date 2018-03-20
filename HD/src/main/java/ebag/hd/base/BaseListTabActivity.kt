@@ -14,6 +14,7 @@ import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.hd.R
+import ebag.hd.bean.UnitBean
 import ebag.hd.widget.TitleBar
 import kotlinx.android.synthetic.main.activity_base_list_tab.*
 
@@ -169,12 +170,11 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
             stateView.showEmpty()
         } else {
             stateView.showContent()
-            /*if (result[0] is UnitBean){
-                result as ArrayList<UnitBean>
-                result.forEach {
+            if (result[0] is UnitBean){
+                (result as ArrayList<UnitBean>).forEach {
                     val subList = it.resultBookUnitOrCatalogVos
                     if (subList.isEmpty()){
-                        val subBean = AssignUnitBean.UnitSubBean()
+                        val subBean = UnitBean.ChapterBean()
                         subBean.id = it.id
                         subBean.code = it.code
                         subBean.name = it.name
@@ -185,7 +185,7 @@ abstract class BaseListTabActivity<Parent, E>: BaseActivity(),
                         it.resultBookUnitOrCatalogVos.add(subBean)
                     }
                 }
-            }*/
+            }
             mAdapter?.setNewData(result)
             val size = getViewPagerSize(mAdapter!!)
             viewPager.adapter = SectionsPagerAdapter(supportFragmentManager, arrayOfNulls(size))

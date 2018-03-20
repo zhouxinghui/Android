@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
+<ImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tvChar"
@@ -9,6 +9,7 @@
     android:layout_height="@dimen/x85"
     android:gravity="center"
     tools:text="画"
-    android:textSize="@dimen/x50"
-    android:textColor="#FD8F41"
+
     android:background="@drawable/bac_practise_zh_normal"/>
+<!--android:textSize="@dimen/x50"
+    android:textColor="#FD8F41"-->

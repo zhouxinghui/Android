@@ -92,6 +92,13 @@
         <activity android:name=".activity.tools.LetterRecordActivity"
             android:screenOrientation="landscape"
             />
+        <activity android:name=".activity.tools.ReadRecordActivity"
+            android:screenOrientation="landscape"
+            />
+        <activity android:name=".activity.tools.LetterRecordListActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
         <service
             android:name=".service.AIDLTestService"
             android:process=":countdown" />

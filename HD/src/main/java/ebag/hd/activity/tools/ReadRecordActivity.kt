@@ -14,8 +14,10 @@ import ebag.core.http.network.RequestCallBack
 import ebag.hd.R
 import ebag.hd.adapter.UnitAdapter
 import ebag.hd.base.BaseListTabActivity
+import ebag.hd.bean.BaseClassesBean
 import ebag.hd.bean.EditionBean
 import ebag.hd.bean.UnitBean
+import ebag.hd.http.EBagApi
 
 /**
  * Created by unicho on 2018/3/13.
@@ -23,11 +25,29 @@ import ebag.hd.bean.UnitBean
 class ReadRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
 
     companion object {
-        fun jump(context: Context, classId: String){
+        fun jump(context: Context){
             context.startActivity(
                     Intent(context, ReadRecordActivity::class.java)
-                            .putExtra("classId", classId)
             )
+        }
+    }
+
+    private val classesRequest = object : RequestCallBack<List<BaseClassesBean>>(){
+        override fun onStart() {
+            showLoading()
+        }
+
+        override fun onSuccess(entity: List<BaseClassesBean>?) {
+            if (entity == null || entity.isEmpty()){
+                showError("暂无班级信息失败")
+                return
+            }
+            classId = entity[0].classId
+            request()
+        }
+
+        override fun onError(exception: Throwable) {
+            showError(exception.message.toString())
         }
     }
 
@@ -35,7 +55,8 @@ class ReadRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
     private lateinit var classId: String
     private var subCode = "yy"
     override fun loadConfig() {
-        classId = intent.getStringExtra("classId") ?: ""
+        enableNetWork(false)
+        EBagApi.getMyClasses(classesRequest)
         setTitleContent("学生英语口语")
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x368))
 
@@ -44,7 +65,8 @@ class ReadRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
         tvMaterial.text = "这是教材名字"
 
         val radioGroup = view.findViewById<RadioGroup>(R.id.radioGroup)
-        radioGroup.check(R.id.rbYy)
+        radioGroup.visibility = View.GONE
+        /*radioGroup.check(R.id.rbYy)
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
             when(checkedId){
                 R.id.rbYw -> {// 语文
@@ -57,12 +79,12 @@ class ReadRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
                     request()
                 }
             }
-        }
+        }*/
         addLeftHeaderView(view)
     }
 
     override fun requestData(requestCallBack: RequestCallBack<EditionBean>) {
-//        StudentApi.getUint(classId, subCode, requestCallBack)
+        EBagApi.getUnit(classId, subCode, requestCallBack)
     }
 
     override fun parentToList(parent: EditionBean?): List<UnitBean>? {

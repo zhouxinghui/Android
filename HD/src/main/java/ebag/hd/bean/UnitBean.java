@@ -27,6 +27,15 @@ public class UnitBean implements
     private String pid;
     private String unitCode;
     private List<ChapterBean> resultBookUnitOrCatalogVos;
+    private boolean isUnit = true;
+
+    public boolean isUnit() {
+        return isUnit;
+    }
+
+    public void setUnit(boolean unit) {
+        isUnit = unit;
+    }
 
     public int getId() {
         return id;
@@ -139,6 +148,15 @@ public class UnitBean implements
         private String pid;
         private String unitCode;
         private List<ChapterBean> resultBookUnitOrCatalogVos;
+        private boolean isUnit;
+
+        public boolean isUnit() {
+            return isUnit;
+        }
+
+        public void setUnit(boolean unit) {
+            isUnit = unit;
+        }
 
         public int getId() {
             return id;
