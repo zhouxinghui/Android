@@ -11,6 +11,7 @@ import ebag.core.base.BaseFragment
 import ebag.core.util.SerializableUtils
 import ebag.core.util.T
 import ebag.core.util.loadHead
+import ebag.hd.activity.ShopActivity
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
 import kotlinx.android.synthetic.main.fragment_mine.*
@@ -58,7 +59,7 @@ class FragmentMine : BaseFragment(), View.OnClickListener {
                 startActivity(Intent(mContext, PersonalInfoActivity::class.java))
             }
             R.id.myShop ->{
-                T.show(mContext, "我的商城")
+                startActivity(Intent(mContext, ShopActivity::class.java))
             }
             R.id.operation ->{
                 T.show(mContext, "操作指南")

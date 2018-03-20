@@ -179,6 +179,11 @@
             android:screenOrientation="landscape"
             android:theme="@style/Theme.UMDefault" />
 
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"/>
+
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="599bd2c34544cb06cc000f95" />

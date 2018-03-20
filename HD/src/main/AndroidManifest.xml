@@ -99,6 +99,7 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden"
             />
+
         <service
             android:name=".service.AIDLTestService"
             android:process=":countdown" />

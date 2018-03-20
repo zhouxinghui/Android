@@ -275,6 +275,8 @@ interface EBagService {
     fun updateShopCar(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
     @POST("shop/createShopOrderNo/{version}")
     fun createShopOrderNo(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    @POST("shop/WXPay/{version}")
+    fun getPrepayid(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<WXPayBean>>
 
 
 }
