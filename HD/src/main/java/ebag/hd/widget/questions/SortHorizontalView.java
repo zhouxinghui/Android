@@ -77,6 +77,8 @@ public class SortHorizontalView extends BaseQuestionView {
             public void onItemClick(RecyclerViewHolder holder, View view, int position) {
                 if(active){
                     SortBean content = contentAdapter.getItem(position);
+                    if (content == null || StringUtils.INSTANCE.isEmpty(content.content))
+                        return;
                     contentAdapter.removeItem(content);
                     answerAdapter.addLastItem(content);
                     if(onDoingListener != null)
@@ -101,6 +103,8 @@ public class SortHorizontalView extends BaseQuestionView {
             public void onItemClick(RecyclerViewHolder holder, View view, int position) {
                 if(active){
                     SortBean content = answerAdapter.getItem(position);
+                    if (content == null || StringUtils.INSTANCE.isEmpty(content.content))
+                        return;
                     answerAdapter.removeItem(content);
                     contentAdapter.addLastItem(content);
                     if(onDoingListener != null)
@@ -208,9 +212,11 @@ public class SortHorizontalView extends BaseQuestionView {
     public String getAnswer() {
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < answerAdapter.getItemCount(); i++){
-            sb.append(answerAdapter.getItem(i).content);
-            if(i < answerAdapter.getItemCount() - 1)
-                sb.append(",");
+            if (answerAdapter.getItem(i) != null) {
+                sb.append(answerAdapter.getItem(i).content);
+                if (i < answerAdapter.getItemCount() - 1)
+                    sb.append(",");
+            }
         }
         return sb.toString();
     }
@@ -235,6 +241,8 @@ public class SortHorizontalView extends BaseQuestionView {
 
         @Override
         protected void fillData(RecyclerViewHolder setter, int position, SortBean entity) {
+            if (entity == null)
+                return;
             setter.setText(R.id.tvContent,entity.content);
             if(isAnswer){
                 setter.setTextColorRes(R.id.tvContent,R.color.white);
