@@ -25,6 +25,7 @@
         android:text="数"
         app:layout_constraintEnd_toEndOf="@id/img_head"
         app:layout_constraintBottom_toBottomOf="@id/img_head"
+        android:visibility="gone"
         />
     <TextView android:id="@+id/name_id"
         android:layout_width="wrap_content"
