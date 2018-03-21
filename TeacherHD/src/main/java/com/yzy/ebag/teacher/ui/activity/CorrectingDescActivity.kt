@@ -125,7 +125,9 @@ class CorrectingDescActivity : BaseActivity() {
         }
 
         answerAdapter.setOnItemChildClickListener { adapter, view, position ->
-            voicePlaySetting(view)
+            if (view.id == R.id.play_id) {
+                voicePlaySetting(view)
+            }
         }
     }
     private fun setAnswerDesc(){
@@ -317,7 +319,9 @@ class CorrectingDescActivity : BaseActivity() {
 
     inner class QuestionItemChildClickListener : OnItemChildClickListener {
         override fun onItemChildClick(holder: RecyclerViewHolder, view: View, position: Int) {
-            voicePlaySetting(view)
+            if (view.id == R.id.play_id) {
+                voicePlaySetting(view)
+            }
         }
     }
     private fun voicePlaySetting(view: View){
@@ -376,6 +380,7 @@ class CorrectingDescActivity : BaseActivity() {
             QuestionTypeUtils.QUESTIONS_COMPLETION_BY_VOICE,
             QuestionTypeUtils.QUESTIONS_COMPLETION->{
                 questionView = CompleteView(this)
+                questionView.setOnItemChildClickListener(questionClickListener)
             }
             QuestionTypeUtils.QUESTIONS_EN_ORDER_SENTENCE->{
                 questionView = SortHorizontalView(this)
