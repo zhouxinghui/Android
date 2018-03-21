@@ -132,7 +132,7 @@ abstract class BForgetActivity : MVPActivity(), CodeView, ForgetView {
             val account = phoneEdit.text.toString()
             if(account.length == 11 && StringUtils.isMobileNo(account)){//手机号
                 cPresenter.checkExist(account)
-            }else if(account.length == 7){//书包号  直接获取验证码
+            }else if(account.length >= 7){//书包号  直接获取验证码
                 cPresenter.getCode(account)
             }else{
                 T.show(this,"请输入正确的账号")
