@@ -28,14 +28,13 @@ import kotlinx.android.synthetic.main.activity_report_test.*
  * @description
  */
 class ReportTestActivity: BaseActivity() {
-
-
     companion object {
-        fun jump(context: Context, homeworkId: String, studentId: String = ""){
+        fun jump(context: Context, homeworkId: String, workType: String, studentId: String = ""){
             context.startActivity(
                     Intent(context, ReportTestActivity::class.java)
                             .putExtra("homeworkId", homeworkId)
                             .putExtra("studentId", studentId)
+                            .putExtra("workType", workType)
             )
         }
     }
@@ -44,10 +43,12 @@ class ReportTestActivity: BaseActivity() {
     }
 
     private lateinit var homeworkId: String
+    private var workType = ""
     private var studentId = ""
     override fun initViews() {
         homeworkId = intent.getStringExtra("homeworkId") ?: ""
         studentId = intent.getStringExtra("studentId") ?: ""
+        workType = intent.getStringExtra("workType") ?: ""
         showData()
     }
 
@@ -62,7 +63,7 @@ class ReportTestActivity: BaseActivity() {
             titleView.setTitle("作业报告")
         }
         titleView.setRightText("作业详情"){
-            DoHomeworkActivity.jump(this, homeworkId, Constants.REPORT_TYPE, studentId)
+            DoHomeworkActivity.jump(this, homeworkId, Constants.REPORT_TYPE, workType, studentId)
         }
 
         recyclerView.adapter = adapter

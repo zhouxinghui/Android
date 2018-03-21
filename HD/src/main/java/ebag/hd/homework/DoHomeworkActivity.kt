@@ -48,13 +48,15 @@ class DoHomeworkActivity: BaseActivity() {
 
     companion object {
         const val RESULT_CODE = 11
-        fun jump(context: Context, homeworkId: String, type: String, studentId: String? = null, testTime: Int = 0){
+        fun jump(context: Context, homeworkId: String, type: String, workType: String, studentId: String? = null, testTime: Int = 0){
             context.startActivity(
                     Intent(context , DoHomeworkActivity::class.java)
                             .putExtra("homeworkId", homeworkId)
                             .putExtra("type", type)
                             .putExtra("testTime", testTime)
-                            .putExtra("studentId", studentId))
+                            .putExtra("studentId", studentId)
+                            .putExtra("workType", workType)
+            )
         }
 
         fun jumpForResult(context: Activity, homeworkId: String, type: String, requestCode: Int){
@@ -74,6 +76,7 @@ class DoHomeworkActivity: BaseActivity() {
     private lateinit var homeworkId: String
     private lateinit var uid: String
     private lateinit var type: String
+    private var workType = ""
     private var testTime = 45
     private var studentId = ""
     private val mParticipateCallback = object : IParticipateCallback.Stub() {
@@ -121,6 +124,7 @@ class DoHomeworkActivity: BaseActivity() {
         uid = userEntity.uid
         homeworkId = intent.getStringExtra("homeworkId") ?: ""
         type = intent.getStringExtra("type") ?: ""
+        workType = intent.getStringExtra("workType") ?: ""
         studentId = intent.getStringExtra("studentId") ?: ""
         testTime = intent.getIntExtra("testTime",0)
 
@@ -325,12 +329,12 @@ class DoHomeworkActivity: BaseActivity() {
             T.show(this@DoHomeworkActivity, "提交成功")
             when(type){
                 Constants.STZY_TYPE -> {
-                    ReportClassActivity.jump(this@DoHomeworkActivity, homeworkId)
+                    ReportClassActivity.jump(this@DoHomeworkActivity, homeworkId, workType)
                     finish()
                 }
                 Constants.KHZY_TYPE,
                 Constants.KSSJ_TYPE -> {
-                    ReportTestActivity.jump(this@DoHomeworkActivity, homeworkId)
+                    ReportTestActivity.jump(this@DoHomeworkActivity, homeworkId, workType)
                     finish()
                 }
                 Constants.ERROR_TOPIC_TYPE -> {
@@ -426,7 +430,7 @@ class DoHomeworkActivity: BaseActivity() {
      * 获取作业详情
      */
     private fun getHomeworkDetail(){
-        EBagApi.getQuestions(homeworkId, type, studentId, detailRequest)
+        EBagApi.getQuestions(homeworkId, workType, studentId, detailRequest)
     }
 
     /**

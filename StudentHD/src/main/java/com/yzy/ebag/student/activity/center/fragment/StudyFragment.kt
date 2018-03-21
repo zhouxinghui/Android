@@ -158,10 +158,11 @@ class StudyFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInf
             DoHomeworkActivity.jump(
                     mContext,
                     adapter.getItem(position)?.id ?: "",
+                    com.yzy.ebag.student.base.Constants.PARENT_TYPE,
                     com.yzy.ebag.student.base.Constants.PARENT_TYPE
             )
         }else{
-            ReportClassActivity.jump(mContext, adapter.getItem(position)?.id ?: "")
+            ReportClassActivity.jump(mContext, adapter.getItem(position)?.id ?: "", com.yzy.ebag.student.base.Constants.PARENT_TYPE)
         }
     }
 

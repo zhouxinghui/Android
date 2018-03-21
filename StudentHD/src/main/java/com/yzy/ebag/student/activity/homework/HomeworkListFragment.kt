@@ -37,7 +37,7 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
                 .setMessage("你即将进行一场考试，在考试完成前（时间到达或完成全部题目）将不能退出！！")
                 .setPositiveButton("现在开始"){ dialog, which ->
                     val bean = adapter.getItem(currentClickIndex)
-                    DoHomeworkActivity.jump(mContext, bean?.id ?: "", type, null, bean?.endTime!!.toInt())
+                    DoHomeworkActivity.jump(mContext, bean?.id ?: "", type, type, null, bean?.endTime!!.toInt())
                 }.setNegativeButton("稍后再做",null)
                 .create()
     }
@@ -95,16 +95,16 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
                 currentClickIndex = position
                 testDialog.show()
             }else {
-                DoHomeworkActivity.jump(mContext, adapter.getItem(position)?.id ?: "", type)
+                DoHomeworkActivity.jump(mContext, adapter.getItem(position)?.id ?: "", type, type)
             }
         } else{
             when(type){
                 com.yzy.ebag.student.base.Constants.STZY_TYPE -> {
-                    ReportClassActivity.jump(mContext, adapter.getItem(position)?.id ?: "")
+                    ReportClassActivity.jump(mContext, adapter.getItem(position)?.id ?: "", type)
                 }
                 com.yzy.ebag.student.base.Constants.KHZY_TYPE,
                 com.yzy.ebag.student.base.Constants.KSSJ_TYPE -> {
-                    ReportTestActivity.jump(mContext, adapter.getItem(position)?.id ?: "")
+                    ReportTestActivity.jump(mContext, adapter.getItem(position)?.id ?: "", type)
                 }
             }
         }
