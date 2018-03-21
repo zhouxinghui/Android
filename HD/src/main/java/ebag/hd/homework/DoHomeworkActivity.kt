@@ -131,6 +131,7 @@ class DoHomeworkActivity: BaseActivity() {
         if(type == Constants.KSSJ_TYPE){
             val intent = Intent(this, AIDLTestService::class.java)
             bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE)
+            titleBar.hiddenTitleLeftButton()
         }
 
         initQuestion()
@@ -498,6 +499,14 @@ class DoHomeworkActivity: BaseActivity() {
         if (voicePlayer.isPlaying && !voicePlayer.isPause) {
             voicePlayer.pause()
             anim!!.stop()
+        }
+    }
+
+    override fun onBackPressed() {
+        if (type == Constants.KSSJ_TYPE){
+            T.show(this, "考试中不能直接点击返回键退出")
+        }else {
+            super.onBackPressed()
         }
     }
     //----------------------------------录音相关
