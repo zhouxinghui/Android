@@ -99,7 +99,9 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden"
             />
-
+        <activity android:name=".activity.tools.ReadRecordListActivity"
+            android:screenOrientation="landscape"
+            />
         <service
             android:name=".service.AIDLTestService"
             android:process=":countdown" />

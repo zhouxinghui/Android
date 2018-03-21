@@ -244,8 +244,17 @@ interface EBagService {
     @POST("user/MobileAPPVersion/{version}")
     fun checkUpdate(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<VersionUpdateBean>>
 
+    /**
+     * 课本目录
+     */
     @POST("book/myBookChapter/{version}")
     fun bookCategory(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<BookCategoryBean>>
+
+    /**
+     * 获取跟读列表里头的每个句子的详情
+     */
+    @POST("util/getOralLanguageDetail/{version}")
+    fun getReadDetailList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<ReadRecordVoiceBean>>>
 
     //TODO 接口名称，注意替换
     /**

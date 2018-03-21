@@ -458,6 +458,13 @@ object EBagApi {
         EBagApi.request(eBagService.getReadRecord("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
+    /**获取跟读详情里头 句子的详情*/
+    fun getReadDetailList(languageId: String, callback: RequestCallBack<List<ReadRecordVoiceBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("languageId", languageId)
+        EBagApi.request(eBagService.getReadDetailList("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
     fun queryYBCurrent(page:Int,pageSize:Int,callback: RequestCallBack<YBCurrentBean>){
         val jsonObject = JSONObject()
         jsonObject.put("page",page)
@@ -465,7 +472,7 @@ object EBagApi {
         EBagApi.request(eBagService.queryYBCurrent("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    /*查询云币交易记录*/
+    /**查询云币交易记录*/
 
     fun queryYB(page:Int,pageSize:Int,type:String,callback: RequestCallBack<YBCurrentBean>){
         val jsonObject = JSONObject()
@@ -475,20 +482,20 @@ object EBagApi {
         EBagApi.request(eBagService.queryYBCurrent("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    /*查询用户地址*/
+    /**查询用户地址*/
     fun queryAddress(callback: RequestCallBack<MutableList<AddressListBean>>){
         val jsonObject = JSONObject()
         EBagApi.request(eBagService.queryAddress("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    /*删除地址*/
+    /**删除地址*/
     fun deleteAddress(id:String,callback: RequestCallBack<String>){
         val jsonObject = JSONObject()
         jsonObject.put("id",id)
         EBagApi.request(eBagService.deleteAddress("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    /*新增地址*/
+    /**新增地址*/
     fun saveAddress(consignee:String,phone:String,preAddress:String,address:String,callback: RequestCallBack<String>){
         val jsonObject = JSONObject()
         jsonObject.put("consignee",consignee)
@@ -498,7 +505,7 @@ object EBagApi {
         EBagApi.request(eBagService.saveAddress("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    /*更新地址*/
+    /**更新地址*/
     fun updateAddress(id:String,consignee:String,phone:String,preAddress:String,address:String,callback: RequestCallBack<String>){
         val jsonObject = JSONObject()
         jsonObject.put("consignee",consignee)
@@ -509,13 +516,13 @@ object EBagApi {
         EBagApi.request(eBagService.updateAddress("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    /*查询订单*/
+    /**查询订单*/
     fun queryOrder(callback: RequestCallBack<QueryOrderBean>){
         val jsonObject = JSONObject()
         EBagApi.request(eBagService.queryOrder("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    /*查询商店商品列表*/
+    /**查询商店商品列表*/
     fun getShopList(page:Int,callback: RequestCallBack<ShopListBean>){
         val jsonObject = JSONObject()
         jsonObject.put("page",page)
@@ -523,13 +530,13 @@ object EBagApi {
         EBagApi.request(eBagService.getShopList("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    /*查询购物车*/
+    /**查询购物车*/
     fun queryShopCar(callback: RequestCallBack<MutableList<ShopListBean.ListBean>>){
         val jsonObject = JSONObject()
         EBagApi.request(eBagService.queryShopCar("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    /*添加商品到购物车*/
+    /**添加商品到购物车*/
     fun addGoods2Car(id:String,count:String,callback: RequestCallBack<String>){
         val jsonObject = JSONObject()
         jsonObject.put("id",id)
@@ -537,14 +544,14 @@ object EBagApi {
         EBagApi.request(eBagService.addGoods2Car("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    /*商品详情信息*/
+    /**商品详情信息*/
     fun shopDetails(id:String,callback: RequestCallBack<GoodsDetailsBean>){
         val jsonObject = JSONObject()
         jsonObject.put("id",id)
         EBagApi.request(eBagService.shopDeatils("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    /*更新购物车*/
+    /**更新购物车*/
     fun updateShopCar(numbers:String,id:String,callback: RequestCallBack<String>){
         val jsonObject = JSONObject()
         jsonObject.put("id",id)
@@ -552,13 +559,13 @@ object EBagApi {
         EBagApi.request(eBagService.updateShopCar("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    /*获取订单编号*/
+    /**获取订单编号*/
     fun createShopOrderNo(callback: RequestCallBack<String>){
         val jsonObject = JSONObject()
         EBagApi.request(eBagService.createShopOrderNo("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    /*微信支付请求*/
+    /**微信支付请求*/
     fun getPrepayid(id:String,price:String,callback: RequestCallBack<WXPayBean>){
         val jsonObject = JSONObject()
         jsonObject.put("oid",id)

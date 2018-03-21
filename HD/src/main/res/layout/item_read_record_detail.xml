@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/x24"
+    >
+    <ImageView android:id="@+id/img_id"
+        android:layout_width="@dimen/x80"
+        android:layout_height="@dimen/x80"
+        tools:src="@drawable/head_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <TextView
+        android:id="@+id/nameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/x24"
+        android:textColor="#3a3a3a"
+        android:lineSpacingExtra="@dimen/x10"
+        tools:text="默写生字:阿丶西丶吧"
+        app:layout_constraintStart_toEndOf="@id/img_id"
+        app:layout_constraintBottom_toBottomOf="@id/img_id"
+        android:layout_marginStart="@dimen/x20"
+        />
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x15"
+        android:textColor="#9b9b9b"
+        android:textSize="@dimen/x20"
+        tools:text="2017-12-24 12:33"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <include layout="@layout/question_head_voice"
+        android:layout_width="@dimen/x350"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/img_id"
+        android:layout_marginTop="@dimen/x10"
+        />
+</android.support.constraint.ConstraintLayout>

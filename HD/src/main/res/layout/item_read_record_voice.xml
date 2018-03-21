@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bac_read_load_selector"
+    android:paddingTop="@dimen/x30"
+    android:paddingBottom="@dimen/x30"
+    android:paddingStart="@dimen/x20"
+    android:paddingEnd="@dimen/x20">
+
+    <TextView
+        android:id="@+id/tvFirst"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="@dimen/x28"
+        android:textColor="@color/read_load_text_selector"
+        tools:text="This is my classmate"/>
+
+    <TextView
+        android:id="@+id/tvSecond"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvFirst"
+        android:layout_marginTop="@dimen/x10"
+        android:textSize="@dimen/x28"
+        android:textColor="#3a3a3a"
+        tools:text="这是我的同班同学"/>
+
+    <include layout="@layout/question_head_voice"
+        android:layout_width="@dimen/x350"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvSecond"
+        android:layout_marginTop="@dimen/x10"
+        />
+</android.support.constraint.ConstraintLayout>

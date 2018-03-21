@@ -3,6 +3,7 @@ package ebag.hd.activity.tools
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import ebag.core.base.BaseListFragment
@@ -70,6 +71,11 @@ class ReadRecordFragment : BaseListFragment<List<ReadRecordBaseBean>, ReadRecord
 
     override fun getLayoutManager(adapter: BaseQuickAdapter<ReadRecordBaseBean, BaseViewHolder>): RecyclerView.LayoutManager? {
         return GridLayoutManager(mContext, 2)
+    }
+
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+        adapter as Adapter
+        ReadRecordListActivity.jump(adapter.data[position].languageId, classId, adapter.data[position].dateTime, mContext)
     }
 
     inner class Adapter: BaseQuickAdapter<ReadRecordBaseBean, BaseViewHolder>(R.layout.item_tools_record_history){
