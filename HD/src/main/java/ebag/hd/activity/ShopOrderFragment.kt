@@ -20,8 +20,10 @@ import kotlinx.android.synthetic.main.fragment_shoporder.*
  */
 class ShopOrderFragment : BaseFragment() {
     private var index: Int = 0
-    private var mData:ArrayList<QueryOrderBean.ResultOrderVosBean> = arrayListOf()
-    //private lateinit var stateView: StateView
+    private var mData: ArrayList<QueryOrderBean.ResultOrderVosBean> = arrayListOf()
+    private lateinit var stateView: StateView
+    private var flag = false
+    private var isLoaded = false
 
     companion object {
         fun newInstance(pageIndex: Int): ShopOrderFragment {
@@ -40,28 +42,37 @@ class ShopOrderFragment : BaseFragment() {
     }
 
     override fun initViews(rootView: View) {
-        //rootView.findViewById<StateView>(R.id.shoporder_stateview)
+        stateView = rootView.findViewById(R.id.shoporder_stateview)
         shoporder_recyclerview.layoutManager = LinearLayoutManager(activity)
-        val adapter = OrderListAdapter(activity,R.layout.item_my_order, mData)
+        val adapter = OrderListAdapter(activity, R.layout.item_my_order, mData)
         shoporder_recyclerview.adapter = adapter
         shoporder_recyclerview.addItemDecoration(ebag.core.xRecyclerView.manager.DividerItemDecoration(DividerItemDecoration.VERTICAL, 1, Color.parseColor("#e0e0e0")))
         //adapter.setOnItemClickListener { adapter, view, position -> startActivity(Intent(activity, OrderDetailsActivity::class.java)) }
-
+        flag = true
+        if (index == 0 && !isLoaded){
+            request()
+        }
 
     }
 
-    private fun request(){
-        EBagApi.queryOrder(index.toString(),object: RequestCallBack<QueryOrderBean>(){
+    private fun request() {
+        EBagApi.queryOrder(index.toString(), object : RequestCallBack<QueryOrderBean>() {
             override fun onStart() {
-                shoporder_stateview.showLoading()
+                stateView.showLoading()
             }
+
             override fun onSuccess(entity: QueryOrderBean?) {
-                mData.addAll(entity!!.resultOrderVos)
-                shoporder_stateview.showContent()
+                if (entity?.resultOrderVos!!.size == 0) {
+                    stateView.showEmpty()
+                } else {
+                    mData.addAll(entity!!.resultOrderVos)
+                    stateView.showContent()
+                }
+                isLoaded = true
             }
 
             override fun onError(exception: Throwable) {
-                shoporder_stateview.showError()
+                stateView.showError()
                 exception.handleThrowable(activity)
             }
 
@@ -69,11 +80,15 @@ class ShopOrderFragment : BaseFragment() {
         })
     }
 
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser) {
+            if (flag and !isLoaded) {
+                request()
+            }
+        } else {
 
-
-    override fun onVisiable() {
-        super.onVisiable()
-        request()
+        }
     }
 
 

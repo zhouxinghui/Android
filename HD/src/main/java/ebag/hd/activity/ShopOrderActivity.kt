@@ -38,7 +38,7 @@ class ShopOrderActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_myorder
 
     override fun initViews() {
-
+        initFragmentList()
         request()
 
     }
@@ -56,7 +56,6 @@ class ShopOrderActivity : BaseActivity() {
                 badgeCountList.add(entity.statusCount!!.status_2)
                 badgeCountList.add(entity.statusCount!!.status_3)
                 tab_layout_id.post { setIndicator(tab_layout_id, 80, 80) }
-                initFragmentList()
                 viewPagerAdapter = ViewPagerAdapter(supportFragmentManager, fragmentList, titleList)
                 view_pager.adapter = viewPagerAdapter
                 view_pager.offscreenPageLimit = 3
