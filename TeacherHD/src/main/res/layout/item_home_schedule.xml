@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="语文"
+        tools:text="语文"
         android:textColor="@color/white"
         android:textSize="@dimen/x20"
         tools:textColor="#000000"

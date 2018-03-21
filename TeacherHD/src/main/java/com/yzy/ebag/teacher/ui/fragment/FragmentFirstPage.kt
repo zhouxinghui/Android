@@ -142,6 +142,8 @@ class FragmentFirstPage : BaseFragment() {
             progressBar.max = total
             progressBar.progress = current
 
+            setter.setText(R.id.subjectTv, entity.subject)
+
             val name = entity.className
             setWorkTextStyle(entity.homeWorkCompleteCount, entity.studentHomeWorkCount, name, classTv)
         }
