@@ -105,7 +105,7 @@ class EditAddressActivity : BaseActivity() {
             if (position == 2) {
                 val cityPick = CityPickerDialog(this)
                 cityPick.onConfirmClick = { currentCityBean ->
-                    datas[2] = EditAddressModel("省市区:", "${currentCityBean.cityName}  ${if (currentCityBean.countyName.isNullOrEmpty()) "" else currentCityBean.countyName}  ${if (currentCityBean.provinceName.isNullOrEmpty()) "" else currentCityBean.provinceName}")
+                    datas[2] = EditAddressModel("省市区:", "${currentCityBean.provinceName}  ${if (currentCityBean.countyName.isNullOrEmpty()) "" else currentCityBean.countyName}  ${if (currentCityBean.cityName.isNullOrEmpty()) "" else currentCityBean.cityName}")
                     mAdapter.notifyItemChanged(2)
                     //T.show(this,"haha")
                 }

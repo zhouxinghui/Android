@@ -1,6 +1,7 @@
 package ebag.hd.activity
 
 import android.content.Intent
+import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import ebag.core.base.BaseActivity
@@ -12,6 +13,7 @@ import ebag.hd.adapter.ShopAdapter
 import ebag.hd.bean.ShopListBean
 import ebag.hd.http.EBagApi
 import ebag.hd.ui.view.GridSpacingItemDecoration
+import ebag.hd.util.ActivityUtils
 import kotlinx.android.synthetic.main.activity_shop.*
 
 /**
@@ -24,6 +26,10 @@ class ShopActivity : BaseActivity() {
     private val mData: MutableList<ShopListBean.ListBean> = mutableListOf()
     private var carCount: Int = 0
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        ActivityUtils.addActivity(this)
+    }
     override fun getLayoutId(): Int = R.layout.activity_shop
 
     override fun initViews() {

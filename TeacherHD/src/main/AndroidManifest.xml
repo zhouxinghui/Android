@@ -23,7 +23,6 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
 
-
     <!-- Optional for location -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -124,15 +123,15 @@
         <activity
             android:name=".ui.activity.BindingActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.activity.MyPrepareActivity"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".ui.activity.ClassPerformanceActivity"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".ui.activity.vnc.VNCSetActivity"
-            android:screenOrientation="landscape"
-            />
+        <activity
+            android:name=".ui.activity.MyPrepareActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.ClassPerformanceActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.activity.vnc.VNCSetActivity"
+            android:screenOrientation="landscape" />
         <activity android:name=".ui.activity.ZixiActivity"
             android:screenOrientation="landscape"
             />
@@ -185,7 +184,26 @@
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.activity.YBCenterActivity"
+            android:screenOrientation="landscape" />
+
+        <!-- 支付宝 -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
 
         <meta-data
             android:name="UMENG_APPKEY"
@@ -193,8 +211,8 @@
 
         <receiver
             android:name=".jpush.MyReceiver"
-            android:exported="false"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
                 <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->
@@ -209,7 +227,7 @@
         <receiver android:name=".jpush.MyJPushMessageReceiver">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
-                <category android:name="com.yzy.ebag.teacher"/>
+                <category android:name="com.yzy.ebag.teacher" />
             </intent-filter>
         </receiver>
     </application>

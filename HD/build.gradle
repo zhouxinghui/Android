@@ -34,5 +34,7 @@ dependencies {
     compile project(':core')
     compile 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.7'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    implementation files('libs/alipaySdk-20180316.jar')
+    compile 'com.google.code.gson:gson:2.8.2'
 
 }

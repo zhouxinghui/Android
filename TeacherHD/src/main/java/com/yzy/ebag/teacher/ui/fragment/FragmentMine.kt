@@ -7,6 +7,7 @@ import android.view.View
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.ui.activity.PersonalInfoActivity
 import com.yzy.ebag.teacher.ui.activity.SettingActivity
+import com.yzy.ebag.teacher.ui.activity.YBCenterActivity
 import ebag.core.base.BaseFragment
 import ebag.core.util.SerializableUtils
 import ebag.core.util.T
@@ -59,7 +60,7 @@ class FragmentMine : BaseFragment(), View.OnClickListener {
                 startActivity(Intent(mContext, PersonalInfoActivity::class.java))
             }
             R.id.myShop ->{
-                startActivity(Intent(mContext, ShopActivity::class.java))
+                startActivity(Intent(mContext, YBCenterActivity::class.java))
             }
             R.id.operation ->{
                 T.show(mContext, "操作指南")

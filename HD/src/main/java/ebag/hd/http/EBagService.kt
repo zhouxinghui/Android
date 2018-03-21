@@ -292,6 +292,13 @@ interface EBagService {
     fun createShopOrderNo(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
     @POST("shop/WXPay/{version}")
     fun getPrepayid(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<WXPayBean>>
+    /*保存订单*/
+    @POST("shop/saveOrder/{version}")
+    fun saveOrder(@Path("version") version: String,@Body requestBody: RequestBody): Observable<ResponseBean<String>>
+    /*支付宝*/
+    @POST("shop/AliPay/{version}")
+    fun getAiliPrepayid(@Path("version") version: String,@Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
 
 
 }

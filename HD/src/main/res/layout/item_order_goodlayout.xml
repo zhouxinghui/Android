@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:paddingBottom="10dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="10dp">
+
+    <ImageView
+        android:id="@+id/img_id"
+        android:layout_width="150dp"
+        android:layout_height="120dp"
+        android:src="@drawable/ic_launcher" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/img_id"
+        android:layout_alignTop="@id/img_id"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/img_id"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/commodity_name_tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="Onda/昂达 V10 PRO"
+            android:textColor="#000"
+            android:textSize="@dimen/x16" />
+
+        <TextView
+            android:id="@+id/attribute_tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="颜色：黑色"
+            android:textColor="#A6A29B" />
+
+        <TextView
+            android:id="@+id/yun_coin_tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="Y币：19999"
+            android:textColor="#000"
+            android:textSize="@dimen/x13" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/price_tv_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="￥3688.00"
+        android:textColor="#FF1B0C"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/count_tv_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="X 1"
+        android:textColor="#A6A29B"
+        android:textSize="18sp" />
+</RelativeLayout>

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
 
     <ebag.hd.widget.TitleBar
         android:layout_width="match_parent"
         app:titleText="我的订单"
+        android:id="@+id/title"
         android:layout_height="wrap_content">
 
 
@@ -16,6 +17,7 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout_id"
         android:layout_width="match_parent"
+        android:layout_below="@+id/title"
         android:layout_height="80dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -28,6 +30,16 @@
         app:tabTextColor="@color/black" />
     <ebag.core.widget.empty.NoScrollViewPager
         android:id="@+id/view_pager"
+        android:layout_below="@+id/tab_layout_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-</LinearLayout>
+
+    <ebag.core.widget.empty.StateView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/stateView"
+        app:loadingLayout="@layout/base_loading"
+        app:errorLayout="@layout/base_error"
+        />
+
+</RelativeLayout>

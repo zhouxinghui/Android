@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import ebag.hd.R
 import ebag.hd.bean.GoodsDetailsBean
+import ebag.hd.bean.SaveOrderPBean
 
 /**
  * Created by fansan on 2018/3/19.

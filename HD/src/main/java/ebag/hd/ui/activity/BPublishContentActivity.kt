@@ -55,7 +55,7 @@ abstract class BPublishContentActivity: BaseActivity() {
                 commit(contentEdit.text.toString())
             else {
                 val fileName = System.currentTimeMillis().toString()
-                val url = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/$userId/$fileName"
+                val url = "${Constants.OSS_BASE_URL}/personal/$userId/$fileName"
                 OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(imgAdapter.getItem(0)), "personal/$userId", fileName, myHandler)
                 sb.append("$url,")
             }

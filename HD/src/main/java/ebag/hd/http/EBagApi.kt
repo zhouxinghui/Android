@@ -520,8 +520,9 @@ object EBagApi {
     }
 
     /**查询订单*/
-    fun queryOrder(callback: RequestCallBack<QueryOrderBean>){
+    fun queryOrder(status:String,callback: RequestCallBack<QueryOrderBean>){
         val jsonObject = JSONObject()
+        jsonObject.put("staus",status)
         EBagApi.request(eBagService.queryOrder("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
@@ -574,5 +575,31 @@ object EBagApi {
         jsonObject.put("oid",id)
         jsonObject.put("allPrice",price)
         EBagApi.request(eBagService.getPrepayid("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /*保存订单*/
+    fun saveOrder(addressId:String,price:String,allPrice:String,list:ArrayList<SaveOrderPBean.ListBean>,oid:String,callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("addressId",addressId)
+        jsonObject.put("price",price)
+        jsonObject.put("allPrice",allPrice)
+        val array = JSONArray()
+        list.forEach{
+            val json= JSONObject()
+            json.put("ShopId",it.ShopId)
+            json.put("Numbers",it.numbers)
+            array.put(json)
+        }
+        jsonObject.put("requestOrderVos",array)
+        jsonObject.put("oid",oid)
+        EBagApi.request(eBagService.saveOrder("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /*支付宝*/
+    fun getAiliPrepayid(oid:String,allPrice:String,callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("oid",oid)
+        jsonObject.put("allPrice",allPrice)
+        EBagApi.request(eBagService.getAiliPrepayid("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

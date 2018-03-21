@@ -3,9 +3,9 @@ package ebag.hd.activity
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Paint
+import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.view.Gravity
 import android.view.View
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
@@ -16,8 +16,10 @@ import ebag.core.util.T
 import ebag.hd.R
 import ebag.hd.adapter.GoodsParamAdapter
 import ebag.hd.bean.GoodsDetailsBean
+import ebag.hd.bean.SaveOrderPBean
 import ebag.hd.bean.ShopListBean
 import ebag.hd.http.EBagApi
+import ebag.hd.util.ActivityUtils
 import ebag.hd.util.GlideImageLoader
 import kotlinx.android.synthetic.main.activity_goods_details.*
 
@@ -34,6 +36,11 @@ class GoodsDetailActivity:BaseActivity(){
     private var data:MutableList<GoodsDetailsBean.ProductParametersVoBean.ResultGruopVOSBean> = mutableListOf()
     private lateinit var mAdapter:GoodsParamAdapter
     private var bannerList:MutableList<String> = mutableListOf()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        ActivityUtils.addActivity(this)
+    }
     override fun initViews() {
 
         id = intent.getStringExtra("id")
@@ -61,6 +68,7 @@ class GoodsDetailActivity:BaseActivity(){
             data.discountPrice = bean.discountPrice
             data.ysbMoney = bean.ysbMoney
             data.numbers = 1
+            data.imgUrls = bean.imgUrls
             val datas:ArrayList<ShopListBean.ListBean> = arrayListOf()
             datas.add(data)
             _intent = Intent(this,OrderDetailsActivity::class.java)

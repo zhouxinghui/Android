@@ -1,6 +1,7 @@
 package ebag.hd.activity
 
 import android.graphics.Color
+import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.text.SpannableString
@@ -16,6 +17,7 @@ import ebag.hd.adapter.YBCenterAdapter
 import ebag.hd.mvp.contract.YBCenterContract
 import ebag.hd.mvp.model.YBCenterModel
 import ebag.hd.mvp.presenter.YBCenterPresenter
+import ebag.hd.util.ActivityUtils
 import kotlinx.android.synthetic.main.activity_ybcenter.*
 
 /**
@@ -175,6 +177,11 @@ class YBCenterActivity : BaseActivity(),YBCenterContract.View,RadioGroup.OnCheck
 
     override fun loadmoreEnd() {
         mAdapter.loadMoreEnd()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        ActivityUtils.addActivity(this)
     }
 
 

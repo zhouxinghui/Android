@@ -38,35 +38,48 @@ class ShopOrderActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_myorder
 
     override fun initViews() {
-        tab_layout_id.post { setIndicator(tab_layout_id, 80, 80) }
-        initFragmentList()
-        viewPagerAdapter = ViewPagerAdapter(supportFragmentManager, fragmentList, titleList)
-        view_pager.adapter = viewPagerAdapter
-        tab_layout_id.setupWithViewPager(view_pager)
-        for (i in 0..tab_layout_id.tabCount) {
-            val tab = tab_layout_id.getTabAt(i) ?: return
-            if (i >= pics.size) {
-                tab.setIcon(pics[0])
-                return
-            }
-            tab.setIcon(pics[i])
-        }
-        setUpTabBadge()
 
-        //todo
-        /*EBagApi.queryOrder(object:RequestCallBack<QueryOrderBean>(){
+        request()
+
+    }
+
+    private fun request() {
+
+        EBagApi.queryOrder("1",object:RequestCallBack<QueryOrderBean>(){
+            override fun onStart() {
+                super.onStart()
+                stateView.showLoading()
+            }
             override fun onSuccess(entity: QueryOrderBean?) {
-                badgeCountList.add(entity?.statusCount!!.status_0)
-                badgeCountList.add(entity.statusCount!!.status_1)
+                badgeCountList.add(0)
+                badgeCountList.add(entity?.statusCount!!.status_1)
                 badgeCountList.add(entity.statusCount!!.status_2)
                 badgeCountList.add(entity.statusCount!!.status_3)
+                tab_layout_id.post { setIndicator(tab_layout_id, 80, 80) }
+                initFragmentList()
+                viewPagerAdapter = ViewPagerAdapter(supportFragmentManager, fragmentList, titleList)
+                view_pager.adapter = viewPagerAdapter
+                view_pager.offscreenPageLimit = 3
+                tab_layout_id.setupWithViewPager(view_pager)
+                for (i in 0 until tab_layout_id.tabCount) {
+                    val tab = tab_layout_id.getTabAt(i) ?: return
+                    if (i >= pics.size) {
+                        tab.setIcon(pics[0])
+                        return
+                    }
+                    tab.setIcon(pics[i])
+                }
+
+                setUpTabBadge()
+                stateView.showContent()
             }
 
             override fun onError(exception: Throwable) {
                 exception.handleThrowable(this@ShopOrderActivity)
+                stateView.showError()
             }
 
-        })*/
+        })
     }
 
     private fun initFragmentList() {
