@@ -59,6 +59,7 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
         }
     }
     override fun loadConfig(intent: Intent) {
+        loadMoreEnabled(false)
         homeworkId = intent.getStringExtra("homeworkId")
         type = intent.getStringExtra("type")
     }

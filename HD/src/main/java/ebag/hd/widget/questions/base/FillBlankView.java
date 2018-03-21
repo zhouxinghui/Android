@@ -329,7 +329,7 @@ public class FillBlankView extends FrameLayout {
             sb.append(answerList.get(i).trim()).append(regex);
         }
         L.INSTANCE.e("Completion","getAnswer"+sb.toString());
-        return sb.toString();
+        return sb.toString().substring(0, sb.length() - regex.length());
     }
 
     /**
