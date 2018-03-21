@@ -124,7 +124,7 @@ class ReportTestActivity: BaseActivity() {
     }
 
     private fun getReport(){
-        EBagApi.homeworkReport(homeworkId, reportRequest)
+        EBagApi.homeworkReport(homeworkId, studentId, reportRequest)
     }
     inner class Adapter: BaseQuickAdapter<ReportBean.ReportDetailBean, BaseViewHolder>(R.layout.item_activity_report_test){
 
