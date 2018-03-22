@@ -238,6 +238,12 @@ interface EBagService {
     fun getReadRecord(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<ReadRecordBaseBean>>>
 
     /**
+     * 自习-口语学生作答详情
+     */
+    @POST("/util/searchOralRecord/{version}")
+    fun getReadRecordDesc(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<ReadRecordAnswerBean>>>
+
+    /**
      * 检查版本更新
      */
     @Headers("EBag-Special-Url: special/url")

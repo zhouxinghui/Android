@@ -12,9 +12,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.DateUtil
 import ebag.core.util.StringUtils
 import ebag.core.util.VoicePlayerOnline
+import ebag.core.util.loadHead
 import ebag.hd.R
+import ebag.hd.bean.ReadRecordAnswerBean
 import ebag.hd.bean.ReadRecordVoiceBean
 import ebag.hd.http.EBagApi
 import kotlinx.android.synthetic.main.activity_read_record_list.*
@@ -40,7 +43,8 @@ class ReadRecordListActivity: BaseActivity() {
     private var classId = ""
     private var deadTime: Long = 0
     private val leftAdapter = LeftAdapter()
-    private val request = object : RequestCallBack<List<ReadRecordVoiceBean>>(){
+    private val rightAdapter = RightAdapter()
+    private val leftRequest = object : RequestCallBack<List<ReadRecordVoiceBean>>(){
         override fun onStart() {
             stateView.showLoading()
         }
@@ -50,12 +54,31 @@ class ReadRecordListActivity: BaseActivity() {
             else
                 stateView.showContent()
             leftAdapter.setNewData(entity)
+            leftAdapter.selectedPosition = 0
+            EBagApi.getReadRecordDesc(classId, entity!![0].languageDetailId, deadTime, rightRequest)
         }
 
         override fun onError(exception: Throwable) {
             stateView.showError(exception.message.toString())
         }
+    }
+    private val rightRequest = object : RequestCallBack<List<ReadRecordAnswerBean>>(){
+        override fun onStart() {
+            rightStateView.showLoading()
+        }
 
+        override fun onSuccess(entity: List<ReadRecordAnswerBean>?) {
+            if (entity == null || entity.isEmpty()){
+                rightStateView.showEmpty()
+                return
+            }
+            rightStateView.showContent()
+            rightAdapter.setNewData(entity)
+        }
+
+        override fun onError(exception: Throwable) {
+            rightStateView.showError(exception.message.toString())
+        }
     }
     override fun initViews() {
         languageId = intent.getStringExtra("languageId") ?: ""
@@ -64,18 +87,25 @@ class ReadRecordListActivity: BaseActivity() {
 
         leftRecycler.layoutManager = LinearLayoutManager(this)
         leftRecycler.adapter = leftAdapter
+
         rightRecycler.layoutManager = LinearLayoutManager(this)
+        rightRecycler.adapter = rightAdapter
 
         leftAdapter.setOnItemClickListener { adapter, view, position ->
             adapter as LeftAdapter
             adapter.selectedPosition = position
+            EBagApi.getReadRecordDesc(classId, adapter.data[0].languageDetailId, deadTime, rightRequest)
         }
         leftAdapter.setOnItemChildClickListener { adapter, view, position ->
             if (view.id == R.id.play_id)
                 voicePlaySetting(view)
         }
+        rightAdapter.setOnItemChildClickListener { adapter, view, position ->
+            if (view.id == R.id.play_id)
+                voicePlaySetting(view)
+        }
 
-        EBagApi.getReadDetailList(languageId, request)
+        EBagApi.getReadDetailList(languageId, leftRequest)
     }
 
     private val voicePlayer : VoicePlayerOnline by lazy {
@@ -134,7 +164,8 @@ class ReadRecordListActivity: BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         voicePlayer.stop()
-        request.cancelRequest()
+        leftRequest.cancelRequest()
+        rightRequest.cancelRequest()
     }
     inner class LeftAdapter: BaseQuickAdapter<ReadRecordVoiceBean, BaseViewHolder>(R.layout.item_read_record_voice){
         private var oldPosition = -1
@@ -167,5 +198,20 @@ class ReadRecordListActivity: BaseActivity() {
             helper.addOnClickListener(R.id.play_id)
         }
     }
-//    inner class RightAdapter: BaseQuickAdapter
+
+    inner class RightAdapter: BaseQuickAdapter<ReadRecordAnswerBean, BaseViewHolder>(R.layout.item_read_record_detail){
+        override fun convert(helper: BaseViewHolder, item: ReadRecordAnswerBean?) {
+            helper.getView<ImageView>(R.id.img_id).loadHead(item?.headUrl)
+            helper.setText(R.id.tvTime, DateUtil.getDateTime(item?.dateTime ?: 0, "yyyy-MM-dd HH:mm"))
+
+            val linearLayout = helper.getView<LinearLayout>(R.id.play_id)
+            val imageView = helper.getView<ImageView>(R.id.image_id)
+            val progressBar = helper.getView<ProgressBar>(R.id.progress_id)
+            val drawable = imageView.background as AnimationDrawable
+            linearLayout.setTag(ebag.hd.R.id.image_id, drawable)
+            linearLayout.setTag(ebag.hd.R.id.progress_id, progressBar)
+            linearLayout.setTag(ebag.hd.R.id.play_id, item?.myAudioUrl)
+            helper.addOnClickListener(R.id.play_id)
+        }
+    }
 }

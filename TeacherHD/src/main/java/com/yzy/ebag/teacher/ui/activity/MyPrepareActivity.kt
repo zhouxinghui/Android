@@ -123,7 +123,7 @@ class MyPrepareActivity : BaseListTabActivity<PrepareBaseBean, MultiItemEntity>(
     override fun parentToList(parent: PrepareBaseBean?): List<MultiItemEntity>? {
         this.parent = parent
         gradeCode = parent?.resultSubjectVo!!.gradeCode
-        subjectCode = parent.resultSubjectVo.subCode
+        subjectCode = parent.resultSubjectVo.subCode ?: ""
         subjectTv.text = "${parent?.resultSubjectVo?.gradeName} ${parent?.resultSubjectVo?.subject}"
         if (type != "1") {
             textBookTv.text = "${parent?.resultSubjectVo?.bookVersionName} ${parent?.resultSubjectVo?.semesterName}"

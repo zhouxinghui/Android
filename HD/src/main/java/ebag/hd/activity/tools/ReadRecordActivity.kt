@@ -66,7 +66,7 @@ class ReadRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
     }
     private val classes = ArrayList<BaseClassesBean>()
     private lateinit var tvMaterial: TextView
-    private lateinit var classId: String
+    private var classId = ""
     private lateinit var unitId: String
     private var subCode = "yy"
     override fun loadConfig() {

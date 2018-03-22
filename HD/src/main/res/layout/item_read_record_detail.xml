@@ -6,6 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/x24"
+    android:background="@drawable/white_clickable_bg"
+    android:layout_marginBottom="@dimen/y5"
+    android:layout_marginTop="@dimen/y5"
     >
     <ImageView android:id="@+id/img_id"
         android:layout_width="@dimen/x80"

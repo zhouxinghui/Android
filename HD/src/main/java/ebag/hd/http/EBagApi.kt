@@ -461,6 +461,17 @@ object EBagApi {
         EBagApi.request(eBagService.getReadRecord("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
+    /**
+     * 自习-口语学生作答详情
+     */
+    fun getReadRecordDesc(classId: String, languageDetailId: String, dateTime: Long, callback: RequestCallBack<List<ReadRecordAnswerBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("languageDetailId", languageDetailId)
+        jsonObject.put("dateTime", dateTime)
+        EBagApi.request(eBagService.getReadRecordDesc("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
     /**获取跟读详情里头 句子的详情*/
     fun getReadDetailList(languageId: String, callback: RequestCallBack<List<ReadRecordVoiceBean>>){
         val jsonObject = JSONObject()
