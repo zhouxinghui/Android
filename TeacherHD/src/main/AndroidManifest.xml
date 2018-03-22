@@ -41,11 +41,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.home.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.activity.WelcomeActivity"
+            android:name=".activity.WelcomeActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,85 +54,85 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.account.LoginActivity"
+            android:name=".activity.account.LoginActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.activity.account.ForgetActivity"
+            android:name=".activity.account.ForgetActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.activity.AssignmentActivity"
+            android:name=".activity.assignment.AssignmentActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.activity.SpaceActivity"
+            android:name=".activity.clazz.SpaceActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.activity.SettingActivity"
+            android:name=".activity.SettingActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.activity.AboutUsActivity"
+            android:name=".activity.AboutUsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.activity.PersonalInfoActivity"
+            android:name=".activity.PersonalInfoActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.activity.CorrectingActivity"
+            android:name=".activity.correcting.CorrectingActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.activity.CreateClassActivity"
+            android:name=".activity.clazz.CreateClassActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".ui.activity.SelectSchoolActivity"
+            android:name=".activity.clazz.SelectSchoolActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.activity.MyCourseActivity"
+            android:name=".activity.clazz.MyCourseActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.activity.NoticeHistoryActivity"
+            android:name=".activity.clazz.NoticeHistoryActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.activity.PublishContentActivity"
+            android:name=".activity.PublishContentActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".ui.activity.StudyGroupActivity"
+            android:name=".activity.clazz.StudyGroupActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.activity.QuestionActivity"
+            android:name=".activity.assignment.QuestionActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.activity.PreviewActivity"
+            android:name=".activity.assignment.PreviewActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.activity.PublishWorkActivity"
+            android:name=".activity.assignment.PublishWorkActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".TestXmlActivity" />
         <activity
-            android:name=".ui.activity.CorrectingDescActivity"
+            android:name=".activity.correcting.CorrectingDescActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".ui.activity.CommentActivity"
+            android:name=".activity.correcting.CommentActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".ui.activity.LoginSelectActivity"
+            android:name=".activity.account.LoginSelectActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.activity.BindingActivity"
+            android:name=".activity.account.BindingActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.activity.MyPrepareActivity"
+            android:name=".activity.prepare.MyPrepareActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.activity.ClassPerformanceActivity"
+            android:name=".activity.clazz.ClassPerformanceActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ui.activity.vnc.VNCSetActivity"
+            android:name=".activity.vnc.VNCSetActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.activity.ZixiActivity"
+        <activity android:name=".activity.ZixiActivity"
             android:screenOrientation="landscape"
             />
         <!-- 友盟分享 -->
@@ -186,7 +186,7 @@
             android:exported="true"
             android:launchMode="singleTop" />
         <activity
-            android:name=".ui.activity.YBCenterActivity"
+            android:name=".activity.YBCenterActivity"
             android:screenOrientation="landscape" />
 
         <!-- 支付宝 -->

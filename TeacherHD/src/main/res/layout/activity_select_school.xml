@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.yzy.ebag.teacher.ui.activity.CreateClassActivity">
+    tools:context="com.yzy.ebag.teacher.activity.clazz.CreateClassActivity">
     <ebag.hd.widget.TitleBar android:id="@+id/titleBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context="com.yzy.ebag.teacher.MainActivity">
+    tools:context="com.yzy.ebag.teacher.activity.home.MainActivity">
     <!--左侧菜单-->
     <LinearLayout android:id="@+id/left_ll"
         android:layout_width="@dimen/x110"

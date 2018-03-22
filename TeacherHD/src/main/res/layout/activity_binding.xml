@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EFF2F4"
-    tools:context="com.yzy.ebag.teacher.ui.activity.BindingActivity"
+    tools:context="com.yzy.ebag.teacher.activity.account.BindingActivity"
     android:orientation="vertical">
     <include layout="@layout/common_title_bar"/>
 

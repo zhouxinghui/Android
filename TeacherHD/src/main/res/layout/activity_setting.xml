@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yzy.ebag.teacher.ui.activity.SettingActivity"
+    tools:context="com.yzy.ebag.teacher.activity.SettingActivity"
     android:background="@color/common_background"
     >
     <ebag.hd.widget.TitleBar android:id="@+id/titleBar"

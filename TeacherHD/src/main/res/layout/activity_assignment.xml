@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="com.yzy.ebag.teacher.ui.activity.AssignmentActivity">
+    tools:context="com.yzy.ebag.teacher.activity.assignment.AssignmentActivity">
     <ebag.hd.widget.TitleBar android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
