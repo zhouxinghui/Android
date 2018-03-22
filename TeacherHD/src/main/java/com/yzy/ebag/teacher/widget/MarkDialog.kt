@@ -1,14 +1,17 @@
 package com.yzy.ebag.teacher.widget
 
 import android.content.Context
+import android.view.View
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.CorrectAnswerBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.base.BaseDialog
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
+import ebag.core.util.DateUtil
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.StringUtils
+import ebag.core.util.T
 import kotlinx.android.synthetic.main.dialog_mark.*
 
 /**
@@ -51,6 +54,11 @@ class MarkDialog(context: Context): BaseDialog(context) {
             isNextPress = true
             if (markEdit.isEnabled && !StringUtils.isEmpty(markEdit.text.toString())){//提交分数
                 currentScore = markEdit.text.toString()
+                val uid = answerList[currentPosition].uid
+                if(uid == null) {
+                    T.show(context, "学生uid为null！！")
+                    return@setOnClickListener
+                }
                 TeacherApi.markScore(homeworkId, answerList[currentPosition].uid, answerList[currentPosition].qid, currentScore, markRequest)
             }else{
                 if (isLast()){
@@ -95,17 +103,24 @@ class MarkDialog(context: Context): BaseDialog(context) {
 
     private fun setDesc(bean: CorrectAnswerBean){
         nameAndBagId.text = "${bean.studentName}    书包号：${bean.ysbCode}"
-        commitTime.text = "提交时间：${bean.endTime}"
-        studentAnswer.text = bean.studentAnswer.replace("#R#", "、")
+        val answer = bean.studentAnswer
+        if (StringUtils.isEmpty(answer)){
+            commitTime.visibility = View.GONE
+            studentAnswer.text = "未完成"
+        }else{
+            commitTime.visibility = View.VISIBLE
+            commitTime.text = "提交时间：${DateUtil.getDateTime(bean.endTime, "yyyy-MM-dd HH:mm")}"
+            studentAnswer.text = bean.studentAnswer?.replace("#R#", "、")
+        }
         val score = bean.questionScore
-        if (!StringUtils.isEmpty(score)){
+        if (!StringUtils.isEmpty(score) && score?.toInt() != 0){
             markEdit.setText(score)
             markEdit.isEnabled = false
         }else{
             markEdit.setText("")
             markEdit.isEnabled = true
         }
-        questionNum.text = "$currentPosition/${answerList.size}"
+        questionNum.text = "${currentPosition + 1}/${answerList.size}"
         if (isLast()){
             nextStudent.text = "提交"
         }else{

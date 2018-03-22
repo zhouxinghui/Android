@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.dialog_loading.*
  * 正在加载
  * Created by YZY on 2018/1/6.
  */
-class LoadingDialog(context: Context) : Dialog(context) {
+class LoadingDialog(context: Context) : Dialog(context, R.style.waitting_dialog) {
     var anim: AnimationDrawable? = null
     var isShowingNow = false
     fun show(message: String?){

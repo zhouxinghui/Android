@@ -162,20 +162,25 @@ class CorrectingDescActivity : BaseActivity() {
             addItemType(QuestionTypeUtils.QUESTIONS_CHINESE_WRITE_BY_VOICE, R.layout.item_correcting_answer_normal)
         }
         override fun convert(helper: BaseViewHolder, item: CorrectAnswerBean) {
-            val isComplete = false
             val studentAnswer = item.studentAnswer
             helper.setText(R.id.studentName, item.studentName)
                     .setText(R.id.bagId, "书包号：${item.ysbCode}")
-            if(StringUtils.isEmpty(studentAnswer)){
+            val answerTv = helper.getView<TextView>(R.id.answerTv)
+            /*if(StringUtils.isEmpty(studentAnswer)){
                 helper.getView<TextView>(R.id.commitTime).visibility = View.GONE
                 helper.setText(R.id.answerTv, "未完成")
 //                helper.getView<TextView>(R.id.correctIcon).visibility = View.GONE
                 return
-            }
+            }*/
             helper.getView<TextView>(R.id.commitTime).visibility = View.VISIBLE
 //            helper.getView<TextView>(R.id.correctIcon).visibility = View.VISIBLE
-            helper.setText(R.id.commitTime, "提交时间：${DateUtil.getFormatDateTime(Date(item.endTime.toLong()), "yyyy-MM-dd HH:mm:ss")}")
-            helper.setText(R.id.answerTv, "学生答案：")
+            val endTime = item.endTime
+            if(endTime == null)
+                helper.setText(R.id.commitTime, "未完成")
+            else
+                helper.setText(R.id.commitTime, "提交时间：${DateUtil.getFormatDateTime(Date(item.endTime.toLong()), "yyyy-MM-dd HH:mm:ss")}")
+            if (answerTv != null)
+                answerTv.text = "学生答案："
             when(helper.itemViewType){
                 //纯文字
                 QuestionTypeUtils.QUESTIONS_CHOOSE_PIC_BY_WORD,
@@ -285,7 +290,7 @@ class CorrectingDescActivity : BaseActivity() {
                 ->{
                     val markBtn = helper.getView<TextView>(R.id.markBtn)
                     val score = item.questionScore
-                    if (StringUtils.isEmpty(score)){
+                    if ((StringUtils.isEmpty(score) || score?.toInt() == 0) && !StringUtils.isEmpty(studentAnswer)){
                         markBtn.setOnClickListener {
                             markDialog.show(data, helper.adapterPosition, questionList!![currentQuestionIndex].questionId)
                         }

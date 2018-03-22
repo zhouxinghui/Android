@@ -27,7 +27,7 @@ public class CorrectAnswerBean implements Serializable,MultiItemEntity {
     private String studentAnswer;
     private String headUrl;
     private String studentName;
-    private String endTime;
+    private Long endTime;
     private String homeWorkState;
     private String questionScore;
     private String qid;
@@ -77,11 +77,11 @@ public class CorrectAnswerBean implements Serializable,MultiItemEntity {
         this.studentName = studentName;
     }
 
-    public String getEndTime() {
+    public Long getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(Long endTime) {
         this.endTime = endTime;
     }
 

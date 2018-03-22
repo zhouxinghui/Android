@@ -32,13 +32,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         />-->
     <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/y10"
         android:paddingStart="@dimen/x10"
         android:paddingEnd="@dimen/x10"
         android:paddingBottom="@dimen/y10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_tv"
+        app:layout_constraintBottom_toTopOf="@id/bottomLayout"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -77,7 +80,7 @@
                 />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-    <android.support.constraint.ConstraintLayout
+    <android.support.constraint.ConstraintLayout android:id="@+id/bottomLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y60"
         android:paddingStart="@dimen/x15"

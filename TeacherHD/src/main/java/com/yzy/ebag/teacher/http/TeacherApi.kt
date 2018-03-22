@@ -401,7 +401,7 @@ object TeacherApi {
     /**
      * 打分
      */
-    fun markScore(homeworkId: String, uid: String, questionId: String, questionScore: String, callback: RequestCallBack<String>){
+    fun markScore(homeworkId: String, uid: String?, questionId: String, questionScore: String, callback: RequestCallBack<String>){
         val jsonObject = JSONObject()
         jsonObject.put("homeWorkId", homeworkId)
         jsonObject.put("uid", uid)
