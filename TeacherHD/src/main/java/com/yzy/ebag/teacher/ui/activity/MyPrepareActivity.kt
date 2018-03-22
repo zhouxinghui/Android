@@ -2,7 +2,6 @@ package com.yzy.ebag.teacher.ui.activity
 
 import android.content.Context
 import android.content.Intent
-import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -58,20 +57,18 @@ class MyPrepareActivity : BaseListTabActivity<PrepareBaseBean, MultiItemEntity>(
         titleBar.setTitle("教学课件")
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x368))
 
+        val textBookView = layoutInflater.inflate(R.layout.layout_prepare_textbook_head, null)
         val subjectView = layoutInflater.inflate(R.layout.layout_prepare_subject_head, null)
         addLeftHeaderView(subjectView)
         subjectTv = subjectView.findViewById(R.id.subjectTv)
-        val subjectLayout = subjectView.findViewById<ConstraintLayout>(R.id.subjectLayout)
         subjectTv.setOnClickListener { //更换科目
-            subjectPopup.showAsDropDown(subjectLayout)
+            subjectPopup.showAsDropDown(textBookView, subjectView.width, 0)
         }
 
-        val textBookView = layoutInflater.inflate(R.layout.layout_prepare_textbook_head, null)
         addLeftHeaderView(textBookView)
         textBookTv = textBookView.findViewById(R.id.textBookVersion)
-        val textbookLayout = textBookView.findViewById<ConstraintLayout>(R.id.textbookLayout)
         textBookTv.setOnClickListener { //更换教材
-            textbookPopup.showAsDropDown(textbookLayout)
+            textbookPopup.showAsDropDown(titleBar, textBookView.width, 0)
         }
         textBookView.visibility = View.GONE
 
@@ -126,11 +123,11 @@ class MyPrepareActivity : BaseListTabActivity<PrepareBaseBean, MultiItemEntity>(
         subjectCode = parent.resultSubjectVo.subCode ?: ""
         subjectTv.text = "${parent?.resultSubjectVo?.gradeName} ${parent?.resultSubjectVo?.subject}"
         if (type != "1") {
-            textBookTv.text = "${parent?.resultSubjectVo?.bookVersionName} ${parent?.resultSubjectVo?.semesterName}"
-            semesterCode = parent.resultSubjectVo.semesterCode
-            textbookCode = parent.resultSubjectVo.bookVersionId
+            textBookTv.text = "${parent?.bookVersionOrUnitVo?.versionName} ${parent?.bookVersionOrUnitVo?.semesterName}"
+            semesterCode = parent.bookVersionOrUnitVo.semesterCode
+//            textbookCode = parent.bookVersionOrUnitVo.bookVersionId
         }
-        return parent.resultSubjectVo?.resultBookUnitOrCatalogVos
+        return parent.resultBookUnitOrCatalogVos
     }
 
     override fun firstPageDataLoad(result: List<MultiItemEntity>) {

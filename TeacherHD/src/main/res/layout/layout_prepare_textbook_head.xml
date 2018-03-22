@@ -30,6 +30,7 @@
         android:textSize="@dimen/tv_sub"
         android:maxLines="2"
         android:ellipsize="end"
+        android:background="?attr/selectableItemBackground"
         app:rightDrawable="@drawable/right_arrow"
         app:rightDrawableWidth="@dimen/x13"
         app:rightDrawableHeight="@dimen/x23"

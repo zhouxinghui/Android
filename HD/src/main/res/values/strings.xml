@@ -7,7 +7,7 @@
     <string name="login_forget">忘记密码？</string>
     <string name="login_pwd_forget">忘记密码</string>
 
-    <string name="login_hint_nickname">昵称</string>
+    <string name="login_hint_nickname">姓名</string>
     <string name="login_hint_account">书包号/手机号</string>
     <string name="login_hint_phone">请输入手机号</string>
     <string name="login_hint_code">请输入验证码</string>

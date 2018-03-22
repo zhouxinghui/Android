@@ -17,7 +17,9 @@ public class PrepareBaseBean implements Serializable {
      */
 
     private ResultSubjectVoBean resultSubjectVo;
+    private BookVersionOrUnitVo bookVersionOrUnitVo;
     private List<PrepareFileBean> lessonFileInfoVos;
+    private List<UnitBean> resultBookUnitOrCatalogVos;
 
     public ResultSubjectVoBean getResultSubjectVo() {
         return resultSubjectVo;
@@ -25,6 +27,22 @@ public class PrepareBaseBean implements Serializable {
 
     public void setResultSubjectVo(ResultSubjectVoBean resultSubjectVo) {
         this.resultSubjectVo = resultSubjectVo;
+    }
+
+    public BookVersionOrUnitVo getBookVersionOrUnitVo() {
+        return bookVersionOrUnitVo;
+    }
+
+    public void setBookVersionOrUnitVo(BookVersionOrUnitVo bookVersionOrUnitVo) {
+        this.bookVersionOrUnitVo = bookVersionOrUnitVo;
+    }
+
+    public List<UnitBean> getResultBookUnitOrCatalogVos() {
+        return resultBookUnitOrCatalogVos;
+    }
+
+    public void setResultBookUnitOrCatalogVos(List<UnitBean> resultBookUnitOrCatalogVos) {
+        this.resultBookUnitOrCatalogVos = resultBookUnitOrCatalogVos;
     }
 
     public List<PrepareFileBean> getLessonFileInfoVos() {
@@ -36,42 +54,47 @@ public class PrepareBaseBean implements Serializable {
     }
 
     public static class ResultSubjectVoBean implements Serializable{
+
         /**
-         * gradeName : 一年级
+         * id : 19
+         * groupCode : 1
+         * groupName : null
+         * subCode : yy
+         * subject : 英语
          * gradeCode : 1
-         * subCode : yw
-         * subject : 语文
-         * semesterName : null
-         * semesterCode : null
-         * bookVersionId : null
-         * bookVersionName : null
-         * resultBookUnitOrCatalogVos : []
+         * gradeName : 一年级
          */
 
-        private String gradeName;
-        private String gradeCode;
+        private String id;
+        private String groupCode;
+        private String groupName;
         private String subCode;
         private String subject;
-        private String semesterName;
-        private String semesterCode;
-        private String bookVersionId;
-        private String bookVersionName;
-        private List<UnitBean> resultBookUnitOrCatalogVos;
+        private String gradeCode;
+        private String gradeName;
 
-        public String getGradeName() {
-            return gradeName;
+        public String getId() {
+            return id;
         }
 
-        public void setGradeName(String gradeName) {
-            this.gradeName = gradeName;
+        public void setId(String id) {
+            this.id = id;
         }
 
-        public String getGradeCode() {
-            return gradeCode;
+        public String getGroupCode() {
+            return groupCode;
         }
 
-        public void setGradeCode(String gradeCode) {
-            this.gradeCode = gradeCode;
+        public void setGroupCode(String groupCode) {
+            this.groupCode = groupCode;
+        }
+
+        public String getGroupName() {
+            return groupName;
+        }
+
+        public void setGroupName(String groupName) {
+            this.groupName = groupName;
         }
 
         public String getSubCode() {
@@ -90,12 +113,113 @@ public class PrepareBaseBean implements Serializable {
             this.subject = subject;
         }
 
-        public String getSemesterName() {
-            return semesterName;
+        public String getGradeCode() {
+            return gradeCode;
         }
 
-        public void setSemesterName(String semesterName) {
-            this.semesterName = semesterName;
+        public void setGradeCode(String gradeCode) {
+            this.gradeCode = gradeCode;
+        }
+
+        public String getGradeName() {
+            return gradeName;
+        }
+
+        public void setGradeName(String gradeName) {
+            this.gradeName = gradeName;
+        }
+    }
+
+    public static class BookVersionOrUnitVo implements Serializable{
+
+        /**
+         * id : 1
+         * versionCode : rj
+         * versionName : 人教版  
+         * subjectCode : sx
+         * subjectName : 数学
+         * gradeCode : 1
+         * gradeName : null
+         * semesterCode : 2
+         * semesterName : 下学期
+         * bookCode : 736
+         * code : null
+         * name : null
+         * bookVersionId : null
+         * pid : null
+         * unitCode : null
+         */
+
+        private String id;
+        private String versionCode;
+        private String versionName;
+        private String subjectCode;
+        private String subjectName;
+        private String gradeCode;
+        private String gradeName;
+        private String semesterCode;
+        private String semesterName;
+        private String bookCode;
+        private String code;
+        private String name;
+        private String bookVersionId;
+        private String pid;
+        private String unitCode;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getVersionCode() {
+            return versionCode;
+        }
+
+        public void setVersionCode(String versionCode) {
+            this.versionCode = versionCode;
+        }
+
+        public String getVersionName() {
+            return versionName;
+        }
+
+        public void setVersionName(String versionName) {
+            this.versionName = versionName;
+        }
+
+        public String getSubjectCode() {
+            return subjectCode;
+        }
+
+        public void setSubjectCode(String subjectCode) {
+            this.subjectCode = subjectCode;
+        }
+
+        public String getSubjectName() {
+            return subjectName;
+        }
+
+        public void setSubjectName(String subjectName) {
+            this.subjectName = subjectName;
+        }
+
+        public String getGradeCode() {
+            return gradeCode;
+        }
+
+        public void setGradeCode(String gradeCode) {
+            this.gradeCode = gradeCode;
+        }
+
+        public String getGradeName() {
+            return gradeName;
+        }
+
+        public void setGradeName(String gradeName) {
+            this.gradeName = gradeName;
         }
 
         public String getSemesterCode() {
@@ -106,6 +230,38 @@ public class PrepareBaseBean implements Serializable {
             this.semesterCode = semesterCode;
         }
 
+        public String getSemesterName() {
+            return semesterName;
+        }
+
+        public void setSemesterName(String semesterName) {
+            this.semesterName = semesterName;
+        }
+
+        public String getBookCode() {
+            return bookCode;
+        }
+
+        public void setBookCode(String bookCode) {
+            this.bookCode = bookCode;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
         public String getBookVersionId() {
             return bookVersionId;
         }
@@ -114,20 +270,20 @@ public class PrepareBaseBean implements Serializable {
             this.bookVersionId = bookVersionId;
         }
 
-        public String getBookVersionName() {
-            return bookVersionName;
+        public String getPid() {
+            return pid;
         }
 
-        public void setBookVersionName(String bookVersionName) {
-            this.bookVersionName = bookVersionName;
+        public void setPid(String pid) {
+            this.pid = pid;
         }
 
-        public List<UnitBean> getResultBookUnitOrCatalogVos() {
-            return resultBookUnitOrCatalogVos;
+        public String getUnitCode() {
+            return unitCode;
         }
 
-        public void setResultBookUnitOrCatalogVos(List<UnitBean> resultBookUnitOrCatalogVos) {
-            this.resultBookUnitOrCatalogVos = resultBookUnitOrCatalogVos;
+        public void setUnitCode(String unitCode) {
+            this.unitCode = unitCode;
         }
     }
 }

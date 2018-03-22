@@ -3,7 +3,6 @@ package ebag.hd.ui.activity.account
 import android.content.Intent
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import com.umeng.socialize.UMAuthListener
@@ -13,6 +12,7 @@ import ebag.core.base.App
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.http.network.MsgException
 import ebag.core.http.network.handleThrowable
+import ebag.core.util.EditTextLimitUtil
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.SerializableUtils
 import ebag.core.util.T
@@ -193,6 +193,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
     override fun initViews() {
         loginEdit = loginAccount
         pwdEdit = loginPwd
+        EditTextLimitUtil.inputChineseAndEnglish(registerAccount, this, 16)
 
         isToMain = intent.getBooleanExtra(Constants.KEY_TO_MAIN, false)
 
