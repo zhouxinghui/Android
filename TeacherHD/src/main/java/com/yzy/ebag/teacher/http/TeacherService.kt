@@ -81,7 +81,7 @@ interface TeacherService {
      * 根据班级获取教材版本
      */
     @POST("sendHome/getBookVersion/{version}")
-    fun searchBookVersion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<BookVersionBean>>>
+    fun searchBookVersion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<BookVersionBean>>
 
     /**
      * 查询最新公告

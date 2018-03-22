@@ -136,7 +136,7 @@ object TeacherApi {
     /**
      * 根据班级获取教材版本
      */
-    fun searchBookVersion(classesId: List<String>, callback: RequestCallBack<List<BookVersionBean>>){
+    fun searchBookVersion(classesId: List<String>, callback: RequestCallBack<BookVersionBean>){
         val jsonObject = JSONObject()
         jsonObject.put("clazzIds", JSONArray(classesId))
         EBagApi.request(teacherService.searchBookVersion("v1", EBagApi.createBody(jsonObject)), callback)

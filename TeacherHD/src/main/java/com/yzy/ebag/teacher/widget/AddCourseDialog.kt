@@ -105,7 +105,7 @@ class AddCourseDialog(context: Context): BaseDialog(context) {
                 subjectAdapter.selectPosition = 0
                 subjectAdapter.removeAllHeaderView()
                 val versionList = entity.firstvo[0].bookVersions
-                if (!versionList.isEmpty()){
+                if (versionList != null && !versionList.isEmpty()){
                     versionAdapter.setNewData(versionList)
                     versionAdapter.removeAllHeaderView()
                 }
@@ -132,7 +132,7 @@ class AddCourseDialog(context: Context): BaseDialog(context) {
                         subjectAdapter.removeAllHeaderView()
                         subjectAdapter.setNewData(firstVo)
                         val versionList = firstVo[0].bookVersions
-                        if (versionList.isEmpty()){
+                        if (versionList == null || versionList.isEmpty()){
                             versionAdapter.addHeaderView(versionEmptyHead)
                         }else{
                             versionAdapter.removeAllHeaderView()
@@ -196,7 +196,7 @@ class AddCourseDialog(context: Context): BaseDialog(context) {
             set(value) {
                 field = value
                 val list = data[selectPosition].bookVersions
-                if (list.isEmpty()){
+                if (list == null || list.isEmpty()){
                     versionAdapter.addHeaderView(versionEmptyHead)
                 }else{
                     versionAdapter.removeAllHeaderView()
