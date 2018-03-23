@@ -38,6 +38,9 @@ class ShopOrderActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_myorder
 
     override fun initViews() {
+        stateView.setOnRetryClickListener {
+            request()
+        }
         initFragmentList()
         request()
 

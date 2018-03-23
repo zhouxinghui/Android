@@ -70,9 +70,6 @@ class YBCenterActivity : BaseActivity(),YBCenterContract.View,RadioGroup.OnCheck
         activity_ybcenter_incomeyb.text = "${incomeMoney}YB"
         activity_ybcenter_expendyb.text = "${expendMoney}YB"
         setSpan()
-        /*if (data.size<10){
-            loadmoreEnd()
-        }*/
         mAdapter.setNewData(data)
         ybcenter_header_income.text = "收入 ${activity_ybcenter_incomeyb.text}"
         ybcenter_header_expend.text = "支出 ${activity_ybcenter_expendyb.text}"
@@ -167,9 +164,6 @@ class YBCenterActivity : BaseActivity(),YBCenterContract.View,RadioGroup.OnCheck
     }
 
     override fun dataLoadSuccess(data: MutableList<YBCenterModel>) {
-        /*if (data.size<10){
-            loadmoreEnd()
-        }*/
         mAdapter.setNewData(data)
         page+=1
         activity_ybcenter_datastateview.showContent()

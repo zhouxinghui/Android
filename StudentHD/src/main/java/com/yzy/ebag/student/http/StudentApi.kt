@@ -215,4 +215,24 @@ object StudentApi{
         }
         return ""
     }
+
+    fun addUserGrowth(className:String,type:String,title:String,content:String,image:String,gradeCode:String,callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("className", className)
+        jsonObject.put("type", type)
+        jsonObject.put("title", title)
+        jsonObject.put("content", content)
+        jsonObject.put("image", image)
+        jsonObject.put("gradeCode", gradeCode)
+        EBagApi.request(studentService.addUserGrowth("1",EBagApi.createBody(jsonObject)),callback)
+    }
+
+    fun searchUserGrowthList(page:Int,pageSize: Int,gradeCode:String,type:String,callback: RequestCallBack<List<Diary>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", pageSize)
+        jsonObject.put("gradeCode", gradeCode)
+        jsonObject.put("type", type)
+        EBagApi.request(studentService.searchUserGrowthList("1",EBagApi.createBody(jsonObject)),callback)
+    }
 }

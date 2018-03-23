@@ -11,16 +11,16 @@
         <LinearLayout android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingEnd="@dimen/x10"
+            android:paddingEnd="@dimen/x16"
             android:paddingStart="@dimen/x10"
-            android:paddingTop="@dimen/y10">
+            android:paddingTop="@dimen/y16">
 
 
             <TextView android:id="@+id/myaddress_item_username" android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="范三"
                 android:textColor="#333"
-                android:textSize="@dimen/x18"
+                android:textSize="@dimen/x22"
                 android:textStyle="bold"
                 />
 
@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:text="17718397309"
                 android:layout_marginStart="@dimen/x50"
-                android:textSize="@dimen/x18"
+                android:textSize="@dimen/x22"
                 android:textColor="#333"
                 />
 
@@ -38,15 +38,15 @@
 
         <LinearLayout android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/y8"
-            android:layout_marginTop="@dimen/y8"
+            android:layout_marginBottom="@dimen/y16"
+            android:layout_marginTop="@dimen/y16"
             android:orientation="horizontal"
             android:paddingStart="@dimen/x10">
 
 
             <TextView android:id="@+id/myaddress_item__area" android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/x18"
+                android:textSize="@dimen/x22"
                 android:text="广东省,深圳市,龙岗区"
                 android:textColor="#767676"
                 />
@@ -59,24 +59,21 @@
 
 
         <RelativeLayout android:layout_width="match_parent"
-            android:layout_height="@dimen/y50"
+            android:layout_height="@dimen/y70"
             android:gravity="center_vertical"
             android:paddingEnd="@dimen/x10"
             android:paddingStart="@dimen/x10">
 
-            <ImageView android:id="@+id/myaddress_defult_toggle" android:layout_width="@dimen/x20"
-                android:layout_height="@dimen/y18"
+            <CheckBox android:id="@+id/myaddress_defult_toggle" android:layout_width="@dimen/x160"
+                android:layout_height="@dimen/y60"
                 android:layout_centerVertical="true"
-                android:src="@drawable/icon_my_shopping_cart_choose_normal"
-                />
-
-            <TextView android:id="@+id/myaddress_defult_text" android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/x8"
-                android:layout_toRightOf="@+id/myaddress_defult_toggle"
+                android:button="@null"
+                android:drawableLeft="@drawable/default_address_selector"
                 android:text="设为默认"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:drawablePadding="@dimen/x8"
                 android:textColor="#333"
-                android:layout_centerVertical="true"
                 />
 
             <LinearLayout
@@ -98,6 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/x8"
                     android:text="编辑"
+                    android:textSize="@dimen/x18"
                     android:layout_marginTop="@dimen/y5"
                     android:textColor="#333"
                     />
@@ -123,6 +121,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/x8"
                     android:text="删除"
+                    android:textSize="@dimen/x18"
                     android:layout_marginTop="@dimen/y5"
                     android:textColor="#333"
                     />

@@ -1,7 +1,9 @@
 package ebag.hd.adapter
 
+import android.text.InputFilter
 import android.text.InputType
 import android.widget.EditText
+import android.widget.RelativeLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import ebag.hd.R
@@ -28,6 +30,8 @@ class EditAddressAdapter(layout: Int, data: MutableList<EditAddressModel>) : Bas
             }
             3 -> {
                 helper.getView<EditText>(R.id.editaddress_edittext)?.hint = "街道、门牌号等"
+                helper.getView<EditText>(R.id.editaddress_edittext)?.maxLines = 2
+                helper.getView<EditText>(R.id.editaddress_edittext)?.filters = arrayOf(InputFilter.LengthFilter(100))
             }
         }
         helper.addOnClickListener(R.id.editaddress_area)

@@ -23,6 +23,7 @@ class OrderListAdapter(private val context: Context, layout: Int, data: MutableL
             "0" -> {
                 statusText = "未付款"
                 statusSubtext = "付款"
+                helper.addOnClickListener(R.id.order_btn)
             }
             "1" -> {
                 statusText = "待发货"
@@ -39,12 +40,16 @@ class OrderListAdapter(private val context: Context, layout: Int, data: MutableL
                 .setText(R.id.paid_tv_id,"￥${item.allPrice}")
 
         val datas = item.orderProductVOs
-        datas.forEach {
+        datas.forEachIndexed { index, orderDetailsData ->
+
             val view = View.inflate(context,R.layout.item_order_goodlayout,null)
-            view.findViewById<TextView>(R.id.commodity_name_tv_id).text = it.shopName
-            view.findViewById<TextView>(R.id.price_tv_id).text = "￥${it.price}"
-            view.findViewById<TextView>(R.id.count_tv_id).text = "X ${it.numbers}"
+            view.findViewById<TextView>(R.id.commodity_name_tv_id).text = orderDetailsData.shopName
+            view.findViewById<TextView>(R.id.price_tv_id).text = "￥${orderDetailsData.price}"
+            view.findViewById<TextView>(R.id.count_tv_id).text = "X ${orderDetailsData.numbers}"
             helper.getView<LinearLayout>(R.id.good_layout).addView(view)
+            if (index == datas.size - 1){
+                view.findViewById<View>(R.id.line).visibility = View.GONE
+            }
         }
     }
 }

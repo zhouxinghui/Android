@@ -19,10 +19,7 @@ import com.yzy.ebag.student.bean.ClassesInfoBean
 import com.yzy.ebag.student.dialog.ClassesDialog
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.http.network.MsgException
-import ebag.core.util.SerializableUtils
-import ebag.core.util.StringUtils
-import ebag.core.util.T
-import ebag.core.util.loadHead
+import ebag.core.util.*
 import ebag.hd.activity.ClassScheduleActivity
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
@@ -76,6 +73,7 @@ class MainActivity : MVPActivity(), MainView {
 
     override fun mainInfoSuccess(classesInfoBean: ClassesInfoBean) {
         showTeachers(classesInfoBean)
+        SPUtils.put(this,Constants.CLASS_NAME,classesInfoBean.className)
         tvAnnounceContent.text = classesInfoBean.resultClassNoticeVo?.content ?: "暂无公告"
         stateView.showContent()
 

@@ -2,6 +2,7 @@ package ebag.hd.activity
 
 import android.content.Intent
 import android.graphics.Color
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -33,7 +34,7 @@ class ShopCarActivity : BaseActivity() {
         mAdapter = ShopCarAdapter(this, mDatas, object : OnCheckChange {
             override fun getPosition(position: Int, isChecked: Boolean) {
                 if (isChecked) {
-                    totalPrice += mDatas[position].discountPrice.toInt()
+                    totalPrice += mDatas[position].discountPrice.toInt()*mDatas[position].numbers
                     tv_total_price.text = "¥ $totalPrice"
                     selectedCount.add(position)
                     if (selectedCount.size == mDatas.size) {
@@ -63,13 +64,20 @@ class ShopCarActivity : BaseActivity() {
                 R.id.add -> {
                     mDatas[position].numbers = mDatas[position].numbers + 1
                     updateShopCar(mDatas[position].id.toString(), mDatas[position].numbers.toString())
+                    totalPrice += mDatas[position].discountPrice.toInt()
+                    tv_total_price.text = "¥ $totalPrice"
                     mAdapter.notifyDataSetChanged()
                 }
                 R.id.lower -> {
-                    if (mDatas[position].numbers < 1) {
+                    if (mDatas[position].numbers <= 1) {
+                        AlertDialog.Builder(this@ShopCarActivity).setMessage("移除此商品吗?").setNeutralButton("是",{dialog,which ->
+
+                        })
                         return@setOnItemChildClickListener
                     }
                     mDatas[position].numbers = mDatas[position].numbers - 1
+                    totalPrice -= mDatas[position].discountPrice.toInt()
+                    tv_total_price.text = "¥ $totalPrice"
                     updateShopCar(mDatas[position].id.toString(), mDatas[position].numbers.toString())
                     mAdapter.notifyDataSetChanged()
                 }

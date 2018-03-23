@@ -5,6 +5,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.graphics.Rect
 import android.graphics.drawable.AnimationDrawable
 import android.os.IBinder
 import android.os.Message
@@ -197,6 +198,7 @@ class DoHomeworkActivity: BaseActivity() {
         }
 
         deatilRequest()
+
 
     }
 

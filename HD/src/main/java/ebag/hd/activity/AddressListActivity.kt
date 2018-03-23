@@ -8,10 +8,12 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import ebag.core.base.BaseActivity
 import ebag.core.base.BaseDialog
+import ebag.core.http.network.RequestCallBack
 import ebag.core.util.T
 import ebag.hd.R
 import ebag.hd.adapter.AddressListAdapter
 import ebag.hd.bean.AddressListBean
+import ebag.hd.http.EBagApi
 import ebag.hd.mvp.contract.AddressContract
 import ebag.hd.mvp.presenter.AddressListPersenter
 import kotlinx.android.synthetic.main.activity_address.*
@@ -27,7 +29,23 @@ class AddressListActivity:BaseActivity(),AddressContract.View {
 
     override fun initViews() {
 
-        mAdapter = AddressListAdapter(R.layout.item_address,mData)
+        mAdapter = AddressListAdapter(this,R.layout.item_address,mData,object:onChecked{
+            override fun setDefault(position: Int) {
+                //设置为默认收货地址，所有参数都要传
+                EBagApi.updateAddress(mData[position].id,mData[position].consignee,mData[position].phone,mData[position].preAddress,mData[position].address,"0",object:RequestCallBack<String>(){
+                    override fun onSuccess(entity: String?) {
+                        T.show(this@AddressListActivity,"设置成功")
+                        mData.indices.forEach { i -> if (i == position) mData[i].type = "0" else mData[i].type = "1" }
+                        mAdapter.notifyDataSetChanged()
+                    }
+
+                    override fun onError(exception: Throwable) {
+                        T.show(this@AddressListActivity,"设置失败")
+                    }
+                })
+            }
+
+        })
         flag = intent.getBooleanExtra("choose",false)
         activity_address_recyclerview.layoutManager = LinearLayoutManager(this)
         activity_address_recyclerview.adapter = mAdapter
@@ -46,6 +64,8 @@ class AddressListActivity:BaseActivity(),AddressContract.View {
 
             }
         }
+
+
 
         mAdapter.setOnItemClickListener { adapter, view, position ->
 
@@ -120,4 +140,7 @@ class AddressListActivity:BaseActivity(),AddressContract.View {
         }
     }
 
+    interface onChecked{
+        fun setDefault(position:Int)
+    }
 }

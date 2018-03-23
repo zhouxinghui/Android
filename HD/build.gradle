@@ -36,5 +36,6 @@ dependencies {
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     implementation files('libs/alipaySdk-20180316.jar')
     compile 'com.google.code.gson:gson:2.8.2'
+    compile 'com.contrarywind:Android-PickerView:3.2.6'
 
 }

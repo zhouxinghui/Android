@@ -110,15 +110,15 @@ class GoodsDetailActivity:BaseActivity(){
 
             override fun onSuccess(entity: GoodsDetailsBean?) {
                 bean = entity!!
-                details_titlebar.setTitle(entity?.shoppingName)
-                tv_name.text = entity?.shoppingName
-                goods_old_price.text = "￥ ${entity?.price}"
+                details_titlebar.setTitle(entity.shoppingName)
+                tv_name.text = entity.shoppingName
+                goods_old_price.text = "￥ ${entity.price}"
                 goods_old_price.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG
-                tv_price.text = "￥${entity?.discountPrice}"
-                details_yb.text = "云币:${entity?.ysbMoney}"
-                yunfei.text = "运费:${entity?.freight}"
-                yuexiaoliang.text = "月销量:${entity?.saleVolume}"
-                data.addAll(entity?.productParametersVo!!.resultGruopVOS)
+                tv_price.text = "￥${entity.discountPrice}"
+                details_yb.text = "云币:${entity.ysbMoney}"
+                yunfei.text = "运费:${entity.freight}"
+                yuexiaoliang.text = "月销量:${entity.saleVolume}"
+                data.addAll(entity.productParametersVo!!.resultGruopVOS)
                 mAdapter.notifyDataSetChanged()
                 banner.setImageLoader(GlideImageLoader())
                 banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:id="@+id/rootView"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    >
 
     <ebag.hd.widget.TitleBar
         android:id="@+id/titleBar"
@@ -14,6 +15,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_below="@+id/titleBar"
         android:layout_height="match_parent">
 
         <android.support.constraint.Guideline
@@ -68,4 +70,12 @@
             app:layout_constraintEnd_toEndOf="parent"/>
     </android.support.constraint.ConstraintLayout>
 
-</LinearLayout>
+    <!--<View
+        android:id="@+id/view_Bottom"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100">
+    </View>-->
+
+</RelativeLayout>

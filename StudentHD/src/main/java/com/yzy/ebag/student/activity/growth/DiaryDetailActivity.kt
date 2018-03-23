@@ -13,11 +13,15 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
+import com.luck.picture.lib.tools.PictureFileUtils
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.bean.Diary
+import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseActivity
 import ebag.core.base.PhotoPreviewActivity
+import ebag.core.http.network.RequestCallBack
 import ebag.core.util.*
+import ebag.hd.http.EBagApi
 import ebag.hd.widget.startSelectPicture
 import kotlinx.android.synthetic.main.activity_diary_detail.*
 import java.io.File
@@ -92,7 +96,7 @@ class DiaryDetailActivity: BaseActivity() {
                     commit(titleEdit.text.toString(), contentEdit.text.toString())
                 else {
                     val fileName = System.currentTimeMillis().toString()
-                    val url = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/diary/$userId/$fileName"
+                    val url = "${Constants.OSS_BASE_URL}/personal/diary/$userId/$fileName"
                     OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(imgAdapter.getItem(0)), "personal/$userId", fileName, myHandler)
                     sb.append("$url,")
                 }
@@ -123,7 +127,18 @@ class DiaryDetailActivity: BaseActivity() {
     }
 
     private fun commit(title: String, content: String, urls: String = ""){
+            StudentApi.addUserGrowth(SPUtils.get(this,ebag.hd.base.Constants.CLASS_NAME,"") as String,"4",title,content,sb.toString(),gradeId,object:RequestCallBack<String>(){
+                override fun onSuccess(entity: String?) {
+                    T.show(this@DiaryDetailActivity,"成长轨迹添加成功")
+                    LoadingDialogUtil.closeLoadingDialog()
+                }
 
+                override fun onError(exception: Throwable) {
+                    T.show(this@DiaryDetailActivity,"成长轨迹添加失败")
+                    LoadingDialogUtil.closeLoadingDialog()
+                }
+
+            })
     }
 
     inner class Adapter: BaseQuickAdapter<String, BaseViewHolder>(ebag.hd.R.layout.item_imageview){
@@ -153,6 +168,7 @@ class DiaryDetailActivity: BaseActivity() {
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                     selectList.forEach { imgAdapter.addData(imgAdapter.itemCount - 1, it.path) }
+
                 }
             }
         }
@@ -166,7 +182,7 @@ class DiaryDetailActivity: BaseActivity() {
                     activity.uploadPosition ++
                     if (activity.uploadPosition < activity.imgAdapter.itemCount - 1) {
                         val fileName = System.currentTimeMillis().toString()
-                        val url = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/diary/${activity.userId}/$fileName"
+                        val url = "${Constants.OSS_BASE_URL}/personal/diary/${activity.userId}/$fileName"
                         OSSUploadUtils.getInstance().UploadPhotoToOSS(
                                 activity,
                                 File(activity.imgAdapter.getItem(activity.uploadPosition)),
@@ -180,12 +196,14 @@ class DiaryDetailActivity: BaseActivity() {
                                 activity.contentEdit.text.toString(),
                                 activity.sb.substring(0, activity.sb.lastIndexOf(","))
                         )
+                        PictureFileUtils.deleteCacheDirFile(activity)
                     }
                 }
                 Constants.UPLOAD_FAIL ->{
                     LoadingDialogUtil.closeLoadingDialog()
                     T.show(activity, "上传图片失败，请稍后重试")
                 }
+
             }
         }
     }

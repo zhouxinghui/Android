@@ -1,22 +1,34 @@
 package ebag.hd.activity
 
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.support.v7.widget.AppCompatEditText
 import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.util.Patterns
 import android.widget.EditText
 import android.widget.TextView
+import com.bigkoo.pickerview.OptionsPickerView
+import com.google.gson.Gson
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.Constants
+import ebag.core.util.SPUtils
 import ebag.core.util.T
 import ebag.hd.R
 import ebag.hd.adapter.EditAddressAdapter
+import ebag.hd.bean.CitysBean
 import ebag.hd.http.EBagApi
 import ebag.hd.mvp.model.EditAddressModel
 import ebag.hd.widget.CityPickerDialog
+import kotlinx.android.synthetic.main.activity_class_schedule.*
 import kotlinx.android.synthetic.main.activity_editaddress.*
+import org.json.JSONArray
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.util.regex.Pattern
 
 /**
  * Created by fansan on 2018/3/14.
@@ -27,10 +39,16 @@ class EditAddressActivity : BaseActivity() {
     private var mPhoneNum: String = ""
     private var mAddress: String = ""
     private var mPreAddress: String = ""
-    private var mId:String = ""
+    private var mId: String = ""
     private lateinit var mAdapter: EditAddressAdapter
     private var update: Boolean = false
     private val datas: MutableList<EditAddressModel> = mutableListOf()
+    private var options1Items = ArrayList<CitysBean>()
+    private var options2Items = ArrayList<ArrayList<String>>()
+    private var options3Items = ArrayList<ArrayList<ArrayList<String>>>()
+    private var opt1 = 0
+    private var opt2 = 0
+    private var opt3 = 0
     override fun initViews() {
 
         if (intent.extras != null) {
@@ -53,7 +71,7 @@ class EditAddressActivity : BaseActivity() {
 
             if (update) {
                 if (checkEmpty(name, phone, preAddress, address)) {
-                    EBagApi.updateAddress(mId,name.text.toString().trim(),phone.text.toString().trim(),preAddress.text.toString().trim(),address.text.toString().trim(),object :RequestCallBack<String>(){
+                    EBagApi.updateAddress(mId, name.text.toString().trim(), phone.text.toString().trim(), preAddress.text.toString().trim(), address.text.toString().trim(), "1", object : RequestCallBack<String>() {
                         override fun onSuccess(entity: String?) {
                             T.show(this@EditAddressActivity, "保存成功")
                             setResult(99)
@@ -103,13 +121,7 @@ class EditAddressActivity : BaseActivity() {
         activity_editaddress_recyclerview.addItemDecoration(ebag.core.xRecyclerView.manager.DividerItemDecoration(DividerItemDecoration.VERTICAL, 1, Color.parseColor("#e0e0e0")))
         mAdapter.setOnItemChildClickListener { _, _, position ->
             if (position == 2) {
-                val cityPick = CityPickerDialog(this)
-                cityPick.onConfirmClick = { currentCityBean ->
-                    datas[2] = EditAddressModel("省市区:", "${currentCityBean.provinceName}  ${if (currentCityBean.countyName.isNullOrEmpty()) "" else currentCityBean.countyName}  ${if (currentCityBean.cityName.isNullOrEmpty()) "" else currentCityBean.cityName}")
-                    mAdapter.notifyItemChanged(2)
-                    //T.show(this,"haha")
-                }
-                cityPick.show()
+                showPickerView()
             }
         }
 
@@ -122,9 +134,82 @@ class EditAddressActivity : BaseActivity() {
             phone.text.toString().trim().isEmpty() -> T.show(this, "电话不能为空")
             preAddress.text.toString().trim().isEmpty() -> T.show(this, "没有选择省市区")
             address.text.toString().trim().isEmpty() -> T.show(this, "地址不能为空")
+            !Pattern.matches(ebag.hd.base.Constants.MOBILENUMBER_REGEX, phone.text.toString().trim()) -> T.show(this, "手机号格式不正确")
             else -> return true
         }
 
         return false
+    }
+
+    private fun initPickerView() {
+
+        val buidle = StringBuilder()
+        BufferedReader(InputStreamReader(assets.open("citys.json"))).use {
+            var line: String
+            while (true) {
+                line = it.readLine() ?: break
+                buidle.append(line)
+            }
+        }
+
+        val jsonBean = paserJson(buidle.toString())
+        options1Items = jsonBean
+
+        for (i in jsonBean.indices) {
+            val cityList = ArrayList<String>() //城市
+            val cityId = ArrayList<Int>()
+            val provinceAreaList = ArrayList<ArrayList<String>>() //地区
+            val provinceAreaIdList = ArrayList<ArrayList<Int>>() //地区
+            (jsonBean[i].city.indices).forEach { c ->
+                val cityName = jsonBean[i].city[c].name
+                cityList.add(cityName)
+                cityId.add(jsonBean[i].city[c].id)
+                val cityAreaList = ArrayList<String>()
+                val cityAreaIntList = ArrayList<Int>()
+                if (jsonBean[i].city[c].district == null || jsonBean[i].city[c].district.size == 0) {
+                    cityAreaList.add("")
+                } else {
+                    (jsonBean[i].city[c].district.indices).forEach { d ->
+                        val areaName = jsonBean[i].city[c].district[d].name
+                        cityAreaList.add(areaName)
+                        cityAreaIntList.add(jsonBean[i].city[c].district[d].id)
+                    }
+                }
+                provinceAreaList.add(cityAreaList)
+                provinceAreaIdList.add(cityAreaIntList)
+            }
+            options2Items.add(cityList)
+            options3Items.add(provinceAreaList)
+        }
+
+    }
+
+    private fun paserJson(json: String): ArrayList<CitysBean> {
+        val beanList: ArrayList<CitysBean> = ArrayList()
+        val jsonArray = JSONArray(json)
+        (0 until jsonArray.length()).mapTo(beanList) { Gson().fromJson(jsonArray.optString(it).toString(), CitysBean::class.java) }
+        return beanList
+    }
+
+    private fun showPickerView() {
+
+        initPickerView()
+
+        val optView = OptionsPickerView.Builder(this, { opt1, opt2, opt3, _ ->
+            this.opt1 = opt1
+            this.opt2 = opt2
+            this.opt3 = opt3
+            datas[2] = EditAddressModel("省市区:", options1Items[this.opt1].name + " " + options2Items[this.opt1][this.opt2] + " " + options3Items[this.opt1][this.opt2][this.opt3])
+            mAdapter.notifyItemChanged(2)
+
+        }).setTitleText("选择城市")
+                .setDividerColor(Color.BLACK)
+                .setTextColorCenter(Color.BLACK)
+                .setContentTextSize(20)
+                .build()
+
+        optView.setPicker(options1Items, options2Items, options3Items)
+        optView.setSelectOptions(opt1, opt2, opt3)
+        optView.show()
     }
 }

@@ -35,20 +35,21 @@ class OrderDetailsActivity : BaseActivity() {
     private var count = 0
     private var address = false
     private var number = ""
-    private var addresID:String = ""
-    private var mList:ArrayList<SaveOrderPBean.ListBean> = arrayListOf()
+    private var addresID: String = ""
+    private var mList: ArrayList<SaveOrderPBean.ListBean> = arrayListOf()
     @SuppressLint("HandlerLeak")
-    private val handler = object:Handler(){
+    private val handler = object : Handler() {
         override fun handleMessage(msg: Message?) {
             super.handleMessage(msg)
-            val result = PayResult(msg?.obj as Map<String,String>)
+            @Suppress("UNCHECKED_CAST")
+            val result = PayResult(msg?.obj as Map<String, String>)
             val resultInfo = result.result
             val resultStatus = result.resultStatus
-            if (TextUtils.equals(resultStatus,"9000")){
-                T.show(this@OrderDetailsActivity,"支付成功")
-            }else{
-                T.show(this@OrderDetailsActivity,"支付失败")
-                ActivityUtils.skipActivityAndFinishAll(this@OrderDetailsActivity,ShopOrderActivity::class.java)
+            if (TextUtils.equals(resultStatus, "9000")) {
+                T.show(this@OrderDetailsActivity, "支付成功")
+            } else {
+                T.show(this@OrderDetailsActivity, "支付失败")
+                ActivityUtils.skipActivityAndFinishAll(this@OrderDetailsActivity, ShopOrderActivity::class.java)
             }
             Log.d("fansan", "alipay info = $resultInfo")
 
@@ -59,10 +60,11 @@ class OrderDetailsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         ActivityUtils.addActivity(this)
     }
-    override fun getLayoutId(): Int = R.layout.activity_shop_order_detail
 
+    override fun getLayoutId(): Int = R.layout.activity_shop_order_detail
     override fun initViews() {
 
+        @Suppress("UNCHECKED_CAST")
         val dats = intent.getSerializableExtra("datas") as ArrayList<ShopListBean.ListBean>
         number = intent.getStringExtra("number")
         tv_order_time.text = "订单编号:$number\n下单时间:${number.substring(0, 4)}年${number[5]}月${number.substring(6, 7)}日  ${number.substring(startIndex = 8, endIndex = 10)}:${number.substring(10, 12)}"
@@ -72,12 +74,15 @@ class OrderDetailsActivity : BaseActivity() {
             view.findViewById<TextView>(R.id.goods_yun_price).text = dats[i].ysbMoney
             view.findViewById<TextView>(R.id.tv_price).text = "¥ ${dats[i].discountPrice}"
             view.findViewById<TextView>(R.id.tv_num).text = "x${dats[i].numbers}"
-            if (i == 0){
-                view.findViewById<ImageView>(R.id.goods_img).loadImage(dats[0].imgUrls[0])
+            if (dats[i].imgUrls!=null && dats[i].imgUrls.isNotEmpty()) {
+                if (i == 0) {
+                    if (dats[i].imgUrls.size != 0)
+                        view.findViewById<ImageView>(R.id.goods_img).loadImage(dats[0].imgUrls[0])
+                }
             }
             count += (dats[i].discountPrice.toInt() * dats[i].numbers)
-           /* mBean.price = dats[i].price
-            mBean.allPrice = count.toString()*/
+            /* mBean.price = dats[i].price
+             mBean.allPrice = count.toString()*/
             mList.add(SaveOrderPBean.ListBean(dats[i].id.toString(), dats[i].numbers.toString()))
             /*mBean.oid = number*/
             goods_list.addView(view)
@@ -110,18 +115,18 @@ class OrderDetailsActivity : BaseActivity() {
 
             if (address) {
 
-                EBagApi.saveOrder(addresID,count.toString(),count.toString(),mList,number,object:RequestCallBack<String>(){
+                EBagApi.saveOrder(addresID, count.toString(), count.toString(), mList, number, object : RequestCallBack<String>() {
 
                     override fun onStart() {
                         super.onStart()
-                        LoadingDialogUtil.showLoading(this@OrderDetailsActivity,"正在生成订单..请稍后")
+                        LoadingDialogUtil.showLoading(this@OrderDetailsActivity, "正在生成订单..请稍后")
                     }
 
                     override fun onSuccess(entity: String?) {
                         LoadingDialogUtil.closeLoadingDialog()
                         if (cb_ali_pay.isChecked) {
                             getAlipayInfo()
-                        }else{
+                        } else {
                             getWxPayInfo()
                         }
                     }
@@ -171,7 +176,7 @@ class OrderDetailsActivity : BaseActivity() {
                 //WXPay(entity!!)
                 val runnable = Runnable {
                     val paytask = PayTask(this@OrderDetailsActivity)
-                    val result = paytask.payV2(entity,true)
+                    val result = paytask.payV2(entity, true)
                     val message = Message()
                     message.what = 1
                     message.obj = result

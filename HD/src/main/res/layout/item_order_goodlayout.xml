@@ -72,4 +72,12 @@
         android:text="X 1"
         android:textColor="#A6A29B"
         android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:id="@+id/line"
+        android:layout_height="@dimen/x1"
+        android:background="#e0e0e0"
+        android:layout_alignParentBottom="true"
+        />
 </RelativeLayout>

@@ -516,17 +516,19 @@ object EBagApi {
         jsonObject.put("phone",phone)
         jsonObject.put("preAddress",preAddress)
         jsonObject.put("address",address)
+        jsonObject.put("type","1")
         EBagApi.request(eBagService.saveAddress("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
     /**更新地址*/
-    fun updateAddress(id:String,consignee:String,phone:String,preAddress:String,address:String,callback: RequestCallBack<String>){
+    fun updateAddress(id:String,consignee:String,phone:String,preAddress:String,address:String,type:String,callback: RequestCallBack<String>){
         val jsonObject = JSONObject()
         jsonObject.put("consignee",consignee)
         jsonObject.put("id",id)
         jsonObject.put("phone",phone)
         jsonObject.put("preAddress",preAddress)
         jsonObject.put("address",address)
+        jsonObject.put("type",type)
         EBagApi.request(eBagService.updateAddress("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
@@ -613,4 +615,6 @@ object EBagApi {
         jsonObject.put("allPrice",allPrice)
         EBagApi.request(eBagService.getAiliPrepayid("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /*移除购物车*/
 }

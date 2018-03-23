@@ -304,6 +304,8 @@ interface EBagService {
     /*支付宝*/
     @POST("shop/AliPay/{version}")
     fun getAiliPrepayid(@Path("version") version: String,@Body requestBody: RequestBody): Observable<ResponseBean<String>>
+    @POST("shop/removeShopCart/{version}")
+    fun removeShopCar(@Path("version") version: String,@Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
 
 

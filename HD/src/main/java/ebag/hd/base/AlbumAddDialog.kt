@@ -1,5 +1,6 @@
 package ebag.hd.base
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -85,6 +86,7 @@ class AlbumAddDialog: BaseFragmentDialog() {
 
                 override fun onSuccess(entity: String?) {
                     T.show(mContext, "创建相册成功")
+                    etCode.setText("")
                     if(successListener != null)
                         successListener!!.invoke()
                     LoadingDialogUtil.closeLoadingDialog()

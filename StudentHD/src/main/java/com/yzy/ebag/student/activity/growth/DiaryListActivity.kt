@@ -15,6 +15,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.base.BaseListActivity
 import com.yzy.ebag.student.bean.Diary
+import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.DateUtil
 import ebag.core.util.T
@@ -26,6 +27,7 @@ import ebag.core.util.loadImage
  * @description
  */
 class DiaryListActivity: BaseListActivity<List<Diary>, Diary>() {
+
 
     companion object {
         fun jump(context: Context, gradeId: String){
@@ -70,7 +72,7 @@ class DiaryListActivity: BaseListActivity<List<Diary>, Diary>() {
         p.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
         titleBar.addView(view,p)
 
-        val list = ArrayList<Diary>()
+        /*val list = ArrayList<Diary>()
         list.add(Diary("今天很愉快", "今天我都做了什么呢", 1516623323000,
                 "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/5/1605/ht/201801222014340," +
                         "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/5/1605/ht/201801222014341"))
@@ -79,7 +81,7 @@ class DiaryListActivity: BaseListActivity<List<Diary>, Diary>() {
                 "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/5/1605/ht/201801222014340," +
                         "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/5/1605/ht/201801222014341"))
 
-        withFirstPageData(list)
+        withFirstPageData(list)*/
     }
 
     private fun search(){
@@ -93,9 +95,14 @@ class DiaryListActivity: BaseListActivity<List<Diary>, Diary>() {
         return edit.text.toString().isBlank()
     }
 
+    override fun getPageSize(): Int {
+        return 10
+    }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<Diary>>) {
+        StudentApi.searchUserGrowthList(page,getPageSize(),gradeId,"4",requestCallBack)
     }
+
 
     override fun parentToList(isFirstPage: Boolean, parent: List<Diary>?): List<Diary>? {
         return parent
