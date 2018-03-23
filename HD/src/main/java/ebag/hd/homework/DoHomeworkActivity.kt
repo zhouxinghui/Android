@@ -347,8 +347,8 @@ class DoHomeworkActivity: BaseActivity() {
         }
 
         override fun onError(exception: Throwable) {
-            T.show(this@DoHomeworkActivity, "提交失败")
             LoadingDialogUtil.closeLoadingDialog()
+            exception.handleThrowable(this@DoHomeworkActivity)
         }
 
     }
