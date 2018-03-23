@@ -68,7 +68,7 @@ class ShopCarActivity : BaseActivity() {
             when (view.id) {
                 R.id.add -> {
                     mDatas[position].numbers = mDatas[position].numbers + 1
-                    updateShopCar(mDatas[position].id.toString(), mDatas[position].numbers.toString())
+                    updateShopCar(mDatas[position].shopCartId.toString(), mDatas[position].numbers.toString())
                     if (mDatas[position].isChecked) {
                         totalPrice += mDatas[position].discountPrice.toInt()
                         tv_total_price.text = "¥ $totalPrice"
@@ -76,9 +76,11 @@ class ShopCarActivity : BaseActivity() {
                     mAdapter.notifyDataSetChanged()
                 }
                 R.id.lower -> {
+                    val array = arrayListOf<String>()
                     if (mDatas[position].numbers <= 1) {
                         AlertDialog.Builder(this@ShopCarActivity).setMessage("移除此商品吗?").setNeutralButton("是", { dialog, which ->
-                            EBagApi.removeShopCar(mDatas[position].id.toString(), object : RequestCallBack<String>() {
+                            array.add(mDatas[position].shopCartId.toString())
+                            EBagApi.removeShopCar(array, object : RequestCallBack<String>() {
                                 override fun onSuccess(entity: String?) {
                                     mDatas.removeAt(position)
                                     mAdapter.notifyItemRemoved(position)
@@ -99,7 +101,7 @@ class ShopCarActivity : BaseActivity() {
                         totalPrice -= mDatas[position].discountPrice.toInt()
                         tv_total_price.text = "¥ $totalPrice"
                     }
-                    updateShopCar(mDatas[position].id.toString(), mDatas[position].numbers.toString())
+                    updateShopCar(mDatas[position].shopCartId.toString(), mDatas[position].numbers.toString())
                     mAdapter.notifyDataSetChanged()
                 }
             }
