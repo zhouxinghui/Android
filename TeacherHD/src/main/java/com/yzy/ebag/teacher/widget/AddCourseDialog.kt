@@ -138,6 +138,7 @@ class AddCourseDialog(context: Context): BaseDialog(context) {
                             versionAdapter.removeAllHeaderView()
                         }
                         versionAdapter.setNewData(versionList)
+                        versionAdapter.selectPosition = versionAdapter.selectPosition
                     }
                 }
                 R.id.semesterSecond ->{
@@ -159,6 +160,7 @@ class AddCourseDialog(context: Context): BaseDialog(context) {
                             versionAdapter.removeAllHeaderView()
                         }
                         versionAdapter.setNewData(versionList)
+                        versionAdapter.selectPosition = versionAdapter.selectPosition
                     }
                 }
             }
