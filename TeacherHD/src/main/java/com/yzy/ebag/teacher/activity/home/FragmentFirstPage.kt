@@ -17,13 +17,14 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.youth.banner.loader.ImageLoader
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.activity.ZixiActivity
+import com.yzy.ebag.teacher.activity.assignment.AssignmentActivity
+import com.yzy.ebag.teacher.activity.correcting.CorrectingActivity
+import com.yzy.ebag.teacher.activity.correcting.CorrectingDescActivity
+import com.yzy.ebag.teacher.activity.prepare.MyPrepareActivity
 import com.yzy.ebag.teacher.base.Constants
 import com.yzy.ebag.teacher.bean.FirstPageBean
 import com.yzy.ebag.teacher.http.TeacherApi
-import com.yzy.ebag.teacher.activity.assignment.AssignmentActivity
-import com.yzy.ebag.teacher.activity.correcting.CorrectingActivity
-import com.yzy.ebag.teacher.activity.prepare.MyPrepareActivity
-import com.yzy.ebag.teacher.activity.ZixiActivity
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.LoadingDialogUtil
@@ -105,6 +106,11 @@ class FragmentFirstPage : BaseFragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = layoutManager
 
+        adapter.setOnItemClickListener { holder, view, position ->
+            val bean = adapter.datas[position]
+            CorrectingDescActivity.jump(mContext, bean.id, bean.type)
+        }
+
         if (request == null)
             request = object : RequestCallBack<FirstPageBean>(){
                 override fun onStart() {
@@ -123,7 +129,6 @@ class FragmentFirstPage : BaseFragment() {
                 override fun onError(exception: Throwable) {
                     LoadingDialogUtil.closeLoadingDialog()
                 }
-
             }
         TeacherApi.firstPage(request!!)
     }

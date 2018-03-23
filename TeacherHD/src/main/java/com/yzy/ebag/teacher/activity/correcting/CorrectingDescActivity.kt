@@ -166,12 +166,16 @@ class CorrectingDescActivity : BaseActivity() {
             helper.setText(R.id.studentName, item.studentName)
                     .setText(R.id.bagId, "书包号：${item.ysbCode}")
             val answerTv = helper.getView<TextView>(R.id.answerTv)
-            /*if(StringUtils.isEmpty(studentAnswer)){
+            if(StringUtils.isEmpty(studentAnswer)){
                 helper.getView<TextView>(R.id.commitTime).visibility = View.GONE
-                helper.setText(R.id.answerTv, "未完成")
+                if (answerTv == null) {
+                    helper.setText(R.id.commitTime, "未完成")
+                }else{
+                    answerTv.text = "未完成"
+                }
 //                helper.getView<TextView>(R.id.correctIcon).visibility = View.GONE
                 return
-            }*/
+            }
             helper.getView<TextView>(R.id.commitTime).visibility = View.VISIBLE
 //            helper.getView<TextView>(R.id.correctIcon).visibility = View.VISIBLE
             val endTime = item.endTime
