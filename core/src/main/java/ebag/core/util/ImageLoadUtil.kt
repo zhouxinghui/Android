@@ -17,8 +17,11 @@ object ImageViewUtils {
 /**
  * 加载头像
  */
-fun ImageView.loadHead(url: String?){
+fun ImageView.loadHead(url: String?, signStr: String = "0000000000"){
     ImageViewUtils.requestOptions
+            .signature({
+                it.update(signStr.toByte())
+            })
             .placeholder(R.drawable.head_default)
             .error(R.drawable.head_default)
             .circleCrop()

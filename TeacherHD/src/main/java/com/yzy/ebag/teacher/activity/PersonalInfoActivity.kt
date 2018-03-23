@@ -74,7 +74,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                 LoadingDialogUtil.closeLoadingDialog()
                 when(modifyType){
                     0 ->{
-                        headImage.loadHead(uploadHeadUrl)
+                        headImage.loadHead(uploadHeadUrl, System.currentTimeMillis().toString())
                         userEntity?.headUrl = uploadHeadUrl
                     }
                     1 ->{
@@ -109,6 +109,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
         schoolBtn.setOnClickListener(this)
 
         userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.TEACHER_USER_ENTITY)
+        uploadHeadUrl = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/headUrl/${userEntity?.uid}.jpg"
         if (userEntity != null){
             headImage.loadHead(userEntity?.headUrl)
             setTv(name, userEntity?.name)
@@ -173,9 +174,9 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                     val filePath = selectList[0].path
-                    uploadHeadUrl = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/headUrl/${userEntity?.uid}"
+//                    headImage.loadHead(filePath)
                     LoadingDialogUtil.showLoading(this, "正在上传...")
-                    OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(filePath), "personal/headUrl", userEntity?.uid, myHandler)
+                    OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(filePath), "personal/headUrl", "${userEntity?.uid}.jpg", myHandler)
                 }
             }
         }
