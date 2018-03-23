@@ -74,7 +74,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                 LoadingDialogUtil.closeLoadingDialog()
                 when(modifyType){
                     0 ->{
-                        headImage.loadHead(uploadHeadUrl, System.currentTimeMillis().toString())
+                        headImage.loadHead(uploadHeadUrl, true, System.currentTimeMillis().toString())
                         userEntity?.headUrl = uploadHeadUrl
                     }
                     1 ->{
@@ -111,7 +111,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
         userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.TEACHER_USER_ENTITY)
         uploadHeadUrl = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/headUrl/${userEntity?.uid}.jpg"
         if (userEntity != null){
-            headImage.loadHead(userEntity?.headUrl)
+            headImage.loadHead(userEntity?.headUrl, true, System.currentTimeMillis().toString())
             setTv(name, userEntity?.name)
             setTv(bag, userEntity?.ysbCode)
             setTv(sex, if(userEntity?.sex == "1") "男" else "女")

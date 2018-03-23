@@ -2,6 +2,7 @@ package ebag.core.util
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import ebag.core.R
 
@@ -17,8 +18,10 @@ object ImageViewUtils {
 /**
  * 加载头像
  */
-fun ImageView.loadHead(url: String?, signStr: String = "0000000000"){
+fun ImageView.loadHead(url: String?, skipCache: Boolean = false, signStr: String = "0000000000"){
     ImageViewUtils.requestOptions
+            .skipMemoryCache(skipCache)
+            .diskCacheStrategy(if (skipCache) DiskCacheStrategy.NONE else DiskCacheStrategy.AUTOMATIC)
             .signature({
                 it.update(signStr.toByte())
             })

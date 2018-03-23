@@ -38,19 +38,34 @@ class FragmentMine : BaseFragment(), View.OnClickListener {
 
     }
 
-    override fun initViews(rootView: View) {
-        val userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.TEACHER_USER_ENTITY)
-        if (userEntity != null) {
-            headImg.loadHead(userEntity.headUrl)
-//            subjectTv.text = "英"
-            name.text = userEntity.name
-            bagNumber.text = getString(R.string.bag_number, userEntity.ysbCode)
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden){
+            modifyInfo()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        modifyInfo()
+    }
+
+    override fun initViews(rootView: View) {
+        modifyInfo()
         personalInfo.setOnClickListener(this)
         myShop.setOnClickListener(this)
         operation.setOnClickListener(this)
         systemSetting.setOnClickListener(this)
         setting.setOnClickListener(this)
+    }
+
+    private fun modifyInfo(){
+        val userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.TEACHER_USER_ENTITY)
+        if (userEntity != null) {
+            headImg.loadHead(userEntity.headUrl, true, System.currentTimeMillis().toString())
+            name.text = userEntity.name
+            bagNumber.text = getString(R.string.bag_number, userEntity.ysbCode)
+        }
     }
 
     override fun onClick(v: View?) {
