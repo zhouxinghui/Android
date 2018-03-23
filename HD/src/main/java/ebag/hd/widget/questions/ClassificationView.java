@@ -296,7 +296,11 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
                         sb.append(categoryInside.getChildAt(j).getTag(R.id.tv_id).toString()).append(",");
                 }
             }
-            return sb.substring(0, sb.length() - 1);
+            if (sb.substring(sb.length() - 1, sb.length()).equals("#")){
+                return sb.substring(0, sb.length() - 3);
+            }else{
+                return sb.substring(0, sb.length() - 1);
+            }
             /*String[] split_stu = answer.split(";");
             String[] split_right = rightAnswer.split(";");
             for (int i = 0; i < split_stu.length; i++) {

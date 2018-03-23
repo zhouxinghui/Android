@@ -226,7 +226,9 @@ class CorrectingDescActivity : BaseActivity() {
                     splitCategory.forEach {
                         val category = it.split("#R#")
                         val categoryName = category[0]
-                        val elementSplit = category[1].split(",")
+                        var elementSplit = arrayOf("","").asList()
+                        if (category.size > 1)
+                            elementSplit = category[1].split(",")
 
                         val answerLayout = LinearLayout(this@CorrectingDescActivity)
                         answerLayout.orientation = LinearLayout.VERTICAL
@@ -271,7 +273,8 @@ class CorrectingDescActivity : BaseActivity() {
                             val elementTv = TextView(this@CorrectingDescActivity)
                             elementTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.tv_normal))
                             elementTv.setTextColor(resources.getColor(R.color.tv_normal))
-                            elementTv.text = category[1]
+                            if (category.size > 1)
+                                elementTv.text = category[1]
                             answerLayout.addView(elementTv)
                         }
                         linearLayout.addView(answerLayout)
