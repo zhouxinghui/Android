@@ -45,7 +45,7 @@
         android:maxLength="10"
         android:textColor="@color/color_edit_color"
         android:textColorHint="@color/color_edit_hint"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:background="@null"
         app:layout_constraintEnd_toEndOf="@id/bg"
         app:layout_constraintStart_toStartOf="@id/bg"

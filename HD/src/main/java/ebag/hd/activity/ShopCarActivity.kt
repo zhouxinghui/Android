@@ -34,50 +34,71 @@ class ShopCarActivity : BaseActivity() {
         mAdapter = ShopCarAdapter(this, mDatas, object : OnCheckChange {
             override fun getPosition(position: Int, isChecked: Boolean) {
                 if (isChecked) {
-                    totalPrice += mDatas[position].discountPrice.toInt()*mDatas[position].numbers
+                    totalPrice += mDatas[position].discountPrice.toInt() * mDatas[position].numbers
                     tv_total_price.text = "¥ $totalPrice"
                     selectedCount.add(position)
                     if (selectedCount.size == mDatas.size) {
                         all_check.isChecked = true
                     }
                 } else {
-                    totalPrice -= mDatas[position].discountPrice.toInt()
+                    totalPrice -= mDatas[position].discountPrice.toInt()* mDatas[position].numbers
                     tv_total_price.text = "¥ $totalPrice"
                     selectedCount.remove(position)
-                    if (all_check.isChecked) {
+                    if (all_check.isChecked && selectedCount.isEmpty()) {
                         all_check.isChecked = false
                     }
                 }
+
+                mDatas[position].isChecked = isChecked
             }
 
         })
         shopcar_recyclerview.adapter = mAdapter
         shopcar_recyclerview.addItemDecoration(ebag.core.xRecyclerView.manager.DividerItemDecoration(DividerItemDecoration.VERTICAL, 1, Color.parseColor("#e0e0e0")))
         all_check.setOnCheckedChangeListener({ _, isChecked ->
-            mAdapter.mToggle = isChecked
+            mDatas.forEach {
+                it.isChecked = isChecked
+                mAdapter.notifyDataSetChanged()
+            }
 
         })
 
-        mAdapter.setOnItemChildClickListener { adapter, view, position ->
+        mAdapter.setOnItemChildClickListener { _, view, position ->
 
             when (view.id) {
                 R.id.add -> {
                     mDatas[position].numbers = mDatas[position].numbers + 1
                     updateShopCar(mDatas[position].id.toString(), mDatas[position].numbers.toString())
-                    totalPrice += mDatas[position].discountPrice.toInt()
-                    tv_total_price.text = "¥ $totalPrice"
+                    if (mDatas[position].isChecked) {
+                        totalPrice += mDatas[position].discountPrice.toInt()
+                        tv_total_price.text = "¥ $totalPrice"
+                    }
                     mAdapter.notifyDataSetChanged()
                 }
                 R.id.lower -> {
                     if (mDatas[position].numbers <= 1) {
-                        AlertDialog.Builder(this@ShopCarActivity).setMessage("移除此商品吗?").setNeutralButton("是",{dialog,which ->
+                        AlertDialog.Builder(this@ShopCarActivity).setMessage("移除此商品吗?").setNeutralButton("是", { dialog, which ->
+                            EBagApi.removeShopCar(mDatas[position].id.toString(), object : RequestCallBack<String>() {
+                                override fun onSuccess(entity: String?) {
+                                    mDatas.removeAt(position)
+                                    mAdapter.notifyItemRemoved(position)
+                                }
 
-                        })
+                                override fun onError(exception: Throwable) {
+                                    T.show(this@ShopCarActivity, "移除商品失败")
+                                }
+
+                            })
+                        }).setNegativeButton("否", { dialog, which ->
+
+                        }).show()
                         return@setOnItemChildClickListener
                     }
                     mDatas[position].numbers = mDatas[position].numbers - 1
-                    totalPrice -= mDatas[position].discountPrice.toInt()
-                    tv_total_price.text = "¥ $totalPrice"
+                    if (mDatas[position].isChecked) {
+                        totalPrice -= mDatas[position].discountPrice.toInt()
+                        tv_total_price.text = "¥ $totalPrice"
+                    }
                     updateShopCar(mDatas[position].id.toString(), mDatas[position].numbers.toString())
                     mAdapter.notifyDataSetChanged()
                 }
@@ -139,6 +160,9 @@ class ShopCarActivity : BaseActivity() {
             override fun onSuccess(entity: MutableList<ShopListBean.ListBean>?) {
                 if (entity!!.isNotEmpty()) {
                     mDatas.addAll(entity)
+                    mDatas.forEach {
+                        it.isChecked = false
+                    }
                     mAdapter.notifyDataSetChanged()
                     shopcar_stateview.showContent()
                 } else {

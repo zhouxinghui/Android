@@ -624,4 +624,9 @@ object EBagApi {
     }
 
     /*移除购物车*/
+    fun removeShopCar(id:String,callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("id",id)
+        EBagApi.request(eBagService.removeShopCar("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

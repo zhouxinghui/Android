@@ -18,15 +18,10 @@ import java.util.*
 class ShopCarAdapter(context:Context,data:MutableList<ShopListBean.ListBean>,onCheckedChange:ShopCarActivity.OnCheckChange):BaseQuickAdapter<ShopListBean.ListBean,BaseViewHolder>(R.layout.item_shop_car_recyclerview,data){
 
     private val onCheckedChange:ShopCarActivity.OnCheckChange by lazy { onCheckedChange }
-    var mToggle = false
-    set(value) {
-        field = value
-        notifyDataSetChanged()
-    }
 
     override fun convert(helper: BaseViewHolder, item: ShopListBean.ListBean?) {
-        helper.getView<CheckBox>(R.id.cb_selector).isChecked =mToggle
-        helper.setText(R.id.goods_name,item?.shoppingName).setText(R.id.goods_yun_price,"云币:${item?.ysbMoney}").setText(R.id.goods_price,"¥ ${item?.discountPrice}").setText(R.id.goods_old_price,"¥ ${item?.price}").setText(R.id.tv_num,item?.numbers.toString())
+        helper.getView<CheckBox>(R.id.cb_selector).isChecked =item!!.isChecked
+        helper.setText(R.id.goods_name,item.shoppingName).setText(R.id.goods_yun_price,"云币:${item.ysbMoney}").setText(R.id.goods_price,"¥ ${item.discountPrice}").setText(R.id.goods_old_price,"¥ ${item.price}").setText(R.id.tv_num,item.numbers.toString())
         helper.getView<TextView>(R.id.goods_old_price).paint.flags = Paint.STRIKE_THRU_TEXT_FLAG
         helper.getView<CheckBox>(R.id.cb_selector).setOnCheckedChangeListener { _, isChecked ->
 

@@ -70,6 +70,16 @@ public class ShopListBean implements Serializable{
         private int numbers;
         private List<String> imgUrls;
 
+        public boolean isChecked() {
+            return checked;
+        }
+
+        public void setChecked(boolean checked) {
+            this.checked = checked;
+        }
+
+        private boolean checked;
+
         public int getId() {
             return id;
         }
