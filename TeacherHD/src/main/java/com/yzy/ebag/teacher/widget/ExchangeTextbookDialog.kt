@@ -123,7 +123,7 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
                     }else{
                         subjectAdapter.removeAllHeaderView()
                         subjectAdapter.setNewData(firstVo)
-                        val versionList = firstVo[0].bookVersionVoList
+                        val versionList = firstVo[subjectAdapter.selectPosition].bookVersionVoList
                         if (versionList.isEmpty()){
                             versionAdapter.addHeaderView(versionEmptyHead)
                         }else{
@@ -144,7 +144,7 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
                     }else{
                         subjectAdapter.removeAllHeaderView()
                         subjectAdapter.setNewData(nextVo)
-                        val versionList = nextVo[0].bookVersionVoList
+                        val versionList = nextVo[subjectAdapter.selectPosition].bookVersionVoList
                         if (versionList == null || versionList.isEmpty()){
                             versionAdapter.addHeaderView(versionEmptyHead)
                         }else{
@@ -167,14 +167,16 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
         gradeRecycler.layoutManager = LinearLayoutManager(context)
         gradeRecycler.adapter = subjectAdapter
         subjectAdapter.setOnItemClickListener { holder, view, position ->
-            subjectAdapter.selectPosition = position
+            if (subjectAdapter.selectPosition != position)
+                subjectAdapter.selectPosition = position
         }
 
 
         versionRecycler.layoutManager = LinearLayoutManager(context)
         versionRecycler.adapter = versionAdapter
         versionAdapter.setOnItemClickListener { holder, view, position ->
-            versionAdapter.selectPosition = position
+            if (versionAdapter.selectPosition != position)
+                versionAdapter.selectPosition = position
         }
 
         stateView.setOnRetryClickListener {

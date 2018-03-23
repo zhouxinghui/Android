@@ -131,7 +131,7 @@ class AddCourseDialog(context: Context): BaseDialog(context) {
                     }else{
                         subjectAdapter.removeAllHeaderView()
                         subjectAdapter.setNewData(firstVo)
-                        val versionList = firstVo[0].bookVersions
+                        val versionList = firstVo[subjectAdapter.selectPosition].bookVersions
                         if (versionList == null || versionList.isEmpty()){
                             versionAdapter.addHeaderView(versionEmptyHead)
                         }else{
@@ -152,7 +152,7 @@ class AddCourseDialog(context: Context): BaseDialog(context) {
                     }else{
                         subjectAdapter.removeAllHeaderView()
                         subjectAdapter.setNewData(nextVo)
-                        val versionList = nextVo[0].bookVersions
+                        val versionList = nextVo[subjectAdapter.selectPosition].bookVersions
                         if (versionList.isEmpty()){
                             versionAdapter.addHeaderView(versionEmptyHead)
                         }else{
@@ -167,13 +167,15 @@ class AddCourseDialog(context: Context): BaseDialog(context) {
         gradeRecycler.layoutManager = LinearLayoutManager(context)
         gradeRecycler.adapter = subjectAdapter
         subjectAdapter.setOnItemClickListener { _, view, position ->
-            subjectAdapter.selectPosition = position
+            if (subjectAdapter.selectPosition != position)
+                subjectAdapter.selectPosition = position
         }
 
         versionRecycler.layoutManager = LinearLayoutManager(context)
         versionRecycler.adapter = versionAdapter
         versionAdapter.setOnItemClickListener { _, view, position ->
-            versionAdapter.selectPosition = position
+            if (versionAdapter.selectPosition != position)
+                versionAdapter.selectPosition = position
         }
 
         confirmBtn.setOnClickListener {
