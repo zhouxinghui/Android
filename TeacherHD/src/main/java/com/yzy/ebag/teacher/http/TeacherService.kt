@@ -210,12 +210,6 @@ interface TeacherService {
     fun deletePrepareFile(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /**
-     * 修改个人信息
-     */
-    @POST("user/modifyPersonalCenter/{version}")
-    fun modifyPersonalInfo(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
-
-    /**
      * 课堂表现列表
      */
     @POST("clazzSpace/queryUserClazzRoomShowAll/{version}")

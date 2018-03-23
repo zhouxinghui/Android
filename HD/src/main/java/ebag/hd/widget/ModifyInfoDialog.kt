@@ -1,11 +1,11 @@
-package com.yzy.ebag.teacher.widget
+package ebag.hd.widget
 
 import android.content.Context
-import com.yzy.ebag.teacher.R
 import ebag.core.base.BaseDialog
 import ebag.core.util.StringUtils
 import ebag.core.util.T
-import kotlinx.android.synthetic.main.dialog_smart_push.*
+import ebag.hd.R
+import kotlinx.android.synthetic.main.dialog_modify_info.*
 
 /**
  * Created by YZY on 2018/2/24.

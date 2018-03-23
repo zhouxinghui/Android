@@ -13,6 +13,7 @@ import com.yzy.ebag.student.activity.growth.GrowthEnterTabFragment
 import com.yzy.ebag.student.dialog.PerformanceDialog
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.util.SerializableUtils
+import ebag.core.util.StringUtils
 import ebag.core.util.loadHead
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
@@ -42,6 +43,17 @@ class PersonalActivity: MVPActivity() {
         return R.layout.activity_personal
     }
 
+    private val personalFragment by lazy {
+        val fragment = PersonalFragment.newInstance()
+        fragment.onHeadOrNameChange = {headUrl, name ->
+            if (!StringUtils.isEmpty(headUrl))
+                ivHead.loadHead(headUrl, true, System.currentTimeMillis().toString())
+            if (!StringUtils.isEmpty(name))
+                tvName.text = name
+        }
+        fragment
+    }
+
     override fun initViews() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -67,7 +79,7 @@ class PersonalActivity: MVPActivity() {
         if(userEntity != null){
             tvName.text = userEntity.name
             tvId.text = userEntity.ysbCode
-            ivHead.loadHead(userEntity.headUrl)
+            ivHead.loadHead(userEntity.headUrl, true, System.currentTimeMillis().toString())
         }
 
         tvMain.setOnClickListener {
@@ -90,7 +102,7 @@ class PersonalActivity: MVPActivity() {
 
         if(fragmentArrays[index] == null){
             fragmentArrays[index] =  when(index){
-                0 -> { PersonalFragment.newInstance() }//个人信息
+                0 -> { personalFragment }//个人信息
                 1 -> { TaskTabFragment.newInstance("")}//我的任务
                 2 -> { ClassesFragment.newInstance()}//我的班级
                 4 -> {

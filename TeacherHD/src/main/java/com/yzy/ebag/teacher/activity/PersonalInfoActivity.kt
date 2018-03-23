@@ -9,14 +9,14 @@ import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.tools.PictureFileUtils
 import com.yzy.ebag.teacher.R
-import com.yzy.ebag.teacher.http.TeacherApi
-import com.yzy.ebag.teacher.widget.ModifyInfoDialog
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.*
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
+import ebag.hd.http.EBagApi
 import ebag.hd.widget.ListBottomShowDialog
+import ebag.hd.widget.ModifyInfoDialog
 import ebag.hd.widget.startSelectPicture
 import kotlinx.android.synthetic.main.activity_personal_info.*
 import java.io.File
@@ -37,7 +37,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
         val dialog = ModifyInfoDialog(this)
         dialog.onConfirmClickListener = {
             modifyStr = it
-            TeacherApi.modifyPersonalInfo(key, it, modifyRequest)
+            EBagApi.modifyPersonalInfo(key, it, modifyRequest)
             dialog.dismiss()
         }
         dialog
@@ -59,7 +59,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
         }
         dialog.setOnDialogItemClickListener { _, data, position ->
             modifyStr = data.sexStr
-            TeacherApi.modifyPersonalInfo(key, data.sex, modifyRequest)
+            EBagApi.modifyPersonalInfo(key, data.sex, modifyRequest)
             dialog.dismiss()
         }
         dialog
@@ -109,7 +109,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
         schoolBtn.setOnClickListener(this)
 
         userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.TEACHER_USER_ENTITY)
-        uploadHeadUrl = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/headUrl/${userEntity?.uid}.jpg"
+        uploadHeadUrl = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/headUrl/${userEntity?.uid}"
         if (userEntity != null){
             headImage.loadHead(userEntity?.headUrl, true, System.currentTimeMillis().toString())
             setTv(name, userEntity?.name)
@@ -176,7 +176,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                     val filePath = selectList[0].path
 //                    headImage.loadHead(filePath)
                     LoadingDialogUtil.showLoading(this, "正在上传...")
-                    OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(filePath), "personal/headUrl", "${userEntity?.uid}.jpg", myHandler)
+                    OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(filePath), "personal/headUrl", "${userEntity?.uid}", myHandler)
                 }
             }
         }
@@ -186,7 +186,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
         override fun handleMessage(activity: PersonalInfoActivity, msg: Message) {
             when(msg.what){
                 ebag.core.util.Constants.UPLOAD_SUCCESS ->{
-                    TeacherApi.modifyPersonalInfo(activity.key, activity.uploadHeadUrl, activity.modifyRequest)
+                    EBagApi.modifyPersonalInfo(activity.key, activity.uploadHeadUrl, activity.modifyRequest)
                     PictureFileUtils.deleteCacheDirFile(activity)
                 }
                 ebag.core.util.Constants.UPLOAD_FAIL ->{

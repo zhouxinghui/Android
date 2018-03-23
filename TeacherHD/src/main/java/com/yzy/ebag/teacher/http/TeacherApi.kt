@@ -462,15 +462,6 @@ object TeacherApi {
     }
 
     /**
-     * 修改个人信息
-     */
-    fun modifyPersonalInfo(key: String, value: String, callback: RequestCallBack<String>){
-        val jsonObject = JSONObject()
-        jsonObject.put(key, value)
-        EBagApi.request(teacherService.modifyPersonalInfo("v1", EBagApi.createBody(jsonObject)), callback)
-    }
-
-    /**
      * 课堂表现列表
      */
     fun classPerformance(classId: String, callback: RequestCallBack<List<PerformanceBean>>){

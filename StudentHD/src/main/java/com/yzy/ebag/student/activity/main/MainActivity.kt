@@ -47,6 +47,7 @@ class MainActivity : MVPActivity(), MainView {
         super.onResume()
         checkUpdate(Constants.UPDATE_STUDENT, false)
         getMainClassInfo()
+        initUserInfo()
     }
 
     override fun initViews() {
@@ -111,7 +112,7 @@ class MainActivity : MVPActivity(), MainView {
         val userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.STUDENT_USER_ENTITY)
         tvName.text = userEntity?.name
         tvId.text = userEntity?.ysbCode
-        ivHead.loadHead(userEntity?.headUrl)
+        ivHead.loadHead(userEntity?.headUrl, true, System.currentTimeMillis().toString())
     }
 
     private fun initListener(){

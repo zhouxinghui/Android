@@ -257,6 +257,12 @@ interface EBagService {
     fun bookCategory(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<BookCategoryBean>>
 
     /**
+     * 修改个人信息
+     */
+    @POST("user/modifyPersonalCenter/{version}")
+    fun modifyPersonalInfo(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
      * 获取跟读列表里头的每个句子的详情
      */
     @POST("util/getOralLanguageDetail/{version}")
