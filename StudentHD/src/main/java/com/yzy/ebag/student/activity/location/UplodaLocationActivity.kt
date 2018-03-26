@@ -28,6 +28,7 @@ class UplodaLocationActivity : BaseActivity() {
         option.openGps = true
         option.setIsNeedAddress(true)
         option.setIgnoreKillProcess(false)
+        option.setIsNeedLocationPoiList(true)
         locationClient.locOption = option
         locationClient.start()
 
@@ -41,8 +42,14 @@ class UplodaLocationActivity : BaseActivity() {
     inner class MyLocationListener : BDAbstractLocationListener() {
 
         override fun onReceiveLocation(p0: BDLocation?) {
-            val addr = p0?.addrStr    //获取详细地址信息
-            uploadlocation_tv.text = addr
+            var location = ""
+            val addr = p0?.poiList
+            val province = p0?.province    //获取省份
+            val city = p0?.city    //获取城市
+            val district = p0?.district    //获取区县
+            if (addr!!.isNotEmpty())
+                location = addr[0].name
+            uploadlocation_tv.text = province + city + district +" $location"
         }
 
     }
