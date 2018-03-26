@@ -47,6 +47,7 @@ class UplodaLocationActivity : BaseActivity() {
             val province = p0?.province    //获取省份
             val city = p0?.city    //获取城市
             val district = p0?.district    //获取区县
+
             if (addr!!.isNotEmpty())
                 location = addr[0].name
             uploadlocation_tv.text = province + city + district +" $location"
