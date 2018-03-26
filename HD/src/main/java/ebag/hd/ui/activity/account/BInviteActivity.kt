@@ -88,7 +88,7 @@ abstract class BInviteActivity : MVPActivity(), InviteView {
         }
 
         changeCount.setOnClickListener {
-
+            changeCount()
         }
     }
 
