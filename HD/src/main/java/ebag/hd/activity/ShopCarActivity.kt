@@ -17,6 +17,7 @@ import ebag.hd.R
 import ebag.hd.adapter.ShopCarAdapter
 import ebag.hd.bean.ShopListBean
 import ebag.hd.http.EBagApi
+import ebag.hd.util.ActivityUtils
 import kotlinx.android.synthetic.main.activity_shop_car.*
 
 /**
@@ -30,6 +31,7 @@ class ShopCarActivity : BaseActivity() {
     private val selectedCount: HashSet<Int> = hashSetOf()
     private lateinit var _intent: Intent
     override fun initViews() {
+        ActivityUtils.addActivity(this)
         shopcar_recyclerview.layoutManager = LinearLayoutManager(this)
         mAdapter = ShopCarAdapter(this, mDatas, object : OnCheckChange {
             override fun getPosition(position: Int, isChecked: Boolean) {

@@ -67,7 +67,7 @@ class OrderDetailsActivity : BaseActivity() {
         @Suppress("UNCHECKED_CAST")
         val dats = intent.getSerializableExtra("datas") as ArrayList<ShopListBean.ListBean>
         number = intent.getStringExtra("number")
-        tv_order_time.text = "订单编号:$number\n下单时间:${number.substring(0, 4)}年${number[5]}月${number.substring(6, 7)}日  ${number.substring(startIndex = 8, endIndex = 10)}:${number.substring(10, 12)}"
+        tv_order_time.text = "订单编号:$number\n下单时间:${number.substring(0, 4)}年${number[5]}月${number.substring(6, 8)}日  ${number.substring(startIndex = 8, endIndex = 10)}:${number.substring(10, 12)}"
         for (i in dats.indices) {
             val view = View.inflate(this, R.layout.item_shop_order_detail, null)
             view.findViewById<TextView>(R.id.goods_name).text = dats[i].shoppingName
