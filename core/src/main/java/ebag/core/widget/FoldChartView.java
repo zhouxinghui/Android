@@ -314,6 +314,7 @@ public class FoldChartView extends View {
         drawAxisText(canvas);
         drawCurves(canvas);
         drawValues(canvas);
+        canvas.save();
         canvas.restore();
     }
 
