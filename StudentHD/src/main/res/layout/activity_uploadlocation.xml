@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ebag.hd.widget.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rightText="确定"
+        app:titleText="上报位置">
+
+
+    </ebag.hd.widget.TitleBar>
+
+
+    <EditText
+        android:id="@+id/contentEdit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y200"
+        android:layout_below="@+id/title_bar"
+        android:layout_marginTop="@dimen/x20"
+        android:background="@color/white"
+        android:gravity="start"
+        android:hint="请输入您的上报备注信息"
+        android:maxLength="200"
+        android:padding="20dp"
+        android:textColor="#4a4a4a"
+        android:textSize="@dimen/x24" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contentEdit"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="20dp">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_positioning_position" />
+
+        <TextView
+            android:id="@+id/uploadlocation_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x10"
+            android:text="正在获取..."
+            android:textSize="@dimen/x24" />
+    </LinearLayout>
+
+
+</RelativeLayout>

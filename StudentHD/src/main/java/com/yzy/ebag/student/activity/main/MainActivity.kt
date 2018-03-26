@@ -13,6 +13,7 @@ import com.yzy.ebag.student.activity.center.PersonalActivity
 import com.yzy.ebag.student.activity.group.GroupListActivity
 import com.yzy.ebag.student.activity.homework.ErrorTopicActivity
 import com.yzy.ebag.student.activity.homework.HomeworkActivity
+import com.yzy.ebag.student.activity.location.LocationActivity
 import com.yzy.ebag.student.activity.tools.ToolsActivity
 import com.yzy.ebag.student.bean.ClassListInfoBean
 import com.yzy.ebag.student.bean.ClassesInfoBean
@@ -170,7 +171,7 @@ class MainActivity : MVPActivity(), MainView {
         }
         //定位
         tvPosition.setOnClickListener{
-
+            startActivity(Intent(this,LocationActivity::class.java))
         }
         //学习小组
         llLearnGroup.setOnClickListener{

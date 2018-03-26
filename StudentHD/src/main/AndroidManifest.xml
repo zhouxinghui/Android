@@ -23,7 +23,6 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
 
-
     <!-- Optional for location -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -41,14 +40,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.main.MainActivity"
+        <activity
+            android:name=".activity.main.MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape"
-            />
+            android:screenOrientation="landscape" />
 
-        <activity android:name=".activity.WelcomeActivity"
-            android:screenOrientation="landscape"
+        <activity
+            android:name=".activity.WelcomeActivity"
             android:label="@string/app_name"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustUnspecified|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -62,10 +62,10 @@
         </activity>
 
         <!--解决横竖屏切换 fragment 重叠现象-->
-        <activity android:name=".activity.center.PersonalActivity"
+        <activity
+            android:name=".activity.center.PersonalActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="landscape"
-            />
+            android:screenOrientation="landscape" />
 
         <activity android:name=".DemoActivity">
 
@@ -76,186 +76,202 @@
         <activity android:name=".QuestionTestActivity">
 
         </activity>
-        <activity android:name=".activity.account.LoginActivity"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".activity.account.ForgetActivity"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".activity.tools.ToolsActivity"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".activity.SettingActivity"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".activity.homework.HomeworkActivity"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".activity.tools.formula.MathFormulaActivity"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".activity.tools.LetterActivity"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".activity.main.AnnounceActivity"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".activity.homework.ErrorTopicActivity"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".activity.tools.practise.PractiseActivity"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".activity.tools.read.ReadActivity"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".activity.tools.review.ReviewActivity"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".activity.tools.practise.WriteActivity"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".activity.tools.practise.RecordActivity"
+        <activity
+            android:name=".activity.account.LoginActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
-        <activity android:name=".activity.growth.GrowthTypeActivity"
+        <activity
+            android:name=".activity.account.ForgetActivity"
             android:screenOrientation="landscape"
-            />
-        <activity android:name=".activity.growth.CourseDetailActivity"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
+        <activity
+            android:name=".activity.tools.ToolsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.SettingActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.homework.HomeworkActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.tools.formula.MathFormulaActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.tools.LetterActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.main.AnnounceActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.homework.ErrorTopicActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.tools.practise.PractiseActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.tools.read.ReadActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.tools.review.ReviewActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.tools.practise.WriteActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.tools.practise.RecordActivity"
             android:screenOrientation="landscape"
-            />
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
+        <activity
+            android:name=".activity.growth.GrowthTypeActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.growth.CourseDetailActivity"
+            android:screenOrientation="landscape" />
 
-        <activity android:name=".activity.growth.AchievementActivity"
+        <activity
+            android:name=".activity.growth.AchievementActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
 
-        <activity android:name=".activity.growth.AchievementDetailActivity"
+        <activity
+            android:name=".activity.growth.AchievementDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
 
-        <activity android:name=".activity.growth.DiaryDetailActivity"
+        <activity
+            android:name=".activity.growth.DiaryDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".activity.growth.DiaryListActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
+        <activity
+            android:name=".activity.growth.DiaryListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
 
-        <activity android:name=".activity.set.AboutUsActivity"
+        <activity
+            android:name=".activity.set.AboutUsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
 
-        <activity android:name=".activity.tools.read.ReadDetailActivity"
+        <activity
+            android:name=".activity.tools.read.ReadDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
 
-        <activity android:name=".activity.account.InviteActivity"
+        <activity
+            android:name=".activity.account.InviteActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
 
-        <activity android:name=".activity.group.GroupListActivity"
+        <activity
+            android:name=".activity.group.GroupListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
 
-        <activity android:name=".activity.group.MemberListActivity"
+        <activity
+            android:name=".activity.group.MemberListActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
+        <activity
+            android:name=".activity.location.UplodaLocationActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.location.LocationActivity"
+            android:screenOrientation="landscape" />
 
         <!--&lt;!&ndash; For test only 测试的主程序&ndash;&gt;-->
         <!-- Rich push 核心功能 since 2.0.6-->
         <!--<activity-->
-            <!--android:name="cn.jpush.android.ui.PopWinActivity"-->
-            <!--android:theme="@style/MyDialogStyle"-->
-            <!--android:exported="false">-->
+        <!--android:name="cn.jpush.android.ui.PopWinActivity"-->
+        <!--android:theme="@style/MyDialogStyle"-->
+        <!--android:exported="false">-->
         <!--</activity>-->
 
         <!-- Required SDK核心功能-->
         <!--<activity-->
-            <!--android:name="cn.jpush.android.ui.PushActivity"-->
-            <!--android:configChanges="orientation|keyboardHidden"-->
-            <!--android:theme="@android:style/Theme.NoTitleBar"-->
-            <!--android:exported="false">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="cn.jpush.android.ui.PushActivity" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<category android:name="com.yzy.ebag.student" />-->
-            <!--</intent-filter>-->
+        <!--android:name="cn.jpush.android.ui.PushActivity"-->
+        <!--android:configChanges="orientation|keyboardHidden"-->
+        <!--android:theme="@android:style/Theme.NoTitleBar"-->
+        <!--android:exported="false">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="cn.jpush.android.ui.PushActivity" />-->
+        <!--<category android:name="android.intent.category.DEFAULT" />-->
+        <!--<category android:name="com.yzy.ebag.student" />-->
+        <!--</intent-filter>-->
         <!--</activity>-->
 
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将
         vice放在其他进程中 -->
         <!--<service android:name="cn.jpush.android.service.PushService"-->
-            <!--android:process=":multiprocess"-->
-            <!--android:exported="false"-->
-            <!--tools:node="replace" >-->
-            <!--<intent-filter>-->
-                <!--<action android:name="cn.jpush.android.intent.REGISTER" />-->
-                <!--<action android:name="cn.jpush.android.intent.REPORT" />-->
-                <!--<action android:name="cn.jpush.android.intent.PushService" />-->
-                <!--<action android:name="cn.jpush.android.intent.PUSH_TIME" />-->
-            <!--</intent-filter>-->
+        <!--android:process=":multiprocess"-->
+        <!--android:exported="false"-->
+        <!--tools:node="replace" >-->
+        <!--<intent-filter>-->
+        <!--<action android:name="cn.jpush.android.intent.REGISTER" />-->
+        <!--<action android:name="cn.jpush.android.intent.REPORT" />-->
+        <!--<action android:name="cn.jpush.android.intent.PushService" />-->
+        <!--<action android:name="cn.jpush.android.intent.PUSH_TIME" />-->
+        <!--</intent-filter>-->
         <!--</service>-->
         <!--<service-->
-            <!--android:name="cn.jpush.android.service.PushService"-->
-            <!--android:process=":multiprocess"-->
-            <!--android:exported="false">-->
-            <!---->
+        <!--android:name="cn.jpush.android.service.PushService"-->
+        <!--android:process=":multiprocess"-->
+        <!--android:exported="false">-->
+        <!---->
         <!--</service>-->
         <!-- since 3.0.9 Required SDK 核心功能-->
         <!--<provider-->
-            <!--android:authorities="cn.jpush.android.service.DataProvider"-->
-            <!--android:name="cn.jpush.android.service.DataProvider"-->
-            <!--android:exported="false"-->
-            <!--/>-->
+        <!--android:authorities="cn.jpush.android.service.DataProvider"-->
+        <!--android:name="cn.jpush.android.service.DataProvider"-->
+        <!--android:exported="false"-->
+        <!--/>-->
 
         <!--&lt;!&ndash; since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 &ndash;&gt;-->
         <!--&lt;!&ndash; 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 &ndash;&gt;-->
         <!--<service-->
-            <!--android:name="cn.jpush.android.service.DaemonService"-->
-            <!--android:enabled="true"-->
-            <!--android:exported="true">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="cn.jpush.android.intent.DaemonService" />-->
-                <!--<category android:name="com.yzy.ebag.student" />-->
-            <!--</intent-filter>-->
+        <!--android:name="cn.jpush.android.service.DaemonService"-->
+        <!--android:enabled="true"-->
+        <!--android:exported="true">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="cn.jpush.android.intent.DaemonService" />-->
+        <!--<category android:name="com.yzy.ebag.student" />-->
+        <!--</intent-filter>-->
 
         <!--</service>-->
         <!--&lt;!&ndash; since 3.1.0 Required SDK 核心功能&ndash;&gt;-->
         <!--<provider-->
-            <!--android:authorities="cn.jpush.android.service.DownloadProvider"-->
-            <!--android:name="cn.jpush.android.service.DownloadProvider"-->
-            <!--android:exported="true"-->
-            <!--/>-->
+        <!--android:authorities="cn.jpush.android.service.DownloadProvider"-->
+        <!--android:name="cn.jpush.android.service.DownloadProvider"-->
+        <!--android:exported="true"-->
+        <!--/>-->
         <!--&lt;!&ndash; Required SDK核心功能&ndash;&gt;-->
         <!--<receiver-->
-            <!--android:name="cn.jpush.android.service.PushReceiver"-->
-            <!--android:enabled="true"-->
-            <!--android:exported="false">-->
-            <!--<intent-filter android:priority="1000">-->
-                <!--<action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />   &lt;!&ndash;Required  显示通知栏 &ndash;&gt;-->
-                <!--<category android:name="com.yzy.ebag.student" />-->
-            <!--</intent-filter>-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.USER_PRESENT" />-->
-                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
-            <!--</intent-filter>-->
-            <!--&lt;!&ndash; Optional &ndash;&gt;-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.PACKAGE_ADDED" />-->
-                <!--<action android:name="android.intent.action.PACKAGE_REMOVED" />-->
+        <!--android:name="cn.jpush.android.service.PushReceiver"-->
+        <!--android:enabled="true"-->
+        <!--android:exported="false">-->
+        <!--<intent-filter android:priority="1000">-->
+        <!--<action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />   &lt;!&ndash;Required  显示通知栏 &ndash;&gt;-->
+        <!--<category android:name="com.yzy.ebag.student" />-->
+        <!--</intent-filter>-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.USER_PRESENT" />-->
+        <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
+        <!--</intent-filter>-->
+        <!--&lt;!&ndash; Optional &ndash;&gt;-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.PACKAGE_ADDED" />-->
+        <!--<action android:name="android.intent.action.PACKAGE_REMOVED" />-->
 
-                <!--<data android:scheme="package" />-->
-            <!--</intent-filter>-->
+        <!--<data android:scheme="package" />-->
+        <!--</intent-filter>-->
         <!--</receiver>-->
 
         <!--&lt;!&ndash; Required SDK核心功能&ndash;&gt;-->
@@ -264,8 +280,8 @@
         <!-- User defined.  For test only  用户自定义的广播接收器-->
         <receiver
             android:name=".MyReceiver"
-            android:exported="false"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
                 <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->
@@ -278,14 +294,23 @@
 
         <!-- User defined.  For test only  用户自定义接收消息器,3.0.7开始支持,目前新tag/alias接口设置结果会在该广播接收器对应的方法中回调-->
         <!--<receiver android:name=".jpush.MyJPushMessageReceiver">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />-->
-                <!--<category android:name="com.yzy.ebag.student"/>-->
-            <!--</intent-filter>-->
+        <!--<intent-filter>-->
+        <!--<action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />-->
+        <!--<category android:name="com.yzy.ebag.student"/>-->
+        <!--</intent-filter>-->
         <!--</receiver>-->
         <!--&lt;!&ndash; Required  . Enable it you can get statistics data with channel &ndash;&gt;-->
         <!--<meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>-->
         <!--<meta-data android:name="JPUSH_APPKEY" android:value="6bd8d03a24c76d3830cd7e7b" /> &lt;!&ndash;  </>值来自开发者平台取得的AppKey&ndash;&gt;-->
+
+        <!--百度地图-->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="fdDs2pusQ1VCLhRghy4DUDhrPi1KWBwM"></meta-data>
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"></service>
     </application>
 
 </manifest>

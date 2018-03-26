@@ -152,8 +152,11 @@ object EBagApi {
      */
     fun getCode(phone: String, ysbCode: String, callback: RequestCallBack<String>) {
         val jsonObject = JSONObject()
-        jsonObject.put("phone", phone)
-        jsonObject.put("ysbCode", ysbCode)
+        if (phone.isNotEmpty()) {
+            jsonObject.put("phone", phone)
+        }else {
+            jsonObject.put("ysbCode", ysbCode)
+        }
         request(EBagClient.eBagService.getCheckCode("v1", createBody(jsonObject)), callback)
     }
 
