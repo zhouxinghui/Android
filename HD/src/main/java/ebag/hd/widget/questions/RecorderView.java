@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ebag.core.bean.QuestionBean;
+import ebag.core.bean.QuestionTypeUtils;
 import ebag.core.util.StringUtils;
 import ebag.hd.R;
 import ebag.hd.widget.questions.base.BaseQuestionView;
-import ebag.hd.widget.questions.util.QuestionTypeUtils;
 
 /**
  * Created by YZY on 2018/1/4.

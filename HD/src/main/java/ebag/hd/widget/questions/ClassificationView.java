@@ -185,6 +185,7 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
             FrameLayout.LayoutParams scrollParams = new FrameLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             scrollView.setLayoutParams(scrollParams);
+//            scrollView.setNestedScrollingEnabled(false);
 
             FlowLayout categoryInside = new FlowLayout(context);
             LayoutParams insideParams = new LayoutParams(

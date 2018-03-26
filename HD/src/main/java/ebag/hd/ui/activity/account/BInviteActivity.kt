@@ -86,6 +86,10 @@ abstract class BInviteActivity : MVPActivity(), InviteView {
                 }
             }
         }
+
+        changeCount.setOnClickListener {
+
+        }
     }
 
     private val inviteRequest by lazy {
@@ -110,6 +114,8 @@ abstract class BInviteActivity : MVPActivity(), InviteView {
     }
 
     abstract fun inviteSuccess()
+
+    abstract fun changeCount()
 
     // 禁止返回
 //    override fun onBackPressed() {

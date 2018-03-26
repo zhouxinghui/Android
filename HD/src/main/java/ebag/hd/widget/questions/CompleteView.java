@@ -10,11 +10,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import ebag.core.bean.QuestionBean;
+import ebag.core.bean.QuestionTypeUtils;
 import ebag.core.util.StringUtils;
 import ebag.hd.R;
 import ebag.hd.widget.questions.base.BaseQuestionView;
 import ebag.hd.widget.questions.base.FillBlankView;
-import ebag.hd.widget.questions.util.QuestionTypeUtils;
 
 /**
  * Created by caoyu on 2017/12/23.

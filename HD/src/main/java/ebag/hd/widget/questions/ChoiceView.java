@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import ebag.core.bean.QuestionBean;
+import ebag.core.bean.QuestionTypeUtils;
 import ebag.core.util.ImageLoadUtilKt;
 import ebag.core.util.StringUtils;
 import ebag.core.xRecyclerView.adapter.OnItemClickListener;
@@ -21,7 +22,6 @@ import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder;
 import ebag.hd.R;
 import ebag.hd.widget.questions.base.BaseQuestionView;
-import ebag.hd.widget.questions.util.QuestionTypeUtils;
 
 /**
  * Created by caoyu on 2017/12/22.
@@ -96,8 +96,8 @@ public class ChoiceView extends BaseQuestionView implements OnItemClickListener 
                 title.add("看图选单词");
                 title.add(questionBean.getTitle());
                 break;
-            case QuestionTypeUtils.QUESTIONS_CHOISE://选择题
-                choiceType = QuestionTypeUtils.QUESTIONS_CHOISE;
+            case QuestionTypeUtils.QUESTIONS_CHOICE://选择题
+                choiceType = QuestionTypeUtils.QUESTIONS_CHOICE;
                 String questionHead = questionBean.getTitle();
                 if (questionHead.startsWith("http")) {
                     String[] split = questionHead.split("#R#");
