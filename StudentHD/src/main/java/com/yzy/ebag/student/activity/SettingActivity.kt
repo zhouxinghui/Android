@@ -9,7 +9,7 @@ import com.yzy.ebag.student.activity.account.LoginActivity
 import com.yzy.ebag.student.activity.set.AboutUsActivity
 import ebag.core.base.App
 import ebag.core.base.BaseActivity
-import ebag.core.util.SerializableUtils
+import ebag.core.util.AppManager
 import ebag.core.util.T
 import ebag.hd.base.Constants
 import ebag.hd.util.checkUpdate
@@ -30,7 +30,7 @@ class SettingActivity: BaseActivity(), View.OnClickListener {
         when(v?.id){
             R.id.logoutBtn -> {
                 App.deleteToken()
-                SerializableUtils.deleteSerializable(ebag.hd.base.Constants.STUDENT_USER_ENTITY)
+//                SerializableUtils.deleteSerializable(ebag.hd.base.Constants.STUDENT_USER_ENTITY)
 //                删除别名， 停止推送
                 JPushInterface.deleteAlias(this, 0)
                 JPushInterface.stopPush(this)
@@ -38,6 +38,7 @@ class SettingActivity: BaseActivity(), View.OnClickListener {
                         Intent(this, LoginActivity::class.java)
                                 .putExtra(Constants.KEY_TO_MAIN,true)
                 )
+                AppManager.finishAllActivity()
             }
 
             R.id.themeBtn -> {

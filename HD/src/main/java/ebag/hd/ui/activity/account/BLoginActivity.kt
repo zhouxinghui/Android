@@ -76,13 +76,13 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
         App.modifyToken(userEntity.token)
         userEntity.roleCode = getRoleCode()
-        SerializableUtils.deleteSerializable(
+        /*SerializableUtils.deleteSerializable(
                 if (getRoleCode() == STUDENT_ROLE) {
                     Constants.STUDENT_USER_ENTITY
                 } else {
                     Constants.TEACHER_USER_ENTITY
                 }
-        )
+        )*/
         SerializableUtils.setSerializable(
                 if (getRoleCode() == STUDENT_ROLE) {
                     Constants.STUDENT_USER_ENTITY
