@@ -387,6 +387,7 @@ class CorrectingDescActivity : BaseActivity() {
             QuestionTypeUtils.QUESTIONS_CHOICE,
             QuestionTypeUtils.QUESTIONS_CHOOSE_BY_VOICE->{
                 questionView = ChoiceView(this)
+                questionView.setOnItemChildClickListener(questionClickListener)
             }
             QuestionTypeUtils.QUESTIONS_WRITE_WORD_BY_PIC,
             QuestionTypeUtils.QUESTIONS_COMPLETION_BY_VOICE,
