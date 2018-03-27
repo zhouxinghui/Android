@@ -14,6 +14,7 @@ import com.yzy.ebag.student.base.Constants
 import com.yzy.ebag.student.bean.SubjectBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.SPUtils
 import ebag.hd.base.BaseListTabActivity
 
 
@@ -105,6 +106,7 @@ class HomeworkActivity : BaseListTabActivity<ArrayList<SubjectBean>, SubjectBean
         var selectedPosition = 1
             set(value) {
                 field = value
+                SPUtils.put(mContext, "subCode", data[selectedPosition].subCode)
                 notifyDataSetChanged()
             }
 

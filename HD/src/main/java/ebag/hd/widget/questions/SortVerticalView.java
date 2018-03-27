@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,6 +20,8 @@ import ebag.core.util.StringUtils;
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder;
 import ebag.hd.R;
+import ebag.hd.homework.DoHomeworkActivity;
+import ebag.hd.widget.keyboard.KeyBoardView;
 import ebag.hd.widget.questions.base.BaseQuestionView;
 
 /**
@@ -171,12 +174,16 @@ public class SortVerticalView extends BaseQuestionView {
             setter.setText(R.id.tvSort,entity.answer);
 
             setter.setTag(R.id.tvSort, setter);
-            setter.getEditText(R.id.tvSort).setOnFocusChangeListener(this);
-            setter.getEditText(R.id.tvSort).addTextChangedListener(this);
+            EditText editText = setter.getEditText(R.id.tvSort);
+            editText.setOnFocusChangeListener(this);
+            editText.addTextChangedListener(this);
             if(isResult) {
                 setter.setTextColor(R.id.tvSort,colorSelected);
                 setter.setBackgroundRes(R.id.tvSort,R.drawable.bg_question_sort_rightable);
                 setter.getTextView(R.id.tvSort).setSelected(entity.isRight);
+                if (mContext instanceof DoHomeworkActivity){
+                    ((DoHomeworkActivity)mContext).bindKeyBoard(editText, KeyBoardView.number_keyboard);
+                }
             }else{
                 setter.setTextColor(R.id.tvSort,colorNormal);
                 setter.setBackgroundRes(R.id.tvSort,R.drawable.bg_question_sort_normal);

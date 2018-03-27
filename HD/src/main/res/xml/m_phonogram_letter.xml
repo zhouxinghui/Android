@@ -1,0 +1,86 @@
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:horizontalGap="0px"
+    android:verticalGap="0px"
+    android:keyHeight="@dimen/key_height"
+    android:keyWidth="11.847389%p"
+    >
+    <Row android:verticalGap="2dp">
+        <Key android:codes="-21" android:keyLabel="ā" android:keyOutputText="ā"
+            android:keyWidth="11.847389%p" android:keyEdgeFlags="left"  />
+        <Key android:codes="-21" android:keyLabel="á"
+            android:keyOutputText="á" android:keyWidth="11.847389%p"/>
+        <Key android:codes="-21" android:keyLabel="ǎ"
+            android:keyOutputText="ǎ" android:keyWidth="11.847389%p"/>
+        <Key android:codes="-21" android:keyLabel="à"
+            android:keyOutputText="à" android:keyWidth="11.847389%p" />
+        <Key android:codes="-22" android:keyLabel="ō"
+            android:keyOutputText="ō" android:keyWidth="11.847389%p"
+            android:horizontalGap="2.008032%p"/>
+        <Key android:codes="-22" android:keyLabel="ó"
+            android:keyOutputText="ó" android:keyWidth="11.847389%p"/>
+        <Key android:codes="-22" android:keyLabel="ǒ"
+            android:keyOutputText="ǒ" android:keyWidth="11.847389%p"/>
+        <Key android:codes="-22" android:keyLabel="ò"
+            android:keyOutputText="ò" android:keyWidth="11.847389%p"
+            android:keyEdgeFlags="right" />
+    </Row>
+
+    <Row android:verticalGap="2dp">
+        <Key android:codes="-23" android:keyLabel="ē" android:keyOutputText="ē"
+            android:keyWidth="11.847389%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="-23" android:keyLabel="é"
+            android:keyOutputText="é" android:keyWidth="11.847389%p"/>
+        <Key android:codes="-23" android:keyLabel="ě"
+            android:keyOutputText="ě" android:keyWidth="11.847389%p"/>
+        <Key android:codes="-23" android:keyLabel="è"
+            android:keyOutputText="è" android:keyWidth="11.847389%p"
+            />
+        <Key android:codes="-24" android:keyLabel="ī" android:keyWidth="11.847389%p"
+            android:horizontalGap="2.008032%p" android:keyOutputText="ī"/>
+        <Key android:codes="-24" android:keyLabel="í"
+            android:keyOutputText="í" android:keyWidth="11.847389%p"/>
+        <Key android:codes="-24" android:keyLabel="ǐ"
+            android:keyOutputText="ǐ" android:keyWidth="11.847389%p"/>
+        <Key android:codes="-24" android:keyLabel="ì"
+            android:keyOutputText="ì" android:keyWidth="11.847389%p"
+            android:keyEdgeFlags="right" />
+    </Row>
+
+    <Row android:verticalGap="2dp">
+        <Key android:codes="-25" android:keyLabel="ū" android:keyOutputText="ū"
+            android:keyWidth="11.847389%p" android:keyEdgeFlags="left"  />
+        <Key android:codes="-25" android:keyLabel="ú"
+            android:keyOutputText="ú" android:keyWidth="11.847389%p"/>
+        <Key android:codes="-25" android:keyLabel="ǔ"
+            android:keyOutputText="ǔ" android:keyWidth="11.847389%p"/>
+        <Key android:codes="-25" android:keyLabel="ù"
+            android:keyOutputText="ù" android:keyWidth="11.847389%p"/>
+        <Key android:codes="-26" android:keyLabel="ǖ" android:keyWidth="11.847389%p"
+            android:horizontalGap="2.008032%p" android:keyOutputText="ǖ"/>
+        <Key android:codes="-26" android:keyLabel="ǘ"
+            android:keyOutputText="ǘ" android:keyWidth="11.847389%p"/>
+        <Key android:codes="-26" android:keyLabel="ǚ"
+            android:keyOutputText="ǚ" android:keyWidth="11.847389%p"/>
+        <Key android:codes="-26" android:keyLabel="ǜ"
+            android:keyOutputText="ǜ" android:keyWidth="11.847389%p"
+            android:keyEdgeFlags="right" />
+    </Row>
+
+    <Row android:rowEdgeFlags="bottom">
+        <!--123-->
+        <Key android:keyWidth="14.457831%p" android:codes="-12" android:keyLabel="返回"/>
+        <!--:-->
+        <Key android:keyWidth="11.441767%p" android:codes="58" android:keyLabel=":"/>
+        <!--,-->
+        <Key android:keyWidth="9.638554%p" android:codes="44" android:keyLabel=","/>
+        <!--   -->
+        <Key android:keyWidth="26.104417%p" android:codes="32" android:keyLabel="空格"/>
+        <!--.-->
+        <Key android:keyWidth="9.638554%p" android:codes="46" android:keyLabel="."/>
+        <!-- ' -->
+        <Key android:keyWidth="11.441767%p" android:codes="39" android:keyLabel="'"/>
+        <!--/n-->
+        <Key android:keyWidth="14.457831%p" android:codes="-5" android:keyLabel="删除"
+            android:keyEdgeFlags="right" android:isRepeatable="true"/>
+    </Row>
+</Keyboard>

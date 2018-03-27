@@ -1,7 +1,11 @@
 package ebag.hd.widget.questions.base;
 
+import android.app.Dialog;
 import android.content.Context;
-import android.graphics.drawable.PaintDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
+import android.support.v4.widget.NestedScrollView;
+import android.text.InputType;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -16,20 +20,22 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.PopupWindow;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 import ebag.core.util.L;
 import ebag.core.util.StringUtils;
 import ebag.hd.R;
+import ebag.hd.widget.keyboard.KeyBoardView;
 
 
 /**
@@ -38,7 +44,7 @@ import ebag.hd.R;
  */
 
 public class FillBlankView extends FrameLayout {
-
+    private String subCode = "sx";
     private TextView tvContent;
     private Context context;
     // 答案集合
@@ -82,6 +88,14 @@ public class FillBlankView extends FrameLayout {
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         addView(tvContent,layoutParams);
+    }
+
+    public void setSubCode(String subCode) {
+        this.subCode = subCode;
+    }
+
+    private boolean isEnglish(){
+        return "yy".equals(subCode);
     }
 
     /**
@@ -170,6 +184,36 @@ public class FillBlankView extends FrameLayout {
             final EditText etInput = (EditText) view.findViewById(R.id.et_answer);
             Button btnFillBlank = (Button) view.findViewById(R.id.btn_fill_blank);
 
+            KeyBoardView mKeyBoardView = view.findViewById(R.id.key_board);
+            final LinearLayout mLinearlayou_keyboard = view.findViewById(R.id.linearlayou_keyboard);
+            KeyBoardView mKey_board_special_numeric_left = view.findViewById(R.id.key_board_special_numeric_left);
+            NestedScrollView mNestedScrollView_1 = view.findViewById(R.id.nestedScrollView_1);
+            View mHiddenImage = view.findViewById(R.id.hiddenImage);
+            mHiddenImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mLinearlayou_keyboard.setVisibility(View.GONE);
+                }
+            });
+            hideSystemSofeKeyboard(etInput);
+            mKey_board_special_numeric_left.bindEditText(etInput, KeyBoardView.m_special_numeric, mLinearlayou_keyboard, mNestedScrollView_1, mKey_board_special_numeric_left);
+            mKey_board_special_numeric_left.showKeyboard(KeyBoardView.m_special_numeric);
+            int keyType;
+            switch (subCode){
+                case "yw":
+                    keyType = KeyBoardView.ch_keyboard;
+                    break;
+                case "sx":
+                    keyType = KeyBoardView.number_keyboard;
+                    break;
+                case "yy":
+                    keyType = KeyBoardView.eng_keyboard;
+                    break;
+                default:
+                    keyType = KeyBoardView.eng_keyboard;
+            }
+            mKeyBoardView.bindEditText(etInput, keyType, mLinearlayou_keyboard, mNestedScrollView_1, mKey_board_special_numeric_left);
+
             // 显示原有答案
             String oldAnswer = answerList.get(position);
             if (!TextUtils.isEmpty(oldAnswer)) {
@@ -177,15 +221,36 @@ public class FillBlankView extends FrameLayout {
                 etInput.setSelection(oldAnswer.length());
             }
 
-            final PopupWindow popupWindow = new PopupWindow(view, LayoutParams.MATCH_PARENT, dp2px(40));
+            final Dialog popupWindow = new Dialog(context, R.style.waitting_dialog);
+            popupWindow.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            popupWindow.setContentView(view);
+            Window window = popupWindow.getWindow();
+            window.setBackgroundDrawable(new ColorDrawable(0));
+            WindowManager.LayoutParams params = window.getAttributes();
+            params.gravity = Gravity.BOTTOM | Gravity.END;
+            params.width = context.getResources().getDimensionPixelOffset(R.dimen.x500);
+//            params.width = WindowManager.LayoutParams.MATCH_PARENT;
+            params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            window.setAttributes(params);
+            popupWindow.show();
+            mKeyBoardView.setVisibility(View.VISIBLE);
+            mKeyBoardView.showKeyboard(keyType);
+            mLinearlayou_keyboard.setVisibility(VISIBLE);
+            mNestedScrollView_1.setVisibility(VISIBLE);
+            mKey_board_special_numeric_left.showKeyboard(KeyBoardView.m_special_numeric);
+            /*final PopupWindow popupWindow = new PopupWindow(view, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
             // 获取焦点
             popupWindow.setFocusable(true);
             // 为了防止弹出菜单获取焦点之后，点击Activity的其他组件没有响应
             popupWindow.setBackgroundDrawable(new PaintDrawable());
+            popupWindow.setOutsideTouchable(true);
             // 设置PopupWindow在软键盘的上方
-            popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+//            popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
             // 弹出PopupWindow
-            popupWindow.showAtLocation(tvContent, Gravity.BOTTOM, 0, 0);
+
+            if (context instanceof DoHomeworkActivity)
+                popupWindow.showAtLocation(mKeyBoardView, Gravity.BOTTOM|Gravity.END, 0, 0);
+//            popupWindow.showAtLocation(tvContent, Gravity.BOTTOM|Gravity.END, 0, 0);*/
 
             btnFillBlank.setOnClickListener(new OnClickListener() {
                 @Override
@@ -200,9 +265,9 @@ public class FillBlankView extends FrameLayout {
             });
 
             // 显示软键盘
-            InputMethodManager inputMethodManager =
+            /*InputMethodManager inputMethodManager =
                     (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+            inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);*/
         }
 
         @Override
@@ -368,5 +433,31 @@ public class FillBlankView extends FrameLayout {
             this.line = line;
         }
 
+    }
+
+    /**
+     * 隐藏系统键盘
+     *
+     * @param editText
+     */
+    protected void hideSystemSofeKeyboard(EditText editText) {
+        if (Build.VERSION.SDK_INT >= 11) {
+            try {
+                Class<EditText> cls = EditText.class;
+                Method setShowSoftInputOnFocus;
+                setShowSoftInputOnFocus = cls.getMethod("setShowSoftInputOnFocus", boolean.class);
+                setShowSoftInputOnFocus.setAccessible(true);
+                setShowSoftInputOnFocus.invoke(editText, false);
+
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            editText.setInputType(InputType.TYPE_NULL);
+        }
     }
 }

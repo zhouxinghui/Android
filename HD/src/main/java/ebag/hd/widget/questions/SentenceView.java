@@ -16,6 +16,8 @@ import java.util.List;
 import ebag.core.bean.QuestionBean;
 import ebag.core.bean.QuestionTypeUtils;
 import ebag.hd.R;
+import ebag.hd.homework.DoHomeworkActivity;
+import ebag.hd.widget.keyboard.KeyBoardView;
 import ebag.hd.widget.questions.base.BaseQuestionView;
 import ebag.hd.widget.questions.base.LineEditText;
 
@@ -89,6 +91,9 @@ public class SentenceView extends BaseQuestionView {
             if (QuestionTypeUtils.getIntType(questionBean) == QuestionTypeUtils.QUESTIONS_CHINESE_SENTENCE
                     || QuestionTypeUtils.getIntType(questionBean) == QuestionTypeUtils.QUESTION_MATH_APPLICATION) {
                 lineEditText.setMinLines(1);
+                if (QuestionTypeUtils.getIntType(questionBean) == QuestionTypeUtils.QUESTION_MATH_APPLICATION && mContext instanceof DoHomeworkActivity){
+                    ((DoHomeworkActivity)mContext).bindKeyBoard(lineEditText, KeyBoardView.number_keyboard);
+                }
             } else //作文
                 lineEditText.setMinLines(5);
             titleList.add(questionBean.getContent());

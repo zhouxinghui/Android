@@ -1,0 +1,113 @@
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:horizontalGap="0px"
+    android:keyHeight="@dimen/key_height"
+    android:keyWidth="22.538230%p"
+    android:verticalGap="0px">
+    <Row android:verticalGap="2dp">
+        <!-- + -->
+        <Key
+            android:codes="43"
+            android:keyEdgeFlags="left"
+            android:keyLabel="\u002b"
+            android:keyOutputText="\u002b"
+            android:keyWidth="15.892803%p" />
+        <Key
+            android:codes="49"
+            android:keyLabel="1" />
+        <Key
+            android:codes="50"
+            android:keyLabel="2" />
+        <Key
+            android:codes="51"
+            android:keyLabel="3" />
+        <Key
+            android:codes="-5"
+            android:isRepeatable="true"
+            android:keyEdgeFlags="right"
+            android:keyLabel="删除"
+            android:keyWidth="15.892803%p" />
+    </Row>
+
+    <Row android:verticalGap="2dp">
+        <Key
+            android:codes="45"
+            android:keyEdgeFlags="left"
+            android:keyLabel="\u002d"
+            android:keyOutputText="\u002d"
+            android:keyWidth="15.892803%p" />
+        <Key
+            android:codes="52"
+            android:keyLabel="4" />
+        <Key
+            android:codes="53"
+            android:keyLabel="5" />
+        <Key
+            android:codes="54"
+            android:keyLabel="6" />
+        <Key
+            android:codes="-13"
+            android:keyEdgeFlags="right"
+            android:keyLabel="系统键盘"
+            android:keyWidth="15.892803%p" />
+    </Row>
+
+    <Row android:verticalGap="2dp">
+        <Key
+            android:codes="-14"
+            android:keyEdgeFlags="left"
+            android:keyLabel="\u00d7"
+            android:keyOutputText="\u00d7"
+            android:keyWidth="15.892803%p" />
+        <Key
+            android:codes="55"
+            android:keyLabel="7" />
+        <Key
+            android:codes="56"
+            android:keyLabel="8" />
+        <Key
+            android:codes="57"
+            android:keyLabel="9" />
+        <Key
+            android:codes="48"
+            android:keyEdgeFlags="right"
+            android:keyLabel="0"
+            android:keyWidth="15.892803%p" />
+    </Row>
+
+    <Row android:rowEdgeFlags="bottom">
+        <Key
+            android:codes="-15"
+            android:keyEdgeFlags="left"
+            android:keyLabel="\u00f7"
+            android:keyOutputText="\u00f7"
+            android:keyWidth="15.892803%p" />
+        <!--:＝ = -->
+        <Key
+            android:codes="61"
+            android:keyLabel="\u003d"
+            android:keyOutputText="\u003d"
+            android:keyWidth="17.914344%p" />
+        <!--,-->
+        <Key
+            android:codes="60"
+            android:keyLabel="\u003c"
+            android:keyWidth="15.892803%p" />
+        <!--   -->
+        <Key
+            android:codes="62"
+            android:keyLabel="\u003e"
+            android:keyWidth="15.892803%p" />
+        <!--.-->
+        <Key
+            android:codes="-16"
+            android:keyLabel="."
+            android:keyOutputText="."
+            android:keyWidth="17.914344%p" />
+        <!--/n-->
+        <Key
+            android:codes="-19"
+            android:keyEdgeFlags="right"
+            android:keyLabel="ABC"
+            android:keyWidth="15.892803%p" />
+    </Row>
+</Keyboard>

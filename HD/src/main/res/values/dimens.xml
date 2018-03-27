@@ -34,4 +34,15 @@
     <dimen name="class_schedule_table_width">@dimen/x1</dimen>
 
     <dimen name="question_item_bottom_margin">@dimen/y10</dimen>
+
+    <dimen name="key_normal_with">60dp</dimen>
+    <dimen name="key_normal_with_half">24dp</dimen>
+    <dimen name="key_74_with">72dp</dimen>
+    <dimen name="key_60_with">55dp</dimen>
+    <dimen name="key_r60_with">59dp</dimen>
+    <dimen name="key_132_with">130dp</dimen>
+    <dimen name="key_98_with">93dp</dimen>
+    <dimen name="key_78_with">75dp</dimen>
+    <dimen name="key_119_with">112dp</dimen>
+    <dimen name="key_height">@dimen/y58</dimen>
 </resources>

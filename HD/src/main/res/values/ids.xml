@@ -8,4 +8,6 @@
     <item name="recorder_id" type="id"/>
     <item name="recorder_play_id" type="id"/>
     <item name="recorder_upload_id" type="id"/>
+
+    <item type="id" name="top_image" />
 </resources>

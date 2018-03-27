@@ -1,18 +1,24 @@
 package ebag.hd.homework
 
+import android.annotation.TargetApi
 import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.graphics.Rect
 import android.graphics.drawable.AnimationDrawable
+import android.os.Build
 import android.os.IBinder
 import android.os.Message
 import android.os.RemoteException
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.text.InputType
+import android.util.DisplayMetrics
 import android.view.View
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import ebag.core.base.BaseActivity
@@ -35,9 +41,11 @@ import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
 import ebag.hd.service.AIDLTestService
 import ebag.hd.widget.QuestionAnalyseDialog
+import ebag.hd.widget.keyboard.KeyBoardView
 import ebag.hd.widget.questions.base.BaseQuestionView
 import kotlinx.android.synthetic.main.activity_do_homework.*
 import java.io.File
+import java.lang.reflect.Method
 
 /**
  * @author caoyu
@@ -198,7 +206,61 @@ class DoHomeworkActivity: BaseActivity() {
 
         deatilRequest()
 
+        hiddenImage.setOnClickListener {
+            linearlayou_keyboard.visibility = View.GONE
+        }
 
+        //获取屏幕高度
+        val screenHeight = this.windowManager.defaultDisplay.height
+        //阀值设置为屏幕高度的1/3
+        keyHeight = screenHeight / 4
+        typeRecycler.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+            KeyBoardView.isboolean = isSoftShowing()
+
+            if (oldBottom != 0 && bottom != 0 && oldBottom - bottom > keyHeight) {
+                key_board.setSystemInput(true)
+            } else if (oldBottom != 0 && bottom != 0 && bottom - oldBottom > keyHeight) {
+                key_board.setSystemInput(false)
+            }
+        }
+    }
+    private var keyHeight = 0
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    private fun getSoftButtonsBarHeight(): Int {
+        val metrics = DisplayMetrics()
+        //这个方法获取可能不是真实屏幕的高度
+        windowManager.defaultDisplay.getMetrics(metrics)
+        val usableHeight = metrics.heightPixels
+        //获取当前屏幕的真实高度
+        windowManager.defaultDisplay.getRealMetrics(metrics)
+        val realHeight = metrics.heightPixels
+        return if (realHeight > usableHeight) {
+            realHeight - usableHeight
+        } else {
+            0
+        }
+    }
+    private fun isSoftShowing(): Boolean {
+        //获取当前屏幕内容的高度
+        val screenHeight = window.decorView.height
+        //获取View可见区域的bottom
+        val rect = Rect()
+        window.decorView.getWindowVisibleDisplayFrame(rect)
+
+        return screenHeight - rect.bottom - getSoftButtonsBarHeight() != 0
+    }
+
+    fun bindKeyBoard(editText: EditText, keyboardType: Int) {
+        if (key_board != null) {
+            hideSystemSofeKeyboard(editText)
+            key_board_special_numeric_left.bindEditText(editText, KeyBoardView.m_special_numeric, linearlayou_keyboard, nestedScrollView_1, key_board_special_numeric_left)
+            key_board_special_numeric_left.showKeyboard(KeyBoardView.m_special_numeric)
+            key_board.bindEditText(editText, if (keyboardType != KeyBoardView.number_keyboard && isEnglish()) KeyBoardView.eng_keyboard else keyboardType, linearlayou_keyboard, nestedScrollView_1, key_board_special_numeric_left)
+        }
+    }
+
+    fun isEnglish(): Boolean{
+        return true
     }
 
     private fun getRequestData() : Int{
@@ -641,6 +703,33 @@ class DoHomeworkActivity: BaseActivity() {
             R.id.recorder_play_id -> {
                 recorderUtil.playRecord(currentQuestionBean.answer)
             }
+        }
+    }
+
+    /**
+     * 隐藏系统键盘
+     *
+     * @param editText
+     */
+    private fun hideSystemSofeKeyboard(editText: EditText) {
+        if (Build.VERSION.SDK_INT >= 11) {
+            try {
+                val cls = EditText::class.java
+                val setShowSoftInputOnFocus: Method
+                setShowSoftInputOnFocus = cls.getMethod("setShowSoftInputOnFocus", Boolean::class.javaPrimitiveType)
+                setShowSoftInputOnFocus.isAccessible = true
+                setShowSoftInputOnFocus.invoke(editText, false)
+
+            } catch (e: SecurityException) {
+                e.printStackTrace()
+            } catch (e: NoSuchMethodException) {
+                e.printStackTrace()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+        } else {
+            editText.inputType = InputType.TYPE_NULL
         }
     }
 }

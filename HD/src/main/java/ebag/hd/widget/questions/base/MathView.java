@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,6 +19,8 @@ import ebag.core.util.StringUtils;
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder;
 import ebag.hd.R;
+import ebag.hd.homework.DoHomeworkActivity;
+import ebag.hd.widget.keyboard.KeyBoardView;
 import ebag.hd.widget.questions.MathFractionView;
 
 /**
@@ -250,8 +253,12 @@ public class MathView extends RecyclerView {
                             setter.getView(R.id.view).setSelected(false);
                         }
                         setter.setTag(R.id.view, position);
-                        setter.getEditText(R.id.view).setOnFocusChangeListener(this);
-                        setter.getEditText(R.id.view).addTextChangedListener(this);
+                        EditText editText = setter.getEditText(R.id.view);
+                        editText.setOnFocusChangeListener(this);
+                        editText.addTextChangedListener(this);
+                        if (mContext instanceof DoHomeworkActivity){
+                            ((DoHomeworkActivity)mContext).bindKeyBoard(editText, KeyBoardView.number_keyboard);
+                        }
                         break;
                 }
             }
