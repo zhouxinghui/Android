@@ -227,12 +227,28 @@ object StudentApi{
         EBagApi.request(studentService.addUserGrowth("1",EBagApi.createBody(jsonObject)),callback)
     }
 
-    fun searchUserGrowthList(page:Int,pageSize: Int,gradeCode:String,type:String,callback: RequestCallBack<List<Diary>>){
+    fun searchUserGrowthList(page:Int,pageSize: Int,gradeCode:String,type:String,callback: RequestCallBack<List<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean>>){
         val jsonObject = JSONObject()
         jsonObject.put("page", page)
         jsonObject.put("pageSize", pageSize)
         jsonObject.put("gradeCode", gradeCode)
         jsonObject.put("type", type)
         EBagApi.request(studentService.searchUserGrowthList("1",EBagApi.createBody(jsonObject)),callback)
+    }
+
+    fun uploadLocation(address:String,remark:String,longitude:String,latitude:String,callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("address", address)
+        jsonObject.put("remark", remark)
+        jsonObject.put("longitude", longitude)
+        jsonObject.put("latitude", latitude)
+        EBagApi.request(studentService.uploadLocation("1",EBagApi.createBody(jsonObject)),callback)
+    }
+
+    fun searchLocation(page: Int,callback: RequestCallBack<LocationBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", 10)
+        EBagApi.request(studentService.searchLocation("1",EBagApi.createBody(jsonObject)),callback)
     }
 }

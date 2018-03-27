@@ -53,7 +53,7 @@
                     android:textColor="#272727"
                     android:textSize="@dimen/x30" />
 
-                <android.support.v7.widget.AppCompatRatingBar
+                <!--<android.support.v7.widget.AppCompatRatingBar
                     android:id="@+id/rating_bar"
                     style="@style/Widget.AppCompat.RatingBar.Indicator"
                     android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
                     android:background="@color/white"
                     android:isIndicator="true"
                     android:numStars="5"
-                    android:rating="3" />
+                    android:rating="3" />-->
 
             </RelativeLayout>
 

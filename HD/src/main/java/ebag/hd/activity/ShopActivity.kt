@@ -70,12 +70,7 @@ class ShopActivity : BaseActivity() {
         EBagApi.queryShopCar(object : RequestCallBack<MutableList<ShopListBean.ListBean>>() {
 
             override fun onSuccess(entity: MutableList<ShopListBean.ListBean>?) {
-                if (entity!!.isNotEmpty()){
-                    for (i in entity.indices){
-                        carCount += entity[i].numbers
-                    }
-                }
-                shop_carcount.text = carCount.toString()
+                shop_carcount.text = entity?.size.toString()
             }
 
 

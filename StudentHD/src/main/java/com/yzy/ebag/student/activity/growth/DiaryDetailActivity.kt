@@ -35,7 +35,7 @@ import java.io.File
 class DiaryDetailActivity: BaseActivity() {
 
     companion object {
-        fun jump(context: Context, gradeId: String, diary: Diary?){
+        fun jump(context: Context, gradeId: String, diary: Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean?){
             context.startActivity(
                     Intent(context, DiaryDetailActivity::class.java)
                             .putExtra("gradeId", gradeId)
@@ -56,11 +56,11 @@ class DiaryDetailActivity: BaseActivity() {
     private var userId = "1"
     private var uploadPosition = 0
     private val sb = StringBuilder()
-    private var diary: Diary? = null
+    private var diary: Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean? = null
     private lateinit var gradeId: String
     override fun initViews() {
         gradeId = intent.getStringExtra("gradeId") ?: ""
-        diary = intent.getSerializableExtra("diary") as Diary?
+        diary = intent.getSerializableExtra("diary") as Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean
 
         recyclerView.layoutManager = GridLayoutManager(this, 8)
         recyclerView.adapter = imgAdapter
@@ -122,7 +122,7 @@ class DiaryDetailActivity: BaseActivity() {
 
             titleEdit.setText(diary?.title)
             contentEdit.setText(diary?.content)
-            imgAdapter.setNewData(diary?.photos)
+            imgAdapter.setNewData(diary?.image?.split(","))
         }
     }
 

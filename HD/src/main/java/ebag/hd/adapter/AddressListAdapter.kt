@@ -26,6 +26,10 @@ class AddressListAdapter(private val context: Context, layout: Int, datas: Mutab
             helper?.setChecked(R.id.myaddress_defult_toggle, true)
             helper?.getView<CheckBox>(R.id.myaddress_defult_toggle)?.text = "默认地址"
             helper?.getView<CheckBox>(R.id.myaddress_defult_toggle)?.isEnabled = false
+        }else{
+            helper?.setChecked(R.id.myaddress_defult_toggle, false)
+            helper?.getView<CheckBox>(R.id.myaddress_defult_toggle)?.text = "设为默认"
+            helper?.getView<CheckBox>(R.id.myaddress_defult_toggle)?.isEnabled = true
         }
 
         helper?.getView<CheckBox>(R.id.myaddress_defult_toggle)?.setOnCheckedChangeListener { _, isChecked ->

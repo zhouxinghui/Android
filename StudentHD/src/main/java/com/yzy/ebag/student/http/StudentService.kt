@@ -115,6 +115,12 @@ interface StudentService {
     @POST("/user/growth/addUserGrowth/{version}")
     fun addUserGrowth(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
     @POST("/user/searchUserGrowthList/{version}")
-    fun searchUserGrowthList(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<List<Diary>>>
+    fun searchUserGrowthList(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<List<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean>>>
+
+    @POST("/user/addUserPositioning/{version}")
+    fun uploadLocation(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
+
+    @POST("/user/searchUserPositioningList/{version}")
+    fun searchLocation(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<LocationBean>>
 
 }

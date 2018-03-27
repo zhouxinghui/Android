@@ -26,13 +26,13 @@ import ebag.core.util.loadImage
  * @date 2018/2/1
  * @description
  */
-class DiaryListActivity: BaseListActivity<List<Diary>, Diary>() {
+class DiaryListActivity : BaseListActivity<List<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean>, Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean>() {
 
 
     companion object {
-        fun jump(context: Context, gradeId: String){
+        fun jump(context: Context, gradeId: String) {
             context.startActivity(
-                    Intent(context,DiaryListActivity::class.java)
+                    Intent(context, DiaryListActivity::class.java)
                             .putExtra("gradeId", gradeId)
             )
         }
@@ -43,20 +43,20 @@ class DiaryListActivity: BaseListActivity<List<Diary>, Diary>() {
     override fun loadConfig(intent: Intent) {
         gradeId = intent.getStringExtra("gradeId") ?: ""
 
-        titleBar.setRightText("添加"){
-            DiaryDetailActivity.jump(this, gradeId,null)
+        titleBar.setRightText("添加") {
+            DiaryDetailActivity.jump(this, gradeId, null)
         }
 
-        val view = layoutInflater.inflate(R.layout.layout_record_search,null)
+        val view = layoutInflater.inflate(R.layout.layout_record_search, null)
         edit = view.findViewById(R.id.editText)
         view.findViewById<View>(R.id.image).setOnClickListener { search() }
         edit.setOnEditorActionListener { v, actionId, event ->
             var handled = false
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 handled = true
-                if(isEditEmpty()){
-                    T.show(this,"请输入关键字")
-                }else{
+                if (isEditEmpty()) {
+                    T.show(this, "请输入关键字")
+                } else {
                     /*隐藏软键盘*/
                     val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     if (inputMethodManager.isActive()) {
@@ -68,9 +68,9 @@ class DiaryListActivity: BaseListActivity<List<Diary>, Diary>() {
         }
 
         val p = RelativeLayout.LayoutParams(resources.getDimensionPixelOffset(R.dimen.x465)
-                ,resources.getDimensionPixelOffset(R.dimen.x48))
+                , resources.getDimensionPixelOffset(R.dimen.x48))
         p.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
-        titleBar.addView(view,p)
+        titleBar.addView(view, p)
 
         /*val list = ArrayList<Diary>()
         list.add(Diary("今天很愉快", "今天我都做了什么呢", 1516623323000,
@@ -84,14 +84,14 @@ class DiaryListActivity: BaseListActivity<List<Diary>, Diary>() {
         withFirstPageData(list)*/
     }
 
-    private fun search(){
-        if(isEditEmpty()){
-            T.show(this,"请输入关键字")
+    private fun search() {
+        if (isEditEmpty()) {
+            T.show(this, "请输入关键字")
             return
         }
     }
 
-    private fun isEditEmpty(): Boolean{
+    private fun isEditEmpty(): Boolean {
         return edit.text.toString().isBlank()
     }
 
@@ -99,20 +99,20 @@ class DiaryListActivity: BaseListActivity<List<Diary>, Diary>() {
         return 10
     }
 
-    override fun requestData(page: Int, requestCallBack: RequestCallBack<List<Diary>>) {
-        StudentApi.searchUserGrowthList(page,getPageSize(),gradeId,"4",requestCallBack)
+    override fun requestData(page: Int, requestCallBack: RequestCallBack<List<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean>>) {
+        StudentApi.searchUserGrowthList(page, getPageSize(), gradeId, "4", requestCallBack)
     }
 
-
-    override fun parentToList(isFirstPage: Boolean, parent: List<Diary>?): List<Diary>? {
+    override fun parentToList(isFirstPage: Boolean, parent: List<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean>?): List<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean>? {
         return parent
     }
 
-    override fun getAdapter(): BaseQuickAdapter<Diary, BaseViewHolder> {
+
+    override fun getAdapter(): BaseQuickAdapter<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean, BaseViewHolder> {
         return Adapter()
     }
 
-    override fun getLayoutManager(adapter: BaseQuickAdapter<Diary, BaseViewHolder>): RecyclerView.LayoutManager? {
+    override fun getLayoutManager(adapter: BaseQuickAdapter<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean, BaseViewHolder>): RecyclerView.LayoutManager? {
         return null
     }
 
@@ -121,30 +121,33 @@ class DiaryListActivity: BaseListActivity<List<Diary>, Diary>() {
     }
 
 
-    inner class Adapter: BaseQuickAdapter<Diary, BaseViewHolder>(R.layout.item_activity_diary){
-        override fun convert(helper: BaseViewHolder, item: Diary?) {
+    inner class Adapter : BaseQuickAdapter<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean, BaseViewHolder>(R.layout.item_activity_diary) {
+        override fun convert(helper: BaseViewHolder, item: Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean?) {
             helper.setText(R.id.tvTitle, item?.title)
                     .setText(R.id.tvContent, item?.content)
-                    .setText(R.id.tvTime, DateUtil.getDateTime(item?.date ?: 0))
+                    .setText(R.id.tvTime, DateUtil.getDateTime(item!!.createDate))
 
             val recycler = helper.getView<RecyclerView>(R.id.recyclerView)
             recycler.isNestedScrollingEnabled = false
 
-            if(recycler.adapter == null) {
+            if (recycler.adapter == null) {
                 recycler.adapter = ImageAdapter()
             }
-            if(recycler.layoutManager == null){
-                recycler.layoutManager = GridLayoutManager(mContext,6)
+            if (recycler.layoutManager == null) {
+                recycler.layoutManager = GridLayoutManager(mContext, 6)
             }
-            recycler.postDelayed({
-                (recycler.adapter as ImageAdapter).setNewData(item?.photos)
-            },20)
+
+            if (item.image!=null && item.image.isNotEmpty()) {
+                recycler.postDelayed({
+                    (recycler.adapter as ImageAdapter).setNewData(item.image.split(","))
+                }, 20)
+            }
 
         }
 
     }
 
-    inner class ImageAdapter: BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_activity_announce_image){
+    inner class ImageAdapter : BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_activity_announce_image) {
         override fun convert(helper: BaseViewHolder, item: String?) {
             helper.getView<ImageView>(R.id.image).loadImage(item)
         }

@@ -81,6 +81,7 @@
                 android:layout_alignParentEnd="true"
                 android:id="@+id/item_address_edit"
                 android:layout_marginEnd="@dimen/x90"
+                android:padding="@dimen/x20"
                 android:layout_centerVertical="true"
                 android:orientation="horizontal"
                 android:layout_height="wrap_content">
@@ -108,6 +109,7 @@
                 android:id="@+id/item_address_delete"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:padding="@dimen/x20"
                 android:orientation="horizontal"
                 android:layout_height="wrap_content">
 

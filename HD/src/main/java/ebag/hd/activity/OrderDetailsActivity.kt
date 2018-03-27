@@ -74,7 +74,7 @@ class OrderDetailsActivity : BaseActivity() {
             view.findViewById<TextView>(R.id.goods_yun_price).text = dats[i].ysbMoney
             view.findViewById<TextView>(R.id.tv_price).text = "¥ ${dats[i].discountPrice}"
             view.findViewById<TextView>(R.id.tv_num).text = "x${dats[i].numbers}"
-            if (dats[i].imgUrls!=null && dats[i].imgUrls.isNotEmpty()) {
+            if (dats[i].imgUrls != null && dats[i].imgUrls.isNotEmpty()) {
                 if (i == 0) {
                     if (dats[i].imgUrls.size != 0)
                         view.findViewById<ImageView>(R.id.goods_img).loadImage(dats[0].imgUrls[0])
@@ -104,7 +104,7 @@ class OrderDetailsActivity : BaseActivity() {
             cb_ali_pay.isChecked = !isChecked
         }
 
-        tv_choose_address.setOnClickListener {
+        rl_adress.setOnClickListener {
 
             val intent = Intent(this, AddressListActivity::class.java)
             intent.putExtra("choose", true)
@@ -115,7 +115,7 @@ class OrderDetailsActivity : BaseActivity() {
 
             if (address) {
 
-                EBagApi.saveOrder(addresID, count.toString(), count.toString(), mList, number, object : RequestCallBack<String>() {
+                EBagApi.saveOrder(addresID, count.toString(), count.toString(), mList, number, "", object : RequestCallBack<String>() {
 
                     override fun onStart() {
                         super.onStart()
