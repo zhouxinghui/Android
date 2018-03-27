@@ -203,6 +203,7 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
         var selectPosition = -1
             set(value) {
                 field = value
+                versionAdapter.selectPosition = -1
                 val list = data[selectPosition].bookVersionVoList
                 if (list != null && !list.isEmpty()){
                     versionAdapter.removeAllHeaderView()
@@ -222,9 +223,13 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
         var selectPosition = -1
             set(value) {
                 field = value
-                versionId = data[selectPosition].bookVersionId
-                versionName = data[selectPosition].versionName
-                versionCode = data[selectPosition].versionCode
+                if(selectPosition != -1 && data.isNotEmpty()) {
+                    versionId = data[selectPosition].bookVersionId
+                    versionName = data[selectPosition].versionName
+                    versionCode = data[selectPosition].versionCode
+                }else{
+                    versionName = ""
+                }
                 notifyDataSetChanged()
             }
         override fun convert(setter: BaseViewHolder, entity: BookVersionBean.SubjectBean.BookVersionVoListBean) {
