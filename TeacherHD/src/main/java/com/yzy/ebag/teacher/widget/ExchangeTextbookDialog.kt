@@ -193,9 +193,12 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
             return
         }
         list.forEach { idList.add(it.classId) }
+        if (this.idList != null && this.idList!!.containsAll(idList)){
+            super.show()
+            return
+        }
         this.idList = idList
-        if (addCourseTextbookBean.firstVo == null)
-            TeacherApi.searchBookVersion(idList, versionRequest)
+        TeacherApi.searchBookVersion(idList, versionRequest)
         super.show()
     }
 
