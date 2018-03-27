@@ -29,15 +29,18 @@ class OrganizePaperDialog(context: Context): BaseDialog(context) {
     private val request = object : RequestCallBack<String>(){
         override fun onStart() {
             T.showLong(context, "正在上传...")
+            confirmBtn.isEnabled = false
         }
         override fun onSuccess(entity: String?) {
             T.show(context, "上传成功")
+            confirmBtn.isEnabled = true
             dismiss()
             onOrganizeSuccess?.invoke()
         }
 
         override fun onError(exception: Throwable) {
             T.show(context, "上传失败，请稍后重试")
+            confirmBtn.isEnabled = true
         }
     }
     var onOrganizeSuccess: (() -> Unit)? = null
