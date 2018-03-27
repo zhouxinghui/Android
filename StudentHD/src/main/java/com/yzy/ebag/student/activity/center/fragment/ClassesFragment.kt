@@ -85,7 +85,7 @@ class ClassesFragment: BaseListFragment<List<SpaceBean>,SpaceBean>() {
     private val joinDialog by lazy {
         val dialog = ClassJoinDialog.newInstance()
         dialog.successListener = {
-            onRefresh()
+            onRetryClick()
             dialog.dismiss()
         }
         dialog
@@ -93,7 +93,6 @@ class ClassesFragment: BaseListFragment<List<SpaceBean>,SpaceBean>() {
 
     inner class Adapter: BaseQuickAdapter<SpaceBean,BaseViewHolder>(R.layout.item_fragment_class){
 
-        val adapter = PersonAdapter()
         override fun convert(helper: BaseViewHolder, item: SpaceBean?) {
             helper.setText(R.id.class_name_id, item?.clazzName)
                     .setText(R.id.class_desc_id, "邀请码: ${item?.inviteCode}\n班级学生: ${item?.studentCount}")
@@ -101,8 +100,8 @@ class ClassesFragment: BaseListFragment<List<SpaceBean>,SpaceBean>() {
             val recyclerView = helper.getView<RecyclerView>(R.id.recyclerView)
             if(recyclerView.layoutManager == null)
                 recyclerView.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
-            if(recyclerView.adapter == null)
-                recyclerView.adapter = adapter
+            val adapter = PersonAdapter()
+            recyclerView.adapter = adapter
             adapter.setNewData(item?.clazzUserVoList)
         }
 
