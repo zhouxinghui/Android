@@ -17,51 +17,51 @@ import ebag.hd.widget.questions.base.BaseQuestionView
 class QuestionAdapter(private val isPreviewPage: Boolean = false): BaseMultiItemQuickAdapter<QuestionBean, BaseViewHolder>(null) {
     init {
         //看单词选图
-        addItemType(QuestionTypeUtils.QUESTIONS_CHOOSE_PIC_BY_WORD, R.layout.item_question_choice)
+        addItemType(QuestionTypeUtils.QUESTIONS_CHOOSE_PIC_BY_WORD, R.layout.item_questions_choice)
         //看图选单词
-        addItemType(QuestionTypeUtils.QUESTIONS_CHOOSE_WORD_BY_PIC, R.layout.item_question_choice)
+        addItemType(QuestionTypeUtils.QUESTIONS_CHOOSE_WORD_BY_PIC, R.layout.item_questions_choice)
         //判断题
-        addItemType(QuestionTypeUtils.QUESTIONS_JUDGE, R.layout.item_question_choice)
+        addItemType(QuestionTypeUtils.QUESTIONS_JUDGE, R.layout.item_questions_choice)
         //选择题
-        addItemType(QuestionTypeUtils.QUESTIONS_CHOICE, R.layout.item_question_choice)
+        addItemType(QuestionTypeUtils.QUESTIONS_CHOICE, R.layout.item_questions_choice)
         //听录音选择
-        addItemType(QuestionTypeUtils.QUESTIONS_CHOOSE_BY_VOICE, R.layout.item_question_choice)
+        addItemType(QuestionTypeUtils.QUESTIONS_CHOOSE_BY_VOICE, R.layout.item_questions_choice)
         //看图写单词
-        addItemType(QuestionTypeUtils.QUESTIONS_WRITE_WORD_BY_PIC, R.layout.item_question_complete)
+        addItemType(QuestionTypeUtils.QUESTIONS_WRITE_WORD_BY_PIC, R.layout.item_questions_complete)
         //听录音填空
-        addItemType(QuestionTypeUtils.QUESTIONS_COMPLETION_BY_VOICE, R.layout.item_question_complete)
+        addItemType(QuestionTypeUtils.QUESTIONS_COMPLETION_BY_VOICE, R.layout.item_questions_complete)
         //填空题
-        addItemType(QuestionTypeUtils.QUESTIONS_COMPLETION, R.layout.item_question_complete)
+        addItemType(QuestionTypeUtils.QUESTIONS_COMPLETION, R.layout.item_questions_complete)
         //排列句子-英语
-        addItemType(QuestionTypeUtils.QUESTIONS_EN_ORDER_SENTENCE, R.layout.item_question_sort_horizontal)
+        addItemType(QuestionTypeUtils.QUESTIONS_EN_ORDER_SENTENCE, R.layout.item_questions_sort_horizontal)
         //排列句子-语文
-        addItemType(QuestionTypeUtils.QUESTIONS_CN_ORDER_SENTENCE, R.layout.item_question_sort_vertical)
+        addItemType(QuestionTypeUtils.QUESTIONS_CN_ORDER_SENTENCE, R.layout.item_questions_sort_vertical)
         //连线
-        addItemType(QuestionTypeUtils.QUESTIONS_DRAW_LINE, R.layout.item_question_connection)
+        addItemType(QuestionTypeUtils.QUESTIONS_DRAW_LINE, R.layout.item_questions_connection)
         //分类
-        addItemType(QuestionTypeUtils.QUESTIONS_CLASSIFICATION, R.layout.item_question_classification)
+        addItemType(QuestionTypeUtils.QUESTIONS_CLASSIFICATION, R.layout.item_questions_classification)
         //朗读
-        addItemType(QuestionTypeUtils.QUESTIONS_READ_ALOUD, R.layout.item_question_recorder)
+        addItemType(QuestionTypeUtils.QUESTIONS_READ_ALOUD, R.layout.item_questions_recorder)
         //跟读
-        addItemType(QuestionTypeUtils.QUESTIONS_FOLLOW_READ, R.layout.item_question_recorder)
+        addItemType(QuestionTypeUtils.QUESTIONS_FOLLOW_READ, R.layout.item_questions_recorder)
         //作文
-        addItemType(QuestionTypeUtils.QUESTIONS_WRITE_COMPOSITION_BY_PIC, R.layout.item_question_sentence)
+        addItemType(QuestionTypeUtils.QUESTIONS_WRITE_COMPOSITION_BY_PIC, R.layout.item_questions_sentence)
         //词组或句子
-        addItemType(QuestionTypeUtils.QUESTIONS_CHINESE_SENTENCE, R.layout.item_question_sentence)
+        addItemType(QuestionTypeUtils.QUESTIONS_CHINESE_SENTENCE, R.layout.item_questions_sentence)
         //听写
-        addItemType(QuestionTypeUtils.QUESTIONS_CHINESE_WRITE_BY_VOICE, R.layout.item_question_sentence)
+        addItemType(QuestionTypeUtils.QUESTIONS_CHINESE_WRITE_BY_VOICE, R.layout.item_questions_sentence)
         //应用题
-        addItemType(QuestionTypeUtils.QUESTION_MATH_APPLICATION, R.layout.item_question_sentence)
+        addItemType(QuestionTypeUtils.QUESTION_MATH_APPLICATION, R.layout.item_questions_sentence)
         //计算题-竖式（乘法和除法）
-        addItemType(QuestionTypeUtils.QUESTION_MATH_VERTICAL, R.layout.item_question_math_vertical)
+        addItemType(QuestionTypeUtils.QUESTION_MATH_VERTICAL, R.layout.item_questions_math_vertical)
         //计算题-等式
-        addItemType(QuestionTypeUtils.QUESTION_MATH_EQUATION, R.layout.item_question_math_equation)
+        addItemType(QuestionTypeUtils.QUESTION_MATH_EQUATION, R.layout.item_questions_math_equation)
         //计算题-分式
-        addItemType(QuestionTypeUtils.QUESTION_MATH_FRACTION, R.layout.item_question_math_fraction)
+        addItemType(QuestionTypeUtils.QUESTION_MATH_FRACTION, R.layout.item_questions_math_fraction)
         //阅读理解
-        addItemType(QuestionTypeUtils.QUESTIONS_CHINESE_READ_UNDERSTAND, R.layout.item_question_understand)
+        addItemType(QuestionTypeUtils.QUESTIONS_CHINESE_READ_UNDERSTAND, R.layout.item_questions_understand)
         //书写
-        addItemType(QuestionTypeUtils.QUESTIONS_WRITE, R.layout.item_question_write)
+        addItemType(QuestionTypeUtils.QUESTIONS_WRITE, R.layout.item_questions_write)
     }
     var selectItem = -1
         set(value) {
