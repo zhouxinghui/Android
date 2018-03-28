@@ -13,6 +13,7 @@ import com.yzy.ebag.student.R
 import com.yzy.ebag.student.bean.ErrorTopicBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.SPUtils
 import ebag.hd.base.BaseListTabActivity
 
 /**
@@ -48,6 +49,7 @@ class ErrorTopicActivity: BaseListTabActivity<ArrayList<ErrorTopicBean>, ErrorTo
         val bean = ErrorTopicBean()
         bean.itemType = 1
         parent?.add(0, bean)
+        SPUtils.put(this, "subCode", parent!![1].subCode)
         return parent
     }
 
@@ -88,6 +90,7 @@ class ErrorTopicActivity: BaseListTabActivity<ArrayList<ErrorTopicBean>, ErrorTo
         var selectedPosition = 1
             set(value) {
                 field = value
+                SPUtils.put(mContext, "subCode", data[selectedPosition].subCode)
                 notifyDataSetChanged()
             }
 

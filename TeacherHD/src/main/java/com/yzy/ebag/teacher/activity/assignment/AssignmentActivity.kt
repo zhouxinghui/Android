@@ -57,7 +57,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     subCode,
                     subName)
             isGradeRequest = false
-            assignmentPresenter.loadUnitAndQuestion(workCategory.toString(), currentGradeCode, versionId)
+            assignmentPresenter.loadUnitAndQuestion(workCategory.toString(), currentGradeCode, cacheMap[currentGradeCode]!!.classes, versionId)
         }
         dialog
     }

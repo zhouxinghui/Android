@@ -12,8 +12,8 @@
 
     <EditText
         android:id="@+id/tvSort"
-        android:layout_width="@dimen/x26"
-        android:layout_height="@dimen/x26"
+        android:layout_width="@dimen/x35"
+        android:layout_height="@dimen/x35"
         android:layout_marginEnd="@dimen/x20"
         android:layout_marginTop="@dimen/x4"
         android:textSize="@dimen/question_content"

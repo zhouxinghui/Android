@@ -19,7 +19,25 @@ public class ReportBean {
     private int totalScore;
     private int maxScore;
     private int errorNum;
+    private String teacherComment;
+    private String parentComment;
     private List<ReportDetailBean> homeWorkRepDetailVos;
+
+    public String getTeacherComment() {
+        return teacherComment;
+    }
+
+    public void setTeacherComment(String teacherComment) {
+        this.teacherComment = teacherComment;
+    }
+
+    public String getParentComment() {
+        return parentComment;
+    }
+
+    public void setParentComment(String parentComment) {
+        this.parentComment = parentComment;
+    }
 
     public int getTotalScore() {
         return totalScore;

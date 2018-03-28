@@ -1,5 +1,6 @@
 package com.yzy.ebag.teacher.ui.presenter
 
+import com.yzy.ebag.teacher.bean.AssignClassBean
 import com.yzy.ebag.teacher.bean.AssignmentBean
 import com.yzy.ebag.teacher.bean.TestPaperListBean
 import com.yzy.ebag.teacher.http.TeacherApi
@@ -57,8 +58,8 @@ class AssignmentPresenter(view: AssignmentView, listener: OnToastListener): Base
     fun loadBaseData(type: String){
         TeacherApi.assignmentData(type, baseRequest)
     }
-    fun loadUnitAndQuestion(type: String, gradeCode: String, bookVersionId: String? = null){
-        TeacherApi.unitAndQuestion(type, gradeCode, bookVersionId, unitRequest)
+    fun loadUnitAndQuestion(type: String, gradeCode: String,classIds: ArrayList<AssignClassBean>? = null, bookVersionId: String? = null){
+        TeacherApi.unitAndQuestion(type, gradeCode,classIds, bookVersionId, unitRequest)
     }
     fun loadTestListData(testPaperFlag: String, gradeCode: String, unitId: String?){
         TeacherApi.testPaperList(testPaperFlag, gradeCode, unitId, testRequest)
