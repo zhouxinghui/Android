@@ -21,6 +21,7 @@
         android:paddingEnd="@dimen/x24"
         android:gravity="center_vertical|start"
         android:textSize="@dimen/x28"
+        android:maxLength="10"
         android:textColor="#4a4a4a"
         android:hint="@string/input_title"/>
 

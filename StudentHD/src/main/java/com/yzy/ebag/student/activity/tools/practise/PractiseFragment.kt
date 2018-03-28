@@ -25,10 +25,11 @@ import kotlinx.android.synthetic.main.fragment_practise.*
 class PractiseFragment: BaseFragment(),BaseQuickAdapter.OnItemClickListener {
 
     companion object {
-        fun newInstance(unitCode: String?): PractiseFragment {
+        fun newInstance(unitCode: String?,classId:String): PractiseFragment {
             val fragment = PractiseFragment()
             val bundle = Bundle()
             bundle.putString("unitCode",unitCode)
+            bundle.putString("classId",classId)
             fragment.arguments = bundle
             return fragment
         }
@@ -38,8 +39,10 @@ class PractiseFragment: BaseFragment(),BaseQuickAdapter.OnItemClickListener {
     }
 
     private lateinit var unitCode: String
+    private lateinit var classId: String
     override fun getBundle(bundle: Bundle?) {
         unitCode = bundle?.getString("unitCode") ?: ""
+        classId = bundle?.getString("classId") ?: ""
     }
 
     lateinit var adapter: Adapter
@@ -59,7 +62,7 @@ class PractiseFragment: BaseFragment(),BaseQuickAdapter.OnItemClickListener {
             if(list.isEmpty()){
                 T.show(mContext,"请选择生字")
             }else{
-                WriteActivity.jump(mContext, list)
+                WriteActivity.jump(mContext, list,classId,unitCode)
             }
         }
         cbSelect.setOnClickListener { view ->

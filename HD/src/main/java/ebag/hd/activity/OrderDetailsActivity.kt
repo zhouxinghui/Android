@@ -21,10 +21,7 @@ import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
 import ebag.core.util.loadImage
 import ebag.hd.R
-import ebag.hd.bean.PayResult
-import ebag.hd.bean.SaveOrderPBean
-import ebag.hd.bean.ShopListBean
-import ebag.hd.bean.WXPayBean
+import ebag.hd.bean.*
 import ebag.hd.http.EBagApi
 import ebag.hd.util.ActivityUtils
 import kotlinx.android.synthetic.main.activity_shop_order_detail.*
@@ -39,6 +36,7 @@ class OrderDetailsActivity : BaseActivity() {
     private var addresID: String = ""
     private var mList: ArrayList<SaveOrderPBean.ListBean> = arrayListOf()
     private var which = 0
+    private var isStudent = false
     @SuppressLint("HandlerLeak")
     private val handler = object : Handler() {
         override fun handleMessage(msg: Message?) {
@@ -72,6 +70,14 @@ class OrderDetailsActivity : BaseActivity() {
         if (intent.hasExtra("which")) {
             which = intent.getIntExtra("which", 0)
         }
+        val packageName = packageName
+        if (packageName.contains("student")) {
+            isStudent = true
+            cb_ali_pay.visibility = View.GONE
+            cb_wechat_pay.visibility = View.GONE
+            cb_yb_pay.isChecked = true
+            cb_yb_pay.isEnabled = false
+        }
         tv_order_time.text = "订单编号:$number\n下单时间:${number.substring(0, 4)}年${number[5]}月${number.substring(6, 8)}日  ${number.substring(startIndex = 8, endIndex = 10)}:${number.substring(10, 12)}"
         for (i in dats.indices) {
             val view = View.inflate(this, R.layout.item_shop_order_detail, null)
@@ -93,7 +99,7 @@ class OrderDetailsActivity : BaseActivity() {
             goods_list.addView(view)
         }
 
-
+        queryAddress()
         tv_total_money.text = "¥ $count"
         tv_total_pay.text = "¥ $count"
         tv_should_pay.text = "¥ $count"
@@ -102,11 +108,33 @@ class OrderDetailsActivity : BaseActivity() {
 
         cb_ali_pay.setOnCheckedChangeListener { _, isChecked ->
 
-            cb_wechat_pay.isChecked = !isChecked
+            if (isChecked) {
+                cb_ali_pay.isEnabled = false
+                cb_wechat_pay.isEnabled = true
+                cb_yb_pay.isEnabled = true
+                cb_wechat_pay.isChecked = false
+                cb_yb_pay.isChecked = false
+            }
         }
 
         cb_wechat_pay.setOnCheckedChangeListener { _, isChecked ->
-            cb_ali_pay.isChecked = !isChecked
+            if (isChecked) {
+                cb_ali_pay.isEnabled = true
+                cb_wechat_pay.isEnabled = false
+                cb_yb_pay.isEnabled = true
+                cb_ali_pay.isChecked = false
+                cb_yb_pay.isChecked = false
+            }
+        }
+
+        cb_yb_pay.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                cb_ali_pay.isEnabled = true
+                cb_wechat_pay.isEnabled = true
+                cb_yb_pay.isEnabled = false
+                cb_wechat_pay.isChecked = false
+                cb_ali_pay.isChecked = false
+            }
         }
 
         rl_adress.setOnClickListener {
@@ -119,36 +147,39 @@ class OrderDetailsActivity : BaseActivity() {
         btn_pay.setOnClickListener {
 
             if (address) {
+                if (isStudent) {
 
-                if (which == 1) {
-                    if (cb_ali_pay.isChecked) {
-                        getAlipayInfo()
-                    } else {
-                        getWxPayInfo()
-                    }
                 } else {
-                    EBagApi.saveOrder(addresID, count.toString(), count.toString(), mList, number, "", object : RequestCallBack<String>() {
-
-                        override fun onStart() {
-                            super.onStart()
-                            LoadingDialogUtil.showLoading(this@OrderDetailsActivity, "正在生成订单..请稍后")
+                    if (which == 1) {
+                        if (cb_ali_pay.isChecked) {
+                            getAlipayInfo()
+                        } else {
+                            getWxPayInfo()
                         }
+                    } else {
+                        EBagApi.saveOrder(addresID, count.toString(), count.toString(), mList, number, "", object : RequestCallBack<String>() {
 
-                        override fun onSuccess(entity: String?) {
-                            LoadingDialogUtil.closeLoadingDialog()
-                            if (cb_ali_pay.isChecked) {
-                                getAlipayInfo()
-                            } else {
-                                getWxPayInfo()
+                            override fun onStart() {
+                                super.onStart()
+                                LoadingDialogUtil.showLoading(this@OrderDetailsActivity, "正在生成订单..请稍后")
                             }
-                        }
 
-                        override fun onError(exception: Throwable) {
-                            exception.handleThrowable(this@OrderDetailsActivity)
-                            LoadingDialogUtil.closeLoadingDialog()
-                        }
+                            override fun onSuccess(entity: String?) {
+                                LoadingDialogUtil.closeLoadingDialog()
+                                if (cb_ali_pay.isChecked) {
+                                    getAlipayInfo()
+                                } else {
+                                    getWxPayInfo()
+                                }
+                            }
 
-                    })
+                            override fun onError(exception: Throwable) {
+                                exception.handleThrowable(this@OrderDetailsActivity)
+                                LoadingDialogUtil.closeLoadingDialog()
+                            }
+
+                        })
+                    }
                 }
             } else {
                 T.show(this, "还没有选择收货地址")
@@ -172,6 +203,29 @@ class OrderDetailsActivity : BaseActivity() {
                 Log.d("fansan", "fail = " + exception.message)
                 T.show(this@OrderDetailsActivity, exception.message.toString())
                 LoadingDialogUtil.closeLoadingDialog()
+            }
+
+        })
+    }
+
+    private fun queryAddress() {
+        EBagApi.queryAddress(object : RequestCallBack<MutableList<AddressListBean>>() {
+            override fun onSuccess(entity: MutableList<AddressListBean>?) {
+                if (entity!!.isNotEmpty()) {
+                    entity.forEach {
+                        if (it.type == "0") {
+                            tv_choose_address.visibility = View.GONE
+                            tv_name_phone.text = "${it.consignee}  ${it.phone}"
+                            tv_adress.text = "${it.preAddress}   ${it.address}"
+                            addresID = it.id
+                            address = true
+                        }
+                    }
+                }
+            }
+
+            override fun onError(exception: Throwable) {
+
             }
 
         })

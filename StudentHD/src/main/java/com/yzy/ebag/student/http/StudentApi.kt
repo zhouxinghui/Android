@@ -251,4 +251,14 @@ object StudentApi{
         jsonObject.put("pageSize", 10)
         EBagApi.request(studentService.searchLocation("1",EBagApi.createBody(jsonObject)),callback)
     }
+
+    fun uploadWord(classId:String,words:String,unitId:String,wordUrl:String,callback: RequestCallBack<String>){
+
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("words", words)
+        jsonObject.put("unitId", unitId)
+        jsonObject.put("wordUrl", wordUrl)
+        EBagApi.request(studentService.uploadWord("1",EBagApi.createBody(jsonObject)),callback)
+    }
 }

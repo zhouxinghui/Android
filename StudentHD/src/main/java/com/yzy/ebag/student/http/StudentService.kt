@@ -123,4 +123,7 @@ interface StudentService {
     @POST("/user/searchUserPositioningList/{version}")
     fun searchLocation(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<LocationBean>>
 
+    @POST("/util/insetWordrecord/{version}")
+    fun uploadWord(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
+
 }

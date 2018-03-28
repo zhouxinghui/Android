@@ -88,10 +88,10 @@ class PractiseActivity: BaseListTabActivity<EditionBean, MultiItemEntity>() {
         if(adapter.itemCount > 0){
             val item = adapter.getItem(0)
             if(item is UnitBean)
-                fragment = PractiseFragment.newInstance(item.resultBookUnitOrCatalogVos[0].unitCode)
+                fragment = PractiseFragment.newInstance(item.resultBookUnitOrCatalogVos[0].unitCode,classId)
             return fragment
         }
-        fragment = PractiseFragment.newInstance("")
+        fragment = PractiseFragment.newInstance("",classId)
         return fragment
     }
 

@@ -4,14 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.AnimationDrawable
+import android.os.Message
+import com.luck.picture.lib.tools.PictureFileUtils
 import com.yzy.ebag.student.R
+import com.yzy.ebag.student.activity.growth.DiaryDetailActivity
 import com.yzy.ebag.student.bean.Practise
+import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.mvp.MVPActivity
-import ebag.core.util.FileUtil
-import ebag.core.util.SerializableUtils
-import ebag.core.util.T
-import ebag.core.util.VoicePlayerOnline
+import ebag.core.http.network.RequestCallBack
+import ebag.core.util.*
 import ebag.hd.bean.response.UserEntity
+import kotlinx.android.synthetic.main.activity_diary_detail.*
 import kotlinx.android.synthetic.main.activity_write.*
 import java.io.File
 import java.io.FileNotFoundException
@@ -19,13 +22,12 @@ import java.io.FileOutputStream
 import java.io.IOException
 
 
-
 /**
  * @author caoyu
  * @date 2018/1/23
  * @description
  */
-class WriteActivity: MVPActivity() {
+class WriteActivity : MVPActivity() {
 
 
     private var maxIndex = 0
@@ -34,13 +36,20 @@ class WriteActivity: MVPActivity() {
     private lateinit var list: ArrayList<Practise>
     private lateinit var userId: String
     private lateinit var practise: Practise
+    private var uploadPosition = 0
 
     private lateinit var animDrawable: AnimationDrawable
+    private lateinit var classId: String
+    private lateinit var unitCode: String
+    private lateinit var dir:File
+    private val sb = StringBuilder()
+    private val myHandler by lazy { WriteActivity.MyHandler(this) }
+
     companion object {
-        fun jump(context: Context, list: ArrayList<Practise>){
+        fun jump(context: Context, list: ArrayList<Practise>,classId:String,unitCode:String) {
             context.startActivity(
-                    Intent(context,WriteActivity::class.java)
-                            .putExtra("list", list)
+                    Intent(context, WriteActivity::class.java)
+                            .putExtra("list", list).putExtra("classId",classId).putExtra("unitCode",unitCode)
             )
         }
     }
@@ -54,20 +63,22 @@ class WriteActivity: MVPActivity() {
 
 
         val ser = intent.getSerializableExtra("list") ?: return
+        classId = intent.getStringExtra("classId") ?: return
+        unitCode = intent.getStringExtra("unitCode") ?: return
 
         list = ser as ArrayList<Practise>
 
         val userEntity = SerializableUtils.getSerializable<UserEntity>(ebag.hd.base.Constants.STUDENT_USER_ENTITY)
         userId = userEntity?.uid ?: "userId"
-
+        dir = File("${FileUtil.getRecorderPath()}/$userId/write")
         maxIndex = list.size - 1
 
-        tvPinyin.text = list[currentIndex].hanzi
+        tvPinyin.text = list[currentIndex].pinyin
 
         drawView.setPenRawSize(resources.getDimension(R.dimen.x10))
 
         pen_size_group.setOnCheckedChangeListener { _, checkedId ->
-            when(checkedId){
+            when (checkedId) {
                 R.id.pen_size_one -> {
                     drawView.setPenRawSize(resources.getDimension(R.dimen.x5))
                 }
@@ -89,28 +100,30 @@ class WriteActivity: MVPActivity() {
 
         tvCommit.setOnClickListener {
             val bitmap = drawView.buildBitmap()
-            if(bitmap == null){
-                T.show(this,"需要默写才能进行下一步操作哦")
+            if (bitmap == null) {
+                T.show(this, "需要默写才能进行下一步操作哦")
                 return@setOnClickListener
             }
             practise = list[currentIndex]
             // 这里写 保存bitmap到本地的操作
-            val bm = drawView.buildBitmap()
-
-            if(currentIndex == maxIndex){
-
-            }else{
+            saveBitmap(bitmap, practise.pinyin)
+            if (currentIndex == maxIndex) {
+                LoadingDialogUtil.showLoading(this, "正在上传...")
+                val url = "${Constants.OSS_BASE_URL}/recorder/$userId/${practise.pinyin}"
+                OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(dir, practise.pinyin), "recorder/$userId", practise.pinyin, myHandler)
+                sb.append("$url,")
+            } else {
                 drawView.clear()
-                tvPinyin.text = list[++currentIndex].hanzi
+                tvPinyin.text = list[++currentIndex].pinyin
             }
         }
 
         animDrawable = playAnim.background as AnimationDrawable
         playAnim.setOnClickListener {
-            if(!player.isPlaying){
-                if(list[currentIndex].audio.isNullOrEmpty()){
-                    T.show(this,"暂无对应音频")
-                }else{
+            if (!player.isPlaying) {
+                if (list[currentIndex].audio.isNullOrEmpty()) {
+                    T.show(this, "暂无对应音频")
+                } else {
                     animDrawable.start()
                     player.playUrl(list[currentIndex].audio)
                 }
@@ -119,10 +132,9 @@ class WriteActivity: MVPActivity() {
     }
 
 
-
     private val playerD = lazy {
         val pl = VoicePlayerOnline(this)
-        pl.setOnPlayChangeListener(object : VoicePlayerOnline.OnPlayChangeListener{
+        pl.setOnPlayChangeListener(object : VoicePlayerOnline.OnPlayChangeListener {
             override fun onProgressChange(progress: Int) {
             }
 
@@ -136,13 +148,41 @@ class WriteActivity: MVPActivity() {
     private val player by playerD
 
     override fun destroyPresenter() {
-        if(playerD.isInitialized())
+        if (playerD.isInitialized())
             player.stop()
+    }
+
+    fun commit(){
+        val sb = StringBuilder()
+        list.forEachIndexed{index,p ->
+            if (index!=list.size-1){
+                sb.append("${p.hanzi},")
+            }else{
+                sb.append(p.hanzi)
+            }
+        }
+        StudentApi.uploadWord(classId,sb.toString(),unitCode,sb.toString(),object: RequestCallBack<String>(){
+            override fun onSuccess(entity: String?) {
+                LoadingDialogUtil.closeLoadingDialog()
+                T.show(this@WriteActivity,"提交成功")
+                finish()
+            }
+
+            override fun onError(exception: Throwable) {
+                LoadingDialogUtil.closeLoadingDialog()
+                T.show(this@WriteActivity,"提交失败")
+            }
+
+        })
     }
 
     /** 保存方法  */
     fun saveBitmap(bm: Bitmap, pinyin: String) {
 
+
+        if (!dir.exists()) {
+            dir.mkdirs()
+        }
         val f = File("${FileUtil.getRecorderPath()}/$userId/write", pinyin)
         if (f.exists()) {
             f.delete()
@@ -156,6 +196,29 @@ class WriteActivity: MVPActivity() {
             e.printStackTrace()
         } catch (e: IOException) {
             e.printStackTrace()
+        }
+    }
+
+
+    class MyHandler(activity: WriteActivity) : HandlerUtil<WriteActivity>(activity) {
+        override fun handleMessage(activity: WriteActivity, msg: Message) {
+            when (msg.what) {
+                Constants.UPLOAD_SUCCESS -> {
+                    activity.uploadPosition += 1
+                    if (activity.uploadPosition <= activity.list.size){
+                        val url = "${Constants.OSS_BASE_URL}/recorder/${activity.userId}/${activity.practise.pinyin}"
+                        OSSUploadUtils.getInstance().UploadPhotoToOSS(activity, File(activity.dir, activity.practise.pinyin), "recorder/${activity.userId}", activity.practise.pinyin, activity.myHandler)
+                        activity.sb.append("$url,")
+                    }else{
+                        activity.commit()
+                    }
+                }
+                Constants.UPLOAD_FAIL -> {
+                    LoadingDialogUtil.closeLoadingDialog()
+                    T.show(activity, "上传图片失败，请稍后重试")
+                }
+
+            }
         }
     }
 }
