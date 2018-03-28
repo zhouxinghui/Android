@@ -89,7 +89,7 @@ class ClassScheduleActivity: BaseActivity(){
                 }
             }
             adapter.setOnItemClickListener { _, _, pos ->
-                if(subjectList != null){
+                if(subjectList != null && adapter.isEdit){
                     editPosition = pos
                     subjectDialog.show()
                 }
