@@ -32,27 +32,24 @@ class ForgetPresenter(view: ForgetView, listener: OnToastListener) : BasePresent
         }
 
         if(StringUtils.isPassword(pwd)){
+            if(request == null){
+                request = createRequest(object :RequestCallBack<String>(){
+                    override fun onStart() {
+                        getView()?.onForgetStart()
+                    }
+                    override fun onSuccess(entity: String?) {
+                        getView()?.onForgetSuccess(entity)
+                    }
 
+                    override fun onError(exception: Throwable) {
+                        getView()?.onForgetError(exception)
+                    }
+
+                })
+            }
+            EBagApi.resetPassword(phone,ysbCode,code,pwd,request!!)
         }else{
             showToast("请输入6~20位字母数字混合密码", true)
         }
-
-        if(request == null){
-            request = createRequest(object :RequestCallBack<String>(){
-                override fun onStart() {
-                    getView()?.onForgetStart()
-                }
-                override fun onSuccess(entity: String?) {
-                    getView()?.onForgetSuccess(entity)
-                }
-
-                override fun onError(exception: Throwable) {
-                    getView()?.onForgetError(exception)
-                }
-
-            })
-        }
-        EBagApi.resetPassword(phone,ysbCode,code,pwd,request!!)
-
     }
 }
