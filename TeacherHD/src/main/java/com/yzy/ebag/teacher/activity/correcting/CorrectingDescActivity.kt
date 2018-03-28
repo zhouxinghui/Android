@@ -162,6 +162,9 @@ class CorrectingDescActivity : BaseActivity() {
             addItemType(QuestionTypeUtils.QUESTIONS_CHINESE_WRITE_BY_VOICE, R.layout.item_correcting_answer_normal)
         }
         override fun convert(helper: BaseViewHolder, item: CorrectAnswerBean) {
+            if (!QuestionTypeUtils.isMarkType(helper.itemViewType))
+                helper.getView<TextView>(R.id.correctIcon).visibility = View.GONE
+
             val studentAnswer = item.studentAnswer
             helper.setText(R.id.studentName, item.studentName)
                     .setText(R.id.bagId, "书包号：${item.ysbCode}")
@@ -173,11 +176,9 @@ class CorrectingDescActivity : BaseActivity() {
                 }else{
                     answerTv.text = "未完成"
                 }
-//                helper.getView<TextView>(R.id.correctIcon).visibility = View.GONE
                 return
             }
             helper.getView<TextView>(R.id.commitTime).visibility = View.VISIBLE
-//            helper.getView<TextView>(R.id.correctIcon).visibility = View.VISIBLE
             val endTime = item.endTime
             if(endTime == null)
                 helper.setText(R.id.commitTime, "未完成")
@@ -185,6 +186,11 @@ class CorrectingDescActivity : BaseActivity() {
                 helper.setText(R.id.commitTime, "提交时间：${DateUtil.getFormatDateTime(Date(item.endTime.toLong()), "yyyy-MM-dd HH:mm:ss")}")
             if (answerTv != null)
                 answerTv.text = "学生答案："
+
+            if (!QuestionTypeUtils.isMarkType(helper.itemViewType)){
+                helper.getView<TextView>(R.id.correctIcon).visibility = View.VISIBLE
+                helper.getView<TextView>(R.id.correctIcon).isSelected = !item.isWright
+            }
             when(helper.itemViewType){
                 //纯文字
                 QuestionTypeUtils.QUESTIONS_CHOOSE_PIC_BY_WORD,

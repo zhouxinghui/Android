@@ -32,6 +32,15 @@ public class CorrectAnswerBean implements Serializable,MultiItemEntity {
     private String questionScore;
     private String qid;
     private int type;
+    private boolean isWright;
+
+    public boolean isWright() {
+        return isWright;
+    }
+
+    public void setWright(boolean wright) {
+        isWright = wright;
+    }
 
     public void setType(int type) {
         this.type = type;

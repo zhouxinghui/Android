@@ -178,4 +178,11 @@ public class QuestionTypeUtils {
             default: return QUESTION_NONE;
         }
     }
+
+    public static boolean isMarkType(int type){
+        return type == QuestionTypeUtils.QUESTIONS_CHINESE_READ_UNDERSTAND ||
+                type == QuestionTypeUtils.QUESTION_MATH_APPLICATION ||
+                type == QuestionTypeUtils.QUESTIONS_WRITE_COMPOSITION_BY_PIC ||
+                type == QuestionTypeUtils.QUESTIONS_FOLLOW_READ;
+    }
 }
