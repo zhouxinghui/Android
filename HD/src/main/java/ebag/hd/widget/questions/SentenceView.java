@@ -15,6 +15,7 @@ import java.util.List;
 
 import ebag.core.bean.QuestionBean;
 import ebag.core.bean.QuestionTypeUtils;
+import ebag.core.util.StringUtils;
 import ebag.hd.R;
 import ebag.hd.homework.DoHomeworkActivity;
 import ebag.hd.widget.keyboard.KeyBoardView;
@@ -99,6 +100,9 @@ public class SentenceView extends BaseQuestionView {
             titleList.add(questionBean.getContent());
         }
         studentAnswer = questionBean.getAnswer();
+        if (!StringUtils.INSTANCE.isEmpty(studentAnswer)){
+            lineEditText.setText(studentAnswer);
+        }
     }
 
     @Override
