@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Message
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.text.Editable
 import android.text.InputFilter
@@ -58,6 +59,17 @@ class DiaryDetailActivity : BaseActivity() {
     private val sb = StringBuilder()
     private var diary: Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean? = null
     private lateinit var gradeId: String
+    private var currentPosition = 0
+    private val deleteDialog by lazy {
+        AlertDialog.Builder(this)
+                .setTitle("温馨提示")
+                .setMessage("是否删除所选图片？")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("删除", { dialog, which ->
+                    imgAdapter.remove(currentPosition)
+                }).create()
+    }
+
     override fun initViews() {
         gradeId = intent.getStringExtra("gradeId") ?: ""
         val data = intent.getSerializableExtra("diary")
@@ -66,6 +78,17 @@ class DiaryDetailActivity : BaseActivity() {
         }
         recyclerView.layoutManager = GridLayoutManager(this, 8)
         recyclerView.adapter = imgAdapter
+
+        imgAdapter.setOnItemLongClickListener { _, _, position ->
+
+            if (position < imgAdapter.data.size - 1) {
+                currentPosition = position
+                deleteDialog.show()
+                true
+            } else {
+                false
+            }
+        }
 
         if (diary == null) {//添加日记
 
