@@ -70,6 +70,7 @@ class ShopOrderFragment : BaseFragment() {
                 data.add(bean)
             }
             intent.putExtra("datas", data)
+            intent.putExtra("which", 1)
             startActivity(intent)
         }
         flag = true

@@ -32,14 +32,14 @@ import java.io.File
  * @date 2018/2/2
  * @description
  */
-class DiaryDetailActivity: BaseActivity() {
+class DiaryDetailActivity : BaseActivity() {
 
     companion object {
-        fun jump(context: Context, gradeId: String, diary: Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean?){
-            context.startActivity(
-                    Intent(context, DiaryDetailActivity::class.java)
+        fun jump(activity: Activity, gradeId: String, diary: Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean?) {
+            activity.startActivityForResult(
+                    Intent(activity, DiaryDetailActivity::class.java)
                             .putExtra("gradeId", gradeId)
-                            .putExtra("diary",diary)
+                            .putExtra("diary", diary), 999
             )
         }
     }
@@ -60,33 +60,36 @@ class DiaryDetailActivity: BaseActivity() {
     private lateinit var gradeId: String
     override fun initViews() {
         gradeId = intent.getStringExtra("gradeId") ?: ""
-        diary = intent.getSerializableExtra("diary") as Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean
-
+        val data = intent.getSerializableExtra("diary")
+        if (data != null) {
+            diary = data as Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean
+        }
         recyclerView.layoutManager = GridLayoutManager(this, 8)
         recyclerView.adapter = imgAdapter
 
-        if(diary == null){//添加日记
+        if (diary == null) {//添加日记
 
             titleEdit.isEnabled = true
             contentEdit.isEnabled = true
 
             contentEdit.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxWordLength))
-            contentEdit.addTextChangedListener(object : TextWatcher{
+            contentEdit.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                     numberOfWord.text = "${s?.length}/$maxWordLength"
                 }
+
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             })
 
             numberOfWord.text = "0/$maxWordLength"
 
-            titleBar.setRightText("完成"){
-                if(StringUtils.isEmpty(titleEdit.text.toString())){
+            titleBar.setRightText("完成") {
+                if (StringUtils.isEmpty(titleEdit.text.toString())) {
                     T.show(this, "请输入标题")
                     return@setRightText
                 }
-                if(StringUtils.isEmpty(contentEdit.text.toString())){
+                if (StringUtils.isEmpty(contentEdit.text.toString())) {
                     T.show(this, "请填写内容")
                     return@setRightText
                 }
@@ -109,14 +112,14 @@ class DiaryDetailActivity: BaseActivity() {
                     position == adapter.data.size - 1 -> startSelectPicture(9 - imgAdapter.itemCount)
                     else -> {
                         val list = adapter.data.filter { !StringUtils.isEmpty(it) }
-                        PhotoPreviewActivity.jump(this, list , position)
+                        PhotoPreviewActivity.jump(this, list, position)
                     }
                 }
             }
             imgList.add("")
             imgAdapter.setNewData(imgList)
 
-        }else{// 查看日记
+        } else {// 查看日记
             titleEdit.isEnabled = false
             contentEdit.isEnabled = false
 
@@ -126,30 +129,32 @@ class DiaryDetailActivity: BaseActivity() {
         }
     }
 
-    private fun commit(title: String, content: String, urls: String = ""){
-            StudentApi.addUserGrowth(SPUtils.get(this,ebag.hd.base.Constants.CLASS_NAME,"") as String,"4",title,content,sb.toString(),gradeId,object:RequestCallBack<String>(){
-                override fun onSuccess(entity: String?) {
-                    T.show(this@DiaryDetailActivity,"成长轨迹添加成功")
-                    LoadingDialogUtil.closeLoadingDialog()
-                }
+    private fun commit(title: String, content: String, urls: String = "") {
+        StudentApi.addUserGrowth(SPUtils.get(this, ebag.hd.base.Constants.CLASS_NAME, "") as String, "4", title, content, sb.toString(), gradeId, object : RequestCallBack<String>() {
+            override fun onSuccess(entity: String?) {
+                T.show(this@DiaryDetailActivity, "成长轨迹添加成功")
+                LoadingDialogUtil.closeLoadingDialog()
+                setResult(998)
+                finish()
+            }
 
-                override fun onError(exception: Throwable) {
-                    T.show(this@DiaryDetailActivity,"成长轨迹添加失败")
-                    LoadingDialogUtil.closeLoadingDialog()
-                }
+            override fun onError(exception: Throwable) {
+                T.show(this@DiaryDetailActivity, "成长轨迹添加失败")
+                LoadingDialogUtil.closeLoadingDialog()
+            }
 
-            })
+        })
     }
 
-    inner class Adapter: BaseQuickAdapter<String, BaseViewHolder>(ebag.hd.R.layout.item_imageview){
+    inner class Adapter : BaseQuickAdapter<String, BaseViewHolder>(ebag.hd.R.layout.item_imageview) {
         override fun convert(helper: BaseViewHolder, item: String) {
             val position = helper.adapterPosition
             val imageView = helper.getView<ImageView>(ebag.hd.R.id.imageView)
 
             // 添加日记 并且是最后一张图片
-            if (diary == null && position == data.size - 1){
+            if (diary == null && position == data.size - 1) {
                 imageView.setImageResource(ebag.hd.R.drawable.add_pic)
-            }else {
+            } else {
                 imageView.loadImage(item)
             }
         }
@@ -175,11 +180,12 @@ class DiaryDetailActivity: BaseActivity() {
     }
 
     private val myHandler by lazy { MyHandler(this) }
-    class MyHandler(activity: DiaryDetailActivity): HandlerUtil<DiaryDetailActivity>(activity){
+
+    class MyHandler(activity: DiaryDetailActivity) : HandlerUtil<DiaryDetailActivity>(activity) {
         override fun handleMessage(activity: DiaryDetailActivity, msg: Message) {
-            when(msg.what){
-                Constants.UPLOAD_SUCCESS ->{
-                    activity.uploadPosition ++
+            when (msg.what) {
+                Constants.UPLOAD_SUCCESS -> {
+                    activity.uploadPosition++
                     if (activity.uploadPosition < activity.imgAdapter.itemCount - 1) {
                         val fileName = System.currentTimeMillis().toString()
                         val url = "${Constants.OSS_BASE_URL}/personal/diary/${activity.userId}/$fileName"
@@ -190,7 +196,7 @@ class DiaryDetailActivity: BaseActivity() {
                                 fileName,
                                 activity.myHandler)
                         activity.sb.append("$url,")
-                    }else{
+                    } else {
                         activity.commit(
                                 activity.titleEdit.text.toString(),
                                 activity.contentEdit.text.toString(),
@@ -199,7 +205,7 @@ class DiaryDetailActivity: BaseActivity() {
                         PictureFileUtils.deleteCacheDirFile(activity)
                     }
                 }
-                Constants.UPLOAD_FAIL ->{
+                Constants.UPLOAD_FAIL -> {
                     LoadingDialogUtil.closeLoadingDialog()
                     T.show(activity, "上传图片失败，请稍后重试")
                 }

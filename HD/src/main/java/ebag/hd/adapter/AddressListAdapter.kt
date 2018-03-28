@@ -34,7 +34,7 @@ class AddressListAdapter(private val context: Context, layout: Int, datas: Mutab
 
         helper?.getView<CheckBox>(R.id.myaddress_defult_toggle)?.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                AlertDialog.Builder(context).setMessage("是否设为默认收货地址").setNegativeButton("否") { _, _ ->
+                AlertDialog.Builder(context).setMessage("是否设为默认收货地址").setCancelable(false).setNegativeButton("否") { _, _ ->
                     helper.getView<CheckBox>(R.id.myaddress_defult_toggle).isChecked = false
                 }.setNeutralButton("是") { _, _ ->
                     onChecked.setDefault(helper.layoutPosition)

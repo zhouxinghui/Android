@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.alipay.sdk.app.PayTask
 import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
@@ -37,6 +38,7 @@ class OrderDetailsActivity : BaseActivity() {
     private var number = ""
     private var addresID: String = ""
     private var mList: ArrayList<SaveOrderPBean.ListBean> = arrayListOf()
+    private var which = 0
     @SuppressLint("HandlerLeak")
     private val handler = object : Handler() {
         override fun handleMessage(msg: Message?) {
@@ -49,8 +51,8 @@ class OrderDetailsActivity : BaseActivity() {
                 T.show(this@OrderDetailsActivity, "支付成功")
             } else {
                 T.show(this@OrderDetailsActivity, "支付失败")
-                ActivityUtils.skipActivityAndFinishAll(this@OrderDetailsActivity, ShopOrderActivity::class.java)
             }
+            ActivityUtils.skipActivityAndFinishAll(this@OrderDetailsActivity, ShopOrderActivity::class.java)
             Log.d("fansan", "alipay info = $resultInfo")
 
         }
@@ -67,6 +69,9 @@ class OrderDetailsActivity : BaseActivity() {
         @Suppress("UNCHECKED_CAST")
         val dats = intent.getSerializableExtra("datas") as ArrayList<ShopListBean.ListBean>
         number = intent.getStringExtra("number")
+        if (intent.hasExtra("which")) {
+            which = intent.getIntExtra("which", 0)
+        }
         tv_order_time.text = "订单编号:$number\n下单时间:${number.substring(0, 4)}年${number[5]}月${number.substring(6, 8)}日  ${number.substring(startIndex = 8, endIndex = 10)}:${number.substring(10, 12)}"
         for (i in dats.indices) {
             val view = View.inflate(this, R.layout.item_shop_order_detail, null)
@@ -115,28 +120,36 @@ class OrderDetailsActivity : BaseActivity() {
 
             if (address) {
 
-                EBagApi.saveOrder(addresID, count.toString(), count.toString(), mList, number, "", object : RequestCallBack<String>() {
-
-                    override fun onStart() {
-                        super.onStart()
-                        LoadingDialogUtil.showLoading(this@OrderDetailsActivity, "正在生成订单..请稍后")
+                if (which == 1) {
+                    if (cb_ali_pay.isChecked) {
+                        getAlipayInfo()
+                    } else {
+                        getWxPayInfo()
                     }
+                } else {
+                    EBagApi.saveOrder(addresID, count.toString(), count.toString(), mList, number, "", object : RequestCallBack<String>() {
 
-                    override fun onSuccess(entity: String?) {
-                        LoadingDialogUtil.closeLoadingDialog()
-                        if (cb_ali_pay.isChecked) {
-                            getAlipayInfo()
-                        } else {
-                            getWxPayInfo()
+                        override fun onStart() {
+                            super.onStart()
+                            LoadingDialogUtil.showLoading(this@OrderDetailsActivity, "正在生成订单..请稍后")
                         }
-                    }
 
-                    override fun onError(exception: Throwable) {
-                        exception.handleThrowable(this@OrderDetailsActivity)
-                        LoadingDialogUtil.closeLoadingDialog()
-                    }
+                        override fun onSuccess(entity: String?) {
+                            LoadingDialogUtil.closeLoadingDialog()
+                            if (cb_ali_pay.isChecked) {
+                                getAlipayInfo()
+                            } else {
+                                getWxPayInfo()
+                            }
+                        }
 
-                })
+                        override fun onError(exception: Throwable) {
+                            exception.handleThrowable(this@OrderDetailsActivity)
+                            LoadingDialogUtil.closeLoadingDialog()
+                        }
+
+                    })
+                }
             } else {
                 T.show(this, "还没有选择收货地址")
             }
@@ -212,15 +225,19 @@ class OrderDetailsActivity : BaseActivity() {
     private fun WXPay(bean: WXPayBean) {
         val wxapi = WXAPIFactory.createWXAPI(this, "wx4adbb68ec1c80484")
         wxapi.registerApp("wx4adbb68ec1c80484")
-        val request = PayReq()
-        request.appId = bean.appid
-        request.partnerId = bean.partnerid
-        request.prepayId = bean.prepayid
-        request.packageValue = bean.package_
-        request.nonceStr = bean.noncestr
-        request.timeStamp = bean.timestamp.toString()
-        request.sign = bean.sign
-        wxapi.sendReq(request)
+        if (wxapi.isWXAppInstalled and wxapi.isWXAppSupportAPI) {
+            val request = PayReq()
+            request.appId = bean.appid
+            request.partnerId = bean.partnerid
+            request.prepayId = bean.prepayid
+            request.packageValue = bean.package_
+            request.nonceStr = bean.noncestr
+            request.timeStamp = bean.timestamp.toString()
+            request.sign = bean.sign
+            wxapi.sendReq(request)
+        } else {
+            T.show(this@OrderDetailsActivity, "未安装微信客户端")
+        }
     }
 
     /*companion object {

@@ -95,7 +95,7 @@ class WriteActivity: MVPActivity() {
             }
             practise = list[currentIndex]
             // 这里写 保存bitmap到本地的操作
-
+            val bm = drawView.buildBitmap()
 
             if(currentIndex == maxIndex){
 

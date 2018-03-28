@@ -227,7 +227,7 @@ object StudentApi{
         EBagApi.request(studentService.addUserGrowth("1",EBagApi.createBody(jsonObject)),callback)
     }
 
-    fun searchUserGrowthList(page:Int,pageSize: Int,gradeCode:String,type:String,callback: RequestCallBack<List<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean>>){
+    fun searchUserGrowthList(page:Int,pageSize: Int,gradeCode:String,type:String,callback: RequestCallBack<List<Diary>>){
         val jsonObject = JSONObject()
         jsonObject.put("page", page)
         jsonObject.put("pageSize", pageSize)

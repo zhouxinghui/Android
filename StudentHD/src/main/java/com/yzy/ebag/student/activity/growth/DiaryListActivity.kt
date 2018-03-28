@@ -26,7 +26,7 @@ import ebag.core.util.loadImage
  * @date 2018/2/1
  * @description
  */
-class DiaryListActivity : BaseListActivity<List<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean>, Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean>() {
+class DiaryListActivity : BaseListActivity<List<Diary>, Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean>() {
 
 
     companion object {
@@ -35,6 +35,13 @@ class DiaryListActivity : BaseListActivity<List<Diary.ResultUserGrowthByPageVoBe
                     Intent(context, DiaryListActivity::class.java)
                             .putExtra("gradeId", gradeId)
             )
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == 998){
+            onRefresh()
         }
     }
 
@@ -99,22 +106,28 @@ class DiaryListActivity : BaseListActivity<List<Diary.ResultUserGrowthByPageVoBe
         return 10
     }
 
-    override fun requestData(page: Int, requestCallBack: RequestCallBack<List<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean>>) {
-        StudentApi.searchUserGrowthList(page, getPageSize(), gradeId, "4", requestCallBack)
+
+    override fun requestData(page: Int, requestCallBack: RequestCallBack<List<Diary>>) {
+        StudentApi.searchUserGrowthList(page,getPageSize(),gradeId,"4",requestCallBack)
     }
 
-    override fun parentToList(isFirstPage: Boolean, parent: List<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean>?): List<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean>? {
-        return parent
+    override fun parentToList(isFirstPage: Boolean, parent: List<Diary>?): List<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean>? {
+        return parent!![0].resultUserGrowthByPageVo.userGrowthResultVoList
+
     }
+
 
 
     override fun getAdapter(): BaseQuickAdapter<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean, BaseViewHolder> {
         return Adapter()
     }
 
+
     override fun getLayoutManager(adapter: BaseQuickAdapter<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean, BaseViewHolder>): RecyclerView.LayoutManager? {
         return null
     }
+
+
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         DiaryDetailActivity.jump(this, gradeId, (adapter as Adapter).getItem(position))
@@ -122,7 +135,7 @@ class DiaryListActivity : BaseListActivity<List<Diary.ResultUserGrowthByPageVoBe
 
 
     inner class Adapter : BaseQuickAdapter<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean, BaseViewHolder>(R.layout.item_activity_diary) {
-        override fun convert(helper: BaseViewHolder, item: Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean?) {
+        override fun convert(helper: BaseViewHolder, item: Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean) {
             helper.setText(R.id.tvTitle, item?.title)
                     .setText(R.id.tvContent, item?.content)
                     .setText(R.id.tvTime, DateUtil.getDateTime(item!!.createDate))
@@ -152,4 +165,6 @@ class DiaryListActivity : BaseListActivity<List<Diary.ResultUserGrowthByPageVoBe
             helper.getView<ImageView>(R.id.image).loadImage(item)
         }
     }
+
+
 }

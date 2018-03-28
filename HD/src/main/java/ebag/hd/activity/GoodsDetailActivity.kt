@@ -11,6 +11,7 @@ import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
 import ebag.hd.R
@@ -22,38 +23,35 @@ import ebag.hd.http.EBagApi
 import ebag.hd.util.ActivityUtils
 import ebag.hd.util.GlideImageLoader
 import kotlinx.android.synthetic.main.activity_goods_details.*
+import kotlinx.android.synthetic.main.activity_shop.*
 
 
 /**
  * Created by fansan on 2018/3/16.
  */
-class GoodsDetailActivity:BaseActivity(){
-    private lateinit var id:String
-    private var carCount:Int = 0
-    private lateinit var _intent:Intent
-    private lateinit var bean:GoodsDetailsBean
+class GoodsDetailActivity : BaseActivity() {
+    private lateinit var id: String
+    private var carCount: Int = 0
+    private lateinit var _intent: Intent
+    private lateinit var bean: GoodsDetailsBean
     override fun getLayoutId(): Int = R.layout.activity_goods_details
-    private var data:MutableList<GoodsDetailsBean.ProductParametersVoBean.ResultGruopVOSBean> = mutableListOf()
-    private lateinit var mAdapter:GoodsParamAdapter
-    private var bannerList:MutableList<String> = mutableListOf()
+    private var data: MutableList<GoodsDetailsBean.ProductParametersVoBean.ResultGruopVOSBean> = mutableListOf()
+    private lateinit var mAdapter: GoodsParamAdapter
+    private var bannerList: MutableList<String> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActivityUtils.addActivity(this)
     }
+
     override fun initViews() {
 
         id = intent.getStringExtra("id")
-        carCount = intent.getIntExtra("carcount",0)
-        if (carCount>0){
-            tv_tips.visibility = View.VISIBLE
-        }
-        tv_tips.text = carCount.toString()
-        mAdapter = GoodsParamAdapter(this,data)
+        mAdapter = GoodsParamAdapter(this, data)
         recyclerview.layoutManager = LinearLayoutManager(this)
         recyclerview.adapter = mAdapter
         recyclerview.addItemDecoration(ebag.core.xRecyclerView.manager.DividerItemDecoration(DividerItemDecoration.VERTICAL, 1, Color.parseColor("#e0e0e0")))
-        recyclerview.isNestedScrollingEnabled  = false
+        recyclerview.isNestedScrollingEnabled = false
         initListener()
         request()
     }
@@ -69,10 +67,10 @@ class GoodsDetailActivity:BaseActivity(){
             data.ysbMoney = bean.ysbMoney
             data.numbers = 1
             data.imgUrls = bean.imgUrls
-            val datas:ArrayList<ShopListBean.ListBean> = arrayListOf()
+            val datas: ArrayList<ShopListBean.ListBean> = arrayListOf()
             datas.add(data)
-            _intent = Intent(this,OrderDetailsActivity::class.java)
-            _intent.putExtra("datas",datas)
+            _intent = Intent(this, OrderDetailsActivity::class.java)
+            _intent.putExtra("datas", datas)
             createOrderNo()
 
         }
@@ -83,8 +81,8 @@ class GoodsDetailActivity:BaseActivity(){
 
                 override fun onSuccess(entity: String?) {
                     T.show(this@GoodsDetailActivity, "添加成功")
-                    carCount += 1
-                    tv_tips.text = carCount.toString()
+                    queryShopCar()
+
                 }
 
                 override fun onError(exception: Throwable) {
@@ -95,13 +93,13 @@ class GoodsDetailActivity:BaseActivity(){
         }
 
         fl_shop_car.setOnClickListener {
-                startActivity(Intent(this,ShopCarActivity::class.java))
+            startActivity(Intent(this, ShopCarActivity::class.java))
         }
     }
 
     private fun request() {
 
-        EBagApi.shopDetails(id,object :RequestCallBack<GoodsDetailsBean>(){
+        EBagApi.shopDetails(id, object : RequestCallBack<GoodsDetailsBean>() {
 
             override fun onStart() {
                 super.onStart()
@@ -138,9 +136,27 @@ class GoodsDetailActivity:BaseActivity(){
         })
     }
 
+    private fun queryShopCar() {
+        EBagApi.queryShopCar(object : RequestCallBack<MutableList<ShopListBean.ListBean>>() {
 
-    private fun createOrderNo(){
-        EBagApi.createShopOrderNo(object :RequestCallBack<String>(){
+            override fun onSuccess(entity: MutableList<ShopListBean.ListBean>?) {
+                if (entity!!.size > 0) {
+                    tv_tips.visibility = View.VISIBLE
+                }
+                tv_tips.text = entity.size.toString()
+            }
+
+
+            override fun onError(exception: Throwable) {
+                exception.handleThrowable(this@GoodsDetailActivity)
+            }
+
+        })
+    }
+
+
+    private fun createOrderNo() {
+        EBagApi.createShopOrderNo(object : RequestCallBack<String>() {
 
             override fun onStart() {
                 super.onStart()
@@ -149,13 +165,13 @@ class GoodsDetailActivity:BaseActivity(){
 
             override fun onSuccess(entity: String?) {
                 LoadingDialogUtil.closeLoadingDialog()
-                _intent.putExtra("number",entity)
+                _intent.putExtra("number", entity)
                 startActivity(_intent)
             }
 
             override fun onError(exception: Throwable) {
                 LoadingDialogUtil.closeLoadingDialog()
-                T.show(this@GoodsDetailActivity,"提交失败")
+                T.show(this@GoodsDetailActivity, "提交失败")
             }
 
         })
@@ -170,6 +186,11 @@ class GoodsDetailActivity:BaseActivity(){
     override fun onPause() {
         super.onPause()
         banner.stopAutoPlay()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        queryShopCar()
     }
 
 }

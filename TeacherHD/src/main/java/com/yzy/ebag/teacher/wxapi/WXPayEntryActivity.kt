@@ -41,7 +41,7 @@ class WXPayEntryActivity : Activity(), IWXAPIEventHandler {
             }
             -1 -> {
                 T.show(this, "支付失败 : " + p0.errStr)
-                finish()
+                ActivityUtils.skipActivityAndFinishAll(this@WXPayEntryActivity, ShopOrderActivity::class.java)
             }
             -2 -> {
                 T.show(this, "支付未完成")

@@ -24,12 +24,12 @@ class ShopActivity : BaseActivity() {
     private var page = 1
     private lateinit var mAdapter: ShopAdapter
     private val mData: MutableList<ShopListBean.ListBean> = mutableListOf()
-    private var carCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActivityUtils.addActivity(this)
     }
+
     override fun getLayoutId(): Int = R.layout.activity_shop
 
     override fun initViews() {
@@ -41,6 +41,7 @@ class ShopActivity : BaseActivity() {
         shop_recyclerview.addItemDecoration(GridSpacingItemDecoration(5, resources.getDimensionPixelOffset(R.dimen.x12), true))
         initListener()
         request()
+        queryShopCar()
 
     }
 
@@ -66,7 +67,9 @@ class ShopActivity : BaseActivity() {
 
         })
 
+    }
 
+    private fun queryShopCar() {
         EBagApi.queryShopCar(object : RequestCallBack<MutableList<ShopListBean.ListBean>>() {
 
             override fun onSuccess(entity: MutableList<ShopListBean.ListBean>?) {
@@ -79,7 +82,6 @@ class ShopActivity : BaseActivity() {
             }
 
         })
-
     }
 
     private fun initListener() {
@@ -94,8 +96,7 @@ class ShopActivity : BaseActivity() {
 
                 override fun onSuccess(entity: String?) {
                     T.show(this@ShopActivity, "添加成功")
-                    carCount += 1
-                    shop_carcount.text = carCount.toString()
+                    queryShopCar()
                 }
 
                 override fun onError(exception: Throwable) {
@@ -106,7 +107,7 @@ class ShopActivity : BaseActivity() {
         }
 
         relativeLayout.setOnClickListener {
-            startActivity(Intent(this,ShopCarActivity::class.java))
+            startActivity(Intent(this, ShopCarActivity::class.java))
         }
 
         mAdapter.setOnLoadMoreListener({
@@ -117,7 +118,7 @@ class ShopActivity : BaseActivity() {
                     if (entity?.list?.size != 0) {
                         mData.addAll(entity?.list as MutableList)
                         mAdapter.loadMoreComplete()
-                        page+=1
+                        page += 1
                     } else {
                         mAdapter.loadMoreEnd()
                     }
@@ -134,11 +135,15 @@ class ShopActivity : BaseActivity() {
 
         mAdapter.setOnItemClickListener { adapter, view, position ->
 
-            val intent = Intent(this,GoodsDetailActivity::class.java)
-            intent.putExtra("id",mData[position].id.toString())
-            intent.putExtra("carcount",carCount)
+            val intent = Intent(this, GoodsDetailActivity::class.java)
+            intent.putExtra("id", mData[position].id.toString())
             startActivity(intent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        queryShopCar()
     }
 
 }

@@ -9,12 +9,12 @@ import java.util.List;
  * @description
  */
 
-public class Diary implements Serializable{
+public class Diary implements Serializable {
 
 
     /**
      * dateTimes : 2018-03
-     * resultUserGrowthByPageVo : {"total":2,"pages":1,"userGrowthResultVoList":[{"id":22,"gradeName":"一年级数学","type":"4","title":"土豪哥哥","content":"吃饭方法","image":"http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/diary/1/1522144785077,","createBy":"3cb87cd7f1c24798a2d243eaf844807e","createDate":1522144776000,"removed":null,"uid":"3cb87cd7f1c24798a2d243eaf844807e","gradeCode":"二年级"},{"id":21,"gradeName":"一年级数学","type":"4","title":"哈哈哈","content":"停停停","image":"http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/diary/1/1522144042821,","createBy":"3cb87cd7f1c24798a2d243eaf844807e","createDate":1522144034000,"removed":null,"uid":"3cb87cd7f1c24798a2d243eaf844807e","gradeCode":"二年级"}]}
+     * resultUserGrowthByPageVo : {"total":1,"pages":1,"userGrowthResultVoList":[{"id":13,"gradeName":"一年级数学","type":"4","title":"gggg","content":"yyyyy","image":"http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/diary/1/1521712254635,","createBy":"3cb87cd7f1c24798a2d243eaf844807e","createDate":1521712220000,"removed":null,"uid":"3cb87cd7f1c24798a2d243eaf844807e","gradeCode":"一年级"}]}
      */
 
     private String dateTimes;
@@ -38,9 +38,9 @@ public class Diary implements Serializable{
 
     public static class ResultUserGrowthByPageVoBean {
         /**
-         * total : 2
+         * total : 1
          * pages : 1
-         * userGrowthResultVoList : [{"id":22,"gradeName":"一年级数学","type":"4","title":"土豪哥哥","content":"吃饭方法","image":"http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/diary/1/1522144785077,","createBy":"3cb87cd7f1c24798a2d243eaf844807e","createDate":1522144776000,"removed":null,"uid":"3cb87cd7f1c24798a2d243eaf844807e","gradeCode":"二年级"},{"id":21,"gradeName":"一年级数学","type":"4","title":"哈哈哈","content":"停停停","image":"http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/diary/1/1522144042821,","createBy":"3cb87cd7f1c24798a2d243eaf844807e","createDate":1522144034000,"removed":null,"uid":"3cb87cd7f1c24798a2d243eaf844807e","gradeCode":"二年级"}]
+         * userGrowthResultVoList : [{"id":13,"gradeName":"一年级数学","type":"4","title":"gggg","content":"yyyyy","image":"http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/diary/1/1521712254635,","createBy":"3cb87cd7f1c24798a2d243eaf844807e","createDate":1521712220000,"removed":null,"uid":"3cb87cd7f1c24798a2d243eaf844807e","gradeCode":"一年级"}]
          */
 
         private int total;
@@ -71,19 +71,19 @@ public class Diary implements Serializable{
             this.userGrowthResultVoList = userGrowthResultVoList;
         }
 
-        public static class UserGrowthResultVoListBean implements Serializable{
+        public static class UserGrowthResultVoListBean implements Serializable {
             /**
-             * id : 22
+             * id : 13
              * gradeName : 一年级数学
              * type : 4
-             * title : 土豪哥哥
-             * content : 吃饭方法
-             * image : http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/diary/1/1522144785077,
+             * title : gggg
+             * content : yyyyy
+             * image : http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/diary/1/1521712254635,
              * createBy : 3cb87cd7f1c24798a2d243eaf844807e
-             * createDate : 1522144776000
+             * createDate : 1521712220000
              * removed : null
              * uid : 3cb87cd7f1c24798a2d243eaf844807e
-             * gradeCode : 二年级
+             * gradeCode : 一年级
              */
 
             private int id;
