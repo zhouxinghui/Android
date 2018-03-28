@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ebag.core.util.L;
+import ebag.core.util.SPUtils;
 import ebag.core.util.StringUtils;
 import ebag.hd.R;
 import ebag.hd.widget.keyboard.KeyBoardView;
@@ -44,7 +45,6 @@ import ebag.hd.widget.keyboard.KeyBoardView;
  */
 
 public class FillBlankView extends FrameLayout {
-    private String subCode = "sx";
     private TextView tvContent;
     private Context context;
     // 答案集合
@@ -88,14 +88,7 @@ public class FillBlankView extends FrameLayout {
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         addView(tvContent,layoutParams);
-    }
 
-    public void setSubCode(String subCode) {
-        this.subCode = subCode;
-    }
-
-    private boolean isEnglish(){
-        return "yy".equals(subCode);
     }
 
     /**
@@ -199,6 +192,7 @@ public class FillBlankView extends FrameLayout {
             mKey_board_special_numeric_left.bindEditText(etInput, KeyBoardView.m_special_numeric, mLinearlayou_keyboard, mNestedScrollView_1, mKey_board_special_numeric_left);
             mKey_board_special_numeric_left.showKeyboard(KeyBoardView.m_special_numeric);
             int keyType;
+            String subCode = (String) SPUtils.get(context, "subCode", "yy");
             switch (subCode){
                 case "yw":
                     keyType = KeyBoardView.ch_keyboard;
@@ -391,7 +385,11 @@ public class FillBlankView extends FrameLayout {
     public String getAnswer(String regex){
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < answerList.size(); i++) {
-            sb.append(answerList.get(i).trim()).append(regex);
+            String answer = answerList.get(i);
+            if (StringUtils.INSTANCE.isEmpty(answer)){
+                answer = "";
+            }
+            sb.append(answer).append(regex);
         }
         L.INSTANCE.e("Completion","getAnswer"+sb.toString());
         return sb.toString().substring(0, sb.length() - regex.length());

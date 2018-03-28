@@ -71,8 +71,6 @@ public class CompleteView extends BaseQuestionView implements FillBlankView.OnBl
 
         studentAnswer = questionBean.getAnswer();
         rightAnswer = questionBean.getRightAnswer();
-
-        fillBlankView.setSubCode(subCode);
     }
 
     @Override

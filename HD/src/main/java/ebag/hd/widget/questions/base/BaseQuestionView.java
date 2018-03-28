@@ -21,7 +21,6 @@ import ebag.core.xRecyclerView.adapter.OnItemChildClickListener;
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder;
 import ebag.hd.R;
-import ebag.hd.widget.keyboard.KeyBoardView;
 import ebag.hd.widget.questions.util.IQuestionEvent;
 
 /**
@@ -33,7 +32,6 @@ public abstract class BaseQuestionView extends LinearLayout implements IQuestion
     protected Context mContext;
     protected HeadAdapter headAdapter;
     protected OnDoingListener onDoingListener;
-    protected String subCode = "yy";
     public interface OnDoingListener{
         void onDoing(View view);
     }
@@ -58,22 +56,6 @@ public abstract class BaseQuestionView extends LinearLayout implements IQuestion
         super(context, attrs, defStyleAttr);
         addTitle(context);
         addBody(context);
-    }
-
-    public void setSubCode(String subCode) {
-        this.subCode = subCode;
-    }
-    protected int getKeyboardType(){
-        switch (subCode){
-            case "yw":
-                return KeyBoardView.ch_keyboard;
-            case "yy":
-                return KeyBoardView.eng_keyboard;
-            case "sx":
-                return KeyBoardView.number_keyboard;
-            default:
-                return KeyBoardView.eng_keyboard;
-        }
     }
 
     private void addTitle(Context context){

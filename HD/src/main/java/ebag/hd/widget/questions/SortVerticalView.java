@@ -181,12 +181,12 @@ public class SortVerticalView extends BaseQuestionView {
                 setter.setTextColor(R.id.tvSort,colorSelected);
                 setter.setBackgroundRes(R.id.tvSort,R.drawable.bg_question_sort_rightable);
                 setter.getTextView(R.id.tvSort).setSelected(entity.isRight);
-                if (mContext instanceof DoHomeworkActivity){
-                    ((DoHomeworkActivity)mContext).bindKeyBoard(editText, KeyBoardView.number_keyboard);
-                }
             }else{
                 setter.setTextColor(R.id.tvSort,colorNormal);
                 setter.setBackgroundRes(R.id.tvSort,R.drawable.bg_question_sort_normal);
+                if (mContext instanceof DoHomeworkActivity){
+                    ((DoHomeworkActivity)mContext).bindKeyBoard(editText, KeyBoardView.number_keyboard);
+                }
             }
         }
 

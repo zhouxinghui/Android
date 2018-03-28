@@ -7,7 +7,6 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import ebag.core.bean.QuestionBean
 import ebag.core.bean.QuestionTypeUtils
-import ebag.core.util.SPUtils
 import ebag.hd.R
 import ebag.hd.widget.questions.base.BaseQuestionView
 
@@ -86,7 +85,6 @@ class QuestionAdapter: BaseMultiItemQuickAdapter<QuestionBean, BaseViewHolder>(n
 
     override fun convert(helper: BaseViewHolder, item: QuestionBean?) {
         val questionView = helper.getView<BaseQuestionView>(R.id.questionView)
-        questionView.setSubCode(SPUtils.get(mContext,"subCode", "yy") as String)
         questionView.setData(item)
         questionView.tag = item
         questionView.setOnDoingListener(onDoingListener)
