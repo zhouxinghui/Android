@@ -290,6 +290,8 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
                 FlowLayout categoryInside = (FlowLayout) scrollView.getChildAt(0);
                 TextView categoryText = (TextView) categoryOut.getChildAt(0);
                 sb.append(categoryText.getText().toString()).append("#R#");
+                if (categoryInside.getChildAt(0) == null)
+                    sb.append(";");
                 for (int j = 0; j < categoryInside.getChildCount(); j++) {
                     if (j == categoryInside.getChildCount() - 1)
                         sb.append(categoryInside.getChildAt(j).getTag(R.id.tv_id).toString()).append(";");
