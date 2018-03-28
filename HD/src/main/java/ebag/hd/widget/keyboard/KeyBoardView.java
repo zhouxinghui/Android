@@ -108,6 +108,8 @@ public class KeyBoardView extends RelativeLayout implements KeyboardView.OnKeybo
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 mScrollY = scrollY;
+                L.INSTANCE.e("mScrollY======"+mScrollY);
+                L.INSTANCE.e("oldScrollY======"+oldScrollY);
             }
         });
 
@@ -403,13 +405,14 @@ public class KeyBoardView extends RelativeLayout implements KeyboardView.OnKeybo
 
     private void mScrollUp(){
         if (mNestedScrollView_1 != null){
-            mNestedScrollView_1.smoothScrollTo(0, mScrollY - mNestedScrollView_1.getHeight() / 2);
+            mNestedScrollView_1.scrollTo(0, 0);
         }
     }
 
     private void mScrollDown(){
         if (mNestedScrollView_1 != null){
-            mNestedScrollView_1.smoothScrollTo(0, mScrollY + mNestedScrollView_1.getHeight() / 2);
+            L.INSTANCE.e("mScrollDown======="+mNestedScrollView_1.getHeight() / 2);
+            mNestedScrollView_1.smoothScrollTo(0, mScrollY - mNestedScrollView_1.getHeight() / 2);
         }
     }
 
