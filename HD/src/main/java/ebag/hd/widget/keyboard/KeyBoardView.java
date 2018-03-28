@@ -411,8 +411,7 @@ public class KeyBoardView extends RelativeLayout implements KeyboardView.OnKeybo
 
     private void mScrollDown(){
         if (mNestedScrollView_1 != null){
-            L.INSTANCE.e("mScrollDown======="+mNestedScrollView_1.getHeight() / 2);
-            mNestedScrollView_1.smoothScrollTo(0, mScrollY - mNestedScrollView_1.getHeight() / 2);
+            mNestedScrollView_1.smoothScrollTo(0, mScrollY + mNestedScrollView_1.getHeight() / 2);
         }
     }
 
