@@ -64,6 +64,7 @@ class HomeworkActivity : BaseListTabActivity<ArrayList<SubjectBean>, SubjectBean
             val bean = SubjectBean()
             bean.itemType = 1
             parent.add(0, bean)
+            SPUtils.put(this, "subCode", parent[1].subCode)
         }
         return parent
     }

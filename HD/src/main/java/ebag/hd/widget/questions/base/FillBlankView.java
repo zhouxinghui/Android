@@ -387,7 +387,7 @@ public class FillBlankView extends FrameLayout {
         for (int i = 0; i < answerList.size(); i++) {
             String answer = answerList.get(i);
             if (StringUtils.INSTANCE.isEmpty(answer)){
-                answer = "";
+                answer = " ";
             }
             sb.append(answer).append(regex);
         }
