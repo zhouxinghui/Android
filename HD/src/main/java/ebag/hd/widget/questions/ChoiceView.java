@@ -109,7 +109,6 @@ public class ChoiceView extends BaseQuestionView implements OnItemClickListener 
             case QuestionTypeUtils.QUESTIONS_CHOOSE_BY_VOICE://听录音选择
                 choiceType = QuestionTypeUtils.QUESTIONS_CHOOSE_BY_VOICE;
                 title.add("听录音选择");
-                title.add(questionBean.getTitle());
                 title.add("#M#" + questionBean.getAudioUrl());
                 break;
             case QuestionTypeUtils.QUESTIONS_JUDGE://判断题
