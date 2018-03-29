@@ -312,6 +312,9 @@ interface EBagService {
     fun getAiliPrepayid(@Path("version") version: String,@Body requestBody: RequestBody): Observable<ResponseBean<String>>
     @POST("shop/removeShopCart/{version}")
     fun removeShopCar(@Path("version") version: String,@Body requestBody: RequestBody): Observable<ResponseBean<String>>
+    //云币支付
+    @POST("shop/ybPay/{version}")
+    fun ybPay(@Path("version") version: String,@Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
 
 

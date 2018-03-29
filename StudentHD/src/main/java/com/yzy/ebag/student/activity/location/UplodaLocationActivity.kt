@@ -48,6 +48,7 @@ class UplodaLocationActivity : BaseActivity() {
                         override fun onSuccess(entity: String?) {
                             T.show(this@UplodaLocationActivity, "上传成功")
                             setResult(1000)
+                            finish()
                         }
 
                         override fun onError(exception: Throwable) {

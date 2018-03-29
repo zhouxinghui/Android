@@ -41,15 +41,15 @@ class WriteActivity : MVPActivity() {
     private lateinit var animDrawable: AnimationDrawable
     private lateinit var classId: String
     private lateinit var unitCode: String
-    private lateinit var dir:File
+    private lateinit var dir: File
     private val sb = StringBuilder()
     private val myHandler by lazy { WriteActivity.MyHandler(this) }
 
     companion object {
-        fun jump(context: Context, list: ArrayList<Practise>,classId:String,unitCode:String) {
+        fun jump(context: Context, list: ArrayList<Practise>, classId: String, unitCode: String) {
             context.startActivity(
                     Intent(context, WriteActivity::class.java)
-                            .putExtra("list", list).putExtra("classId",classId).putExtra("unitCode",unitCode)
+                            .putExtra("list", list).putExtra("classId", classId).putExtra("unitCode", unitCode)
             )
         }
     }
@@ -152,25 +152,26 @@ class WriteActivity : MVPActivity() {
             player.stop()
     }
 
-    fun commit(){
+    fun commit() {
         val sb = StringBuilder()
-        list.forEachIndexed{index,p ->
-            if (index!=list.size-1){
-                sb.append("${p.hanzi},")
-            }else{
-                sb.append(p.hanzi)
+        list.forEachIndexed { index, p ->
+            val url = "${Constants.OSS_BASE_URL}/recorder/$userId/${p.pinyin}"
+            if (index != list.size - 1) {
+                sb.append("$url,")
+            } else {
+                sb.append(url)
             }
         }
-        StudentApi.uploadWord(classId,sb.toString(),unitCode,sb.toString(),object: RequestCallBack<String>(){
+        StudentApi.uploadWord(classId, sb.toString(), unitCode, sb.toString(), object : RequestCallBack<String>() {
             override fun onSuccess(entity: String?) {
                 LoadingDialogUtil.closeLoadingDialog()
-                T.show(this@WriteActivity,"提交成功")
+                T.show(this@WriteActivity, "提交成功")
                 finish()
             }
 
             override fun onError(exception: Throwable) {
                 LoadingDialogUtil.closeLoadingDialog()
-                T.show(this@WriteActivity,"提交失败")
+                T.show(this@WriteActivity, "提交失败")
             }
 
         })
@@ -205,11 +206,11 @@ class WriteActivity : MVPActivity() {
             when (msg.what) {
                 Constants.UPLOAD_SUCCESS -> {
                     activity.uploadPosition += 1
-                    if (activity.uploadPosition <= activity.list.size){
+                    if (activity.uploadPosition <= activity.list.size) {
                         val url = "${Constants.OSS_BASE_URL}/recorder/${activity.userId}/${activity.practise.pinyin}"
                         OSSUploadUtils.getInstance().UploadPhotoToOSS(activity, File(activity.dir, activity.practise.pinyin), "recorder/${activity.userId}", activity.practise.pinyin, activity.myHandler)
                         activity.sb.append("$url,")
-                    }else{
+                    } else {
                         activity.commit()
                     }
                 }

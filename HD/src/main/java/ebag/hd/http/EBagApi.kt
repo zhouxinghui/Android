@@ -638,4 +638,14 @@ object EBagApi {
         jsonObject.put("shopsCartId", array)
         EBagApi.request(eBagService.removeShopCar("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /*云币支付*/
+
+    fun ybPay(oid:String,allPrice:String,callback: RequestCallBack<String>){
+
+        val jsonObject = JSONObject()
+        jsonObject.put("oid",oid)
+        jsonObject.put("allPrice",allPrice)
+        EBagApi.request(eBagService.ybPay("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

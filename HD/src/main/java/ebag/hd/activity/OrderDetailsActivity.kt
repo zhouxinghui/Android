@@ -98,9 +98,9 @@ class OrderDetailsActivity : BaseActivity() {
             /*mBean.oid = number*/
             goods_list.addView(view)
         }
-
         queryAddress()
         tv_total_money.text = "¥ $count"
+        cb_yb_pay.text = "¥ $count"
         tv_total_pay.text = "¥ $count"
         tv_should_pay.text = "¥ $count"
 
@@ -147,39 +147,43 @@ class OrderDetailsActivity : BaseActivity() {
         btn_pay.setOnClickListener {
 
             if (address) {
-                if (isStudent) {
-
-                } else {
-                    if (which == 1) {
-                        if (cb_ali_pay.isChecked) {
-                            getAlipayInfo()
-                        } else {
-                            getWxPayInfo()
-                        }
+                if (which == 1) {
+                    if (isStudent) {
+                        ybPay(number, count.toString())
                     } else {
-                        EBagApi.saveOrder(addresID, count.toString(), count.toString(), mList, number, "", object : RequestCallBack<String>() {
+                        when {
+                            cb_ali_pay.isChecked -> getAlipayInfo()
+                            cb_yb_pay.isChecked -> ybPay(number, count.toString())
+                            else -> getWxPayInfo()
+                        }
+                    }
+                } else {
+                    EBagApi.saveOrder(addresID, count.toString(), count.toString(), mList, number, "", object : RequestCallBack<String>() {
 
-                            override fun onStart() {
-                                super.onStart()
-                                LoadingDialogUtil.showLoading(this@OrderDetailsActivity, "正在生成订单..请稍后")
-                            }
+                        override fun onStart() {
+                            super.onStart()
+                            LoadingDialogUtil.showLoading(this@OrderDetailsActivity, "正在生成订单..请稍后")
+                        }
 
-                            override fun onSuccess(entity: String?) {
-                                LoadingDialogUtil.closeLoadingDialog()
-                                if (cb_ali_pay.isChecked) {
-                                    getAlipayInfo()
-                                } else {
-                                    getWxPayInfo()
+                        override fun onSuccess(entity: String?) {
+                            LoadingDialogUtil.closeLoadingDialog()
+                            if (isStudent) {
+                                ybPay(number, count.toString())
+                            } else {
+                                when {
+                                    cb_ali_pay.isChecked -> getAlipayInfo()
+                                    cb_yb_pay.isChecked -> ybPay(number, count.toString())
+                                    else -> getWxPayInfo()
                                 }
                             }
+                        }
 
-                            override fun onError(exception: Throwable) {
-                                exception.handleThrowable(this@OrderDetailsActivity)
-                                LoadingDialogUtil.closeLoadingDialog()
-                            }
+                        override fun onError(exception: Throwable) {
+                            exception.handleThrowable(this@OrderDetailsActivity)
+                            LoadingDialogUtil.closeLoadingDialog()
+                        }
 
-                        })
-                    }
+                    })
                 }
             } else {
                 T.show(this, "还没有选择收货地址")
@@ -203,6 +207,27 @@ class OrderDetailsActivity : BaseActivity() {
                 Log.d("fansan", "fail = " + exception.message)
                 T.show(this@OrderDetailsActivity, exception.message.toString())
                 LoadingDialogUtil.closeLoadingDialog()
+            }
+
+        })
+    }
+
+    private fun ybPay(oid: String, allPrice: String) {
+
+        EBagApi.ybPay(oid, allPrice, object : RequestCallBack<String>() {
+            override fun onStart() {
+                super.onStart()
+                LoadingDialogUtil.showLoading(this@OrderDetailsActivity, "正在支付...")
+            }
+            override fun onSuccess(entity: String?) {
+                Log.d("fansan", "")
+                T.show(this@OrderDetailsActivity, "支付成功")
+                ActivityUtils.skipActivityAndFinishAll(this@OrderDetailsActivity, ShopOrderActivity::class.java)
+            }
+
+            override fun onError(exception: Throwable) {
+                exception.handleThrowable(this@OrderDetailsActivity)
+                ActivityUtils.skipActivityAndFinishAll(this@OrderDetailsActivity, ShopOrderActivity::class.java)
             }
 
         })

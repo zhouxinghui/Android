@@ -83,7 +83,16 @@ public class ReportBean {
         private String questionTypeName;
         private int questionNum;
         private int errorCount;
-        private float score;
+
+        public float getQuestionScore() {
+            return questionScore;
+        }
+
+        public void setQuestionScore(float questionScore) {
+            this.questionScore = questionScore;
+        }
+
+        private float questionScore ;
 
         public String getQuestionType() {
             return questionType;
@@ -117,12 +126,5 @@ public class ReportBean {
             this.errorCount = errorCount;
         }
 
-        public float getScore() {
-            return score;
-        }
-
-        public void setScore(float score) {
-            this.score = score;
-        }
     }
 }

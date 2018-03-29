@@ -134,7 +134,7 @@ class ReportClassActivity: BaseActivity() {
             helper.setText(R.id.questionType, item?.questionTypeName)
                     .setText(R.id.count, "${item?.questionNum}")
                     .setText(R.id.errorCount, "${item?.errorCount}")
-                    .setText(R.id.score, "${item?.score}")
+                    .setText(R.id.score, "${item?.questionScore}")
                     .setBackgroundRes(R.id.layout,if(helper.adapterPosition % 2 == 0) R.color.light_blue else R.color.white)
         }
 

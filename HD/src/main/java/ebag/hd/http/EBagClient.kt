@@ -16,7 +16,6 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-
 /**
  * 网络请求的全局配置
  * Created by caoyu on 2017/11/1.
@@ -48,7 +47,7 @@ object EBagClient {
         createRetrofitService(EBagService::class.java)
     }
 
-    fun <T> createRetrofitService(clazz: Class<T>): T{
+    fun <T> createRetrofitService(clazz: Class<T>): T {
         val builder = OkHttpClient.Builder()
                 //错误重连
                 .retryOnConnectionFailure(true)
@@ -66,23 +65,23 @@ object EBagClient {
 
                     //如果没有配置 Content-Type，这边统一添加这个配置
                     var header = original.header("Content-Type")
-                    if(StringUtils.isEmpty(header)){
+                    if (StringUtils.isEmpty(header)) {
                         request.addHeader("Content-Type", "application/json")
                     }
 
                     //如果没有配置 Accept，这边统一添加这个配置
-                    header= original.header("Accept")
-                    if(StringUtils.isEmpty(header)){
+                    header = original.header("Accept")
+                    if (StringUtils.isEmpty(header)) {
                         request.addHeader("Accept", "application/json")
                     }
                     //如果没有配置 Accept，这边统一添加这个配置
-                    header= original.header("EBag-Special-Url")
-                    if(StringUtils.isEmpty(header)){
-                        if(StringUtils.isEmpty(original.url().queryParameter("access_token"))){
+                    header = original.header("EBag-Special-Url")
+                    if (StringUtils.isEmpty(header)) {
+                        if (StringUtils.isEmpty(original.url().queryParameter("access_token"))) {
                             val url = original.url().toString()
-                            request.url("${if(url.contains("?")) "$url&" else "$url?"}access_token=${App.TOKEN}")
+                            request.url("${if (url.contains("?")) "$url&" else "$url?"}access_token=${App.TOKEN}")
                         }
-                    }else{
+                    } else {
                         request.removeHeader("EBag-Special-Url")
                     }
 
@@ -95,10 +94,10 @@ object EBagClient {
                 .addConverterFactory(FastJsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 //                .baseUrl("http://www.yun-bag.com/ebag-portal/")
-                //.baseUrl("http://192.168.1.141:9001/")
+                .baseUrl("http://192.168.1.141:9001/")
                 //.baseUrl("http://192.168.1.139:9001/")
-//                .baseUrl("http://192.168.1.144:9001/")
-                .baseUrl("http://192.168.1.110:9001/")
+                //.baseUrl("http://192.168.1.144:9001/")
+                //.baseUrl("http://192.168.1.110:9001/")
                 .build()
         return retrofit.create(clazz)
     }
