@@ -16,12 +16,13 @@ import ebag.core.util.AppManager
 import ebag.core.util.T
 import ebag.hd.base.Constants
 import ebag.hd.util.checkUpdate
+import ebag.hd.widget.UserFeedbackDialog
 import kotlinx.android.synthetic.main.activity_setting.*
 
 class SettingActivity : BaseActivity(), View.OnClickListener{
     override fun getLayoutId(): Int { return R.layout.activity_setting }
 
-
+    private val feedbackDialog by lazy { UserFeedbackDialog(this) }
     override fun initViews() {
         versionUpdate.setOnClickListener(this)
         officeNotice.setOnClickListener(this)
@@ -38,7 +39,7 @@ class SettingActivity : BaseActivity(), View.OnClickListener{
                 T.show(this, "官方公告")
             }
             R.id.userFeedback ->{
-                T.show(this, "用户反馈")
+                feedbackDialog.show()
             }
             R.id.aboutUs ->{
                 startActivity(Intent(this, AboutUsActivity::class.java))

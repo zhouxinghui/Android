@@ -114,6 +114,12 @@ interface TeacherService {
     fun searchQuestion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<QuestionBean>>>
 
     /**
+     * 错题反馈
+     */
+    @POST("homeWork/addFeedBackQuestion/{version}")
+    fun wrongQuestionFeedback(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
      * 智能推送
      */
     @POST("question/smartChoice/{version}")

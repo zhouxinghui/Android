@@ -8,7 +8,7 @@ import android.widget.ProgressBar
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.teacher.R
-import com.yzy.ebag.teacher.widget.FeedbackDialog
+import com.yzy.ebag.teacher.widget.QuestionFeedbackDialog
 import ebag.core.base.BaseListFragment
 import ebag.core.bean.QuestionBean
 import ebag.core.http.network.RequestCallBack
@@ -22,7 +22,7 @@ import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
  */
 class PreviewFragment : BaseListFragment<List<QuestionBean>, QuestionBean>() {
     private lateinit var previewList: ArrayList<QuestionBean>
-    private val feedbackDialog by lazy { FeedbackDialog(mContext) }
+    private val feedbackDialog by lazy { QuestionFeedbackDialog(mContext) }
     companion object {
         fun newInstance(previewList: ArrayList<QuestionBean>): PreviewFragment {
             val fragment = PreviewFragment()

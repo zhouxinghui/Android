@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.AssignUnitBean
 import com.yzy.ebag.teacher.http.TeacherApi
-import com.yzy.ebag.teacher.widget.FeedbackDialog
+import com.yzy.ebag.teacher.widget.QuestionFeedbackDialog
 import ebag.core.base.BaseListFragment
 import ebag.core.bean.QuestionBean
 import ebag.core.http.network.RequestCallBack
@@ -32,7 +32,7 @@ class QuestionFragment: BaseListFragment<List<QuestionBean>, QuestionBean>() {
     private var bookVersionId = ""
     private lateinit var previewList: ArrayList<QuestionBean>
     private var isPreview = false
-    private val feedbackDialog by lazy { FeedbackDialog(mContext) }
+    private val feedbackDialog by lazy { QuestionFeedbackDialog(mContext) }
     companion object {
         fun newInstance(
                 previewList: ArrayList<QuestionBean>,
@@ -91,7 +91,7 @@ class QuestionFragment: BaseListFragment<List<QuestionBean>, QuestionBean>() {
         adapter as QuestionAdapter
         when(view?.id){
             R.id.feedBackTv ->{
-                feedbackDialog.show()
+                feedbackDialog.show(adapter.data[position].questionId)
             }
             R.id.selectTv ->{
                 val questionBean = adapter.getItem(position)

@@ -229,6 +229,17 @@ object TeacherApi {
     }
 
     /**
+     * 错题反馈
+     */
+    fun wrongQuestionFeedback(content: String, questionId: String, uid: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("content", content)
+        jsonObject.put("qid", questionId)
+        jsonObject.put("uid", uid)
+        EBagApi.request(teacherService.wrongQuestionFeedback("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
      * 智能推送
      */
     fun smartPush(count: Int, unitBean: AssignUnitBean.UnitSubBean, difficulty: String?, type: String, bookVersionId: String?, callback: RequestCallBack<List<QuestionBean>>){

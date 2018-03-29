@@ -482,6 +482,15 @@ object EBagApi {
     }
 
     /**
+     * 用户反馈
+     */
+    fun userFeedback(content: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("content", content)
+        EBagApi.request(eBagService.userFeedback("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
      * 修改个人信息
      */
     fun modifyPersonalInfo(key: String, value: String, callback: RequestCallBack<String>) {
@@ -489,6 +498,8 @@ object EBagApi {
         jsonObject.put(key, value)
         EBagApi.request(eBagService.modifyPersonalInfo("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+
 
     fun queryYBCurrent(page: Int, pageSize: Int, callback: RequestCallBack<YBCurrentBean>) {
         val jsonObject = JSONObject()

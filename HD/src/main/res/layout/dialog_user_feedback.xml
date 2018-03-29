@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+    <TextView android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用户反馈"
+        android:textColor="#5B5852"
+        android:textSize="@dimen/title_bar_title_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <EditText android:id="@+id/feedbackEdit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y350"
+        android:gravity="start"
+        android:padding="@dimen/x10"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="@color/tv_normal"
+        android:hint="想要新功能？ 使用体验不好？ 在这里吐槽吧！"
+        android:background="@drawable/publish_edit_bg"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:layout_margin="@dimen/x15"
+        />
+    <TextView
+        android:id="@+id/confirmBtn"
+        android:clickable="true"
+        android:layout_width="@dimen/x421"
+        android:layout_height="@dimen/x52"
+        android:textSize="@dimen/x24"
+        android:gravity="center"
+        android:text="提交反馈"
+        android:textColor="@color/white"
+        android:background="@drawable/login_btn_bac"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.85"
+        />
+</android.support.constraint.ConstraintLayout>
