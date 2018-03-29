@@ -112,18 +112,23 @@ interface StudentService {
     @Headers("EBag-Special-Url: special/url")
     @POST("http://vop.baidu.com/server_api")
     fun speachRecognize(@Body requestBody: RequestBody): Observable<SpeechRecognizeBean>
-    @POST("/user/growth/addUserGrowth/{version}")
+    @POST("user/growth/addUserGrowth/{version}")
     fun addUserGrowth(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
-    @POST("/user/searchUserGrowthList/{version}")
+    @POST("user/searchUserGrowthList/{version}")
     fun searchUserGrowthList(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<List<Diary>>>
 
-    @POST("/user/addUserPositioning/{version}")
+    @POST("user/addUserPositioning/{version}")
     fun uploadLocation(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
 
-    @POST("/user/searchUserPositioningList/{version}")
+    @POST("user/searchUserPositioningList/{version}")
     fun searchLocation(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<LocationBean>>
 
-    @POST("/util/insetWordrecord/{version}")
+    @POST("util/insetWordrecord/{version}")
     fun uploadWord(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
+
+    @POST("util/queryWordrecord/{version}")
+    fun wordRecord(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<WordRecordBean>>
+
+
 
 }

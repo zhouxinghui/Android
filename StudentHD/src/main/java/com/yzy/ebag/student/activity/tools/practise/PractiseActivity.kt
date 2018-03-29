@@ -47,7 +47,7 @@ class PractiseActivity: BaseListTabActivity<EditionBean, MultiItemEntity>() {
         tvMaterial = view.findViewById(R.id.text)
         addLeftHeaderView(view)
         titleBar.setRightText("记录"){
-            RecordActivity.jump(this)
+            RecordActivity.jump(this, classId)
         }
     }
 

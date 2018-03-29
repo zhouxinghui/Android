@@ -261,4 +261,15 @@ object StudentApi{
         jsonObject.put("wordUrl", wordUrl)
         EBagApi.request(studentService.uploadWord("1",EBagApi.createBody(jsonObject)),callback)
     }
+
+    /**
+     * 练字记录
+     */
+    fun wordRecord(classId: String, pageSize: Int, page: Int, callback: RequestCallBack<WordRecordBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("pageSize", pageSize)
+        jsonObject.put("page", page)
+        EBagApi.request(studentService.wordRecord("1",EBagApi.createBody(jsonObject)),callback)
+    }
 }
