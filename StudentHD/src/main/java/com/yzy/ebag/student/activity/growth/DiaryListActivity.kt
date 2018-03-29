@@ -40,7 +40,7 @@ class DiaryListActivity : BaseListActivity<List<Diary>, Diary.ResultUserGrowthBy
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == 998){
+        if (resultCode == 998) {
             onRefresh()
         }
     }
@@ -108,14 +108,16 @@ class DiaryListActivity : BaseListActivity<List<Diary>, Diary.ResultUserGrowthBy
 
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<Diary>>) {
-        StudentApi.searchUserGrowthList(page,getPageSize(),gradeId,"4",requestCallBack)
+        StudentApi.searchUserGrowthList(page, getPageSize(), gradeId, "4", requestCallBack)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<Diary>?): List<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean>? {
-        return parent!![0].resultUserGrowthByPageVo.userGrowthResultVoList
+        return if (parent!!.isEmpty())
+            null
+        else
+            parent[0].resultUserGrowthByPageVo.userGrowthResultVoList
 
     }
-
 
 
     override fun getAdapter(): BaseQuickAdapter<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean, BaseViewHolder> {
@@ -126,7 +128,6 @@ class DiaryListActivity : BaseListActivity<List<Diary>, Diary.ResultUserGrowthBy
     override fun getLayoutManager(adapter: BaseQuickAdapter<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean, BaseViewHolder>): RecyclerView.LayoutManager? {
         return null
     }
-
 
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
@@ -150,7 +151,7 @@ class DiaryListActivity : BaseListActivity<List<Diary>, Diary.ResultUserGrowthBy
                 recycler.layoutManager = GridLayoutManager(mContext, 6)
             }
 
-            if (item.image!=null && item.image.isNotEmpty()) {
+            if (item.image != null && item.image.isNotEmpty()) {
                 recycler.postDelayed({
                     (recycler.adapter as ImageAdapter).setNewData(item.image.split(","))
                 }, 20)

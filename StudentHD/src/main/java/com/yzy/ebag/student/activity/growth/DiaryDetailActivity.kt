@@ -123,7 +123,7 @@ class DiaryDetailActivity : BaseActivity() {
                 else {
                     val fileName = System.currentTimeMillis().toString()
                     val url = "${Constants.OSS_BASE_URL}/personal/diary/$userId/$fileName"
-                    OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(imgAdapter.getItem(0)), "personal/$userId", fileName, myHandler)
+                    OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(imgAdapter.getItem(0)), "personal/diary/$userId", fileName, myHandler)
                     sb.append("$url,")
                 }
             }
@@ -153,7 +153,7 @@ class DiaryDetailActivity : BaseActivity() {
     }
 
     private fun commit(title: String, content: String, urls: String = "") {
-        StudentApi.addUserGrowth(SPUtils.get(this, ebag.hd.base.Constants.CLASS_NAME, "") as String, "4", title, content, sb.toString(), gradeId, object : RequestCallBack<String>() {
+        StudentApi.addUserGrowth(SPUtils.get(this, ebag.hd.base.Constants.CLASS_NAME, "") as String, "4", title, content, urls, gradeId, object : RequestCallBack<String>() {
             override fun onSuccess(entity: String?) {
                 T.show(this@DiaryDetailActivity, "成长轨迹添加成功")
                 LoadingDialogUtil.closeLoadingDialog()
@@ -215,7 +215,7 @@ class DiaryDetailActivity : BaseActivity() {
                         OSSUploadUtils.getInstance().UploadPhotoToOSS(
                                 activity,
                                 File(activity.imgAdapter.getItem(activity.uploadPosition)),
-                                "personal/${activity.userId}",
+                                "personal/diary/${activity.userId}",
                                 fileName,
                                 activity.myHandler)
                         activity.sb.append("$url,")
