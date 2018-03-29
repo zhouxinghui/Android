@@ -18,7 +18,7 @@
         />
     <EditText android:id="@+id/feedbackEdit"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y350"
+        android:layout_height="@dimen/y200"
         android:gravity="start"
         android:padding="@dimen/x10"
         android:textSize="@dimen/tv_normal"
@@ -27,6 +27,16 @@
         android:background="@drawable/publish_edit_bg"
         app:layout_constraintTop_toBottomOf="@id/title"
         android:layout_margin="@dimen/x15"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/x18"
+        android:textColor="#9E9E9E"
+        app:layout_constraintTop_toBottomOf="@id/feedbackEdit"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/x15"
+        android:text="如果您在使用时出现急需解决的问题\n也可以直接联系客服QQ：80319447"
         />
     <TextView
         android:id="@+id/confirmBtn"

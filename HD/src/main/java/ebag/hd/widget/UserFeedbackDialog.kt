@@ -1,7 +1,6 @@
 package ebag.hd.widget
 
 import android.content.Context
-import android.view.WindowManager
 import ebag.core.base.BaseDialog
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.LoadingDialogUtil
@@ -16,10 +15,10 @@ import kotlinx.android.synthetic.main.dialog_user_feedback.*
  */
 class UserFeedbackDialog(context: Context): BaseDialog(context) {
     override fun setWidth(): Int {
-        return context.resources.getDimensionPixelSize(R.dimen.x500)
+        return context.resources.getDimensionPixelSize(R.dimen.x1000)
     }
     override fun setHeight(): Int {
-        return WindowManager.LayoutParams.MATCH_PARENT
+        return context.resources.getDimensionPixelSize(R.dimen.y500)
     }
     override fun getLayoutRes(): Int {
         return R.layout.dialog_user_feedback
