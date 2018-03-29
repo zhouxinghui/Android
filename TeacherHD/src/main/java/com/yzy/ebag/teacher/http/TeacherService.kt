@@ -35,6 +35,12 @@ interface TeacherService {
     fun assignmentData(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<AssignmentBean>>
 
     /**
+     * 布置作业页面-切换版本请求数据
+     */
+    @POST("sendHome/sendHomePageUnitAndQuestionData/{version}")
+    fun assignDataByVersion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<AssignmentBean>>
+
+    /**
      * 根据班级查询班级下所有的学习小组
      */
     @POST("clazz/searchClassByGroupAll/{version}")
@@ -106,6 +112,12 @@ interface TeacherService {
      */
     @POST("question/queryQuestion/{version}")
     fun searchQuestion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<QuestionBean>>>
+
+    /**
+     * 错题反馈
+     */
+    @POST("homeWork/addFeedBackQuestion/{version}")
+    fun wrongQuestionFeedback(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /**
      * 智能推送

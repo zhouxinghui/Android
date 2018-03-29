@@ -13,6 +13,7 @@ import ebag.core.util.AppManager
 import ebag.core.util.T
 import ebag.hd.base.Constants
 import ebag.hd.util.checkUpdate
+import ebag.hd.widget.UserFeedbackDialog
 import kotlinx.android.synthetic.main.activity_setting.*
 
 /**
@@ -25,7 +26,7 @@ class SettingActivity: BaseActivity(), View.OnClickListener {
             context.startActivity(Intent(context, SettingActivity::class.java))
         }
     }
-
+    private val feedbackDialog by lazy { UserFeedbackDialog(this) }
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.logoutBtn -> {
@@ -54,7 +55,7 @@ class SettingActivity: BaseActivity(), View.OnClickListener {
             }
 
             R.id.feedbackBtn -> {
-
+                feedbackDialog.show()
             }
 
             R.id.aboutBtn -> {

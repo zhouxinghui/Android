@@ -66,7 +66,7 @@
         android:text="@string/personal_info"
         app:leftDrawable="@drawable/mine_personal_info"
         app:layout_constraintTop_toBottomOf="@id/bg"
-        app:layout_constraintBottom_toTopOf="@id/systemSetting"
+        app:layout_constraintBottom_toTopOf="@id/setting"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/myShop"
         />
@@ -75,7 +75,7 @@
         android:text="@string/my_shop"
         app:leftDrawable="@drawable/mine_shop"
         app:layout_constraintTop_toBottomOf="@id/bg"
-        app:layout_constraintBottom_toTopOf="@id/systemSetting"
+        app:layout_constraintBottom_toTopOf="@id/setting"
         app:layout_constraintStart_toEndOf="@id/personalInfo"
         app:layout_constraintEnd_toStartOf="@id/operation"
         />
@@ -84,7 +84,7 @@
         android:text="@string/operation"
         app:leftDrawable="@drawable/mine_operation"
         app:layout_constraintTop_toBottomOf="@id/bg"
-        app:layout_constraintBottom_toTopOf="@id/systemSetting"
+        app:layout_constraintBottom_toTopOf="@id/setting"
         app:layout_constraintStart_toEndOf="@id/myShop"
         app:layout_constraintEnd_toEndOf="parent"
         />
@@ -96,14 +96,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/setting"
+        android:visibility="gone"
         />
     <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/setting"
         style="@style/mine_tv_btn"
         android:text="@string/setting"
         app:leftDrawable="@drawable/mine_setting"
-        app:layout_constraintTop_toBottomOf="@id/myShop"
+        app:layout_constraintTop_toBottomOf="@id/personalInfo"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/myShop"
-        app:layout_constraintEnd_toEndOf="@id/myShop"
+        app:layout_constraintStart_toStartOf="@id/personalInfo"
         />
 </android.support.constraint.ConstraintLayout>

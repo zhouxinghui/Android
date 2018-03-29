@@ -57,7 +57,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     subCode,
                     subName)
             isGradeRequest = false
-            assignmentPresenter.loadUnitAndQuestion(workCategory.toString(), currentGradeCode, cacheMap[currentGradeCode]!!.classes, versionId)
+            assignmentPresenter.loadDataByVersion(workCategory.toString(), versionId, subCode)
         }
         dialog
     }
@@ -266,14 +266,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         }
 
         classAdapter.setOnItemClickListener { holder, view, position ->
-            val cache = cacheMap[currentGradeCode]
-            val classes = cache?.classes
-            if (classes!!.contains(classAdapter.datas[position])){
-                classes.remove(classAdapter.datas[position])
-            }else{
-                classes.add(classAdapter.datas[position])
-            }
-            classAdapter.notifyDataSetChanged()
+            classAdapter.selectPosition = position
         }
 
         bottomAdapter.setOnItemClickListener { holder, view, position ->
@@ -445,7 +438,19 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             return
         }
         gradeAdapter.datas = gradeList
-        classAdapter.datas = assignmentBean.sendHomePageClazzInfoVos!![0].homeClazzInfoVos
+        val classList = assignmentBean.sendHomePageClazzInfoVos!![0].homeClazzInfoVos
+        val firstClassId = assignmentBean.resultTaughtCoursesVo.classId
+        var tempClassBean: AssignClassBean? = null
+        classList.forEach {
+            if (it.classId == firstClassId) {
+                tempClassBean = it
+                return@forEach
+            }
+        }
+        if (tempClassBean != null)
+            classList.remove(tempClassBean)
+            classList.add(0, tempClassBean)
+        classAdapter.datas = classList
         gradeAdapter.selectPosition = 0
         if (workCategory == Constants.ASSIGN_TEST_PAPER)
             assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null)
@@ -456,7 +461,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             }
         }
 
-        showData(assignmentBean)
+        showData(assignmentBean, true)
     }
 
     override fun loadBaseError(t: Throwable) {
@@ -502,7 +507,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         t.handleThrowable(this)
     }
 
-    private fun showData(assignmentBean: AssignmentBean?){
+    private fun showData(assignmentBean: AssignmentBean?, isFirst: Boolean = false){
         val questionList = assignmentBean?.resultAdvertisementVos
         questionAdapter.datas = questionList
         val unitList = assignmentBean?.sendHomePageClazzInfoVos!![0].bookVersionOrUnitVos
@@ -536,6 +541,8 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     versionBean.bookCode,
                     versionBean.bookName)
         }
+        if (isFirst)
+            classAdapter.selectPosition = 0
     }
 
     private fun setVersionTv(version: String?, semester: String?, subName: String?){
@@ -579,6 +586,18 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
      * 班级
      */
     inner class ClassAdapter: RecyclerAdapter<AssignClassBean>(R.layout.item_assignment_class){
+        var selectPosition = -1
+        set(value) {
+            field = value
+            val cache = cacheMap[currentGradeCode]
+            val classes = cache?.classes
+            if (classes!!.contains(classAdapter.datas[selectPosition])){
+                classes.remove(classAdapter.datas[selectPosition])
+            }else{
+                classes.add(classAdapter.datas[selectPosition])
+            }
+            notifyDataSetChanged()
+        }
         override fun fillData(setter: RecyclerViewHolder, position: Int, entity: AssignClassBean) {
             val textView: TextView = setter.getTextView(R.id.Class)
             textView.text = entity.className

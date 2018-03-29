@@ -165,7 +165,10 @@ class CorrectingDescActivity : BaseActivity() {
             if (!QuestionTypeUtils.isMarkType(helper.itemViewType))
                 helper.getView<TextView>(R.id.correctIcon).visibility = View.GONE
 
-            val studentAnswer = item.studentAnswer
+            val studentAnswer = item.studentAnswer ?: ""
+            val studentAnswerTv = helper.getView<TextView>(R.id.studentAnswer)
+            if (studentAnswerTv != null)
+                studentAnswerTv.text = studentAnswer
             helper.setText(R.id.studentName, item.studentName)
                     .setText(R.id.bagId, "书包号：${item.ysbCode}")
             val answerTv = helper.getView<TextView>(R.id.answerTv)
@@ -176,18 +179,18 @@ class CorrectingDescActivity : BaseActivity() {
                 }else{
                     answerTv.text = "未完成"
                 }
-                return
-            }
-            helper.getView<TextView>(R.id.commitTime).visibility = View.VISIBLE
-            val endTime = item.endTime
-            if(endTime == null)
-                helper.setText(R.id.commitTime, "未完成")
-            else
-                helper.setText(R.id.commitTime, "提交时间：${DateUtil.getFormatDateTime(Date(item.endTime.toLong()), "yyyy-MM-dd HH:mm:ss")}")
-            if (answerTv != null)
+            }else {
+                helper.getView<TextView>(R.id.commitTime).visibility = View.VISIBLE
+                val endTime = item.endTime
+                if (endTime == null)
+                    helper.setText(R.id.commitTime, "未完成")
+                else
+                    helper.setText(R.id.commitTime, "提交时间：${DateUtil.getFormatDateTime(Date(item.endTime.toLong()), "yyyy-MM-dd HH:mm:ss")}")
+                if (answerTv != null)
                 answerTv.text = "学生答案："
 
-            if (!QuestionTypeUtils.isMarkType(helper.itemViewType)){
+            }
+            if (!QuestionTypeUtils.isMarkType(helper.itemViewType)) {
                 helper.getView<TextView>(R.id.correctIcon).visibility = View.VISIBLE
                 helper.getView<TextView>(R.id.correctIcon).isSelected = !item.isWright
             }
@@ -218,84 +221,99 @@ class CorrectingDescActivity : BaseActivity() {
                 //连线题
                 QuestionTypeUtils.QUESTIONS_DRAW_LINE ->{
                     val connectionView = helper.getView<ConnectionView>(R.id.connectionView)
-                    val questionBean = questionList!![currentQuestionIndex].clone() as QuestionBean
-                    questionBean.answer = studentAnswer
-                    connectionView.setData(questionBean)
-                    connectionView.show(false)
-                    connectionView.showResult()
+                    if(StringUtils.isEmpty(studentAnswer)){
+                        connectionView.visibility = View.GONE
+                    }else {
+                        connectionView.visibility = View.VISIBLE
+                        val questionBean = questionList!![currentQuestionIndex].clone() as QuestionBean
+                        questionBean.answer = studentAnswer
+                        connectionView.setData(questionBean)
+                        connectionView.show(false)
+                        connectionView.showResult()
+                    }
                 }
                 //分类题
                 QuestionTypeUtils.QUESTIONS_CLASSIFICATION ->{
                     val linearLayout = helper.getView<LinearLayout>(R.id.classifyLayout)
-                    linearLayout.removeAllViews()
-                    val splitCategory = studentAnswer.split(";")
-                    splitCategory.forEach {
-                        val category = it.split("#R#")
-                        val categoryName = category[0]
-                        var elementSplit = arrayOf("","").asList()
-                        if (category.size > 1)
-                            elementSplit = category[1].split(",")
-
-                        val answerLayout = LinearLayout(this@CorrectingDescActivity)
-                        answerLayout.orientation = LinearLayout.VERTICAL
-                        val answerParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                        answerLayout.layoutParams = answerParams
-
-                        val categoryTv = TextView(this@CorrectingDescActivity)
-                        val categoryTvParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                        categoryTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.tv_normal))
-                        categoryTv.setTextColor(resources.getColor(R.color.tv_normal))
-                        categoryTvParams.topMargin = resources.getDimensionPixelSize(R.dimen.y15)
-                        categoryTv.text = categoryName
-
-                        answerLayout.addView(categoryTv)
-
-                        val elementLayout = FlowLayout(this@CorrectingDescActivity)
-                        val elementLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                        elementLayout.layoutParams = elementLayoutParams
-                        if (elementSplit[0].startsWith("http")){    //图片
-                            elementSplit.forEach {
-                                val imageView = ImageView(this@CorrectingDescActivity)
-                                imageView.setPadding(
-                                        resources.getDimension(R.dimen.x5).toInt(),
-                                        resources.getDimension(R.dimen.x5).toInt(),
-                                        resources.getDimension(R.dimen.x5).toInt(),
-                                        resources.getDimension(R.dimen.x5).toInt())
-                                imageView.setBackgroundResource(ebag.hd.R.drawable.classify_element_bg)
-                                val elementImgParams = LinearLayout.LayoutParams(
-                                        resources.getDimension(R.dimen.x80).toInt(),
-                                        resources.getDimension(R.dimen.x80).toInt())
-                                elementImgParams.leftMargin = resources.getDimension(R.dimen.x8).toInt()
-                                elementImgParams.topMargin = resources.getDimension(R.dimen.y5).toInt()
-                                elementImgParams.rightMargin = resources.getDimension(R.dimen.x8).toInt()
-                                elementImgParams.bottomMargin = resources.getDimension(R.dimen.y10).toInt()
-                                imageView.layoutParams = elementImgParams
-                                imageView.loadImage(it)
-
-                                elementLayout.addView(imageView)
-                            }
-                            answerLayout.addView(elementLayout)
-                        }else{  //文字
-                            val elementTv = TextView(this@CorrectingDescActivity)
-                            elementTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.tv_normal))
-                            elementTv.setTextColor(resources.getColor(R.color.tv_normal))
+                    if(StringUtils.isEmpty(studentAnswer)){
+                        linearLayout.visibility = View.GONE
+                    }else {
+                        linearLayout.visibility = View.VISIBLE
+                        linearLayout.removeAllViews()
+                        val splitCategory = studentAnswer.split(";")
+                        splitCategory.forEach {
+                            val category = it.split("#R#")
+                            val categoryName = category[0]
+                            var elementSplit = arrayOf("", "").asList()
                             if (category.size > 1)
-                                elementTv.text = category[1]
-                            answerLayout.addView(elementTv)
+                                elementSplit = category[1].split(",")
+
+                            val answerLayout = LinearLayout(this@CorrectingDescActivity)
+                            answerLayout.orientation = LinearLayout.VERTICAL
+                            val answerParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                            answerLayout.layoutParams = answerParams
+
+                            val categoryTv = TextView(this@CorrectingDescActivity)
+                            val categoryTvParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                            categoryTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.tv_normal))
+                            categoryTv.setTextColor(resources.getColor(R.color.tv_normal))
+                            categoryTvParams.topMargin = resources.getDimensionPixelSize(R.dimen.y15)
+                            categoryTv.text = categoryName
+
+                            answerLayout.addView(categoryTv)
+
+                            val elementLayout = FlowLayout(this@CorrectingDescActivity)
+                            val elementLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                            elementLayout.layoutParams = elementLayoutParams
+                            if (elementSplit[0].startsWith("http")) {    //图片
+                                elementSplit.forEach {
+                                    val imageView = ImageView(this@CorrectingDescActivity)
+                                    imageView.setPadding(
+                                            resources.getDimension(R.dimen.x5).toInt(),
+                                            resources.getDimension(R.dimen.x5).toInt(),
+                                            resources.getDimension(R.dimen.x5).toInt(),
+                                            resources.getDimension(R.dimen.x5).toInt())
+                                    imageView.setBackgroundResource(ebag.hd.R.drawable.classify_element_bg)
+                                    val elementImgParams = LinearLayout.LayoutParams(
+                                            resources.getDimension(R.dimen.x80).toInt(),
+                                            resources.getDimension(R.dimen.x80).toInt())
+                                    elementImgParams.leftMargin = resources.getDimension(R.dimen.x8).toInt()
+                                    elementImgParams.topMargin = resources.getDimension(R.dimen.y5).toInt()
+                                    elementImgParams.rightMargin = resources.getDimension(R.dimen.x8).toInt()
+                                    elementImgParams.bottomMargin = resources.getDimension(R.dimen.y10).toInt()
+                                    imageView.layoutParams = elementImgParams
+                                    imageView.loadImage(it)
+
+                                    elementLayout.addView(imageView)
+                                }
+                                answerLayout.addView(elementLayout)
+                            } else {  //文字
+                                val elementTv = TextView(this@CorrectingDescActivity)
+                                elementTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.tv_normal))
+                                elementTv.setTextColor(resources.getColor(R.color.tv_normal))
+                                if (category.size > 1)
+                                    elementTv.text = category[1]
+                                answerLayout.addView(elementTv)
+                            }
+                            linearLayout.addView(answerLayout)
                         }
-                        linearLayout.addView(answerLayout)
                     }
                 }
                 //跟读
                 QuestionTypeUtils.QUESTIONS_FOLLOW_READ,QuestionTypeUtils.QUESTIONS_CHINESE_WRITE_BY_VOICE ->{
                     val linearLayout = helper.getView<LinearLayout>(R.id.play_id)
-                    val imageView = helper.getView<ImageView>(R.id.image_id)
-                    val progressBar = helper.getView<ProgressBar>(R.id.progress_id)
-                    val drawable = imageView.background as AnimationDrawable
-                    linearLayout.setTag(ebag.hd.R.id.image_id, drawable)
-                    linearLayout.setTag(ebag.hd.R.id.progress_id, progressBar)
-                    linearLayout.setTag(ebag.hd.R.id.play_id, "#M#${item.studentAnswer}")
-                    helper.addOnClickListener(R.id.play_id)
+                    if(StringUtils.isEmpty(studentAnswer)){
+                        linearLayout.visibility = View.GONE
+                    }else {
+                        linearLayout.visibility = View.VISIBLE
+                        val imageView = helper.getView<ImageView>(R.id.image_id)
+                        val progressBar = helper.getView<ProgressBar>(R.id.progress_id)
+                        val drawable = imageView.background as AnimationDrawable
+                        linearLayout.setTag(ebag.hd.R.id.image_id, drawable)
+                        linearLayout.setTag(ebag.hd.R.id.progress_id, progressBar)
+                        linearLayout.setTag(ebag.hd.R.id.play_id, "#M#${item.studentAnswer}")
+                        helper.addOnClickListener(R.id.play_id)
+                    }
                 }
                 QuestionTypeUtils.QUESTIONS_CHINESE_READ_UNDERSTAND,    //阅读理解
                 QuestionTypeUtils.QUESTION_MATH_APPLICATION,            //应用题

@@ -162,6 +162,17 @@ object TeacherApi {
     }
 
     /**
+     * 布置作业页面-切换版本请求数据
+     */
+    fun assignDataByVersion(type: String, versionId: String, subCode: String, callback: RequestCallBack<AssignmentBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("type", type)
+        jsonObject.put("bookVersionId", versionId)
+        jsonObject.put("subCode", subCode)
+        EBagApi.request(teacherService.assignDataByVersion("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
      * 发布公告
      */
     fun publishNotice(classId: String, content: String, urls: String, callback: RequestCallBack<String>){
@@ -215,6 +226,17 @@ object TeacherApi {
         jsonObject.put("page",page)
         jsonObject.put("pageSize",10)
         EBagApi.request(teacherService.searchQuestion("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 错题反馈
+     */
+    fun wrongQuestionFeedback(content: String, questionId: String, uid: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("content", content)
+        jsonObject.put("qid", questionId)
+        jsonObject.put("uid", uid)
+        EBagApi.request(teacherService.wrongQuestionFeedback("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
     /**
