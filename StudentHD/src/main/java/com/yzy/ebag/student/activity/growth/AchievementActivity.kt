@@ -4,8 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v4.view.ViewPager
+import android.support.v4.app.FragmentPagerAdapter
 import com.yzy.ebag.student.R
 import ebag.core.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_achievement.*
@@ -35,58 +34,33 @@ class AchievementActivity : BaseActivity(){
     override fun initViews() {
         gradeId = intent.getStringExtra("gradeId") ?: ""
 
-        radioGroup.setOnCheckedChangeListener { _, checkedId ->
-            when(checkedId){
-                R.id.rbSt -> {//随堂
-                    viewPager.setCurrentItem(0,false)
-                }
-                R.id.rbKh -> {// 课后
-                    viewPager.setCurrentItem(1,false)
-                }
-                R.id.rbKs -> {// 考试
-                    viewPager.setCurrentItem(2,false)
-                }
-            }
-        }
+        val fragments = ArrayList<Fragment>()
+        val titleList = ArrayList<String>()
+        fragments.add(AchievementFragment.newInstance(gradeId, 0))
+        fragments.add(AchievementFragment.newInstance(gradeId, 1))
+        fragments.add(AchievementFragment.newInstance(gradeId, 2))
+        titleList.add("随堂作业")
+        titleList.add("课后作业")
+        titleList.add("考试试卷")
 
-        viewPager.adapter = SectionsPagerAdapter(supportFragmentManager, arrayOfNulls(3))
-        viewPager.offscreenPageLimit = 1
-        viewPager.setCurrentItem(0,false)
-
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
-            override fun onPageScrollStateChanged(state: Int) {
-            }
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-            }
-
-            override fun onPageSelected(position: Int) {
-                when(position){
-                    0 -> {
-                        radioGroup.check(R.id.rbSt)
-                    }
-                    1 -> {
-                        radioGroup.check(R.id.rbKh)
-                    }
-                    2 -> {
-                        radioGroup.check(R.id.rbKs)
-                    }
-                }
-            }
-
-        })
+        val adapter = ViewPagerAdapter(
+                supportFragmentManager, fragments, titleList)
+        viewPager.adapter = adapter
+        viewPager.offscreenPageLimit = 2
+        tabLayout.setupWithViewPager(viewPager)
     }
 
-    inner class SectionsPagerAdapter(fm: FragmentManager, private val fragments: Array<Fragment?>) : FragmentStatePagerAdapter(fm) {
+    inner class ViewPagerAdapter(fm: FragmentManager, private val fragments: ArrayList<Fragment>, private val titleList: ArrayList<String>): FragmentPagerAdapter(fm){
         override fun getItem(position: Int): Fragment {
-            if (fragments[position] == null) {
-                fragments[position] = AchievementFragment.newInstance(gradeId, position)
-            }
-            return fragments[position]!!
+            return fragments[position]
         }
 
         override fun getCount(): Int {
             return fragments.size
+        }
+
+        override fun getPageTitle(position: Int): CharSequence {
+            return titleList[position]
         }
     }
 }

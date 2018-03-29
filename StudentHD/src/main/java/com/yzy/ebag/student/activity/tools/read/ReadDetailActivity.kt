@@ -1,6 +1,5 @@
 package com.yzy.ebag.student.activity.tools.read
 
-import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -56,12 +55,6 @@ class ReadDetailActivity: BaseActivity() {
     // 是否正在语音识别
     private var isRecognizing = false
 
-    private val uploadDialog by lazy {
-        val dialog = ProgressDialog(this)
-        dialog.setCancelable(false)
-        dialog.setCanceledOnTouchOutside(false)
-        dialog
-    }
     private val voicePlayer by lazy {
         val voicePlayer = VoicePlayerOnline(this)
 
@@ -470,8 +463,7 @@ class ReadDetailActivity: BaseActivity() {
             return
         }
 
-        uploadDialog.setMessage("正在上传录音...")
-        uploadDialog.show()
+        LoadingDialogUtil.showLoading(this, "正在上传录音...")
 
         // 所有数据上传 到 我们服务器后  recognizeSuccess 和 ossSuccess 才会重新置位 false
         // 语音识别 和 文件上传都成功了， 点击直接上传
@@ -481,7 +473,7 @@ class ReadDetailActivity: BaseActivity() {
                     tempRecognizeString, tempUrl , uploadRequest)
         }else{
             // 语音识别没成功
-            if(!recognizeSuccess){
+            /*if(!recognizeSuccess){
                 tempRecognizeString = ""
                 isRecognizing = true
                 baiduToken = SPUtils.get(this, "baiduToken", "") as String
@@ -490,7 +482,7 @@ class ReadDetailActivity: BaseActivity() {
                 }else{
                     speechRecognize()
                 }
-            }
+            }*/
 
             // 文件上传没成功
             if(!ossSuccess){
@@ -523,7 +515,7 @@ class ReadDetailActivity: BaseActivity() {
                 override fun onError(exception: Throwable) {
                     isRecognizing = false
                     if(isOssUploading == false){
-                        uploadDialog.dismiss()
+                        LoadingDialogUtil.closeLoadingDialog()
                         T.show(this@ReadDetailActivity, "录音上传失败，请重试")
                     }
                 }
@@ -550,7 +542,7 @@ class ReadDetailActivity: BaseActivity() {
                             StudentApi.uploadRecord(classId,readDetailBean?.languageId ?: "", readDetailBean?.languageDetailId ?: "",
                                      tempRecognizeString, tempUrl , uploadRequest)
                         }else if(isOssUploading == false){
-                            uploadDialog.dismiss()
+                            LoadingDialogUtil.closeLoadingDialog()
                             T.show(this@ReadDetailActivity, "录音上传失败，请重试")
                         }
                     }
@@ -559,7 +551,7 @@ class ReadDetailActivity: BaseActivity() {
                 override fun onError(exception: Throwable) {
                     isRecognizing = false
                     if(isOssUploading == false){
-                        uploadDialog.dismiss()
+                        LoadingDialogUtil.closeLoadingDialog()
                         T.show(this@ReadDetailActivity, "录音上传失败，请重试")
                     }
                 }
@@ -581,15 +573,16 @@ class ReadDetailActivity: BaseActivity() {
                     activity?.ossSuccess = true
                     activity?.tempUrl = "${Constants.OSS_BASE_URL}/personal/${activity!!.userId}/read/${activity.readDetailBean?.languageDetailId}.amr"
 
-                    if(activity.recognizeSuccess){
+//                    if(activity.recognizeSuccess){
                         StudentApi.uploadRecord(activity.classId,activity.readDetailBean?.languageId ?: "", activity.readDetailBean?.languageDetailId ?: ""
                                 , activity.tempRecognizeString, activity.tempUrl , activity.uploadRequest)
-                    }
+//                    }
+                    LoadingDialogUtil.closeLoadingDialog()
                 }
                 msg.what == Constants.UPLOAD_FAIL ->{//上传文件失败
                     activity?.isOssUploading = false
                     if(activity?.isRecognizing == false){
-                        activity.uploadDialog.dismiss()
+                        LoadingDialogUtil.closeLoadingDialog()
                         T.show(activity, "录音上传失败，请重试")
                     }
 
@@ -604,16 +597,16 @@ class ReadDetailActivity: BaseActivity() {
     private val uploadRequest = object: RequestCallBack<String>(){
 
         override fun onSuccess(entity: String?) {
-            uploadDialog.dismiss()
+            LoadingDialogUtil.closeLoadingDialog()
             ossSuccess = false
-            recognizeSuccess = false
+//            recognizeSuccess = false
             tempUrl = ""
             getHistory()
             T.show(this@ReadDetailActivity, entity ?: "我的录音上传成功")
         }
 
         override fun onError(exception: Throwable) {
-            uploadDialog.dismiss()
+            LoadingDialogUtil.closeLoadingDialog()
             if(exception is MsgException){
                 T.show(this@ReadDetailActivity, exception.message ?: "录音上传失败，请重试")
             }else{

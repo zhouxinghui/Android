@@ -165,7 +165,7 @@ class CorrectingDescActivity : BaseActivity() {
             if (!QuestionTypeUtils.isMarkType(helper.itemViewType))
                 helper.getView<TextView>(R.id.correctIcon).visibility = View.GONE
 
-            val studentAnswer = item.studentAnswer
+            val studentAnswer = item.studentAnswer ?: ""
             helper.setText(R.id.studentName, item.studentName)
                     .setText(R.id.bagId, "书包号：${item.ysbCode}")
             val answerTv = helper.getView<TextView>(R.id.answerTv)
