@@ -50,7 +50,13 @@ class CorrectingDescActivity : BaseActivity() {
     private var questionList : ArrayList<QuestionBean>? = null
     private var currentQuestionIndex = 0
     private val answerAdapter by lazy { StudentAnswerAdapter() }
-    private val markDialog by lazy { MarkDialog(this) }
+    private val markDialog by lazy {
+        val dialog = MarkDialog(this)
+        dialog.onMarkSuccess = {
+            answerAdapter.notifyDataSetChanged()
+        }
+        dialog
+    }
     private val questionRequest = object : RequestCallBack<List<QuestionBean>>(){
         override fun onStart() {
             stateView.showLoading()
@@ -323,7 +329,7 @@ class CorrectingDescActivity : BaseActivity() {
                     val score = item.questionScore
                     if ((StringUtils.isEmpty(score) || score?.toInt() == 0) && !StringUtils.isEmpty(studentAnswer)){
                         markBtn.setOnClickListener {
-                            markDialog.show(data, helper.adapterPosition, questionList!![currentQuestionIndex].questionId)
+                            markDialog.show(data[helper.adapterPosition], questionList!![currentQuestionIndex].questionId)
                         }
                     }else{
                         markBtn.isEnabled = false

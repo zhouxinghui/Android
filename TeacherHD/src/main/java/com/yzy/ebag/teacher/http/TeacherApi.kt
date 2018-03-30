@@ -360,6 +360,8 @@ object TeacherApi {
     fun searchPublish(type: String, callback: RequestCallBack<List<CorrectingBean>>){
         val jsonObject = JSONObject()
         jsonObject.put("type", type)
+        jsonObject.put("page", 1)
+        jsonObject.put("pageSize", 10)
         EBagApi.request(teacherService.searchPublish("v1", EBagApi.createBody(jsonObject)), callback)
     }
 

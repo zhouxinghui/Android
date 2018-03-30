@@ -598,9 +598,9 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             }
             notifyDataSetChanged()
         }
-        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: AssignClassBean) {
+        override fun fillData(setter: RecyclerViewHolder, position: Int, entity: AssignClassBean?) {
             val textView: TextView = setter.getTextView(R.id.Class)
-            textView.text = entity.className
+            textView.text = entity?.className
 
             val cache = cacheMap[currentGradeCode]
             val classes = cache?.classes

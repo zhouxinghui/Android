@@ -40,7 +40,7 @@ class LetterRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>()
 
         override fun onSuccess(entity: List<BaseClassesBean>?) {
             if (entity == null || entity.isEmpty()){
-                showError("暂无班级信息失败")
+                showError("暂无班级信息")
                 return
             }
             classId = entity[0].classId
