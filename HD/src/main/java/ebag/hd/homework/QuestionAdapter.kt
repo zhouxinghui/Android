@@ -28,6 +28,11 @@ class QuestionAdapter: BaseMultiItemQuickAdapter<QuestionBean, BaseViewHolder>(n
         field = value
         notifyDataSetChanged()
     }
+    var showResult = false
+    set(value) {
+        field = value
+        notifyDataSetChanged()
+    }
     init {
         //看单词选图
         addItemType(QuestionTypeUtils.QUESTIONS_CHOOSE_PIC_BY_WORD, R.layout.item_questions_choice)
@@ -112,5 +117,7 @@ class QuestionAdapter: BaseMultiItemQuickAdapter<QuestionBean, BaseViewHolder>(n
                 helper.addOnClickListener(R.id.recorder_play_id)
             }
         }
+        if (showResult)
+            questionView.showResult()
     }
 }

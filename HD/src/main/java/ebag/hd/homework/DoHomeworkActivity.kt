@@ -24,6 +24,7 @@ import android.widget.TextView
 import ebag.core.base.BaseActivity
 import ebag.core.bean.QuestionBean
 import ebag.core.bean.TypeQuestionBean
+import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.*
@@ -412,7 +413,12 @@ class DoHomeworkActivity: BaseActivity() {
 
         override fun onError(exception: Throwable) {
             LoadingDialogUtil.closeLoadingDialog()
-            exception.handleThrowable(this@DoHomeworkActivity)
+            if(exception is MsgException && exception.code == "2001"){
+                T.show(this@DoHomeworkActivity, "你还有未作答正确的试题，请检查并纠正后重新提交")
+                questionAdapter.showResult = true
+            }else{
+                exception.handleThrowable(this@DoHomeworkActivity)
+            }
         }
 
     }
