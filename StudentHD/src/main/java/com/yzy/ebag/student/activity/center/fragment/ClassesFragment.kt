@@ -42,7 +42,7 @@ class ClassesFragment: BaseListFragment<List<SpaceBean>,SpaceBean>() {
     override fun loadConfig() {
         loadMoreEnabled(false)
         val button = Button(mContext)
-        button.text = "添加班级"
+        button.text = "加入班级"
         button.setTextColor(resources.getColor(R.color.white))
         button.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.tv_normal))
         button.setBackgroundResource(R.drawable.my_class_btn_add)
