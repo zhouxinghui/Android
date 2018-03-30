@@ -50,6 +50,10 @@ class MarkDialog(context: Context): BaseDialog(context) {
                 T.show(context, "请输入分数")
                 return@setOnClickListener
             }
+            if (score.toInt() > 100){
+                T.show(context, "分数范围：0-100")
+                return@setOnClickListener
+            }
             TeacherApi.markScore(homeworkId, uid, homeworkId, score, markRequest)
         }
     }
