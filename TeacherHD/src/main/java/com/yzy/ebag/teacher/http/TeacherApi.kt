@@ -357,11 +357,15 @@ object TeacherApi {
     /**
      * 查询已经布置的作业列表
      */
-    fun searchPublish(type: String, callback: RequestCallBack<List<CorrectingBean>>){
+    fun searchPublish(type: String, callback: RequestCallBack<List<CorrectingBean>>, classId: String? = null, subCode: String? = null, page: Int = 1, pageSize: Int = 10){
         val jsonObject = JSONObject()
         jsonObject.put("type", type)
-        jsonObject.put("page", 1)
-        jsonObject.put("pageSize", 10)
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", pageSize)
+        if (classId != null)
+            jsonObject.put("classId", classId)
+        if (subCode != null)
+            jsonObject.put("subCode", subCode)
         EBagApi.request(teacherService.searchPublish("v1", EBagApi.createBody(jsonObject)), callback)
     }
 

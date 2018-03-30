@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.CorrectingBean
+import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.hd.base.Constants
@@ -15,35 +16,56 @@ import ebag.hd.base.Constants
 /**
  * Created by YZY on 2018/1/13.
  */
-class CorrectingSubFragment: BaseListFragment<List<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>, CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>() {
-
+class CorrectingSubFragment: BaseListFragment<List<CorrectingBean>, CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>() {
     companion object {
-        fun newInstance(list: ArrayList<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>, type: String): CorrectingSubFragment {
+        fun newInstance(type: String, classId: String, subCode: String): CorrectingSubFragment{
             val fragment = CorrectingSubFragment()
             val bundle = Bundle()
-            bundle.putSerializable("list", list)
-            bundle.putSerializable("type", type)
+            bundle.putString("type", type)
+            bundle.putString("classId", classId)
+            bundle.putString("subCode", subCode)
+            fragment.arguments = bundle
+            return fragment
+        }
+
+        fun newInstance(): CorrectingSubFragment{
+            val fragment = CorrectingSubFragment()
+            val bundle = Bundle()
             fragment.arguments = bundle
             return fragment
         }
     }
-    private lateinit var list: ArrayList<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>
     private var type = ""
+    private var classId = ""
+    private var subCode = ""
     override fun getBundle(bundle: Bundle?) {
-        list = bundle?.getSerializable("list") as ArrayList<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>
-        type = bundle.getString("type")
+        type = bundle?.getString("type") ?: "1"
+        classId = bundle?.getString("classId") ?: ""
+        subCode = bundle?.getString("subCode") ?: ""
     }
 
     override fun loadConfig() {
-        withFirstPageData(list)
+
     }
 
-    override fun requestData(page: Int, requestCallBack: RequestCallBack<List<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>>) {
-        requestCallBack.onSuccess(ArrayList())
+    override fun getPageSize(): Int {
+        return 10
     }
 
-    override fun parentToList(isFirstPage: Boolean, parent: List<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>?): List<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>? {
-        return null
+    fun update(classId: String, subCode: String){
+        this.classId = classId
+        this.subCode = subCode
+        onRetryClick()
+    }
+
+    override fun requestData(page: Int, requestCallBack: RequestCallBack<List<CorrectingBean>>) {
+        TeacherApi.searchPublish(type, requestCallBack, classId, subCode, page, getPageSize())
+    }
+
+    override fun parentToList(isFirstPage: Boolean, parent: List<CorrectingBean>?): List<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>? {
+        if (parent == null || parent.isEmpty() || parent[0].subjectVos == null || parent[0].subjectVos.isEmpty())
+            return ArrayList()
+        return parent[0].subjectVos[0].homeWorkInfoVos
     }
 
     override fun getAdapter(): BaseQuickAdapter<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean, BaseViewHolder> {
