@@ -65,6 +65,10 @@ class LetterRecordListActivity: BaseListActivity<LetterDescBean, LetterDescBean.
             val list = ArrayList<LetterDescBean.NewWordsBean>()
             adapter.data.forEach {
                 if (!StringUtils.isEmpty(it.score)){
+                    if (it.score.toInt() > 100){
+                        T.show(this, "分数范围：0-100")
+                        return@setRightText
+                    }
                     list.add(it)
                 }
             }
