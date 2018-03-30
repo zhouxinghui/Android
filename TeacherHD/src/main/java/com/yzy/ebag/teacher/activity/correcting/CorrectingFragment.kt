@@ -19,10 +19,10 @@ import ebag.hd.base.BaseListTabFragment
 /**
  * Created by YZY on 2018/3/30.
  */
-class CorrectingFragmentNew: BaseListTabFragment<List<CorrectingBean>, MultiItemEntity>() {
+class CorrectingFragment: BaseListTabFragment<List<CorrectingBean>, MultiItemEntity>() {
     companion object {
-        fun newInstance(type: String): CorrectingFragmentNew{
-            val fragment = CorrectingFragmentNew()
+        fun newInstance(type: String): CorrectingFragment{
+            val fragment = CorrectingFragment()
             val bundle = Bundle()
             bundle.putString("type", type)
             fragment.arguments = bundle

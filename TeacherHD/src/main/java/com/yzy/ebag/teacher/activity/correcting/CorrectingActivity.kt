@@ -31,7 +31,7 @@ class CorrectingActivity : BaseActivity() {
     }
 
     private var tempFragment : Fragment? = null
-    private val fragmentArrays = arrayOf(CorrectingFragmentNew.newInstance(Constants.STZY_TYPE), CorrectingFragmentNew.newInstance(Constants.KHZY_TYPE), CorrectingFragmentNew.newInstance(Constants.KSSJ_TYPE))
+    private val fragmentArrays = arrayOf(CorrectingFragment.newInstance(Constants.STZY_TYPE), CorrectingFragment.newInstance(Constants.KHZY_TYPE), CorrectingFragment.newInstance(Constants.KSSJ_TYPE))
     /**
      * 显示指定的Fragment
      *
