@@ -126,7 +126,29 @@
                     android:layout_width="@dimen/x82"
                     android:layout_height="@dimen/y50"
                     android:layout_alignParentLeft="true"
+                    android:id="@+id/yunfei"
                     android:layout_below="@+id/view_line1"
+                    android:gravity="center_vertical"
+                    android:text="运费:"
+                    android:textColor="#272727"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_yunfei"
+                    android:layout_width="@dimen/x142"
+                    android:layout_height="@dimen/y50"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/view_line1"
+                    android:gravity="center_vertical|right"
+                    android:text="¥ 22"
+                    android:textColor="#272727"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="@dimen/x82"
+                    android:layout_height="@dimen/y50"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/yunfei"
                     android:gravity="center_vertical"
                     android:text="应付"
                     android:textColor="#272727"
@@ -137,7 +159,7 @@
                     android:layout_width="@dimen/x142"
                     android:layout_height="@dimen/y50"
                     android:layout_alignParentRight="true"
-                    android:layout_below="@+id/view_line1"
+                    android:layout_below="@+id/yunfei"
                     android:gravity="center_vertical|right"
                     android:text="¥ 3099.00"
                     android:textColor="#272727"

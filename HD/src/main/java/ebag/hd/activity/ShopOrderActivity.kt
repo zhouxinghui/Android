@@ -48,16 +48,16 @@ class ShopOrderActivity : BaseActivity() {
 
     private fun request() {
 
-        EBagApi.queryOrder("1",object:RequestCallBack<QueryOrderBean>(){
+        EBagApi.queryOrder("",object:RequestCallBack<QueryOrderBean>(){
             override fun onStart() {
                 super.onStart()
                 stateView.showLoading()
             }
             override fun onSuccess(entity: QueryOrderBean?) {
                 badgeCountList.add(0)
-                badgeCountList.add(entity?.statusCount!!.status_1)
-                badgeCountList.add(entity.statusCount!!.status_2)
-                badgeCountList.add(entity.statusCount!!.status_3)
+                badgeCountList.add(entity!!.statusCount.staus_0)
+                badgeCountList.add(entity.statusCount.staus_1)
+                badgeCountList.add(entity.statusCount.staus_2)
                 tab_layout_id.post { setIndicator(tab_layout_id, 80, 80) }
                 viewPagerAdapter = ViewPagerAdapter(supportFragmentManager, fragmentList, titleList)
                 view_pager.adapter = viewPagerAdapter
@@ -86,13 +86,13 @@ class ShopOrderActivity : BaseActivity() {
 
     private fun initFragmentList() {
         titleList.add("全部订单")
-        fragmentList.add(ShopOrderFragment.newInstance(0))
+        fragmentList.add(ShopOrderFragment.newInstance(-1))
         titleList.add("待付款")
-        fragmentList.add(ShopOrderFragment.newInstance(1))
+        fragmentList.add(ShopOrderFragment.newInstance(0))
         titleList.add("待发货")
-        fragmentList.add(ShopOrderFragment.newInstance(2))
+        fragmentList.add(ShopOrderFragment.newInstance(1))
         titleList.add("待收货")
-        fragmentList.add(ShopOrderFragment.newInstance(3))
+        fragmentList.add(ShopOrderFragment.newInstance(2))
     }
 
     private fun setIndicator(tab: TabLayout, leftDip: Int, rightDip: Int) {

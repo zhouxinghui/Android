@@ -43,6 +43,7 @@ class WriteActivity : MVPActivity() {
     private lateinit var unitCode: String
     private lateinit var dir: File
     private val sb = StringBuilder()
+    private val hanzi = StringBuilder()
     private val myHandler by lazy { WriteActivity.MyHandler(this) }
 
     companion object {
@@ -109,10 +110,12 @@ class WriteActivity : MVPActivity() {
             saveBitmap(bitmap, practise.pinyin)
             if (currentIndex == maxIndex) {
                 LoadingDialogUtil.showLoading(this, "正在上传...")
+                hanzi.append("${practise.hanzi}")
                 val url = "${Constants.OSS_BASE_URL}/recorder/$userId/${practise.pinyin}"
                 OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(dir, practise.pinyin), "recorder/$userId", practise.pinyin, myHandler)
                 sb.append("$url,")
             } else {
+                hanzi.append("${practise.hanzi},")
                 drawView.clear()
                 tvPinyin.text = list[++currentIndex].pinyin
             }
@@ -162,7 +165,7 @@ class WriteActivity : MVPActivity() {
                 sb.append(url)
             }
         }
-        StudentApi.uploadWord(classId, sb.toString(), unitCode, sb.toString(), object : RequestCallBack<String>() {
+        StudentApi.uploadWord(classId,hanzi.toString(), unitCode, sb.toString(), object : RequestCallBack<String>() {
             override fun onSuccess(entity: String?) {
                 LoadingDialogUtil.closeLoadingDialog()
                 T.show(this@WriteActivity, "提交成功")

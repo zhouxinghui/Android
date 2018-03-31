@@ -15,10 +15,11 @@ import kotlinx.android.synthetic.main.activity_growth_type.*
 class GrowthTypeActivity: BaseActivity(){
 
     companion object {
-        fun jump(context: Context, gradeId: String){
+        fun jump(context: Context, gradeId: String,gradeCode: String){
             context.startActivity(
                     Intent(context,GrowthTypeActivity::class.java)
                             .putExtra("gradeId",gradeId)
+                            .putExtra("gradeCode",gradeCode)
             )
         }
     }
@@ -28,8 +29,10 @@ class GrowthTypeActivity: BaseActivity(){
     }
 
     private lateinit var gradeId: String
+    private lateinit var gradeCode: String
     override fun initViews() {
         gradeId = intent.getStringExtra("gradeId") ?: ""
+        gradeCode = intent.getStringExtra("gradeCode") ?: ""
         resultBtn.setOnClickListener {
             AchievementActivity.jump(this, gradeId)
         }
@@ -47,7 +50,7 @@ class GrowthTypeActivity: BaseActivity(){
         }
 
         diaryBtn.setOnClickListener {
-            DiaryListActivity.jump(this,gradeId)
+            DiaryListActivity.jump(this,gradeId,gradeCode)
         }
     }
 

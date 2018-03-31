@@ -23,10 +23,19 @@ public class ClassesInfoBean {
     private String className;
     private String classAdviser;
     private String subject;
+    private String gradeCode;
     private String teacherName;
     private List<ClassesInfoBean> resultClazzInfoVos;
     private List<ClassListInfoBean> resultAllClazzInfoVos;
     private NoticeBean resultClassNoticeVo;
+
+    public String getGradeCode() {
+        return gradeCode;
+    }
+
+    public void setGradeCode(String gradeCode) {
+        this.gradeCode = gradeCode;
+    }
 
     public String getClassId() {
         return classId;

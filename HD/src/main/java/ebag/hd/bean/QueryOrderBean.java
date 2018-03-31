@@ -43,46 +43,44 @@ public class QueryOrderBean {
          * 3 : 0
          */
 
-        @SerializedName("0")
-        private int status_0;
-        @SerializedName("1")
-        private int status_1;
-        @SerializedName("2")
-        private int status_2;
-        @SerializedName("3")
-        private int status_3;
 
-        public int getStatus_0() {
-            return status_0;
+        private int staus_0;
+        private int staus_1;
+        private int staus_2;
+
+        public int getStaus_0() {
+            return staus_0;
         }
 
-        public void setStatus_0(int status_0) {
-            this.status_0 = status_0;
+        public void setStaus_0(int staus_0) {
+            this.staus_0 = staus_0;
         }
 
-        public int getStatus_1() {
-            return status_1;
+        public int getStaus_1() {
+            return staus_1;
         }
 
-        public void setStatus_1(int status_1) {
-            this.status_1 = status_1;
+        public void setStaus_1(int staus_1) {
+            this.staus_1 = staus_1;
         }
 
-        public int getStatus_2() {
-            return status_2;
+        public int getStaus_2() {
+            return staus_2;
         }
 
-        public void setStatus_2(int status_2) {
-            this.status_2 = status_2;
+        public void setStaus_2(int staus_2) {
+            this.staus_2 = staus_2;
         }
 
-        public int getStatus_3() {
-            return status_3;
+        public int getStaus_3() {
+            return staus_3;
         }
 
-        public void setStatus_3(int status_3) {
-            this.status_3 = status_3;
+        public void setStaus_3(int staus_3) {
+            this.staus_3 = staus_3;
         }
+
+        private int staus_3;
     }
 
     public static class ResultOrderVosBean {
@@ -98,10 +96,38 @@ public class QueryOrderBean {
         private String status;
         private List<orderDetailsData> orderProductVOs;
 
-        public static class orderDetailsData{
+        public static class     orderDetailsData{
 
             private String shopName;
             private String price;
+            private String discountPrice;
+            private String shopImg;
+
+            public String getDiscountPrice() {
+                return discountPrice;
+            }
+
+            public void setDiscountPrice(String discountPrice) {
+                this.discountPrice = discountPrice;
+            }
+
+            public String getShopImg() {
+                return shopImg;
+            }
+
+            public void setShopImg(String shopImg) {
+                this.shopImg = shopImg;
+            }
+
+            public String getYsbMoney() {
+                return ysbMoney;
+            }
+
+            public void setYsbMoney(String ysbMoney) {
+                this.ysbMoney = ysbMoney;
+            }
+
+            private String ysbMoney;
 
             public String getShopName() {
                 return shopName;

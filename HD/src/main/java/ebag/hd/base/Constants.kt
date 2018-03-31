@@ -52,5 +52,6 @@ object Constants {
     val ERROR_TOPIC_TYPE = "5"
     val REPORT_TYPE = "6"
     const val CLASS_NAME: String = "class_name"
+    const val GRADE_CODE: String = "grade_code"
     val MOBILENUMBER_REGEX = "^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,1,3,5-8])|(18[0-9])|(147))\\d{8}$"
 }

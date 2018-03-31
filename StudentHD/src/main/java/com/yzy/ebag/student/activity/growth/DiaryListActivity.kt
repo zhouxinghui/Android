@@ -18,8 +18,10 @@ import com.yzy.ebag.student.bean.Diary
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.DateUtil
+import ebag.core.util.SPUtils
 import ebag.core.util.T
 import ebag.core.util.loadImage
+import ebag.hd.base.Constants
 
 /**
  * @author caoyu
@@ -30,10 +32,10 @@ class DiaryListActivity : BaseListActivity<List<Diary>, Diary.ResultUserGrowthBy
 
 
     companion object {
-        fun jump(context: Context, gradeId: String) {
+        fun jump(context: Context, gradeId: String,gradeCode:String) {
             context.startActivity(
                     Intent(context, DiaryListActivity::class.java)
-                            .putExtra("gradeId", gradeId)
+                            .putExtra("gradeId", gradeId).putExtra("gradeCode", gradeCode)
             )
         }
     }
@@ -47,11 +49,15 @@ class DiaryListActivity : BaseListActivity<List<Diary>, Diary.ResultUserGrowthBy
 
     lateinit var edit: EditText
     lateinit var gradeId: String
+    lateinit var gradeCode: String
     override fun loadConfig(intent: Intent) {
         gradeId = intent.getStringExtra("gradeId") ?: ""
+        gradeCode = intent.getStringExtra("gradeCode") ?: ""
 
-        titleBar.setRightText("添加") {
-            DiaryDetailActivity.jump(this, gradeId, null)
+        if (SPUtils.get(this, Constants.GRADE_CODE, -1) == gradeCode.toInt()) {
+            titleBar.setRightText("添加") {
+                DiaryDetailActivity.jump(this, gradeId, null)
+            }
         }
 
         val view = layoutInflater.inflate(R.layout.layout_record_search, null)

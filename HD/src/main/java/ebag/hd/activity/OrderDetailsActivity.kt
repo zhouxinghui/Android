@@ -71,13 +71,6 @@ class OrderDetailsActivity : BaseActivity() {
             which = intent.getIntExtra("which", 0)
         }
         val packageName = packageName
-        if (packageName.contains("student")) {
-            isStudent = true
-            cb_ali_pay.visibility = View.GONE
-            cb_wechat_pay.visibility = View.GONE
-            cb_yb_pay.isChecked = true
-            cb_yb_pay.isEnabled = false
-        }
         tv_order_time.text = "订单编号:$number\n下单时间:${number.substring(0, 4)}年${number[5]}月${number.substring(6, 8)}日  ${number.substring(startIndex = 8, endIndex = 10)}:${number.substring(10, 12)}"
         for (i in dats.indices) {
             val view = View.inflate(this, R.layout.item_shop_order_detail, null)
@@ -92,17 +85,33 @@ class OrderDetailsActivity : BaseActivity() {
                 }
             }
             count += (dats[i].discountPrice.toInt() * dats[i].numbers)
-            /* mBean.price = dats[i].price
-             mBean.allPrice = count.toString()*/
             mList.add(SaveOrderPBean.ListBean(dats[i].id.toString(), dats[i].numbers.toString()))
-            /*mBean.oid = number*/
             goods_list.addView(view)
         }
+
         queryAddress()
-        tv_total_money.text = "¥ $count"
-        cb_yb_pay.text = "¥ $count"
+
+        if (packageName.contains("student")) {
+            isStudent = true
+            cb_ali_pay.visibility = View.GONE
+            cb_wechat_pay.visibility = View.GONE
+            cb_yb_pay.isChecked = true
+            cb_yb_pay.isEnabled = false
+            tv_total_money.text ="Y币 $count"
+        }else{
+            tv_total_money.text = "¥ $count"
+        }
+
+
+        cb_yb_pay.text = "Y币 $count"
+        tv_yunfei.text = "¥ ${dats[0].freight}"
         tv_total_pay.text = "¥ $count"
-        tv_should_pay.text = "¥ $count"
+        try {
+            tv_should_pay.text = "¥ ${count + dats[0].freight.toInt()}"
+        }catch(e:Exception){
+            tv_should_pay.text = "¥ $count"
+        }
+
 
         cb_ali_pay.performClick()
 
@@ -114,6 +123,7 @@ class OrderDetailsActivity : BaseActivity() {
                 cb_yb_pay.isEnabled = true
                 cb_wechat_pay.isChecked = false
                 cb_yb_pay.isChecked = false
+                tv_total_money.text = "¥ $count"
             }
         }
 
@@ -124,6 +134,7 @@ class OrderDetailsActivity : BaseActivity() {
                 cb_yb_pay.isEnabled = true
                 cb_ali_pay.isChecked = false
                 cb_yb_pay.isChecked = false
+                tv_total_money.text = "¥ $count"
             }
         }
 
@@ -134,6 +145,7 @@ class OrderDetailsActivity : BaseActivity() {
                 cb_yb_pay.isEnabled = false
                 cb_wechat_pay.isChecked = false
                 cb_ali_pay.isChecked = false
+                tv_total_money.text ="Y币 $count"
             }
         }
 
@@ -192,7 +204,7 @@ class OrderDetailsActivity : BaseActivity() {
     }
 
     private fun getWxPayInfo() {
-        EBagApi.getPrepayid(number, "0.01", object : RequestCallBack<WXPayBean>() {
+        EBagApi.getPrepayid(number, tv_should_pay.text.toString(), object : RequestCallBack<WXPayBean>() {
             override fun onStart() {
                 super.onStart()
                 LoadingDialogUtil.showLoading(this@OrderDetailsActivity, "正在跳转支付页面...")
@@ -219,6 +231,7 @@ class OrderDetailsActivity : BaseActivity() {
                 super.onStart()
                 LoadingDialogUtil.showLoading(this@OrderDetailsActivity, "正在支付...")
             }
+
             override fun onSuccess(entity: String?) {
                 Log.d("fansan", "")
                 T.show(this@OrderDetailsActivity, "支付成功")
@@ -258,7 +271,7 @@ class OrderDetailsActivity : BaseActivity() {
 
 
     private fun getAlipayInfo() {
-        EBagApi.getAiliPrepayid(number, "0.01", object : RequestCallBack<String>() {
+        EBagApi.getAiliPrepayid(number, tv_should_pay.text.toString(), object : RequestCallBack<String>() {
             override fun onStart() {
                 super.onStart()
                 LoadingDialogUtil.showLoading(this@OrderDetailsActivity, "正在跳转支付页面...")

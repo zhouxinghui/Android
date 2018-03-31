@@ -74,14 +74,14 @@ class ShopOrderFragment : BaseFragment() {
             startActivity(intent)
         }
         flag = true
-        if (index == 0 && !isLoaded) {
+        if (index == -1 && !isLoaded) {
             request()
         }
 
     }
 
     private fun request() {
-        EBagApi.queryOrder(index.toString(), object : RequestCallBack<QueryOrderBean>() {
+        EBagApi.queryOrder(if (index<0){""}else{index.toString()}, object : RequestCallBack<QueryOrderBean>() {
             override fun onStart() {
                 if (!refreshlayout.isRefreshing)
                     stateView.showLoading()

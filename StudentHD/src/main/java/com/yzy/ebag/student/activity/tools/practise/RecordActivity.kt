@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.EditText
+import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
@@ -13,6 +14,7 @@ import com.yzy.ebag.student.bean.WordRecordBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.DateUtil
+import ebag.core.util.loadImage
 
 /**
  * @author caoyu
@@ -114,7 +116,8 @@ class RecordActivity: BaseListActivity<WordRecordBean, WordRecordBean.ListBean>(
 
     inner class ItemAdapter: BaseQuickAdapter<String,BaseViewHolder>(R.layout.item_activity_record_item){
         override fun convert(helper: BaseViewHolder, item: String?) {
-            helper.setText(R.id.tvChar, item)
+            //helper.setText(R.id.tvChar, item)
+            helper.getView<ImageView>(R.id.iv_char).loadImage(item)
         }
 
     }
