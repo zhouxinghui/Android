@@ -415,7 +415,9 @@ class DoHomeworkActivity: BaseActivity() {
             LoadingDialogUtil.closeLoadingDialog()
             if(exception is MsgException && exception.code == "2001"){
                 T.show(this@DoHomeworkActivity, "你还有未作答正确的试题，请检查并纠正后重新提交")
-                questionAdapter.showResult = true
+                typeAdapter.wrongIds.clear()
+                typeAdapter.wrongIds.addAll(exception.message.toString().split(","))
+                typeAdapter.notifyDataSetChanged()
             }else{
                 exception.handleThrowable(this@DoHomeworkActivity)
             }

@@ -58,18 +58,18 @@ class MyPrepareActivity : BaseListTabActivity<PrepareBaseBean, MultiItemEntity>(
 
         val textBookView = layoutInflater.inflate(R.layout.layout_prepare_textbook_head, null)
         val subjectView = layoutInflater.inflate(R.layout.layout_prepare_subject_head, null)
-        addLeftHeaderView(subjectView)
         subjectTv = subjectView.findViewById(R.id.subjectTv)
         subjectTv.setOnClickListener { //更换科目
-            subjectPopup.showAsDropDown(textBookView, subjectView.width, 0)
+            subjectPopup.showAsDropDown(titleBar, subjectView.width, 2)
+        }
+
+        textBookTv = textBookView.findViewById(R.id.textBookVersion)
+        textBookTv.setOnClickListener { //更换教材
+            textbookPopup.showAsDropDown(subjectView, textBookView.width, 2)
         }
 
         addLeftHeaderView(textBookView)
-        textBookTv = textBookView.findViewById(R.id.textBookVersion)
-        textBookTv.setOnClickListener { //更换教材
-            textbookPopup.showAsDropDown(titleBar, textBookView.width, 0)
-        }
-        textBookView.visibility = View.GONE
+        addLeftHeaderView(subjectView)
 
         val titleView = layoutInflater.inflate(R.layout.prepare_title_layout, null)
         val titleGroup = titleView.findViewById<RadioGroup>(R.id.titleGroup)
@@ -100,13 +100,11 @@ class MyPrepareActivity : BaseListTabActivity<PrepareBaseBean, MultiItemEntity>(
                     "2"
                 else
                     "3"
-                textBookView.visibility = View.VISIBLE
             }else{
                 titleView.visibility = View.GONE
                 titleBar.setRightText("资源库")
                 titleBar.setTitle("教学课件")
                 type = "1"
-                textBookView.visibility = View.GONE
             }
             request()
         })
@@ -122,14 +120,14 @@ class MyPrepareActivity : BaseListTabActivity<PrepareBaseBean, MultiItemEntity>(
         subjectCode = parent.resultSubjectVo.subCode ?: ""
         subjectTv.text = "${parent?.resultSubjectVo?.gradeName} ${parent?.resultSubjectVo?.subject}"
         if (type != "1") {
-            textBookTv.text = "${parent?.bookVersionOrUnitVo?.versionName} ${parent?.bookVersionOrUnitVo?.semesterName}"
-            semesterCode = parent.bookVersionOrUnitVo.semesterCode
+//            textBookTv.text = "${parent?.bookVersionOrUnitVo?.versionName} ${parent?.bookVersionOrUnitVo?.semesterName}"
+            semesterCode = parent.resultSubjectVo.semesterCode
 //            textbookCode = parent.bookVersionOrUnitVo.bookVersionId
         }
         return parent.resultBookUnitOrCatalogVos
     }
 
-    override fun firstPageDataLoad(result: List<MultiItemEntity>) {
+    /*override fun firstPageDataLoad(result: List<MultiItemEntity>) {
         super.firstPageDataLoad(result)
         if (adapter.itemCount > 0) {
             try {
@@ -140,7 +138,7 @@ class MyPrepareActivity : BaseListTabActivity<PrepareBaseBean, MultiItemEntity>(
 
             }
         }
-    }
+    }*/
 
     private lateinit var adapter: UnitAdapter
     override fun getLeftAdapter(): BaseQuickAdapter<MultiItemEntity, BaseViewHolder> {

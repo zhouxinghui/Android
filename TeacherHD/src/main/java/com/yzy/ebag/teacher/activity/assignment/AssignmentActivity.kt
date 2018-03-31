@@ -439,7 +439,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         }
         gradeAdapter.datas = gradeList
         val classList = assignmentBean.sendHomePageClazzInfoVos!![0].homeClazzInfoVos
-        val firstClassId = assignmentBean.resultTaughtCoursesVo.classId
+        val firstClassId = assignmentBean.resultTaughtCoursesVo?.classId
         var tempClassBean: AssignClassBean? = null
         classList.forEach {
             if (it.classId == firstClassId) {

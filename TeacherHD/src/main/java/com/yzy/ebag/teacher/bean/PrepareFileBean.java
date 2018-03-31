@@ -7,43 +7,26 @@ import java.io.Serializable;
  */
 
 public class PrepareFileBean implements Serializable{
-    /**
-     * id : 1
-     * teacherId : 1727
-     * fileName : 天地人
-     * fileType : .ppt
-     * grade : 1
-     * subjectType : yw
-     * unitCode : 7951
-     * catalog : null
-     * length : 1M
-     * fileUrl : http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/beike/17582/rj/yy/1/4533/17582_20171130192139986.ppt
-     * createDate : null
-     * createBy : null
-     * updateDate : null
-     * updateBy : null
-     * remove : null
-     * share : 1
-     * subCode : null
-     */
-
-    private String id;
-    private String teacherId;
-    private String fileName;
-    private String fileType;
-    private String grade;
-    private String subjectType;
-    private String unitCode;
-    private String catalog;
-    private String length;
-    private String fileUrl;
-    private String createDate;
-    private String createBy;
-    private String updateDate;
-    private String updateBy;
-    private String remove;
-    private String share;
-    private String subCode;
+    private String id;// "028267192efe46cfb6ccac80dcfcefff", // 文件唯一编码
+    private String teacherId;// "9b4d190adac04296a21d0a8eb08ee443",// 老师唯一标识
+    private String fileName;// "templet",  // 文件名称
+    private String fileType;// "csv", // 文件类型
+    private String grade;// null,  // 年级
+    private String gradeCode;// "1",   //年级编码
+    private String subjectType;// null,//科目类型
+    private String unitCode;// "5214",//单元唯一编码
+    private String catalog;// null,//章节唯一编码
+    private String length;// "0",
+    private String fileUrl;// "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/beike/9b4d190adac04296a21d0a8eb08ee443///1/5214/9b4d190adac04296a21d0a8eb08ee443_20180329175505789.csv", // 文件路径
+    private String createDate;// "2018-03-29 17:54:46.0", // 创建时间
+    private String createBy;// "9b4d190adac04296a21d0a8eb08ee443", // 创建人
+    private String updateDate;// "2018-03-29 17:54:46.0", // 修改时间
+    private String updateBy;// null,   // 修改人
+    private String remove;// "Y",  //是否删除
+    private String share;// "0", // 1  班级共享 2 校园共享 3 全局共享 0 个人
+    private String subCode;// "yy", // 科目
+    private int page;// 0,
+    private int pageSize;// 0
 
     public String getId() {
         return id;
@@ -83,6 +66,14 @@ public class PrepareFileBean implements Serializable{
 
     public void setGrade(String grade) {
         this.grade = grade;
+    }
+
+    public String getGradeCode() {
+        return gradeCode;
+    }
+
+    public void setGradeCode(String gradeCode) {
+        this.gradeCode = gradeCode;
     }
 
     public String getSubjectType() {
@@ -179,5 +170,21 @@ public class PrepareFileBean implements Serializable{
 
     public void setSubCode(String subCode) {
         this.subCode = subCode;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 }

@@ -467,10 +467,13 @@ object TeacherApi {
 
     /**
      * 备课文件-首次进入的数据
+     * @param lessonType 资源库类型  1 备课 2 校园资源  3 共享资源
      */
-    fun prepareBaseData(prepareType: String, callback: RequestCallBack<PrepareBaseBean>){
+    fun prepareBaseData(lessonType: String, callback: RequestCallBack<PrepareBaseBean>){
         val jsonObject = JSONObject()
-        jsonObject.put("share", prepareType)
+        jsonObject.put("lessonType", lessonType)
+        jsonObject.put("page", 1)
+        jsonObject.put("pageSize", 10)
         EBagApi.request(teacherService.prepareBaseData("v1", EBagApi.createBody(jsonObject)), callback)
     }
 

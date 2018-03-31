@@ -206,7 +206,7 @@ interface TeacherService {
     /**
      * 备课-默认数据
      */
-    @POST("clazzSpace/getBaseData/{version}")
+    @POST("clazzSpace/initMyLessonInfo/{version}")
     fun prepareBaseData(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<PrepareBaseBean>>
 
     /**
