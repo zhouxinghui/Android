@@ -201,6 +201,7 @@ class OrderDetailsActivity : BaseActivity() {
                 T.show(this, "还没有选择收货地址")
             }
         }
+
     }
 
     private fun getWxPayInfo() {

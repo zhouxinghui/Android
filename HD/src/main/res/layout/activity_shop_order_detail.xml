@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:id="@+id/order_detail_title"
         android:layout_height="wrap_content"
-        app:rightText="取消订单"
         app:titleText="订单详情"
         />
 
