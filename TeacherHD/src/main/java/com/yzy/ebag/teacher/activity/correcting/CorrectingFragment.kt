@@ -53,6 +53,9 @@ class CorrectingFragment: BaseListTabFragment<List<CorrectingBean>, MultiItemEnt
     }
 
     override fun parentToList(parent: List<CorrectingBean>?): List<MultiItemEntity>? {
+        parent?.forEach {
+            it.subjectVos//设置classId
+        }
         return parent
     }
 
@@ -70,9 +73,10 @@ class CorrectingFragment: BaseListTabFragment<List<CorrectingBean>, MultiItemEnt
     override fun getFragment(pagerIndex: Int, adapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>): Fragment {
         if(adapter.itemCount > 0){
             val item = adapter.data[0]
-            if(item is CorrectingBean)
+            if(item is CorrectingBean && item.subjectVos.isNotEmpty()) {
                 mFragment = CorrectingSubFragment.newInstance(type, item.classId, item.subjectVos[0].subCode)
-            return mFragment
+                return mFragment
+            }
         }
         mFragment = CorrectingSubFragment.newInstance()
         return mFragment
@@ -94,7 +98,7 @@ class CorrectingFragment: BaseListTabFragment<List<CorrectingBean>, MultiItemEnt
         }else{
             item as CorrectingBean.SubjectVosBean
             adapter.selectSubject = item
-            mFragment.update(item.classId, item.subCode)
+            mFragment.update(type, item.classId, item.subCode)
         }
     }
 

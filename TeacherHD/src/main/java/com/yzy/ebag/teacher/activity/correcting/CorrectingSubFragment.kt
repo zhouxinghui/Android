@@ -52,7 +52,8 @@ class CorrectingSubFragment: BaseListFragment<List<CorrectingBean>, CorrectingBe
         return 10
     }
 
-    fun update(classId: String, subCode: String){
+    fun update(type: String, classId: String, subCode: String){
+        this.type = type
         this.classId = classId
         this.subCode = subCode
         onRetryClick()
