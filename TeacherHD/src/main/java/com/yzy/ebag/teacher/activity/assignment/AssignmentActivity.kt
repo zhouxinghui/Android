@@ -447,9 +447,10 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 return@forEach
             }
         }
-        if (tempClassBean != null)
+        if (tempClassBean != null) {
             classList.remove(tempClassBean)
             classList.add(0, tempClassBean)
+        }
         classAdapter.datas = classList
         gradeAdapter.selectPosition = 0
         if (workCategory == Constants.ASSIGN_TEST_PAPER)
