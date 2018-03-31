@@ -22,6 +22,7 @@ class MarkDialog(context: Context): BaseDialog(context) {
         return R.layout.dialog_mark
     }
     private var homeworkId = ""
+    private var questionId = ""
     private var uid = ""
     var onMarkSuccess: (() -> Unit)? = null
     private var bean: CorrectAnswerBean? = null
@@ -54,13 +55,14 @@ class MarkDialog(context: Context): BaseDialog(context) {
                 T.show(context, "分数范围：0-100")
                 return@setOnClickListener
             }
-            TeacherApi.markScore(homeworkId, uid, homeworkId, score, markRequest)
+            TeacherApi.markScore(homeworkId, uid, questionId, score, markRequest)
         }
     }
 
-    fun show(bean: CorrectAnswerBean?, homeworkId: String) {
+    fun show(bean: CorrectAnswerBean?, homeworkId: String, questionId: String) {
         this.bean = bean
         this.homeworkId = homeworkId
+        this.questionId = questionId
         uid = bean?.uid ?: ""
         nameAndBagId.text = "${bean?.studentName}    书包号：${bean?.ysbCode}"
         val answer = bean?.studentAnswer

@@ -329,7 +329,7 @@ class CorrectingDescActivity : BaseActivity() {
                     val score = item.questionScore
                     if ((StringUtils.isEmpty(score) || score?.toInt() == 0) && !StringUtils.isEmpty(studentAnswer)){
                         markBtn.setOnClickListener {
-                            markDialog.show(data[helper.adapterPosition], questionList!![currentQuestionIndex].questionId)
+                            markDialog.show(data[helper.adapterPosition], homeworkId, questionList!![currentQuestionIndex].questionId)
                         }
                     }else{
                         markBtn.isEnabled = false
