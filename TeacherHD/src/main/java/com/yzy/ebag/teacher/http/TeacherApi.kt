@@ -3,6 +3,7 @@ package com.yzy.ebag.teacher.http
 import com.yzy.ebag.teacher.bean.*
 import ebag.core.bean.QuestionBean
 import ebag.core.http.network.RequestCallBack
+import ebag.hd.bean.UnitBean
 import ebag.hd.bean.response.NoticeBean
 import ebag.hd.http.EBagApi
 import ebag.hd.http.EBagClient
@@ -478,13 +479,46 @@ object TeacherApi {
     }
 
     /**
+     * 备课-获取版本数据
+     */
+    fun prepareVersion(gradeCode: String, lessonType: String, subCode: String, callback: RequestCallBack<PrepareVersionBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("lessonType", lessonType)
+        jsonObject.put("subCode", subCode)
+        jsonObject.put("gradeCode", gradeCode)
+        EBagApi.request(teacherService.prepareVersion("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 备课-获取年级科目数据
+     */
+    fun prepareSubject(lessonType: String, callback: RequestCallBack<List<PrepareSubjectBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("lessonType", lessonType)
+        EBagApi.request(teacherService.prepareSubject("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 备课-获取单元
+     */
+    fun prepareUnit(versionId: String, callback: RequestCallBack<List<UnitBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("bookVersionId", versionId)
+        EBagApi.request(teacherService.prepareUnit("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
      * 备课文件列表
      */
-    fun prepareList(gradeCode: String, subCode: String, unitId: String, page: Int, pageSize: Int, callback: RequestCallBack<List<PrepareFileBean>>){
+    fun prepareList(lessonType: String, page: Int, pageSize: Int, callback: RequestCallBack<List<PrepareFileBean>>, gradeCode: String?, subCode: String?, unitId: String?){
         val jsonObject = JSONObject()
-        jsonObject.put("gradeCode", gradeCode)
-        jsonObject.put("subCode", subCode)
-        jsonObject.put("unit", unitId)
+        jsonObject.put("lessonType", lessonType)
+        if (gradeCode != null)
+            jsonObject.put("gradeCode", gradeCode)
+        if (subCode != null)
+            jsonObject.put("subCode", subCode)
+        if (unitId != null)
+            jsonObject.put("unit", unitId)
         jsonObject.put("page", page)
         jsonObject.put("pageSize", pageSize)
         EBagApi.request(teacherService.prepareList("v1", EBagApi.createBody(jsonObject)), callback)

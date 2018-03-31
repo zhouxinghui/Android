@@ -3,6 +3,7 @@ package com.yzy.ebag.teacher.http
 import com.yzy.ebag.teacher.bean.*
 import ebag.core.bean.QuestionBean
 import ebag.core.bean.ResponseBean
+import ebag.hd.bean.UnitBean
 import ebag.hd.bean.response.NoticeBean
 import io.reactivex.Observable
 import okhttp3.RequestBody
@@ -210,9 +211,24 @@ interface TeacherService {
     fun prepareBaseData(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<PrepareBaseBean>>
 
     /**
+     * 备课-获取版本数据
+     */
+    @POST("clazzSpace/changeBookVersion/{version}")
+    fun prepareVersion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<PrepareVersionBean>>
+
+    /**
+     * 备课-获取年级科目数据
+     */
+    @POST("clazzSpace/changeGradeOrSubject/{version}")
+    fun prepareSubject(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<PrepareSubjectBean>>>
+
+    @POST("data/getBookUnit/{version}")
+    fun prepareUnit(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<UnitBean>>>
+
+    /**
      * 备课文件列表
      */
-    @POST("clazzSpace/getLessonFileInfoByPage/{version}")
+    @POST("clazzSpace/searchLessonFileInfoItemList/{version}")
     fun prepareList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<PrepareFileBean>>>
 
     /**

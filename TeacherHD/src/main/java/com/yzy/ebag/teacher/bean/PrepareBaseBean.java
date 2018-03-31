@@ -48,6 +48,24 @@ public class PrepareBaseBean implements Serializable {
         private String gradeName;// "一年级",//年级
         private String semesterCode;// "2",//学期编码
         private String semesterName;// "下学期"//学期
+        private String versionCode;
+        private String versionName;
+
+        public String getVersionCode() {
+            return versionCode;
+        }
+
+        public void setVersionCode(String versionCode) {
+            this.versionCode = versionCode;
+        }
+
+        public String getVersionName() {
+            return versionName;
+        }
+
+        public void setVersionName(String versionName) {
+            this.versionName = versionName;
+        }
 
         public String getId() {
             return id;

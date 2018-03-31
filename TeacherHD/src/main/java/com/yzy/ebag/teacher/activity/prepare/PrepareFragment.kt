@@ -20,7 +20,6 @@ import ebag.core.http.network.handleThrowable
 import ebag.core.util.FileUtil
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
-import ebag.core.util.loadImage
 import ebag.hd.activity.DisplayOfficeFileActivity
 
 /**
@@ -28,10 +27,11 @@ import ebag.hd.activity.DisplayOfficeFileActivity
  */
 class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(), BaseQuickAdapter.OnItemLongClickListener{
     companion object {
-        fun newInstance(list: List<PrepareFileBean>?): PrepareFragment {
+        fun newInstance(list: List<PrepareFileBean>?, type: String): PrepareFragment {
             val fragment = PrepareFragment()
             val bundle = Bundle()
             bundle.putSerializable("list", list as ArrayList)
+            bundle.putSerializable("type", type)
             fragment.arguments = bundle
             return fragment
         }
@@ -56,10 +56,11 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
         }
     }
     private lateinit var list: List<PrepareFileBean>
-    private var gradeCode: String = ""
-    private var subCode: String = ""
-    private var unitId: String = ""
+    private var gradeCode: String? = ""
+    private var subCode: String? = ""
+    private var unitId: String? = ""
     private var fileId = ""
+    private var type = ""
     private val deleteFileDialog by lazy {
         val dialog = AlertDialog.Builder(mContext)
                 .setMessage("删除此文件？")
@@ -74,6 +75,7 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
     override fun getBundle(bundle: Bundle?) {
         try {
             list = bundle?.getSerializable("list") as ArrayList<PrepareFileBean>
+            type = bundle.getString("type")
         }catch (e: Exception){
 
         }
@@ -87,7 +89,8 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
         withFirstPageData(list, true)
     }
 
-    fun notifyRequest(gradeCode: String, subCode: String, unitId: String){
+    fun notifyRequest(type: String, gradeCode: String?, subCode: String?, unitId: String?){
+        this.type = type
         this.gradeCode = gradeCode
         this.subCode = subCode
         this.unitId = unitId
@@ -95,10 +98,10 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
     }
 
     override fun getPageSize(): Int {
-        return 10
+        return 16
     }
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<PrepareFileBean>>) {
-        TeacherApi.prepareList(gradeCode, subCode, unitId, page, getPageSize(), requestCallBack)
+        TeacherApi.prepareList(type, page, getPageSize(), requestCallBack, gradeCode, subCode, unitId)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<PrepareFileBean>?): List<PrepareFileBean>? {
@@ -153,10 +156,34 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
     }
 
     inner class MyAdapter: BaseQuickAdapter<PrepareFileBean, BaseViewHolder>(R.layout.item_prepare){
-        override fun convert(helper: BaseViewHolder, item: PrepareFileBean) {
+        override fun convert(helper: BaseViewHolder, item: PrepareFileBean?) {
             val imageView = helper.getView<ImageView>(R.id.fileImg)
-            imageView.loadImage(item.fileUrl)
+            val fileName = item?.fileName
+            setFileIcon(imageView, fileName!!.substring(fileName.indexOf(".") + 1, fileName.length))
             helper.setText(R.id.fileName, item.fileName)
+        }
+    }
+
+    private fun setFileIcon(imageView: ImageView, extension: String?){
+        when(extension){
+            "doc","docx" ->{
+                imageView.setImageResource(R.drawable.icon_word)
+            }
+            "ppt", "pptx" ->{
+                imageView.setImageResource(R.drawable.icon_ppt)
+            }
+            "xls", "xlsx" ->{
+                imageView.setImageResource(R.drawable.icon_excel)
+            }
+            "mp3","arm" ->{
+                imageView.setImageResource(R.drawable.icon_music)
+            }
+            "mp4","rmvb","avi" ->{
+                imageView.setImageResource(R.drawable.icon_video)
+            }
+            else ->{
+                imageView.setImageResource(R.drawable.icon_image)
+            }
         }
     }
 }

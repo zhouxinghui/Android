@@ -18,6 +18,8 @@ import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.widget.PrepareSubjectPopup
 import com.yzy.ebag.teacher.widget.PrepareTextbookPopup
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.LoadingDialogUtil
+import ebag.core.util.T
 import ebag.hd.adapter.UnitAdapter
 import ebag.hd.base.BaseListTabActivity
 import ebag.hd.bean.UnitBean
@@ -31,25 +33,61 @@ class MyPrepareActivity : BaseListTabActivity<PrepareBaseBean, MultiItemEntity>(
     private var type = "1"
     private lateinit var subjectTv : TextView
     private lateinit var textBookTv : TextView
+    private lateinit var totalText: View
     private var parent: PrepareBaseBean? = null
     private var unitId = ""
     private var gradeCode = ""
     private var subjectCode = ""
     private var semesterCode = ""
     private var textbookCode = ""
+    private val unitRequest = object : RequestCallBack<List<UnitBean>>(){
+        override fun onStart() {
+            LoadingDialogUtil.showLoading(this@MyPrepareActivity)
+        }
+        override fun onSuccess(entity: List<UnitBean>?) {
+            LoadingDialogUtil.closeLoadingDialog()
+            entity?.forEach {
+                val subList = it.resultBookUnitOrCatalogVos
+                if (subList.isEmpty()){
+                    val subBean = UnitBean.ChapterBean()
+                    subBean.id = it.id
+                    subBean.code = it.code
+                    subBean.name = it.name
+                    subBean.bookVersionId = it.bookVersionId
+                    subBean.pid = it.pid
+                    subBean.unitCode = it.unitCode
+                    subBean.isUnit = true
+                    it.resultBookUnitOrCatalogVos.add(subBean)
+                }
+            }
+            adapter.setNewData(entity)
+            fragment.notifyRequest(type, gradeCode, subjectCode, null)
+        }
+
+        override fun onError(exception: Throwable) {
+            LoadingDialogUtil.closeLoadingDialog()
+            T.show(this@MyPrepareActivity, "网络请求失败！")
+        }
+
+    }
     private val subjectPopup by lazy {
         val popup = PrepareSubjectPopup(this)
         popup.onSubjectSelectListener = { gradeCode, gradeName, subjectCode, SubjectName ->
             this.gradeCode = gradeCode
             this.subjectCode = subjectCode
             subjectTv.text = "$gradeName $SubjectName"
-            fragment.notifyRequest(gradeCode, subjectCode, unitId)
+            textBookTv.text = ""
+            adapter.setNewData(ArrayList())
+            fragment.notifyRequest(type, gradeCode, subjectCode, null)
         }
         popup
     }
     private val textbookPopup by lazy {
         val popup = PrepareTextbookPopup(this)
-
+        popup.onTextbookSelectListener = {versionBean, semesterCode, semesterName ->
+            textBookTv.text = "${versionBean.bookVersionName} $semesterName"
+            TeacherApi.prepareUnit(versionBean.bookVersionId, unitRequest)
+        }
         popup
     }
     override fun loadConfig() {
@@ -60,14 +98,27 @@ class MyPrepareActivity : BaseListTabActivity<PrepareBaseBean, MultiItemEntity>(
         val subjectView = layoutInflater.inflate(R.layout.layout_prepare_subject_head, null)
         subjectTv = subjectView.findViewById(R.id.subjectTv)
         subjectTv.setOnClickListener { //更换科目
-            subjectPopup.showAsDropDown(titleBar, subjectView.width, 2)
+            subjectPopup.requestData(type)
+            subjectPopup.showAsDropDown(titleBar, subjectView.width + 1, 0)
         }
 
         textBookTv = textBookView.findViewById(R.id.textBookVersion)
         textBookTv.setOnClickListener { //更换教材
-            textbookPopup.showAsDropDown(subjectView, textBookView.width, 2)
+            textbookPopup.requestData(gradeCode, type, subjectCode)
+            textbookPopup.showAsDropDown(subjectView, textBookView.width + 1, 0)
         }
 
+        totalText = layoutInflater.inflate(R.layout.unit_total_text, null)
+        totalText.isSelected = true
+        totalText.setOnClickListener {
+            if (!totalText.isSelected){
+                adapter.selectSub = null
+                totalText.isSelected = true
+                fragment.notifyRequest(type, gradeCode, subjectCode, null)
+            }
+        }
+
+        addLeftHeaderView(totalText)
         addLeftHeaderView(textBookView)
         addLeftHeaderView(subjectView)
 
@@ -119,11 +170,10 @@ class MyPrepareActivity : BaseListTabActivity<PrepareBaseBean, MultiItemEntity>(
         gradeCode = parent?.resultSubjectVo!!.gradeCode
         subjectCode = parent.resultSubjectVo.subCode ?: ""
         subjectTv.text = "${parent?.resultSubjectVo?.gradeName} ${parent?.resultSubjectVo?.subject}"
-        if (type != "1") {
-//            textBookTv.text = "${parent?.bookVersionOrUnitVo?.versionName} ${parent?.bookVersionOrUnitVo?.semesterName}"
-            semesterCode = parent.resultSubjectVo.semesterCode
-//            textbookCode = parent.bookVersionOrUnitVo.bookVersionId
-        }
+
+        textBookTv.text = "${parent?.resultSubjectVo?.versionName} ${parent?.resultSubjectVo?.semesterName}"
+        semesterCode = parent.resultSubjectVo.semesterCode
+        textbookCode = parent.resultSubjectVo.versionCode
         return parent.resultBookUnitOrCatalogVos
     }
 
@@ -152,7 +202,7 @@ class MyPrepareActivity : BaseListTabActivity<PrepareBaseBean, MultiItemEntity>(
 
     private lateinit var fragment: PrepareFragment
     override fun getFragment(pagerIndex: Int, adapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>): Fragment {
-        fragment = PrepareFragment.newInstance(parent?.lessonFileInfoVos)
+        fragment = PrepareFragment.newInstance(parent?.lessonFileInfoVos, type)
         return fragment
     }
 
@@ -172,7 +222,10 @@ class MyPrepareActivity : BaseListTabActivity<PrepareBaseBean, MultiItemEntity>(
             item as UnitBean.ChapterBean?
             (adapter as UnitAdapter).selectSub = item
             unitId = item?.unitCode!!
-            fragment.notifyRequest(gradeCode, subjectCode, unitId)
+            fragment.notifyRequest(type, gradeCode, subjectCode, unitId)
+            if (totalText.isSelected){
+                totalText.isSelected = false
+            }
         }
     }
 

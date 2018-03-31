@@ -1,35 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:orientation="vertical"
     >
     <RadioGroup android:id="@+id/semesterGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingTop="@dimen/y10"
+        android:paddingBottom="@dimen/y10"
+        android:layout_gravity="center"
         >
         <RadioButton android:id="@+id/semesterFirst"
             android:checked="true"
+            android:layout_width="@dimen/x120"
             style="@style/semester_radio_button"
+            android:layout_marginEnd="@dimen/x20"
             android:text="@string/first_semester"
             />
         <RadioButton android:id="@+id/semesterSecond"
             style="@style/semester_radio_button"
+            android:layout_width="@dimen/x120"
+            android:layout_marginStart="@dimen/x20"
             android:text="@string/second_semester"
             />
     </RadioGroup>
-    <android.support.v7.widget.RecyclerView android:id="@+id/versionRecycler"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/y10"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/semesterGroup"
-        />
-</android.support.constraint.ConstraintLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView android:id="@+id/versionRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        <ebag.core.widget.empty.StateView android:id="@+id/stateView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </FrameLayout>
+
+
+</LinearLayout>
