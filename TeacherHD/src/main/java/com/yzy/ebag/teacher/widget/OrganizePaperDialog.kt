@@ -26,6 +26,7 @@ class OrganizePaperDialog(context: Context): BaseDialog(context) {
     private var gradeCode: String? = null
     private var unitId: String? = null
     private var questionList: ArrayList<QuestionBean>? = null
+    private var subCode = "yw"
     private val request = object : RequestCallBack<String>(){
         override fun onStart() {
             T.showLong(context, "正在上传...")
@@ -51,14 +52,15 @@ class OrganizePaperDialog(context: Context): BaseDialog(context) {
                 T.show(context, "请填写试卷名称")
                 return@setOnClickListener
             }
-            TeacherApi.organizePaper(paperName, gradeCode!!, unitId, questionList!!, request)
+            TeacherApi.organizePaper(paperName, gradeCode!!, unitId, subCode, questionList!!, request)
         }
     }
 
-    fun show(gradeCode: String, unitId: String?, questionList: ArrayList<QuestionBean>) {
+    fun show(gradeCode: String, unitId: String?, questionList: ArrayList<QuestionBean>, subCode: String) {
         this.gradeCode = gradeCode
         this.unitId = unitId
         this.questionList = questionList
+        this.subCode = subCode
         super.show()
     }
 }

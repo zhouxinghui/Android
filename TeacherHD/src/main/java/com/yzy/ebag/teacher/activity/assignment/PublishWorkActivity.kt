@@ -55,14 +55,18 @@ class PublishWorkActivity : BaseActivity() {
     private val selectGroupDialog by lazy {
         val dialog = DialogSelectGroup(this)
         dialog.onConfirmClick = {
-            val stringBuilder = StringBuilder("布置小组：")
-            groupIds = ArrayList()
-            it.forEach {
-                stringBuilder.append("${it.groupName}、")
-                groupIds!!.add(it.groupId)
+            if (it.isEmpty()){
+                publishPerson.text = "布置小组：点击选择小组"
+            }else {
+                val stringBuilder = StringBuilder("布置小组：")
+                groupIds = ArrayList()
+                it.forEach {
+                    stringBuilder.append("${it.groupName}、")
+                    groupIds!!.add(it.groupId)
+                }
+                stringBuilder.deleteCharAt(stringBuilder.lastIndexOf("、"))
+                publishPerson.text = stringBuilder.toString()
             }
-            stringBuilder.deleteCharAt(stringBuilder.lastIndexOf("、"))
-            publishPerson.text = stringBuilder.toString()
         }
         dialog
     }

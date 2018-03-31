@@ -296,7 +296,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                         if (questionList.isEmpty()){
                             T.show(this, "你还没有选题")
                         }else {
-                            organizePaperDialog.show(currentGradeCode, unitId, questionList)
+                            organizePaperDialog.show(currentGradeCode, unitId, questionList, cache.subCode)
                         }
                     }else{//组卷
                         isSaveTest = true

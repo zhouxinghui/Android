@@ -62,8 +62,10 @@ class DialogSelectGroup(context: Context): BaseDialog(context) {
     var onConfirmClick : ((groupList: ArrayList<GroupBean>) -> Unit)? = null
 
     fun show(classId: String) {
-        this.classId = classId
-        TeacherApi.studyGroup(classId, request)
+        if (this.classId != classId) {
+            this.classId = classId
+            TeacherApi.studyGroup(classId, request)
+        }
         super.show()
     }
 

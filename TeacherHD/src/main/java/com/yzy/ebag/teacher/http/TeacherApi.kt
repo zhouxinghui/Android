@@ -278,10 +278,11 @@ object TeacherApi {
     /**
      * 组卷
      */
-    fun organizePaper(paperName: String, gradeCode: String, unitId: String?, questionList: ArrayList<QuestionBean>, callback: RequestCallBack<String>){
+    fun organizePaper(paperName: String, gradeCode: String, unitId: String?, subCode: String, questionList: ArrayList<QuestionBean>, callback: RequestCallBack<String>){
         val jsonObject = JSONObject()
         jsonObject.put("name",paperName)
         jsonObject.put("gradeCode",gradeCode)
+        jsonObject.put("subCode",subCode)
         if (unitId != null)
             jsonObject.put("unitId",unitId)
         val jsonArray = JSONArray()
