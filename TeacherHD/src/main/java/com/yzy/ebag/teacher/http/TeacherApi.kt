@@ -263,12 +263,13 @@ object TeacherApi {
     /**
      * 试卷列表
      */
-    fun testPaperList(testPaperFlag: String, gradeCode: String, unitId: String?, callback: RequestCallBack<List<TestPaperListBean>>){
+    fun testPaperList(testPaperFlag: String, gradeCode: String, unitId: String?, subCode: String, callback: RequestCallBack<List<TestPaperListBean>>){
         val jsonObject = JSONObject()
-        jsonObject.put("testPaperFlag",testPaperFlag)
-        jsonObject.put("gradeCode",gradeCode)
+        jsonObject.put("testPaperFlag", testPaperFlag)
+        jsonObject.put("gradeCode", gradeCode)
+        jsonObject.put("subCode", subCode)
         if (unitId != null)
-            jsonObject.put("unitId",unitId)
+            jsonObject.put("unitId", unitId)
         jsonObject.put("page",1)
         jsonObject.put("pageSize",100)
         EBagApi.request(teacherService.testPaperList("v1", EBagApi.createBody(jsonObject)), callback)

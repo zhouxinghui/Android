@@ -203,7 +203,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 totalUnitTv.isSelected = true
                 cacheMap[currentGradeCode]!!.isTotal = true
                 assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
-                        if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode)
+                        if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode, cache.subCode)
             }
         }
 
@@ -262,7 +262,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 setVersionTv(cache.versionName, cache.semesterName, cache.subName)
                 totalUnitTv.isSelected = cache.isTotal
             }
-            assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null)
+            assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null, cache.subCode)
         }
 
         classAdapter.setOnItemClickListener { holder, view, position ->
@@ -285,7 +285,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     currentTestType = "1"
                     val cache = cacheMap[currentGradeCode]!!
                     assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
-                            if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode)
+                            if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode, cache.subCode)
                 }
                 testImg[1] -> {//组卷
                     isOrganizeTest = true
@@ -321,7 +321,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     currentTestType = "2"
                     val cache = cacheMap[currentGradeCode]!!
                     assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
-                            if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode)
+                            if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode, cache.subCode)
                 }
                 workImg[2] -> {//发布小组
                     if(cacheMap[currentGradeCode]!!.classes.size > 1){
@@ -362,7 +362,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 cache?.isTotal = false
                 if(workCategory == Constants.ASSIGN_TEST_PAPER)
                     assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
-                            item.unitCode)
+                            item.unitCode, cache!!.subCode)
             }
         }
         //切换版本
@@ -454,7 +454,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         classAdapter.datas = classList
         gradeAdapter.selectPosition = 0
         if (workCategory == Constants.ASSIGN_TEST_PAPER)
-            assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null)
+            assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null, assignmentBean.resultTaughtCoursesVo.bookCode)
         gradeList.forEach {
             if(cacheMap[it.gradeCode] == null) {
                 val cache = Cache()
@@ -659,7 +659,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     /**
      * 试卷
      */
-    inner class TestAdapter(): BaseQuickAdapter<TestPaperListBean, BaseViewHolder>(R.layout.item_assignment_test){
+    inner class TestAdapter: BaseQuickAdapter<TestPaperListBean, BaseViewHolder>(R.layout.item_assignment_test){
         var selectPosition = -1
         set(value) {
             field = value
