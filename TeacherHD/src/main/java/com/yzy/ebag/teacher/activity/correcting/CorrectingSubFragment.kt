@@ -96,11 +96,11 @@ class CorrectingSubFragment: BaseListFragment<List<CorrectingBean>, CorrectingBe
                 timeTv.text = "考试时间： ${item.endTime}"
             else
                 timeTv.text = "截止时间： ${item.endTime}"
-            if (item.state == "0")
-                statusTv.text = "待检查"
-            else
+            if (item.state == Constants.CORRECT_CORRECTED)
                 statusTv.text = "已检查"
-            statusTv.isSelected = item.state != "0"
+            else
+                statusTv.text = "待检查"
+            statusTv.isSelected = item.state != Constants.CORRECT_CORRECTED
         }
 
     }
