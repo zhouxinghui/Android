@@ -42,7 +42,6 @@ class WriteActivity : MVPActivity() {
     private lateinit var classId: String
     private lateinit var unitCode: String
     private lateinit var dir: File
-    private val sb = StringBuilder()
     private val hanzi = StringBuilder()
     private val myHandler by lazy { WriteActivity.MyHandler(this) }
 
@@ -107,13 +106,11 @@ class WriteActivity : MVPActivity() {
             }
             practise = list[currentIndex]
             // 这里写 保存bitmap到本地的操作
-            saveBitmap(bitmap, practise.pinyin)
+            saveBitmap(bitmap, practise.hanzi)
             if (currentIndex == maxIndex) {
                 LoadingDialogUtil.showLoading(this, "正在上传...")
                 hanzi.append("${practise.hanzi}")
-                val url = "${Constants.OSS_BASE_URL}/recorder/$userId/${practise.pinyin}"
-                OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(dir, practise.pinyin), "recorder/$userId", practise.pinyin, myHandler)
-                sb.append("$url,")
+                OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(dir, practise.hanzi), "recorder/$userId", practise.hanzi, myHandler)
             } else {
                 hanzi.append("${practise.hanzi},")
                 drawView.clear()
@@ -158,7 +155,7 @@ class WriteActivity : MVPActivity() {
     fun commit() {
         val sb = StringBuilder()
         list.forEachIndexed { index, p ->
-            val url = "${Constants.OSS_BASE_URL}/recorder/$userId/${p.pinyin}"
+            val url = "${Constants.OSS_BASE_URL}/recorder/$userId/${p.hanzi}"
             if (index != list.size - 1) {
                 sb.append("$url,")
             } else {
@@ -210,9 +207,8 @@ class WriteActivity : MVPActivity() {
                 Constants.UPLOAD_SUCCESS -> {
                     activity.uploadPosition += 1
                     if (activity.uploadPosition <= activity.list.size) {
-                        val url = "${Constants.OSS_BASE_URL}/recorder/${activity.userId}/${activity.practise.pinyin}"
-                        OSSUploadUtils.getInstance().UploadPhotoToOSS(activity, File(activity.dir, activity.practise.pinyin), "recorder/${activity.userId}", activity.practise.pinyin, activity.myHandler)
-                        activity.sb.append("$url,")
+                        val child = activity.list[activity.uploadPosition-1].hanzi
+                        OSSUploadUtils.getInstance().UploadPhotoToOSS(activity, File(activity.dir, child), "recorder/${activity.userId}", child, activity.myHandler)
                     } else {
                         activity.commit()
                     }

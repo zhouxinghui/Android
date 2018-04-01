@@ -1,5 +1,6 @@
 package com.yzy.ebag.student.http
 
+import com.yzy.ebag.student.activity.center.fragment.ParentFragment
 import com.yzy.ebag.student.bean.*
 import ebag.core.bean.ResponseBean
 import ebag.hd.bean.response.UserEntity
@@ -128,6 +129,12 @@ interface StudentService {
 
     @POST("util/queryWordrecord/{version}")
     fun wordRecord(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<WordRecordBean>>
+    /*查询家长*/
+    @POST("user/searchFamily/{version}")
+    fun searchFamily(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<List<ParentFragment.Parent>>>
+    /*绑定家长*/
+    @POST("user/bindingParent/{version}")
+    fun bindParent(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
 
 
 

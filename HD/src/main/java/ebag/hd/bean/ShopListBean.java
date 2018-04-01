@@ -66,7 +66,7 @@ public class ShopListBean implements Serializable{
         private String ysbMoney;
         private String freight;
         private Object categoryName;
-        private Object shopUrl;
+        private String shopUrl;
         private int numbers;
         private List<String> imgUrls;
 
@@ -144,11 +144,11 @@ public class ShopListBean implements Serializable{
             this.categoryName = categoryName;
         }
 
-        public Object getShopUrl() {
+        public String getShopUrl() {
             return shopUrl;
         }
 
-        public void setShopUrl(Object shopUrl) {
+        public void setShopUrl(String shopUrl) {
             this.shopUrl = shopUrl;
         }
 

@@ -4,9 +4,11 @@ import android.content.Context
 import android.graphics.Paint
 import android.widget.CheckBox
 import android.widget.CompoundButton
+import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import ebag.core.util.loadImage
 import ebag.hd.R
 import ebag.hd.activity.ShopCarActivity
 import ebag.hd.bean.ShopListBean
@@ -24,7 +26,7 @@ class ShopCarAdapter(context:Context,data:MutableList<ShopListBean.ListBean>,onC
         helper.setText(R.id.goods_name,item.shoppingName).setText(R.id.goods_yun_price,"云币:${item.ysbMoney}").setText(R.id.goods_price,"¥ ${item.discountPrice}").setText(R.id.goods_old_price,"¥ ${item.price}").setText(R.id.tv_num,item.numbers.toString())
         helper.getView<TextView>(R.id.goods_old_price).paint.flags = Paint.STRIKE_THRU_TEXT_FLAG
         helper.getView<CheckBox>(R.id.cb_selector).setOnCheckedChangeListener { _, isChecked ->
-
+        helper.getView<ImageView>(R.id.goods_img).loadImage(item.shopUrl)
             onCheckedChange.getPosition(helper.layoutPosition,isChecked)
         }
 

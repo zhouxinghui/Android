@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_growth_enter.*
  * @description
  */
 class GrowthEnterFragment : BaseFragment() {
-
+    private var gradeCode = 0
     companion object {
         fun newInstance(pageIndex: Int): GrowthEnterFragment {
             val fragment = GrowthEnterFragment()
@@ -40,26 +40,27 @@ class GrowthEnterFragment : BaseFragment() {
     var pageIndex = 0
     private val list = ArrayList<GrowthBean>()
     override fun getBundle(bundle: Bundle?) {
+        gradeCode = SPUtils.get(activity, ebag.hd.base.Constants.GRADE_CODE, -1) as Int
         pageIndex = bundle?.getInt("pageIndex") ?: 0
         list.clear()
         when (pageIndex) {
             0 -> {
-                list.add(GrowthBean("一年级", 1, 1))
-                list.add(GrowthBean("二年级", 2, 1))
-                list.add(GrowthBean("三年级", 3, 1))
-                list.add(GrowthBean("四年级", 4, 1))
-                list.add(GrowthBean("五年级", 5, 1))
-                list.add(GrowthBean("六年级", 6, 1))
+                list.add(GrowthBean("一年级", 1, if (gradeCode < 1) 0 else 1))
+                list.add(GrowthBean("二年级", 2, if (gradeCode < 2) 0 else 1))
+                list.add(GrowthBean("三年级", 3, if (gradeCode < 3) 0 else 1))
+                list.add(GrowthBean("四年级", 4, if (gradeCode < 4) 0 else 1))
+                list.add(GrowthBean("五年级", 5, if (gradeCode < 5) 0 else 1))
+                list.add(GrowthBean("六年级", 6, if (gradeCode < 6) 0 else 1))
             }
             1 -> {
-                list.add(GrowthBean("初一", 7, 1))
-                list.add(GrowthBean("初二", 8, 2))
-                list.add(GrowthBean("初三", 9, 0))
+                list.add(GrowthBean("初一", 7, if (gradeCode < 7) 0 else 1))
+                list.add(GrowthBean("初二", 8, if (gradeCode < 8) 0 else 1))
+                list.add(GrowthBean("初三", 9, if (gradeCode < 9) 0 else 1))
             }
             2 -> {
-                list.add(GrowthBean("高一", 10, 0))
-                list.add(GrowthBean("高二", 11, 0))
-                list.add(GrowthBean("高三", 12, 0))
+                list.add(GrowthBean("高一", 10,if (gradeCode < 10) 0 else 1))
+                list.add(GrowthBean("高二", 11,if (gradeCode < 11) 0 else 1))
+                list.add(GrowthBean("高三", 12,if (gradeCode < 12) 0 else 1))
             }
         }
     }
@@ -74,12 +75,11 @@ class GrowthEnterFragment : BaseFragment() {
 
         adapter.setOnItemClickListener { _, view, position ->
             if (adapter.getItem(position)?.status != 0) {
-                val gradeCode = SPUtils.get(activity, ebag.hd.base.Constants.GRADE_CODE, -1) as Int
-                if (gradeCode < position + 1) {
-                    T.show(activity,"无法进入更高年级")
-                    return@setOnItemClickListener
-                }
-                GrowthTypeActivity.jump(mContext, adapter.getItem(position)?.grade ?: "",adapter.getItem(position)?.gradeCode.toString())
+
+                GrowthTypeActivity.jump(mContext, adapter.getItem(position)?.grade
+                        ?: "", adapter.getItem(position)?.gradeCode.toString())
+            }else{
+                T.show(activity, "无法进入更高年级")
             }
         }
 

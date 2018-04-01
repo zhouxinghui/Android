@@ -2,6 +2,7 @@ package com.yzy.ebag.student.http
 
 import android.util.Base64
 import com.alibaba.fastjson.JSON
+import com.yzy.ebag.student.activity.center.fragment.ParentFragment
 import com.yzy.ebag.student.bean.*
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.L
@@ -13,39 +14,38 @@ import java.io.File
 import java.io.FileInputStream
 
 
-
 /**
  * Created by caoyu on 2018/1/8.
  */
-object StudentApi{
+object StudentApi {
 
     private val studentService: StudentService by lazy {
         EBagClient.createRetrofitService(StudentService::class.java)
     }
 
-    fun login(account: String, pwd: String, roleCode: String, callback: RequestCallBack<UserEntity>){
+    fun login(account: String, pwd: String, roleCode: String, callback: RequestCallBack<UserEntity>) {
         val jsonObj = JSONObject()
-        jsonObj.put("loginAccount",account)
-        jsonObj.put("password",pwd)
-        jsonObj.put("loginType",1)
-        jsonObj.put("roleCode",roleCode)
+        jsonObj.put("loginAccount", account)
+        jsonObj.put("password", pwd)
+        jsonObj.put("loginType", 1)
+        jsonObj.put("roleCode", roleCode)
         EBagApi.request(studentService.login("v1", EBagApi.createBody(jsonObj)), callback)
     }
 
     /**
      * 首页
      */
-    fun mainInfo(classId: String, callback: RequestCallBack<ClassesInfoBean>){
+    fun mainInfo(classId: String, callback: RequestCallBack<ClassesInfoBean>) {
         val jsonObj = JSONObject()
-        jsonObj.put("classId",classId)
-        jsonObj.put("roleCode","1")
+        jsonObj.put("classId", classId)
+        jsonObj.put("roleCode", "1")
         EBagApi.request(studentService.mainInfo("v1", EBagApi.createBody(jsonObj)), callback)
     }
 
     /**
      * 作业列表
      */
-    fun subjectWorkList(type: String, classId: String?, subCode: String, page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<SubjectBean>>){
+    fun subjectWorkList(type: String, classId: String?, subCode: String, page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<SubjectBean>>) {
         val jsonObj = JSONObject()
         jsonObj.put("classId", classId)
         jsonObj.put("type", type)
@@ -58,7 +58,7 @@ object StudentApi{
     /**
      * 我的错题
      */
-    fun errorTopic(classId: String, subCode: String, page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<ErrorTopicBean>>){
+    fun errorTopic(classId: String, subCode: String, page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<ErrorTopicBean>>) {
         val jsonObj = JSONObject()
         jsonObj.put("classId", classId)
         jsonObj.put("subCode", subCode)
@@ -70,7 +70,7 @@ object StudentApi{
     /**
      * 班级
      */
-    fun clazzSpace(callback: RequestCallBack<List<SpaceBean>>){
+    fun clazzSpace(callback: RequestCallBack<List<SpaceBean>>) {
         val jsonObject = JSONObject()
         EBagApi.request(studentService.clazzSpace("v1", EBagApi.createBody(jsonObject)), callback)
     }
@@ -78,7 +78,7 @@ object StudentApi{
     /**
      * 获取跟读列表
      */
-    fun getReadList(unitCode: String, page: Int, pageSize: Int, callback: RequestCallBack<ReadOutBean>){
+    fun getReadList(unitCode: String, page: Int, pageSize: Int, callback: RequestCallBack<ReadOutBean>) {
         val jsonObject = JSONObject()
         jsonObject.put("unitCode", unitCode)
         jsonObject.put("page", page)
@@ -89,7 +89,7 @@ object StudentApi{
     /**
      * 获取跟读详情里头 句子的详情
      */
-    fun getReadDetailList(languageId: String, callback: RequestCallBack<List<ReadDetailBean>>){
+    fun getReadDetailList(languageId: String, callback: RequestCallBack<List<ReadDetailBean>>) {
         val jsonObject = JSONObject()
         jsonObject.put("languageId", languageId)
         EBagApi.request(studentService.getReadDetailList("v1", EBagApi.createBody(jsonObject)), callback)
@@ -98,7 +98,7 @@ object StudentApi{
     /**
      * 获取练字列表
      */
-    fun getWordsList(unitCode: String, callback: RequestCallBack<WordsBean>){
+    fun getWordsList(unitCode: String, callback: RequestCallBack<WordsBean>) {
         val jsonObject = JSONObject()
         jsonObject.put("unitCode", unitCode)
         EBagApi.request(studentService.getWordsList("v1", EBagApi.createBody(jsonObject)), callback)
@@ -108,7 +108,7 @@ object StudentApi{
     /**
      * 上传跟读录音文件
      */
-    fun uploadRecord(classId: String, languageId: String, languageDetailId: String, language: String, myAudioUrl: String, callback: RequestCallBack<String>){
+    fun uploadRecord(classId: String, languageId: String, languageDetailId: String, language: String, myAudioUrl: String, callback: RequestCallBack<String>) {
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
         jsonObject.put("language", language)
@@ -121,7 +121,7 @@ object StudentApi{
     /**
      * 获取当前段落的录音历史
      */
-    fun recordHistory(languageId: String, callback: RequestCallBack<List<RecordHistory>>){
+    fun recordHistory(languageId: String, callback: RequestCallBack<List<RecordHistory>>) {
         val jsonObject = JSONObject()
         jsonObject.put("languageId", languageId)
         EBagApi.request(studentService.recordHistory("v1", EBagApi.createBody(jsonObject)), callback)
@@ -130,7 +130,7 @@ object StudentApi{
     /**
      * 学习小组列表
      */
-    fun groups(classId: String, callback: RequestCallBack<ArrayList<GroupBean>>){
+    fun groups(classId: String, callback: RequestCallBack<ArrayList<GroupBean>>) {
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
         EBagApi.request(studentService.groups("v1", EBagApi.createBody(jsonObject)), callback)
@@ -139,7 +139,7 @@ object StudentApi{
     /**
      * 学习小组列表
      */
-    fun groupMember(groupId: String, callback: RequestCallBack<ArrayList<GroupUserBean>>){
+    fun groupMember(groupId: String, callback: RequestCallBack<ArrayList<GroupUserBean>>) {
         val jsonObject = JSONObject()
         jsonObject.put("groupId", groupId)
         EBagApi.request(studentService.groupMember("v1", EBagApi.createBody(jsonObject)), callback)
@@ -148,7 +148,7 @@ object StudentApi{
     /**
      * 劳动任务
      */
-    fun labourTasks(page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<LabourBean>>){
+    fun labourTasks(page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<LabourBean>>) {
         val jsonObject = JSONObject()
         jsonObject.put("page", page)
         jsonObject.put("pageSize", pageSize)
@@ -158,7 +158,7 @@ object StudentApi{
     /**
      * 数学公式
      */
-    fun formula(formulaId: String, page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<FormulaTypeBean>>){
+    fun formula(formulaId: String, page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<FormulaTypeBean>>) {
         val jsonObject = JSONObject()
         jsonObject.put("formulaId", formulaId)
         jsonObject.put("page", page)
@@ -169,7 +169,7 @@ object StudentApi{
     /**
      * 百度授权
      */
-    fun baiduOauth(callback: RequestCallBack<BaiduOauthBean>){
+    fun baiduOauth(callback: RequestCallBack<BaiduOauthBean>) {
         EBagApi.startNormalRequest(
                 studentService.baiduOauth(
                         "client_credentials",
@@ -182,13 +182,13 @@ object StudentApi{
     /**
      * 语音识别
      */
-    fun speechRecognize(filePath: String, token: String, callback: RequestCallBack<SpeechRecognizeBean>){
+    fun speechRecognize(filePath: String, token: String, callback: RequestCallBack<SpeechRecognizeBean>) {
         val file = File(filePath)
-        if(!file.exists() || !file.isFile){
+        if (!file.exists() || !file.isFile) {
             return
         }
         val speech = base64(file)
-        if(speech == ""){
+        if (speech == "") {
             return
         }
         val speechRecognizeVo = SpeechRecognizeVo()
@@ -201,7 +201,7 @@ object StudentApi{
         )
     }
 
-    private fun base64(file: File): String{
+    private fun base64(file: File): String {
         try {
             var inputFile = FileInputStream(file)
             val buffer = ByteArray(file.length().toInt())
@@ -216,7 +216,7 @@ object StudentApi{
         return ""
     }
 
-    fun addUserGrowth(className:String,type:String,title:String,content:String,image:String,gradeCode:String,callback: RequestCallBack<String>){
+    fun addUserGrowth(className: String, type: String, title: String, content: String, image: String, gradeCode: String, callback: RequestCallBack<String>) {
         val jsonObject = JSONObject()
         jsonObject.put("className", className)
         jsonObject.put("type", type)
@@ -224,52 +224,67 @@ object StudentApi{
         jsonObject.put("content", content)
         jsonObject.put("image", image)
         jsonObject.put("gradeCode", gradeCode)
-        EBagApi.request(studentService.addUserGrowth("1",EBagApi.createBody(jsonObject)),callback)
+        EBagApi.request(studentService.addUserGrowth("1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    fun searchUserGrowthList(page:Int,pageSize: Int,gradeCode:String,type:String,callback: RequestCallBack<List<Diary>>){
+    fun searchUserGrowthList(page: Int, pageSize: Int, gradeCode: String, type: String, callback: RequestCallBack<List<Diary>>) {
         val jsonObject = JSONObject()
         jsonObject.put("page", page)
         jsonObject.put("pageSize", pageSize)
         jsonObject.put("gradeCode", gradeCode)
         jsonObject.put("type", type)
-        EBagApi.request(studentService.searchUserGrowthList("1",EBagApi.createBody(jsonObject)),callback)
+        EBagApi.request(studentService.searchUserGrowthList("1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    fun uploadLocation(address:String,remark:String,longitude:String,latitude:String,callback: RequestCallBack<String>){
+    fun uploadLocation(address: String, remark: String, longitude: String, latitude: String, callback: RequestCallBack<String>) {
         val jsonObject = JSONObject()
         jsonObject.put("address", address)
         jsonObject.put("remark", remark)
         jsonObject.put("longitude", longitude)
         jsonObject.put("latitude", latitude)
-        EBagApi.request(studentService.uploadLocation("1",EBagApi.createBody(jsonObject)),callback)
+        EBagApi.request(studentService.uploadLocation("1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    fun searchLocation(page: Int,callback: RequestCallBack<LocationBean>){
+    fun searchLocation(page: Int, callback: RequestCallBack<LocationBean>) {
         val jsonObject = JSONObject()
         jsonObject.put("page", page)
         jsonObject.put("pageSize", 10)
-        EBagApi.request(studentService.searchLocation("1",EBagApi.createBody(jsonObject)),callback)
+        EBagApi.request(studentService.searchLocation("1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    fun uploadWord(classId:String,words:String,unitId:String,wordUrl:String,callback: RequestCallBack<String>){
+    fun uploadWord(classId: String, words: String, unitId: String, wordUrl: String, callback: RequestCallBack<String>) {
 
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
         jsonObject.put("words", words)
         jsonObject.put("unitId", unitId)
         jsonObject.put("wordUrl", wordUrl)
-        EBagApi.request(studentService.uploadWord("1",EBagApi.createBody(jsonObject)),callback)
+        EBagApi.request(studentService.uploadWord("1", EBagApi.createBody(jsonObject)), callback)
     }
 
     /**
      * 练字记录
      */
-    fun wordRecord(classId: String, pageSize: Int, page: Int, callback: RequestCallBack<WordRecordBean>){
+    fun wordRecord(classId: String, pageSize: Int, page: Int, callback: RequestCallBack<WordRecordBean>) {
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
         jsonObject.put("pageSize", pageSize)
         jsonObject.put("page", page)
-        EBagApi.request(studentService.wordRecord("1",EBagApi.createBody(jsonObject)),callback)
+        EBagApi.request(studentService.wordRecord("1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /*查询家长*/
+
+    fun searchFamily(callback: RequestCallBack<List<ParentFragment.Parent>>) {
+        val jsonObject = JSONObject()
+        EBagApi.request(studentService.searchFamily("1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /*绑定家长*/
+    fun bindParent(ysbCode: String, relationType: String, callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("ysbCode", ysbCode)
+        jsonObject.put("relationType", relationType)
+        EBagApi.request(studentService.bindParent("1", EBagApi.createBody(jsonObject)), callback)
     }
 }

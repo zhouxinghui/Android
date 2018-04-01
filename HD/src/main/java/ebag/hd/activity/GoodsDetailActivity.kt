@@ -121,7 +121,7 @@ class GoodsDetailActivity : BaseActivity() {
                 banner.setImageLoader(GlideImageLoader())
                 banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
                 banner.setBannerAnimation(Transformer.Default)
-                banner.setDelayTime(3000)
+                banner.setDelayTime(5000)
                 banner.setIndicatorGravity(BannerConfig.CENTER)
                 banner.setImages(entity.imgUrls)
                 banner.start()

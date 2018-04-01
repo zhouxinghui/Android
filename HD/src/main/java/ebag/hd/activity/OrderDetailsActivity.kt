@@ -36,6 +36,7 @@ class OrderDetailsActivity : BaseActivity() {
     private var addresID: String = ""
     private var mList: ArrayList<SaveOrderPBean.ListBean> = arrayListOf()
     private var which = 0
+    private var ybCount = 0
     private var isStudent = false
     @SuppressLint("HandlerLeak")
     private val handler = object : Handler() {
@@ -78,6 +79,7 @@ class OrderDetailsActivity : BaseActivity() {
             view.findViewById<TextView>(R.id.goods_yun_price).text = dats[i].ysbMoney
             view.findViewById<TextView>(R.id.tv_price).text = "¥ ${dats[i].discountPrice}"
             view.findViewById<TextView>(R.id.tv_num).text = "x${dats[i].numbers}"
+            view.findViewById<ImageView>(R.id.goods_img).loadImage(dats[i].shopUrl)
             if (dats[i].imgUrls != null && dats[i].imgUrls.isNotEmpty()) {
                 if (i == 0) {
                     if (dats[i].imgUrls.size != 0)
@@ -85,6 +87,7 @@ class OrderDetailsActivity : BaseActivity() {
                 }
             }
             count += (dats[i].discountPrice.toInt() * dats[i].numbers)
+            ybCount += (dats[i]?.ysbMoney.toInt() * dats[i].numbers)
             mList.add(SaveOrderPBean.ListBean(dats[i].id.toString(), dats[i].numbers.toString()))
             goods_list.addView(view)
         }
@@ -97,18 +100,18 @@ class OrderDetailsActivity : BaseActivity() {
             cb_wechat_pay.visibility = View.GONE
             cb_yb_pay.isChecked = true
             cb_yb_pay.isEnabled = false
-            tv_total_money.text ="Y币 $count"
-        }else{
+            tv_total_money.text = "Y币 $ybCount"
+        } else {
             tv_total_money.text = "¥ $count"
         }
 
 
-        cb_yb_pay.text = "Y币 $count"
+        cb_yb_pay.text = "Y币 $ybCount"
         tv_yunfei.text = "¥ ${dats[0].freight}"
         tv_total_pay.text = "¥ $count"
         try {
             tv_should_pay.text = "¥ ${count + dats[0].freight.toInt()}"
-        }catch(e:Exception){
+        } catch (e: Exception) {
             tv_should_pay.text = "¥ $count"
         }
 
@@ -145,7 +148,7 @@ class OrderDetailsActivity : BaseActivity() {
                 cb_yb_pay.isEnabled = false
                 cb_wechat_pay.isChecked = false
                 cb_ali_pay.isChecked = false
-                tv_total_money.text ="Y币 $count"
+                tv_total_money.text = "Y币 $ybCount"
             }
         }
 
@@ -161,11 +164,11 @@ class OrderDetailsActivity : BaseActivity() {
             if (address) {
                 if (which == 1) {
                     if (isStudent) {
-                        ybPay(number, count.toString())
+                        ybPay(number, ybCount.toString())
                     } else {
                         when {
                             cb_ali_pay.isChecked -> getAlipayInfo()
-                            cb_yb_pay.isChecked -> ybPay(number, count.toString())
+                            cb_yb_pay.isChecked -> ybPay(number, ybCount.toString())
                             else -> getWxPayInfo()
                         }
                     }
@@ -180,11 +183,11 @@ class OrderDetailsActivity : BaseActivity() {
                         override fun onSuccess(entity: String?) {
                             LoadingDialogUtil.closeLoadingDialog()
                             if (isStudent) {
-                                ybPay(number, count.toString())
+                                ybPay(number, ybCount.toString())
                             } else {
                                 when {
                                     cb_ali_pay.isChecked -> getAlipayInfo()
-                                    cb_yb_pay.isChecked -> ybPay(number, count.toString())
+                                    cb_yb_pay.isChecked -> ybPay(number, ybCount.toString())
                                     else -> getWxPayInfo()
                                 }
                             }
