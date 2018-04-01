@@ -104,6 +104,7 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
 
     inner class MyAdapter: BaseQuickAdapter<CommentBean, BaseViewHolder>(R.layout.item_comment){
         override fun convert(helper: BaseViewHolder, item: CommentBean) {
+
             helper.getView<ImageView>(R.id.headImg).loadHead(item.headUrl)
             helper.setText(R.id.studentName, item.studentName)
                     .setText(R.id.scoreTv, if (StringUtils.isEmpty(item.totalScore)) "" else item.totalScore)
@@ -145,6 +146,11 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
                     checkReportBtn.text = "未完成"
                     commitCommentBtn.text = "提交评语"
                 }
+            }
+
+            if (type == "1"){
+                helper.setGone(R.id.commentEdit,false)
+                helper.setGone(R.id.commitCommentBtn,false)
             }
         }
     }
