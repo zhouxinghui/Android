@@ -87,7 +87,8 @@ class OrderDetailsActivity : BaseActivity() {
                 }
             }
             count += (dats[i].discountPrice.toInt() * dats[i].numbers)
-            ybCount += (dats[i]?.ysbMoney.toInt() * dats[i].numbers)
+            val ybmoney = dats[i].ysbMoney?:"0"
+            ybCount += (ybmoney.toInt() * dats[i].numbers)
             mList.add(SaveOrderPBean.ListBean(dats[i].id.toString(), dats[i].numbers.toString()))
             goods_list.addView(view)
         }
