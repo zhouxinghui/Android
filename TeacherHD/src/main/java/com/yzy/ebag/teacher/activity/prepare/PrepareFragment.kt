@@ -165,32 +165,7 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
                 playerDialog.show(bean.fileUrl, bean.fileName)
             }
             else ->{
-//                T.show(mContext, "不支持的文件类型，请在PC端尝试打开此文件")
-                val url = bean.fileUrl
-                val filePath = "${FileUtil.getPrepareFilePath()}${url.substring(url.lastIndexOf("/") + 1, url.length)}"
-                val isFileExit = FileUtil.isFileExists(filePath)
-                if (isFileExit){
-                    DisplayOfficeFileActivity.jump(mContext, filePath)
-                }else{
-                    DownloadManager.getInstance().download(url, FileUtil.getPrepareFilePath(), object : DownLoadObserver(){
-                        override fun onNext(downloadInfo: DownloadInfo) {
-                            super.onNext(downloadInfo)
-                            LoadingDialogUtil.showLoading(mContext, "正在下载...${downloadInfo.progress * 100 / downloadInfo.total}%")
-                        }
-
-                        override fun onComplete() {
-                            LoadingDialogUtil.closeLoadingDialog()
-                            DisplayOfficeFileActivity.jump(mContext, filePath)
-                        }
-
-                        override fun onError(e: Throwable) {
-                            super.onError(e)
-                            LoadingDialogUtil.closeLoadingDialog()
-                            T.show(mContext, "文件下载失败，请稍后重试")
-                            DownloadManager.getInstance().cancel(url)
-                        }
-                    })
-                }
+                T.show(mContext, "不支持的文件类型，请在PC端尝试打开此文件")
             }
         }
     }
