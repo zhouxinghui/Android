@@ -175,6 +175,12 @@ interface TeacherService {
     fun addCourse(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /**
+     * 删除所教课程
+     */
+    @POST("clazz/deleteTaughtCourses/{version}")
+    fun deleteCourse(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
      * 检查作业
      */
     @POST("homeWork/getHomeWorkByQuestion/{version}")

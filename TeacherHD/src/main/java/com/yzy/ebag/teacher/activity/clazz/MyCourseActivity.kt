@@ -2,6 +2,7 @@ package com.yzy.ebag.teacher.activity.clazz
 
 import android.app.Activity
 import android.content.Intent
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.ImageView
@@ -28,9 +29,18 @@ class MyCourseActivity : BaseListActivity<List<MyCourseBean>,MyCourseBean>() {
         }
         dialog
     }
+    private val deleteCourseDialog by lazy {
+        val dialog = AlertDialog.Builder(this)
+                .setMessage("删除当前所教课程？")
+                .create()
+        dialog
+    }
     companion object {
-        fun jump(activity: Activity, classId: String){
-            activity.startActivity(Intent(activity, MyCourseActivity::class.java).putExtra("classId", classId))
+        fun jump(activity: Activity, classId: String, gradeCode: String){
+            activity.startActivity(Intent(activity, MyCourseActivity::class.java)
+                    .putExtra("classId", classId)
+                    .putExtra("gradeCode", gradeCode)
+            )
         }
     }
     override fun loadConfig(intent: Intent) {
@@ -41,6 +51,7 @@ class MyCourseActivity : BaseListActivity<List<MyCourseBean>,MyCourseBean>() {
             addCourseDialog.show(classId, gradeCode)
         })
         classId = intent.getStringExtra("classId")
+        gradeCode = intent.getStringExtra("gradeCode")
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<MyCourseBean>>) {

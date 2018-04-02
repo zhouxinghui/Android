@@ -7,11 +7,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.activity.clazz.CreateClassActivity
+import com.yzy.ebag.teacher.activity.clazz.SpaceActivity
 import com.yzy.ebag.teacher.base.Constants
 import com.yzy.ebag.teacher.bean.SpaceBean
 import com.yzy.ebag.teacher.http.TeacherApi
-import com.yzy.ebag.teacher.activity.clazz.CreateClassActivity
-import com.yzy.ebag.teacher.activity.clazz.SpaceActivity
 import com.yzy.ebag.teacher.widget.AddTeacherDialog
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
@@ -80,7 +80,8 @@ class FragmentClass : BaseFragment() {
                     addTeacherDialog.show(adapter.datas[position].classId, adapter.datas[position].gradeCode)
                 }
                 R.id.class_space_btn ->{
-                    SpaceActivity.jump(mContext, adapter.datas[position].classId, adapter.datas[position].clazzName)
+                    val bean = adapter.datas[position]
+                    SpaceActivity.jump(mContext, bean.classId, bean.clazzName, bean.gradeCode)
                 }
             }
         }

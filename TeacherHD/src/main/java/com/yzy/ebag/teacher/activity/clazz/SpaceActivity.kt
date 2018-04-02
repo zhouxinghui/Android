@@ -41,18 +41,21 @@ class SpaceActivity : BaseActivity(), View.OnClickListener {
         }
     }
     lateinit var classId: String
+    private var gradeCode = ""
     companion object {
-        fun jump(context: Context, classId: String, className: String){
+        fun jump(context: Context, classId: String, className: String, gradeCode: String){
             context.startActivity(
                     Intent(context, SpaceActivity::class.java)
                             .putExtra("classId", classId)
                             .putExtra("className", className)
+                            .putExtra("gradeCode", gradeCode)
             )
         }
     }
 
     override fun initViews() {
         classId = intent.getStringExtra("classId")
+        gradeCode = intent.getStringExtra("gradeCode")
         val className = intent.getStringExtra("className")
         chat.text = className
 
@@ -70,7 +73,7 @@ class SpaceActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.course ->{
-                MyCourseActivity.jump(this, classId)
+                MyCourseActivity.jump(this, classId, gradeCode)
             }
             R.id.noticeHistoryBtn ->{
                 NoticeHistoryActivity.jump(this, classId)

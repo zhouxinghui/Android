@@ -417,6 +417,15 @@ object TeacherApi {
     }
 
     /**
+     * 删除所教课程
+     */
+    fun deleteCourse(id: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("id", id)
+        EBagApi.request(teacherService.deleteCourse("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
      * 检查作业
      */
     fun correctWork(id: String, type: String, callback: RequestCallBack<List<QuestionBean>>){

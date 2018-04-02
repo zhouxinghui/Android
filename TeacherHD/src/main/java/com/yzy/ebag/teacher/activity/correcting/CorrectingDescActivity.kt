@@ -332,18 +332,21 @@ class CorrectingDescActivity : BaseActivity() {
                         linearLayout.setTag(ebag.hd.R.id.progress_id, progressBar)
                         linearLayout.setTag(ebag.hd.R.id.play_id, "#M#${item.studentAnswer}")
                         helper.addOnClickListener(R.id.play_id)
+                    }
 
-                        val markBtn = helper.getView<TextView>(R.id.markBtn)
-                        val score = item.questionScore
-                        if ((StringUtils.isEmpty(score) || score?.toInt() == 0) && !StringUtils.isEmpty(studentAnswer)){
-                            markBtn.visibility = View.GONE
-                            markBtn.setOnClickListener {
-                                followReadMarkDialog.show(data[helper.adapterPosition], homeworkId, questionList!![currentQuestionIndex].questionId)
-                            }
-                        }else{
-                            markBtn.visibility = View.VISIBLE
-                            helper.setText(R.id.score, score)
+                    val markBtn = helper.getView<TextView>(R.id.markBtn)
+                    val score = item.questionScore
+                    /*
+                    试题状态  0 未完成 1 未打分 2 作答正确 3 作答错误 4 已纠正 5 已批改 6、还没有提交完成作业null
+                    */
+                    if (item.homeWorkState == "1"){
+                        markBtn.visibility = View.VISIBLE
+                        markBtn.setOnClickListener {
+                            followReadMarkDialog.show(data[helper.adapterPosition], homeworkId, questionList!![currentQuestionIndex].questionId)
                         }
+                    }else{
+                        markBtn.visibility = View.GONE
+                        helper.setText(R.id.score, score)
                     }
                 }
                 QuestionTypeUtils.QUESTIONS_CHINESE_READ_UNDERSTAND,    //阅读理解
@@ -353,13 +356,13 @@ class CorrectingDescActivity : BaseActivity() {
                 ->{
                     val markBtn = helper.getView<TextView>(R.id.markBtn)
                     val score = item.questionScore
-                    if ((StringUtils.isEmpty(score) || score?.toInt() == 0) && !StringUtils.isEmpty(studentAnswer)){
-                        markBtn.visibility = View.GONE
+                    if (item.homeWorkState == "1"){
+                        markBtn.visibility = View.VISIBLE
                         markBtn.setOnClickListener {
                             markDialog.show(data[helper.adapterPosition], homeworkId, questionList!![currentQuestionIndex].questionId)
                         }
                     }else{
-                        markBtn.visibility = View.VISIBLE
+                        markBtn.visibility = View.GONE
                         helper.setText(R.id.score, score)
                     }
                 }
