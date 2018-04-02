@@ -182,8 +182,10 @@ class CorrectingDescActivity : BaseActivity() {
             addItemType(QuestionTypeUtils.QUESTIONS_CHINESE_WRITE_BY_VOICE, R.layout.item_correcting_answer_normal)
         }
         override fun convert(helper: BaseViewHolder, item: CorrectAnswerBean) {
-            if (!QuestionTypeUtils.isMarkType(helper.itemViewType))
-                helper.getView<TextView>(R.id.correctIcon).visibility = View.GONE
+            val correctIconTv = helper.getView<TextView>(R.id.correctIcon)
+            if (!QuestionTypeUtils.isMarkType(helper.itemViewType)) {
+                correctIconTv?.visibility = View.GONE
+            }
 
             val studentAnswer = item.studentAnswer ?: ""
             val studentAnswerTv = helper.getView<TextView>(R.id.studentAnswer)
@@ -211,8 +213,8 @@ class CorrectingDescActivity : BaseActivity() {
 
             }
             if (!QuestionTypeUtils.isMarkType(helper.itemViewType) && !StringUtils.isEmpty(studentAnswer)) {
-                helper.getView<TextView>(R.id.correctIcon).visibility = View.VISIBLE
-                helper.getView<TextView>(R.id.correctIcon).isSelected = item.homeWorkState != "2"
+                correctIconTv?.visibility = View.VISIBLE
+                correctIconTv?.isSelected = item.homeWorkState != "2"
             }
             when(helper.itemViewType){
                 //纯文字
