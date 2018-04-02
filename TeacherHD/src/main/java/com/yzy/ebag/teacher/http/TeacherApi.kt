@@ -520,7 +520,7 @@ object TeacherApi {
         if (subCode != null)
             jsonObject.put("subCode", subCode)
         if (unitId != null)
-            jsonObject.put("unit", unitId)
+            jsonObject.put("unitCode", unitId)
         jsonObject.put("page", page)
         jsonObject.put("pageSize", pageSize)
         EBagApi.request(teacherService.prepareList("v1", EBagApi.createBody(jsonObject)), callback)

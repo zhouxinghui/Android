@@ -42,7 +42,7 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener): BasePrese
      */
     fun login(account: String?, pwd: String?,loginType:String?, roleCode: String, thirdPartyToken:String?,thirdPartyUnionid:String?){
         if (account !=null&&pwd !=null&&thirdPartyToken==null&&thirdPartyUnionid==null) {
-            if (isLoginInfoCorrect(account, pwd)) {
+//            if (isLoginInfoCorrect(account, pwd)) {
                 if (loginRequest == null) {
                     loginRequest = createRequest(object : RequestCallBack<UserEntity>() {
                         override fun onStart() {
@@ -62,7 +62,7 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener): BasePrese
                             getView()?.onLoginError(exception)
                         }
                     })
-                }
+//                }
                 if (StringUtils.isMobileNo(account)) {
                     EBagApi.login(account, pwd, BLoginActivity.PHONE_TYPE,null, roleCode, thirdPartyToken, thirdPartyUnionid, loginRequest!!)
                 } else {
