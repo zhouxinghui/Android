@@ -71,6 +71,7 @@ public class ConnectionView extends BaseQuestionView {
     private View currentTouchView;
 
     private boolean isActive;
+    private boolean answerNotify = true;
     public ConnectionView(Context context) {
         super(context);
     }
@@ -357,7 +358,7 @@ public class ConnectionView extends BaseQuestionView {
                 setter.getView(R.id.element_id).setSelected(entity.selected);
             }
 
-            if(position == getItemCount() - 1){
+            if(position == getItemCount() - 1 && answerNotify){
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -400,8 +401,10 @@ public class ConnectionView extends BaseQuestionView {
                                 }
                             }
                         }
-
-                        adapter.notifyDataSetChanged();
+                        if (answerNotify) {
+                            adapter.notifyDataSetChanged();
+                            answerNotify = false;
+                        }
                     }
                 }, 50);
             }

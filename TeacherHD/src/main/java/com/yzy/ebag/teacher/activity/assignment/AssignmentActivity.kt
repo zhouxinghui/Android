@@ -261,8 +261,9 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 questionAdapter.datas = questionList
                 setVersionTv(cache.versionName, cache.semesterName, cache.subName)
                 totalUnitTv.isSelected = cache.isTotal
+                if (workCategory == Constants.ASSIGN_TEST_PAPER)
+                    assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null, cache.subCode)
             }
-            assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null, cache.subCode)
         }
 
         classAdapter.setOnItemClickListener { holder, view, position ->
@@ -558,12 +559,15 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                                 semesterName: String,
                                 subCode: String,
                                 subName: String){
-        cacheMap[currentGradeCode]!!.versionName = versionName
-        cacheMap[currentGradeCode]!!.versionId = versionId
-        cacheMap[currentGradeCode]!!.semesterCode = semesterCode
-        cacheMap[currentGradeCode]!!.semesterName = semesterName
-        cacheMap[currentGradeCode]!!.subCode = subCode
-        cacheMap[currentGradeCode]!!.subName = subName
+        val cache = cacheMap[currentGradeCode]!!
+        cache.versionName = versionName
+        cache.versionId = versionId
+        cache.semesterCode = semesterCode
+        cache.semesterName = semesterName
+        cache.subCode = subCode
+        cache.subName = subName
+        if (workCategory == Constants.ASSIGN_TEST_PAPER)
+            assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null, cache.subCode)
     }
 
     /**
