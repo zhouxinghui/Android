@@ -193,7 +193,7 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
             return
         }
         list.forEach { idList.add(it.classId) }
-        if (this.idList != null && this.idList!!.containsAll(idList)){
+        if (this.idList != null && this.idList!!.size == idList.size && this.idList!!.containsAll(idList)){
             super.show()
             return
         }
