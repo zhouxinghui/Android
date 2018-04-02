@@ -122,5 +122,12 @@ class QuestionAdapter(private val isPreviewPage: Boolean = false): BaseMultiItem
                 questionView.setOnItemChildClickListener(onItemChildClickListener)
             }
         }
+
+        helper.setText(R.id.useNumTv, "共被使用${item.usage ?: "0"}次")
+        helper.setText(R.id.errorNumTv, "错题次数${item.errNum ?: "0"}")
+        if (item.createDate == null)
+            helper.setText(R.id.createTimeTv, "")
+        else
+            helper.setText(R.id.createTimeTv, "创建时间${item.createDate}")
     }
 }
