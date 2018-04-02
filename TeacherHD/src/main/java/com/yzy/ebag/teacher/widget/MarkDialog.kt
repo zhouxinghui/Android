@@ -36,6 +36,7 @@ class MarkDialog(context: Context): BaseDialog(context) {
         override fun onSuccess(entity: String?) {
             LoadingDialogUtil.closeLoadingDialog()
             bean?.questionScore = score
+            bean?.homeWorkState = "5"
             onMarkSuccess?.invoke()
         }
 

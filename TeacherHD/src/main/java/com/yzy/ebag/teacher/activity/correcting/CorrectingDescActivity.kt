@@ -17,6 +17,7 @@ import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.CorrectAnswerBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.widget.MarkDialog
+import com.yzy.ebag.teacher.widget.SmartPushDialog
 import ebag.core.base.BaseActivity
 import ebag.core.bean.QuestionBean
 import ebag.core.bean.QuestionTypeUtils
@@ -52,6 +53,13 @@ class CorrectingDescActivity : BaseActivity() {
     private val answerAdapter by lazy { StudentAnswerAdapter() }
     private val markDialog by lazy {
         val dialog = MarkDialog(this)
+        dialog.onMarkSuccess = {
+            answerAdapter.notifyDataSetChanged()
+        }
+        dialog
+    }
+    private val followReadMarkDialog by lazy {
+        val dialog = SmartPushDialog(this)
         dialog.onMarkSuccess = {
             answerAdapter.notifyDataSetChanged()
         }
@@ -112,6 +120,12 @@ class CorrectingDescActivity : BaseActivity() {
         nextQuestion.setOnClickListener {
             if (questionList == null || currentQuestionIndex >= questionList!!.size -1){
                 return@setOnClickListener
+            }
+            answerAdapter.data.forEach {
+                if (QuestionTypeUtils.isMarkType(it.itemType) && it.homeWorkState == "1"){
+                    T.show(this, "你还有未打分的题，请打分后再切换下一题")
+                    return@setOnClickListener
+                }
             }
             currentQuestionIndex ++
             setAnswerDesc()
@@ -179,10 +193,10 @@ class CorrectingDescActivity : BaseActivity() {
                     .setText(R.id.bagId, "书包号：${item.ysbCode}")
             val answerTv = helper.getView<TextView>(R.id.answerTv)
             if(StringUtils.isEmpty(studentAnswer)){
-                helper.getView<TextView>(R.id.commitTime).visibility = View.GONE
                 if (answerTv == null) {
                     helper.setText(R.id.commitTime, "未完成")
                 }else{
+                    helper.getView<TextView>(R.id.commitTime).visibility = View.GONE
                     answerTv.text = "未完成"
                 }
             }else {
@@ -196,9 +210,9 @@ class CorrectingDescActivity : BaseActivity() {
                 answerTv.text = "学生答案："
 
             }
-            if (!QuestionTypeUtils.isMarkType(helper.itemViewType)) {
+            if (!QuestionTypeUtils.isMarkType(helper.itemViewType) && !StringUtils.isEmpty(studentAnswer)) {
                 helper.getView<TextView>(R.id.correctIcon).visibility = View.VISIBLE
-                helper.getView<TextView>(R.id.correctIcon).isSelected = !item.isWright
+                helper.getView<TextView>(R.id.correctIcon).isSelected = item.homeWorkState != "2"
             }
             when(helper.itemViewType){
                 //纯文字
@@ -209,7 +223,6 @@ class CorrectingDescActivity : BaseActivity() {
                 QuestionTypeUtils.QUESTIONS_JUDGE,
                 QuestionTypeUtils.QUESTIONS_CHOICE,
                 QuestionTypeUtils.QUESTIONS_CHOOSE_BY_VOICE,
-                QuestionTypeUtils.QUESTIONS_CHINESE_SENTENCE,
                 QuestionTypeUtils.QUESTION_MATH_EQUATION,
                 QuestionTypeUtils.QUESTION_MATH_VERTICAL,
                 QuestionTypeUtils.QUESTION_MATH_FRACTION,
@@ -319,20 +332,34 @@ class CorrectingDescActivity : BaseActivity() {
                         linearLayout.setTag(ebag.hd.R.id.progress_id, progressBar)
                         linearLayout.setTag(ebag.hd.R.id.play_id, "#M#${item.studentAnswer}")
                         helper.addOnClickListener(R.id.play_id)
+
+                        val markBtn = helper.getView<TextView>(R.id.markBtn)
+                        val score = item.questionScore
+                        if ((StringUtils.isEmpty(score) || score?.toInt() == 0) && !StringUtils.isEmpty(studentAnswer)){
+                            markBtn.visibility = View.GONE
+                            markBtn.setOnClickListener {
+                                followReadMarkDialog.show(data[helper.adapterPosition], homeworkId, questionList!![currentQuestionIndex].questionId)
+                            }
+                        }else{
+                            markBtn.visibility = View.VISIBLE
+                            helper.setText(R.id.score, score)
+                        }
                     }
                 }
                 QuestionTypeUtils.QUESTIONS_CHINESE_READ_UNDERSTAND,    //阅读理解
                 QuestionTypeUtils.QUESTION_MATH_APPLICATION,            //应用题
+                QuestionTypeUtils.QUESTIONS_CHINESE_SENTENCE,           //词组和句子
                 QuestionTypeUtils.QUESTIONS_WRITE_COMPOSITION_BY_PIC    //作文
                 ->{
                     val markBtn = helper.getView<TextView>(R.id.markBtn)
                     val score = item.questionScore
                     if ((StringUtils.isEmpty(score) || score?.toInt() == 0) && !StringUtils.isEmpty(studentAnswer)){
+                        markBtn.visibility = View.GONE
                         markBtn.setOnClickListener {
                             markDialog.show(data[helper.adapterPosition], homeworkId, questionList!![currentQuestionIndex].questionId)
                         }
                     }else{
-                        markBtn.isEnabled = false
+                        markBtn.visibility = View.VISIBLE
                         helper.setText(R.id.score, score)
                     }
                 }
