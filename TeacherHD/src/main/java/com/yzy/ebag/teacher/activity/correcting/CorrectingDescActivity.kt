@@ -164,6 +164,7 @@ class CorrectingDescActivity : BaseActivity() {
             addItemType(QuestionTypeUtils.QUESTIONS_CHINESE_READ_UNDERSTAND, R.layout.item_correcting_answer_mark)
             addItemType(QuestionTypeUtils.QUESTION_MATH_APPLICATION, R.layout.item_correcting_answer_mark)
             addItemType(QuestionTypeUtils.QUESTIONS_WRITE_COMPOSITION_BY_PIC, R.layout.item_correcting_answer_mark)
+            addItemType(QuestionTypeUtils.QUESTIONS_CHINESE_SENTENCE, R.layout.item_correcting_answer_mark)
 
             addItemType(QuestionTypeUtils.QUESTIONS_CHOOSE_PIC_BY_WORD, R.layout.item_correcting_answer_normal)
             addItemType(QuestionTypeUtils.QUESTIONS_CHOOSE_WORD_BY_PIC, R.layout.item_correcting_answer_normal)
@@ -178,7 +179,6 @@ class CorrectingDescActivity : BaseActivity() {
             addItemType(QuestionTypeUtils.QUESTION_MATH_VERTICAL, R.layout.item_correcting_answer_normal)
             addItemType(QuestionTypeUtils.QUESTION_MATH_EQUATION, R.layout.item_correcting_answer_normal)
             addItemType(QuestionTypeUtils.QUESTION_MATH_FRACTION, R.layout.item_correcting_answer_normal)
-            addItemType(QuestionTypeUtils.QUESTIONS_CHINESE_SENTENCE, R.layout.item_correcting_answer_normal)
             addItemType(QuestionTypeUtils.QUESTIONS_CHINESE_WRITE_BY_VOICE, R.layout.item_correcting_answer_normal)
         }
         override fun convert(helper: BaseViewHolder, item: CorrectAnswerBean) {
