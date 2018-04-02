@@ -12,6 +12,7 @@ import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.PrepareFileBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.base.BaseListFragment
+import ebag.core.base.PhotoPreviewActivity
 import ebag.core.http.file.DownLoadObserver
 import ebag.core.http.file.DownloadInfo
 import ebag.core.http.file.DownloadManager
@@ -21,6 +22,7 @@ import ebag.core.util.FileUtil
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
 import ebag.hd.activity.DisplayOfficeFileActivity
+import ebag.hd.widget.VideoPlayDialog
 
 /**
  * Created by YZY on 2018/3/2.
@@ -72,6 +74,9 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
                 }).create()
         dialog
     }
+    private val playerDialog by lazy {
+        VideoPlayDialog(mContext)
+    }
     override fun getBundle(bundle: Bundle?) {
         try {
             list = bundle?.getSerializable("list") as ArrayList<PrepareFileBean>
@@ -117,35 +122,77 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
     override fun getLayoutManager(adapter: BaseQuickAdapter<PrepareFileBean, BaseViewHolder>): RecyclerView.LayoutManager? {
         return GridLayoutManager(mContext, 4)
     }
-
+    /*
+    "pdf", "doc", "docx","xls","xlsx","ppt","pptx","jpg","png","bpm","bmp","avi","mp4","mpg","mp3","swf","wmv"
+    */
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
         adapter as MyAdapter
-        val url = adapter.data[position].fileUrl
-        val filePath = "${FileUtil.getPrepareFilePath()}${url.substring(url.lastIndexOf("/") + 1, url.length)}"
-        val isFileExit = FileUtil.isFileExists(filePath)
-        if (isFileExit){
-            DisplayOfficeFileActivity.jump(mContext, filePath)
-        }else{
-            DownloadManager.getInstance().download(url, FileUtil.getPrepareFilePath(), object : DownLoadObserver(){
-                override fun onNext(downloadInfo: DownloadInfo) {
-                    super.onNext(downloadInfo)
-                    LoadingDialogUtil.showLoading(mContext, "正在下载...${downloadInfo.progress * 100 / downloadInfo.total}%")
-                }
-
-                override fun onComplete() {
-                    LoadingDialogUtil.closeLoadingDialog()
+        val bean = adapter.data[position]
+        when(bean.fileType){
+            "pdf","doc","docx","xls","xlsx","ppt","pptx","txt" ->{
+                val url = bean.fileUrl
+                val filePath = "${FileUtil.getPrepareFilePath()}${url.substring(url.lastIndexOf("/") + 1, url.length)}"
+                val isFileExit = FileUtil.isFileExists(filePath)
+                if (isFileExit){
                     DisplayOfficeFileActivity.jump(mContext, filePath)
-                }
+                }else{
+                    DownloadManager.getInstance().download(url, FileUtil.getPrepareFilePath(), object : DownLoadObserver(){
+                        override fun onNext(downloadInfo: DownloadInfo) {
+                            super.onNext(downloadInfo)
+                            LoadingDialogUtil.showLoading(mContext, "正在下载...${downloadInfo.progress * 100 / downloadInfo.total}%")
+                        }
 
-                override fun onError(e: Throwable) {
-                    super.onError(e)
-                    LoadingDialogUtil.closeLoadingDialog()
-                    T.show(mContext, "文件下载失败，请稍后重试")
-                    DownloadManager.getInstance().cancel(url)
+                        override fun onComplete() {
+                            LoadingDialogUtil.closeLoadingDialog()
+                            DisplayOfficeFileActivity.jump(mContext, filePath)
+                        }
+
+                        override fun onError(e: Throwable) {
+                            super.onError(e)
+                            LoadingDialogUtil.closeLoadingDialog()
+                            T.show(mContext, "文件下载失败，请稍后重试")
+                            DownloadManager.getInstance().cancel(url)
+                        }
+                    })
                 }
-            })
+            }
+            "jpg","png","bmp","jpeg","gif" ->{
+                val imgList = ArrayList<String>()
+                imgList.add(bean.fileUrl)
+                PhotoPreviewActivity.jump(mContext, imgList , 0)
+            }
+            "mp4","rmvb","avi","wmv","mp3","arm" ->{
+                playerDialog.show(bean.fileUrl, bean.fileName)
+            }
+            else ->{
+//                T.show(mContext, "不支持的文件类型，请在PC端尝试打开此文件")
+                val url = bean.fileUrl
+                val filePath = "${FileUtil.getPrepareFilePath()}${url.substring(url.lastIndexOf("/") + 1, url.length)}"
+                val isFileExit = FileUtil.isFileExists(filePath)
+                if (isFileExit){
+                    DisplayOfficeFileActivity.jump(mContext, filePath)
+                }else{
+                    DownloadManager.getInstance().download(url, FileUtil.getPrepareFilePath(), object : DownLoadObserver(){
+                        override fun onNext(downloadInfo: DownloadInfo) {
+                            super.onNext(downloadInfo)
+                            LoadingDialogUtil.showLoading(mContext, "正在下载...${downloadInfo.progress * 100 / downloadInfo.total}%")
+                        }
+
+                        override fun onComplete() {
+                            LoadingDialogUtil.closeLoadingDialog()
+                            DisplayOfficeFileActivity.jump(mContext, filePath)
+                        }
+
+                        override fun onError(e: Throwable) {
+                            super.onError(e)
+                            LoadingDialogUtil.closeLoadingDialog()
+                            T.show(mContext, "文件下载失败，请稍后重试")
+                            DownloadManager.getInstance().cancel(url)
+                        }
+                    })
+                }
+            }
         }
-
     }
 
     override fun onItemLongClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int): Boolean {
@@ -158,31 +205,43 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
     inner class MyAdapter: BaseQuickAdapter<PrepareFileBean, BaseViewHolder>(R.layout.item_prepare){
         override fun convert(helper: BaseViewHolder, item: PrepareFileBean?) {
             val imageView = helper.getView<ImageView>(R.id.fileImg)
-            val fileName = item?.fileName
-            setFileIcon(imageView, fileName!!.substring(fileName.indexOf(".") + 1, fileName.length))
-            helper.setText(R.id.fileName, item.fileName)
+            setFileIcon(imageView, item?.fileType)
+            helper.setText(R.id.fileName, item?.fileName)
         }
     }
+
+    /*
+      "pdf", "doc", "docx","xls","xlsx","ppt","pptx","jpg","png","bpm","bmp","avi","mp4","mpg","mp3","swf","wmv"
+     */
 
     private fun setFileIcon(imageView: ImageView, extension: String?){
         when(extension){
             "doc","docx" ->{
-                imageView.setImageResource(R.drawable.icon_word)
+                imageView.setImageResource(R.drawable.prepare_icon_word)
+            }
+            "pdf" ->{
+                imageView.setImageResource(R.drawable.prepare_icon_pdf)
+            }
+            "txt" ->{
+                imageView.setImageResource(R.drawable.prepare_icon_txt)
             }
             "ppt", "pptx" ->{
-                imageView.setImageResource(R.drawable.icon_ppt)
+                imageView.setImageResource(R.drawable.prepare_icon_ppt)
             }
             "xls", "xlsx" ->{
-                imageView.setImageResource(R.drawable.icon_excel)
+                imageView.setImageResource(R.drawable.prepare_icon_excel)
             }
             "mp3","arm" ->{
-                imageView.setImageResource(R.drawable.icon_music)
+                imageView.setImageResource(R.drawable.prepare_icon_music)
             }
-            "mp4","rmvb","avi" ->{
-                imageView.setImageResource(R.drawable.icon_video)
+            "mp4","rmvb","avi","wmv" ->{
+                imageView.setImageResource(R.drawable.prepare_icon_video)
+            }
+            "jpg","png","bmp","jpeg","gif" ->{
+                imageView.setImageResource(R.drawable.prepare_icon_image)
             }
             else ->{
-                imageView.setImageResource(R.drawable.icon_image)
+                imageView.setImageResource(R.drawable.prepare_icon_unknown)
             }
         }
     }

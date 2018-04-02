@@ -14,7 +14,10 @@ import com.yzy.ebag.teacher.bean.MyCourseBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.widget.AddCourseDialog
 import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
 import ebag.core.util.DateUtil
+import ebag.core.util.LoadingDialogUtil
+import ebag.core.util.T
 import ebag.core.util.loadImage
 import java.util.*
 
@@ -29,11 +32,32 @@ class MyCourseActivity : BaseListActivity<List<MyCourseBean>,MyCourseBean>() {
         }
         dialog
     }
+    private var currentPosition = -1
     private val deleteCourseDialog by lazy {
         val dialog = AlertDialog.Builder(this)
                 .setMessage("删除当前所教课程？")
+                .setPositiveButton("删除", {_, _ ->
+                    TeacherApi.deleteCourse(adapter.data[currentPosition].bookVersionId, deleteRequest)
+                })
+                .setNegativeButton("取消", null)
                 .create()
         dialog
+    }
+    private val deleteRequest = object : RequestCallBack<String>(){
+        override fun onStart() {
+            LoadingDialogUtil.showLoading(this@MyCourseActivity, "正在删除...")
+        }
+
+        override fun onSuccess(entity: String?) {
+            LoadingDialogUtil.closeLoadingDialog()
+            T.show(this@MyCourseActivity, "删除成功")
+            adapter
+        }
+
+        override fun onError(exception: Throwable) {
+            LoadingDialogUtil.closeLoadingDialog()
+            exception.handleThrowable(this@MyCourseActivity)
+        }
     }
     companion object {
         fun jump(activity: Activity, classId: String, gradeCode: String){
@@ -52,6 +76,11 @@ class MyCourseActivity : BaseListActivity<List<MyCourseBean>,MyCourseBean>() {
         })
         classId = intent.getStringExtra("classId")
         gradeCode = intent.getStringExtra("gradeCode")
+        adapter.setOnItemLongClickListener { adapter, view, position ->
+            currentPosition = position
+
+            true
+        }
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<MyCourseBean>>) {
@@ -78,7 +107,7 @@ class MyCourseActivity : BaseListActivity<List<MyCourseBean>,MyCourseBean>() {
             val imageView = helper.getView<ImageView>(R.id.ivBook)
             imageView.loadImage("")
             helper.setText(R.id.tvEdition,item.bookVersionName)
-                    .setText(R.id.tvTime,"[添加时间:${DateUtil.getFormatDateTime(Date(item.createDate), "yyyy-MM-dd HH-mm-ss")}]")
+                    .setText(R.id.tvTime,"[添加时间:${DateUtil.getFormatDateTime(Date(item.createDate), "yyyy-MM-dd HH:mm")}]")
                     .setText(R.id.tvSemester,item.semeterName)
                     .setText(R.id.tvSubject,item.bookName)
                     .setText(R.id.tvClass,item.gradeName)

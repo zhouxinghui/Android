@@ -2,6 +2,8 @@ package com.yzy.ebag.teacher.activity.prepare
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -9,6 +11,8 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
+import cn.jzvd.JZUtils
+import cn.jzvd.JZVideoPlayer
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
@@ -227,6 +231,24 @@ class MyPrepareActivity : BaseListTabActivity<PrepareBaseBean, MultiItemEntity>(
                 totalText.isSelected = false
             }
         }
+    }
+
+    //视频播放退出全屏的时候要保持横屏
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
+        JZUtils.setRequestedOrientation(this, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
+    }
+
+    override fun onBackPressed() {
+        if (JZVideoPlayer.backPress()) {
+            return
+        }
+        super.onBackPressed()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        JZVideoPlayer.releaseAllVideos()
     }
 
 }
