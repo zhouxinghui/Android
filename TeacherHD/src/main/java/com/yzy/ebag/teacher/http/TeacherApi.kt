@@ -3,6 +3,8 @@ package com.yzy.ebag.teacher.http
 import com.yzy.ebag.teacher.bean.*
 import ebag.core.bean.QuestionBean
 import ebag.core.http.network.RequestCallBack
+import ebag.hd.bean.BaseStudentBean
+import ebag.hd.bean.ClassMemberBean
 import ebag.hd.bean.UnitBean
 import ebag.hd.bean.response.NoticeBean
 import ebag.hd.http.EBagApi
@@ -53,14 +55,7 @@ object TeacherApi {
         EBagApi.request(teacherService.studyGroup("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    /**
-     * 根据班级查询班级下所有的成员（老师，学生，家长）
-     */
-    fun clazzMember(classId: String, callback: RequestCallBack<ClassMemberBean>){
-        val jsonObject = JSONObject()
-        jsonObject.put("classId", classId)
-        EBagApi.request(teacherService.clazzMember("v1", EBagApi.createBody(jsonObject)), callback)
-    }
+
 
     /**
      * 创建学习小组

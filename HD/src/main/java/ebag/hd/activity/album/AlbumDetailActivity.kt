@@ -290,7 +290,7 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<ArrayList<PhotoBean>>) {
-        EBagApi.albumDetail(photoGroupId, groupType, page, getPageSize(), requestCallBack)
+        EBagApi.albumDetail(photoGroupId, groupType, page, 30, requestCallBack)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: ArrayList<PhotoBean>?): List<PhotoBean>? {

@@ -1,4 +1,4 @@
-package com.yzy.ebag.teacher.bean;
+package ebag.hd.bean;
 
 import java.io.Serializable;
 import java.util.List;

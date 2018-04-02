@@ -46,11 +46,15 @@ class ErrorTopicActivity: BaseListTabActivity<ArrayList<ErrorTopicBean>, ErrorTo
     }
 
     override fun parentToList(parent: ArrayList<ErrorTopicBean>?): List<ErrorTopicBean>? {
-        val bean = ErrorTopicBean()
-        bean.itemType = 1
-        parent?.add(0, bean)
-        SPUtils.put(this, "subCode", parent!![1].subCode)
-        return parent
+        if (parent!!.isNotEmpty()) {
+            val bean = ErrorTopicBean()
+            bean.itemType = 1
+            parent?.add(0, bean)
+            SPUtils.put(this, "subCode", parent!![1].subCode)
+            return parent
+        }
+
+        return null
     }
 
     override fun getLeftAdapter(): BaseQuickAdapter<ErrorTopicBean, BaseViewHolder> {

@@ -86,22 +86,23 @@
             android:name=".activity.GoodsDetailActivity"
             android:screenOrientation="landscape" />
 
-        <activity android:name=".activity.ProtocolActivity"
+        <activity
+            android:name=".activity.ProtocolActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.tools.LetterRecordActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.tools.ReadRecordActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.tools.LetterRecordListActivity"
             android:screenOrientation="landscape"
-            />
-        <activity android:name=".activity.tools.LetterRecordActivity"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".activity.tools.ReadRecordActivity"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".activity.tools.LetterRecordListActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            />
-        <activity android:name=".activity.tools.ReadRecordListActivity"
-            android:screenOrientation="landscape"
-            />
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".activity.tools.ReadRecordListActivity"
+            android:screenOrientation="landscape" />
+
         <service
             android:name=".service.AIDLTestService"
             android:process=":countdown" />

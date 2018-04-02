@@ -659,4 +659,13 @@ object EBagApi {
         jsonObject.put("allPrice",allPrice)
         EBagApi.request(eBagService.ybPay("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**
+     * 根据班级查询班级下所有的成员（老师，学生，家长）
+     */
+    fun clazzMember(classId: String, callback: RequestCallBack<ClassMemberBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        EBagApi.request(eBagService.clazzMember("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

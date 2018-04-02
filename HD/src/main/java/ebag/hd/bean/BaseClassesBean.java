@@ -18,6 +18,16 @@ public class BaseClassesBean implements Serializable {
     private String className;
     private String gradeCode;
 
+    public Boolean getChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(Boolean checked) {
+        isChecked = checked;
+    }
+
+    private Boolean isChecked = false;
+
     public String getClassId() {
         return classId;
     }

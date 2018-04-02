@@ -17,6 +17,7 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.util.SerializableUtils
 import ebag.core.util.loadHead
 import ebag.hd.base.Constants
+import ebag.hd.bean.ParentBean
 import ebag.hd.bean.response.UserEntity
 
 /**
@@ -24,7 +25,8 @@ import ebag.hd.bean.response.UserEntity
  * @date 2018/1/18
  * @description
  */
-class ParentFragment : BaseListFragment<List<ParentFragment.Parent>, ParentFragment.Parent>() {
+class ParentFragment : BaseListFragment<List<ParentBean>, ParentBean>() {
+
 
 
     companion object {
@@ -74,20 +76,20 @@ class ParentFragment : BaseListFragment<List<ParentFragment.Parent>, ParentFragm
     }
 
 
-    override fun requestData(page: Int, requestCallBack: RequestCallBack<List<Parent>>) {
+    override fun requestData(page: Int, requestCallBack: RequestCallBack<List<ParentBean>>) {
         StudentApi.searchFamily(requestCallBack)
     }
 
-    override fun parentToList(isFirstPage: Boolean, parent: List<Parent>?): List<Parent>? {
+    override fun parentToList(isFirstPage: Boolean, parent: List<ParentBean>?): List<ParentBean>? {
 
         return parent
     }
 
-    override fun getAdapter(): BaseQuickAdapter<Parent, BaseViewHolder> {
+    override fun getAdapter(): BaseQuickAdapter<ParentBean, BaseViewHolder> {
         return Adapter()
     }
 
-    override fun getLayoutManager(adapter: BaseQuickAdapter<Parent, BaseViewHolder>): RecyclerView.LayoutManager? {
+    override fun getLayoutManager(adapter: BaseQuickAdapter<ParentBean, BaseViewHolder>): RecyclerView.LayoutManager? {
         return null
     }
 
@@ -98,20 +100,19 @@ class ParentFragment : BaseListFragment<List<ParentFragment.Parent>, ParentFragm
     }
 
 
-    inner class Adapter : BaseQuickAdapter<Parent, BaseViewHolder>(R.layout.item_fragment_parents) {
+    inner class Adapter : BaseQuickAdapter<ParentBean, BaseViewHolder>(R.layout.item_fragment_parents) {
 
         private val userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.STUDENT_USER_ENTITY)
 
-        override fun convert(helper: BaseViewHolder, item: Parent?) {
+        override fun convert(helper: BaseViewHolder, item: ParentBean?) {
             helper.setText(R.id.tvName, item?.name)
                     .setText(R.id.tvStudentName, userEntity?.name)
-                    .setText(R.id.tvEBagCode, "书包号: ${item?.code}")
+                    .setText(R.id.tvEBagCode, "书包号: ${item?.ysbCode}")
                     .setText(R.id.tvPhone, item?.phone)
                     .setText(R.id.tvAddress, item?.address ?: "暂无地址")
-                    .getView<ImageView>(R.id.ivAvatar).loadHead(item?.head)
+                    .getView<ImageView>(R.id.ivAvatar).loadHead(item?.headUrl)
 
         }
     }
 
-    data class Parent(var address: String, var head: String, var name: String, var code: String, var phone: String)
 }

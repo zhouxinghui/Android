@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioButton
+        android:layout_width="@dimen/x150"
+        android:layout_height="@dimen/y50"
+        android:button="@null"
+        android:textColor="@color/semester_tv"
+        android:background="@drawable/semester_tv_bg"
+        android:gravity="center"
+        android:text="一年级1班"
+        android:id="@+id/clazz_title"
+        />
+</RelativeLayout>

@@ -7,6 +7,7 @@ import cn.jpush.android.api.JPushInterface
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
+import com.yzy.ebag.student.activity.ClazzmateActivity
 import com.yzy.ebag.student.activity.SettingActivity
 import com.yzy.ebag.student.activity.account.InviteActivity
 import com.yzy.ebag.student.activity.center.PersonalActivity
@@ -196,7 +197,7 @@ class MainActivity : MVPActivity(), MainView {
         }
         //我的同学
         btnMyClassmate.setOnClickListener{
-
+            startActivity(Intent(this,ClazzmateActivity::class.java))
         }
         //我的书库
         btnMyBook.setOnClickListener{

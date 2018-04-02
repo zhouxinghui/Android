@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardCornerRadius="5dp"
+    app:cardUseCompatPadding="true">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/y50"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/clazzmate_iv"
+            android:layout_width="@dimen/x140"
+            android:layout_height="@dimen/x140"
+            android:layout_gravity="center"
+            android:src="@drawable/home_photos" />
+
+        <TextView
+            android:id="@+id/clazzmate_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/y30"
+            android:text="王子文"
+            android:textSize="@dimen/x26" />
+
+        <TextView
+            android:id="@+id/clazzmate_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/y10"
+            android:text="女 16岁 龙岗"
+            android:textColor="#6b6c6d" />
+
+        <TextView
+            android:id="@+id/clazzmate_bagnum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/y80"
+            android:text="书包号:123" />
+
+        <TextView
+            android:id="@+id/clazzmate_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/y10"
+            android:text="电话:123" />
+
+        <TextView
+            android:id="@+id/clazzmate_school"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/y10"
+            android:text="所在学校:123456465" />
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

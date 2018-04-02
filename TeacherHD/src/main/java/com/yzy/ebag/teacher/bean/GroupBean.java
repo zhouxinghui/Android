@@ -3,6 +3,8 @@ package com.yzy.ebag.teacher.bean;
 import java.io.Serializable;
 import java.util.List;
 
+import ebag.hd.bean.BaseStudentBean;
+
 /**
  * Created by YZY on 2018/1/17.
  */

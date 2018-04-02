@@ -6,6 +6,7 @@ import com.yzy.ebag.student.activity.center.fragment.ParentFragment
 import com.yzy.ebag.student.bean.*
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.L
+import ebag.hd.bean.ParentBean
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
 import ebag.hd.http.EBagClient
@@ -275,7 +276,7 @@ object StudentApi {
 
     /*查询家长*/
 
-    fun searchFamily(callback: RequestCallBack<List<ParentFragment.Parent>>) {
+    fun searchFamily(callback: RequestCallBack<List<ParentBean>>) {
         val jsonObject = JSONObject()
         EBagApi.request(studentService.searchFamily("1", EBagApi.createBody(jsonObject)), callback)
     }

@@ -14,8 +14,6 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.teacher.R
-import com.yzy.ebag.teacher.bean.BaseStudentBean
-import com.yzy.ebag.teacher.bean.ClassMemberBean
 import com.yzy.ebag.teacher.bean.GroupBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.base.BaseDialog
@@ -25,6 +23,9 @@ import ebag.core.util.DensityUtil
 import ebag.core.util.StringUtils
 import ebag.core.util.T
 import ebag.hd.base.Constants
+import ebag.hd.bean.BaseStudentBean
+import ebag.hd.bean.ClassMemberBean
+import ebag.hd.http.EBagApi
 import kotlinx.android.synthetic.main.dialog_group_manager.*
 
 /**
@@ -139,8 +140,8 @@ class GroupManageDialog(context: Context, private val classId: String): BaseDial
             true
         }
 
-        TeacherApi.clazzMember(classId, classMemberRequest)
-        stateView.setOnRetryClickListener { TeacherApi.clazzMember(classId, classMemberRequest) }
+        EBagApi.clazzMember(classId, classMemberRequest)
+        stateView.setOnRetryClickListener { EBagApi.clazzMember(classId, classMemberRequest) }
     }
 
     fun show(groupList: List<GroupBean.ClazzUserVosBean>, groupName: String, groupId: String) {

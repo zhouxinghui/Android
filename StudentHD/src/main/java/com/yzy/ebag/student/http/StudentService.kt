@@ -3,6 +3,7 @@ package com.yzy.ebag.student.http
 import com.yzy.ebag.student.activity.center.fragment.ParentFragment
 import com.yzy.ebag.student.bean.*
 import ebag.core.bean.ResponseBean
+import ebag.hd.bean.ParentBean
 import ebag.hd.bean.response.UserEntity
 import io.reactivex.Observable
 import okhttp3.RequestBody
@@ -131,7 +132,7 @@ interface StudentService {
     fun wordRecord(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<WordRecordBean>>
     /*查询家长*/
     @POST("user/searchFamily/{version}")
-    fun searchFamily(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<List<ParentFragment.Parent>>>
+    fun searchFamily(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<List<ParentBean>>>
     /*绑定家长*/
     @POST("user/bindingParent/{version}")
     fun bindParent(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
