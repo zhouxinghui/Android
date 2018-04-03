@@ -4,7 +4,6 @@ import com.yzy.ebag.teacher.bean.*
 import ebag.core.bean.QuestionBean
 import ebag.core.http.network.RequestCallBack
 import ebag.hd.bean.BaseStudentBean
-import ebag.hd.bean.ClassMemberBean
 import ebag.hd.bean.UnitBean
 import ebag.hd.bean.response.NoticeBean
 import ebag.hd.http.EBagApi
@@ -258,7 +257,7 @@ object TeacherApi {
     /**
      * 试卷列表
      */
-    fun testPaperList(testPaperFlag: String, gradeCode: String, unitId: String?, subCode: String, callback: RequestCallBack<List<TestPaperListBean>>){
+    fun testPaperList(testPaperFlag: String, gradeCode: String, unitId: String?, subCode: String?, callback: RequestCallBack<List<TestPaperListBean>>){
         val jsonObject = JSONObject()
         jsonObject.put("testPaperFlag", testPaperFlag)
         jsonObject.put("gradeCode", gradeCode)
