@@ -76,14 +76,26 @@ class PrepareTextbookPopup(context: Context): PopupWindow(context) {
                 R.id.semesterFirst ->{
                     semesterCode = "1"
                     semesterName = "上学期"
-                    adapter.setNewData(bean?.first)
-                    adapter.currentVersionBean = if (firstPosition == -1) null else adapter.data[firstPosition]
+                    val list = bean?.first
+                    if (list == null || list.isEmpty()){
+                        stateView.showEmpty()
+                    }else {
+                        adapter.setNewData(list)
+                        adapter.currentVersionBean = if (firstPosition == -1) null else adapter.data[firstPosition]
+                        stateView.showContent()
+                    }
                 }
                 R.id.semesterSecond ->{
                     semesterCode = "2"
                     semesterName = "下学期"
-                    adapter.setNewData(bean?.next)
-                    adapter.currentVersionBean = if (nextPosition == -1) null else adapter.data[nextPosition]
+                    val list = bean?.next
+                    if (list == null || list.isEmpty()){
+                        stateView.showEmpty()
+                    }else{
+                        adapter.setNewData(list)
+                        adapter.currentVersionBean = if (nextPosition == -1) null else adapter.data[nextPosition]
+                        stateView.showContent()
+                    }
                 }
             }
         }
