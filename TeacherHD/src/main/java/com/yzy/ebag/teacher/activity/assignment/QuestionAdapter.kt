@@ -123,7 +123,7 @@ class QuestionAdapter(private val isPreviewPage: Boolean = false): BaseMultiItem
             }
         }
 
-        helper.setText(R.id.useNumTv, "共被使用${item.usage ?: "0"}次")
+        helper.setText(R.id.useNumTv, "共被使用${item.useCount ?: "0"}次")
         helper.setText(R.id.errorNumTv, "错题次数${item.errNum ?: "0"}")
         if (item.createDate == null)
             helper.setText(R.id.createTimeTv, "")

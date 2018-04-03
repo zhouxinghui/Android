@@ -42,9 +42,18 @@ public class QuestionBean implements Serializable, MultiItemEntity, Cloneable {
     private String usage;
     private String audioUrl;
     private String createDate;
+    private String useCount;
 
     private int position;
     private int parentPosition;
+
+    public String getUseCount() {
+        return useCount;
+    }
+
+    public void setUseCount(String useCount) {
+        this.useCount = useCount;
+    }
 
     public String getCreateDate() {
         return createDate;

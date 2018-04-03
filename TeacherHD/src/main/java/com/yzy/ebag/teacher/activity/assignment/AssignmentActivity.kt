@@ -455,7 +455,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         classAdapter.datas = classList
         gradeAdapter.selectPosition = 0
         if (workCategory == Constants.ASSIGN_TEST_PAPER)
-            assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null, assignmentBean.resultTaughtCoursesVo.bookCode)
+            assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null, assignmentBean.resultTaughtCoursesVo?.bookCode)
         gradeList.forEach {
             if(cacheMap[it.gradeCode] == null) {
                 val cache = Cache()
