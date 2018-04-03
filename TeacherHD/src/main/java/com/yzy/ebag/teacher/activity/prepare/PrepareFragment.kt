@@ -13,15 +13,12 @@ import com.yzy.ebag.teacher.bean.PrepareFileBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.base.BaseListFragment
 import ebag.core.base.PhotoPreviewActivity
-import ebag.core.http.file.DownLoadObserver
-import ebag.core.http.file.DownloadInfo
-import ebag.core.http.file.DownloadManager
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
-import ebag.core.util.FileUtil
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
 import ebag.hd.activity.DisplayOfficeFileActivity
+import ebag.hd.activity.DisplayTxtFileActivity
 import ebag.hd.widget.VideoPlayDialog
 
 /**
@@ -128,10 +125,11 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
         adapter as MyAdapter
         val bean = adapter.data[position]
-        when(bean.fileType){
-            "pdf","doc","docx","xls","xlsx","ppt","pptx","txt" ->{
-                val url = bean.fileUrl
-                val filePath = "${FileUtil.getPrepareFilePath()}${url.substring(url.lastIndexOf("/") + 1, url.length)}"
+        val fileType = bean.fileType ?: bean.fileName.substring(bean.fileName.lastIndexOf(".") + 1, bean.fileName.length)
+        when(fileType){
+            "pdf","doc","docx","xls","xlsx","ppt","pptx" ->{
+                DisplayOfficeFileActivity.jump(mContext, bean.fileUrl)
+                /*val filePath = "${FileUtil.getPrepareFilePath()}${url.substring(url.lastIndexOf("/") + 1, url.length)}"
                 val isFileExit = FileUtil.isFileExists(filePath)
                 if (isFileExit){
                     DisplayOfficeFileActivity.jump(mContext, filePath)
@@ -154,7 +152,10 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
                             DownloadManager.getInstance().cancel(url)
                         }
                     })
-                }
+                }*/
+            }
+            "txt" ->{
+                DisplayTxtFileActivity.jump(mContext, bean.fileUrl)
             }
             "jpg","png","bmp","jpeg","gif" ->{
                 val imgList = ArrayList<String>()
@@ -180,7 +181,8 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
     inner class MyAdapter: BaseQuickAdapter<PrepareFileBean, BaseViewHolder>(R.layout.item_prepare){
         override fun convert(helper: BaseViewHolder, item: PrepareFileBean?) {
             val imageView = helper.getView<ImageView>(R.id.fileImg)
-            setFileIcon(imageView, item?.fileType)
+            val fileName = item?.fileName
+            setFileIcon(imageView, item?.fileType ?: fileName?.substring(fileName.lastIndexOf(".") + 1, fileName.length))
             helper.setText(R.id.fileName, item?.fileName)
         }
     }
