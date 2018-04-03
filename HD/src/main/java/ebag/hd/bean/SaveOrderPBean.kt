@@ -5,5 +5,5 @@ package ebag.hd.bean
  */
 data class SaveOrderPBean(var addressId:String, var price:String, var allPrice:String, var listBean:ArrayList<ListBean>,var oid:String){
 
-    class ListBean(var ShopId:String, var numbers:String,var freight:String, var ybMoney:String)
+    class ListBean(var ShopId:String, var numbers:String, var ybMoney:String)
 }

@@ -94,7 +94,7 @@ class OrderDetailsActivity : BaseActivity() {
             count += (dats[i].discountPrice.toInt() * dats[i].numbers)
             val ybmoney = dats[i].ysbMoney ?: "0"
             ybCount += (ybmoney.toInt() * dats[i].numbers)
-            mList.add(SaveOrderPBean.ListBean(dats[i].id.toString(), dats[i].numbers.toString(), freight, dats[i].ysbMoney))
+            mList.add(SaveOrderPBean.ListBean(dats[i].id.toString(), dats[i].numbers.toString(), dats[i].ysbMoney))
             goods_list.addView(view)
         }
 
@@ -186,7 +186,7 @@ class OrderDetailsActivity : BaseActivity() {
                         }
                     }
                 } else {
-                    EBagApi.saveOrder("${tv_name_phone.text}  ${tv_adress.text}", count.toString(), count.toString(), mList, number, "", object : RequestCallBack<String>() {
+                    EBagApi.saveOrder(ybCount.toString(),freight,"${tv_name_phone.text}  ${tv_adress.text}", count.toString(), (count+freight.toInt()).toString(), mList, number,"", object : RequestCallBack<String>() {
 
                         override fun onStart() {
                             super.onStart()

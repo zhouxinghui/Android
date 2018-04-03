@@ -613,16 +613,17 @@ object EBagApi {
     }
 
     /*保存订单*/
-    fun saveOrder(address: String, price: String, allPrice: String, list: ArrayList<SaveOrderPBean.ListBean>, oid: String,shopcarid:String = "",callback: RequestCallBack<String>) {
+    fun saveOrder(ybMoneyAll:String,freight:String,address: String, price: String, allPrice: String, list: ArrayList<SaveOrderPBean.ListBean>, oid: String,shopcarid:String = "",callback: RequestCallBack<String>) {
         val jsonObject = JSONObject()
         jsonObject.put("address", address)
+        jsonObject.put("ybMoneyAll", ybMoneyAll)
+        jsonObject.put("freight", freight)
         jsonObject.put("price", price)
         jsonObject.put("allPrice", allPrice)
         jsonObject.put("shopCartId", shopcarid)
         val array = JSONArray()
         list.forEach {
             val json = JSONObject()
-            json.put("freight", it.freight)
             json.put("ybMoney", it.ybMoney)
             json.put("shopId", it.ShopId)
             json.put("numbers", it.numbers)
