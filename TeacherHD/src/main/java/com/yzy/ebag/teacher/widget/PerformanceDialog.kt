@@ -93,7 +93,9 @@ class PerformanceDialog(context: Context): BaseDialog(context) {
             }
         }
 
-        adapter.setOnItemClickListener { adapter, view, position ->  }
+        adapter.setOnItemClickListener { adapter, view, position ->
+
+        }
     }
 
     inner class MyAdapter: BaseQuickAdapter<Int, BaseViewHolder>(R.layout.item_personal_performance){

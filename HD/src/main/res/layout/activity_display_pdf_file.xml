@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/x10"
     >
     <com.github.barteksc.pdfviewer.PDFView
         android:id="@+id/pdfView"

@@ -37,7 +37,7 @@ class MyCourseActivity : BaseListActivity<List<MyCourseBean>,MyCourseBean>() {
         val dialog = AlertDialog.Builder(this)
                 .setMessage("删除当前所教课程？")
                 .setPositiveButton("删除", {_, _ ->
-                    TeacherApi.deleteCourse(adapter.data[currentPosition].bookVersionId, deleteRequest)
+                    TeacherApi.deleteCourse(adapter.data[currentPosition].id, deleteRequest)
                 })
                 .setNegativeButton("取消", null)
                 .create()
@@ -51,7 +51,7 @@ class MyCourseActivity : BaseListActivity<List<MyCourseBean>,MyCourseBean>() {
         override fun onSuccess(entity: String?) {
             LoadingDialogUtil.closeLoadingDialog()
             T.show(this@MyCourseActivity, "删除成功")
-            adapter
+            adapter.remove(currentPosition)
         }
 
         override fun onError(exception: Throwable) {
@@ -78,7 +78,7 @@ class MyCourseActivity : BaseListActivity<List<MyCourseBean>,MyCourseBean>() {
         gradeCode = intent.getStringExtra("gradeCode")
         adapter.setOnItemLongClickListener { adapter, view, position ->
             currentPosition = position
-
+            deleteCourseDialog.show()
             true
         }
     }

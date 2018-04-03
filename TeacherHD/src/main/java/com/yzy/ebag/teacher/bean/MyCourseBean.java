@@ -20,6 +20,7 @@ public class MyCourseBean implements Serializable {
      * semeterName : 上学期
      */
 
+    private String id;
     private String classId;
     private String bookVersionId;
     private String bookVersionName;
@@ -30,6 +31,14 @@ public class MyCourseBean implements Serializable {
     private String semeterCode;
     private String semeterName;
     private long createDate;
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
 
     public long getCreateDate() {
         return createDate;
