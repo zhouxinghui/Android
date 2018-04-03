@@ -116,12 +116,14 @@ class ShopCarActivity : BaseActivity() {
                 return@setOnClickListener
             }
             val data: ArrayList<ShopListBean.ListBean> = arrayListOf()
+            var f = 0
             for (i in selectedCount) {
+                f += (mDatas[i].freight?:"0").toInt()
                 data.add(mDatas[i])
             }
-
             _intent = Intent(this, OrderDetailsActivity::class.java)
             _intent.putExtra("datas", data)
+            _intent.putExtra("freight", f.toString())
             createOrderNo()
 
         }
@@ -139,9 +141,9 @@ class ShopCarActivity : BaseActivity() {
             }
 
             override fun onSuccess(entity: String?) {
-                LoadingDialogUtil.closeLoadingDialog()
                 _intent.putExtra("number", entity)
                 startActivity(_intent)
+                LoadingDialogUtil.closeLoadingDialog()
             }
 
             override fun onError(exception: Throwable) {

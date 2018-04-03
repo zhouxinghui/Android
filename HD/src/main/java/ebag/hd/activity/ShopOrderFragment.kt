@@ -67,10 +67,16 @@ class ShopOrderFragment : BaseFragment() {
                 bean.discountPrice = it.price
                 bean.shoppingName = it.shopName
                 bean.numbers = it.numbers.toInt()
+                bean.ysbMoney = it.ysbMoney
+                bean.shopUrl = it.shopImg
                 data.add(bean)
             }
+
+
             intent.putExtra("datas", data)
             intent.putExtra("which", 1)
+            intent.putExtra("freight",mData[position].freight?:"0")
+            intent.putExtra("address",mData[position].address)
             startActivity(intent)
         }
         flag = true
@@ -81,7 +87,11 @@ class ShopOrderFragment : BaseFragment() {
     }
 
     private fun request() {
-        EBagApi.queryOrder(if (index<0){""}else{index.toString()}, object : RequestCallBack<QueryOrderBean>() {
+        EBagApi.queryOrder(if (index < 0) {
+            ""
+        } else {
+            index.toString()
+        }, object : RequestCallBack<QueryOrderBean>() {
             override fun onStart() {
                 if (!refreshlayout.isRefreshing)
                     stateView.showLoading()

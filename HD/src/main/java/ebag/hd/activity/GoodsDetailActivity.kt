@@ -71,6 +71,7 @@ class GoodsDetailActivity : BaseActivity() {
             datas.add(data)
             _intent = Intent(this, OrderDetailsActivity::class.java)
             _intent.putExtra("datas", datas)
+            _intent.putExtra("freight", bean.freight?:"0")
             createOrderNo()
 
         }

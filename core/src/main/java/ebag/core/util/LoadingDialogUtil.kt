@@ -8,20 +8,27 @@ import ebag.core.widget.empty.LoadingDialog
  */
 object LoadingDialogUtil {
     private var loadingDialog: LoadingDialog? = null
-    fun showLoading(context: Context, message: String?){
-        if (loadingDialog == null){
+    fun showLoading(context: Context, message: String?) {
+        if (loadingDialog == null) {
             loadingDialog = LoadingDialog(context)
         }
-            loadingDialog!!.show(message)
+        loadingDialog!!.show(message)
     }
-    fun showLoading(context: Context){
+
+    fun showLoading(context: Context) {
         showLoading(context, null)
     }
 
-    fun closeLoadingDialog(){
-        if (loadingDialog != null) {
-            loadingDialog!!.dismiss()
-            loadingDialog = null
+    fun closeLoadingDialog() {
+        try {
+
+
+            if (loadingDialog != null) {
+                loadingDialog!!.dismiss()
+                loadingDialog = null
+            }
+        } catch (e: Exception) {
+
         }
     }
 }

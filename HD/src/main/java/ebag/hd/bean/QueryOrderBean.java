@@ -89,12 +89,33 @@ public class QueryOrderBean {
          * allPrice : 11
          * status : 0
          * orderProductVOs : []
+         * address
+         * freight
          */
 
         private String oid;
         private int allPrice;
         private String status;
         private List<orderDetailsData> orderProductVOs;
+        private String address;
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getFreight() {
+            return freight;
+        }
+
+        public void setFreight(String freight) {
+            this.freight = freight;
+        }
+
+        private String freight;
 
         public static class     orderDetailsData{
 

@@ -33,11 +33,12 @@ class OrderDetailsActivity : BaseActivity() {
     private var count = 0
     private var address = false
     private var number = ""
-    private var addresID: String = ""
     private var mList: ArrayList<SaveOrderPBean.ListBean> = arrayListOf()
     private var which = 0
     private var ybCount = 0
     private var isStudent = false
+    private var freight = ""
+    private var addressStr = ""
     @SuppressLint("HandlerLeak")
     private val handler = object : Handler() {
         override fun handleMessage(msg: Message?) {
@@ -68,8 +69,12 @@ class OrderDetailsActivity : BaseActivity() {
         @Suppress("UNCHECKED_CAST")
         val dats = intent.getSerializableExtra("datas") as ArrayList<ShopListBean.ListBean>
         number = intent.getStringExtra("number")
+        freight = intent.getStringExtra("freight")
         if (intent.hasExtra("which")) {
             which = intent.getIntExtra("which", 0)
+        }
+        if (intent.hasExtra("addressStr")) {
+            addressStr = intent.getStringExtra("addressStr")
         }
         val packageName = packageName
         tv_order_time.text = "订单编号:$number\n下单时间:${number.substring(0, 4)}年${number[5]}月${number.substring(6, 8)}日  ${number.substring(startIndex = 8, endIndex = 10)}:${number.substring(10, 12)}"
@@ -87,13 +92,20 @@ class OrderDetailsActivity : BaseActivity() {
                 }
             }
             count += (dats[i].discountPrice.toInt() * dats[i].numbers)
-            val ybmoney = dats[i].ysbMoney?:"0"
+            val ybmoney = dats[i].ysbMoney ?: "0"
             ybCount += (ybmoney.toInt() * dats[i].numbers)
-            mList.add(SaveOrderPBean.ListBean(dats[i].id.toString(), dats[i].numbers.toString()))
+            mList.add(SaveOrderPBean.ListBean(dats[i].id.toString(), dats[i].numbers.toString(), freight, dats[i].ysbMoney))
             goods_list.addView(view)
         }
 
-        queryAddress()
+        if (addressStr.isNotEmpty() && addressStr.isNotBlank()) {
+            val addList = addressStr.split("  ")
+            tv_name_phone.text = "${addList[0]}  ${addList[1]}"
+            tv_adress.text = "${addList[2]}  ${addList[3]}"
+            address = true
+        } else {
+            queryAddress()
+        }
 
         if (packageName.contains("student")) {
             isStudent = true
@@ -108,10 +120,10 @@ class OrderDetailsActivity : BaseActivity() {
 
 
         cb_yb_pay.text = "Y币 $ybCount"
-        tv_yunfei.text = "¥ ${dats[0].freight}"
+        tv_yunfei.text = "¥ $freight"
         tv_total_pay.text = "¥ $count"
         try {
-            tv_should_pay.text = "¥ ${count + dats[0].freight.toInt()}"
+            tv_should_pay.text = "¥ ${count + freight.toInt()}"
         } catch (e: Exception) {
             tv_should_pay.text = "¥ $count"
         }
@@ -174,7 +186,7 @@ class OrderDetailsActivity : BaseActivity() {
                         }
                     }
                 } else {
-                    EBagApi.saveOrder(addresID, count.toString(), count.toString(), mList, number, "", object : RequestCallBack<String>() {
+                    EBagApi.saveOrder("${tv_name_phone.text}  ${tv_adress.text}", count.toString(), count.toString(), mList, number, "", object : RequestCallBack<String>() {
 
                         override fun onStart() {
                             super.onStart()
@@ -259,8 +271,7 @@ class OrderDetailsActivity : BaseActivity() {
                         if (it.type == "0") {
                             tv_choose_address.visibility = View.GONE
                             tv_name_phone.text = "${it.consignee}  ${it.phone}"
-                            tv_adress.text = "${it.preAddress}   ${it.address}"
-                            addresID = it.id
+                            tv_adress.text = "${it.preAddress}  ${it.address}"
                             address = true
                         }
                     }
@@ -314,7 +325,6 @@ class OrderDetailsActivity : BaseActivity() {
             tv_choose_address.visibility = View.GONE
             tv_name_phone.text = "${addressArr[0]}   ${addressArr[1]}"
             tv_adress.text = "${addressArr[2]}   ${addressArr[3]}"
-            addresID = addressArr[4]
             address = true
         }
     }

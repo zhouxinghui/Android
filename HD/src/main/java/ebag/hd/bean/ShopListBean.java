@@ -64,11 +64,20 @@ public class ShopListBean implements Serializable{
         private String price;
         private String discountPrice;
         private String ysbMoney;
-        private String freight;
         private Object categoryName;
         private String shopUrl;
         private int numbers;
         private List<String> imgUrls;
+
+        public String getFreight() {
+            return freight;
+        }
+
+        public void setFreight(String freight) {
+            this.freight = freight;
+        }
+
+        private String freight;
 
         public boolean isChecked() {
             return checked;
@@ -128,13 +137,6 @@ public class ShopListBean implements Serializable{
             this.ysbMoney = ysbMoney;
         }
 
-        public String getFreight() {
-            return freight;
-        }
-
-        public void setFreight(String freight) {
-            this.freight = freight;
-        }
 
         public Object getCategoryName() {
             return categoryName;
