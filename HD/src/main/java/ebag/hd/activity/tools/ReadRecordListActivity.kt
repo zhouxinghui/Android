@@ -94,7 +94,7 @@ class ReadRecordListActivity: BaseActivity() {
         leftAdapter.setOnItemClickListener { adapter, view, position ->
             adapter as LeftAdapter
             adapter.selectedPosition = position
-            EBagApi.getReadRecordDesc(classId, adapter.data[0].languageDetailId, deadTime, rightRequest)
+            EBagApi.getReadRecordDesc(classId, adapter.data[position].languageDetailId, deadTime, rightRequest)
         }
         leftAdapter.setOnItemChildClickListener { adapter, view, position ->
             if (view.id == R.id.play_id)
