@@ -121,12 +121,12 @@ class CorrectingDescActivity : BaseActivity() {
             if (questionList == null || currentQuestionIndex >= questionList!!.size -1){
                 return@setOnClickListener
             }
-            answerAdapter.data.forEach {
+            /*answerAdapter.data.forEach {
                 if (QuestionTypeUtils.isMarkType(it.itemType) && it.homeWorkState == "1"){
                     T.show(this, "你还有未打分的题，请打分后再切换下一题")
                     return@setOnClickListener
                 }
-            }
+            }*/
             currentQuestionIndex ++
             setAnswerDesc()
         }
