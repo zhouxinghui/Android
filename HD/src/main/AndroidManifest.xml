@@ -41,6 +41,9 @@
         <activity
             android:name=".activity.DisplayOfficeFileActivity"
             android:screenOrientation="landscape" />
+        <activity android:name=".activity.DisplayPdfFileActivity"
+            android:screenOrientation="landscape"
+            />
         <activity android:name=".activity.DisplayTxtFileActivity"
             android:screenOrientation="landscape"
             />

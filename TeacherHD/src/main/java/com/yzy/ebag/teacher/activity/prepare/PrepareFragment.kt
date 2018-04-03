@@ -18,6 +18,7 @@ import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
 import ebag.hd.activity.DisplayOfficeFileActivity
+import ebag.hd.activity.DisplayPdfFileActivity
 import ebag.hd.activity.DisplayTxtFileActivity
 import ebag.hd.widget.VideoPlayDialog
 
@@ -127,35 +128,14 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
         val bean = adapter.data[position]
         val fileType = bean.fileType ?: bean.fileName.substring(bean.fileName.lastIndexOf(".") + 1, bean.fileName.length)
         when(fileType){
-            "pdf","doc","docx","xls","xlsx","ppt","pptx" ->{
+            "doc","docx","xls","xlsx","ppt","pptx" ->{
                 DisplayOfficeFileActivity.jump(mContext, bean.fileUrl)
-                /*val filePath = "${FileUtil.getPrepareFilePath()}${url.substring(url.lastIndexOf("/") + 1, url.length)}"
-                val isFileExit = FileUtil.isFileExists(filePath)
-                if (isFileExit){
-                    DisplayOfficeFileActivity.jump(mContext, filePath)
-                }else{
-                    DownloadManager.getInstance().download(url, FileUtil.getPrepareFilePath(), object : DownLoadObserver(){
-                        override fun onNext(downloadInfo: DownloadInfo) {
-                            super.onNext(downloadInfo)
-                            LoadingDialogUtil.showLoading(mContext, "正在下载...${downloadInfo.progress * 100 / downloadInfo.total}%")
-                        }
-
-                        override fun onComplete() {
-                            LoadingDialogUtil.closeLoadingDialog()
-                            DisplayOfficeFileActivity.jump(mContext, filePath)
-                        }
-
-                        override fun onError(e: Throwable) {
-                            super.onError(e)
-                            LoadingDialogUtil.closeLoadingDialog()
-                            T.show(mContext, "文件下载失败，请稍后重试")
-                            DownloadManager.getInstance().cancel(url)
-                        }
-                    })
-                }*/
             }
             "txt" ->{
                 DisplayTxtFileActivity.jump(mContext, bean.fileUrl)
+            }
+            "pdf" ->{
+                DisplayPdfFileActivity.jump(mContext, bean.fileUrl)
             }
             "jpg","png","bmp","jpeg","gif" ->{
                 val imgList = ArrayList<String>()
