@@ -45,7 +45,7 @@ class PersonalFragment : BaseFragment(), View.OnClickListener {
     }
 
     var onHeadOrNameChange: ((headUrl: String?, name: String?) -> Unit)? = null
-    private var userEntity: UserEntity? = null
+    private lateinit var userEntity: UserEntity
     private var uploadHeadUrl = ""
     /**
      * 0: 修改头像 1：修改姓名 2：修改性别 3：修改家庭住址
@@ -144,7 +144,6 @@ class PersonalFragment : BaseFragment(), View.OnClickListener {
 
     private fun showContent() {
         userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.STUDENT_USER_ENTITY)
-        uploadHeadUrl = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/headUrl/${userEntity?.uid}"
         StudentApi.queryUserInfo(object : RequestCallBack<UserInfoBean>() {
             override fun onStart() {
                 super.onStart()
@@ -153,13 +152,14 @@ class PersonalFragment : BaseFragment(), View.OnClickListener {
 
             override fun onSuccess(entity: UserInfoBean?) {
                 LoadingDialogUtil.closeLoadingDialog()
-                userEntity?.name = entity?.name
-                userEntity?.ysbCode = entity?.ysbCode
-                userEntity?.headUrl = entity?.headUrl
-                userEntity?.sex = entity?.sex
-                userEntity?.address = entity?.address
-                userEntity?.schoolName = entity?.schoolName
-                userEntity?.className = entity?.className
+                userEntity.name = entity?.name
+                userEntity.uid = entity?.uid
+                userEntity.ysbCode = entity?.ysbCode
+                userEntity.headUrl = entity?.headUrl
+                userEntity.sex = entity?.sex
+                userEntity.address = entity?.address
+                userEntity.schoolName = entity?.schoolName
+                userEntity.className = entity?.className
 
                 tvName.text = entity?.name
                 tvId.text = entity?.ysbCode
@@ -173,6 +173,7 @@ class PersonalFragment : BaseFragment(), View.OnClickListener {
                 tvAddress.text = entity?.address
                 tvSchool.text = entity?.schoolName
                 tvClass.text = entity?.className
+                uploadHeadUrl = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/headUrl/${userEntity?.uid}"
 
             }
 
