@@ -32,7 +32,9 @@ public class VoicePlayerOnline implements OnCompletionListener, MediaPlayer.OnPr
       
     public void play(){
         mediaPlayer.start();
+        playTime();
         isPause = false;
+        isPlaying = true;
     }  
       
     public void playUrl(String videoUrl){

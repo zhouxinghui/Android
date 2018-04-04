@@ -1,9 +1,11 @@
 package ebag.hd.ui.presenter
+import android.content.Context
 import ebag.core.base.mvp.BasePresenter
 import ebag.core.base.mvp.OnToastListener
 import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.L
+import ebag.core.util.SPUtils
 import ebag.core.util.StringUtils
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
@@ -35,65 +37,75 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener): BasePrese
                 true
             }
 
-    private var loginRequest: RequestCallBack<UserEntity>? = null
+    private val loginRequest by lazy {
+        createRequest(object : RequestCallBack<UserEntity>() {
+            override fun onStart() {
+                getView()?.onLoginStart()
+            }
+
+            override fun onSuccess(entity: UserEntity?) {
+                if (entity != null) {
+                    getView()?.onLoginSuccess(entity)
+                    L.e(entity.token)
+                } else {
+                    getView()?.onLoginError(MsgException("1", "无数据返回，请稍后重试"))
+                }
+            }
+
+            override fun onError(exception: Throwable) {
+                getView()?.onLoginError(exception)
+            }
+        })
+    }
     private var registerRequest: RequestCallBack<UserEntity>? = null
     /**
      * 登录
      */
     fun login(account: String?, pwd: String?,loginType:String?, roleCode: String, thirdPartyToken:String?,thirdPartyUnionid:String?){
+        var context : Context? = null
+        if (getView() is Context)
+            context = getView() as Context
         if (account !=null&&pwd !=null&&thirdPartyToken==null&&thirdPartyUnionid==null) {
 //            if (isLoginInfoCorrect(account, pwd)) {
-                if (loginRequest == null) {
-                    loginRequest = createRequest(object : RequestCallBack<UserEntity>() {
-                        override fun onStart() {
-                            getView()?.onLoginStart()
-                        }
-
-                        override fun onSuccess(entity: UserEntity?) {
-                            if (entity != null) {
-                                getView()?.onLoginSuccess(entity)
-                                L.e(entity.token)
-                            } else {
-                                getView()?.onLoginError(MsgException("1", "无数据返回，请稍后重试"))
-                            }
-                        }
-
-                        override fun onError(exception: Throwable) {
-                            getView()?.onLoginError(exception)
-                        }
-                    })
-//                }
-                if (StringUtils.isMobileNo(account)) {
-                    EBagApi.login(account, pwd, BLoginActivity.PHONE_TYPE,null, roleCode, thirdPartyToken, thirdPartyUnionid, loginRequest!!)
-                } else {
-                    EBagApi.login(account, pwd, BLoginActivity.EBAG_TYPE,null,roleCode, thirdPartyToken, thirdPartyUnionid, loginRequest!!)
+            if (StringUtils.isMobileNo(account)) {
+                EBagApi.login(account, pwd, BLoginActivity.PHONE_TYPE, null, roleCode, thirdPartyToken, thirdPartyUnionid, loginRequest!!)
+                if (context != null)
+                    SPUtils.put(context, ebag.hd.base.Constants.LOGIN_TYPE, BLoginActivity.PHONE_TYPE)
+            } else {
+                EBagApi.login(account, pwd, BLoginActivity.EBAG_TYPE,null,roleCode, thirdPartyToken, thirdPartyUnionid, loginRequest!!)
+                if (context != null)
+                    SPUtils.put(context, ebag.hd.base.Constants.LOGIN_TYPE, BLoginActivity.EBAG_TYPE)
+            }
+            if (context != null) {
+                SPUtils.put(context, ebag.hd.base.Constants.USER_ACCOUNT, account)
+                SPUtils.put(context, ebag.hd.base.Constants.USER_PASS_WORD, pwd)
+                SPUtils.put(context, ebag.hd.base.Constants.ROLE_CODE, roleCode)
+                SPUtils.put(context, ebag.hd.base.Constants.THIRD_PARTY_TYPE, "")
+            }
+            //                }
+        }else{
+            when (loginType){
+                "QQ" -> {
+                    EBagApi.login(null,null,null,BLoginActivity.QQ_TYPE,roleCode,thirdPartyToken,thirdPartyUnionid,loginRequest)
+                    if (context != null)
+                        SPUtils.put(context, ebag.hd.base.Constants.THIRD_PARTY_TYPE, BLoginActivity.QQ_TYPE)
+                }
+                "WEIXIN" -> {
+                    EBagApi.login(null,null,null,BLoginActivity.WEIXIN_TYPE,roleCode,thirdPartyToken,thirdPartyUnionid,loginRequest)
+                    if (context != null)
+                        SPUtils.put(context, ebag.hd.base.Constants.THIRD_PARTY_TYPE, BLoginActivity.WEIXIN_TYPE)
+                }
+                "SINA" -> {
+                    EBagApi.login(null,null,null,BLoginActivity.SIAN_TYPE,roleCode,thirdPartyToken,thirdPartyUnionid,loginRequest)
+                    if (context != null)
+                        SPUtils.put(context, ebag.hd.base.Constants.THIRD_PARTY_TYPE, BLoginActivity.SIAN_TYPE)
                 }
             }
-        }else{
-            if (loginRequest == null) {
-                loginRequest = createRequest(object : RequestCallBack<UserEntity>() {
-                    override fun onStart() {
-                        getView()?.onLoginStart()
-                    }
-
-                    override fun onSuccess(entity: UserEntity?) {
-                        if (entity != null) {
-                            getView()?.onLoginSuccess(entity)
-                            L.e(entity.token)
-                        } else {
-                            getView()?.onLoginError(MsgException("1", "无数据返回，请稍后重试"))
-                        }
-                    }
-
-                    override fun onError(exception: Throwable) {
-                        getView()?.onLoginError(exception)
-                    }
-                })
-            }
-                when (loginType){
-                "QQ" -> EBagApi.login(null,null,null,BLoginActivity.QQ_TYPE,roleCode,thirdPartyToken,thirdPartyUnionid,loginRequest!!)
-                "WEIXIN" -> EBagApi.login(null,null,null,BLoginActivity.WEIXIN_TYPE,roleCode,thirdPartyToken,thirdPartyUnionid,loginRequest!!)
-                "SINA" -> EBagApi.login(null,null,null,BLoginActivity.SIAN_TYPE,roleCode,thirdPartyToken,thirdPartyUnionid,loginRequest!!)
+            if (context != null) {
+                SPUtils.put(context, ebag.hd.base.Constants.USER_ACCOUNT, "")
+                SPUtils.put(context, ebag.hd.base.Constants.ROLE_CODE, roleCode)
+                SPUtils.put(context, ebag.hd.base.Constants.THIRD_PARTY_TOKEN, thirdPartyToken)
+                SPUtils.put(context, ebag.hd.base.Constants.THIRD_PARTY_UNION_ID, thirdPartyUnionid)
             }
         }
     }

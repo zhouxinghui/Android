@@ -107,7 +107,9 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.tools.practise.PractiseActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            />
         <activity
             android:name=".activity.tools.read.ReadActivity"
             android:screenOrientation="landscape" />

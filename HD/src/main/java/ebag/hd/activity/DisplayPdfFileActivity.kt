@@ -8,6 +8,7 @@ import ebag.core.http.file.DownLoadObserver
 import ebag.core.http.file.DownloadInfo
 import ebag.core.http.file.DownloadManager
 import ebag.core.util.FileUtil
+import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
 import ebag.hd.R
 import kotlinx.android.synthetic.main.activity_display_pdf_file.*
@@ -29,41 +30,51 @@ class DisplayPdfFileActivity: BaseActivity(), OnPageChangeListener {
             )
         }
     }
-
+    private var fileUrl = ""
+    private lateinit var filePath: String
     override fun initViews() {
-        val fileUrl = intent.getStringExtra("fileUrl") ?: ""
+        stateView.setOnRetryClickListener {
+            downLoadFile(filePath)
+        }
+        fileUrl = intent.getStringExtra("fileUrl") ?: ""
         if (fileUrl.isEmpty()){
             stateView.showEmpty()
             return
         }
-        val filePath = "${FileUtil.getPrepareFilePath()}${fileUrl.substring(fileUrl.lastIndexOf("/") + 1, fileUrl.length)}"
+        filePath = "${FileUtil.getPrepareFilePath()}${fileUrl.substring(fileUrl.lastIndexOf("/") + 1, fileUrl.length)}"
         val isFileExit = FileUtil.isFileExists(filePath)
         if (isFileExit){
             loadFile(filePath)
         }else{
-            DownloadManager.getInstance().download(fileUrl, FileUtil.getPrepareFilePath(), object : DownLoadObserver(){
-                override fun onNext(downloadInfo: DownloadInfo) {
-                    super.onNext(downloadInfo)
-                    stateView.showLoading()
-                }
-
-                override fun onComplete() {
-                    stateView.showContent()
-                    loadFile(filePath)
-                }
-
-                override fun onError(e: Throwable) {
-                    super.onError(e)
-                    stateView.showError()
-                    T.show(this@DisplayPdfFileActivity, "文件下载失败，请稍后重试")
-                    DownloadManager.getInstance().cancel(fileUrl)
-                }
-            })
+            downLoadFile(filePath)
         }
     }
 
     override fun onPageChanged(page: Int, pageCount: Int) {
 
+    }
+
+    private fun downLoadFile(filePath: String){
+        DownloadManager.getInstance().download(fileUrl, FileUtil.getPrepareFilePath(), object : DownLoadObserver(){
+            override fun onNext(downloadInfo: DownloadInfo) {
+                super.onNext(downloadInfo)
+                LoadingDialogUtil.showLoading(this@DisplayPdfFileActivity, "正在下载...${downloadInfo.progress * 100 / downloadInfo.total}%")
+            }
+
+            override fun onComplete() {
+                stateView.showContent()
+                LoadingDialogUtil.closeLoadingDialog()
+                loadFile(filePath)
+            }
+
+            override fun onError(e: Throwable) {
+                super.onError(e)
+                stateView.showError()
+                LoadingDialogUtil.closeLoadingDialog()
+                T.show(this@DisplayPdfFileActivity, "文件下载失败，请稍后重试")
+                DownloadManager.getInstance().cancel(fileUrl)
+            }
+        })
     }
 
     private fun loadFile(filePath: String){
