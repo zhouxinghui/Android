@@ -21,6 +21,7 @@ import ebag.hd.activity.DisplayOfficeFileActivity
 import ebag.hd.activity.DisplayPdfFileActivity
 import ebag.hd.activity.DisplayTxtFileActivity
 import ebag.hd.widget.VideoPlayDialog
+import ebag.hd.widget.VoicePlayDialog
 
 /**
  * Created by YZY on 2018/3/2.
@@ -72,8 +73,11 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
                 }).create()
         dialog
     }
-    private val playerDialog by lazy {
+    private val videoPlayerDialog by lazy {
         VideoPlayDialog(mContext)
+    }
+    private val voicePlayerDialog by lazy {
+        VoicePlayDialog(mContext)
     }
     override fun getBundle(bundle: Bundle?) {
         try {
@@ -142,8 +146,11 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
                 imgList.add(bean.fileUrl)
                 PhotoPreviewActivity.jump(mContext, imgList , 0)
             }
-            "mp4","rmvb","avi","mp3","amr" ->{
-                playerDialog.show(bean.fileUrl, bean.fileName)
+            "mp4","rmvb","avi"->{
+                videoPlayerDialog.show(bean.fileUrl, bean.fileName)
+            }
+            "mp3", "amr", "wav" ->{
+                voicePlayerDialog.show(bean.fileUrl, bean.fileName)
             }
             else ->{
                 T.show(mContext, "不支持的文件类型，请在PC端尝试打开此文件")
@@ -188,7 +195,7 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
             "xls", "xlsx" ->{
                 imageView.setImageResource(R.drawable.prepare_icon_excel)
             }
-            "mp3","amr" ->{
+            "mp3","amr", "wav" ->{
                 imageView.setImageResource(R.drawable.prepare_icon_music)
             }
             "mp4","rmvb","avi" ->{
@@ -201,5 +208,10 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
                 imageView.setImageResource(R.drawable.prepare_icon_unknown)
             }
         }
+    }
+
+    override fun onDestroy() {
+        voicePlayerDialog.stop()
+        super.onDestroy()
     }
 }
