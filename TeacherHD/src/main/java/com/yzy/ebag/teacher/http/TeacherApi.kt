@@ -3,6 +3,7 @@ package com.yzy.ebag.teacher.http
 import com.yzy.ebag.teacher.bean.*
 import ebag.core.bean.QuestionBean
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.StringUtils
 import ebag.hd.bean.BaseStudentBean
 import ebag.hd.bean.UnitBean
 import ebag.hd.bean.response.NoticeBean
@@ -518,11 +519,11 @@ object TeacherApi {
     fun prepareList(lessonType: String, page: Int, pageSize: Int, callback: RequestCallBack<List<PrepareFileBean>>, gradeCode: String?, subCode: String?, unitId: String?){
         val jsonObject = JSONObject()
         jsonObject.put("lessonType", lessonType)
-        if (gradeCode != null)
+        if (!StringUtils.isEmpty(gradeCode))
             jsonObject.put("gradeCode", gradeCode)
-        if (subCode != null)
+        if (!StringUtils.isEmpty(subCode))
             jsonObject.put("subCode", subCode)
-        if (unitId != null)
+        if (!StringUtils.isEmpty(unitId))
             jsonObject.put("unitCode", unitId)
         jsonObject.put("page", page)
         jsonObject.put("pageSize", pageSize)

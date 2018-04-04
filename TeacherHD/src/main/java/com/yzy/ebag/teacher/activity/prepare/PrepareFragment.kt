@@ -142,7 +142,7 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
                 imgList.add(bean.fileUrl)
                 PhotoPreviewActivity.jump(mContext, imgList , 0)
             }
-            "mp4","rmvb","avi","wmv","mp3","arm" ->{
+            "mp4","rmvb","avi","mp3","amr" ->{
                 playerDialog.show(bean.fileUrl, bean.fileName)
             }
             else ->{
@@ -188,10 +188,10 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
             "xls", "xlsx" ->{
                 imageView.setImageResource(R.drawable.prepare_icon_excel)
             }
-            "mp3","arm" ->{
+            "mp3","amr" ->{
                 imageView.setImageResource(R.drawable.prepare_icon_music)
             }
-            "mp4","rmvb","avi","wmv" ->{
+            "mp4","rmvb","avi" ->{
                 imageView.setImageResource(R.drawable.prepare_icon_video)
             }
             "jpg","png","bmp","jpeg","gif" ->{
