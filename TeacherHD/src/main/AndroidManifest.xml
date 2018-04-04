@@ -125,7 +125,9 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.prepare.MyPrepareActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            />
         <activity
             android:name=".activity.clazz.ClassPerformanceActivity"
             android:screenOrientation="landscape" />
