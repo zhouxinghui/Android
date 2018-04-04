@@ -155,6 +155,12 @@ class CorrectingDescActivity : BaseActivity() {
         showQuestion(questionList!![currentQuestionIndex])
         TeacherApi.correctStudentAnswer(homeworkId, questionList!![currentQuestionIndex].questionId, answerRequest)
         titleBar.setTitle(QuestionTypeUtils.getTitle(questionList!![currentQuestionIndex].type))
+        nextQuestion.isEnabled = true
+        previewQuestion.isEnabled = true
+        if (questionList == null || currentQuestionIndex >= questionList!!.size -1)
+            nextQuestion.isEnabled = false
+        if (questionList == null || currentQuestionIndex <= 0)
+            previewQuestion.isEnabled = false
     }
     inner class StudentAnswerAdapter: BaseMultiItemQuickAdapter<CorrectAnswerBean, BaseViewHolder>(null){
         init {
