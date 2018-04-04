@@ -1,8 +1,11 @@
 package ebag.core.http.network
 
+import android.util.Log
 import ebag.core.bean.ResponseBean
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
+import java.lang.reflect.ParameterizedType
+import kotlin.reflect.KTypeParameter
 
 /**
  * Created by caoyu on 2017/11/9.

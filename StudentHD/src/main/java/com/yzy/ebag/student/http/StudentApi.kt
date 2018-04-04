@@ -288,4 +288,9 @@ object StudentApi {
         jsonObject.put("relationType", relationType)
         EBagApi.request(studentService.bindParent("1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    fun queryUserInfo(call:RequestCallBack<UserInfoBean>){
+        val jsonObject = JSONObject()
+        EBagApi.request(studentService.queryPersonalCenter("1", EBagApi.createBody(jsonObject)), call)
+    }
 }

@@ -16,6 +16,8 @@ import kotlinx.android.synthetic.main.dialog_parents_add.*
  */
 class ParentAddDialog : BaseFragmentDialog() {
 
+    private lateinit var listener:SuccessListener
+
     companion object {
         fun newInstance(): ParentAddDialog {
             return ParentAddDialog()
@@ -39,6 +41,7 @@ class ParentAddDialog : BaseFragmentDialog() {
             dismiss()
         }
 
+
         tvConfirm.setOnClickListener {
             if (etCode.text.isEmpty()){
                 T.show(activity,"请输入书包号")
@@ -53,15 +56,30 @@ class ParentAddDialog : BaseFragmentDialog() {
             StudentApi.bindParent(etCode.text.toString().trim(),etRelation.text.toString().trim(),object:RequestCallBack<String>(){
 
                 override fun onSuccess(entity: String?) {
-                    T.show(activity,"添加成功")
-                    dismiss()
+                    if (entity!!.contains("成功")) {
+                        T.show(activity, "添加成功")
+                        listener.refresh()
+                        dismiss()
+                    }else{
+                        T.show(activity, entity)
+                        dismiss()
+                    }
                 }
 
                 override fun onError(exception: Throwable) {
                     T.show(activity,"添加失败")
+                    dismiss()
                 }
 
             })
         }
+    }
+
+    fun setOnSuccessListener(listener:SuccessListener){
+        this.listener = listener
+    }
+
+    interface SuccessListener{
+        fun refresh()
     }
 }

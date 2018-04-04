@@ -28,7 +28,6 @@ import ebag.hd.bean.response.UserEntity
 class ParentFragment : BaseListFragment<List<ParentBean>, ParentBean>() {
 
 
-
     companion object {
         fun newInstance(): ParentFragment {
             return ParentFragment()
@@ -60,19 +59,12 @@ class ParentFragment : BaseListFragment<List<ParentBean>, ParentBean>() {
 
         button.setOnClickListener {
             addDialog.show(childFragmentManager, "joinDialog")
+            addDialog.setOnSuccessListener(object : ParentAddDialog.SuccessListener {
+                override fun refresh() {
+                    onRefresh()
+                }
+            })
         }
-
-        /* val list = ArrayList<Parent>()
-         list.add(Parent("我住在这里"))
-         list.add(Parent())
-         list.add(Parent("我住在那里"))
-         list.add(Parent())
-         list.add(Parent())
-         list.add(Parent())
-         list.add(Parent())
-         list.add(Parent())
-         list.add(Parent())
-         withFirstPageData(list)*/
     }
 
 

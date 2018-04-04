@@ -137,6 +137,10 @@ interface StudentService {
     @POST("user/bindingParent/{version}")
     fun bindParent(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
 
+    /*查询个人中心*/
+    @POST("user/queryPersonalCenter/{version}")
+    fun queryPersonalCenter(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<UserInfoBean>>
+
 
 
 }

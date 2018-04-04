@@ -41,6 +41,16 @@ public class UserEntity implements Serializable{
     private String headUrl;
     private String depId;
     private String schoolName;
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    private String className;
     private String roleCode;
     private String token;
     private String thirdPartyToken;

@@ -1,5 +1,7 @@
 package ebag.core.bean;
 
+import android.view.View;
+
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.io.Serializable;
@@ -106,6 +108,13 @@ public class QuestionBean implements Serializable, MultiItemEntity, Cloneable {
     }
 
     public String getBookUnit() {
+        View view = null;
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         return bookUnit;
     }
 

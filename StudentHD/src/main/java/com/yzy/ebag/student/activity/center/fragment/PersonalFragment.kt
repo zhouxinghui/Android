@@ -10,6 +10,8 @@ import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.tools.PictureFileUtils
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.activity.account.LoginActivity
+import com.yzy.ebag.student.bean.UserInfoBean
+import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.*
@@ -25,22 +27,24 @@ import java.io.File
 /**
  * Created by caoyu on 2018/1/13.
  */
-class PersonalFragment: BaseFragment(), View.OnClickListener {
+class PersonalFragment : BaseFragment(), View.OnClickListener {
     companion object {
-        fun newInstance() : PersonalFragment {
+        fun newInstance(): PersonalFragment {
             val fragment = PersonalFragment()
             val bundle = Bundle()
             fragment.arguments = bundle
             return fragment
         }
     }
+
     override fun getLayoutRes(): Int {
         return R.layout.fragment_center_personal
     }
 
     override fun getBundle(bundle: Bundle?) {
     }
-    var onHeadOrNameChange : ((headUrl: String?, name: String?) -> Unit)? = null
+
+    var onHeadOrNameChange: ((headUrl: String?, name: String?) -> Unit)? = null
     private var userEntity: UserEntity? = null
     private var uploadHeadUrl = ""
     /**
@@ -68,7 +72,7 @@ class PersonalFragment: BaseFragment(), View.OnClickListener {
         bean2.sex = "2"
         bean2.sexStr = "女"
         sexList.add(bean2)
-        val dialog = object : ListBottomShowDialog<SexBean>(mContext, sexList){
+        val dialog = object : ListBottomShowDialog<SexBean>(mContext, sexList) {
             override fun setText(data: SexBean?): String {
                 return data!!.sexStr
             }
@@ -81,29 +85,29 @@ class PersonalFragment: BaseFragment(), View.OnClickListener {
         dialog
     }
     private val modifyRequest by lazy {
-        object : RequestCallBack<String>(){
+        object : RequestCallBack<String>() {
             override fun onStart() {
-                LoadingDialogUtil.showLoading(mContext,"正在上传...")
+                LoadingDialogUtil.showLoading(mContext, "正在上传...")
             }
 
             override fun onSuccess(entity: String?) {
                 LoadingDialogUtil.closeLoadingDialog()
-                when(modifyType){
-                    0 ->{
+                when (modifyType) {
+                    0 -> {
                         ivAvatar.loadHead(uploadHeadUrl, true, System.currentTimeMillis().toString())
                         userEntity?.headUrl = uploadHeadUrl
                         onHeadOrNameChange?.invoke(uploadHeadUrl, null)
                     }
-                    1 ->{
+                    1 -> {
                         tvName.text = modifyStr
                         userEntity?.name = modifyStr
                         onHeadOrNameChange?.invoke(null, modifyStr)
                     }
-                    2 ->{
+                    2 -> {
                         tvGender.text = modifyStr
                         userEntity?.sex = if (modifyStr == "男") "1" else "2"
                     }
-                    3 ->{
+                    3 -> {
                         tvAddress.text = modifyStr
                         userEntity?.address = modifyStr
                     }
@@ -133,53 +137,91 @@ class PersonalFragment: BaseFragment(), View.OnClickListener {
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        if(!hidden){
+        if (!hidden) {
             showContent()
         }
     }
 
-    private fun showContent(){
+    private fun showContent() {
         userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.STUDENT_USER_ENTITY)
         uploadHeadUrl = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/headUrl/${userEntity?.uid}"
-        if(userEntity != null){
+        StudentApi.queryUserInfo(object : RequestCallBack<UserInfoBean>() {
+            override fun onStart() {
+                super.onStart()
+                LoadingDialogUtil.showLoading(activity, "正在加载..")
+            }
+
+            override fun onSuccess(entity: UserInfoBean?) {
+                LoadingDialogUtil.closeLoadingDialog()
+                userEntity?.name = entity?.name
+                userEntity?.ysbCode = entity?.ysbCode
+                userEntity?.headUrl = entity?.headUrl
+                userEntity?.sex = entity?.sex
+                userEntity?.address = entity?.address
+                userEntity?.schoolName = entity?.schoolName
+                userEntity?.className = entity?.className
+
+                tvName.text = entity?.name
+                tvId.text = entity?.ysbCode
+                ivAvatar.loadHead(entity?.headUrl, true, System.currentTimeMillis().toString())
+                tvGender.text = when (entity?.sex) {
+                    "1" -> "男  "
+                    "2" -> "女  "
+                    else -> ""
+                }
+
+                tvAddress.text = entity?.address
+                tvSchool.text = entity?.schoolName
+                tvClass.text = entity?.className
+
+            }
+
+            override fun onError(exception: Throwable) {
+                LoadingDialogUtil.closeLoadingDialog()
+            }
+
+        })
+
+
+        /*if (userEntity != null) {
             tvName.text = userEntity?.name
             tvId.text = userEntity?.ysbCode
             ivAvatar.loadHead(userEntity?.headUrl, true, System.currentTimeMillis().toString())
-            tvGender.text = when(userEntity?.sex){
-                                "1" -> "男  "
-                                "2" -> "女  "
-                                else -> ""
-                            }
+            tvGender.text = when (userEntity?.sex) {
+                "1" -> "男  "
+                "2" -> "女  "
+                else -> ""
+            }
 //            tvContact.text = userEntity.
             tvAddress.text = userEntity?.address
             tvSchool.text = userEntity?.schoolName
 //            tvClass.text = userEntity.
-        }else{
+        } else {
             startActivity(
                     Intent(mContext, LoginActivity::class.java)
-                            .putExtra(Constants.KEY_TO_MAIN,true)
+                            .putExtra(Constants.KEY_TO_MAIN, true)
             )
-        }
+        }*/
     }
 
     override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.ivAvatar ->{
+        when (v?.id) {
+            R.id.ivAvatar -> {
                 modifyType = 0
                 key = "headUrl"
                 startSelectPicture(true, true, 1, false)
             }
-            R.id.tvName ->{
+            R.id.tvName -> {
                 modifyType = 1
                 key = "name"
                 modifyDialog.show("请输入姓名")
             }
-            R.id.tvGender ->{
+            R.id.tvGender -> {
                 modifyType = 2
                 key = "sex"
                 sexDialog.show()
             }
-            R.id.tvAddress ->{
+            R.id.tvAddress -> {
                 modifyType = 3
                 key = "address"
                 modifyDialog.show("请输入地址")
@@ -207,15 +249,17 @@ class PersonalFragment: BaseFragment(), View.OnClickListener {
             }
         }
     }
+
     private val myHandler by lazy { MyHandler(this) }
-    class MyHandler(fragment: PersonalFragment): HandlerUtil<PersonalFragment>(fragment){
+
+    class MyHandler(fragment: PersonalFragment) : HandlerUtil<PersonalFragment>(fragment) {
         override fun handleMessage(fragment: PersonalFragment, msg: Message) {
-            when(msg.what){
-                ebag.core.util.Constants.UPLOAD_SUCCESS ->{
+            when (msg.what) {
+                ebag.core.util.Constants.UPLOAD_SUCCESS -> {
                     EBagApi.modifyPersonalInfo(fragment.key, fragment.uploadHeadUrl, fragment.modifyRequest)
                     PictureFileUtils.deleteCacheDirFile(fragment.mContext)
                 }
-                ebag.core.util.Constants.UPLOAD_FAIL ->{
+                ebag.core.util.Constants.UPLOAD_FAIL -> {
                     LoadingDialogUtil.closeLoadingDialog()
                     T.show(fragment.mContext, "上传图片失败，请稍后重试")
                 }

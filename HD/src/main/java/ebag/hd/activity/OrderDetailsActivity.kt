@@ -221,7 +221,7 @@ class OrderDetailsActivity : BaseActivity() {
     }
 
     private fun getWxPayInfo() {
-        EBagApi.getPrepayid(number, tv_should_pay.text.toString(), object : RequestCallBack<WXPayBean>() {
+        EBagApi.getPrepayid(number, tv_should_pay.text.toString().replace("¥","").trim(), object : RequestCallBack<WXPayBean>() {
             override fun onStart() {
                 super.onStart()
                 LoadingDialogUtil.showLoading(this@OrderDetailsActivity, "正在跳转支付页面...")
@@ -236,6 +236,7 @@ class OrderDetailsActivity : BaseActivity() {
                 Log.d("fansan", "fail = " + exception.message)
                 T.show(this@OrderDetailsActivity, exception.message.toString())
                 LoadingDialogUtil.closeLoadingDialog()
+                ActivityUtils.skipActivityAndFinishAll(this@OrderDetailsActivity, ShopOrderActivity::class.java)
             }
 
         })
@@ -287,7 +288,7 @@ class OrderDetailsActivity : BaseActivity() {
 
 
     private fun getAlipayInfo() {
-        EBagApi.getAiliPrepayid(number, tv_should_pay.text.toString(), object : RequestCallBack<String>() {
+        EBagApi.getAiliPrepayid(number, tv_should_pay.text.toString().replace("¥","").trim(), object : RequestCallBack<String>() {
             override fun onStart() {
                 super.onStart()
                 LoadingDialogUtil.showLoading(this@OrderDetailsActivity, "正在跳转支付页面...")
@@ -312,6 +313,7 @@ class OrderDetailsActivity : BaseActivity() {
                 Log.d("fansan", "fail = " + exception.message)
                 T.show(this@OrderDetailsActivity, exception.message.toString())
                 LoadingDialogUtil.closeLoadingDialog()
+                ActivityUtils.skipActivityAndFinishAll(this@OrderDetailsActivity, ShopOrderActivity::class.java)
             }
 
         })
@@ -344,6 +346,7 @@ class OrderDetailsActivity : BaseActivity() {
             wxapi.sendReq(request)
         } else {
             T.show(this@OrderDetailsActivity, "未安装微信客户端")
+            ActivityUtils.skipActivityAndFinishAll(this@OrderDetailsActivity, ShopOrderActivity::class.java)
         }
     }
 
