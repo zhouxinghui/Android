@@ -264,7 +264,7 @@ object EBagApi {
         EBagApi.request(eBagService.myBookList("v1"), callback)
     }
 
-    fun studentBookList(classId: String, callback: RequestCallBack<List<BookBean>>) {
+    fun studentBookList(classId: String?, callback: RequestCallBack<List<BookBean>>) {
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
         EBagApi.request(eBagService.studentBookList("v1", EBagApi.createBody(jsonObject)), callback)
@@ -504,7 +504,16 @@ object EBagApi {
         jsonObject.put(key, value)
         EBagApi.request(eBagService.modifyPersonalInfo("v1", EBagApi.createBody(jsonObject)), callback)
     }
-
+    /**
+     * 课堂表现-个人详情
+     */
+    fun personalPerformance(callback: RequestCallBack<PersonalPerformanceBean>, uid: String? = null){
+        val jsonObject = JSONObject()
+        if (!StringUtils.isEmpty(uid)){
+            jsonObject.put("uid", uid)
+        }
+        EBagApi.request(eBagService.personalPerformance("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 
     fun queryYBCurrent(page: Int, pageSize: Int, callback: RequestCallBack<YBCurrentBean>) {
         val jsonObject = JSONObject()
