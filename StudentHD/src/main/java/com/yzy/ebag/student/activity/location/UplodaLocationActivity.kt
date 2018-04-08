@@ -1,5 +1,6 @@
 package com.yzy.ebag.student.activity.location
 
+import android.os.CountDownTimer
 import com.baidu.location.BDAbstractLocationListener
 import com.baidu.location.BDLocation
 import com.baidu.location.LocationClient
@@ -24,11 +25,13 @@ class UplodaLocationActivity : BaseActivity() {
     private var latitude = ""
     private var longitude = ""
     private var address = ""
+    private lateinit var timeCountDown: TimeCountDown
+    private lateinit var locationClient: LocationClient
 
     override fun initViews() {
 
 
-        val locationClient = LocationClient(application)
+        locationClient = LocationClient(application)
         listener = MyLocationListener()
         locationClient.registerLocationListener(listener)
         val option = LocationClientOption()
@@ -39,7 +42,8 @@ class UplodaLocationActivity : BaseActivity() {
         option.setIsNeedLocationPoiList(true)
         locationClient.locOption = option
         locationClient.start()
-
+        timeCountDown = TimeCountDown(1000 * 10, 1000)
+        timeCountDown.start()
         title_bar.setOnRightClickListener {
             if (flag) {
                 if (contentEdit.text.isNotEmpty()) {
@@ -79,12 +83,35 @@ class UplodaLocationActivity : BaseActivity() {
             longitude = p0?.longitude.toString()  //获取经度信息
             if (addr!!.isNotEmpty()) {
                 location = addr[0].name
-                address = province + city + district + " $location"
+                address = "$province$city$district $location"
                 uploadlocation_tv.text = address
                 flag = true
+                timeCountDown.cancel()
             } else {
-                uploadlocation_tv.text = "获取地址失败"
+                getLocationFailed()
             }
+        }
+
+    }
+
+    private fun getLocationFailed() {
+        uploadlocation_tv.text = "获取地址失败，点击重试"
+        uploadlocation_tv.setOnClickListener {
+            uploadlocation_tv.text = "正在获取..."
+            locationClient.restart()
+            timeCountDown.start()
+        }
+    }
+
+
+    inner class TimeCountDown(millisInFuture: Long, countDownInterval: Long) : CountDownTimer(millisInFuture, countDownInterval) {
+
+        override fun onFinish() {
+            getLocationFailed()
+        }
+
+        override fun onTick(millisUntilFinished: Long) {
+
         }
 
     }
