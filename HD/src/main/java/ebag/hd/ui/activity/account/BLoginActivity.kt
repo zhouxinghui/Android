@@ -11,16 +11,15 @@ import com.umeng.socialize.bean.SHARE_MEDIA
 import ebag.core.base.App
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.http.network.MsgException
+import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
-import ebag.core.util.EditTextLimitUtil
-import ebag.core.util.LoadingDialogUtil
-import ebag.core.util.SerializableUtils
-import ebag.core.util.T
+import ebag.core.util.*
 import ebag.hd.R
 import ebag.hd.activity.ProtocolActivity
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.dialog.MsgDialogFragment
+import ebag.hd.http.EBagApi
 import ebag.hd.ui.presenter.CodePresenter
 import ebag.hd.ui.presenter.LoginPresenter
 import ebag.hd.ui.view.CodeView
@@ -193,8 +192,6 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
     override fun initViews() {
         loginEdit = loginAccount
         pwdEdit = loginPwd
-        EditTextLimitUtil.inputChineseAndEnglish(registerAccount, this, 16)
-
         isToMain = intent.getBooleanExtra(Constants.KEY_TO_MAIN, false)
 
         launcher.setImageResource(getLogoResId())
@@ -225,11 +222,11 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         //点击登陆
         loginBtn.setOnClickListener {
             if (isLoginState) {//登陆状态
-                loginPresenter.login(loginAccount.text.toString(), loginPwd.text.toString(),null, getRoleCode(), null, null)
+                loginPresenter.login(loginAccount.text.toString(), loginPwd.text.toString(), getRoleCode())
             } else {//注册
                 if (serveCheck.isChecked)
                     loginPresenter.register(registerAccount.text.toString(), registerPhone.text.toString()
-                            , registerCode.text.toString(), registerPwd.text.toString(),getRoleCode(),null,null)
+                            , registerCode.text.toString(), registerPwd.text.toString(), getRoleCode(), null, null)
                 else
                     toast("请勾选服务条款", true)
             }
@@ -237,22 +234,22 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         loginWeChat.setOnClickListener {
             if (UMShareAPI.get(this).isInstall(this, SHARE_MEDIA.WEIXIN)) {
                 authorization(SHARE_MEDIA.WEIXIN, it)
-            }else{
+            } else {
                 toast("请安装微信客户端", true)
             }
         }
         loginSina.setOnClickListener {
-            if (UMShareAPI.get(this).isInstall(this,SHARE_MEDIA.SINA)){
-            authorization(SHARE_MEDIA.SINA, it)
-            }else{
-                toast("请安装微信客户端",true)
+            if (UMShareAPI.get(this).isInstall(this, SHARE_MEDIA.SINA)) {
+                authorization(SHARE_MEDIA.SINA, it)
+            } else {
+                toast("请安装微信客户端", true)
             }
         }
         loginQQ.setOnClickListener {
-            if (UMShareAPI.get(this).isInstall(this,SHARE_MEDIA.QQ)){
+            if (UMShareAPI.get(this).isInstall(this, SHARE_MEDIA.QQ)) {
                 authorization(SHARE_MEDIA.QQ, it)
-            }else{
-                toast("请安装QQ客户端",true)
+            } else {
+                toast("请安装QQ客户端", true)
             }
         }
 
@@ -279,6 +276,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         }
 
         forgetPwd.setOnClickListener { forgetClick(it) }
+        EditTextLimitUtil.inputChineseAndEnglish(registerAccount, this, 16)
     }
 
     /**切换是登陆或者注册*/
@@ -323,7 +321,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
     abstract protected fun forgetClick(view: View)
 
-    abstract protected fun threeParty(view: View,uid : String?, accessToken: String?, name: String?, iconurl: String?, gender: String?,share_media:String?)
+    abstract protected fun threeParty(view: View, uid: String?, accessToken: String?, name: String?, iconurl: String?, gender: String?, share_media: String?)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -335,7 +333,6 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         UMShareAPI.get(this).getPlatformInfo(this, share_media, object : UMAuthListener {
             //            授权完成
             override fun onComplete(p0: SHARE_MEDIA?, p1: Int, p2: MutableMap<String, String>?) {
-                toast("完成")
                 //sdk是6.4.4的,但是获取值的时候用的是6.2以前的(access_token)才能获取到值,未知原因
 
                 var uid = p2?.get("uid")
@@ -347,8 +344,25 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
                 var name = p2?.get("name")
                 var gender = p2?.get("gender")
                 var iconurl = p2?.get("iconurl")
-                threeParty(view,uid,access_token,name,iconurl,gender,share_media.toString())
-                loginPresenter.login(null,null,share_media.toString(), getRoleCode(), access_token, uid)
+                EBagApi.login(null, null, null, queryThirdPartyType(share_media.toString()), getRoleCode(), access_token, uid, object : RequestCallBack<UserEntity>() {
+                    override fun onSuccess(entity: UserEntity?) {
+                        if (entity != null) {
+                            this@BLoginActivity.onLoginSuccess(entity)
+                            L.e(entity.token)
+                        } else {
+                            this@BLoginActivity.onLoginError(MsgException("1", "无数据返回，请稍后重试"))
+                        }
+
+                    }
+
+                    override fun onError(exception: Throwable) {
+                        threeParty(view, uid, access_token, name, iconurl, gender, share_media.toString())
+                    }
+                })
+                SPUtils.put(this@BLoginActivity, ebag.hd.base.Constants.USER_ACCOUNT, "")
+                SPUtils.put(this@BLoginActivity, ebag.hd.base.Constants.ROLE_CODE, BLoginActivity.TEACHER_ROLE)
+                SPUtils.put(this@BLoginActivity, ebag.hd.base.Constants.THIRD_PARTY_TOKEN, if (access_token.isNullOrEmpty()) "" else access_token)
+                SPUtils.put(this@BLoginActivity, ebag.hd.base.Constants.THIRD_PARTY_UNION_ID, if (uid.isNullOrEmpty()) "" else uid)
 
             }
 
@@ -367,5 +381,15 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
                 toast("开始")
             }
         })
+    }
+
+    private fun queryThirdPartyType(thirdPartyType: String): String {
+        return if (thirdPartyType.equals("qq", true)) {
+            BLoginActivity.QQ_TYPE
+        } else if (thirdPartyType.equals("sina", true)) {
+            BLoginActivity.SIAN_TYPE
+        } else {
+            BLoginActivity.WEIXIN_TYPE
+        }
     }
 }

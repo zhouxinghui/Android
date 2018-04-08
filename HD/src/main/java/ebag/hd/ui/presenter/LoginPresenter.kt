@@ -61,18 +61,16 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener): BasePrese
     /**
      * 登录
      */
-    fun login(account: String?, pwd: String?,loginType:String?, roleCode: String, thirdPartyToken:String?,thirdPartyUnionid:String?){
+    fun login(account: String, pwd: String,roleCode: String){
         var context : Context? = null
         if (getView() is Context)
             context = getView() as Context
-        if (account !=null&&pwd !=null&&thirdPartyToken==null&&thirdPartyUnionid==null) {
-//            if (isLoginInfoCorrect(account, pwd)) {
             if (StringUtils.isMobileNo(account)) {
-                EBagApi.login(account, pwd, BLoginActivity.PHONE_TYPE, null, roleCode, thirdPartyToken, thirdPartyUnionid, loginRequest!!)
+                EBagApi.login(account, pwd, BLoginActivity.PHONE_TYPE, null, roleCode, null, null, loginRequest!!)
                 if (context != null)
                     SPUtils.put(context, ebag.hd.base.Constants.LOGIN_TYPE, BLoginActivity.PHONE_TYPE)
             } else {
-                EBagApi.login(account, pwd, BLoginActivity.EBAG_TYPE,null,roleCode, thirdPartyToken, thirdPartyUnionid, loginRequest!!)
+                EBagApi.login(account, pwd, BLoginActivity.EBAG_TYPE,null,roleCode, null, null, loginRequest!!)
                 if (context != null)
                     SPUtils.put(context, ebag.hd.base.Constants.LOGIN_TYPE, BLoginActivity.EBAG_TYPE)
             }
@@ -82,32 +80,6 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener): BasePrese
                 SPUtils.put(context, ebag.hd.base.Constants.ROLE_CODE, roleCode)
                 SPUtils.put(context, ebag.hd.base.Constants.THIRD_PARTY_TYPE, "")
             }
-            //                }
-        }else{
-            when (loginType){
-                "QQ" -> {
-                    EBagApi.login(null,null,null,BLoginActivity.QQ_TYPE,roleCode,thirdPartyToken,thirdPartyUnionid,loginRequest)
-                    if (context != null)
-                        SPUtils.put(context, ebag.hd.base.Constants.THIRD_PARTY_TYPE, BLoginActivity.QQ_TYPE)
-                }
-                "WEIXIN" -> {
-                    EBagApi.login(null,null,null,BLoginActivity.WEIXIN_TYPE,roleCode,thirdPartyToken,thirdPartyUnionid,loginRequest)
-                    if (context != null)
-                        SPUtils.put(context, ebag.hd.base.Constants.THIRD_PARTY_TYPE, BLoginActivity.WEIXIN_TYPE)
-                }
-                "SINA" -> {
-                    EBagApi.login(null,null,null,BLoginActivity.SIAN_TYPE,roleCode,thirdPartyToken,thirdPartyUnionid,loginRequest)
-                    if (context != null)
-                        SPUtils.put(context, ebag.hd.base.Constants.THIRD_PARTY_TYPE, BLoginActivity.SIAN_TYPE)
-                }
-            }
-            if (context != null) {
-                SPUtils.put(context, ebag.hd.base.Constants.USER_ACCOUNT, "")
-                SPUtils.put(context, ebag.hd.base.Constants.ROLE_CODE, roleCode)
-                SPUtils.put(context, ebag.hd.base.Constants.THIRD_PARTY_TOKEN, thirdPartyToken)
-                SPUtils.put(context, ebag.hd.base.Constants.THIRD_PARTY_UNION_ID, thirdPartyUnionid)
-            }
-        }
     }
 
 

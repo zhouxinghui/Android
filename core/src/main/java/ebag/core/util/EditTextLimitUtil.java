@@ -19,6 +19,7 @@ public class EditTextLimitUtil {
     private static final String MATCH_CN_EN_NUM = "^[\\u4E00-\\u9FA5A-Za-z0-9\\s*]+$";
     private static final String MATCH_PHONE_NUM = "^[0-9]+$";
     private static final String NOT_CHINESE = "^[^\\u4e00-\\u9fa5]";
+
     /***
      * 限制用户只能输入数字
      * @param editText
@@ -26,33 +27,40 @@ public class EditTextLimitUtil {
      * @param maxLength EditText输入字符最大长度
      */
     public static void inputChineseAndEnglish(EditText editText, Context context, int maxLength) {
-        limitResult(context, editText, maxLength, MATCH_CN_EN, "请输入汉字或字母");
+        if (editText.getText().length() > 0) {
+            limitResult(context, editText, maxLength, MATCH_CN_EN, "请输入汉字或字母");
+        }
     }
 
-    /**限制用户只能输入数字*/
+    /**
+     * 限制用户只能输入数字
+     */
     public static void inputPhoneNum(EditText editText, Context context, int maxLength) {
         limitResult(context, editText, maxLength, MATCH_PHONE_NUM, "请输入您的手机号码");
     }
 
     /**
      * 限制用户只能输入汉字、字母、数字
+     *
      * @param editText
      * @param context
      * @param maxLength
      */
-    public static void forbidIllegalChar(final EditText editText, final Context context, int maxLength){
+    public static void forbidIllegalChar(final EditText editText, final Context context, int maxLength) {
         limitResult(context, editText, maxLength, MATCH_CN_EN_NUM, "请输入汉字、字母或数字");
     }
 
-    /**禁止输入中文*/
-    public static void forbidChineseCharacter(final EditText editText, final Context context, int maxLength){
+    /**
+     * 禁止输入中文
+     */
+    public static void forbidChineseCharacter(final EditText editText, final Context context, int maxLength) {
         limitResult(context, editText, maxLength, NOT_CHINESE, "禁止输入中文");
     }
 
     private static void limitResult(final Context context, final EditText editText, final int maxLength,
-                                    final String result, final String message){
+                                    final String result, final String message) {
         InputFilter[] inputFilters = new InputFilter[3];
-        inputFilters[0] = new InputFilter(){
+        inputFilters[0] = new InputFilter() {
             @Override
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
 
@@ -76,13 +84,14 @@ public class EditTextLimitUtil {
                 int sourceCount = source.toString().length()
                         + getChineseCount(source.toString());
                 if (destCount + sourceCount > maxLength) {
-                    T.INSTANCE.show(context,"超出最大输入范围");
+                    T.INSTANCE.show(context, "超出最大输入范围");
                     return "";
 
                 } else {
                     return source;
                 }
             }
+
             private int getChineseCount(String str) {
                 int count = 0;
                 Pattern p = Pattern.compile("[\\u4e00-\\u9fa5]");
@@ -96,12 +105,12 @@ public class EditTextLimitUtil {
             }
         };
         //限制用户输入空格
-        inputFilters[2]=new InputFilter() {
+        inputFilters[2] = new InputFilter() {
             @Override
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-                if (source.equals(" ")){
+                if (source.equals(" ")) {
                     return "";
-                }else {
+                } else {
                     return null;
                 }
             }
@@ -111,9 +120,9 @@ public class EditTextLimitUtil {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_DEL) {
-                    if (editText.getText().toString().length() == 0){
+                    if (editText.getText().toString().length() == 0) {
                         canShow = true;
-                    }else {
+                    } else {
                         canShow = false;
                     }
                 } else {
@@ -126,8 +135,9 @@ public class EditTextLimitUtil {
     }
 
     private static boolean canShow = true;
-    private static void showIllegalCharacterToast(Context context, String message){
-        if (canShow){
+
+    private static void showIllegalCharacterToast(Context context, String message) {
+        if (canShow) {
             T.INSTANCE.show(context, message);
         }
     }
@@ -137,7 +147,7 @@ public class EditTextLimitUtil {
      * @param editText
      * @param maxLength
      */
-    public static void setEditMaxLength(EditText editText, int maxLength){
+    public static void setEditMaxLength(EditText editText, int maxLength) {
         InputFilter inputFilter = new InputFilter.LengthFilter(maxLength);
         editText.setFilters(new InputFilter[]{inputFilter});
     }
