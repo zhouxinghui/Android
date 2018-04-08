@@ -35,7 +35,7 @@ class BookListActivity: BaseListActivity<List<BookBean>, BookBean>() {
             )
         }
     }
-    private var classId = ""
+    private var classId: String? = ""
     override fun loadConfig(intent: Intent) {
         setPageTitle("学习课本")
         loadMoreEnabled(false)
