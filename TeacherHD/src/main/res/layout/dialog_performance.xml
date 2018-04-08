@@ -109,4 +109,7 @@
         app:layout_constraintTop_toTopOf="@id/confirmBtn"
         app:layout_constraintBottom_toBottomOf="parent"
         />
+    <ebag.core.widget.empty.StateView android:id="@+id/stateView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </android.support.constraint.ConstraintLayout>

@@ -14,7 +14,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/text"/>
+        app:layout_constraintBottom_toTopOf="@+id/text"
+        tools:src="@drawable/icon_performance_skzs"
+        />
 
     <TextView
         android:id="@+id/text"
@@ -32,7 +34,19 @@
         style="@style/performance_point"
         tools:text="12"
         android:background="@drawable/red_point"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tvAdd"
         app:layout_constraintTop_toTopOf="parent"
+        />
+    <TextView android:id="@+id/tvAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/x20"
+        android:layout_marginEnd="@dimen/x10"
+        tools:text="+10"
+        android:background="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvTag"
+        app:layout_constraintBottom_toBottomOf="@id/tvTag"
         />
 </android.support.constraint.ConstraintLayout>

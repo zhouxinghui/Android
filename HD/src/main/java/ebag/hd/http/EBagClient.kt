@@ -5,6 +5,7 @@ import ebag.core.base.App
 import ebag.core.http.network.FastJsonConverterFactory
 import ebag.core.http.network.HttpLoggingInterceptor
 import ebag.core.util.StringUtils
+import ebag.hd.base.Constants
 import okhttp3.Cache
 import okhttp3.ConnectionSpec
 import okhttp3.Interceptor
@@ -94,13 +95,7 @@ object EBagClient {
                 .client(builder)
                 .addConverterFactory(FastJsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//                .baseUrl("http://www.yun-bag.com/ebag-portal/")
-                .baseUrl("http://192.168.1.141:9001/")
-                //.baseUrl("http://192.168.1.155:9001/")
-                //.baseUrl("http://192.168.1.135:9001/")
-//                .baseUrl("http://192.168.1.144:9001/")
-                //.baseUrl("http://192.168.1.110:9001/")
-//                .baseUrl("http://localhost:9001/")
+                .baseUrl(Constants.BASE_URL)
                 .build()
         return retrofit.create(clazz)
     }

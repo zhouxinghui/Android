@@ -29,6 +29,13 @@ class ClassPerformanceActivity : BaseListActivity<List<PerformanceBean>, Perform
         }
     }
     private var classId = ""
+    private val performanceDialog by lazy {
+        val dialog = PerformanceDialog(this)
+        dialog.onModifySuccess = {
+            onRetryClick()
+        }
+        dialog
+    }
     override fun loadConfig(intent: Intent) {
         titleBar.setTitle(getString(R.string.class_expression))
         loadMoreEnabled(false)
@@ -52,7 +59,9 @@ class ClassPerformanceActivity : BaseListActivity<List<PerformanceBean>, Perform
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        PerformanceDialog(this).show()
+        adapter as MyAdapter
+        val item = adapter.getItem(position)
+        performanceDialog.show(item?.uid, item?.headUrl, item?.name)
     }
 
     inner class MyAdapter: BaseQuickAdapter<PerformanceBean, BaseViewHolder>(R.layout.item_performance){

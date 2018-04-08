@@ -3,7 +3,6 @@ package com.yzy.ebag.teacher.http
 import com.yzy.ebag.teacher.bean.*
 import ebag.core.bean.QuestionBean
 import ebag.core.bean.ResponseBean
-import ebag.hd.bean.ClassMemberBean
 import ebag.hd.bean.UnitBean
 import ebag.hd.bean.response.NoticeBean
 import io.reactivex.Observable
@@ -245,4 +244,9 @@ interface TeacherService {
     @POST("clazzSpace/queryUserClazzRoomShowAll/{version}")
     fun classPerformance(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<PerformanceBean>>>
 
+    /**
+     * 修改学生课堂表现
+     */
+    @POST("clazzSpace/addClazzRoomShow/{version}")
+    fun modifyPerformance(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 }

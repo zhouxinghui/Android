@@ -157,7 +157,7 @@ class PersonalActivity: MVPActivity() {
     }
 
 
-    val performanceDialog by lazy {
+    private val performanceDialog by lazy {
         PerformanceDialog.newInstance()
     }
 
