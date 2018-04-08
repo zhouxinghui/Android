@@ -6,11 +6,14 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
+import ebag.core.http.network.RequestCallBack
 import ebag.core.util.SerializableUtils
 import ebag.core.util.loadHead
 import ebag.hd.base.BaseFragmentDialog
 import ebag.hd.base.Constants
+import ebag.hd.bean.PersonalPerformanceBean
 import ebag.hd.bean.response.UserEntity
+import ebag.hd.http.EBagApi
 import kotlinx.android.synthetic.main.dialog_performance.*
 
 /**
@@ -19,7 +22,9 @@ import kotlinx.android.synthetic.main.dialog_performance.*
  * @description
  */
 class PerformanceDialog: BaseFragmentDialog() {
-
+    override fun getLayoutRes(): Int {
+        return R.layout.dialog_performance
+    }
     companion object {
         fun newInstance(): PerformanceDialog{
             return PerformanceDialog()
@@ -29,8 +34,33 @@ class PerformanceDialog: BaseFragmentDialog() {
     override fun getBundle(bundle: Bundle?) {
     }
 
-    val adapter = Adapter()
-    val listNiceIcon by lazy {
+    private val adapter = Adapter()
+    private val request = object : RequestCallBack<PersonalPerformanceBean>(){
+        override fun onStart() {
+            stateView.showLoading()
+        }
+
+        override fun onSuccess(entity: PersonalPerformanceBean?) {
+            stateView.showContent()
+            if (entity == null || entity.praise == null || entity.praise.isEmpty() || entity.criticize == null || entity.criticize.isEmpty()) {
+                stateView.showEmpty()
+                return
+            }
+            listNiceCount.clear()
+            listNiceCount.addAll(entity.praise)
+            listBadCount.clear()
+            listBadCount.addAll(entity.criticize)
+            tvReward.isSelected = true
+            tvCriticism.isSelected = false
+            adapter.isNice = true
+            adapter.setNewData(listNiceCount)
+        }
+
+        override fun onError(exception: Throwable) {
+            stateView.showError(exception.message.toString())
+        }
+    }
+    private val listNiceIcon by lazy {
         listOf(R.drawable.icon_performance_zxtj,
                 R.drawable.icon_performance_lyzr,
                 R.drawable.icon_performance_nlxx,
@@ -38,11 +68,11 @@ class PerformanceDialog: BaseFragmentDialog() {
                 R.drawable.icon_performance_jjfy,
                 R.drawable.icon_performance_zsjl)
     }
-    val listNiceCount by lazy {
-        listOf(1,2,3,4,5,6)
+    private val listNiceCount by lazy {
+        arrayListOf(0,0,0,0,0,0)
     }
 
-    val listNiceWords by lazy {
+    private val listNiceWords by lazy {
         listOf("专心听讲",
                 "乐于助人",
                 "努力学习",
@@ -51,7 +81,7 @@ class PerformanceDialog: BaseFragmentDialog() {
                 "遵守纪律")
     }
 
-    val listBadIcon by lazy {
+    private val listBadIcon by lazy {
         listOf(R.drawable.icon_performance_skzs,
                 R.drawable.icon_performance_bsjl,
                 R.drawable.icon_performance_mzzy,
@@ -60,7 +90,7 @@ class PerformanceDialog: BaseFragmentDialog() {
                 R.drawable.icon_performance_hlsh)
     }
 
-    val listBadWords by lazy {
+    private val listBadWords by lazy {
         listOf("上课走神",
                 "不守纪律",
                 "没做作业",
@@ -69,12 +99,8 @@ class PerformanceDialog: BaseFragmentDialog() {
                 "胡乱说话")
     }
 
-    val listBadCount by lazy {
-        listOf(1,2,3,4,5,6)
-    }
-
-    override fun getLayoutRes(): Int {
-        return R.layout.dialog_performance
+    private val listBadCount by lazy {
+        arrayListOf(0,0,0,0,0,0)
     }
 
     override fun initView(view: View) {
@@ -113,10 +139,8 @@ class PerformanceDialog: BaseFragmentDialog() {
 
 
         tvReward.isSelected = true
-
         adapter.isNice = true
-        adapter.setNewData(listNiceCount)
-
+        EBagApi.personalPerformance(request)
     }
 
     inner class Adapter: BaseQuickAdapter<Int,BaseViewHolder>(R.layout.item_dialog_performance){
@@ -131,9 +155,11 @@ class PerformanceDialog: BaseFragmentDialog() {
             if(isNice){
                 helper.setImageResource(R.id.image,listNiceIcon[helper.adapterPosition])
                         .setText(R.id.text,listNiceWords[helper.adapterPosition])
+                        .setBackgroundRes(R.id.tvTag, R.drawable.blue_point)
             }else{
                 helper.setImageResource(R.id.image,listBadIcon[helper.adapterPosition])
                         .setText(R.id.text,listBadWords[helper.adapterPosition])
+                        .setBackgroundRes(R.id.tvTag, R.drawable.red_point)
             }
 
             helper.setText(R.id.tvTag, "$item")

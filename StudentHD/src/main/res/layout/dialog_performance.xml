@@ -56,16 +56,16 @@
             android:text="值得表扬"
             android:padding="@dimen/x12"
             android:drawablePadding="@dimen/x10"
-            android:textColor="@color/color_performance_text_selector"
+            android:textColor="@color/praise_tv"
             android:textSize="@dimen/tv_normal"
-            app:leftDrawable="@drawable/icon_smile_face_selector"
+            app:leftDrawable="@drawable/icon_performance_praise"
             app:leftDrawableHeight="@dimen/x26"
             app:leftDrawableWidth="@dimen/x26"
             android:gravity="center"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/y1"
-            android:background="@drawable/performance_line_selector"
+            android:background="@drawable/performance_praise_btn_bg"
             android:layout_gravity="bottom"/>
     </FrameLayout>
 
@@ -82,17 +82,17 @@
             android:layout_height="wrap_content"
             android:text="需要改正"
             android:drawablePadding="@dimen/x10"
-            android:textColor="@color/color_performance_text_selector"
+            android:textColor="@color/correction_tv"
             android:textSize="@dimen/tv_normal"
             android:gravity="center"
             android:layout_gravity="center"
-            app:leftDrawable="@drawable/icon_cry_face_selector"
+            app:leftDrawable="@drawable/icon_performance_correction"
             app:leftDrawableHeight="@dimen/x26"
             app:leftDrawableWidth="@dimen/x26"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/y1"
-            android:background="@drawable/performance_line_selector"
+            android:background="@drawable/performance_correction_btn_bg"
             android:layout_gravity="bottom"/>
     </FrameLayout>
 
@@ -103,5 +103,7 @@
         app:layout_constraintStart_toStartOf="@id/bg"
         app:layout_constraintEnd_toEndOf="@id/bg"
         app:layout_constraintTop_toBottomOf="@id/tvReward"/>
-
+    <ebag.core.widget.empty.StateView android:id="@+id/stateView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </android.support.constraint.ConstraintLayout>

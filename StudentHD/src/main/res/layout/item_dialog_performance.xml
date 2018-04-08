@@ -30,15 +30,10 @@
 
     <TextView
         android:id="@+id/tvTag"
-        android:layout_width="@dimen/x30"
-        android:layout_height="@dimen/x30"
-        android:layout_marginTop="@dimen/x10"
-        android:layout_marginEnd="@dimen/x10"
-        android:textColor="@color/white"
-        android:textSize="@dimen/tv_third"
-        android:gravity="center"
-        tools:text="1"
+        style="@style/performance_point"
+        tools:text="12"
+        android:background="@drawable/red_point"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/bac_blue_round"/>
+        />
 </android.support.constraint.ConstraintLayout>
