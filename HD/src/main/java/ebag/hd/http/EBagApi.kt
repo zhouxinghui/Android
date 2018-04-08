@@ -154,7 +154,7 @@ object EBagApi {
         val jsonObject = JSONObject()
         if (phone.isNotEmpty()) {
             jsonObject.put("phone", phone)
-        }else {
+        } else {
             jsonObject.put("ysbCode", ysbCode)
         }
         request(EBagClient.eBagService.getCheckCode("v1", createBody(jsonObject)), callback)
@@ -490,7 +490,7 @@ object EBagApi {
     /**
      * 用户反馈
      */
-    fun userFeedback(content: String, callback: RequestCallBack<String>){
+    fun userFeedback(content: String, callback: RequestCallBack<String>) {
         val jsonObject = JSONObject()
         jsonObject.put("content", content)
         EBagApi.request(eBagService.userFeedback("v1", EBagApi.createBody(jsonObject)), callback)
@@ -504,7 +504,6 @@ object EBagApi {
         jsonObject.put(key, value)
         EBagApi.request(eBagService.modifyPersonalInfo("v1", EBagApi.createBody(jsonObject)), callback)
     }
-
 
 
     fun queryYBCurrent(page: Int, pageSize: Int, callback: RequestCallBack<YBCurrentBean>) {
@@ -619,7 +618,7 @@ object EBagApi {
     }
 
     /*保存订单*/
-    fun saveOrder(ybMoneyAll:String,freight:String,address: String, price: String, allPrice: String, list: ArrayList<SaveOrderPBean.ListBean>, oid: String,shopcarid:String = "",callback: RequestCallBack<String>) {
+    fun saveOrder(ybMoneyAll: String, freight: String, address: String, price: String, allPrice: String, list: ArrayList<SaveOrderPBean.ListBean>, oid: String, shopcarid: String = "", callback: RequestCallBack<String>) {
         val jsonObject = JSONObject()
         jsonObject.put("address", address)
         jsonObject.put("ybMoneyAll", ybMoneyAll)
@@ -661,20 +660,28 @@ object EBagApi {
 
     /*云币支付*/
 
-    fun ybPay(oid:String,allPrice:String,callback: RequestCallBack<String>){
+    fun ybPay(oid: String, allPrice: String, callback: RequestCallBack<String>) {
 
         val jsonObject = JSONObject()
-        jsonObject.put("oid",oid)
-        jsonObject.put("allPrice",allPrice)
+        jsonObject.put("oid", oid)
+        jsonObject.put("allPrice", allPrice)
         EBagApi.request(eBagService.ybPay("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
     /**
      * 根据班级查询班级下所有的成员（老师，学生，家长）
      */
-    fun clazzMember(classId: String, callback: RequestCallBack<ClassMemberBean>){
+    fun clazzMember(classId: String, callback: RequestCallBack<ClassMemberBean>) {
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
         EBagApi.request(eBagService.clazzMember("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /*更新订单状态，确认收货*/
+    fun updateShopOrderStaus(oid: String,callback: RequestCallBack<String>,staus: String = "3") {
+        val jsonObject = JSONObject()
+        jsonObject.put("oid", oid)
+        jsonObject.put("staus", staus)
+        EBagApi.request(eBagService.updateShopOrderStaus("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

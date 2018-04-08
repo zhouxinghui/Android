@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.Toast
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.L
+import ebag.core.util.T
 import ebag.core.widget.empty.StateView
 import ebag.hd.R
 import ebag.hd.adapter.OrderListAdapter
@@ -59,25 +61,46 @@ class ShopOrderFragment : BaseFragment() {
         }
         //adapter.setOnItemClickListener { adapter, view, position -> startActivity(Intent(activity, OrderDetailsActivity::class.java)) }
         mAdapter.setOnItemChildClickListener { adapter, view, position ->
-            val intent = Intent(activity, OrderDetailsActivity::class.java)
-            intent.putExtra("number", mData[position].oid)
-            val data: ArrayList<ShopListBean.ListBean> = arrayListOf()
-            mData[position].orderProductVOs.forEach {
-                val bean = ShopListBean.ListBean()
-                bean.discountPrice = it.price
-                bean.shoppingName = it.shopName
-                bean.numbers = it.numbers.toInt()
-                bean.ysbMoney = it.ysbMoney
-                bean.shopUrl = it.shopImg
-                data.add(bean)
+
+            if (index == 2) {
+                val oid = mData[position].oid
+                EBagApi.updateShopOrderStaus(oid,object:RequestCallBack<String>(){
+
+
+                    override fun onSuccess(entity: String?) {
+                        T.show(activity,"收货成功")
+                        mAdapter.remove(position)
+                        mAdapter.notifyItemRemoved(position)
+                        if (mData.isEmpty()){
+                            stateView.showEmpty()
+                        }
+                    }
+
+                    override fun onError(exception: Throwable) {
+                        exception.handleThrowable(activity)
+                    }
+
+                })
+
+            } else {
+                val intent = Intent(activity, OrderDetailsActivity::class.java)
+                intent.putExtra("number", mData[position].oid)
+                val data: ArrayList<ShopListBean.ListBean> = arrayListOf()
+                mData[position].orderProductVOs.forEach {
+                    val bean = ShopListBean.ListBean()
+                    bean.discountPrice = it.price
+                    bean.shoppingName = it.shopName
+                    bean.numbers = it.numbers.toInt()
+                    bean.ysbMoney = it.ysbMoney
+                    bean.shopUrl = it.shopImg
+                    data.add(bean)
+                }
+                intent.putExtra("datas", data)
+                intent.putExtra("which", 1)
+                intent.putExtra("freight", mData[position].freight ?: "0")
+                intent.putExtra("addressStr", mData[position].address)
+                startActivity(intent)
             }
-
-
-            intent.putExtra("datas", data)
-            intent.putExtra("which", 1)
-            intent.putExtra("freight",mData[position].freight?:"0")
-            intent.putExtra("address",mData[position].address)
-            startActivity(intent)
         }
         flag = true
         if (index == -1 && !isLoaded) {
@@ -132,6 +155,5 @@ class ShopOrderFragment : BaseFragment() {
 
         }
     }
-
 
 }

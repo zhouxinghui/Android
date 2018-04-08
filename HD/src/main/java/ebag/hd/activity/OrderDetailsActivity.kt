@@ -103,6 +103,7 @@ class OrderDetailsActivity : BaseActivity() {
             tv_name_phone.text = "${addList[0]}  ${addList[1]}"
             tv_adress.text = "${addList[2]}  ${addList[3]}"
             address = true
+            tv_choose_address.visibility = View.GONE
         } else {
             queryAddress()
         }

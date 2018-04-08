@@ -331,4 +331,8 @@ interface EBagService {
     @POST("clazz/getClassUserByAll/{version}")
     fun clazzMember(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ClassMemberBean>>
 
+    //更新订单状态
+    @POST("shop/updateShopOrderStaus/{version}")
+    fun updateShopOrderStaus(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
 }

@@ -34,6 +34,7 @@ class OrderListAdapter(private val context: Context, layout: Int, data: MutableL
             "2" -> {
                 statusText = "待收货"
                 statusSubtext = "确认收货"
+                helper.addOnClickListener(R.id.order_btn)
             }
         }
         helper.getView<LinearLayout>(R.id.good_layout).removeAllViews()
