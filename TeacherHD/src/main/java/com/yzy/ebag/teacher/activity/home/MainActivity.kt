@@ -2,13 +2,16 @@ package com.yzy.ebag.teacher.activity.home
 
 import android.content.Intent
 import android.support.v4.app.Fragment
+import android.view.KeyEvent
 import cn.jpush.android.api.JPushInterface
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.activity.vnc.VNCSetActivity
 import ebag.core.base.mvp.MVPActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : MVPActivity() {
+    private var exitTime: Long = 0
     private val fragmentArrays = arrayOf(FragmentFirstPage.newInstance(), FragmentClass.newInstance(), FragmentMine.newInstance())
     override fun getLayoutId(): Int {
         return R.layout.activity_main
@@ -22,15 +25,21 @@ class MainActivity : MVPActivity() {
         }
 
         leftGroup.setOnCheckedChangeListener { _, checkedId ->
-            when(checkedId){
-                R.id.firstPage -> {changeFragment(0)}
-                R.id.clazz -> {changeFragment(1)}
-                R.id.mine -> {changeFragment(2)}
+            when (checkedId) {
+                R.id.firstPage -> {
+                    changeFragment(0)
+                }
+                R.id.clazz -> {
+                    changeFragment(1)
+                }
+                R.id.mine -> {
+                    changeFragment(2)
+                }
             }
         }
     }
 
-    private var tempFragment : Fragment? = null
+    private var tempFragment: Fragment? = null
     /**
      * 显示指定的Fragment
      *
@@ -64,5 +73,18 @@ class MainActivity : MVPActivity() {
 
     override fun destroyPresenter() {
 
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode === KeyEvent.KEYCODE_BACK && event!!.action === KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                toast("再按一次退出程序")
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish()
+            }
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
     }
 }

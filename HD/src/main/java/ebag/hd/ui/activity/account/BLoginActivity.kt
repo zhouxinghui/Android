@@ -1,5 +1,6 @@
 package ebag.hd.ui.activity.account
 
+import android.app.Activity
 import android.content.Intent
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -34,6 +35,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
     companion object {
+
         const val STUDENT_ROLE = "1"
         const val TEACHER_ROLE = "2"
         const val PARENT_ROLE = "3"
@@ -44,6 +46,8 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         const val QQ_TYPE = "4"
         const val WEIXIN_TYPE = "5"
         const val SIAN_TYPE = "6"
+
+        var mActivity:Activity? = null
     }
 
     private var isToMain = false
@@ -190,6 +194,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
     lateinit var loginEdit: EditText
     lateinit var pwdEdit: EditText
     override fun initViews() {
+        mActivity = this
         loginEdit = loginAccount
         pwdEdit = loginPwd
         isToMain = intent.getBooleanExtra(Constants.KEY_TO_MAIN, false)

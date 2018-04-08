@@ -1,5 +1,6 @@
 package com.yzy.ebag.teacher.activity.account
 
+import android.app.Activity
 import android.content.Intent
 import android.view.View
 import android.widget.Toast
@@ -13,6 +14,9 @@ import kotlinx.android.synthetic.main.activity_login_select.*
 import kotlinx.android.synthetic.main.common_title_bar.*
 
 class LoginSelectActivity : BaseActivity(), View.OnClickListener {
+    companion object {
+        var mActivity : Activity? = null
+    }
     private var uid: String? = null
     private var accessToken: String? = null
     private var name :String? = null
@@ -65,6 +69,7 @@ class LoginSelectActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initViews() {
+        mActivity = this
         uid = intent.getStringExtra("uid")
         accessToken = intent.getStringExtra("accessToken")
         name = intent.getStringExtra("name")

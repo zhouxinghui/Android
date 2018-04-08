@@ -59,8 +59,9 @@ class BindingActivity : BaseActivity() {
                             SerializableUtils.setSerializable("teacher", entity)
 //                        setResult(Constants.CODE_LOGIN_RESULT)
                             startActivity(Intent(this@BindingActivity, MainActivity::class.java))
+                            BLoginActivity.mActivity!!.finish()
+                            LoginSelectActivity.mActivity!!.finish()
                             finish()
-
                         }
 
                         override fun onError(exception: Throwable) {
@@ -107,7 +108,9 @@ class BindingActivity : BaseActivity() {
                         LoadingDialogUtil.closeLoadingDialog()
                         MsgException("1", "无数据返回").handleThrowable(this@BindingActivity)
                     }
-
+                    BLoginActivity.mActivity!!.finish()
+                    LoginSelectActivity.mActivity!!.finish()
+                    finish()
                 }
 
                 override fun onError(exception: Throwable) {
