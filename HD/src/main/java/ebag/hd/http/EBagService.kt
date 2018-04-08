@@ -134,6 +134,8 @@ interface EBagService {
      */
     @POST("book/myBook/{version}")
     fun myBookList(@Path("version") version: String): Observable<ResponseBean<List<BookBean>>>
+    @POST("book/getstudentBook/{version}")
+    fun studentBookList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<BookBean>>>
 
     /**
      * 课程表

@@ -157,7 +157,7 @@ class MainActivity : MVPActivity(), MainView {
         }
         //学习课本点击事件
         tvXXKB.setOnClickListener{
-            startActivity(Intent(this, BookListActivity::class.java))
+            BookListActivity.jump(this, classId)
         }
         //课程表
         tvKCB.setOnClickListener{

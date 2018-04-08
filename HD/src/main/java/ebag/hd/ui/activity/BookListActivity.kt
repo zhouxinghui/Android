@@ -28,17 +28,25 @@ import java.util.zip.ZipException
  */
 class BookListActivity: BaseListActivity<List<BookBean>, BookBean>() {
     companion object {
-        fun jump(context: Context){
-            context.startActivity(Intent(context, BookListActivity::class.java))
+        fun jump(context: Context, classId: String? = null){
+            context.startActivity(
+                    Intent(context, BookListActivity::class.java)
+                            .putExtra("classId", classId)
+            )
         }
     }
+    private var classId = ""
     override fun loadConfig(intent: Intent) {
         setPageTitle("学习课本")
         loadMoreEnabled(false)
+        classId = intent.getStringExtra("classId")
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<BookBean>>) {
-        EBagApi.myBookList(requestCallBack)
+        if (StringUtils.isEmpty(classId))
+            EBagApi.myBookList(requestCallBack)
+        else
+            EBagApi.studentBookList(classId, requestCallBack)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<BookBean>?): List<BookBean>? {

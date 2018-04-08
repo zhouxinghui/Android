@@ -264,6 +264,12 @@ object EBagApi {
         EBagApi.request(eBagService.myBookList("v1"), callback)
     }
 
+    fun studentBookList(classId: String, callback: RequestCallBack<List<BookBean>>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        EBagApi.request(eBagService.studentBookList("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
     /**
      * 作业报告
      */
