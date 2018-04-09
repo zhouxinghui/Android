@@ -19,9 +19,11 @@ public class GenerateValueFiles {
      * {0}-HEIGHT
      */
     private final static String VALUE_TEMPLATE = "values-{0}x{1}";
-
-    private static final String SUPPORT_DIMESION = "720,1184;720,1196;720,1280;768,1024;800,1280;1080,1800;1080,1812;1080,1920;1116,1920;1200,1836;1200,1920;1440,2560;1600,2560;";
-//    private static final String SUPPORT_DIMESION = "1184,720;1196,720;1280,720;1024,768;1280,800;1800,1080;1812,1080;1920,1080;1920,1116;1836,1200;1920,1200;2560,1440;2560,1600;";
+        //这个是平板的
+//    private static final String SUPPORT_DIMESION = "720,1184;720,1196;720,1280;768,1024;800,1280;1080,1800;1080,1812;1080,1920;1116,1920;1200,1836;1200,1920;1440,2560;1600,2560;";
+    //这个是手机的
+    private static final String SUPPORT_DIMESION = "2560,1532;1184,720;1196,720;1280,720;1024,768;1280,800;1800,1080;1812,1080;1920,1080;1920,1116;1836,1200;1920,1200;2560,1440;2560,1600;";
+//    private static final String SUPPORT_DIMESION = "2560,1532;1280,480;";
 
     private String supportStr = SUPPORT_DIMESION;
 
@@ -138,8 +140,8 @@ public class GenerateValueFiles {
     }
 
     public static void main(String[] args) {
-        int baseW = 720;
-        int baseH = 1280;
+        int baseW = 480;
+        int baseH = 800;
         String addition = "";
         try {
             if (args.length >= 3) {
