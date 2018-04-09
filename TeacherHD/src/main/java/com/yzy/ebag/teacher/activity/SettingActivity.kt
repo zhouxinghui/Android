@@ -25,7 +25,7 @@ class SettingActivity : BaseActivity(), View.OnClickListener{
     private val feedbackDialog by lazy { UserFeedbackDialog(this) }
     override fun initViews() {
         val  packageInfo = packageManager.getPackageInfo(this.packageName, 0)
-        versionName.text =  packageInfo.versionName
+        versionName.text =  "当前版本："+packageInfo.versionName
         versionUpdate.setOnClickListener(this)
         officeNotice.setOnClickListener(this)
         userFeedback.setOnClickListener(this)

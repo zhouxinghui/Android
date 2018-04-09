@@ -77,7 +77,7 @@ class SettingActivity: BaseActivity(), View.OnClickListener {
 
     override fun initViews() {
         val  packageInfo = packageManager.getPackageInfo(this.packageName, 0)
-        versionName.text =  packageInfo.versionName
+        versionName.text =  "当前版本："+packageInfo.versionName
         logoutBtn.setOnClickListener(this)
         themeBtn.setOnClickListener(this)
         updateBtn.setOnClickListener(this)
