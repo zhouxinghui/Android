@@ -72,6 +72,7 @@ class ReadRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
         popupWindow.onConfirmClick = {versionId, versionName, semesterName, subName ->
             textBookTv.text = "$subName-$versionName-$semesterName"
             bookVersionId = versionId
+            isFirstRequest = false
             request()
         }
         popupWindow
@@ -82,6 +83,7 @@ class ReadRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
     private lateinit var unitId: String
     private var bookVersionId = ""
     private var subCode = "yy"
+    private var isFirstRequest = true
     override fun loadConfig() {
         enableNetWork(false)
         EBagApi.getMyClasses(classesRequest)
@@ -120,7 +122,8 @@ class ReadRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
     }
 
     override fun parentToList(parent: EditionBean?): List<UnitBean>? {
-        textBookTv.text = parent?.bookVersion
+        if (isFirstRequest)
+            textBookTv.text = parent?.bookVersion
         return parent?.resultBookUnitOrCatalogVos
     }
 
