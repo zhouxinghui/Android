@@ -53,7 +53,8 @@ object Constants {
     val REPORT_TYPE = "6"
     const val CLASS_NAME: String = "class_name"
     const val GRADE_CODE: String = "grade_code"
-    val MOBILENUMBER_REGEX = "^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,1,3,5-8])|(18[0-9])|(147))\\d{8}$"
+    //18319032590
+    val MOBILENUMBER_REGEX = "^((13[0-9])|(14[5,7,9])|(15[^4])|(18[0-9])|(17[0,1,3,5,6,7,8]))\\d{8}$"
 
     const val USER_ACCOUNT = "userCount"
     const val USER_PASS_WORD = "userPassWord"
@@ -64,10 +65,10 @@ object Constants {
     const val THIRD_PARTY_UNION_ID = "thirdPartyUnionid"
 
 //    const val BASE_URL = "http://www.yun-bag.com/ebag-portal/"
-//    const val BASE_URL = "http://192.168.1.141:9001/"
+    const val BASE_URL = "http://192.168.1.141:9001/"
 //    const val BASE_URL = "http://192.168.1.155:9001/"
 //    const val BASE_URL = "http://192.168.1.135:9001/"
 //    const val BASE_URL = "http://192.168.1.144:9001/"
-    const val BASE_URL = "http://192.168.1.110:9001/"
+    //const val BASE_URL = "http://192.168.1.110:9001/"
 //    const val BASE_URL = "http://localhost:9001/"
 }

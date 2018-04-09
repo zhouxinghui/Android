@@ -1,7 +1,5 @@
 package ebag.hd.bean;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 /**
@@ -117,12 +115,22 @@ public class QueryOrderBean {
 
         private String freight;
 
-        public static class     orderDetailsData{
+        public static class orderDetailsData {
 
             private String shopName;
             private String price;
             private String discountPrice;
             private String shopImg;
+
+            public String getShopId() {
+                return shopId;
+            }
+
+            public void setShopId(String shopId) {
+                this.shopId = shopId;
+            }
+
+            private String shopId;
 
             public String getDiscountPrice() {
                 return discountPrice;

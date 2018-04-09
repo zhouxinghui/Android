@@ -1,29 +1,20 @@
 package ebag.hd.activity
 
-import android.content.SharedPreferences
 import android.graphics.Color
-import android.support.v7.widget.AppCompatEditText
-import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
-import android.util.Patterns
 import android.widget.EditText
 import android.widget.TextView
 import com.bigkoo.pickerview.OptionsPickerView
 import com.google.gson.Gson
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
-import ebag.core.util.Constants
-import ebag.core.util.SPUtils
 import ebag.core.util.T
 import ebag.hd.R
 import ebag.hd.adapter.EditAddressAdapter
 import ebag.hd.bean.CitysBean
 import ebag.hd.http.EBagApi
 import ebag.hd.mvp.model.EditAddressModel
-import ebag.hd.widget.CityPickerDialog
-import kotlinx.android.synthetic.main.activity_class_schedule.*
 import kotlinx.android.synthetic.main.activity_editaddress.*
 import org.json.JSONArray
 import java.io.BufferedReader
@@ -134,7 +125,7 @@ class EditAddressActivity : BaseActivity() {
             phone.text.toString().trim().isEmpty() -> T.show(this, "电话不能为空")
             preAddress.text.toString().trim().isEmpty() -> T.show(this, "没有选择省市区")
             address.text.toString().trim().isEmpty() -> T.show(this, "地址不能为空")
-            !Pattern.matches(ebag.hd.base.Constants.MOBILENUMBER_REGEX, phone.text.toString().trim()) -> T.show(this, "手机号格式不正确")
+            (!Pattern.matches(ebag.hd.base.Constants.MOBILENUMBER_REGEX, phone.text.toString().trim()) && phone.text.toString().trim().length == 11) -> T.show(this, "手机号格式不正确")
             else -> return true
         }
 

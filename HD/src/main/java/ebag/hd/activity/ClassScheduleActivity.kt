@@ -59,7 +59,7 @@ class ClassScheduleActivity: BaseActivity(){
             }
         }
 
-        dialog.setOnDialogItemClickListener { mDialog, data, position ->
+        dialog.setOnDialogItemClickListener { mDialog, data, _ ->
             if(data.keyValue == EDIT_VALUE){
                 editDialog.show()
             }else{

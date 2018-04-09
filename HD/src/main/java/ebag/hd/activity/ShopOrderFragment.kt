@@ -6,17 +6,16 @@ import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.Toast
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
-import ebag.core.util.L
 import ebag.core.util.T
 import ebag.core.widget.empty.StateView
 import ebag.hd.R
 import ebag.hd.adapter.OrderListAdapter
 import ebag.hd.bean.QueryOrderBean
 import ebag.hd.bean.ShopListBean
+import ebag.hd.bean.ShopStatusBean
 import ebag.hd.http.EBagApi
 import kotlinx.android.synthetic.main.fragment_shoporder.*
 
@@ -64,7 +63,13 @@ class ShopOrderFragment : BaseFragment() {
 
             if (index == 2) {
                 val oid = mData[position].oid
-                EBagApi.updateShopOrderStaus(oid,object:RequestCallBack<String>(){
+                val orderProductVOs = mData[position].orderProductVOs
+                val list:MutableList<ShopStatusBean> = mutableListOf()
+                orderProductVOs.forEach {
+                    val s = ShopStatusBean(it.shopId,it.numbers)
+                    list.add(s)
+                }
+                EBagApi.updateShopOrderStaus(oid,list,object:RequestCallBack<String>(){
 
 
                     override fun onSuccess(entity: String?) {

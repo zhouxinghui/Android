@@ -704,10 +704,18 @@ object EBagApi {
     }
 
     /*更新订单状态，确认收货*/
-    fun updateShopOrderStaus(oid: String,callback: RequestCallBack<String>,staus: String = "3") {
+    fun updateShopOrderStaus(oid: String,numList:List<ShopStatusBean>,callback: RequestCallBack<String>,staus: String = "3") {
         val jsonObject = JSONObject()
         jsonObject.put("oid", oid)
         jsonObject.put("staus", staus)
+        val array = JSONArray()
+        numList.forEach {
+            val json = JSONObject()
+            json.put("shopId",it.shopId)
+            json.put("Number",it.Number)
+            array.put(json)
+        }
+        jsonObject.put("requestOrderVos",array)
         EBagApi.request(eBagService.updateShopOrderStaus("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

@@ -32,10 +32,10 @@ class DiaryListActivity : BaseListActivity<List<Diary>, Diary.ResultUserGrowthBy
 
 
     companion object {
-        fun jump(context: Context, gradeId: String,gradeCode:String) {
+        fun jump(context: Context, gradeId: String,gradeCode:String,type:String) {
             context.startActivity(
                     Intent(context, DiaryListActivity::class.java)
-                            .putExtra("gradeId", gradeId).putExtra("gradeCode", gradeCode)
+                            .putExtra("gradeId", gradeId).putExtra("gradeCode", gradeCode).putExtra("type",type)
             )
         }
     }
@@ -43,20 +43,22 @@ class DiaryListActivity : BaseListActivity<List<Diary>, Diary.ResultUserGrowthBy
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == 998) {
-            onRefresh()
+            onRetryClick()
         }
     }
 
     lateinit var edit: EditText
     lateinit var gradeId: String
     lateinit var gradeCode: String
+    lateinit var type: String
     override fun loadConfig(intent: Intent) {
         gradeId = intent.getStringExtra("gradeId") ?: ""
         gradeCode = intent.getStringExtra("gradeCode") ?: ""
+        type = intent.getStringExtra("type") ?: ""
 
         if (SPUtils.get(this, Constants.GRADE_CODE, -1) == gradeCode.toInt()) {
             titleBar.setRightText("添加") {
-                DiaryDetailActivity.jump(this, gradeId, null)
+                DiaryDetailActivity.jump(this, gradeId, null,type)
             }
         }
 
@@ -72,8 +74,8 @@ class DiaryListActivity : BaseListActivity<List<Diary>, Diary.ResultUserGrowthBy
                 } else {
                     /*隐藏软键盘*/
                     val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                    if (inputMethodManager.isActive()) {
-                        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    if (inputMethodManager.isActive) {
+                        inputMethodManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
                     }
                 }
             }
@@ -114,7 +116,7 @@ class DiaryListActivity : BaseListActivity<List<Diary>, Diary.ResultUserGrowthBy
 
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<Diary>>) {
-        StudentApi.searchUserGrowthList(page, getPageSize(), gradeId, "4", requestCallBack)
+        StudentApi.searchUserGrowthList(page, getPageSize(), gradeId, type, requestCallBack)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<Diary>?): List<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean>? {
@@ -137,7 +139,7 @@ class DiaryListActivity : BaseListActivity<List<Diary>, Diary.ResultUserGrowthBy
 
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        DiaryDetailActivity.jump(this, gradeId, (adapter as Adapter).getItem(position))
+        DiaryDetailActivity.jump(this, gradeId, (adapter as Adapter).getItem(position),type)
     }
 
 
