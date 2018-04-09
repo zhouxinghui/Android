@@ -7,7 +7,7 @@
     <TextView android:id="@+id/typeNameTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/assignment_tv"
+        android:textColor="@color/check_blue_tv"
         android:textSize="@dimen/tv_normal"
         tools:text="选择题"
         android:paddingStart="@dimen/x10"

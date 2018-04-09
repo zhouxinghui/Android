@@ -3,13 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y10"
-        android:background="@color/main_bg_color" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,10 +54,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/x35"
         android:layout_marginTop="@dimen/y20"
+        android:layout_marginBottom="@dimen/y20"
         android:text="哈哈哈哈哈哈哈"
         android:textSize="@dimen/x22"
         android:textStyle="bold"
 
         />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y10"
+        android:background="@color/main_bg_color" />
 
 </LinearLayout>

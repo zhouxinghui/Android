@@ -30,16 +30,16 @@ class ReadRecordListActivity: BaseActivity() {
         return R.layout.activity_read_record_list
     }
     companion object {
-        fun jump(languageId: String, classId: String, deadTime: Long, context: Context){
+        fun jump(unitCode: String, classId: String, deadTime: Long, context: Context){
             context.startActivity(
                     Intent(context, ReadRecordListActivity::class.java)
-                            .putExtra("languageId", languageId)
+                            .putExtra("unitCode", unitCode)
                             .putExtra("classId", classId)
                             .putExtra("deadTime", deadTime)
             )
         }
     }
-    private var languageId = ""
+    private var unitCode = ""
     private var classId = ""
     private var deadTime: Long = 0
     private val leftAdapter = LeftAdapter()
@@ -81,7 +81,7 @@ class ReadRecordListActivity: BaseActivity() {
         }
     }
     override fun initViews() {
-        languageId = intent.getStringExtra("languageId") ?: ""
+        unitCode = intent.getStringExtra("unitCode") ?: ""
         classId = intent.getStringExtra("classId") ?: ""
         deadTime = intent.getLongExtra("deadTime", 0)
 
@@ -105,7 +105,7 @@ class ReadRecordListActivity: BaseActivity() {
                 voicePlaySetting(view)
         }
 
-        EBagApi.getReadDetailList(languageId, leftRequest)
+        EBagApi.getReadDetailList(unitCode, leftRequest)
     }
 
     private val voicePlayer : VoicePlayerOnline by lazy {

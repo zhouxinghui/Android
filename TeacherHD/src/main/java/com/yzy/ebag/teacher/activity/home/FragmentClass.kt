@@ -39,7 +39,7 @@ class FragmentClass : BaseFragment() {
     private val request by lazy {
         object : RequestCallBack<List<SpaceBean>>(){
             override fun onStart() {
-                stateView.showLoading()
+//                stateView.showLoading()
             }
             override fun onSuccess(entity: List<SpaceBean>?) {
                 if (entity == null || entity.isEmpty()){
@@ -68,6 +68,13 @@ class FragmentClass : BaseFragment() {
 
     override fun getBundle(bundle: Bundle?) {
 
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden){
+            TeacherApi.clazzSpace(request)
+        }
     }
 
     override fun initViews(rootView: View) {

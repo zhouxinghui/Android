@@ -1,61 +1,53 @@
-package com.yzy.ebag.teacher.widget
+package ebag.hd.widget
 
 import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.LayoutInflater
+import android.widget.PopupWindow
+import android.widget.RadioGroup
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.yzy.ebag.teacher.R
-import com.yzy.ebag.teacher.bean.AssignClassBean
-import com.yzy.ebag.teacher.bean.BookVersionBean
-import com.yzy.ebag.teacher.http.TeacherApi
-import ebag.core.base.BaseDialog
 import ebag.core.http.network.RequestCallBack
-import ebag.core.util.DensityUtil
 import ebag.core.util.StringUtils
 import ebag.core.util.T
-import kotlinx.android.synthetic.main.dialog_textbook_version.*
+import ebag.core.widget.empty.StateView
+import ebag.hd.R
+import ebag.hd.bean.ReadRecordVersionBean
+import ebag.hd.http.EBagApi
 
 /**
- * Created by YZY on 2018/1/10.
+ * Created by YZY on 2018/4/9.
  */
-class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
-    override fun getLayoutRes(): Int {
-        return R.layout.dialog_textbook_version
-    }
-
-    override fun setWidth(): Int {
-        return DensityUtil.dip2px(context, context.resources.getDimension(R.dimen.x400))
-    }
-
-    override fun setHeight(): Int {
-        return DensityUtil.dip2px(context, context.resources.getDimension(R.dimen.y400))
-    }
-    private val versionRequest = object : RequestCallBack<BookVersionBean>(){
+class ReadRecordTextbookPopup(context: Context): PopupWindow(context)  {
+    private var stateView: StateView? = null
+    private val versionRequest = object : RequestCallBack<ReadRecordVersionBean>(){
         override fun onStart() {
-            stateView.showLoading()
+            stateView?.showLoading()
         }
 
-        override fun onSuccess(entity: BookVersionBean?) {
-            stateView.showContent()
+        override fun onSuccess(entity: ReadRecordVersionBean?) {
+            stateView?.showContent()
             if (entity == null) {
-                stateView.showEmpty()
+                stateView?.showEmpty()
                 return
             }
             addCourseTextbookBean = entity
-            if (entity.firstVo.isEmpty() && entity.nextVo.isEmpty()){
-                stateView.showEmpty()
+            if (entity.first.isEmpty() && entity.next.isEmpty()){
+                stateView?.showEmpty()
                 return
             }
-            if (!entity.firstVo.isEmpty()){
-                subCode = entity.firstVo[0].subjectCode
-                subName = entity.firstVo[0].subjectName
-                subjectAdapter.setNewData(entity.firstVo)
+            if (!entity.first.isEmpty()){
+                subCode = entity.first[0].subjectCode
+                subName = entity.first[0].subjectName
+                subjectAdapter.setNewData(entity.first)
                 subjectAdapter.selectPosition = 0
                 subjectAdapter.removeAllHeaderView()
-                val versionList = entity.firstVo[0].bookVersionVoList
+                val versionList = entity.first[0].bookVersionVoList
                 if (versionList != null && !versionList.isEmpty()){
                     versionAdapter.setNewData(versionList)
                     versionAdapter.removeAllHeaderView()
@@ -64,10 +56,9 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
         }
 
         override fun onError(exception: Throwable) {
-            stateView.showError(exception.message.toString())
+            stateView?.showError(exception.message.toString())
         }
     }
-
     private var subCode = ""
     private var subName = ""
     private var versionId = ""
@@ -75,14 +66,13 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
     private var versionCode = ""
     private var semesterCode = "1"
     private var semesterName = "上学期"
-    private var addCourseTextbookBean = BookVersionBean()
     var onConfirmClick: ((
-            versionName: String,
             versionId: String,
-            semesterCode: String,
+            versionName: String,
             semesterName: String,
-            subCode: String,
-            subName: String) -> Unit)? = null
+            subName: String
+    ) -> Unit)? = null
+    private var addCourseTextbookBean = ReadRecordVersionBean()
     private val subjectAdapter by lazy {
         val adapter = SubjectAdapter()
         adapter.addHeaderView(subjectEmptyHead)
@@ -107,14 +97,29 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.x24))
         textView
     }
-    private var idList: ArrayList<String>? = null
+    private var classId = ""
     init {
+        contentView = LayoutInflater.from(context).inflate(R.layout.popup_read_record_textbook, null)
+        width = context.resources.getDimensionPixelSize(R.dimen.x400)
+        height = context.resources.getDimensionPixelSize(R.dimen.y400)
+        isFocusable = true
+        isOutsideTouchable = true
+        setBackgroundDrawable(ColorDrawable())
+
+        val semesterGroup = contentView.findViewById<RadioGroup>(R.id.semesterGroup)
+        val confirmBtn = contentView.findViewById<TextView>(R.id.confirmBtn)
+        val gradeRecycler = contentView.findViewById<RecyclerView>(R.id.gradeRecycler)
+        val versionRecycler = contentView.findViewById<RecyclerView>(R.id.versionRecycler)
+        stateView = contentView.findViewById(R.id.stateView)
+        stateView?.setOnRetryClickListener {
+            EBagApi.readRecordVersion(classId, versionRequest)
+        }
         semesterGroup.setOnCheckedChangeListener { _, checkedId ->
             when(checkedId){
                 R.id.semesterFirst ->{
                     semesterCode = "1"
                     semesterName = "上学期"
-                    val firstVo = addCourseTextbookBean.firstVo
+                    val firstVo = addCourseTextbookBean.first
                     if (firstVo.isEmpty()){
                         subjectAdapter.addHeaderView(subjectEmptyHead)
                         subjectAdapter.setNewData(firstVo)
@@ -136,7 +141,7 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
                 R.id.semesterSecond ->{
                     semesterCode = "2"
                     semesterName = "下学期"
-                    val nextVo = addCourseTextbookBean.nextVo
+                    val nextVo = addCourseTextbookBean.next
                     if (nextVo.isEmpty()){
                         subjectAdapter.addHeaderView(subjectEmptyHead)
                         subjectAdapter.setNewData(nextVo)
@@ -163,7 +168,7 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
                 T.show(context, "请选择版本")
                 return@setOnClickListener
             }
-            onConfirmClick?.invoke(versionName, versionId, semesterCode, semesterName, subCode, subName)
+            onConfirmClick?.invoke(versionId,versionName, semesterName, subName)
             dismiss()
         }
         gradeRecycler.layoutManager = LinearLayoutManager(context)
@@ -180,29 +185,16 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
             if (versionAdapter.selectPosition != position)
                 versionAdapter.selectPosition = position
         }
+    }
 
-        stateView.setOnRetryClickListener {
-            TeacherApi.searchBookVersion(idList!!, versionRequest)
+    fun setRequest(classId: String){
+        if (this.classId != classId){
+            this.classId = classId
+            EBagApi.readRecordVersion(classId, versionRequest)
         }
     }
 
-    fun show(list: List<AssignClassBean>) {
-        val idList = ArrayList<String>()
-        if (list.isEmpty()){
-            T.show(context, "请选择班级")
-            return
-        }
-        list.forEach { idList.add(it.classId) }
-        if (this.idList != null && this.idList!!.size == idList.size && this.idList!!.containsAll(idList)){
-            super.show()
-            return
-        }
-        this.idList = idList
-        TeacherApi.searchBookVersion(idList, versionRequest)
-        super.show()
-    }
-
-    inner class SubjectAdapter: BaseQuickAdapter<BookVersionBean.SubjectBean, BaseViewHolder>(R.layout.item_textbook_grade){
+    inner class SubjectAdapter: BaseQuickAdapter<ReadRecordVersionBean.SubjectBean, BaseViewHolder>(R.layout.item_textbook_grade){
         var selectPosition = -1
             set(value) {
                 field = value
@@ -216,13 +208,13 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
                 subName = data[selectPosition].subjectName
                 notifyDataSetChanged()
             }
-        override fun convert(setter: BaseViewHolder, entity: BookVersionBean.SubjectBean) {
+        override fun convert(setter: BaseViewHolder, entity: ReadRecordVersionBean.SubjectBean) {
             val gradeTv = setter.getView<TextView>(R.id.gradeTv)
             gradeTv.text = entity.subjectName
             gradeTv.isSelected = selectPosition != -1 && selectPosition == setter.adapterPosition
         }
     }
-    inner class VersionAdapter : BaseQuickAdapter<BookVersionBean.SubjectBean.BookVersionVoListBean, BaseViewHolder>(R.layout.item_textbook_version){
+    inner class VersionAdapter : BaseQuickAdapter<ReadRecordVersionBean.SubjectBean.BookVersionVoListBean, BaseViewHolder>(R.layout.item_textbook_version){
         var selectPosition = -1
             set(value) {
                 field = value
@@ -235,7 +227,7 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
                 }
                 notifyDataSetChanged()
             }
-        override fun convert(setter: BaseViewHolder, entity: BookVersionBean.SubjectBean.BookVersionVoListBean) {
+        override fun convert(setter: BaseViewHolder, entity: ReadRecordVersionBean.SubjectBean.BookVersionVoListBean) {
             val versionTv = setter.getView<TextView>(R.id.versionTv)
             versionTv.text = entity.versionName
             versionTv.isSelected = selectPosition != -1 && selectPosition == setter.adapterPosition

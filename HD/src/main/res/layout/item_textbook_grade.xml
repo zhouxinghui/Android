@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:textSize="@dimen/tv_normal"
-        android:textColor="@color/assignment_tv"
+        android:textColor="@color/check_blue_tv"
         android:background="@drawable/textbook_grade_tv_bg"
         android:paddingTop="@dimen/y5"
         android:paddingBottom="@dimen/y5"

@@ -413,6 +413,14 @@ object EBagApi {
         jsonObject.put("subCode", subCode)
         EBagApi.request(eBagService.getUnit("v1", EBagApi.createBody(jsonObject)), callback)
     }
+    /**
+     * 获取单元数据
+     */
+    fun getUnit(bookVersionId: String, callback: RequestCallBack<EditionBean>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("bookVersionId", bookVersionId)
+        EBagApi.request(eBagService.getUnit("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 
     /**
      * 获取用户的所有所在班级
@@ -481,10 +489,19 @@ object EBagApi {
     }
 
     /**获取跟读详情里头 句子的详情*/
-    fun getReadDetailList(languageId: String, callback: RequestCallBack<List<ReadRecordVoiceBean>>) {
+    fun getReadDetailList(unitCode: String, callback: RequestCallBack<List<ReadRecordVoiceBean>>) {
         val jsonObject = JSONObject()
-        jsonObject.put("languageId", languageId)
+        jsonObject.put("unitCode", unitCode)
         EBagApi.request(eBagService.getReadDetailList("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 跟读-报告-切换版本
+     */
+    fun readRecordVersion(classId: String, callback: RequestCallBack<ReadRecordVersionBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        EBagApi.request(eBagService.readRecordVersion("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
     /**

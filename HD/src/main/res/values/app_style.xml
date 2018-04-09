@@ -199,4 +199,14 @@
         <item name="android:paddingBottom">@dimen/y1</item>
     </style>
     <!--课堂表现end-->
+    <style name="semester_radio_button">
+        <item name="android:layout_width">@dimen/x150</item>
+        <item name="android:layout_height">@dimen/y50</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:textColor">@color/semester_tv</item>
+        <item name="android:background">@drawable/semester_tv_bg</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginRight">@dimen/x50</item>
+    </style>
 </resources>
