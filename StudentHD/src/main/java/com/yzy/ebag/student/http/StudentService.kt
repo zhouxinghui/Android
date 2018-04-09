@@ -1,6 +1,5 @@
 package com.yzy.ebag.student.http
 
-import com.yzy.ebag.student.activity.center.fragment.ParentFragment
 import com.yzy.ebag.student.bean.*
 import ebag.core.bean.ResponseBean
 import ebag.hd.bean.ParentBean
@@ -140,6 +139,9 @@ interface StudentService {
     /*查询个人中心*/
     @POST("user/queryPersonalCenter/{version}")
     fun queryPersonalCenter(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<UserInfoBean>>
+
+    @POST("user/learningProcess/{version}")
+    fun learningProcess(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<List<LeaningProgressBean>>>
 
 
 

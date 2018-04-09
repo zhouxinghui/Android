@@ -2,7 +2,6 @@ package com.yzy.ebag.student.http
 
 import android.util.Base64
 import com.alibaba.fastjson.JSON
-import com.yzy.ebag.student.activity.center.fragment.ParentFragment
 import com.yzy.ebag.student.bean.*
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.L
@@ -292,5 +291,10 @@ object StudentApi {
     fun queryUserInfo(call:RequestCallBack<UserInfoBean>){
         val jsonObject = JSONObject()
         EBagApi.request(studentService.queryPersonalCenter("1", EBagApi.createBody(jsonObject)), call)
+    }
+
+    fun learningProcess(call:RequestCallBack<List<LeaningProgressBean>>){
+        val jsonObject = JSONObject()
+        EBagApi.request(studentService.learningProcess("1", EBagApi.createBody(jsonObject)), call)
     }
 }
