@@ -12,11 +12,10 @@ import ebag.core.base.BaseActivity
 import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
-import ebag.core.util.SerializableUtils
+import ebag.core.util.StringUtils
 import ebag.hd.R
 import ebag.hd.base.Constants
 import ebag.hd.bean.ReportBean
-import ebag.hd.bean.response.UserEntity
 import ebag.hd.homework.DoHomeworkActivity
 import ebag.hd.http.EBagApi
 import kotlinx.android.synthetic.main.activity_report_class.*
@@ -30,12 +29,13 @@ import java.text.DecimalFormat
 class ReportClassActivity: BaseActivity() {
 
     companion object {
-        fun jump(context: Context, homeworkId: String, workType: String, studentId: String = ""){
+        fun jump(context: Context, homeworkId: String, workType: String, studentId: String = "", studentName: String = ""){
             context.startActivity(
                     Intent(context, ReportClassActivity::class.java)
                             .putExtra("homeworkId", homeworkId)
                             .putExtra("studentId", studentId)
                             .putExtra("workType", workType)
+                            .putExtra("studentName", studentName)
             )
         }
     }
@@ -47,18 +47,19 @@ class ReportClassActivity: BaseActivity() {
     private lateinit var homeworkId: String
     private var studentId = ""
     private var workType = ""
+    private var studentName = ""
     override fun initViews() {
 
         homeworkId = intent.getStringExtra("homeworkId") ?: ""
         studentId = intent.getStringExtra("studentId") ?: ""
         workType = intent.getStringExtra("workType") ?: ""
+        studentName = intent.getStringExtra("studentName") ?: ""
         fillData()
     }
 
     private fun fillData(){
-        val userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.STUDENT_USER_ENTITY)
-        if(userEntity != null){
-            titleView.setTitle(userEntity.name)
+        if(!StringUtils.isEmpty(studentName)){
+            titleView.setTitle(studentName)
         }else{
             titleView.setTitle("作业报告")
         }
