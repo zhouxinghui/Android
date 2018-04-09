@@ -278,8 +278,14 @@ interface EBagService {
     /**
      * 获取跟读列表里头的每个句子的详情
      */
-    @POST("util/getOralLanguageDetail/{version}")
+    @POST("util/getOralLanguageDetailByUnitCode/{version}")
     fun getReadDetailList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<ReadRecordVoiceBean>>>
+
+    /**
+     * 跟读-报告-切换版本
+     */
+    @POST("util/getBookVersion/{version}")
+    fun readRecordVersion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ReadRecordVersionBean>>
 
 
     //TODO 接口名称，注意替换
@@ -338,7 +344,7 @@ interface EBagService {
     fun clazzMember(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ClassMemberBean>>
 
     //更新订单状态
-    @POST("shop/updateShopOrderStaus/{version}")
+    @POST("shop/updateShopOrderStatus/{version}")
     fun updateShopOrderStaus(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
 }

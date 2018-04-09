@@ -141,10 +141,10 @@ class QuestionTestActivity : AppCompatActivity() {
     private fun setConnectionView(){
         val questionBean = QuestionBean()
         questionBean.title = "给图片和单词连线"
-        questionBean.content = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg," +
-                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg," +
-                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/desk.jpg," +
-                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/schoolbag.jpg;" +
+        questionBean.content = "ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg," +
+                "ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg," +
+                "ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/desk.jpg," +
+                "ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/schoolbag.jpg;" +
                 "blackboard,desk,chair,schoolbag"
         questionBean.rightAnswer = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg,blackboard;" +
                 "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg,chair;" +

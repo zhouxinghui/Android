@@ -42,15 +42,15 @@ class GrowthTypeActivity: BaseActivity(){
         }
 
         momentBtn.setOnClickListener {
-
+            DiaryListActivity.jump(this,gradeId,gradeCode,"2")
         }
 
         experienceBtn.setOnClickListener {
-
+            DiaryListActivity.jump(this,gradeId,gradeCode,"3")
         }
 
         diaryBtn.setOnClickListener {
-            DiaryListActivity.jump(this,gradeId,gradeCode)
+            DiaryListActivity.jump(this,gradeId,gradeCode,"4")
         }
     }
 

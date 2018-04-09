@@ -146,6 +146,15 @@ public class CorrectingBean implements IExpandable<CorrectingBean.SubjectVosBean
             private String endTime;
             private String studentCount;
             private String homeWorkCompleteCount;
+            private long createDate;
+
+            public long getCreateDate() {
+                return createDate;
+            }
+
+            public void setCreateDate(long createDate) {
+                this.createDate = createDate;
+            }
 
             public String getId() {
                 return id;

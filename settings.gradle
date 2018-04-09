@@ -1,1 +1,1 @@
-include ':StudentHD', ':core', ':JavaTest', ':HD', ':TeacherHD', ':vnc'
+include ':StudentHD', ':core', ':JavaTest', ':HD', ':TeacherHD', ':vnc', ':Mobile', ':Teacher'

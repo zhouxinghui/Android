@@ -75,7 +75,7 @@ class ReadRecordFragment : BaseListFragment<List<ReadRecordBaseBean>, ReadRecord
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
         adapter as Adapter
-        ReadRecordListActivity.jump(adapter.data[position].languageId, classId, adapter.data[position].dateTime, mContext)
+        ReadRecordListActivity.jump(unitCode, classId, adapter.data[position].dateTime, mContext)
     }
 
     inner class Adapter: BaseQuickAdapter<ReadRecordBaseBean, BaseViewHolder>(R.layout.item_tools_record_history){

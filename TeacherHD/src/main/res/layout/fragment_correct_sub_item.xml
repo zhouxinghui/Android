@@ -10,6 +10,17 @@
     android:layout_marginLeft="@dimen/x15"
     android:layout_marginRight="@dimen/x15"
     >
+    <TextView android:id="@+id/createTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/x20"
+        android:textColor="#8892a1"
+        android:layout_marginTop="@dimen/x14"
+        android:layout_marginStart="@dimen/x14"
+        tools:text="布置时间：2018-04-02"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
     <TextView
         android:id="@+id/classNameTv"
         android:layout_width="wrap_content"
@@ -18,7 +29,7 @@
         android:textColor="@color/normal_text_color"
         android:layout_marginTop="@dimen/x14"
         android:layout_marginStart="@dimen/x14"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/createTime"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="一年级一班"/>
 
@@ -53,7 +64,7 @@
         android:textSize="@dimen/x20"
         android:textColor="#8892a1"
         android:layout_marginEnd="@dimen/x14"
-        app:layout_constraintBaseline_toBaselineOf="@id/classNameTv"
+        app:layout_constraintBaseline_toBaselineOf="@id/createTime"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="截止时间： 2017-12-25 12:50"/>
 
@@ -69,7 +80,8 @@
         app:rightDrawable="@drawable/right_arrow"
         app:rightDrawableWidth="@dimen/x13"
         app:rightDrawableHeight="@dimen/x23"
-        app:layout_constraintBaseline_toBaselineOf="@id/tvContent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="@dimen/x14"
         tools:text="未完成"/>

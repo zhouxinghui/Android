@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+    <android.support.constraint.Guideline android:id="@+id/line1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.26" />
+    <android.support.constraint.Guideline android:id="@+id/line2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.3" />
+    <RadioGroup android:id="@+id/semesterGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/y10"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+        <RadioButton android:id="@+id/semesterFirst"
+            android:checked="true"
+            style="@style/semester_radio_button"
+            android:layout_marginEnd="@dimen/x10"
+            android:text="上学期"
+            />
+        <RadioButton android:id="@+id/semesterSecond"
+            style="@style/semester_radio_button"
+            android:layout_marginEnd="0dp"
+            android:layout_marginStart="@dimen/x10"
+            android:text="下学期"
+            />
+    </RadioGroup>
+    <android.support.v7.widget.RecyclerView android:id="@+id/gradeRecycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/line1"
+        app:layout_constraintTop_toBottomOf="@id/semesterGroup"
+        app:layout_constraintBottom_toTopOf="@id/confirmBtn"
+        />
+
+    <android.support.v7.widget.RecyclerView android:id="@+id/versionRecycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/y10"
+        app:layout_constraintStart_toEndOf="@id/line2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/semesterGroup"
+        app:layout_constraintBottom_toTopOf="@id/confirmBtn"
+        />
+    <TextView android:id="@+id/confirmBtn"
+        android:layout_width="@dimen/x150"
+        android:layout_height="@dimen/y50"
+        android:layout_marginBottom="@dimen/x10"
+        android:gravity="center"
+        android:background="@drawable/login_btn_bac"
+        android:text="确定"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <ebag.core.widget.empty.StateView android:id="@+id/stateView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</android.support.constraint.ConstraintLayout>

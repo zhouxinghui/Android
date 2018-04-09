@@ -27,11 +27,11 @@ class ExchangeTextbookDialog(context: Context): BaseDialog(context) {
     }
 
     override fun setWidth(): Int {
-        return DensityUtil.dip2px(context, context.resources.getDimensionPixelSize(R.dimen.x400).toFloat())
+        return DensityUtil.dip2px(context, context.resources.getDimension(R.dimen.x400))
     }
 
     override fun setHeight(): Int {
-        return DensityUtil.dip2px(context, context.resources.getDimensionPixelSize(R.dimen.y400).toFloat())
+        return DensityUtil.dip2px(context, context.resources.getDimension(R.dimen.y400))
     }
     private val versionRequest = object : RequestCallBack<BookVersionBean>(){
         override fun onStart() {

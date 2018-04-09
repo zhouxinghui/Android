@@ -11,7 +11,9 @@ import com.yzy.ebag.teacher.bean.CorrectingBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.DateUtil
 import ebag.hd.base.Constants
+import java.util.*
 
 /**
  * Created by YZY on 2018/1/13.
@@ -89,6 +91,7 @@ class CorrectingSubFragment: BaseListFragment<List<CorrectingBean>, CorrectingBe
             val completeTv = helper.getView<TextView>(R.id.completeNum)
             val timeTv = helper.getView<TextView>(R.id.tvTime)
             val statusTv = helper.getView<TextView>(R.id.tvStatus)
+            helper.setText(R.id.createTime, "布置时间：${DateUtil.getFormatDateTime(Date(item.createDate), "yyyy-MM-dd HH:mm")}")
             classNameTv.text = item.className
             contentTv.text = item.content
             completeTv.text = "完成： ${item.homeWorkCompleteCount}/${item.studentCount}"

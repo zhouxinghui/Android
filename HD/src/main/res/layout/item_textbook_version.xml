@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:textSize="@dimen/tv_normal"
-    android:textColor="@color/assignment_tv"
+    android:textColor="@color/check_blue_tv"
     android:paddingTop="@dimen/y10"
     android:paddingBottom="@dimen/y10"
     />

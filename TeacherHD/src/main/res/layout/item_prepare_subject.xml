@@ -21,7 +21,7 @@
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/assignment_tv"
+        android:textColor="@color/check_blue_tv"
         tools:text="语文"
         android:textSize="@dimen/tv_normal"/>
 </LinearLayout>

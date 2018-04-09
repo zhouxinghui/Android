@@ -86,9 +86,9 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
         when(view.id){
             R.id.checkReportBtn ->{
                 if (type == Constants.KSSJ_TYPE || type == Constants.KHZY_TYPE)
-                    ReportTestActivity.jump(this, homeworkId, type, commentBean.uid)
+                    ReportTestActivity.jump(this, homeworkId, type, commentBean.uid, commentBean.studentName)
                 else
-                    ReportClassActivity.jump(this, homeworkId, type, commentBean.uid)
+                    ReportClassActivity.jump(this, homeworkId, type, commentBean.uid, commentBean.studentName)
             }
             R.id.commitCommentBtn ->{
                 val commentEdit = view.tag as EditText

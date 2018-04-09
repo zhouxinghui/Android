@@ -98,7 +98,7 @@ class MyPrepareActivity : BaseListTabActivity<PrepareBaseBean, MultiItemEntity>(
         titleBar.setTitle("教学课件")
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x368))
 
-        val textBookView = layoutInflater.inflate(R.layout.layout_prepare_textbook_head, null)
+        val textBookView = layoutInflater.inflate(R.layout.textbook_head, null)
         val subjectView = layoutInflater.inflate(R.layout.layout_prepare_subject_head, null)
         subjectTv = subjectView.findViewById(R.id.subjectTv)
         subjectTv.setOnClickListener { //更换科目

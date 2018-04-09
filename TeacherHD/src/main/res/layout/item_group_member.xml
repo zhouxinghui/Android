@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/x5"
-        android:textColor="@color/assignment_tv"
+        android:textColor="@color/check_blue_tv"
         android:textSize="@dimen/tv_sub"
         android:gravity="center_vertical"
         />
