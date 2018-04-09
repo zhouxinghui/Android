@@ -110,6 +110,9 @@
         <activity
             android:name=".activity.tools.ReadRecordListActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.ClazzmateActivity"
+            android:screenOrientation="landscape" />
 
         <service
             android:name=".service.AIDLTestService"

@@ -50,6 +50,91 @@ public class ClassMemberBean implements Serializable {
         private String rid;
         private String roleName;
         private String headUrl;
+        private String subCode;
+        private String duties;
+        private String sex;
+        private String birthday;
+        private String city;
+        private String county;
+        private String schoolName;
+        private String ysbCode;
+
+        public String getSubCode() {
+            return subCode;
+        }
+
+        public void setSubCode(String subCode) {
+            this.subCode = subCode;
+        }
+
+        @Override
+        public String getDuties() {
+            return duties;
+        }
+
+        @Override
+        public void setDuties(String duties) {
+            this.duties = duties;
+        }
+
+        public String getSex() {
+            return sex;
+        }
+
+        public void setSex(String sex) {
+            this.sex = sex;
+        }
+
+        public String getBirthday() {
+            return birthday;
+        }
+
+        public void setBirthday(String birthday) {
+            this.birthday = birthday;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        public String getCounty() {
+            return county;
+        }
+
+        public void setCounty(String county) {
+            this.county = county;
+        }
+
+        public String getSchoolName() {
+            return schoolName;
+        }
+
+        public void setSchoolName(String schoolName) {
+            this.schoolName = schoolName;
+        }
+
+        public String getYsbCode() {
+            return ysbCode;
+        }
+
+        public void setYsbCode(String ysbCode) {
+            this.ysbCode = ysbCode;
+        }
+
+        public String getPhone() {
+            return phone;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone;
+        }
+
+        private String phone;
+
 
         public String getRid() {
             return rid;

@@ -7,7 +7,6 @@ import cn.jpush.android.api.JPushInterface
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.activity.ClazzmateActivity
 import com.yzy.ebag.student.activity.SettingActivity
 import com.yzy.ebag.student.activity.account.InviteActivity
 import com.yzy.ebag.student.activity.center.PersonalActivity
@@ -23,6 +22,7 @@ import ebag.core.base.mvp.MVPActivity
 import ebag.core.http.network.MsgException
 import ebag.core.util.*
 import ebag.hd.activity.ClassScheduleActivity
+import ebag.hd.activity.ClazzmateActivity
 import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.ui.activity.BookListActivity
@@ -197,7 +197,7 @@ class MainActivity : MVPActivity(), MainView {
         }
         //我的同学
         btnMyClassmate.setOnClickListener{
-            startActivity(Intent(this,ClazzmateActivity::class.java))
+            startActivity(Intent(this, ClazzmateActivity::class.java))
         }
         //我的书库
         btnMyBook.setOnClickListener{

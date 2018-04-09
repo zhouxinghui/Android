@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     app:cardCornerRadius="5dp"
     app:cardUseCompatPadding="true">
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/y50"
+        android:layout_width="@dimen/x508"
+        android:layout_height="@dimen/x440"
+        android:background="#fff"
+        android:paddingTop="@dimen/y20"
         android:orientation="vertical">
 
 
@@ -44,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/y80"
+            android:layout_marginTop="@dimen/y50"
             android:text="书包号:123" />
 
         <TextView

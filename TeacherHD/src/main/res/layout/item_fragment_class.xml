@@ -20,6 +20,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         />
+
+    <TextView android:id="@+id/student_list_btn"
+        style="@style/btn_style"
+        android:text="查看学生"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/line1"
+        app:layout_constraintEnd_toStartOf="@id/add_teacher_btn"
+        />
     <TextView android:id="@+id/add_teacher_btn"
         style="@style/btn_style"
         android:text="@string/add_teacher"

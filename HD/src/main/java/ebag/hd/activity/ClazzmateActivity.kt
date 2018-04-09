@@ -1,17 +1,17 @@
-package com.yzy.ebag.student.activity
+package ebag.hd.activity
 
+import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
-import android.widget.RadioButton
-import com.yzy.ebag.student.R
-import com.yzy.ebag.student.adapter.ClazzItemAdapter
-import com.yzy.ebag.student.adapter.ClazzmateAdapter
-import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
+import ebag.hd.R
+import ebag.hd.adapter.ClazzItemAdapter
+import ebag.hd.adapter.ClazzmateAdapter
 import ebag.hd.bean.BaseClassesBean
 import ebag.hd.bean.ClassMemberBean
+import ebag.hd.dialog.ClazzmateInfoDIalog
 import ebag.hd.http.EBagApi
 import kotlinx.android.synthetic.main.activity_myclassmate.*
 
@@ -25,17 +25,28 @@ class ClazzmateActivity : BaseActivity() {
     private lateinit var clazzAdapter: ClazzItemAdapter
     private lateinit var clazzmateAdapter: ClazzmateAdapter
     override fun getLayoutId(): Int = R.layout.activity_myclassmate
+    private lateinit var clazzId: String
+    private var nowPosition: Int = 0
 
     override fun initViews() {
 
-        clazzAdapter = ClazzItemAdapter(clazzList)
-        clazz_rv.layoutManager = GridLayoutManager(this, 8)
-        clazz_rv.adapter = clazzAdapter
+        if (intent.hasExtra("classId")) {
+            clazzId = intent.getStringExtra("classId")
+            clazz_rv.visibility = View.GONE
+            getClzzmate(clazzId)
 
-        clazzAdapter.setOnItemClickListener { adapter, view, position ->
+        } else {
+            clazzAdapter = ClazzItemAdapter(clazzList)
+            clazz_rv.layoutManager = GridLayoutManager(this, 8)
+            clazz_rv.adapter = clazzAdapter
 
-            switch(position)
-            getClzzmate(clazzList[position].classId)
+            clazzAdapter.setOnItemClickListener { adapter, view, position ->
+
+                switch(position)
+                getClzzmate(clazzList[position].classId)
+            }
+
+            getClazz()
         }
 
 
@@ -43,11 +54,26 @@ class ClazzmateActivity : BaseActivity() {
         clazzmate_rv.layoutManager = GridLayoutManager(this, 5)
         clazzmate_rv.adapter = clazzmateAdapter
         clazzmateAdapter.setOnItemClickListener { adapter, view, position ->
+            val b = Bundle()
+            b.putSerializable("data", clazzmateList[position])
+            val f = ClazzmateInfoDIalog.newInstance()
+            f.arguments = b
+            f.show(supportFragmentManager, "clazzDialog")
 
         }
 
+        second_stateviwe.setOnRetryClickListener {
+            if (clazzId.isEmpty()) {
+                getClzzmate(clazzList[nowPosition].classId)
+            } else {
+                getClzzmate(clazzId)
+            }
 
-        getClazz()
+        }
+
+        first_stateviwe.setOnRetryClickListener {
+            getClazz()
+        }
     }
 
     private fun getClazz() {
@@ -105,7 +131,7 @@ class ClazzmateActivity : BaseActivity() {
     }
 
     private fun switch(index: Int) {
-
+        nowPosition = index
         clazzList.forEachIndexed { i, it ->
             it.checked = i == index
         }

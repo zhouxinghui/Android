@@ -1,10 +1,10 @@
-package com.yzy.ebag.student.adapter
+package ebag.hd.adapter
 
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.yzy.ebag.student.R
 import ebag.core.util.loadHead
+import ebag.hd.R
 import ebag.hd.bean.ClassMemberBean
 
 /**

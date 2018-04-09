@@ -187,9 +187,7 @@
         <activity
             android:name=".activity.location.LocationActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.ClazzmateActivity"
-            android:screenOrientation="landscape" />
+
 
         <!--&lt;!&ndash; For test only 测试的主程序&ndash;&gt;-->
         <!-- Rich push 核心功能 since 2.0.6-->

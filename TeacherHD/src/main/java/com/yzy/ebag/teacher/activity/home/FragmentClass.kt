@@ -19,6 +19,7 @@ import ebag.core.http.network.handleThrowable
 import ebag.core.util.loadHead
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
+import ebag.hd.activity.ClazzmateActivity
 import kotlinx.android.synthetic.main.fragment_class.*
 
 /**
@@ -83,6 +84,12 @@ class FragmentClass : BaseFragment() {
                     val bean = adapter.datas[position]
                     SpaceActivity.jump(mContext, bean.classId, bean.clazzName, bean.gradeCode)
                 }
+
+                R.id.student_list_btn ->{
+                    val intent = Intent(activity,ClazzmateActivity::class.java)
+                    intent.putExtra("classId",adapter.datas[position].classId)
+                    startActivity(intent)
+                }
             }
         }
         createClazz.setOnClickListener {
@@ -106,6 +113,7 @@ class FragmentClass : BaseFragment() {
             setter.setText(R.id.class_desc_id, getString(R.string.desc, entity?.inviteCode, entity?.studentCount))
             setter.addClickListener(R.id.add_teacher_btn)
             setter.addClickListener(R.id.class_space_btn)
+            setter.addClickListener(R.id.student_list_btn)
             val adapter = ClassMemberAdapter()
             val recyclerView = setter.getView<RecyclerView>(R.id.recyclerView)
             recyclerView.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)

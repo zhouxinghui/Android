@@ -1,8 +1,8 @@
-package com.yzy.ebag.student.adapter
+package ebag.hd.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.yzy.ebag.student.R
+import ebag.hd.R
 import ebag.hd.bean.BaseClassesBean
 
 /**
