@@ -67,6 +67,10 @@
                 android:layout_marginTop="@dimen/x16"
                 android:showDividers="middle"
                 android:divider="@drawable/setting_line">
+                <RelativeLayout
+                    android:id="@+id/re"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
                 <ebag.hd.widget.drawable.DrawableTextView
                     android:id="@+id/updateBtn"
                     android:layout_width="match_parent"
@@ -85,7 +89,16 @@
                     app:leftDrawableHeight="@dimen/x34"
                     android:background="?attr/selectableItemBackground"
                     android:text="@string/setting_update"/>
-
+                    <TextView
+                        android:id="@+id/versionName"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/x68"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/x24"
+                        tools:ignore="NotSibling" />
+                </RelativeLayout>
                 <ebag.hd.widget.drawable.DrawableTextView
                     android:id="@+id/announceBtn"
                     android:layout_width="match_parent"

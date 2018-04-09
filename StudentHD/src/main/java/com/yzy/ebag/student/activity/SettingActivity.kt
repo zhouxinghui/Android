@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.activity_setting.*
  * Created by caoyu on 2018/1/9.
  */
 class SettingActivity: BaseActivity(), View.OnClickListener {
-
     companion object {
         fun jump(context: Context){
             context.startActivity(Intent(context, SettingActivity::class.java))
@@ -77,6 +76,8 @@ class SettingActivity: BaseActivity(), View.OnClickListener {
     }
 
     override fun initViews() {
+        val  packageInfo = packageManager.getPackageInfo(this.packageName, 0)
+        versionName.text =  packageInfo.versionName
         logoutBtn.setOnClickListener(this)
         themeBtn.setOnClickListener(this)
         updateBtn.setOnClickListener(this)
