@@ -11,8 +11,10 @@ import com.luck.picture.lib.tools.PictureFileUtils
 import com.yzy.ebag.teacher.R
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
 import ebag.core.util.*
 import ebag.hd.base.Constants
+import ebag.hd.bean.UserInfoBean
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
 import ebag.hd.widget.ListBottomShowDialog
@@ -110,15 +112,39 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
 
         userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.TEACHER_USER_ENTITY)
         uploadHeadUrl = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/headUrl/${userEntity?.uid}"
-        if (userEntity != null){
-            headImage.loadHead(userEntity?.headUrl, true, System.currentTimeMillis().toString())
-            setTv(name, userEntity?.name)
-            setTv(bag, userEntity?.ysbCode)
-            setTv(sex, if(userEntity?.sex == "1") "男" else "女")
-//            setTv(contactInformation, userEntity?.) //联系方式
-            setTv(familyAddress, userEntity?.address)
-            setTv(schoolName, userEntity?.schoolName)
-        }
+        EBagApi.queryUserInfo(object : RequestCallBack<UserInfoBean>() {
+            override fun onStart() {
+                LoadingDialogUtil.showLoading(this@PersonalInfoActivity)
+            }
+
+            override fun onSuccess(entity: UserInfoBean?) {
+                LoadingDialogUtil.closeLoadingDialog()
+                if (userEntity != null){
+                    userEntity?.name = entity?.name
+                    userEntity?.uid = entity?.uid
+                    userEntity?.ysbCode = entity?.ysbCode
+                    userEntity?.headUrl = entity?.headUrl
+                    userEntity?.sex = entity?.sex
+                    userEntity?.address = entity?.address
+                    userEntity?.schoolName = entity?.schoolName
+                    userEntity?.className = entity?.className
+
+                    headImage.loadHead(entity?.headUrl, true, System.currentTimeMillis().toString())
+                    setTv(name, entity?.name)
+                    setTv(bag, entity?.ysbCode)
+                    setTv(sex, if(entity?.sex == "1") "男" else "女")
+                    setTv(contactInformation, entity?.phone) //联系方式
+                    setTv(familyAddress, entity?.address)
+                    setTv(schoolName, entity?.schoolName)
+                }
+            }
+
+            override fun onError(exception: Throwable) {
+                LoadingDialogUtil.closeLoadingDialog()
+                exception.handleThrowable(this@PersonalInfoActivity)
+            }
+        })
+
     }
 
     private fun setTv(textView: TextView, string: String?){

@@ -293,6 +293,10 @@ interface EBagService {
     @POST("user/APPVersion/{version}")
     fun officialAnnounce(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<OfficialAnnounceBean>>
 
+    /**查询个人中心*/
+    @POST("user/queryPersonalCenter/{version}")
+    fun queryPersonalCenter(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<UserInfoBean>>
+
 
     //TODO 接口名称，注意替换
     /**

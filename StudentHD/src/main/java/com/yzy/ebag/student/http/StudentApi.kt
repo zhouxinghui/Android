@@ -288,11 +288,6 @@ object StudentApi {
         EBagApi.request(studentService.bindParent("1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    fun queryUserInfo(call:RequestCallBack<UserInfoBean>){
-        val jsonObject = JSONObject()
-        EBagApi.request(studentService.queryPersonalCenter("1", EBagApi.createBody(jsonObject)), call)
-    }
-
     fun learningProcess(call:RequestCallBack<List<LeaningProgressBean>>){
         val jsonObject = JSONObject()
         EBagApi.request(studentService.learningProcess("1", EBagApi.createBody(jsonObject)), call)

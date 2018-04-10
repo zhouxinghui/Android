@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.bean;
+package ebag.hd.bean;
 
 /**
  * Created by fansan on 2018/4/4.

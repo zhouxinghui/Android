@@ -546,6 +546,12 @@ object EBagApi {
         EBagApi.request(eBagService.officialAnnounce("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
+    /**个人中心*/
+    fun queryUserInfo(call:RequestCallBack<UserInfoBean>){
+        val jsonObject = JSONObject()
+        EBagApi.request(eBagService.queryPersonalCenter("1", EBagApi.createBody(jsonObject)), call)
+    }
+
     fun queryYBCurrent(page: Int, pageSize: Int, callback: RequestCallBack<YBCurrentBean>) {
         val jsonObject = JSONObject()
         jsonObject.put("page", page)

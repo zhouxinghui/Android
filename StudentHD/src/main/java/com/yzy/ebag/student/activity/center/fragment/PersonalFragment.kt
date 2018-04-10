@@ -9,13 +9,11 @@ import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.tools.PictureFileUtils
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.activity.account.LoginActivity
-import com.yzy.ebag.student.bean.UserInfoBean
-import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.*
 import ebag.hd.base.Constants
+import ebag.hd.bean.UserInfoBean
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
 import ebag.hd.widget.ListBottomShowDialog
@@ -144,7 +142,7 @@ class PersonalFragment : BaseFragment(), View.OnClickListener {
 
     private fun showContent() {
         userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.STUDENT_USER_ENTITY)
-        StudentApi.queryUserInfo(object : RequestCallBack<UserInfoBean>() {
+        EBagApi.queryUserInfo(object : RequestCallBack<UserInfoBean>() {
             override fun onStart() {
                 super.onStart()
                 LoadingDialogUtil.showLoading(activity, "正在加载..")
@@ -163,6 +161,7 @@ class PersonalFragment : BaseFragment(), View.OnClickListener {
 
                 tvName.text = entity?.name
                 tvId.text = entity?.ysbCode
+                tvContact.text = entity?.phone ?: ""
                 ivAvatar.loadHead(entity?.headUrl, true, System.currentTimeMillis().toString())
                 tvGender.text = when (entity?.sex) {
                     "1" -> "男  "
