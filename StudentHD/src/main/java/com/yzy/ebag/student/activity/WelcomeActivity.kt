@@ -2,6 +2,7 @@ package com.yzy.ebag.student.activity
 
 import android.content.Intent
 import android.os.Handler
+import android.view.KeyEvent
 import cn.jpush.android.api.JPushInterface
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.activity.account.LoginActivity
@@ -24,15 +25,19 @@ class WelcomeActivity : BaseActivity() {
         L.e("token", token)
         Handler().postDelayed({
 
-//            startActivity(Intent(this@WelcomeActivity, TestActivity2::class.java))
+            //            startActivity(Intent(this@WelcomeActivity, TestActivity2::class.java))
             startActivity(
-                    if (!StringUtils.isEmpty(token)){
+                    if (!StringUtils.isEmpty(token)) {
                         Intent(this@WelcomeActivity, MainActivity::class.java)
-                    }else{
-                        Intent(this, LoginActivity::class.java).putExtra(Constants.KEY_TO_MAIN,true)
+                    } else {
+                        Intent(this, LoginActivity::class.java).putExtra(Constants.KEY_TO_MAIN, true)
                     }
             )
             finish()
         }, 2000)
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        return keyCode == KeyEvent.KEYCODE_BACK
     }
 }
