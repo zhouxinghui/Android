@@ -113,7 +113,9 @@
         <activity
             android:name=".activity.ClazzmateActivity"
             android:screenOrientation="landscape" />
-
+        <activity android:name=".activity.OfficialAnnounceActivity"
+            android:screenOrientation="landscape"
+            />
         <service
             android:name=".service.AIDLTestService"
             android:process=":countdown" />

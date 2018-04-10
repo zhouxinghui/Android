@@ -60,6 +60,7 @@ object EBagClient {
                 // 支持HTTPS
                 .connectionSpecs(Arrays.asList(ConnectionSpec.CLEARTEXT, ConnectionSpec.MODERN_TLS)) //明文Http与比较新的Https
                 .addInterceptor(getLogInterceptor())
+                .authenticator(TokenAuthenticator())
                 .addInterceptor {
                     val original = it.request()
 

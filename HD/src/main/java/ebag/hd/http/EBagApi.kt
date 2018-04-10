@@ -532,6 +532,20 @@ object EBagApi {
         EBagApi.request(eBagService.personalPerformance("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
+    /**
+     * 官方公告
+     * @param type 1-IOS,2-android,3-android-HD
+     * @param versionCode 老师-teacher,学生-student,家长-parent
+     */
+    fun officialAnnounce(type: String, versionCode: String, page: Int, pageSize: Int, callback: RequestCallBack<OfficialAnnounceBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("type",type)
+        jsonObject.put("versionCode",versionCode)
+        jsonObject.put("page",page)
+        jsonObject.put("pageSize",pageSize)
+        EBagApi.request(eBagService.officialAnnounce("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
     fun queryYBCurrent(page: Int, pageSize: Int, callback: RequestCallBack<YBCurrentBean>) {
         val jsonObject = JSONObject()
         jsonObject.put("page", page)

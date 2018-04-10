@@ -287,6 +287,12 @@ interface EBagService {
     @POST("util/getBookVersion/{version}")
     fun readRecordVersion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ReadRecordVersionBean>>
 
+    /**
+     * 官方公告
+     */
+    @POST("user/APPVersion/{version}")
+    fun officialAnnounce(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<OfficialAnnounceBean>>
+
 
     //TODO 接口名称，注意替换
     /**

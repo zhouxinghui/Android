@@ -11,6 +11,7 @@ import ebag.core.base.App
 import ebag.core.base.BaseActivity
 import ebag.core.util.AppManager
 import ebag.core.util.T
+import ebag.hd.activity.OfficialAnnounceActivity
 import ebag.hd.base.Constants
 import ebag.hd.util.checkUpdate
 import ebag.hd.widget.UserFeedbackDialog
@@ -50,7 +51,7 @@ class SettingActivity: BaseActivity(), View.OnClickListener {
             }
 
             R.id.announceBtn -> {
-
+                OfficialAnnounceActivity.jump(this, "student")
             }
 
             R.id.feedbackBtn -> {

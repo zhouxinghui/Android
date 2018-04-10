@@ -13,7 +13,7 @@ import com.yzy.ebag.teacher.activity.account.LoginActivity
 import ebag.core.base.App
 import ebag.core.base.BaseActivity
 import ebag.core.util.AppManager
-import ebag.core.util.T
+import ebag.hd.activity.OfficialAnnounceActivity
 import ebag.hd.base.Constants
 import ebag.hd.util.checkUpdate
 import ebag.hd.widget.UserFeedbackDialog
@@ -38,7 +38,7 @@ class SettingActivity : BaseActivity(), View.OnClickListener{
                 checkUpdate(Constants.UPDATE_TEACHER)
             }
             R.id.officeNotice ->{
-                T.show(this, "官方公告")
+                OfficialAnnounceActivity.jump(this, "teacher")
             }
             R.id.userFeedback ->{
                 feedbackDialog.show()
