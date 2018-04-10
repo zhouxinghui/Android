@@ -33,13 +33,24 @@
         android:paddingStart="@dimen/x20"
         android:paddingEnd="@dimen/x20"
         >
+
+        <ImageView
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/x80"
+            android:id="@+id/head"
+            tools:src="@drawable/head_default"
+            app:layout_constraintStart_toStartOf="parent"
+            />
         <TextView android:id="@+id/publishName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x15"
             android:textColor="@color/title_text_color"
             android:textSize="@dimen/tv_third"
             tools:text="发布人：周老师"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/head"
+            app:layout_constraintBottom_toBottomOf="@id/head"
+            app:layout_constraintTop_toTopOf="@id/head"
             />
         <TextView android:id="@+id/deadLine"
             android:layout_width="0dp"
@@ -64,7 +75,7 @@
             android:paddingEnd="@dimen/x5"
             android:layout_marginTop="@dimen/y5"
             tools:text="公告详情"
-            app:layout_constraintTop_toBottomOf="@id/publishName"
+            app:layout_constraintTop_toBottomOf="@id/head"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@color/publish_desc"

@@ -67,7 +67,7 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
     protected abstract fun getLayoutManager(adapter: BaseQuickAdapter<E,BaseViewHolder>): RecyclerView.LayoutManager?
 
     /** 每页默认加载的数量 */
-    open protected fun getPageSize(): Int = DEFAULT_PAGE_SIZE
+    protected open fun getPageSize(): Int = DEFAULT_PAGE_SIZE
 
     protected fun withFirstPageData(list: List<E>?){
         withFirstPageData(list,false)

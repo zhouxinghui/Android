@@ -15,6 +15,7 @@ import com.yzy.ebag.teacher.base.Constants
 import ebag.core.base.PhotoPreviewActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.DateUtil
+import ebag.core.util.loadHead
 import ebag.core.util.loadImage
 import ebag.hd.bean.response.NoticeBean
 import ebag.hd.http.EBagApi
@@ -63,6 +64,7 @@ class NoticeHistoryActivity: BaseListActivity<List<NoticeBean>, NoticeBean>() {
             helper.setText(R.id.publishTime, DateUtil.getFormatDateTime(Date(item.createDate), "yyyy-MM-dd"))
                     .setText(R.id.publishName, item.name)
                     .setText(R.id.publishDesc, item.content)
+            helper.getView<ImageView>(R.id.head).loadHead(item.headUrl)
             val recyclerView = helper.getView<RecyclerView>(R.id.recyclerView)
             if(recyclerView.adapter == null) {
                 recyclerView.adapter = ImageAdapter()
