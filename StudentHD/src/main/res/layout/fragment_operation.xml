@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/x20"
+    >
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/white_radius_bg"
+        android:paddingStart="@dimen/x20"
+        android:paddingEnd="@dimen/x20"
+        >
+        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/tv1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y60"
+            android:textColor="@color/tv_normal"
+            android:textSize="@dimen/tv_normal"
+            android:gravity="center_vertical"
+            android:text="1、如何绑定家长"
+            android:background="?attr/selectableItemBackground"
+            app:rightDrawable="@drawable/right_arrow"
+            app:rightDrawableWidth="@dimen/x12"
+            app:rightDrawableHeight="@dimen/x20"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray"
+            />
+        <ImageView android:id="@+id/img1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/operation1"
+            android:visibility="gone"
+            />
+        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/tv2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y60"
+            android:textColor="@color/tv_normal"
+            android:textSize="@dimen/tv_normal"
+            android:gravity="center_vertical"
+            android:background="?attr/selectableItemBackground"
+            android:text="2、如何添加班级"
+            app:rightDrawable="@drawable/right_arrow"
+            app:rightDrawableWidth="@dimen/x12"
+            app:rightDrawableHeight="@dimen/x20"
+            />
+        <ImageView android:id="@+id/img2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/operation2"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

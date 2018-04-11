@@ -1,19 +1,16 @@
 package ebag.hd.ui.presenter
-
 import android.content.Context
 import ebag.core.base.mvp.BasePresenter
 import ebag.core.base.mvp.OnToastListener
 import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.L
-import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.SPUtils
 import ebag.core.util.StringUtils
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
 import ebag.hd.ui.activity.account.BLoginActivity
 import ebag.hd.ui.view.LoginView
-import ebag.hd.widget.ModifyInfoDialog
 
 
 /**
@@ -24,19 +21,19 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
     private lateinit var account :String
     /**判断账号和密码格式是否输入错误*/
     private fun isLoginInfoCorrect(account: String, pwd: String): Boolean =
-            if (account.isEmpty() || pwd.isEmpty()) {
-                showToast("请输入账号密码！", true)
+            if (account.isEmpty() || pwd.isEmpty()){
+                showToast("请输入账号密码！",true)
                 false
-            } else if (account.length < 7) {
+            }else if(account.length < 7) {
                 showToast("请输入正确的账号！", true)
                 false
-            } else if (account.length == 11 && !StringUtils.isMobileNo(account)) {
+            }else if(account.length == 11 && !StringUtils.isMobileNo(account)){
                 showToast("手机格式输入错误！", true)
                 false
-            } else if (!StringUtils.isPassword(pwd)) {
+            }else if(!StringUtils.isPassword(pwd)){
                 showToast("请输入6~20位字母数字混合密码", true)
                 false
-            } else {
+            }else {
                 true
             }
 
@@ -130,15 +127,15 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
     private fun isRegisterInfoCorrect(phone: String, code: String, pwd: String): Boolean =
             when {
                 !StringUtils.isMobileNo(phone) -> {
-                    showToast("手机号输入格式不正确", true)
+                    showToast("手机号输入格式不正确",true)
                     false
                 }
                 code.length != 6 -> {
-                    showToast("验证码长度不正确", true)
+                    showToast("验证码长度不正确",true)
                     false
                 }
                 !StringUtils.isPassword(pwd) -> {
-                    showToast("请输入6~20位字母数字混合密码", true)
+                    showToast("请输入6~20位字母数字混合密码",true)
                     false
                 }
                 else -> true
@@ -148,14 +145,13 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
     /**
      * 注册
      */
-    fun register(name: String, phone: String, code: String, pwd: String, roleCode: String, thirdPartyToken: String?, thirdPartyUnionid: String?) {
-        if (isRegisterInfoCorrect(phone, code, pwd)) {
-            if (registerRequest == null)
-                registerRequest = createRequest(object : RequestCallBack<UserEntity>() {
+    fun register(name: String, phone: String, code: String, pwd: String, roleCode: String, thirdPartyToken:String?,thirdPartyUnionid:String?){
+        if(isRegisterInfoCorrect(phone,code,pwd)){
+            if(registerRequest == null)
+                registerRequest = createRequest(object: RequestCallBack<UserEntity>(){
                     override fun onStart() {
                         getView()?.onRegisterStart()
                     }
-
                     override fun onSuccess(entity: UserEntity?) {
                         getView()?.onRegisterSuccess(entity)
                     }

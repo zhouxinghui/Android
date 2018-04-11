@@ -33,9 +33,31 @@
             />
         <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/campusName"
             style="@style/create_class_right_tv"
+            android:layout_width="wrap_content"
             android:textColor="@color/title_text_color"
             app:rightDrawable="@null"
             />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/x15"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            >
+            <TextView android:id="@+id/createSchool"
+                android:layout_width="@dimen/x120"
+                android:layout_height="@dimen/y50"
+                android:layout_gravity="end"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/tv_normal"
+                android:background="@drawable/blue_btn_bg"
+                android:text="创建学校"
+                android:visibility="gone"
+                tools:visibility="visible"
+                />
+        </LinearLayout>
+
     </LinearLayout>
     <android.support.v7.widget.RecyclerView android:id="@+id/recyclerView"
         android:layout_width="match_parent"

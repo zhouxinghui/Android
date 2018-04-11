@@ -413,7 +413,7 @@ class DoHomeworkActivity: BaseActivity() {
 
         override fun onError(exception: Throwable) {
             LoadingDialogUtil.closeLoadingDialog()
-            if(exception is MsgException && exception.code == "2001"){
+            if(exception is MsgException && exception.code == "2003"){
                 T.show(this@DoHomeworkActivity, "你还有未作答正确的试题，请检查并纠正后重新提交")
                 typeAdapter.wrongIds.clear()
                 typeAdapter.wrongIds.addAll(exception.message.toString().split(","))

@@ -420,7 +420,8 @@ object EBagApi {
     fun getUnit(classId: String, subCode: String, callback: RequestCallBack<EditionBean>) {
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
-        jsonObject.put("subCode", subCode)
+        if (!StringUtils.isEmpty(subCode))
+            jsonObject.put("subCode", subCode)
         EBagApi.request(eBagService.getUnit("v1", EBagApi.createBody(jsonObject)), callback)
     }
 

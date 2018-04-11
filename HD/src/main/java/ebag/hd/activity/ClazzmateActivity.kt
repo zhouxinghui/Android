@@ -89,7 +89,8 @@ class ClazzmateActivity : BaseActivity() {
                     clazzList.addAll(entity as MutableList)
                     clazzAdapter.notifyDataSetChanged()
                     first_stateviwe.showContent()
-                    getClzzmate(clazzList[0].classId)
+                    clazzId = clazzList[0].classId
+                    getClzzmate(clazzId)
                     switch(0)
                 } else {
                     first_stateviwe.showEmpty()

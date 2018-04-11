@@ -116,7 +116,7 @@ class ReadRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
 
     override fun requestData(requestCallBack: RequestCallBack<EditionBean>) {
         if (StringUtils.isEmpty(bookVersionId))
-            EBagApi.getUnit(classId, subCode, requestCallBack)
+            EBagApi.getUnit(classId, "", requestCallBack)
         else
             EBagApi.getUnit(bookVersionId, requestCallBack)
     }

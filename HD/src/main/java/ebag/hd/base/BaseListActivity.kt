@@ -142,6 +142,10 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
         return R.layout.activity_base_list
     }
 
+    protected open fun onSpecialError(exception: MsgException){
+
+    }
+
     override fun initViews() {
         mRecyclerView = recyclerView
         contentView = content_view
@@ -238,6 +242,7 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
                     FIRST -> {
                         if(exception is MsgException){
                             stateView.showError(exception.message)
+                            onSpecialError(exception)
                         }else{
                             stateView.showError()
                         }

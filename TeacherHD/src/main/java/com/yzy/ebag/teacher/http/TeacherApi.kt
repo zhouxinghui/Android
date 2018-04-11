@@ -130,6 +130,21 @@ object TeacherApi {
     }
 
     /**
+     * 创建学校
+     * @param schoolName 省份代码
+     * @param province 市编码
+     * @param city 区编码
+     */
+    fun createSchool(schoolName: String, province: String?, city: String?, county: String?, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("schoolName", schoolName)
+        jsonObject.put("province", province)
+        jsonObject.put("city", city)
+        jsonObject.put("county", county)
+        EBagApi.request(teacherService.createSchool("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
      * 根据班级获取教材版本
      */
     fun searchBookVersion(classesId: List<String>, callback: RequestCallBack<BookVersionBean>){
@@ -212,7 +227,8 @@ object TeacherApi {
             else
                 jsonObject.put("bookCatalog", unitBean.unitCode)
         }
-        difficulty ?: jsonObject.put("level",difficulty)
+        if (difficulty != null)
+            jsonObject.put("level",difficulty)
         jsonObject.put("gradeCode",gradeCode)
         jsonObject.put("semesterCode",semeterCode)
         jsonObject.put("course",course)

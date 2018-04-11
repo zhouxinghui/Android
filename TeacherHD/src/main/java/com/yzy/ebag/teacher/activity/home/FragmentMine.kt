@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.View
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.activity.OperationActivity
 import com.yzy.ebag.teacher.activity.PersonalInfoActivity
 import com.yzy.ebag.teacher.activity.SettingActivity
 import com.yzy.ebag.teacher.activity.YBCenterActivity
@@ -77,7 +78,7 @@ class FragmentMine : BaseFragment(), View.OnClickListener {
                 startActivity(Intent(mContext, YBCenterActivity::class.java))
             }
             R.id.operation ->{
-                T.show(mContext, "操作指南")
+                OperationActivity.jump(mContext)
             }
             R.id.systemSetting ->{
                 T.show(mContext, "系统设置")

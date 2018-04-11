@@ -3,10 +3,12 @@ package com.yzy.ebag.teacher.activity.clazz
 import android.app.Activity
 import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
+import android.view.View
 import android.widget.CheckBox
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.widget.CreateSchoolDialog
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
@@ -69,6 +71,13 @@ class SelectSchoolActivity : BaseActivity() {
         }
         dialog
     }
+    private val createSchoolDialog by lazy {
+        val dialog = CreateSchoolDialog(this)
+        dialog.onCreateSuccess = {
+            setSchoolInfo(it)
+        }
+        dialog
+    }
     override fun initViews() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(this, 5)
@@ -89,9 +98,16 @@ class SelectSchoolActivity : BaseActivity() {
             currentCityBean = intent.getSerializableExtra("cityBean") as CurrentCityBean
             setSchoolInfo(currentCityBean)
         }
+
+        createSchool.setOnClickListener {
+            val currentCityBean = it.tag as CurrentCityBean
+            createSchoolDialog.show(currentCityBean)
+        }
     }
 
     private fun setSchoolInfo(currentCityBean: CurrentCityBean){
+        createSchool.visibility = View.VISIBLE
+        createSchool.tag = currentCityBean
         val provinceName = currentCityBean.provinceName ?: ""
         val cityName = currentCityBean.cityName ?: ""
         val countyName = currentCityBean.countyName ?: ""

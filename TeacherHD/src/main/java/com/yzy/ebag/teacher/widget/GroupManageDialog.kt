@@ -141,11 +141,11 @@ class GroupManageDialog(context: Context, private val classId: String): BaseDial
             true
         }
 
-        EBagApi.clazzMember(classId, classMemberRequest)
         stateView.setOnRetryClickListener { EBagApi.clazzMember(classId, classMemberRequest) }
     }
 
     fun show(groupList: List<GroupBean.ClazzUserVosBean>, groupName: String, groupId: String) {
+        EBagApi.clazzMember(classId, classMemberRequest)
         isModify = true
         this.groupId = groupId
         groupMemberList.clear()
@@ -165,6 +165,7 @@ class GroupManageDialog(context: Context, private val classId: String): BaseDial
     }
 
     override fun show() {
+        EBagApi.clazzMember(classId, classMemberRequest)
         isModify = false
         groupNameEdit.setText("")
         groupMemberList.clear()
