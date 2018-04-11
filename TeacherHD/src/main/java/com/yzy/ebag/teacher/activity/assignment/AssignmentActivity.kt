@@ -1,6 +1,7 @@
 package com.yzy.ebag.teacher.activity.assignment
 
 import android.content.Intent
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -10,6 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.activity.clazz.CreateClassActivity
 import com.yzy.ebag.teacher.base.Constants
 import com.yzy.ebag.teacher.bean.*
 import com.yzy.ebag.teacher.ui.presenter.AssignmentPresenter
@@ -19,6 +21,7 @@ import com.yzy.ebag.teacher.widget.OrganizePaperDialog
 import com.yzy.ebag.teacher.widget.SmartPushDialog
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.bean.QuestionBean
+import ebag.core.http.network.MsgException
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
@@ -129,6 +132,18 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     private var isSaveTest = false
     private var currentPaperId: String? = null
     private var currentPaperName: String? = null
+    private val createClassDialog by lazy {
+        val dialog = AlertDialog.Builder(this)
+                .setTitle("温馨提示")
+                .setMessage("你暂未加入班级，你可以联系对应班级班主任添加任课老师，也可自己创建班级")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("创建班级", {dialog, which ->
+                    CreateClassActivity.jump(this)
+                    finish()
+                })
+                .create()
+        dialog
+    }
     override fun destroyPresenter() {
         assignmentPresenter.onDestroy()
     }
@@ -468,7 +483,11 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
 
     override fun loadBaseError(t: Throwable) {
         stateView.showError()
-        t.handleThrowable(this)
+        if(t is MsgException && t.code == "2001"){
+            createClassDialog.show()
+        }else {
+            t.handleThrowable(this)
+        }
     }
 
     override fun loadUnitAndQuestionStart() {

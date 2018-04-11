@@ -1,12 +1,13 @@
 package com.yzy.ebag.teacher.activity.clazz
 
+import android.content.Context
 import android.content.Intent
 import android.view.View
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.activity.home.FragmentClass
 import com.yzy.ebag.teacher.base.Constants
 import com.yzy.ebag.teacher.bean.BaseSubjectBean
 import com.yzy.ebag.teacher.http.TeacherApi
-import com.yzy.ebag.teacher.activity.home.FragmentClass
 import com.yzy.ebag.teacher.widget.SelectSubjectDialog
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
@@ -27,6 +28,9 @@ class CreateClassActivity : BaseActivity(), View.OnClickListener {
     companion object {
         fun jump(fragment: FragmentClass){
             fragment.startActivityForResult(Intent(fragment.activity, CreateClassActivity::class.java), Constants.CREATE_CLASS_REQUEST)
+        }
+        fun jump(context: Context){
+            context.startActivity(Intent(context, CreateClassActivity::class.java))
         }
     }
     private val createRequest = object: RequestCallBack<String>(){
