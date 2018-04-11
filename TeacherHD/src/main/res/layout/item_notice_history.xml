@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:paddingTop="@dimen/y20"
+        android:paddingTop="@dimen/y10"
         android:paddingBottom="@dimen/y20"
         android:paddingStart="@dimen/x20"
         android:paddingEnd="@dimen/x20"
