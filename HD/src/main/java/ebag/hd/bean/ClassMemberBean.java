@@ -45,6 +45,7 @@ public class ClassMemberBean implements Serializable {
          * rid : 1
          * roleName : 学生
          * headUrl :
+         * hasGroup ：false
          */
 
         private String rid;
@@ -58,6 +59,15 @@ public class ClassMemberBean implements Serializable {
         private String county;
         private String schoolName;
         private String ysbCode;
+        private boolean hasGroup;
+
+        public boolean isHasGroup() {
+            return hasGroup;
+        }
+
+        public void setHasGroup(boolean hasGroup) {
+            this.hasGroup = hasGroup;
+        }
 
         public String getSubCode() {
             return subCode;

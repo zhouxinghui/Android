@@ -1,6 +1,7 @@
 package com.yzy.ebag.teacher.widget
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.support.v7.widget.GridLayoutManager
 import android.text.SpannableString
@@ -174,8 +175,16 @@ class GroupManageDialog(context: Context, private val classId: String): BaseDial
 
     inner class AllAdapter: BaseQuickAdapter<ClassMemberBean.StudentsBean, BaseViewHolder>(R.layout.item_all_group_member){
         override fun convert(helper: BaseViewHolder, item: ClassMemberBean.StudentsBean) {
-            helper.setText(R.id.name_id, item.name)
-                    .itemView.setOnClickListener {
+            val hasGroup = item.isHasGroup
+            val nameTv = helper.getView<TextView>(R.id.name_id)
+            if (hasGroup && !isModify){
+                nameTv.setTextColor(context.resources.getColor(R.color.gray))
+            }else{
+                nameTv.setTextColor(Color.parseColor("#4A4A4A"))
+            }
+            helper.setText(R.id.name_id, item.name).itemView.setOnClickListener {
+                if (hasGroup && !isModify)
+                    return@setOnClickListener
                 if (groupMemberList.contains(item)) {
                     groupMemberList.remove(item)
                 }else {
@@ -188,7 +197,7 @@ class GroupManageDialog(context: Context, private val classId: String): BaseDial
                 notifyDataSetChanged()
                 memberAdapter.notifyDataSetChanged()
             }
-            val nameTv = helper.getView<TextView>(R.id.name_id)
+
             nameTv.isSelected = groupMemberList.contains(item)
         }
     }
