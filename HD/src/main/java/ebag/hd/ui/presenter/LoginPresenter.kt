@@ -5,12 +5,14 @@ import ebag.core.base.mvp.OnToastListener
 import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.L
+import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.SPUtils
 import ebag.core.util.StringUtils
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
 import ebag.hd.ui.activity.account.BLoginActivity
 import ebag.hd.ui.view.LoginView
+import ebag.hd.widget.ModifyInfoDialog
 
 
 /**
