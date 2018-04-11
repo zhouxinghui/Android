@@ -86,8 +86,12 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener): BasePrese
     /**
      * 判断注册信息是否填写正确
      */
-    private fun isRegisterInfoCorrect(phone: String, code: String, pwd: String): Boolean =
+    private fun isRegisterInfoCorrect(name: String, phone: String, code: String, pwd: String): Boolean =
             when {
+                StringUtils.isEmpty(name) ->{
+                    showToast("请输入姓名",true)
+                    false
+                }
                 !StringUtils.isMobileNo(phone) -> {
                     showToast("手机号输入格式不正确",true)
                     false
@@ -108,7 +112,7 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener): BasePrese
      * 注册
      */
     fun register(name: String, phone: String, code: String, pwd: String, roleCode: String, thirdPartyToken:String?,thirdPartyUnionid:String?){
-        if(isRegisterInfoCorrect(phone,code,pwd)){
+        if(isRegisterInfoCorrect(name, phone,code,pwd)){
             if(registerRequest == null)
                 registerRequest = createRequest(object: RequestCallBack<UserEntity>(){
                     override fun onStart() {
