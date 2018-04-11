@@ -53,7 +53,7 @@ class CityPickerDialog(context: Context): Dialog(context, R.style.ActionSheetDia
                 areaView.setData(areaList)
                 areaView.setDefault(areaIndex)
                 currentCityBean.county = areaList[areaIndex].charCode
-                currentCityBean.cityName = areaList[areaIndex].districtCnName
+                currentCityBean.countyName = areaList[areaIndex].districtCnName
             }
         }
 

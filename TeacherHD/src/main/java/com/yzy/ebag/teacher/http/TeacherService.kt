@@ -80,6 +80,12 @@ interface TeacherService {
     fun createClass(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /**
+     * 创建学校
+     */
+    @POST("util/createSchool/{version}")
+    fun createSchool(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
      * 根据班级获取教材版本
      */
     @POST("sendHome/getBookVersion/{version}")
