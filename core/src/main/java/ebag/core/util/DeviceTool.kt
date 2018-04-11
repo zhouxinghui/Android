@@ -9,7 +9,7 @@ import android.telephony.TelephonyManager
 
 object DeviceTool {
 
-    @SuppressLint("MissingPermission")
+    @SuppressLint("MissingPermission", "HardwareIds")
     @RequiresPermission(READ_PHONE_STATE)
     fun getIMEI(context: Context): String {
 

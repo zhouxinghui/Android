@@ -308,30 +308,43 @@ interface EBagService {
     @POST("Ui/Image/uploadUnlimited.html")
     fun uploadHead(@Body file: MultipartBody): Observable<String>
 
+    //云币中心查询支出收入
     @POST("user/serchYsbMoneyDetail/{version}")
     fun queryYBCurrent(@Path("version")version: String, @Body requestBody: RequestBody):Observable<ResponseBean<YBCurrentBean>>
+    //查询用户收货地址列表
     @POST("shop/serchShopAddress/{version}")
     fun queryAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<MutableList<AddressListBean>>>
+    //删除用户收货地址
     @POST("shop/deleteShopAddress/{version}")
     fun deleteAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    //保存收货地址
     @POST("shop/saveShopAddress/{version}")
     fun saveAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    //更新收货地址
     @POST("shop/updateShopAddress/{version}")
     fun updateAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    //查询订单
     @POST("shop/serchOrderByStatus/{version}")
     fun queryOrder(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<QueryOrderBean>>
+    //获取商品列表
     @POST("shop/getShopList/{version}")
     fun getShopList(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<ShopListBean>>
+    //查询购物车
     @POST("shop/serchShopCart/{version}")
     fun queryShopCar(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<MutableList<ShopListBean.ListBean>>>
+    //添加商品到购物车
     @POST("shop/addShop2Cart/{version}")
     fun addGoods2Car(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    //查询商品详情
     @POST("shop/getShopDetailInfo/{version}")
     fun shopDeatils(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<GoodsDetailsBean>>
+    /*更新购物车*/
     @POST("shop/updateShopCart/{version}")
     fun updateShopCar(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    /*生成订单*/
     @POST("shop/createShopOrderNo/{version}")
     fun createShopOrderNo(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    /*微信支付*/
     @POST("shop/WXPay/{version}")
     fun getPrepayid(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<WXPayBean>>
     /*保存订单*/
