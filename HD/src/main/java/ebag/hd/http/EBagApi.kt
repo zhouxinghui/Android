@@ -97,9 +97,11 @@ object EBagApi {
     /**
      * 登录
      */
-    fun login(account: String?, pwd: String?, loginType: String?, thirdPartyType: String?,
+    fun login(deviceCode: String, isHDorPHONE: String, account: String?, pwd: String?, loginType: String?, thirdPartyType: String?,
               roleCode: String, thirdPartyToken: String?, thirdPartyUnionid: String?, callback: RequestCallBack<UserEntity>) {
         val jsonObj = JSONObject()
+        jsonObj.put("deviceCode",deviceCode)
+        jsonObj.put("isHDorPHONE",isHDorPHONE)
         jsonObj.put("password", pwd)
         jsonObj.put("loginAccount", account)
         jsonObj.put("loginType", loginType)
@@ -110,11 +112,19 @@ object EBagApi {
         request(EBagClient.eBagService.login("v1", createBody(jsonObj)), callback)
     }
 
+    fun bindingActivationCode(loginAccount:String,activation:String,callback: RequestCallBack<String>){
+        val jsonObj = JSONObject()
+        jsonObj.put("loginAccount",loginAccount)
+        jsonObj.put("activation",activation)
+        request(EBagClient.eBagService.bindingActivationCode("v1",createBody(jsonObj)),callback)
+    }
+
     /**
      * 注册
      */
-    fun register(name: String, headUrl: String?, sex: String?, phone: String?, verifyCode: String?, roleCode: String?, pwd: String, thirdPartyToken: String?, thirdPartyUnionid: String?, loginType: String?, thirdPartyType: String?, callback: RequestCallBack<UserEntity>) {
+    fun register(isHDorPHONE: String,name: String, headUrl: String?, sex: String?, phone: String?, verifyCode: String?, roleCode: String?, pwd: String, thirdPartyToken: String?, thirdPartyUnionid: String?, loginType: String?, thirdPartyType: String?, callback: RequestCallBack<UserEntity>) {
         val jsonObj = JSONObject()
+        jsonObj.put("isHDorPHONE",isHDorPHONE)
         jsonObj.put("nickName", name)
         jsonObj.put("headUrl", headUrl)
         jsonObj.put("sex", sex)
@@ -413,6 +423,7 @@ object EBagApi {
         jsonObject.put("subCode", subCode)
         EBagApi.request(eBagService.getUnit("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
     /**
      * 获取单元数据
      */
@@ -498,10 +509,10 @@ object EBagApi {
     /**
      * 跟读-报告-切换版本
      */
-    fun readRecordVersion(classId: String, subCode: String?, callback: RequestCallBack<ReadRecordVersionBean>){
+    fun readRecordVersion(classId: String, subCode: String?, callback: RequestCallBack<ReadRecordVersionBean>) {
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
-        if(!StringUtils.isEmpty(subCode))
+        if (!StringUtils.isEmpty(subCode))
             jsonObject.put("subCode", subCode)
         EBagApi.request(eBagService.readRecordVersion("v1", EBagApi.createBody(jsonObject)), callback)
     }
@@ -523,12 +534,13 @@ object EBagApi {
         jsonObject.put(key, value)
         EBagApi.request(eBagService.modifyPersonalInfo("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
     /**
      * 课堂表现-个人详情
      */
-    fun personalPerformance(callback: RequestCallBack<PersonalPerformanceBean>, uid: String? = null){
+    fun personalPerformance(callback: RequestCallBack<PersonalPerformanceBean>, uid: String? = null) {
         val jsonObject = JSONObject()
-        if (!StringUtils.isEmpty(uid)){
+        if (!StringUtils.isEmpty(uid)) {
             jsonObject.put("uid", uid)
         }
         EBagApi.request(eBagService.personalPerformance("v1", EBagApi.createBody(jsonObject)), callback)
@@ -539,17 +551,17 @@ object EBagApi {
      * @param type 1-IOS,2-android,3-android-HD
      * @param versionCode 老师-teacher,学生-student,家长-parent
      */
-    fun officialAnnounce(type: String, versionCode: String, page: Int, pageSize: Int, callback: RequestCallBack<OfficialAnnounceBean>){
+    fun officialAnnounce(type: String, versionCode: String, page: Int, pageSize: Int, callback: RequestCallBack<OfficialAnnounceBean>) {
         val jsonObject = JSONObject()
-        jsonObject.put("type",type)
-        jsonObject.put("versionCode",versionCode)
-        jsonObject.put("page",page)
-        jsonObject.put("pageSize",pageSize)
+        jsonObject.put("type", type)
+        jsonObject.put("versionCode", versionCode)
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", pageSize)
         EBagApi.request(eBagService.officialAnnounce("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
     /**个人中心*/
-    fun queryUserInfo(call:RequestCallBack<UserInfoBean>){
+    fun queryUserInfo(call: RequestCallBack<UserInfoBean>) {
         val jsonObject = JSONObject()
         EBagApi.request(eBagService.queryPersonalCenter("1", EBagApi.createBody(jsonObject)), call)
     }
@@ -726,18 +738,18 @@ object EBagApi {
     }
 
     /*更新订单状态，确认收货*/
-    fun updateShopOrderStaus(oid: String,numList:List<ShopStatusBean>,callback: RequestCallBack<String>,staus: String = "3") {
+    fun updateShopOrderStaus(oid: String, numList: List<ShopStatusBean>, callback: RequestCallBack<String>, staus: String = "3") {
         val jsonObject = JSONObject()
         jsonObject.put("oid", oid)
         jsonObject.put("staus", staus)
         val array = JSONArray()
         numList.forEach {
             val json = JSONObject()
-            json.put("shopId",it.shopId)
-            json.put("Number",it.Number)
+            json.put("shopId", it.shopId)
+            json.put("Number", it.Number)
             array.put(json)
         }
-        jsonObject.put("requestOrderVos",array)
+        jsonObject.put("requestOrderVos", array)
         EBagApi.request(eBagService.updateShopOrderStaus("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

@@ -47,7 +47,11 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         const val WEIXIN_TYPE = "5"
         const val SIAN_TYPE = "6"
 
-        var mActivity:Activity? = null
+        //        登录标识：hd为平板，phone为手机
+        const val ISHD = "HD"
+        const val ISPHONE = "PHONE"
+
+        var mActivity: Activity? = null
     }
 
     private var isToMain = false
@@ -349,7 +353,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
                 var name = p2?.get("name")
                 var gender = p2?.get("gender")
                 var iconurl = p2?.get("iconurl")
-                EBagApi.login(null, null, null, queryThirdPartyType(share_media.toString()), getRoleCode(), access_token, uid, object : RequestCallBack<UserEntity>() {
+                EBagApi.login("请输入设备码", BLoginActivity.ISHD, null, null, null, queryThirdPartyType(share_media.toString()), getRoleCode(), access_token, uid, object : RequestCallBack<UserEntity>() {
                     override fun onSuccess(entity: UserEntity?) {
                         if (entity != null) {
                             this@BLoginActivity.onLoginSuccess(entity)
@@ -361,7 +365,21 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
                     }
 
                     override fun onError(exception: Throwable) {
-                        threeParty(view, uid, access_token, name, iconurl, gender, share_media.toString())
+                        LoadingDialogUtil.closeLoadingDialog()
+//                        1002代表平板学生平板未激活
+//                        1003 当移动端点击第三方登录时如果没有绑定第三方返回此状态码
+//                        1004代表老师平板或者pc未激活
+                        if (exception is MsgException) {
+                            when {
+                                exception.code == "1002" ->
+                                    toast(exception.message.toString())
+                                exception.code == "1004" ->
+                                    toast(exception.message.toString())
+                                exception.code == "1003" ->
+                                    threeParty(view, uid, access_token, name, iconurl, gender, share_media.toString())
+
+                            }
+                        }
                     }
                 })
                 SPUtils.put(this@BLoginActivity, ebag.hd.base.Constants.USER_ACCOUNT, "")

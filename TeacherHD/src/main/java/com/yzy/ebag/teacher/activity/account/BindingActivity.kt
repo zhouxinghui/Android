@@ -46,7 +46,7 @@ class BindingActivity : BaseActivity() {
                         type = BLoginActivity.EBAG_TYPE
                     }
 
-                    EBagApi.login(et_user.text.toString(), et_pwd.text.toString(), type,judge(shareMedia), BLoginActivity.TEACHER_ROLE, accessToken,uid,object : RequestCallBack<UserEntity>() {
+                    EBagApi.login("请输入设备码",BLoginActivity.ISHD,et_user.text.toString(), et_pwd.text.toString(), type,judge(shareMedia), BLoginActivity.TEACHER_ROLE, accessToken,uid,object : RequestCallBack<UserEntity>() {
                         override fun onSuccess(entity: UserEntity?) {
                             LoadingDialogUtil.closeLoadingDialog()
                             if (entity != null) {
@@ -82,7 +82,7 @@ class BindingActivity : BaseActivity() {
                 } else {
                     type = BLoginActivity.EBAG_TYPE
                 }
-                EBagApi.register(name,iconurl,if (gender =="男"){"1"}else{"2"},null,null,BLoginActivity.TEACHER_ROLE,et_pwd.text.toString(),accessToken,uid,type,judge(shareMedia),object : RequestCallBack<UserEntity>() {
+                EBagApi.register(BLoginActivity.ISHD,name,iconurl,if (gender =="男"){"1"}else{"2"},null,null,BLoginActivity.TEACHER_ROLE,et_pwd.text.toString(),accessToken,uid,type,judge(shareMedia),object : RequestCallBack<UserEntity>() {
                 override fun onSuccess(entity: UserEntity?) {
 
                     if (entity != null) {

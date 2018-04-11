@@ -89,6 +89,12 @@ interface EBagService {
     @POST("user/login/{version}")
     fun login(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<UserEntity>>
 
+//    绑定激活码
+    @Headers("EBag-Special-Url: special/url")
+    @POST("user/bindingActivationCode/{version}")
+    fun bindingActivationCode(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+
     /**
      * 登录
      * @return

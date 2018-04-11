@@ -69,6 +69,6 @@ object Constants {
 //    const val BASE_URL = "http://192.168.1.155:9001/"
 //    const val BASE_URL = "http://192.168.1.135:9001/"
 //    const val BASE_URL = "http://192.168.1.144:9001/"
-    const val BASE_URL = "http://192.168.1.110:9001/"
-//    const val BASE_URL = "http://localhost:9001/"
+//    const val BASE_URL = "http://192.168.1.110:9001/"
+    const val BASE_URL = "http://localhost:9001/"
 }
