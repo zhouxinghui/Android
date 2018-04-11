@@ -17,6 +17,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.youth.banner.loader.ImageLoader
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.activity.BookListActivity
 import com.yzy.ebag.teacher.activity.ZixiActivity
 import com.yzy.ebag.teacher.activity.assignment.AssignmentActivity
 import com.yzy.ebag.teacher.activity.correcting.CorrectingActivity
@@ -31,7 +32,6 @@ import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.loadImage
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
-import ebag.hd.ui.activity.BookListActivity
 import ebag.hd.util.checkUpdate
 import kotlinx.android.synthetic.main.fragment_first_page.*
 

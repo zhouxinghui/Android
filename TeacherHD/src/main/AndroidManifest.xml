@@ -140,6 +140,9 @@
         <activity android:name=".activity.OperationActivity"
             android:screenOrientation="landscape"
             />
+        <activity android:name=".activity.BookListActivity"
+            android:screenOrientation="landscape"
+            />
         <!-- 友盟分享 -->
         <!-- 微信 -->
         <activity
