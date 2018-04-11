@@ -106,7 +106,7 @@ class PractiseActivity: BaseListTabActivity<EditionBean, MultiItemEntity>() {
         val textBookView = layoutInflater.inflate(R.layout.textbook_head, null)
         textBookTv = textBookView.findViewById(R.id.textBookVersion)
         textBookTv.setOnClickListener { //更换教材
-            textbookPopup.setRequest(classId)
+            textbookPopup.setRequest(classId, "yw")
             textbookPopup.showAsDropDown(subjectView, textBookView.width + 1, 0)
         }
         addLeftHeaderView(textBookView)

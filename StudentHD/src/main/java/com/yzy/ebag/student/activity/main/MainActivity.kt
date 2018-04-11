@@ -77,7 +77,7 @@ class MainActivity : MVPActivity(), MainView {
     override fun mainInfoSuccess(classesInfoBean: ClassesInfoBean) {
         showTeachers(classesInfoBean)
         SPUtils.put(this,Constants.CLASS_NAME,classesInfoBean.className)
-        SPUtils.put(this,Constants.GRADE_CODE,classesInfoBean.gradeCode.toInt())
+        SPUtils.put(this,Constants.GRADE_CODE,classesInfoBean.gradeCode?.toInt())
         tvAnnounceContent.text = classesInfoBean.resultClassNoticeVo?.content ?: "暂无公告"
         stateView.showContent()
 

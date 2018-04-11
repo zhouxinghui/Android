@@ -498,9 +498,11 @@ object EBagApi {
     /**
      * 跟读-报告-切换版本
      */
-    fun readRecordVersion(classId: String, callback: RequestCallBack<ReadRecordVersionBean>){
+    fun readRecordVersion(classId: String, subCode: String?, callback: RequestCallBack<ReadRecordVersionBean>){
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
+        if(!StringUtils.isEmpty(subCode))
+            jsonObject.put("subCode", subCode)
         EBagApi.request(eBagService.readRecordVersion("v1", EBagApi.createBody(jsonObject)), callback)
     }
 

@@ -98,6 +98,7 @@ class ReadRecordTextbookPopup(context: Context): PopupWindow(context)  {
         textView
     }
     private var classId = ""
+    private var requestSubCode: String? = ""
     init {
         contentView = LayoutInflater.from(context).inflate(R.layout.popup_read_record_textbook, null)
         width = context.resources.getDimensionPixelSize(R.dimen.x400)
@@ -112,7 +113,7 @@ class ReadRecordTextbookPopup(context: Context): PopupWindow(context)  {
         val versionRecycler = contentView.findViewById<RecyclerView>(R.id.versionRecycler)
         stateView = contentView.findViewById(R.id.stateView)
         stateView?.setOnRetryClickListener {
-            EBagApi.readRecordVersion(classId, versionRequest)
+            EBagApi.readRecordVersion(classId, requestSubCode, versionRequest)
         }
         semesterGroup.setOnCheckedChangeListener { _, checkedId ->
             when(checkedId){
@@ -187,10 +188,11 @@ class ReadRecordTextbookPopup(context: Context): PopupWindow(context)  {
         }
     }
 
-    fun setRequest(classId: String){
+    fun setRequest(classId: String, subCode: String? = null){
         if (this.classId != classId){
             this.classId = classId
-            EBagApi.readRecordVersion(classId, versionRequest)
+            this.requestSubCode = subCode
+            EBagApi.readRecordVersion(classId, subCode, versionRequest)
         }
     }
 
