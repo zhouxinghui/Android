@@ -227,7 +227,8 @@ object TeacherApi {
             else
                 jsonObject.put("bookCatalog", unitBean.unitCode)
         }
-        difficulty ?: jsonObject.put("level",difficulty)
+        if (difficulty != null)
+            jsonObject.put("level",difficulty)
         jsonObject.put("gradeCode",gradeCode)
         jsonObject.put("semesterCode",semeterCode)
         jsonObject.put("course",course)

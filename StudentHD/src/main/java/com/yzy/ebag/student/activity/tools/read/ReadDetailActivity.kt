@@ -473,7 +473,7 @@ class ReadDetailActivity: BaseActivity() {
                     tempRecognizeString, tempUrl , uploadRequest)
         }else{
             // 语音识别没成功
-            /*if(!recognizeSuccess){
+            if(!recognizeSuccess){
                 tempRecognizeString = ""
                 isRecognizing = true
                 baiduToken = SPUtils.get(this, "baiduToken", "") as String
@@ -482,7 +482,7 @@ class ReadDetailActivity: BaseActivity() {
                 }else{
                     speechRecognize()
                 }
-            }*/
+            }
 
             // 文件上传没成功
             if(!ossSuccess){
@@ -573,10 +573,10 @@ class ReadDetailActivity: BaseActivity() {
                     activity?.ossSuccess = true
                     activity?.tempUrl = "${Constants.OSS_BASE_URL}/personal/${activity!!.userId}/read/${activity.readDetailBean?.languageDetailId}.amr"
 
-//                    if(activity.recognizeSuccess){
+                    if(activity.recognizeSuccess){
                         StudentApi.uploadRecord(activity.classId,activity.readDetailBean?.languageId ?: "", activity.readDetailBean?.languageDetailId ?: ""
                                 , activity.tempRecognizeString, activity.tempUrl , activity.uploadRequest)
-//                    }
+                    }
                     LoadingDialogUtil.closeLoadingDialog()
                 }
                 msg.what == Constants.UPLOAD_FAIL ->{//上传文件失败
