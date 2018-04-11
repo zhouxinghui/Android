@@ -6,6 +6,7 @@ import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.base.BaseDialog
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
+import ebag.core.util.EditTextLimitUtil
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.StringUtils
 import ebag.core.util.T
@@ -46,6 +47,7 @@ class CreateSchoolDialog(context: Context): BaseDialog(context) {
     private lateinit var currentCityBean: CurrentCityBean
     init {
         title_tv.text = "创建学校"
+        EditTextLimitUtil.setEditMaxLength(countEdit, 20)
         confirmBtn.setOnClickListener {
             val schoolName = countEdit.text.toString()
             if (!StringUtils.isEmpty(schoolName)){
