@@ -5,12 +5,12 @@ import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.RadioGroup
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.StringUtils
 import ebag.hd.R
 import ebag.hd.adapter.UnitAdapter
 import ebag.hd.base.BaseListTabActivity
@@ -19,6 +19,8 @@ import ebag.hd.bean.EditionBean
 import ebag.hd.bean.UnitBean
 import ebag.hd.http.EBagApi
 import ebag.hd.widget.ClazzListPopup
+import ebag.hd.widget.ReadRecordTextbookPopup
+import ebag.hd.widget.drawable.DrawableTextView
 
 /**
  * Created by unicho on 2018/3/13.
@@ -54,11 +56,24 @@ class LetterRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>()
         }
     }
     private lateinit var classesTv: TextView
+    private lateinit var textBookTv: DrawableTextView
     private val classesPopup by lazy {
         val popupWindow = ClazzListPopup(this)
         popupWindow.onClassSelectListener = {classBean ->
             classesTv.text = classBean.className
             classId = classBean.classId
+            request()
+        }
+        popupWindow
+    }
+    private var bookVersionId = ""
+    private var isFirstRequest = true
+    private val textbookPopup by lazy {
+        val popupWindow = ReadRecordTextbookPopup(this)
+        popupWindow.onConfirmClick = {versionId, versionName, semesterName, subName ->
+            textBookTv.text = "$subName-$versionName-$semesterName"
+            bookVersionId = versionId
+            isFirstRequest = false
             request()
         }
         popupWindow
@@ -73,12 +88,12 @@ class LetterRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>()
         setTitleContent("每日练字")
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x368))
 
-        val view = layoutInflater.inflate(R.layout.layout_read_header,null)
+        /*val view = layoutInflater.inflate(R.layout.layout_read_header,null)
         tvMaterial = view.findViewById(R.id.text)
         tvMaterial.text = "这是教材名字"
 
         val radioGroup = view.findViewById<RadioGroup>(R.id.radioGroup)
-        radioGroup.visibility = View.GONE
+        radioGroup.visibility = View.GONE*/
         /*radioGroup.check(R.id.rbYy)
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
             when(checkedId){
@@ -95,24 +110,34 @@ class LetterRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>()
         }*/
 
         val subjectView = layoutInflater.inflate(R.layout.zixi_left_tv_head, null)
-        addLeftHeaderView(subjectView)
         classesTv = subjectView.findViewById(R.id.clazzTv)
         classesTv.setOnClickListener { //更换科目
             classesPopup.setData(classes)
-            classesPopup.showAsDropDown(view, view.width, 0)
+            classesPopup.showAsDropDown(titleBar, subjectView.width + 1, 0)
         }
 
-        addLeftHeaderView(view)
+        val textBookView = layoutInflater.inflate(R.layout.textbook_head, null)
+        textBookTv = textBookView.findViewById(R.id.textBookVersion)
+        textBookTv.setOnClickListener { //更换教材
+            textbookPopup.setRequest(classId)
+            textbookPopup.showAsDropDown(subjectView, textBookView.width + 1, 0)
+        }
+        addLeftHeaderView(textBookView)
+        addLeftHeaderView(subjectView)
 
         EBagApi.getMyClasses(classesRequest)
     }
 
     override fun requestData(requestCallBack: RequestCallBack<EditionBean>) {
-        EBagApi.getUnit(classId, subCode, requestCallBack)
+        if (StringUtils.isEmpty(bookVersionId))
+            EBagApi.getUnit(classId, subCode, requestCallBack)
+        else
+            EBagApi.getUnit(bookVersionId, requestCallBack)
     }
 
     override fun parentToList(parent: EditionBean?): List<UnitBean>? {
-        tvMaterial.text = parent?.bookVersion
+        if (isFirstRequest)
+            textBookTv.text = parent?.bookVersion
         return parent?.resultBookUnitOrCatalogVos
     }
 

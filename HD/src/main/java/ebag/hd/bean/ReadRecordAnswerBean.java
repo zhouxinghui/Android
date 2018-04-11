@@ -9,21 +9,23 @@ import java.io.Serializable;
 public class ReadRecordAnswerBean implements Serializable {
 
     /**
-     * id : afdadggdgfdfdgdfsdfhfds
-     * otherName : null
-     * ysbCode : 10000806
-     * classId : 8d142957d4a54c9eb107f89e42d2e7d1
-     * uid : c494d8e4dbed49b9ba2a9137a6ca5f49
-     * languageId : 1623043cf0374667814096762014acb2
-     * myAudioUrl : http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/OralLanguage/b0795a2dfb854175a97554f441e0634d18.mp3
+     * id : 35afb5e8e6f040ccbdbec88138a3ecba
+     * headUrl : 
+     * name : 测试学生
+     * ysbCode : 10000926
+     * classId : ed6f351a1202473abc7c160a95435ab6
+     * uid : 0e540878d646474a86f35ff2e0160639
+     * languageId : 0fe2b6b1da47478d878c5ca44b7af4fb
+     * myAudioUrl : http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/personal/0e540878d646474a86f35ff2e0160639/read/3eeba959f1cf4538825c6a2f6307cb73.amr
      * score : null
-     * dateTime : 1521698244000
+     * dateTime : 1523415870000
      * languageEn : null
      * languageCn : null
      */
 
     private String id;
-    private String otherName;
+    private String headUrl;
+    private String name;
     private String ysbCode;
     private String classId;
     private String uid;
@@ -33,15 +35,6 @@ public class ReadRecordAnswerBean implements Serializable {
     private long dateTime;
     private String languageEn;
     private String languageCn;
-    private String headUrl;
-
-    public String getHeadUrl() {
-        return headUrl;
-    }
-
-    public void setHeadUrl(String headUrl) {
-        this.headUrl = headUrl;
-    }
 
     public String getId() {
         return id;
@@ -51,12 +44,20 @@ public class ReadRecordAnswerBean implements Serializable {
         this.id = id;
     }
 
-    public String getOtherName() {
-        return otherName;
+    public String getHeadUrl() {
+        return headUrl;
     }
 
-    public void setOtherName(String otherName) {
-        this.otherName = otherName;
+    public void setHeadUrl(String headUrl) {
+        this.headUrl = headUrl;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getYsbCode() {

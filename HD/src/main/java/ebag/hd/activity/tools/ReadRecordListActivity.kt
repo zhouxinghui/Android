@@ -203,6 +203,8 @@ class ReadRecordListActivity: BaseActivity() {
         override fun convert(helper: BaseViewHolder, item: ReadRecordAnswerBean?) {
             helper.getView<ImageView>(R.id.img_id).loadHead(item?.headUrl)
             helper.setText(R.id.tvTime, DateUtil.getDateTime(item?.dateTime ?: 0, "yyyy-MM-dd HH:mm"))
+                    .setText(R.id.ysbCode, item?.ysbCode)
+                    .setText(R.id.nameTv, item?.name)
 
             val linearLayout = helper.getView<LinearLayout>(R.id.play_id)
             val imageView = helper.getView<ImageView>(R.id.image_id)

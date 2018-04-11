@@ -16,7 +16,7 @@
         android:paddingRight="@dimen/x15"
         android:text="教材"
         android:textSize="@dimen/tv_normal"
-        android:textColor="@color/title_text_color"
+        android:textColor="@color/tv_normal"
         app:layout_constraintLeft_toLeftOf="parent"
         />
     <!--教材版本-->
