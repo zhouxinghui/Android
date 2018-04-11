@@ -115,7 +115,7 @@ class PersonalActivity: MVPActivity() {
                     YbCenterFragment.newInstance()
                 }
                 7 -> {
-                    TestFragment.newInstance()
+                    OperationFragment.newInstance()
                 }
                 else -> {
                     TestFragment.newInstance()
