@@ -599,7 +599,7 @@ class ReadDetailActivity: BaseActivity() {
         override fun onSuccess(entity: String?) {
             LoadingDialogUtil.closeLoadingDialog()
             ossSuccess = false
-//            recognizeSuccess = false
+            recognizeSuccess = false
             tempUrl = ""
             getHistory()
             T.show(this@ReadDetailActivity, entity ?: "我的录音上传成功")

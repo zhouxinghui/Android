@@ -220,7 +220,7 @@ class ReadRecordTextbookPopup(context: Context): PopupWindow(context)  {
         var selectPosition = -1
             set(value) {
                 field = value
-                if(selectPosition != -1 && data.isNotEmpty()) {
+                if(selectPosition != -1 && data.isNotEmpty() && selectPosition < data.size) {
                     versionId = data[selectPosition].bookVersionId
                     versionName = data[selectPosition].versionName
                     versionCode = data[selectPosition].versionCode
