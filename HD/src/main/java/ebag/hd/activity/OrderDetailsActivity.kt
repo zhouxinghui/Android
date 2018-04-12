@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.alipay.sdk.app.PayTask
 import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
@@ -350,14 +349,4 @@ class OrderDetailsActivity : BaseActivity() {
             ActivityUtils.skipActivityAndFinishAll(this@OrderDetailsActivity, ShopOrderActivity::class.java)
         }
     }
-
-    /*companion object {
-        private var mList:ArrayList<SaveOrderPBean.ListBean> = arrayListOf()
-        private var mBean = SaveOrderPBean("","","",mList,"")
-        fun getDetailsBean():SaveOrderPBean{
-            return mBean
-        }
-    }*/
-
-
 }

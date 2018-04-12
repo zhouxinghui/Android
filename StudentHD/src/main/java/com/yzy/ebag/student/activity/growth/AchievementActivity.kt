@@ -36,9 +36,9 @@ class AchievementActivity : BaseActivity(){
 
         val fragments = ArrayList<Fragment>()
         val titleList = ArrayList<String>()
-        fragments.add(AchievementFragment.newInstance(gradeId, 0))
         fragments.add(AchievementFragment.newInstance(gradeId, 1))
         fragments.add(AchievementFragment.newInstance(gradeId, 2))
+        fragments.add(AchievementFragment.newInstance(gradeId, 3))
         titleList.add("随堂作业")
         titleList.add("课后作业")
         titleList.add("考试试卷")

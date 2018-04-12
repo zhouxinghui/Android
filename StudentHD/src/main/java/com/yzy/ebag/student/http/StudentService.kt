@@ -139,6 +139,9 @@ interface StudentService {
     @POST("user/learningProcess/{version}")
     fun learningProcess(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<List<LeaningProgressBean>>>
 
+    @POST("homeStatistics/yearStatisticsByHomeWork/{version}")
+    fun yearStatisticsByHomeWork(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<List<HomeworkBean>>>
+
 
 
 }

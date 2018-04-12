@@ -20,6 +20,8 @@ import ebag.core.util.loadHead
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
 import ebag.hd.activity.ClazzmateActivity
+import ebag.hd.bean.ClassMemberBean
+import ebag.hd.dialog.ClazzmateInfoDIalog
 import kotlinx.android.synthetic.main.fragment_class.*
 
 /**
@@ -81,6 +83,7 @@ class FragmentClass : BaseFragment() {
         recyclerView.layoutManager = LinearLayoutManager(mContext)
         recyclerView.adapter = adapter
         adapter.setOnItemClickListener { holder, view, position ->
+
         }
         adapter.setOnItemChildClickListener { holder, view, position ->
             when(view.id){
@@ -126,6 +129,26 @@ class FragmentClass : BaseFragment() {
             recyclerView.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
             recyclerView.adapter = adapter
             adapter.datas = entity?.clazzUserVoList
+            adapter.setOnItemChildClickListener { holder, view, position ->
+                val b = entity!!.clazzUserVoList[position]
+                val bean = ClassMemberBean.StudentsBean()
+                bean.city = b.city
+                bean.birthday = b.birthday
+                bean.county = b.county
+                bean.headUrl = b.headUrl
+                bean.phone = b.phone
+                bean.name = b.name
+                bean.schoolName = b.schoolName
+                bean.ysbCode = b.ysbCode
+                bean.sex = b.sex
+
+                val bundle = Bundle()
+                bundle.putSerializable("data", bean)
+                val f = ClazzmateInfoDIalog.newInstance()
+                f.arguments = bundle
+                f.show(fragmentManager, "clazzinfoDialog")
+            }
+
         }
     }
     inner class ClassMemberAdapter: RecyclerAdapter<SpaceBean.ClazzUserVoListBean>(R.layout.item_class_member) {

@@ -63,6 +63,7 @@ object Constants {
     const val ROLE_CODE = "role_code"
     const val THIRD_PARTY_TOKEN = "thirdPartyToken"
     const val THIRD_PARTY_UNION_ID = "thirdPartyUnionid"
+    const val CLASS_ID: String = "class_id"
 
 //    const val BASE_URL = "http://www.yun-bag.com/ebag-portal/"
 //    const val BASE_URL = "http://192.168.1.141:9001/"

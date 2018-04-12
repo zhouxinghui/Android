@@ -14,7 +14,7 @@ class ClazzmateAdapter(data: List<ClassMemberBean.StudentsBean>) : BaseQuickAdap
     override fun convert(helper: BaseViewHolder, item: ClassMemberBean.StudentsBean?) {
 
         helper.setText(R.id.clazz_name, item?.name)
-        helper.getView<ImageView>(R.id.clazz_head).loadHead(item?.headUrl)
+        helper.getView<ImageView>(R.id.clazz_head).loadHead(item?.headUrl,true)
 
     }
 

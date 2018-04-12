@@ -99,6 +99,7 @@ class MainActivity : MVPActivity(), MainView {
     private fun showTeachers(classesInfoBean: ClassesInfoBean){
         classesInfo = classesInfoBean.resultAllClazzInfoVos
         classId = classesInfoBean.classId ?: ""
+        SPUtils.put(this,Constants.CLASS_ID,classId)
         tvGrade.text = getString(R.string.main_class_name,classesInfoBean.className)
         tvClassTeacher.text = getString(R.string.main_teacher_name, classesInfoBean.teacherName)
         tvTeachersTip.text = getString(R.string.main_teachers_tip)
@@ -233,6 +234,7 @@ class MainActivity : MVPActivity(), MainView {
             classes.dismiss()
             if(it?.classId != classId){
                 classId = it?.classId ?: ""
+                SPUtils.put(this,Constants.CLASS_ID,classId)
                 getMainClassInfo()
             }
         }

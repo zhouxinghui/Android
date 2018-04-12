@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.TextView
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
@@ -61,7 +62,7 @@ class ShopOrderFragment : BaseFragment() {
         //adapter.setOnItemClickListener { adapter, view, position -> startActivity(Intent(activity, OrderDetailsActivity::class.java)) }
         mAdapter.setOnItemChildClickListener { adapter, view, position ->
 
-            if (index == 2) {
+            if ((view as TextView).text == "确认收货") {
                 val oid = mData[position].oid
                 val orderProductVOs = mData[position].orderProductVOs
                 val list:MutableList<ShopStatusBean> = mutableListOf()

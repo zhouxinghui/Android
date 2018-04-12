@@ -288,8 +288,18 @@ object StudentApi {
         EBagApi.request(studentService.bindParent("1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    fun learningProcess(call:RequestCallBack<List<LeaningProgressBean>>){
+    fun learningProcess(call: RequestCallBack<List<LeaningProgressBean>>) {
         val jsonObject = JSONObject()
         EBagApi.request(studentService.learningProcess("1", EBagApi.createBody(jsonObject)), call)
+    }
+
+    /*成长轨迹，考试成绩*/
+
+    fun examSocre(classId: String, homeType: String, rid: String, callback: RequestCallBack<List<HomeworkBean>>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("homeType", homeType)
+        jsonObject.put("rid", rid)
+        EBagApi.request(studentService.yearStatisticsByHomeWork("1", EBagApi.createBody(jsonObject)), callback)
     }
 }

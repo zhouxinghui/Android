@@ -1,76 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
-    <LinearLayout
-        android:id="@+id/searchLayout"
-        android:layout_width="@dimen/x425"
-        android:layout_height="@dimen/x48"
-        android:layout_marginTop="@dimen/x20"
-        android:layout_marginEnd="@dimen/x50"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/bac_search_stroke"
-        android:gravity="center_vertical">
+    android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
-            android:paddingStart="@dimen/x24"
-            android:paddingEnd="@dimen/x20"
-            android:singleLine="true"
-            android:inputType="text"
-            android:imeOptions="actionSearch"
-            android:textSize="@dimen/x22"
-            android:textColor="@color/color_edit_color"
-            android:textColorHint="@color/color_edit_hint"
-            android:hint="请输入日期等关键字..."/>
 
-        <View
-            android:layout_width="@dimen/x1"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/x7"
-            android:layout_marginBottom="@dimen/x7"
-            android:background="@color/line_color"/>
-
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="@dimen/x30"
-            android:layout_height="@dimen/x30"
-            android:focusable="true"
-            android:background="@drawable/icon_search_for"
-            android:layout_marginStart="@dimen/x20"
-            android:layout_marginEnd="@dimen/x20"/>
-
-    </LinearLayout>
-    <FrameLayout
-        android:id="@+id/layout"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y300"
-        android:paddingStart="@dimen/x40"
-        android:paddingEnd="@dimen/x40"
-        app:layout_constraintTop_toBottomOf="@id/searchLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-        <ebag.core.widget.FoldChartView
-            android:id="@+id/chartView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </FrameLayout>
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/pageBackground"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-</android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/searchLayout"
+            android:layout_width="@dimen/x425"
+            android:layout_height="@dimen/x48"
+            android:layout_marginEnd="@dimen/x50"
+            android:layout_marginTop="@dimen/x20"
+            android:background="@drawable/bac_search_stroke"
+            android:gravity="center_vertical"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入日期等关键字..."
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:paddingEnd="@dimen/x20"
+                android:paddingStart="@dimen/x24"
+                android:singleLine="true"
+                android:textColor="@color/color_edit_color"
+                android:textColorHint="@color/color_edit_hint"
+                android:textSize="@dimen/x22" />
+
+            <View
+                android:layout_width="@dimen/x1"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/x7"
+                android:layout_marginTop="@dimen/x7"
+                android:background="@color/line_color" />
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="@dimen/x30"
+                android:layout_height="@dimen/x30"
+                android:layout_marginEnd="@dimen/x20"
+                android:layout_marginStart="@dimen/x20"
+                android:background="@drawable/icon_search_for"
+                android:focusable="true" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y300"
+            android:paddingEnd="@dimen/x40"
+            android:paddingStart="@dimen/x40"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchLayout">
+
+            <ebag.core.widget.FoldChartView
+                android:id="@+id/chartView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/pageBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout" />
+    </android.support.constraint.ConstraintLayout>
+
+    <ebag.core.widget.empty.StateView
+        android:layout_width="match_parent"
+        android:id="@+id/stateview"
+        android:layout_height="match_parent"
+        app:emptyLayout="@layout/base_empty"
+        app:errorLayout="@layout/base_error"
+        app:loadingLayout="@layout/base_loading" />
+
+</RelativeLayout>

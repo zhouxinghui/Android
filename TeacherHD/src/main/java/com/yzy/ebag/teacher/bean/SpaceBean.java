@@ -88,6 +88,72 @@ public class SpaceBean implements Serializable {
         private String rid;
         private String roleName;
         private String headUrl;
+        private String sex;
+
+        public String getPhone() {
+            return phone;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone;
+        }
+
+        private String phone;
+        private String birthday;
+
+        public String getSex() {
+            return sex;
+        }
+
+        public void setSex(String sex) {
+            this.sex = sex;
+        }
+
+        public String getBirthday() {
+            return birthday;
+        }
+
+        public void setBirthday(String birthday) {
+            this.birthday = birthday;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        public String getCounty() {
+            return county;
+        }
+
+        public void setCounty(String county) {
+            this.county = county;
+        }
+
+        public String getSchoolName() {
+            return schoolName;
+        }
+
+        public void setSchoolName(String schoolName) {
+            this.schoolName = schoolName;
+        }
+
+        public String getYsbCode() {
+            return ysbCode;
+        }
+
+        public void setYsbCode(String ysbCode) {
+            this.ysbCode = ysbCode;
+        }
+
+        private String city;
+        private String county;
+        private String schoolName;
+        private String ysbCode;
+
 
         public String getUid() {
             return uid;
