@@ -30,7 +30,7 @@ public class RecordHistory {
     private String uid;
     private String languageId;
     private String myAudioUrl;
-    private Object score;
+    private String score;
     private long createDate;
     private String languageEn;
     private String languageCn;
@@ -91,11 +91,11 @@ public class RecordHistory {
         this.myAudioUrl = myAudioUrl;
     }
 
-    public Object getScore() {
+    public String getScore() {
         return score;
     }
 
-    public void setScore(Object score) {
+    public void setScore(String score) {
         this.score = score;
     }
 

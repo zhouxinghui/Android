@@ -55,6 +55,7 @@ class ReadDetailActivity: BaseActivity() {
     // 是否正在语音识别
     private var isRecognizing = false
 
+    private var subCode = "yy"
     private val voicePlayer by lazy {
         val voicePlayer = VoicePlayerOnline(this)
 
@@ -316,7 +317,9 @@ class ReadDetailActivity: BaseActivity() {
             else
                 stateView.showContent()
             adapter.setNewData(entity)
-
+            if (StringUtils.isEmpty(entity!![0].languageEn)){
+                subCode = "yw"
+            }
         }
 
         override fun onError(exception: Throwable) {
@@ -446,7 +449,8 @@ class ReadDetailActivity: BaseActivity() {
 
     inner class HistoryAdapter: BaseQuickAdapter<RecordHistory, BaseViewHolder>(R.layout.item_activity_record_history){
         override fun convert(helper: BaseViewHolder, item: RecordHistory?) {
-            helper.setText(R.id.tvContent, item?.languageEn)
+            helper.setText(R.id.tvContent, if (StringUtils.isEmpty(item?.languageEn)) item?.languageCn else item?.languageEn)
+                    .setText(R.id.scoreEdit, item?.score ?: "")
                     .addOnClickListener(R.id.play_id)
                     .setTag(R.id.play_id, R.id.image_id, helper.getView(R.id.image_id))
                     .setTag(R.id.play_id, R.id.progress_id, helper.getView(R.id.progress_id))
@@ -470,8 +474,13 @@ class ReadDetailActivity: BaseActivity() {
         // 语音识别 和 文件上传都成功了， 点击直接上传
         // loading 和 isRecognizing 主要是用来控制 加载中的 对话框的 显示与否
         if(recognizeSuccess && ossSuccess){
-            StudentApi.uploadRecord(classId,readDetailBean?.languageId ?: "", readDetailBean?.languageDetailId ?: "",
-                    tempRecognizeString, tempUrl , uploadRequest)
+            StudentApi.uploadRecord(
+                    classId,readDetailBean?.languageId ?: "",
+                    readDetailBean?.languageDetailId ?: "",
+                    if (subCode == "yy") readDetailBean?.languageEn ?: "" else readDetailBean?.languageCn ?: "",
+                    tempRecognizeString,
+                    tempUrl ,
+                    uploadRequest)
         }else{
             // 语音识别没成功
             if(!recognizeSuccess){
@@ -541,8 +550,12 @@ class ReadDetailActivity: BaseActivity() {
                         isRecognizing = false
                         recognizeSuccess = true
                         if(ossSuccess){
-                            StudentApi.uploadRecord(classId,readDetailBean?.languageId ?: "", readDetailBean?.languageDetailId ?: "",
-                                     tempRecognizeString, tempUrl , uploadRequest)
+                            StudentApi.uploadRecord(
+                                    classId,
+                                    readDetailBean?.languageId ?: "",
+                                    readDetailBean?.languageDetailId ?: "",
+                                    if (subCode == "yy") readDetailBean?.languageEn ?: "" else readDetailBean?.languageCn ?: "",
+                                    tempRecognizeString, tempUrl , uploadRequest)
                         }else if(isOssUploading == false){
                             T.show(this@ReadDetailActivity, "录音上传失败，请重试")
                         }
@@ -559,7 +572,7 @@ class ReadDetailActivity: BaseActivity() {
             }
         }
 
-        StudentApi.speechRecognize(readDetailBean?.localPath ?: "", baiduToken, speechRecognizeRequest!!)
+        StudentApi.speechRecognize(readDetailBean?.localPath ?: "", baiduToken, subCode, speechRecognizeRequest!!)
     }
 
     /**
@@ -575,8 +588,12 @@ class ReadDetailActivity: BaseActivity() {
                     activity?.tempUrl = "${Constants.OSS_BASE_URL}/personal/${activity!!.userId}/read/${activity.readDetailBean?.languageDetailId}.amr"
 
                     if(activity.recognizeSuccess){
-                        StudentApi.uploadRecord(activity.classId,activity.readDetailBean?.languageId ?: "", activity.readDetailBean?.languageDetailId ?: ""
-                                , activity.tempRecognizeString, activity.tempUrl , activity.uploadRequest)
+                        StudentApi.uploadRecord(
+                                activity.classId,
+                                activity.readDetailBean?.languageId ?: "",
+                                activity.readDetailBean?.languageDetailId ?: "",
+                                if (activity.subCode == "yy") activity.readDetailBean?.languageEn ?: "" else activity.readDetailBean?.languageCn ?: "",
+                                activity.tempRecognizeString, activity.tempUrl , activity.uploadRequest)
                     }
 //                    LoadingDialogUtil.closeLoadingDialog()
                 }
@@ -595,15 +612,15 @@ class ReadDetailActivity: BaseActivity() {
     /**
      * 上传录音url
      */
-    private val uploadRequest = object: RequestCallBack<String>(){
+    private val uploadRequest = object: RequestCallBack<ReadUploadResponseBean>(){
 
-        override fun onSuccess(entity: String?) {
+        override fun onSuccess(entity: ReadUploadResponseBean?) {
             LoadingDialogUtil.closeLoadingDialog()
             ossSuccess = false
             recognizeSuccess = false
             tempUrl = ""
             getHistory()
-            T.show(this@ReadDetailActivity, entity ?: "我的录音上传成功")
+            T.show(this@ReadDetailActivity, "我的录音上传成功")
         }
 
         override fun onError(exception: Throwable) {

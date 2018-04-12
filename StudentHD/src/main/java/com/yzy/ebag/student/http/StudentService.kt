@@ -66,7 +66,7 @@ interface StudentService {
      * 上传跟读录音文件
      */
     @POST("util/addMyOralLanguage/{version}")
-    fun uploadRecord(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+    fun uploadRecord(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ReadUploadResponseBean>>
 
     /**
      * 获取当前段落的录音历史

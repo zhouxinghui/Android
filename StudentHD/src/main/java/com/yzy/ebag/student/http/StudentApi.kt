@@ -108,9 +108,10 @@ object StudentApi {
     /**
      * 上传跟读录音文件
      */
-    fun uploadRecord(classId: String, languageId: String, languageDetailId: String, language: String, myAudioUrl: String, callback: RequestCallBack<String>) {
+    fun uploadRecord(classId: String, languageId: String, languageDetailId: String, originalString: String, language: String, myAudioUrl: String, callback: RequestCallBack<ReadUploadResponseBean>) {
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
+        jsonObject.put("originalString", originalString)
         jsonObject.put("language", language)
         jsonObject.put("languageId", languageId)
         jsonObject.put("languageDetailId", languageDetailId)
@@ -182,7 +183,7 @@ object StudentApi {
     /**
      * 语音识别
      */
-    fun speechRecognize(filePath: String, token: String, callback: RequestCallBack<SpeechRecognizeBean>) {
+    fun speechRecognize(filePath: String, token: String, subCode: String, callback: RequestCallBack<SpeechRecognizeBean>) {
         val file = File(filePath)
         if (!file.exists() || !file.isFile) {
             return
@@ -192,6 +193,10 @@ object StudentApi {
             return
         }
         val speechRecognizeVo = SpeechRecognizeVo()
+        if (subCode == "yy")
+            speechRecognizeVo.dev_pid = 1737
+        else
+            speechRecognizeVo.dev_pid = 1536
         speechRecognizeVo.token = token
         speechRecognizeVo.len = file.length()
         speechRecognizeVo.speech = speech

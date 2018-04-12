@@ -77,5 +77,4 @@
         android:visibility="gone"
         tools:visibility="visible"
         />
-
 </android.support.constraint.ConstraintLayout>
