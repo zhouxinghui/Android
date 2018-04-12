@@ -27,6 +27,7 @@ class QuestionFeedbackDialog(context: Context): BaseDialog(context) {
         override fun onSuccess(entity: String?) {
             LoadingDialogUtil.closeLoadingDialog()
             T.show(context, "上传成功")
+            feedbackEdit.setText("")
         }
 
         override fun onError(exception: Throwable) {
