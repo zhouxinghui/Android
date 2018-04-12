@@ -103,9 +103,10 @@ public class RecorderUtil {
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         // 选择amr格式
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.RAW_AMR);
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_WB);
         mRecorder.setOutputFile(fileName);
-        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_WB);
+        mRecorder.setAudioSamplingRate(16000);
         try {
             mRecorder.prepare();
         } catch (Exception e) {

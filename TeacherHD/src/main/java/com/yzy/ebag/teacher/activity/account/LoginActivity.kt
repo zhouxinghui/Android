@@ -3,9 +3,11 @@ package com.yzy.ebag.teacher.activity.account
 import android.content.Intent
 import android.view.View
 import cn.jpush.android.api.JPushInterface
-import com.yzy.ebag.teacher.activity.home.MainActivity
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.activity.home.MainActivity
 import ebag.core.util.L
+import ebag.core.util.SPUtils
+import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.ui.activity.account.BLoginActivity
 
@@ -27,8 +29,7 @@ class LoginActivity : BLoginActivity() {
 
     override fun initViews() {
         super.initViews()
-        loginEdit.setText("10000651")
-        pwdEdit.setText("ysb123456")
+        loginEdit.setText(SPUtils.get(this, Constants.USER_ACCOUNT, "") as String)
     }
 
     override fun getJumpIntent(): Intent {

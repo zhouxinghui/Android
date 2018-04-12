@@ -251,6 +251,7 @@
             app:layout_constraintStart_toStartOf="@id/tipTeacher"
             app:layout_constraintTop_toBottomOf="@id/editTeacher"
             app:leftDrawable="@drawable/icon_flower"
+            android:visibility="gone"
             app:leftDrawableHeight="@dimen/x24"
             app:leftDrawableWidth="@dimen/x24" />
 
@@ -267,6 +268,7 @@
             app:layout_constraintTop_toTopOf="@id/flowerTeacher"
             app:leftDrawable="@drawable/icon_palette"
             app:leftDrawableHeight="@dimen/x24"
+            android:visibility="gone"
             app:leftDrawableWidth="@dimen/x24" />
 
         <ebag.hd.widget.drawable.DrawableTextView
@@ -282,6 +284,7 @@
             app:layout_constraintTop_toTopOf="@id/flowerTeacher"
             app:leftDrawable="@drawable/icon_notebook"
             app:leftDrawableHeight="@dimen/x24"
+            android:visibility="gone"
             app:leftDrawableWidth="@dimen/x24" />
 
         <ebag.hd.widget.drawable.DrawableTextView
@@ -297,6 +300,7 @@
             app:layout_constraintTop_toTopOf="@id/flowerTeacher"
             app:leftDrawable="@drawable/icon_medal"
             app:leftDrawableHeight="@dimen/x24"
+            android:visibility="gone"
             app:leftDrawableWidth="@dimen/x24" />
 
         <ebag.hd.widget.drawable.DrawableTextView
@@ -313,6 +317,7 @@
             app:layout_constraintTop_toTopOf="@id/flowerTeacher"
             app:leftDrawable="@drawable/icon_piggy_bank"
             app:leftDrawableHeight="@dimen/x24"
+            android:visibility="gone"
             app:leftDrawableWidth="@dimen/x24" />
 
         <TextView
@@ -374,6 +379,7 @@
             app:layout_constraintTop_toBottomOf="@id/editParent"
             app:leftDrawable="@drawable/icon_flower"
             app:leftDrawableHeight="@dimen/x24"
+            android:visibility="gone"
             app:leftDrawableWidth="@dimen/x24" />
 
         <ebag.hd.widget.drawable.DrawableTextView
@@ -389,6 +395,7 @@
             app:layout_constraintTop_toTopOf="@id/flowerParent"
             app:leftDrawable="@drawable/icon_palette"
             app:leftDrawableHeight="@dimen/x24"
+            android:visibility="gone"
             app:leftDrawableWidth="@dimen/x24" />
 
         <ebag.hd.widget.drawable.DrawableTextView
@@ -404,6 +411,7 @@
             app:layout_constraintTop_toTopOf="@id/flowerParent"
             app:leftDrawable="@drawable/icon_notebook"
             app:leftDrawableHeight="@dimen/x24"
+            android:visibility="gone"
             app:leftDrawableWidth="@dimen/x24" />
 
         <ebag.hd.widget.drawable.DrawableTextView
@@ -419,6 +427,7 @@
             app:layout_constraintTop_toTopOf="@id/flowerParent"
             app:leftDrawable="@drawable/icon_medal"
             app:leftDrawableHeight="@dimen/x24"
+            android:visibility="gone"
             app:leftDrawableWidth="@dimen/x24" />
 
         <ebag.hd.widget.drawable.DrawableTextView
@@ -435,6 +444,7 @@
             app:layout_constraintTop_toTopOf="@id/flowerParent"
             app:leftDrawable="@drawable/icon_piggy_bank"
             app:leftDrawableHeight="@dimen/x24"
+            android:visibility="gone"
             app:leftDrawableWidth="@dimen/x24" />
 
         <ebag.core.widget.empty.StateView

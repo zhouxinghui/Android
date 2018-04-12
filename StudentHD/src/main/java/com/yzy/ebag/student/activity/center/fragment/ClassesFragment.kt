@@ -18,16 +18,18 @@ import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.loadHead
 import ebag.hd.activity.album.AlbumActivity
+import ebag.hd.bean.ClassMemberBean
+import ebag.hd.dialog.ClazzmateInfoDIalog
 
 /**
  * @author caoyu
  * @date 2018/1/17
  * @description
  */
-class ClassesFragment: BaseListFragment<List<SpaceBean>,SpaceBean>() {
+class ClassesFragment : BaseListFragment<List<SpaceBean>, SpaceBean>() {
 
     companion object {
-        fun newInstance():ClassesFragment{
+        fun newInstance(): ClassesFragment {
             return ClassesFragment()
         }
     }
@@ -46,16 +48,16 @@ class ClassesFragment: BaseListFragment<List<SpaceBean>,SpaceBean>() {
         button.setTextColor(resources.getColor(R.color.white))
         button.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.tv_normal))
         button.setBackgroundResource(R.drawable.my_class_btn_add)
-        button.setPadding(resources.getDimensionPixelOffset(R.dimen.x24),0,
-                resources.getDimensionPixelOffset(R.dimen.x24),0)
+        button.setPadding(resources.getDimensionPixelOffset(R.dimen.x24), 0,
+                resources.getDimensionPixelOffset(R.dimen.x24), 0)
         val p = RelativeLayout.LayoutParams(resources.getDimensionPixelOffset(R.dimen.x108),
                 resources.getDimensionPixelOffset(R.dimen.x108))
-        p.addRule(RelativeLayout.ALIGN_PARENT_END,RelativeLayout.TRUE)
-        p.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,RelativeLayout.TRUE)
-        rootView.addView(button,p)
-        rootView.setPadding(0,resources.getDimensionPixelOffset(R.dimen.x20),0,0)
+        p.addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE)
+        p.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
+        rootView.addView(button, p)
+        rootView.setPadding(0, resources.getDimensionPixelOffset(R.dimen.x20), 0, 0)
         button.setOnClickListener {
-            joinDialog.show(childFragmentManager,"joinDialog")
+            joinDialog.show(childFragmentManager, "joinDialog")
         }
     }
 
@@ -76,10 +78,9 @@ class ClassesFragment: BaseListFragment<List<SpaceBean>,SpaceBean>() {
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-        if(view?.id == R.id.class_photo_btn)
+        if (view?.id == R.id.class_photo_btn)
             AlbumActivity.jump(mContext, (adapter as Adapter).getItem(position)?.classId ?: "")
     }
-
 
 
     private val joinDialog by lazy {
@@ -91,26 +92,49 @@ class ClassesFragment: BaseListFragment<List<SpaceBean>,SpaceBean>() {
         dialog
     }
 
-    inner class Adapter: BaseQuickAdapter<SpaceBean,BaseViewHolder>(R.layout.item_fragment_class){
+    inner class Adapter : BaseQuickAdapter<SpaceBean, BaseViewHolder>(R.layout.item_fragment_class) {
 
         override fun convert(helper: BaseViewHolder, item: SpaceBean?) {
             helper.setText(R.id.class_name_id, item?.clazzName)
                     .setText(R.id.class_desc_id, "邀请码: ${item?.inviteCode}\n班级学生: ${item?.studentCount}")
                     .addOnClickListener(R.id.class_photo_btn)
             val recyclerView = helper.getView<RecyclerView>(R.id.recyclerView)
-            if(recyclerView.layoutManager == null)
+            if (recyclerView.layoutManager == null)
                 recyclerView.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
             val adapter = PersonAdapter()
             recyclerView.adapter = adapter
+            adapter.setOnItemChildClickListener { adapter, view, position ->
+
+                val b = adapter.getItem(position) as SpaceBean.ClazzUserVoListBean
+                val bean = ClassMemberBean.StudentsBean()
+                bean.city = b.city
+                bean.birthday = b.birthday
+                bean.county = b.county
+                bean.headUrl = b.headUrl
+                bean.phone = b.phone
+                bean.name = b.name
+                bean.schoolName = b.schoolName
+                bean.ysbCode = b.ysbCode
+                bean.sex = b.sex
+
+                val bundle = Bundle()
+                bundle.putSerializable("data", bean)
+                val f = ClazzmateInfoDIalog.newInstance()
+                f.arguments = bundle
+                f.show(fragmentManager, "clazzinfoDialog")
+
+            }
             adapter.setNewData(item?.clazzUserVoList)
         }
 
     }
 
-    inner class PersonAdapter: BaseQuickAdapter<SpaceBean.ClazzUserVoListBean,BaseViewHolder>(R.layout.item_fragment_class_member){
+    inner class PersonAdapter : BaseQuickAdapter<SpaceBean.ClazzUserVoListBean, BaseViewHolder>(R.layout.item_fragment_class_member) {
         override fun convert(helper: BaseViewHolder, item: SpaceBean.ClazzUserVoListBean?) {
             helper.getView<ImageView>(R.id.img_head).loadHead(item?.headUrl)
             helper.setText(R.id.name_id, item?.name)
+            helper.addOnClickListener(R.id.img_head)
+            ClazzmateInfoDIalog
         }
     }
 
