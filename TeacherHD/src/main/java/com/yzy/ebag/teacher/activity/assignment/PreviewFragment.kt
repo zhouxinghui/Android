@@ -44,7 +44,7 @@ class PreviewFragment : BaseListFragment<List<QuestionBean>, QuestionBean>() {
         adapter as QuestionAdapter
         when(view?.id){
             R.id.feedBackTv ->{
-                feedbackDialog.show()
+                feedbackDialog.show(adapter.data[position].questionId)
             }
             R.id.selectTv ->{
                 val questionBean = adapter.getItem(position)
