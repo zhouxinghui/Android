@@ -13,6 +13,7 @@ public class UserInfoBean {
      * sex : 2
      * phone :
      * address : uuuu
+     * school: 1034
      * schoolName : 民顺小学
      * className : 一1班
      */
@@ -25,6 +26,7 @@ public class UserInfoBean {
     private String phone;
     private String address;
     private String schoolName;
+    private String school;
     private String className;
 
     public String getUid() {
@@ -81,6 +83,14 @@ public class UserInfoBean {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
     }
 
     public String getSchoolName() {

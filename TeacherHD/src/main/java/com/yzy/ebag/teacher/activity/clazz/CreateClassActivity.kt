@@ -17,6 +17,8 @@ import ebag.core.util.SerializableUtils
 import ebag.core.util.StringUtils
 import ebag.core.util.T
 import ebag.hd.bean.CurrentCityBean
+import ebag.hd.bean.UserInfoBean
+import ebag.hd.http.EBagApi
 import ebag.hd.widget.ListBottomShowDialog
 import kotlinx.android.synthetic.main.activity_create_class.*
 import java.io.Serializable
@@ -32,6 +34,28 @@ class CreateClassActivity : BaseActivity(), View.OnClickListener {
         fun jump(context: Context){
             context.startActivity(Intent(context, CreateClassActivity::class.java))
         }
+    }
+    private val schoolInfoRequest = object : RequestCallBack<UserInfoBean>(){
+        override fun onStart() {
+
+        }
+        override fun onSuccess(entity: UserInfoBean?) {
+            val name = entity?.schoolName
+            val code = entity?.school
+            if (!StringUtils.isEmpty(name) && !StringUtils.isEmpty(code)){
+                if(currentCityBean == null)
+                    currentCityBean = CurrentCityBean()
+                currentCityBean?.schoolCode = code
+                currentCityBean?.schoolName = name
+                schoolName.text = name
+                schoolName.isSelected = true
+            }
+        }
+
+        override fun onError(exception: Throwable) {
+
+        }
+
     }
     private val createRequest = object: RequestCallBack<String>(){
         override fun onStart() {
@@ -188,10 +212,11 @@ class CreateClassActivity : BaseActivity(), View.OnClickListener {
         })
 
         currentCityBean = SerializableUtils.getSerializable<CurrentCityBean>(ebag.hd.base.Constants.CURRENT_CITY)
-        if (currentCityBean != null) {
+        /*if (currentCityBean != null) {
             schoolName.text = currentCityBean?.schoolName
             schoolName.isSelected = true
-        }
+        }*/
+        EBagApi.queryUserInfo(schoolInfoRequest)
     }
 
     override fun onClick(v: View) {
