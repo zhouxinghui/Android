@@ -209,7 +209,7 @@ object StudentApi {
             inputFile.close()
             val encodedString = Base64.encodeToString(buffer, Base64.DEFAULT)
             L.e("Base64", "Base64---->" + encodedString)
-            return encodedString
+            return encodedString.replace("\n","")
         } catch (e: Exception) {
             e.printStackTrace()
         }

@@ -183,6 +183,7 @@ class ReadDetailActivity: BaseActivity() {
                                 recorderUtil.stopPlayRecord()
                                 recorderUtil.finishRecord()
                                 tempPosition = -1
+                                upload()
                                 adapter.notifyItemChanged(position)
                             }
                         }else{//
@@ -425,7 +426,7 @@ class ReadDetailActivity: BaseActivity() {
                     .setGone(R.id.playerBtn, isSelected)
                     .setGone(R.id.recordBtn, isSelected)
                     .setGone(R.id.playSelf, file.exists() && isSelected)
-                    .setGone(R.id.submit, file.exists() && isSelected)
+//                    .setGone(R.id.submit, file.exists() && isSelected)
                     .setTag(R.id.playerBtn, item?.languageUrl)
                     .addOnClickListener(R.id.playerBtn)
                     .addOnClickListener(R.id.recordBtn)
@@ -530,6 +531,7 @@ class ReadDetailActivity: BaseActivity() {
         if(speechRecognizeRequest == null){
             speechRecognizeRequest = object :RequestCallBack<SpeechRecognizeBean>(){
                 override fun onSuccess(entity: SpeechRecognizeBean?) {
+                    LoadingDialogUtil.closeLoadingDialog()
                     if(entity?.err_no == 3302){
                         baiduOauth()
                     }else{
@@ -542,16 +544,15 @@ class ReadDetailActivity: BaseActivity() {
                             StudentApi.uploadRecord(classId,readDetailBean?.languageId ?: "", readDetailBean?.languageDetailId ?: "",
                                      tempRecognizeString, tempUrl , uploadRequest)
                         }else if(isOssUploading == false){
-                            LoadingDialogUtil.closeLoadingDialog()
                             T.show(this@ReadDetailActivity, "录音上传失败，请重试")
                         }
                     }
                 }
 
                 override fun onError(exception: Throwable) {
+                    LoadingDialogUtil.closeLoadingDialog()
                     isRecognizing = false
                     if(isOssUploading == false){
-                        LoadingDialogUtil.closeLoadingDialog()
                         T.show(this@ReadDetailActivity, "录音上传失败，请重试")
                     }
                 }
@@ -577,7 +578,7 @@ class ReadDetailActivity: BaseActivity() {
                         StudentApi.uploadRecord(activity.classId,activity.readDetailBean?.languageId ?: "", activity.readDetailBean?.languageDetailId ?: ""
                                 , activity.tempRecognizeString, activity.tempUrl , activity.uploadRequest)
                     }
-                    LoadingDialogUtil.closeLoadingDialog()
+//                    LoadingDialogUtil.closeLoadingDialog()
                 }
                 msg.what == Constants.UPLOAD_FAIL ->{//上传文件失败
                     activity?.isOssUploading = false
