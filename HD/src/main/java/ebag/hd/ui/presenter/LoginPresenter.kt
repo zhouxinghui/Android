@@ -1,6 +1,7 @@
 package ebag.hd.ui.presenter
 
 import android.content.Context
+import android.view.View
 import ebag.core.base.App
 import ebag.core.base.mvp.BasePresenter
 import ebag.core.base.mvp.OnToastListener
@@ -15,6 +16,7 @@ import ebag.hd.http.EBagApi
 import ebag.hd.ui.activity.account.BLoginActivity
 import ebag.hd.ui.view.LoginView
 import ebag.hd.widget.ModifyInfoDialog
+import kotlinx.android.synthetic.main.dialog_modify_info.*
 
 
 /**
@@ -67,14 +69,14 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
                     when {
                         exception.code == "1002" -> {
                             var modifyStr = ""
+                            val dialog = ModifyInfoDialog(getView() as Context)
                             val modifyDialog by lazy {
-                                val dialog = ModifyInfoDialog(getView() as Context)
                                 dialog.onConfirmClickListener = {
                                     dialog.dismiss()
                                     modifyStr = it
                                     EBagApi.bindingActivationCode(account, modifyStr, object : RequestCallBack<String>() {
                                         override fun onSuccess(entity: String?) {
-                                            login(account,pwd,roleCode)
+                                            login(account, pwd, roleCode)
                                         }
 
                                         override fun onError(exception: Throwable) {
@@ -86,7 +88,8 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
                                 dialog
                             }
                             modifyDialog.show("请输入激活码")
-                            showToast(exception.message.toString(), true)
+                            dialog.customerervice.visibility = View.VISIBLE
+                            dialog.customerervice.text = exception.message.toString()
                         }
                         exception.code == "1004" ->
                             showToast(exception.message.toString(), true)
