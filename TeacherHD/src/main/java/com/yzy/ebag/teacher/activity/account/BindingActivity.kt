@@ -11,6 +11,7 @@ import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
+import ebag.core.util.SPUtils
 import ebag.core.util.SerializableUtils
 import ebag.core.util.StringUtils
 import ebag.hd.base.Constants
@@ -46,7 +47,7 @@ class BindingActivity : BaseActivity() {
                         type = BLoginActivity.EBAG_TYPE
                     }
 
-                    EBagApi.login("请输入设备码",BLoginActivity.ISHD,et_user.text.toString(), et_pwd.text.toString(), type,judge(shareMedia), BLoginActivity.TEACHER_ROLE, accessToken,uid,object : RequestCallBack<UserEntity>() {
+                    EBagApi.login(SPUtils.get(App.mContext, ebag.core.util.Constants.IMEI, "") as String,BLoginActivity.ISHD,et_user.text.toString(), et_pwd.text.toString(), type,judge(shareMedia), BLoginActivity.TEACHER_ROLE, accessToken,uid,object : RequestCallBack<UserEntity>() {
                         override fun onSuccess(entity: UserEntity?) {
                             LoadingDialogUtil.closeLoadingDialog()
                             if (entity != null) {

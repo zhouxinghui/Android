@@ -353,7 +353,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
                 var name = p2?.get("name")
                 var gender = p2?.get("gender")
                 var iconurl = p2?.get("iconurl")
-                EBagApi.login("请输入设备码", BLoginActivity.ISHD, null, null, null, queryThirdPartyType(share_media.toString()), getRoleCode(), access_token, uid, object : RequestCallBack<UserEntity>() {
+                EBagApi.login(SPUtils.get(App.mContext, ebag.core.util.Constants.IMEI, "") as String, BLoginActivity.ISHD, null, null, null, queryThirdPartyType(share_media.toString()), getRoleCode(), access_token, uid, object : RequestCallBack<UserEntity>() {
                     override fun onSuccess(entity: UserEntity?) {
                         if (entity != null) {
                             this@BLoginActivity.onLoginSuccess(entity)

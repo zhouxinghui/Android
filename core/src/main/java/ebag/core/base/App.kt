@@ -1,7 +1,9 @@
 package ebag.core.base
 
+import android.annotation.SuppressLint
 import android.support.multidex.MultiDexApplication
 import ebag.core.util.Constants
+import ebag.core.util.DeviceTool
 import ebag.core.util.SPUtils
 
 /**
@@ -13,9 +15,11 @@ open class App: MultiDexApplication(){
         lateinit var TOKEN: String
         var mContext: App? = null
 
+        @SuppressLint("MissingPermission")
         fun modifyToken(token: String){
             TOKEN = token
             SPUtils.put(mContext, Constants.USER_TOKEN, token)
+            SPUtils.put(mContext,Constants.IMEI,DeviceTool.getIMEI(mContext!!))
         }
         fun deleteToken(){
             TOKEN = ""
