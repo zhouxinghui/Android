@@ -1,4 +1,5 @@
 package ebag.hd.ui.presenter
+
 import android.content.Context
 import ebag.core.base.App
 import ebag.core.base.mvp.BasePresenter
@@ -21,22 +22,24 @@ import ebag.hd.widget.ModifyInfoDialog
  * Created by caoyu on 2017/11/2.
  */
 open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePresenter<LoginView>(view, listener) {
-    private lateinit var account :String
+    private lateinit var account: String
+    private lateinit var pwd: String
+    private lateinit var roleCode: String
     /**判断账号和密码格式是否输入错误*/
     private fun isLoginInfoCorrect(account: String, pwd: String): Boolean =
-            if (account.isEmpty() || pwd.isEmpty()){
-                showToast("请输入账号密码！",true)
+            if (account.isEmpty() || pwd.isEmpty()) {
+                showToast("请输入账号密码！", true)
                 false
-            }else if(account.length < 7) {
+            } else if (account.length < 7) {
                 showToast("请输入正确的账号！", true)
                 false
-            }else if(account.length == 11 && !StringUtils.isMobileNo(account)){
+            } else if (account.length == 11 && !StringUtils.isMobileNo(account)) {
                 showToast("手机格式输入错误！", true)
                 false
-            }else if(!StringUtils.isPassword(pwd)){
+            } else if (!StringUtils.isPassword(pwd)) {
                 showToast("请输入6~20位字母数字混合密码", true)
                 false
-            }else {
+            } else {
                 true
             }
 
@@ -69,13 +72,13 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
                                 dialog.onConfirmClickListener = {
                                     dialog.dismiss()
                                     modifyStr = it
-                                    EBagApi.bindingActivationCode(account,modifyStr,object : RequestCallBack<String>(){
+                                    EBagApi.bindingActivationCode(account, modifyStr, object : RequestCallBack<String>() {
                                         override fun onSuccess(entity: String?) {
-                                            showToast(exception.message.toString(),true)
+                                            login(account,pwd,roleCode)
                                         }
 
                                         override fun onError(exception: Throwable) {
-                                            showToast(exception.message.toString(),true)
+                                            showToast(exception.message.toString(), true)
                                         }
                                     })
 
@@ -103,6 +106,8 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
      */
     fun login(account: String, pwd: String, roleCode: String) {
         this.account = account
+        this.pwd = pwd
+        this.roleCode = roleCode
         var context: Context? = null
         if (getView() is Context)
             context = getView() as Context
@@ -130,15 +135,15 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
     private fun isRegisterInfoCorrect(phone: String, code: String, pwd: String): Boolean =
             when {
                 !StringUtils.isMobileNo(phone) -> {
-                    showToast("手机号输入格式不正确",true)
+                    showToast("手机号输入格式不正确", true)
                     false
                 }
                 code.length != 6 -> {
-                    showToast("验证码长度不正确",true)
+                    showToast("验证码长度不正确", true)
                     false
                 }
                 !StringUtils.isPassword(pwd) -> {
-                    showToast("请输入6~20位字母数字混合密码",true)
+                    showToast("请输入6~20位字母数字混合密码", true)
                     false
                 }
                 else -> true
@@ -148,13 +153,14 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
     /**
      * 注册
      */
-    fun register(name: String, phone: String, code: String, pwd: String, roleCode: String, thirdPartyToken:String?,thirdPartyUnionid:String?){
-        if(isRegisterInfoCorrect(phone,code,pwd)){
-            if(registerRequest == null)
-                registerRequest = createRequest(object: RequestCallBack<UserEntity>(){
+    fun register(name: String, phone: String, code: String, pwd: String, roleCode: String, thirdPartyToken: String?, thirdPartyUnionid: String?) {
+        if (isRegisterInfoCorrect(phone, code, pwd)) {
+            if (registerRequest == null)
+                registerRequest = createRequest(object : RequestCallBack<UserEntity>() {
                     override fun onStart() {
                         getView()?.onRegisterStart()
                     }
+
                     override fun onSuccess(entity: UserEntity?) {
                         getView()?.onRegisterSuccess(entity)
                     }
