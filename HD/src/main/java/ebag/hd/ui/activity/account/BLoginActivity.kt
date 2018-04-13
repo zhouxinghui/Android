@@ -134,7 +134,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
     val msgDialogFragment by lazy { MsgDialogFragment() }
     override fun onCodeSuccess(codeEntity: String?) {
-        if (packageName == "com.yzy.ebag.teacher")
+        if (packageName == "com.yzy.ebag.student")
             msgDialogFragment.show(null, "$codeEntity", "知道了", null, supportFragmentManager)
         LoadingDialogUtil.closeLoadingDialog()
         codePresenter.startCutDown()
