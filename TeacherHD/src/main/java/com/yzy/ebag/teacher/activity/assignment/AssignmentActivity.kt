@@ -187,7 +187,9 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         bottomRecycler.layoutManager = bottomLayoutManager
         if (workCategory == Constants.ASSIGN_TEST_PAPER) {
             bottomAdapter.datas = resources.getStringArray(R.array.bottom_test).asList()
+            bottomLayoutManager.spanCount = 4
         }else {
+            bottomLayoutManager.spanCount = 3
             bottomAdapter.datas = resources.getStringArray(R.array.bottom_work).asList()
         }
 
@@ -339,7 +341,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
                             if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode, cache.subCode)
                 }
-                workImg[2] -> {//发布小组
+                workImg[1] -> {//发布小组
                     if(cacheMap[currentGradeCode]!!.classes.size > 1){
                         T.show(this, "发布小组不能多选班级")
                         return@setOnItemClickListener
@@ -348,7 +350,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                         return@setOnItemClickListener
                     jumpToPublish(true)
                 }
-                workImg[3] -> {//发布班级\发布试卷
+                workImg[2] -> {//发布班级\发布试卷
                     if (!isReadyToAssign())
                         return@setOnItemClickListener
                     jumpToPublish(false)
@@ -356,9 +358,9 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 workImg[0] -> {//智能推送
                     smartPushDialog.show()
                 }
-                workImg[1] -> {//自定义
+                /*workImg[1] -> {//自定义
                     toast("自定义")
-                }
+                }*/
             }
         }
         unitAdapter.setOnItemClickListener { adapter, view, position ->
@@ -694,7 +696,8 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         }
     }
 
-    val workImg = intArrayOf(R.drawable.icon_smart_push, R.drawable.icon_custom, R.drawable.icon_assign_group, R.drawable.icon_assign_class)
+//    val workImg = intArrayOf(R.drawable.icon_smart_push, R.drawable.icon_custom, R.drawable.icon_assign_group, R.drawable.icon_assign_class)
+    val workImg = intArrayOf(R.drawable.icon_smart_push, R.drawable.icon_assign_group, R.drawable.icon_assign_class)
     val testImg = intArrayOf(R.drawable.icon_system_test_paper, R.drawable.icon_compose_paper, R.drawable.icon_my_test_paper, R.drawable.icon_assign_class)
     inner class BottomAdapter: RecyclerAdapter<String>(R.layout.item_assignment_bottom){
         override fun fillData(setter: RecyclerViewHolder, position: Int, entity: String?) {

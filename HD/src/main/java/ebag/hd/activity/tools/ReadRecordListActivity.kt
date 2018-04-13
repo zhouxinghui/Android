@@ -205,6 +205,7 @@ class ReadRecordListActivity: BaseActivity() {
             helper.setText(R.id.tvTime, DateUtil.getDateTime(item?.dateTime ?: 0, "yyyy-MM-dd HH:mm"))
                     .setText(R.id.ysbCode, item?.ysbCode)
                     .setText(R.id.nameTv, item?.name)
+                    .setText(R.id.scoreEdit, item?.score ?: "")
 
             val linearLayout = helper.getView<LinearLayout>(R.id.play_id)
             val imageView = helper.getView<ImageView>(R.id.image_id)
