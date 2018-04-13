@@ -23,7 +23,6 @@ import ebag.hd.R
 import ebag.hd.bean.PhotoUploadBean
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
-import ebag.hd.widget.startSelectPicture
 import kotlinx.android.synthetic.main.activity_photo_upload.*
 import java.io.File
 

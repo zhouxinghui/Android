@@ -18,7 +18,6 @@ import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
 import ebag.hd.widget.ListBottomShowDialog
 import ebag.hd.widget.ModifyInfoDialog
-import ebag.hd.widget.startSelectPicture
 import kotlinx.android.synthetic.main.fragment_center_personal.*
 import java.io.File
 

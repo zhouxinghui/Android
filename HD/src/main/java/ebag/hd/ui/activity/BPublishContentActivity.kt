@@ -17,7 +17,6 @@ import ebag.core.base.BaseActivity
 import ebag.core.base.PhotoPreviewActivity
 import ebag.core.util.*
 import ebag.hd.R
-import ebag.hd.widget.startSelectPicture
 import kotlinx.android.synthetic.main.activity_publish_content.*
 import java.io.File
 

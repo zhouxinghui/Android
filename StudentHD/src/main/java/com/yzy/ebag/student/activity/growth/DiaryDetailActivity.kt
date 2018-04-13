@@ -21,7 +21,6 @@ import ebag.core.base.BaseActivity
 import ebag.core.base.PhotoPreviewActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.*
-import ebag.hd.widget.startSelectPicture
 import kotlinx.android.synthetic.main.activity_diary_detail.*
 import java.io.File
 

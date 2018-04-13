@@ -24,9 +24,9 @@ import ebag.core.bean.QuestionTypeUtils
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.*
+import ebag.core.widget.FlowLayout
 import ebag.core.xRecyclerView.adapter.OnItemChildClickListener
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
-import ebag.hd.widget.FlowLayout
 import ebag.hd.widget.questions.*
 import ebag.hd.widget.questions.base.BaseQuestionView
 import kotlinx.android.synthetic.main.activity_correcting_desc.*

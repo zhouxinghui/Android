@@ -1,7 +1,6 @@
 package ebag.hd.ui.activity.account
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -135,7 +134,8 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
     val msgDialogFragment by lazy { MsgDialogFragment() }
     override fun onCodeSuccess(codeEntity: String?) {
-        msgDialogFragment.show(null, "$codeEntity", "知道了", null, supportFragmentManager)
+        if (packageName == "com.yzy.ebag.teacher")
+            msgDialogFragment.show(null, "$codeEntity", "知道了", null, supportFragmentManager)
         LoadingDialogUtil.closeLoadingDialog()
         codePresenter.startCutDown()
     }

@@ -29,6 +29,8 @@ import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.LoadingDialogUtil
+import ebag.core.util.StringUtils
+import ebag.core.util.T
 import ebag.core.util.loadImage
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
@@ -108,7 +110,12 @@ class FragmentFirstPage : BaseFragment() {
 
         adapter.setOnItemClickListener { holder, view, position ->
             val bean = adapter.datas[position]
-            CorrectingDescActivity.jump(mContext, bean.id, bean.type)
+            val id = bean.id
+            val type = bean.type
+            if (StringUtils.isEmpty(id) || StringUtils.isEmpty(type))
+                T.show(mContext, "作业信息不全！")
+            else
+                CorrectingDescActivity.jump(mContext, bean.id, bean.type)
         }
 
         if (request == null)
@@ -149,7 +156,7 @@ class FragmentFirstPage : BaseFragment() {
 
             setter.setText(R.id.subjectTv, entity.subject)
 
-            val name = entity.className
+            val name = entity.className ?: ""
             setWorkTextStyle(entity.homeWorkCompleteCount, entity.studentHomeWorkCount, name, classTv)
         }
     }

@@ -75,6 +75,8 @@ dependencies {
     compile 'com.youth.banner:banner:1.4.10'
     //PhotoView
     compile 'com.github.chrisbanes:PhotoView:2.1.3'
+    //PictureSelector
+    compile 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.7'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

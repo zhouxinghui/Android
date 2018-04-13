@@ -17,7 +17,6 @@ import com.luck.picture.lib.config.PictureConfig
 import com.yzy.ebag.teacher.R
 import ebag.core.base.BaseFragment
 import ebag.core.util.*
-import ebag.hd.widget.startSelectPicture
 import kotlinx.android.synthetic.main.fragment_choice.*
 import java.io.File
 

@@ -3,4 +3,17 @@
     <color name="colorPrimary">#6FB1FF</color>
     <color name="colorPrimaryDark">#46A8EA</color>
     <color name="title_text_color">@color/white</color>
+
+    <color name="tv_normal">#5B5852</color>
+
+    <color name="color_edit_hint">#9b9b9b</color>
+    <color name="color_edit_color">#2a2a2a</color>
+    <color name="question_normal">#393B3F</color>
+    <color name="question_bg_error">#FF666D</color>
+    <color name="question_bg_right">#1EC156</color>
+    <color name="question_bg_pressed">#A2CCFF</color>
+    <color name="question_bg_done">#499DFF</color>
+    <color name="question_bg_normal">#D7DAE5</color>
+
+    <color name="color_question_option_border">#8892A1</color>
 </resources>

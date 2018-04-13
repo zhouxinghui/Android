@@ -1,4 +1,4 @@
-package ebag.hd.widget;
+package ebag.core.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -26,20 +26,20 @@ public class FlowLayout extends ViewGroup
 	}
 
 	@Override
-	protected ViewGroup.LayoutParams generateLayoutParams(
-			ViewGroup.LayoutParams p)
+	protected LayoutParams generateLayoutParams(
+			LayoutParams p)
 	{
 		return new MarginLayoutParams(p);
 	}
 
 	@Override
-	public ViewGroup.LayoutParams generateLayoutParams(AttributeSet attrs)
+	public LayoutParams generateLayoutParams(AttributeSet attrs)
 	{
 		return new MarginLayoutParams(getContext(), attrs);
 	}
 
 	@Override
-	protected ViewGroup.LayoutParams generateDefaultLayoutParams()
+	protected LayoutParams generateDefaultLayoutParams()
 	{
 		return new MarginLayoutParams(LayoutParams.MATCH_PARENT,
 				LayoutParams.MATCH_PARENT);

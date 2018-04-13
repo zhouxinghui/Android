@@ -3,4 +3,8 @@
     <dimen name="title_bar_title_size">@dimen/x16</dimen>
     <dimen name="title_bar_title_sub_size">@dimen/x12</dimen>
     <dimen name="title_bar_height">@dimen/y100</dimen>
+
+    <dimen name="tv_big">@dimen/x14</dimen>
+    <dimen name="tv_normal">@dimen/x12</dimen>
+    <dimen name="question_tag_radius">@dimen/x1</dimen>
 </resources>

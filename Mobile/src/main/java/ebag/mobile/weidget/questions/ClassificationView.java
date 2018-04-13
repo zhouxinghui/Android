@@ -1,4 +1,4 @@
-package ebag.hd.widget.questions;
+package ebag.mobile.weidget.questions;
 
 import android.app.Activity;
 import android.content.Context;
@@ -33,8 +33,8 @@ import ebag.core.bean.QuestionBean;
 import ebag.core.http.image.SingleImageLoader;
 import ebag.core.util.StringUtils;
 import ebag.core.widget.FlowLayout;
-import ebag.hd.R;
-import ebag.hd.widget.questions.base.BaseQuestionView;
+import ebag.mobile.R;
+import ebag.mobile.weidget.questions.base.BaseQuestionView;
 
 /**
  * 分类题
@@ -115,7 +115,7 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
         setOrientation(VERTICAL);
 
         parentCategory = new FlowLayout(context);
-        LayoutParams parentParams = new LayoutParams(
+        LinearLayout.LayoutParams parentParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         parentParams.topMargin = (int)getResources().getDimension(R.dimen.y15);
         parentCategory.setLayoutParams(parentParams);
@@ -160,7 +160,7 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
             categoryList.add(category);
             LinearLayout categoryOut = new LinearLayout(context);
             categoryOut.setOrientation(VERTICAL);
-            LayoutParams outParams = new LayoutParams(
+            LinearLayout.LayoutParams outParams = new LinearLayout.LayoutParams(
                     (int)getResources().getDimension(R.dimen.x300), (int)getResources().getDimension(R.dimen.y200));
             outParams.leftMargin = (int) getResources().getDimension(R.dimen.x40);
             outParams.topMargin = (int) getResources().getDimension(R.dimen.y10);
@@ -168,7 +168,7 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
             categoryOut.setBackgroundResource(R.drawable.classify_category_layout_bg);
             TextView categoryTv = new TextView(context);
             categoryTv.setGravity(Gravity.CENTER);
-            LayoutParams tvParams = new LayoutParams(
+            LinearLayout.LayoutParams tvParams = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             categoryTv.setPadding(
                     0,
@@ -177,7 +177,7 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
                     (int) getResources().getDimension(R.dimen.y10));
             categoryTv.setLayoutParams(tvParams);
             categoryTv.setText(category);
-            categoryTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.question_content));
+            categoryTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.tv_normal));
             categoryTv.setTextColor(getResources().getColor(R.color.question_normal));
             categoryOut.addView(categoryTv);
 
@@ -188,7 +188,7 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
 //            scrollView.setNestedScrollingEnabled(false);
 
             FlowLayout categoryInside = new FlowLayout(context);
-            LayoutParams insideParams = new LayoutParams(
+            LinearLayout.LayoutParams insideParams = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //            categoryInside.setPadding(
 //                    (int)getResources().getDimension(R.dimen.y15),
@@ -336,10 +336,10 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
                 (int) getResources().getDimension(R.dimen.x10),
                 (int) getResources().getDimension(R.dimen.x5));
         elementTv.setText(text);
-        elementTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.question_content));
+        elementTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.tv_normal));
         elementTv.setTextColor(getResources().getColor(R.color.white));
         elementTv.setBackgroundResource(R.drawable.classify_element_bg);
-        LayoutParams params = new LayoutParams(
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.leftMargin = (int) getResources().getDimension(R.dimen.x8);
         params.topMargin = (int) getResources().getDimension(R.dimen.y5);
@@ -367,7 +367,7 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
                 (int) getResources().getDimension(R.dimen.x5),
                 (int) getResources().getDimension(R.dimen.x5));
         imageView.setBackgroundResource(R.drawable.classify_element_bg);
-        LayoutParams params = new LayoutParams(
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 (int) getResources().getDimension(R.dimen.x80),
                 (int) getResources().getDimension(R.dimen.x80));
         params.leftMargin = (int) getResources().getDimension(R.dimen.x8);
