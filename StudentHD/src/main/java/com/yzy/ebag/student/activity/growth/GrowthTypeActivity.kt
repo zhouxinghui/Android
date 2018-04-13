@@ -38,7 +38,7 @@ class GrowthTypeActivity: BaseActivity(){
         }
 
         courseBtn.setOnClickListener {
-            CourseDetailActivity.jump(this, gradeId)
+            CourseDetailActivity.jump(this, gradeId,gradeCode)
         }
 
         momentBtn.setOnClickListener {

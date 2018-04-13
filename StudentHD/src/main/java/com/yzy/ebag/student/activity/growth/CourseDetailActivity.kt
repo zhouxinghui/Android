@@ -24,10 +24,11 @@ import kotlinx.android.synthetic.main.activity_course_detail.*
 class CourseDetailActivity : BaseActivity() {
 
     companion object {
-        fun jump(context: Context, gradeId: String) {
+        fun jump(context: Context, gradeId: String,gradeCode:String) {
             context.startActivity(
                     Intent(context, CourseDetailActivity::class.java)
                             .putExtra("gradeId", gradeId)
+                            .putExtra("gradeCode",gradeCode)
             )
         }
     }
@@ -37,13 +38,14 @@ class CourseDetailActivity : BaseActivity() {
     }
 
     private lateinit var gradeId: String
+    private lateinit var gradeCode: String
     private lateinit var manager: GridLayoutManager
     private var random = 0
     override fun initViews() {
 
 
         gradeId = intent.getStringExtra("gradeId") ?: ""
-
+        gradeCode = intent.getStringExtra("gradeCode") ?: ""
         titleView.setRightText("切换布局") {
             val params = recyclerView.layoutParams as FrameLayout.LayoutParams
             when ((++random) % 3) {
@@ -103,7 +105,7 @@ class CourseDetailActivity : BaseActivity() {
     }
 
     private fun request(list: ArrayList<Course>, adapter: Adapter) {
-        StudentApi.learningProcess(object : RequestCallBack<List<LeaningProgressBean>>() {
+        StudentApi.learningProcess(gradeCode,object : RequestCallBack<List<LeaningProgressBean>>() {
 
             override fun onStart() {
                 state_view.showLoading()
