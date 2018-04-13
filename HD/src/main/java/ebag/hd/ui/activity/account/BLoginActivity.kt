@@ -1,6 +1,7 @@
 package ebag.hd.ui.activity.account
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -25,7 +26,9 @@ import ebag.hd.ui.presenter.CodePresenter
 import ebag.hd.ui.presenter.LoginPresenter
 import ebag.hd.ui.view.CodeView
 import ebag.hd.ui.view.LoginView
+import ebag.hd.widget.ModifyInfoDialog
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.dialog_modify_info.*
 
 
 /**
@@ -373,11 +376,25 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
                             when {
                                 exception.code == "1002" ->
                                     toast(exception.message.toString())
-                                exception.code == "1004" ->
-                                    toast(exception.message.toString())
+                                exception.code == "1004" -> {
+                                    val dialog = ModifyInfoDialog(this@BLoginActivity)
+                                    val modifyDialog by lazy {
+                                        dialog.onConfirmClickListener = {
+                                            dialog.dismiss()
+                                        }
+                                        dialog
+                                    }
+                                    modifyDialog.show()
+                                    dialog.customerervice.visibility = View.GONE
+                                    dialog.countEdit.visibility = View.GONE
+                                    dialog.countEdit.setText("0")
+                                    dialog.textViewContent.visibility = View.VISIBLE
+                                    dialog.textViewContent.text = exception.message.toString()
+                                }
                                 exception.code == "1003" ->
                                     threeParty(view, uid, access_token, name, iconurl, gender, share_media.toString())
-
+                                else ->
+                                    toast(exception.message.toString())
                             }
                         }
                     }
