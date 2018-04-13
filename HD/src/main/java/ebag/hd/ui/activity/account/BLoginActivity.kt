@@ -394,8 +394,10 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
                                 exception.code == "1003" ->
                                     threeParty(view, uid, access_token, name, iconurl, gender, share_media.toString())
                                 else ->
-                                    toast(exception.message.toString())
+                                    exception.handleThrowable(this@BLoginActivity)
                             }
+                        }else{
+                            exception.handleThrowable(this@BLoginActivity)
                         }
                     }
                 })

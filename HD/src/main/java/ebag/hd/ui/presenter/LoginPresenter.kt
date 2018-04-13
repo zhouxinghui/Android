@@ -91,7 +91,7 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
                             dialog.customerervice.visibility = View.VISIBLE
                             dialog.customerervice.text = exception.message.toString()
                         }
-                        exception.code == "1004" ->{
+                        exception.code == "1004" -> {
                             val dialog = ModifyInfoDialog(getView() as Context)
                             val modifyDialog by lazy {
                                 dialog.onConfirmClickListener = {
@@ -111,6 +111,9 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
                         else ->
                             getView()?.onLoginError(exception)
                     }
+                } else {
+                    getView()?.onLoginError(exception)
+
                 }
 
             }

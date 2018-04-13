@@ -14,12 +14,9 @@ open class App: MultiDexApplication(){
     companion object {
         lateinit var TOKEN: String
         var mContext: App? = null
-
-        @SuppressLint("MissingPermission")
         fun modifyToken(token: String){
             TOKEN = token
             SPUtils.put(mContext, Constants.USER_TOKEN, token)
-            SPUtils.put(mContext,Constants.IMEI,DeviceTool.getIMEI(mContext!!))
         }
         fun deleteToken(){
             TOKEN = ""
@@ -30,9 +27,11 @@ open class App: MultiDexApplication(){
 
 
 
+    @SuppressLint("MissingPermission")
     override fun onCreate() {
         super.onCreate()
         mContext = this
+        SPUtils.put(mContext,Constants.IMEI,DeviceTool.getIMEI(mContext!!))
         TOKEN = SPUtils.get(this, Constants.USER_TOKEN,"") as String
     }
 }

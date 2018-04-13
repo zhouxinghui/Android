@@ -69,7 +69,7 @@ class BindingActivity : BaseActivity() {
                     }
 
                     override fun onError(exception: Throwable) {
-                        myException(exception,false)
+                        myException(exception, false)
                     }
                 })
             }
@@ -120,7 +120,7 @@ class BindingActivity : BaseActivity() {
                     }
 
                     override fun onError(exception: Throwable) {
-                        myException(exception,true)
+                        myException(exception, true)
                     }
 
                 })
@@ -130,6 +130,7 @@ class BindingActivity : BaseActivity() {
     }
 
     private fun myException(exception: Throwable, boolean: Boolean) {
+        LoadingDialogUtil.closeLoadingDialog()
         if (exception is MsgException) {
             when {
                 exception.code == "1004" -> {
@@ -152,12 +153,10 @@ class BindingActivity : BaseActivity() {
                     (dialog.findViewById(R.id.textViewContent) as TextView).setText(exception.message.toString())
                 }
                 else -> {
-                    LoadingDialogUtil.closeLoadingDialog()
                     exception.handleThrowable(this@BindingActivity)
                 }
             }
         } else {
-            LoadingDialogUtil.closeLoadingDialog()
             exception.handleThrowable(this@BindingActivity)
         }
     }
