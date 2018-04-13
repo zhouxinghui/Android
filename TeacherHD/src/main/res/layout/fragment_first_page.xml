@@ -146,7 +146,7 @@
         android:padding="@dimen/x15"
         android:textSize="@dimen/tv_normal"
         android:text="@string/homework_schedule"
-        android:background="@drawable/homg_schedule_bg"
+        android:background="@drawable/home_schedule_bg"
         app:layout_constraintLeft_toRightOf="@id/zixi"
         app:layout_constraintTop_toBottomOf="@id/horizontal_2"
         app:layout_constraintRight_toRightOf="parent"

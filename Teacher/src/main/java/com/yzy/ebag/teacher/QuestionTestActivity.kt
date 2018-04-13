@@ -47,10 +47,16 @@ class QuestionTestActivity : AppCompatActivity() {
 
     private fun setClassificationView(){
         val questionBean = QuestionBean()
+        questionBean.title = "将下列图片分类"
+        questionBean.content = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/yy/Unit3_clothes_red.png,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/yy/Unit3_clothes_blue.png,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/yy/Unit3_clothes_dress7.png,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/yy/Unit3_clothes_pants.png,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/yy/Unit3_clothes_T-shirt3.png,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/yy/Unit3_clothes_green.png,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/yy/Unit3_clothes_yellow.png,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/yy/Unit3_clothes_scarf.png;颜色,衣服"
+        questionBean.rightAnswer = "颜色#R#http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/yy/Unit3_clothes_red.png,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/yy/Unit3_clothes_blue.png,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/yy/Unit3_clothes_green.png,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/yy/Unit3_clothes_yellow.png;衣服#R#http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/yy/Unit3_clothes_dress7.png,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/yy/Unit3_clothes_pants.png,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/yy/Unit3_clothes_T-shirt3.png,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/yy/Unit3_clothes_scarf.png"
+        questionBean.answer = ""
+/*
         questionBean.title = "给下列单词归类"
         questionBean.content = "on,classroom,she,elephant,he,under,bird,blackboard,blackboard,blackboard,blackboard,blackboard;介词,学校物品,代词,动物"
         questionBean.rightAnswer = "介词#R#on,under;学校物品#R#classroom,blackboard;代词#R#she,he;动物#R#elephant,bird"
         questionBean.answer = ""
+*/
         classificationView.setData(questionBean)
         classificationView.show(active)
     }

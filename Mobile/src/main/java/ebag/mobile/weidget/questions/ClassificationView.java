@@ -161,10 +161,11 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
             LinearLayout categoryOut = new LinearLayout(context);
             categoryOut.setOrientation(VERTICAL);
             LinearLayout.LayoutParams outParams = new LinearLayout.LayoutParams(
-                    (int)getResources().getDimension(R.dimen.x300), (int)getResources().getDimension(R.dimen.y200));
-            outParams.leftMargin = (int) getResources().getDimension(R.dimen.x40);
+                    (int)getResources().getDimension(R.dimen.x120), ViewGroup.LayoutParams.WRAP_CONTENT);
+            outParams.leftMargin = (int) getResources().getDimension(R.dimen.x15);
             outParams.topMargin = (int) getResources().getDimension(R.dimen.y10);
             categoryOut.setLayoutParams(outParams);
+            categoryOut.setMinimumHeight((int)getResources().getDimension(R.dimen.y230));
             categoryOut.setBackgroundResource(R.drawable.classify_category_layout_bg);
             TextView categoryTv = new TextView(context);
             categoryTv.setGravity(Gravity.CENTER);
@@ -190,10 +191,12 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
             FlowLayout categoryInside = new FlowLayout(context);
             LinearLayout.LayoutParams insideParams = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//            categoryInside.setPadding(
-//                    (int)getResources().getDimension(R.dimen.y15),
-//                    (int)getResources().getDimension(R.dimen.y15),
-//                    0,0);
+            //不起作用,原因暂时不明
+            /*categoryInside.setPadding(
+                    0,
+                    (int)getResources().getDimension(R.dimen.y10),
+                    0,
+                    (int)getResources().getDimension(R.dimen.y10));*/
             categoryInside.setLayoutParams(insideParams);
             scrollView.addView(categoryInside);
             categoryOut.addView(scrollView);
@@ -331,20 +334,20 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
     private void addChildWorld(String text, ViewGroup parent, int index, boolean isTouch, boolean isShowElement){
         TextView elementTv = new TextView(context);
         elementTv.setPadding(
-                (int) getResources().getDimension(R.dimen.x10),
                 (int) getResources().getDimension(R.dimen.x5),
-                (int) getResources().getDimension(R.dimen.x10),
-                (int) getResources().getDimension(R.dimen.x5));
+                (int) getResources().getDimension(R.dimen.y5),
+                (int) getResources().getDimension(R.dimen.x5),
+                (int) getResources().getDimension(R.dimen.y5));
         elementTv.setText(text);
         elementTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.tv_normal));
         elementTv.setTextColor(getResources().getColor(R.color.white));
         elementTv.setBackgroundResource(R.drawable.classify_element_bg);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.leftMargin = (int) getResources().getDimension(R.dimen.x8);
+        params.leftMargin = (int) getResources().getDimension(R.dimen.x3);
         params.topMargin = (int) getResources().getDimension(R.dimen.y5);
-        params.rightMargin = (int) getResources().getDimension(R.dimen.x8);
-        params.bottomMargin = (int) getResources().getDimension(R.dimen.y10);
+        params.rightMargin = (int) getResources().getDimension(R.dimen.x3);
+        params.bottomMargin = (int) getResources().getDimension(R.dimen.y5);
         elementTv.setLayoutParams(params);
         elementTv.setTag(R.id.tv_id, text);
         elementTv.setTag(R.id.image_id, index);
@@ -368,12 +371,12 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
                 (int) getResources().getDimension(R.dimen.x5));
         imageView.setBackgroundResource(R.drawable.classify_element_bg);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                (int) getResources().getDimension(R.dimen.x80),
-                (int) getResources().getDimension(R.dimen.x80));
-        params.leftMargin = (int) getResources().getDimension(R.dimen.x8);
+                (int) getResources().getDimension(R.dimen.x50),
+                (int) getResources().getDimension(R.dimen.x50));
+        params.leftMargin = (int) getResources().getDimension(R.dimen.x3);
         params.topMargin = (int) getResources().getDimension(R.dimen.y5);
-        params.rightMargin = (int) getResources().getDimension(R.dimen.x8);
-        params.bottomMargin = (int) getResources().getDimension(R.dimen.y10);
+        params.rightMargin = (int) getResources().getDimension(R.dimen.x3);
+        params.bottomMargin = (int) getResources().getDimension(R.dimen.y5);
         imageView.setLayoutParams(params);
         SingleImageLoader.getInstance().setImage(url, imageView);
         imageView.setTag(R.id.tv_id, url);

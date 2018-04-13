@@ -6,5 +6,5 @@
 
     <dimen name="tv_big">@dimen/x14</dimen>
     <dimen name="tv_normal">@dimen/x12</dimen>
-    <dimen name="question_tag_radius">@dimen/x1</dimen>
+    <dimen name="question_tag_radius">@dimen/x3</dimen>
 </resources>
