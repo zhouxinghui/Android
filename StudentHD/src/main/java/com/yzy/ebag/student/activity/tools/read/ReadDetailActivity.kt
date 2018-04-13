@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
+import android.graphics.Color
 import android.graphics.drawable.AnimationDrawable
 import android.os.Message
 import android.support.v7.app.AlertDialog
@@ -11,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.Html
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.TextView
 import cn.jzvd.JZUtils
 import cn.jzvd.JZVideoPlayer
 import cn.jzvd.JZVideoPlayerStandard
@@ -461,7 +463,9 @@ class ReadDetailActivity: BaseActivity() {
                     .setTag(R.id.play_id, R.id.image_id, helper.getView(R.id.image_id))
                     .setTag(R.id.play_id, R.id.progress_id, helper.getView(R.id.progress_id))
             if (resultPosition != -1 && resultPosition == helper.adapterPosition && !StringUtils.isEmpty(resultReadStr)){
-                helper.setText(R.id.tvContent, Html.fromHtml(resultReadStr))
+                val contentTv = helper.getView<TextView>(R.id.tvContent)
+                contentTv.setTextColor(Color.parseColor("#2ED33E"))
+                contentTv.text = Html.fromHtml(resultReadStr)
             }
         }
     }
