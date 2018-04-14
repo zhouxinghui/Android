@@ -112,6 +112,7 @@ class CourseDetailActivity : BaseActivity() {
             }
 
             override fun onSuccess(entity: List<LeaningProgressBean>?) {
+                if (entity!!.size>0){
                 entity?.forEach {
                     list.add(Course("就读学校", it.schoolName))
                     list.add(Course("就读班级", it.learningProcessClassDtos[0].className))
@@ -123,7 +124,9 @@ class CourseDetailActivity : BaseActivity() {
 
 
                 adapter.setNewData(list)
-                state_view.showContent()
+                state_view.showContent()}else{
+                    state_view.showError("暂无数据")
+                }
             }
 
             override fun onError(exception: Throwable) {
