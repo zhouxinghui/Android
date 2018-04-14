@@ -254,7 +254,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
             if (UMShareAPI.get(this).isInstall(this, SHARE_MEDIA.SINA)) {
                 authorization(SHARE_MEDIA.SINA, it)
             } else {
-                toast("请安装微信客户端", true)
+                toast("请安装微博客户端", true)
             }
         }
         loginQQ.setOnClickListener {
