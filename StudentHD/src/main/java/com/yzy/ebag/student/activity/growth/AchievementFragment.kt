@@ -10,6 +10,7 @@ import com.yzy.ebag.student.bean.Achievement
 import com.yzy.ebag.student.bean.HomeworkBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.LazyFragment
+import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.SPUtils
@@ -117,8 +118,8 @@ class AchievementFragment : LazyFragment() {
             }
 
             override fun onError(exception: Throwable) {
-                exception.handleThrowable(activity)
-                stateview.showError()
+//                exception.handleThrowable(activity)
+                stateview.showError((exception as MsgException).message)
             }
 
         })
