@@ -176,16 +176,64 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
         if (isRegisterInfoCorrect(phone, code, pwd)) {
             if (registerRequest == null)
                 registerRequest = createRequest(object : RequestCallBack<UserEntity>() {
-                    override fun onStart() {
-                        getView()?.onRegisterStart()
-                    }
+//                    override fun onStart() {
+//                        getView()?.onRegisterStart()
+//                    }
 
                     override fun onSuccess(entity: UserEntity?) {
                         getView()?.onRegisterSuccess(entity)
                     }
 
                     override fun onError(exception: Throwable) {
-                        getView()?.onRegisterError(exception)
+                        if (exception is MsgException) {
+                            when {
+                                exception.code == "1002" -> {
+                                    showToast("注册成功", true)
+                                    var modifyStr = ""
+                                    val dialog = ModifyInfoDialog(getView() as Context)
+                                    val modifyDialog by lazy {
+                                        dialog.onConfirmClickListener = {
+                                            dialog.dismiss()
+                                            modifyStr = it
+                                            EBagApi.bindingActivationCode(account, modifyStr, object : RequestCallBack<String>() {
+                                                override fun onSuccess(entity: String?) {
+                                                    login(account, pwd, roleCode)
+                                                }
+
+                                                override fun onError(exception: Throwable) {
+                                                    showToast(exception.message.toString(), true)
+                                                }
+                                            })
+
+                                        }
+                                        dialog
+                                    }
+                                    modifyDialog.show("请输入激活码")
+                                    dialog.customerervice.visibility = View.VISIBLE
+                                    dialog.customerervice.text = exception.message.toString()
+                                }
+                                exception.code == "1004" -> {
+                                    val dialog = ModifyInfoDialog(getView() as Context)
+                                    val modifyDialog by lazy {
+                                        dialog.onConfirmClickListener = {
+                                            dialog.dismiss()
+                                        }
+                                        dialog
+                                    }
+                                    modifyDialog.show()
+                                    dialog.customerervice.visibility = View.GONE
+                                    dialog.countEdit.visibility = View.GONE
+                                    dialog.countEdit.setText("0")
+                                    dialog.textViewContent.visibility = View.VISIBLE
+                                    dialog.textViewContent.text = exception.message.toString()
+                                }
+                                else -> {
+                                    getView()?.onRegisterError(exception)
+                                }
+                            }
+                        } else {
+                            getView()?.onRegisterError(exception)
+                        }
                     }
 
                 })
