@@ -61,6 +61,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     subName)
             isGradeRequest = false
             assignmentPresenter.loadDataByVersion(workCategory.toString(), versionId, subCode)
+            isUnitChange = false
         }
         dialog
     }
@@ -132,6 +133,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     private var isSaveTest = false
     private var currentPaperId: String? = null
     private var currentPaperName: String? = null
+    private var isUnitChange = false
     private val createClassDialog by lazy {
         val dialog = AlertDialog.Builder(this)
                 .setTitle("温馨提示")
@@ -381,6 +383,10 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 if(workCategory == Constants.ASSIGN_TEST_PAPER)
                     assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
                             item.unitCode, cache!!.subCode)
+                else {
+                    assignmentPresenter.loadDataByVersion(workCategory.toString(), cache?.versionId, cache?.subCode, item.unitCode)
+                    isUnitChange = true
+                }
             }
         }
         //切换版本
@@ -533,24 +539,27 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     private fun showData(assignmentBean: AssignmentBean?, isFirst: Boolean = false){
         val questionList = assignmentBean?.resultAdvertisementVos
         questionAdapter.datas = questionList
-        val unitList = assignmentBean?.sendHomePageClazzInfoVos!![0].bookVersionOrUnitVos
-        unitList.forEach {
-            val subList = it.resultBookUnitOrCatalogVos
-            if (subList.isEmpty()){
-                val subBean = AssignUnitBean.UnitSubBean()
-                subBean.id = it.id
-                subBean.code = it.code
-                subBean.name = it.name
-                subBean.bookVersionId = it.bookVersionId
-                subBean.pid = it.pid
-                subBean.unitCode = it.unitCode
-                subBean.isUnit = true
-                it.resultBookUnitOrCatalogVos.add(subBean)
-            }
-        }
-        unitAdapter.setNewData(unitList as List<MultiItemEntity>)
 
-        cacheMap[currentGradeCode]!!.unitList = unitList as ArrayList<AssignUnitBean>
+        if (!isUnitChange) {
+            val unitList = assignmentBean?.sendHomePageClazzInfoVos!![0].bookVersionOrUnitVos
+            unitList.forEach {
+                val subList = it.resultBookUnitOrCatalogVos
+                if (subList.isEmpty()) {
+                    val subBean = AssignUnitBean.UnitSubBean()
+                    subBean.id = it.id
+                    subBean.code = it.code
+                    subBean.name = it.name
+                    subBean.bookVersionId = it.bookVersionId
+                    subBean.pid = it.pid
+                    subBean.unitCode = it.unitCode
+                    subBean.isUnit = true
+                    it.resultBookUnitOrCatalogVos.add(subBean)
+                }
+            }
+            unitAdapter.setNewData(unitList as List<MultiItemEntity>)
+            cacheMap[currentGradeCode]!!.unitList = unitList as ArrayList<AssignUnitBean>
+        }
+
         cacheMap[currentGradeCode]!!.questionList = questionList as ArrayList<AssignmentBean.QuestionsBean>
         if (isGradeRequest) {
             val versionBean = assignmentBean.resultTaughtCoursesVo ?: return

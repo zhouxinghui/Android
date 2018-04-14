@@ -175,11 +175,14 @@ object TeacherApi {
     /**
      * 布置作业页面-切换版本请求数据
      */
-    fun assignDataByVersion(type: String, versionId: String, subCode: String, callback: RequestCallBack<AssignmentBean>){
+    fun assignDataByVersion(type: String, versionId: String?, subCode: String?, unitCode: String?, callback: RequestCallBack<AssignmentBean>){
         val jsonObject = JSONObject()
         jsonObject.put("type", type)
         jsonObject.put("bookVersionId", versionId)
         jsonObject.put("subCode", subCode)
+        if (!StringUtils.isEmpty(unitCode)){
+            jsonObject.put("unitCode", unitCode)
+        }
         EBagApi.request(teacherService.assignDataByVersion("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
