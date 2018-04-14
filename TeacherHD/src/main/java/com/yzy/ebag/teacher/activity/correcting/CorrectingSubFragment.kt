@@ -40,6 +40,7 @@ class CorrectingSubFragment: BaseListFragment<List<CorrectingBean>, CorrectingBe
     private var type = ""
     private var classId = ""
     private var subCode = ""
+    private var className = ""
     override fun getBundle(bundle: Bundle?) {
         type = bundle?.getString("type") ?: "1"
         classId = bundle?.getString("classId") ?: ""
@@ -68,6 +69,7 @@ class CorrectingSubFragment: BaseListFragment<List<CorrectingBean>, CorrectingBe
     override fun parentToList(isFirstPage: Boolean, parent: List<CorrectingBean>?): List<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>? {
         if (parent == null || parent.isEmpty() || parent[0].subjectVos == null || parent[0].subjectVos.isEmpty())
             return ArrayList()
+        className = parent[0].className
         return parent[0].subjectVos[0].homeWorkInfoVos
     }
 
@@ -92,7 +94,7 @@ class CorrectingSubFragment: BaseListFragment<List<CorrectingBean>, CorrectingBe
             val timeTv = helper.getView<TextView>(R.id.tvTime)
             val statusTv = helper.getView<TextView>(R.id.tvStatus)
             helper.setText(R.id.createTime, "布置时间：${DateUtil.getFormatDateTime(Date(item.createDate), "yyyy-MM-dd HH:mm")}")
-            classNameTv.text = item.className
+            classNameTv.text = className
             contentTv.text = item.content
             completeTv.text = "完成： ${item.homeWorkCompleteCount}/${item.studentCount}"
             if (type ==  Constants.KSSJ_TYPE)

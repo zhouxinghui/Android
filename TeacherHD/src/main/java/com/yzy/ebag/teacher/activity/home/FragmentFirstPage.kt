@@ -157,7 +157,7 @@ class FragmentFirstPage : BaseFragment() {
             setter.setText(R.id.subjectTv, entity.subject)
 
             val name = entity.className ?: ""
-            setWorkTextStyle(entity.homeWorkCompleteCount, entity.studentHomeWorkCount, name, classTv)
+            setWorkTextStyle(entity.homeWorkCompleteCount, entity.studentHomeWorkCount,classTv,entity.gradeByClazzName)
         }
     }
 
@@ -176,8 +176,8 @@ class FragmentFirstPage : BaseFragment() {
     /**
      * 作业进度字体样式
      */
-    private fun setWorkTextStyle(current: String, total: String, name: String, textView: TextView){
-        val spannableString = SpannableString("$current/$total\n$name")
+    private fun setWorkTextStyle(current: String, total: String, textView: TextView,grade:String){
+        val spannableString = SpannableString("$current/$total\n$grade")
         spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.x30),false), 0, current.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(ForegroundColorSpan(resources.getColor(R.color.progress_second_bg)), 0, current.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.x22),false), current.length, spannableString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
