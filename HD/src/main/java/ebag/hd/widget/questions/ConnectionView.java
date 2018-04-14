@@ -228,6 +228,7 @@ public class ConnectionView extends BaseQuestionView {
             list.add(new ConnectionBean(elementSplit1[i], false));
             list.add(new ConnectionBean(elementSplit2[i],true));
         }
+        answerNotify = true;
     }
 
     @Override
