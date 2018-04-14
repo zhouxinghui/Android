@@ -17,10 +17,7 @@ import com.yzy.ebag.student.base.BaseListActivity
 import com.yzy.ebag.student.bean.Diary
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
-import ebag.core.util.DateUtil
-import ebag.core.util.SPUtils
-import ebag.core.util.T
-import ebag.core.util.loadImage
+import ebag.core.util.*
 import ebag.hd.base.Constants
 
 /**
@@ -144,7 +141,7 @@ class DiaryListActivity : BaseListActivity<List<Diary>, Diary.ResultUserGrowthBy
 
 
     inner class Adapter : BaseQuickAdapter<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean, BaseViewHolder>(R.layout.item_activity_diary) {
-        override fun convert(helper: BaseViewHolder, item: Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean) {
+        override fun convert(helper: BaseViewHolder, item: Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean?) {
             helper.setText(R.id.tvTitle, item?.title)
                     .setText(R.id.tvContent, item?.content)
                     .setText(R.id.tvTime, DateUtil.getDateTime(item!!.createDate))
@@ -159,7 +156,7 @@ class DiaryListActivity : BaseListActivity<List<Diary>, Diary.ResultUserGrowthBy
                 recycler.layoutManager = GridLayoutManager(mContext, 6)
             }
 
-            if (item.image != null && item.image.isNotEmpty()) {
+            if (!StringUtils.isEmpty(item.image)) {
                 recycler.postDelayed({
                     (recycler.adapter as ImageAdapter).setNewData(item.image.split(","))
                 }, 20)

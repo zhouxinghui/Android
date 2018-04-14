@@ -121,7 +121,7 @@ class DiaryDetailActivity : BaseActivity() {
                 }
 
                 LoadingDialogUtil.showLoading(this, "正在上传...")
-                if (sb.isNotEmpty())
+                if (imgAdapter.data.size == 1)
                     commit(titleEdit.text.toString(), contentEdit.text.toString())
                 else {
                     val fileName = System.currentTimeMillis().toString()
