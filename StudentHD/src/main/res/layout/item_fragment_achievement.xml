@@ -23,6 +23,7 @@
         android:layout_width="@dimen/x100"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:visibility="invisible"
         android:textSize="@dimen/x22"
         android:textColor="#666666"
         android:text="12:30"/>

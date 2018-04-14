@@ -104,7 +104,8 @@ class AchievementFragment : LazyFragment() {
                 } else {
                     val intList = arrayListOf<Int>()
                     entity.forEach {
-                        list.add(Achievement(it.resultDateTime.split(" ")[0], it.resultDateTime.split(" ")[1].split(".")[0], it.avgScore.toDouble().toInt(), ""))
+                        var date = it.resultDateTime.split(" ")[0]
+                        list.add(Achievement(date.substring(0,date.lastIndexOf("-")), "", it.avgScore.toDouble().toInt(), ""))
                         intList.add(it.avgScore.toDouble().toInt())
                     }
                     chartView.addPoints(intList
