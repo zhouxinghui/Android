@@ -259,8 +259,8 @@ public class FoldChartView extends View {
                     break;
 
                 point = points.get(i).get(j);
-                if(point.value == 0) //0不绘制
-                    continue;
+//                if(point.value == 0) //0不绘制
+//                    continue;
 
                 //设置点的坐标
                 point.x = leftX + j * distanceXMark;

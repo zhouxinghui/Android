@@ -20,7 +20,7 @@
             android:layout_marginTop="@dimen/x20"
             android:background="@drawable/bac_search_stroke"
             android:gravity="center_vertical"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -64,14 +64,16 @@
             android:layout_height="@dimen/y300"
             android:paddingEnd="@dimen/x40"
             android:paddingStart="@dimen/x40"
+            android:paddingTop="@dimen/y20"
+            android:paddingBottom="@dimen/y20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/searchLayout">
 
-            <ebag.core.widget.FoldChartView
+            <!--<ebag.core.widget.FoldChartView
                 android:id="@+id/chartView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent" />-->
         </FrameLayout>
 
         <android.support.v7.widget.RecyclerView

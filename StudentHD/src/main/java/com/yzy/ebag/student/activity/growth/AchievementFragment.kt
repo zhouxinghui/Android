@@ -10,10 +10,9 @@ import com.yzy.ebag.student.bean.Achievement
 import com.yzy.ebag.student.bean.HomeworkBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.LazyFragment
-import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
-import ebag.core.http.network.handleThrowable
 import ebag.core.util.SPUtils
+import ebag.core.widget.FoldChartView
 import ebag.hd.base.Constants
 import kotlinx.android.synthetic.main.fragment_achievement.*
 
@@ -25,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_achievement.*
 class AchievementFragment : LazyFragment() {
 
     private lateinit var adapter:Adapter
-
+    private lateinit var chartView: FoldChartView
     companion object {
         fun newInstance(gradeId: String, type: Int): AchievementFragment {
             val fragment = AchievementFragment()
@@ -55,23 +54,9 @@ class AchievementFragment : LazyFragment() {
     }
 
     override fun initViews(rootView: View) {
-
-
-        chartView.setXAxis(
+        /*chartView.setXAxis(
                 arrayOf("3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "1", "2").asList(),
-                "月份")
-        chartView.setYAxis(
-                arrayOf("0", "20", "40", "60", "80", "100").asList(),
-                "分数")
-        chartView.setTextSize(resources.getDimensionPixelSize(R.dimen.x24), resources.getDimensionPixelSize(R.dimen.x20))
-        chartView.setFullSize(100)
-        //        curveChartView.setValueTextSize(resources.getDimensionPixelSize(R.dimen.x20))
-        //        curveChartView.addPoints(intArrayOf(48, 73, 89, 72, 82, 68, 68, 83, 73, 90).asList(), null)
-        chartView.setValueBackground(
-                resources.getDrawable(R.drawable.achievement_icon_selector),
-                resources.getDimensionPixelSize(R.dimen.x49),
-                resources.getDimensionPixelSize(R.dimen.x59)
-        )
+                "月份")*/
 
         recyclerView.layoutManager = LinearLayoutManager(mContext)
         adapter = Adapter()
@@ -91,8 +76,23 @@ class AchievementFragment : LazyFragment() {
         }
     }
 
+    private fun initChartView(){
+        chartView.setYAxis(
+            arrayOf("0", "20", "40", "60", "80", "100").asList(),
+            "分数")
+        chartView.setTextSize(resources.getDimensionPixelSize(R.dimen.x24), resources.getDimensionPixelSize(R.dimen.x20))
+        chartView.setFullSize(100)
+        //        curveChartView.setValueTextSize(resources.getDimensionPixelSize(R.dimen.x20))
+        //        curveChartView.addPoints(intArrayOf(48, 73, 89, 72, 82, 68, 68, 83, 73, 90).asList(), null)
+        chartView.setValueBackground(
+                resources.getDrawable(R.drawable.achievement_icon_selector),
+                resources.getDimensionPixelSize(R.dimen.x49),
+                resources.getDimensionPixelSize(R.dimen.x59)
+        )
+    }
+
     private fun request() {
-        StudentApi.examSocre(SPUtils.get(activity, Constants.CLASS_ID, "") as String, type.toString(), "1", object : RequestCallBack<List<HomeworkBean>>() {
+        StudentApi.examSocre(SPUtils.get(activity, Constants.CLASS_ID, "") as String, type.toString(), "student", object : RequestCallBack<List<HomeworkBean>>() {
             override fun onStart() {
                 stateview.showLoading()
             }
@@ -108,11 +108,30 @@ class AchievementFragment : LazyFragment() {
                         var date = it.resultDateTime.split(" ")[0]
                         list.add(Achievement(date.substring(0,date.lastIndexOf("-")), "", it.avgScore.toDouble().toInt(), ""))
                         intList.add(it.avgScore.toDouble().toInt())
+//                        intList.add(0)
                     }
+
+                    val time = list[0].date
+                    var month = time.substring(time.length - 1, time.length).toInt()
+                    val monthList = ArrayList<String>()
+                    for (i in 0 .. 11){
+                        monthList.add(month.toString())
+                        if (month == 12){
+                            month = 0
+                        }
+                        month ++
+                    }
+                    layout.removeAllViews()
+                    chartView = FoldChartView(mContext)
+                    chartView.setXAxis(monthList, "月份")
+                    initChartView()
+
                     chartView.addPoints(intList
                             , null, null, null, null,
                             resources.getDimensionPixelSize(R.dimen.x20), null, null, null)
+                    layout.addView(chartView)
                     adapter.setNewData(list)
+
                     chartView.show()
                     stateview.showContent()
                 }
@@ -120,7 +139,7 @@ class AchievementFragment : LazyFragment() {
 
             override fun onError(exception: Throwable) {
 //                exception.handleThrowable(activity)
-                stateview.showError((exception as MsgException).message)
+                stateview.showError((exception.message))
             }
 
         })
