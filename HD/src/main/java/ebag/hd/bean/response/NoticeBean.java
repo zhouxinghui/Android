@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import ebag.core.util.StringUtils;
+
 /**
  * Created by YZY on 2018/1/23.
  */
@@ -31,7 +33,7 @@ public class NoticeBean implements Serializable {
     public List<String> getPhotos() {
         if(photoList == null){
             photoList = new ArrayList<>();
-            if(photoUrl == null){
+            if(StringUtils.INSTANCE.isEmpty(photoUrl)){
                 return photoList;
             }
             Collections.addAll(photoList, photoUrl.split(","));

@@ -50,7 +50,7 @@ abstract class BPublishContentActivity: BaseActivity() {
                 return@setRightText
             }
             LoadingDialogUtil.showLoading(this, "正在上传...")
-            if (sb.isNotEmpty())// 阿里云的上传成功了， 但是commit 提交的时候失败了
+            if (imgAdapter.data.size == 1)// 阿里云的上传成功了， 但是commit 提交的时候失败了
                 commit(contentEdit.text.toString())
             else {
                 val fileName = System.currentTimeMillis().toString()

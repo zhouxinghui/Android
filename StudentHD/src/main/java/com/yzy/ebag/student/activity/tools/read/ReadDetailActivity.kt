@@ -317,11 +317,12 @@ class ReadDetailActivity: BaseActivity() {
         override fun onSuccess(entity: List<ReadDetailBean>?) {
             if(entity == null || entity.isEmpty())
                 stateView.showEmpty()
-            else
+            else {
                 stateView.showContent()
-            adapter.setNewData(entity)
-            if (StringUtils.isEmpty(entity!![0].languageEn)){
-                subCode = "yw"
+                adapter.setNewData(entity)
+                if (StringUtils.isEmpty(entity!![0].languageEn)) {
+                    subCode = "yw"
+                }
             }
         }
 
