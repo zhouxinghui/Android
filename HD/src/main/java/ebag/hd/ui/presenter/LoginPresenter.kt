@@ -195,9 +195,9 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
                                         dialog.onConfirmClickListener = {
                                             dialog.dismiss()
                                             modifyStr = it
-                                            EBagApi.bindingActivationCode(account, modifyStr, object : RequestCallBack<String>() {
+                                            EBagApi.bindingActivationCode(phone, modifyStr, object : RequestCallBack<String>() {
                                                 override fun onSuccess(entity: String?) {
-                                                    login(account, pwd, roleCode)
+                                                    login(phone, pwd, roleCode)
                                                 }
 
                                                 override fun onError(exception: Throwable) {
