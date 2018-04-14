@@ -112,7 +112,7 @@ class AchievementFragment : LazyFragment() {
                     }
 
                     val time = list[0].date
-                    var month = time.substring(time.length - 1, time.length).toInt()
+                    var month = time.substring(time.length - 2, time.length).toInt()
                     val monthList = ArrayList<String>()
                     for (i in 0 .. 11){
                         monthList.add(month.toString())
