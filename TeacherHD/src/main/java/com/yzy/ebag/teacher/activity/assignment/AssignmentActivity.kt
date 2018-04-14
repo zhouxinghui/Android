@@ -275,6 +275,8 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 assignmentPresenter.loadUnitAndQuestion(workCategory.toString(), currentGradeCode)
                 totalUnitTv.isSelected = true
                 cache.isTotal = true
+                if (workCategory == Constants.ASSIGN_TEST_PAPER)
+                    assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null, cache.subCode)
             }else {
                 unitAdapter.setNewData(unitList as List<MultiItemEntity>)
                 questionAdapter.datas = questionList
@@ -562,7 +564,11 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
 
         cacheMap[currentGradeCode]!!.questionList = questionList as ArrayList<AssignmentBean.QuestionsBean>
         if (isGradeRequest) {
-            val versionBean = assignmentBean.resultTaughtCoursesVo ?: return
+            val versionBean = assignmentBean.resultTaughtCoursesVo
+            if (versionBean == null) {
+                textBookVersion.text = ""
+                return
+            }
             setVersionTv(versionBean.bookVersionName,
                     versionBean.semeterName,
                     versionBean.bookName)
