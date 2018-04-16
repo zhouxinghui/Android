@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.yzy.ebag.teacher.MainActivity">
 
-    <ebag.mobile.weidget.TitleBar
+    <ebag.mobile.weidget.TitleBar android:id="@+id/titleBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:titleText="标题"
-        app:rightText="标题"
+        app:titleText="学习中心"
         />
-    <TextView android:id="@+id/btn"
-        android:layout_width="@dimen/x200"
-        android:layout_height="@dimen/y90"
-        android:background="@drawable/login_btn_bac"
-        android:text="退出登录"
-        android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <android.support.v4.view.ViewPager android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         />
-</android.support.constraint.ConstraintLayout>
+    <com.ashokvarma.bottomnavigation.BottomNavigationBar
+        android:id="@+id/bottomNavigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bnbInactiveColor="@color/gray"
+        app:bnbBackgroundColor="@color/colorPrimary"
+        app:bnbActiveColor="@color/white"
+        />
+</LinearLayout>

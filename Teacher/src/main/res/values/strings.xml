@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Teacher</string>
+    <string name="app_name">云书包老师版</string>
+
+    <string name="first_page">首页</string>
+    <string name="mine">我的</string>
+    <string name="clazz">班级</string>
 </resources>
