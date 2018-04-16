@@ -352,6 +352,7 @@ class CorrectingDescActivity : BaseActivity() {
                         markBtn.setOnClickListener {
                             followReadMarkDialog.show(data[helper.adapterPosition], homeworkId, questionList!![currentQuestionIndex].questionId)
                         }
+                        helper.setText(R.id.score, "")
                     }else{
                         markBtn.visibility = View.GONE
                         helper.setText(R.id.score, score)
@@ -369,6 +370,7 @@ class CorrectingDescActivity : BaseActivity() {
                         markBtn.setOnClickListener {
                             markDialog.show(data[helper.adapterPosition], homeworkId, questionList!![currentQuestionIndex].questionId)
                         }
+                        helper.setText(R.id.score, "")
                     }else{
                         markBtn.visibility = View.GONE
                         helper.setText(R.id.score, score)
