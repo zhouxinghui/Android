@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="tv_id" type="id"/>
+    <item name="multi_under_line" type="id"/>
     <item name="connection_recycler_id" type="id"/>
+    <item name="recorder_time_tv_id" type="id"/>
+    <item name="recorder_id" type="id"/>
+    <item name="recorder_play_id" type="id"/>
+    <item name="recorder_upload_id" type="id"/>
 
     <item type="id" name="top_image" />
 </resources>

@@ -10,6 +10,27 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
+        <ebag.mobile.weidget.questions.UnderstandView android:id="@+id/understandView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ebag.mobile.weidget.questions.SortVerticalView android:id="@+id/sortView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ebag.mobile.weidget.questions.SortHorizontalView android:id="@+id/enSortView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ebag.mobile.weidget.questions.SentenceView android:id="@+id/sentenceView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ebag.mobile.weidget.questions.RecorderView android:id="@+id/recorderView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ebag.mobile.weidget.questions.MathVerticalView android:id="@+id/mathVerticalView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ebag.mobile.weidget.questions.MathVerticalView android:id="@+id/mathVerticalView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
         <ebag.mobile.weidget.questions.ChoiceView android:id="@+id/choiceView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

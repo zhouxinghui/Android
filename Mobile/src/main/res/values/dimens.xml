@@ -20,6 +20,9 @@
     <dimen name="question_math_line_min_width">@dimen/x20</dimen>
     <dimen name="question_math_line">@dimen/x1</dimen>
 
+    <dimen name="question_tag_height">@dimen/y60</dimen>
+    <dimen name="question_tag_hor_padding">@dimen/x5</dimen>
+
     <dimen name="key_normal_with">60dp</dimen>
     <dimen name="key_normal_with_half">24dp</dimen>
     <dimen name="key_74_with">72dp</dimen>

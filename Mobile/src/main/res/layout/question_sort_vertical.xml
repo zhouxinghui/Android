@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingEnd="@dimen/x10"
+    android:paddingTop="@dimen/y10"
+    android:paddingBottom="@dimen/y10">
+
+    <EditText
+        android:id="@+id/tvSort"
+        android:layout_width="@dimen/x30"
+        android:layout_height="@dimen/x30"
+        android:layout_marginEnd="@dimen/x10"
+        android:layout_marginTop="@dimen/x4"
+        android:textSize="@dimen/tv_normal"
+        android:gravity="center"
+        android:background="@drawable/bg_question_sort_normal"
+        tools:text="5"
+        />
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/tv_big"
+        android:textColor="@color/question_normal"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/tvSort"
+        tools:text="破亿发就不会 复合肥破亿发就不会 复合肥破亿发就不会 复合肥破亿发就不会 复合肥破亿发就不会 复合肥破亿发就不会 复合肥破亿发就不会 复合肥破亿发就不会 复合肥破亿发就不会 复合肥破亿发就不会 复合肥破亿发就不会 复合肥破亿发就不会 复合肥破亿发就不会 复合肥破亿发就不会 复合肥破亿发就不会 复合肥破亿发就不会 复合肥破亿发就不会 复合肥"
+        />
+
+</RelativeLayout>

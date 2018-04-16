@@ -18,6 +18,12 @@ class QuestionTestActivity : AppCompatActivity() {
         setMathEquationView()
         setMathEquationView2()
         setMathFractionView()
+        setMathVerticalView2()
+        setMathVerticalView()
+        setSentenceView()
+        setEnSort()
+        setSortView()
+        setUnderstandView()
     }
 
     private fun setChoiceView(){
@@ -132,4 +138,70 @@ class QuestionTestActivity : AppCompatActivity() {
         mathFractionView.setData(questionBean)
         mathFractionView.show(true)
     }
+
+    private fun setMathVerticalView2(){
+        val questionBean = QuestionBean()
+        questionBean.type = "15"
+        questionBean.minType = "17"
+        questionBean.title = "82×16=(    )"
+        questionBean.content = "#G#,#C#,#C#,#C#,#F#,#H#,#F#,3,3,5,3,#F#,#G#,#C#,#G#,#G#," +
+                "#F#,#E#,#F#,#G#,#G#,#C#,#G#,#F#,#G#,#G#,#C#,#G#,#F#,#E#,#F#,#G#,#G#,#C#,#C#," +
+                "#F#,#G#,#G#,#C#,#C#,#F#,#E#,#F#,#G#,#G#,#G#,#C#"
+        questionBean.rightAnswer = "1,1,7,3,5,3,2,3,2,1,2"
+//        questionBean.answer = "4,2,2,8,3,1,2,1,2"
+        mathVerticalView2.setData(questionBean)
+        mathVerticalView2.show(true)
+    }
+
+    private fun setMathVerticalView(){
+        val questionBean = QuestionBean()
+        questionBean.type = "15"
+        questionBean.minType = "21"
+        questionBean.title = "82×16=(    )"
+        questionBean.content = "#G#,#G#,8,2,#F#,×,#F#,#G#,#G#,1,6,#F#,#E#,#F#,#G#,#C#,#C#,#C#,#F#,#G#,#C#,#C#,#G#,#F#,#E#,#F#,#C#,#C#,#C#,#C#"
+        questionBean.rightAnswer = "4,9,2,8,2,1,3,1,2"
+//        questionBean.answer = "4,2,2,8,3,1,2,1,2"
+        mathVerticalView.setData(questionBean)
+        mathVerticalView.show(true)
+    }
+
+    private fun setSentenceView(){
+        val questionBean = QuestionBean()
+        questionBean.type = "16"
+        questionBean.title = "用现代文翻译句子"
+        questionBean.content = "孔子东游，见两小儿辩斗，问其故。"
+        questionBean.answer = "孔子往东边游学"
+        sentenceView.setData(questionBean)
+        sentenceView.show(true)
+    }
+
+    private fun setEnSort(){
+        val questionBean = QuestionBean()
+        questionBean.title = "将下列各词连成一句话"
+        questionBean.content = "your#R#in#R#ruler#R#Put#R#pencil box#R#the#R#."
+        questionBean.rightAnswer = "Put,your,ruler,in,the,pencil box,."
+        questionBean.answer = "Put,ruler,your,in,the,pencil box,."
+        enSortView.setData(questionBean)
+        enSortView.show(active)
+    }
+
+    private fun setSortView(){
+        val questionBean = QuestionBean()
+        questionBean.title = "把下列句子排成一段通顺的话。"
+        questionBean.content = "与大象一起跳舞最难忘。#R#象是泰国的国宝。#R#在泰国，人与象之间没有距离，#R#在泰国，到处遇到大象很正常，#R#大象聪明而有灵气，"
+        questionBean.rightAnswer = "5,2,3,1,4"
+        questionBean.answer = "3,2,4,1,5"
+        sortView.setData(questionBean)
+        sortView.show(active)
+    }
+
+    private fun setUnderstandView(){
+        val questionBean = QuestionBean()
+        questionBean.title = "阅读乐园。\n自己是自己的镜子"
+        questionBean.content = "爱因斯坦16岁那年，由于整日同一群调皮贪（tān）玩的孩子在一起，致（zhì）使自己几门功课不及格。关心他的父亲给他讲了这样一个故事： #R##F##R#　　“有两只猫在屋顶上玩耍。一不小心，一只猫抱着另一只猫掉到了烟囱（cōng）里。当两只猫从烟囱里爬出来时，一只猫的脸上沾（zhān）满了烟灰，而另一只猫的脸上却干干净净。干净的猫看见满脸黑灰的猫，以为自己的脸也又脏又丑，便快步跑到河边洗了脸。而黑脸猫看见干净的猫，以为自己的脸也是干净的。结果，吓得其他的猫都四下躲避（bì），以为见到了妖（yāo）怪。” #R##F##R#　　“爱因斯坦，谁也不能成为你的镜子，只有自己才是自己的镜子。拿别人做自己的镜子，天才也许会照成傻瓜。” #R##F##R#　　爱因斯坦听后，羞愧（kuì）地放下钓竿，回到了自己的小屋里。 #R##F##R#　　从此，爱因斯坦时常用自己作为镜子来审视和映照自己，终于映照出了他人生的璀璨（cuǐcàn）光芒。 #R##F##R#1．短文共有#R##E##R#个自然段。 #R##F##R#2．请你为加粗词语选择一个意思相近的词语。 #R##F##R#（1）爱因斯坦整日同一群【调皮】贪玩的孩子在一起。#R##E##R# #R##F##R#A．顽皮#R##F##R#B．好玩 #R##F##R#（2）爱因斯坦听后，【羞愧】地放下钓竿，回到了自己的小屋里。#R##E##R# #R##F##R#A．惭愧#R##F##R#B．害羞 #R##F##R#3．父亲讲这个故事是为了教育爱因斯坦#R##E##R#。#R##F##R#A．不要去钓鱼 #R##F##R#B．不要和贪玩的孩子在一起 #R##F##R#C．不要拿别人做自己的镜子，只有自己才是自己的镜子"
+        questionBean.rightAnswer = "5,2,3,1,4"
+        understandView.setData(questionBean)
+        understandView.show(active)
+    }
+
 }
