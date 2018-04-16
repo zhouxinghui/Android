@@ -237,7 +237,7 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
                     }
 
                 })
-            EBagApi.register(BLoginActivity.ISHD, name, null, null, phone, code, roleCode, pwd, thirdPartyToken, thirdPartyUnionid, BLoginActivity.PHONE_TYPE, null, registerRequest!!)
+            EBagApi.register(SPUtils.get(App.mContext, ebag.core.util.Constants.IMEI, "") as String,BLoginActivity.ISHD, name, null, null, phone, code, roleCode, pwd, thirdPartyToken, thirdPartyUnionid, BLoginActivity.PHONE_TYPE, null, registerRequest!!)
         }
 
     }

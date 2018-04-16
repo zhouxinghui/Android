@@ -84,7 +84,7 @@ class BindingActivity : BaseActivity() {
                 } else {
                     type = BLoginActivity.EBAG_TYPE
                 }
-                EBagApi.register(BLoginActivity.ISHD, name, iconurl, if (gender == "男") {
+                EBagApi.register(SPUtils.get(App.mContext, ebag.core.util.Constants.IMEI, "") as String,BLoginActivity.ISHD, name, iconurl, if (gender == "男") {
                     "1"
                 } else {
                     "2"
