@@ -113,7 +113,7 @@ class DiaryListActivity : BaseListActivity<List<Diary>, Diary.ResultUserGrowthBy
 
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<Diary>>) {
-        StudentApi.searchUserGrowthList(page, getPageSize(), gradeId, type, requestCallBack)
+        StudentApi.searchUserGrowthList(page, getPageSize(), gradeCode, type, requestCallBack)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<Diary>?): List<Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean>? {
