@@ -4,8 +4,8 @@ import android.os.Environment
 import ebag.core.base.App
 import ebag.core.http.network.FastJsonConverterFactory
 import ebag.core.http.network.HttpLoggingInterceptor
+import ebag.core.util.Constants
 import ebag.core.util.StringUtils
-import ebag.hd.base.Constants
 import okhttp3.Cache
 import okhttp3.ConnectionSpec
 import okhttp3.Interceptor

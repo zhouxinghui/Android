@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--登录注册 忘记密码 相关-->
+    <style name="loginWith">
+        <item name="android:layout_width">@dimen/x250</item>
+    </style>
+
+    <style name="forgetHeight">
+        <item name="android:layout_height">@dimen/y68</item>
+        <item name="android:layout_width">@dimen/x400</item>
+    </style>
+
+    <style name="registerHeight">
+        <item name="android:layout_height">@dimen/y100</item>
+    </style>
+
+    <style name="loginHeight">
+        <item name="android:layout_height">@dimen/y100</item>
+    </style>
+
+    <style name="register_edit_text" parent="registerHeight">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@drawable/login_edit_bac</item>
+        <item name="android:drawablePadding">@dimen/x10</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:gravity">center|left</item>
+        <item name="android:paddingStart">@dimen/x10</item>
+        <item name="android:paddingEnd">@dimen/x10</item>
+        <item name="android:textColor">@color/color_edit_color</item>
+        <item name="android:textColorHint">@color/color_edit_hint</item>
+    </style>
+
+    <style name="login_edit_text" parent="loginHeight">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@drawable/login_edit_bac</item>
+        <item name="android:drawablePadding">@dimen/x10</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:gravity">center|left</item>
+        <item name="android:paddingStart">@dimen/x10</item>
+        <item name="android:paddingEnd">@dimen/x10</item>
+        <item name="android:textColor">@color/color_edit_color</item>
+        <item name="android:textColorHint">@color/color_edit_hint</item>
+    </style>
+</resources>

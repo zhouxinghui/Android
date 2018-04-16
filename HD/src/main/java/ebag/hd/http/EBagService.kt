@@ -96,7 +96,7 @@ interface EBagService {
 
 
     /**
-     * 登录
+     * 注册
      * @return
      */
     @Headers("EBag-Special-Url: special/url")

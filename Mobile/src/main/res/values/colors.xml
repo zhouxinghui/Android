@@ -17,4 +17,11 @@
     <color name="question_bg_normal">#D7DAE5</color>
 
     <color name="color_question_option_border">#8892A1</color>
+
+    <!--登陆-->
+    <color name="login_selector_checked">#272727</color>
+    <color name="login_selector_normal">#656565</color>
+    <color name="login_line">#eeeeee</color>
+    <color name="login_tips">#979797</color>
+    <color name="login_serve_tips">#6FB1FF</color>
 </resources>

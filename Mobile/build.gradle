@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 26
 
@@ -34,5 +35,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.contrarywind:Android-PickerView:3.2.6'
     compile 'com.github.barteksc:android-pdf-viewer:2.6.1'
+    //    友盟基础库
+    compile 'com.umeng.sdk:common:latest.integration'
+    compile 'com.umeng.sdk:analytics:latest.integration'
     compile project(':core')
 }
