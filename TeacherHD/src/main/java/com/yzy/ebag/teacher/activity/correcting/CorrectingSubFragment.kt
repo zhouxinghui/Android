@@ -94,7 +94,7 @@ class CorrectingSubFragment: BaseListFragment<List<CorrectingBean>, CorrectingBe
             val timeTv = helper.getView<TextView>(R.id.tvTime)
             val statusTv = helper.getView<TextView>(R.id.tvStatus)
             helper.setText(R.id.createTime, "布置时间：${DateUtil.getFormatDateTime(Date(item.createDate), "yyyy-MM-dd HH:mm")}")
-            classNameTv.text = className
+            classNameTv.text = item.groupName?:className
             contentTv.text = item.content
             completeTv.text = "完成： ${item.homeWorkCompleteCount}/${item.studentCount}"
             if (type ==  Constants.KSSJ_TYPE)
