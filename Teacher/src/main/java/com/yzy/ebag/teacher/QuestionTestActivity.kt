@@ -13,6 +13,11 @@ class QuestionTestActivity : AppCompatActivity() {
 
         setChoiceView()
         setClassificationView()
+        setCompletion()
+        setConnectionView()
+        setMathEquationView()
+        setMathEquationView2()
+        setMathFractionView()
     }
 
     private fun setChoiceView(){
@@ -59,5 +64,72 @@ class QuestionTestActivity : AppCompatActivity() {
 */
         classificationView.setData(questionBean)
         classificationView.show(active)
+    }
+
+    private fun setCompletion(){
+        val questionBean = QuestionBean()
+        questionBean.type = "3"
+        questionBean.title = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/1/sx/tuxing6.png"
+        questionBean.content = "要算15-9，先把15分成#R##A##R#和5，再用其中的10-9＝#R##A##R#，最后用#R##A##R#+5＝#R##A##R#。"
+        questionBean.rightAnswer = "电视机#R#台灯#R#桌子#R#房间#R#在......后面#R#在......旁边"
+        questionBean.answer = "电视机#R#台灯#R#桌子#R#房间#R#在......后面#R#在......旁边"
+        completeView.setData(questionBean)
+        completeView.show(true)
+    }
+
+    private fun setConnectionView(){
+        val questionBean = QuestionBean()
+        questionBean.title = "给图片和单词连线"
+        questionBean.content = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg," +
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg," +
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/desk.jpg," +
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/schoolbag.jpg;" +
+                "chair,blackboard,desk,schoolbag"
+        questionBean.rightAnswer = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg,blackboard;" +
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg,chair;" +
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/desk.jpg,desk;" +
+                "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/schoolbag.jpg,schoolbag"
+//        questionBean.answer = "blackboard,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/blackboard.jpg;" +
+//                "desk,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/chair.jpg;" +
+//                "chair,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/desk.jpg;" +
+//                "schoolbag,http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/question/questionImg/schoolbag.jpg"
+        connectionView.setData(questionBean)
+        connectionView.show(true)
+    }
+
+    private fun setMathEquationView(){
+        val questionBean = QuestionBean()
+        questionBean.type = "15"
+        questionBean.minType = "18"
+        questionBean.title = "简便计算"
+        questionBean.content = "*(70,－,46),÷,8,＝,#C#"
+        questionBean.rightAnswer = "24,3"
+//        questionBean.answer = "4,2,2,8,3,1,2,1,2"
+        mathEquationView.setData(questionBean)
+        mathEquationView.show(true)
+    }
+
+    private fun setMathEquationView2(){
+        val questionBean = QuestionBean()
+        questionBean.type = "15"
+        questionBean.minType = "18"
+        questionBean.title = "直接写出得数"
+        questionBean.content = "#45,－,(13,＋,12),＝,#C#"
+        questionBean.rightAnswer = "25,20"
+//        questionBean.answer = "4,2,2,8,3,1,2,1,2"
+        mathEquationView2.setData(questionBean)
+        mathEquationView2.show(true)
+    }
+
+    private fun setMathFractionView(){
+        val questionBean = QuestionBean()
+        questionBean.type = "15"
+        questionBean.minType = "19"
+        questionBean.title = "竖式计算"
+        questionBean.content = "#1,6#:-:#1,7#:=:#*,*#;#4,5#:-:#2,3#:=:#*,*#;#1,8#:+:#1,6#:=:#*,*#;"
+        questionBean.rightAnswer = "1,42;2,15;7,24"
+//        questionBean.answer = "4,2,2,8,3,1,2,1,2"
+        mathFractionView.setData(questionBean)
+        mathFractionView.show(true)
     }
 }

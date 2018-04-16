@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E4E7E9"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <EditText
+            android:id="@+id/et_answer"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y100"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:textColor="#59676E" />
+        <Button
+            android:id="@+id/btn_fill_blank"
+            android:layout_width="@dimen/x50"
+            android:layout_height="@dimen/y100"
+            android:gravity="center"
+            android:background="@color/colorPrimary"
+            android:textSize="@dimen/tv_normal"
+            android:text="确定"
+            android:textColor="#FFF" />
+    </LinearLayout>
+    <!--键盘-->
+    <LinearLayout
+        android:id="@+id/linearlayou_keyboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+        <RelativeLayout
+            android:id="@+id/title_keyboard_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y90"
+                android:background="@drawable/img_top" />
+
+            <ImageView
+                android:id="@+id/hiddenImage"
+                android:layout_width="@dimen/x20"
+                android:layout_height="@dimen/y80"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="@dimen/y3"
+                android:layout_marginEnd="@dimen/x5"
+                android:layout_marginTop="@dimen/y10"
+                android:src="@drawable/icon_keyboard" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!--android:layout_weight="1"-->
+            <ebag.mobile.weidget.keyboard.KeyBoardView
+                android:id="@+id/key_board"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/keyboard_bg"
+                android:visibility="gone"
+                />
+
+            <!--android:layout_weight="5"-->
+            <android.support.v4.widget.NestedScrollView
+                android:id="@+id/nestedScrollView_1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y270"
+                android:layout_toLeftOf="@id/key_board"
+                android:visibility="gone">
+
+                <ebag.mobile.weidget.keyboard.KeyBoardView
+                    android:id="@+id/key_board_special_numeric_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/keyboard_bg" />
+            </android.support.v4.widget.NestedScrollView>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

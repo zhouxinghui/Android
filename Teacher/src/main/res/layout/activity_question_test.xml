@@ -16,5 +16,20 @@
         <ebag.mobile.weidget.questions.ClassificationView android:id="@+id/classificationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+        <ebag.mobile.weidget.questions.CompleteView android:id="@+id/completeView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ebag.mobile.weidget.questions.ConnectionView android:id="@+id/connectionView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ebag.mobile.weidget.questions.MathEquationView android:id="@+id/mathEquationView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ebag.mobile.weidget.questions.MathEquationView android:id="@+id/mathEquationView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ebag.mobile.weidget.questions.MathFractionView android:id="@+id/mathFractionView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

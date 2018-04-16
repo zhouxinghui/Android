@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ebag.mobile.weidget.questions.base.MathView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mathView"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/question_math_fraction_height"
+    android:layout_marginBottom="@dimen/question_math_true_width">
+
+</ebag.mobile.weidget.questions.base.MathView>

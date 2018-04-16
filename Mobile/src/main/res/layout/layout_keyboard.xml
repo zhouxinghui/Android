@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ebag.mobile.weidget.keyboard.MyKeyboardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/keyboard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#00000000"
+    android:keyPreviewOffset="-10dp"
+    android:keyTextSize="30sp"
+    android:keyTextColor="#00000000"
+    android:keyPreviewLayout="@layout/preview"
+    android:shadowColor="#00000000"
+    android:shadowRadius="0.0"
+    android:keyBackground="@drawable/key_baord_selector"/>

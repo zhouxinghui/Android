@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EditText
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view"
+    android:layout_margin="@dimen/question_math_margin"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/question_math_width"
+    android:minWidth="@dimen/question_math_width"
+    android:paddingStart="@dimen/question_math_margin"
+    android:paddingEnd="@dimen/question_math_margin"
+    android:gravity="center"
+    android:lines="1"
+    android:textSize="@dimen/tv_normal"
+    android:textColor="@color/color_normal_error"
+    android:background="@drawable/bg_question_sort_normal"
+    android:inputType="number"/>
