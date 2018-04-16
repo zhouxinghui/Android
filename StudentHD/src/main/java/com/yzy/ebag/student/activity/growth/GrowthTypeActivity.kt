@@ -34,7 +34,7 @@ class GrowthTypeActivity: BaseActivity(){
         gradeId = intent.getStringExtra("gradeId") ?: ""
         gradeCode = intent.getStringExtra("gradeCode") ?: ""
         resultBtn.setOnClickListener {
-            AchievementActivity.jump(this, gradeId)
+            AchievementActivity.jump(this, gradeId,gradeCode)
         }
 
         courseBtn.setOnClickListener {

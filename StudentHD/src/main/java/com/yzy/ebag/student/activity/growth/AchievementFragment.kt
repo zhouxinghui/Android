@@ -26,10 +26,11 @@ class AchievementFragment : LazyFragment() {
     private lateinit var adapter:Adapter
     private lateinit var chartView: FoldChartView
     companion object {
-        fun newInstance(gradeId: String, type: Int): AchievementFragment {
+        fun newInstance(gradeId: String, type: Int,gradeCode:String): AchievementFragment {
             val fragment = AchievementFragment()
             val bundle = Bundle()
             bundle.putString("gradeId", gradeId)
+            bundle.putString("gradeCode", gradeCode)
             bundle.putInt("type", type)
             fragment.arguments = bundle
             return fragment
@@ -46,9 +47,11 @@ class AchievementFragment : LazyFragment() {
 
     private var type: Int = 0
     private lateinit var gradeId: String
+    private lateinit var gradeCode: String
 
     override fun getBundle(bundle: Bundle?) {
         gradeId = bundle?.getString("gradeId") ?: ""
+        gradeCode = bundle?.getString("gradeCode") ?: ""
         type = bundle?.getInt("type") ?: 0
 
     }
@@ -92,8 +95,7 @@ class AchievementFragment : LazyFragment() {
     }
 
     private fun request() {
-        val gradeCode = SPUtils.get(activity, ebag.hd.base.Constants.GRADE_CODE, -1) as Int
-        StudentApi.examSocre(SPUtils.get(activity, Constants.CLASS_ID, "") as String, type.toString(), "student",gradeCode.toString(), object : RequestCallBack<List<HomeworkBean>>() {
+        StudentApi.examSocre(SPUtils.get(activity, Constants.CLASS_ID, "") as String, type.toString(), "student",gradeCode, object : RequestCallBack<List<HomeworkBean>>() {
             override fun onStart() {
                 stateview.showLoading()
             }
