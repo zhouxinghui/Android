@@ -301,10 +301,11 @@ object StudentApi {
 
     /*成长轨迹，考试成绩*/
 
-    fun examSocre(classId: String, homeType: String, rid: String, callback: RequestCallBack<List<HomeworkBean>>) {
+    fun examSocre(classId: String, homeType: String, rid: String,gradeCode:String, callback: RequestCallBack<List<HomeworkBean>>) {
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
         jsonObject.put("homeType", homeType)
+        jsonObject.put("gradeCode", gradeCode)
         jsonObject.put("rid", rid)
         EBagApi.request(studentService.yearStatisticsByHomeWork("1", EBagApi.createBody(jsonObject)), callback)
     }

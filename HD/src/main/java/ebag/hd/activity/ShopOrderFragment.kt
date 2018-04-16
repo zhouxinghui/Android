@@ -56,6 +56,7 @@ class ShopOrderFragment : BaseFragment() {
         refreshlayout.setOnRefreshListener {
             request()
         }
+
         shoporder_stateview.setOnRetryClickListener {
             request()
         }
@@ -65,19 +66,19 @@ class ShopOrderFragment : BaseFragment() {
             if ((view as TextView).text == "确认收货") {
                 val oid = mData[position].oid
                 val orderProductVOs = mData[position].orderProductVOs
-                val list:MutableList<ShopStatusBean> = mutableListOf()
+                val list: MutableList<ShopStatusBean> = mutableListOf()
                 orderProductVOs.forEach {
-                    val s = ShopStatusBean(it.shopId,it.numbers)
+                    val s = ShopStatusBean(it.shopId, it.numbers)
                     list.add(s)
                 }
-                EBagApi.updateShopOrderStaus(oid,list,object:RequestCallBack<String>(){
+                EBagApi.updateShopOrderStaus(oid, list, object : RequestCallBack<String>() {
 
 
                     override fun onSuccess(entity: String?) {
-                        T.show(activity,"收货成功")
+                        T.show(activity, "收货成功")
                         mAdapter.remove(position)
                         mAdapter.notifyItemRemoved(position)
-                        if (mData.isEmpty()){
+                        if (mData.isEmpty()) {
                             stateView.showEmpty()
                         }
                     }
@@ -122,7 +123,7 @@ class ShopOrderFragment : BaseFragment() {
             index.toString()
         }, object : RequestCallBack<QueryOrderBean>() {
             override fun onStart() {
-                if (!refreshlayout.isRefreshing)
+                if (refreshlayout != null && !refreshlayout.isRefreshing)
                     stateView.showLoading()
             }
 
@@ -130,9 +131,9 @@ class ShopOrderFragment : BaseFragment() {
                 if (entity?.resultOrderVos!!.size == 0) {
                     stateView.showEmpty()
                 } else {
-                    if (refreshlayout.isRefreshing) {
+                    if (refreshlayout != null && refreshlayout.isRefreshing) {
                         mAdapter.setNewData(entity.resultOrderVos)
-                        refreshlayout.isRefreshing = false
+                        refreshlayout?.isRefreshing = false
                     } else {
                         mData.addAll(entity!!.resultOrderVos)
                         mAdapter.notifyDataSetChanged()
@@ -156,6 +157,11 @@ class ShopOrderFragment : BaseFragment() {
         if (isVisibleToUser) {
             if (flag and !isLoaded) {
                 request()
+            } else {
+                if (index<0) {
+                    refreshlayout?.isRefreshing = true
+                    request()
+                }
             }
         } else {
 
