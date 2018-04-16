@@ -92,7 +92,8 @@ class AchievementFragment : LazyFragment() {
     }
 
     private fun request() {
-        StudentApi.examSocre(SPUtils.get(activity, Constants.CLASS_ID, "") as String, type.toString(), "student",gradeId, object : RequestCallBack<List<HomeworkBean>>() {
+        val gradeCode = SPUtils.get(activity, ebag.hd.base.Constants.GRADE_CODE, -1) as Int
+        StudentApi.examSocre(SPUtils.get(activity, Constants.CLASS_ID, "") as String, type.toString(), "student",gradeCode.toString(), object : RequestCallBack<List<HomeworkBean>>() {
             override fun onStart() {
                 stateview.showLoading()
             }
