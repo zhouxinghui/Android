@@ -14,12 +14,12 @@
     <LinearLayout android:id="@+id/schoolBtn"
         style="@style/create_class_ll"
         >
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/schoolTv"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/schoolTv"
             style="@style/create_class_left_tv"
             app:leftDrawable="@drawable/create_class_school"
             android:text="@string/school"
             />
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/schoolName"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/schoolName"
             style="@style/create_class_right_tv"
             android:text="@string/select_school_hint"
             />
@@ -27,12 +27,12 @@
     <LinearLayout android:id="@+id/phaseBtn"
         style="@style/create_class_ll"
         >
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/phaseTv"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/phaseTv"
             style="@style/create_class_left_tv"
             app:leftDrawable="@drawable/create_class_stage"
             android:text="@string/phase"
             />
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/phaseName"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/phaseName"
             style="@style/create_class_right_tv"
             android:text="@string/select_phase_hint"
             />
@@ -40,12 +40,12 @@
     <LinearLayout android:id="@+id/gradeBtn"
         style="@style/create_class_ll"
         >
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/gradeTv"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/gradeTv"
             style="@style/create_class_left_tv"
             app:leftDrawable="@drawable/create_class_grade"
             android:text="@string/grade"
             />
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/gradeName"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/gradeName"
             style="@style/create_class_right_tv"
             android:text="@string/select_grade_hint"
             />
@@ -53,7 +53,7 @@
     <LinearLayout android:id="@+id/classBtn"
         style="@style/create_class_ll"
         >
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/classTv"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/classTv"
             style="@style/create_class_left_tv"
             app:leftDrawable="@drawable/create_class_class"
             android:text="@string/clazz"
@@ -74,12 +74,12 @@
     <LinearLayout android:id="@+id/courseBtn"
         style="@style/create_class_ll"
         >
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/courseTv"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/courseTv"
             style="@style/create_class_left_tv"
             app:leftDrawable="@drawable/create_class_course"
             android:text="@string/course"
             />
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/courseName"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/courseName"
             style="@style/create_class_right_tv"
             android:text="@string/select_course_hint"
             />

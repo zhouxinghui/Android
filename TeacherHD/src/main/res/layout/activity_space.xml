@@ -121,7 +121,7 @@
         app:layout_constraintStart_toStartOf="@id/bg"
         app:layout_constraintEnd_toEndOf="@id/bg"
         />
-    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/classPhotos"
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/classPhotos"
         style="@style/space_tv_btn"
         android:text="@string/class_photos"
         app:leftDrawable="@drawable/space_photos"
@@ -130,7 +130,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/chat"
         />
-    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/chat"
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/chat"
         style="@style/space_tv_btn"
         app:leftDrawable="@drawable/space_chat"
         app:layout_constraintTop_toBottomOf="@id/bg"
@@ -138,7 +138,7 @@
         app:layout_constraintStart_toEndOf="@id/classPhotos"
         app:layout_constraintEnd_toStartOf="@id/studyGroup"
         />
-    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/studyGroup"
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/studyGroup"
         style="@style/space_tv_btn"
         android:text="@string/study_group"
         app:leftDrawable="@drawable/space_study_group"
@@ -147,7 +147,7 @@
         app:layout_constraintStart_toEndOf="@id/chat"
         app:layout_constraintEnd_toEndOf="parent"
         />
-    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/courseSchedule"
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/courseSchedule"
         style="@style/space_tv_btn"
         android:text="@string/course_schedule"
         app:leftDrawable="@drawable/space_course_schedule"
@@ -156,7 +156,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/course"
         />
-    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/course"
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/course"
         style="@style/space_tv_btn"
         android:text="@string/course_teaching"
         app:leftDrawable="@drawable/space_course"
@@ -165,7 +165,7 @@
         app:layout_constraintStart_toEndOf="@id/courseSchedule"
         app:layout_constraintEnd_toStartOf="@id/expression"
         />
-    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/expression"
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/expression"
         style="@style/space_tv_btn"
         android:text="@string/class_expression"
         app:leftDrawable="@drawable/space_expression"

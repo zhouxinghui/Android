@@ -11,17 +11,17 @@
         android:layout_height="wrap_content"
         app:rightText="@string/publish"
         />
-    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/publishTime"
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/publishTime"
         style="@style/publish_item_tv"
         app:leftDrawable="@drawable/icon_assign_time"
         tools:text="布置时间：2018-02-05"
         />
-    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/publishPerson"
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/publishPerson"
         style="@style/publish_item_tv"
         app:leftDrawable="@drawable/icon_assign_person"
         tools:text="布置班级：一年级一班"
         />
-    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/publishContent"
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/publishContent"
         style="@style/publish_item_tv"
         app:leftDrawable="@drawable/icon_assign_content"
         tools:text="布置内容：2018-02-05"
@@ -30,7 +30,7 @@
         style="@style/publish_item"
         android:orientation="horizontal"
         >
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/deadTimeTv"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/deadTimeTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -66,7 +66,7 @@
                 android:text="自定义"
                 />
         </RadioGroup>
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/dateTv"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/dateTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -126,7 +126,7 @@
         style="@style/publish_item"
         android:orientation="vertical"
         >
-        <ebag.hd.widget.drawable.DrawableTextView
+        <ebag.core.widget.drawable.DrawableTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"

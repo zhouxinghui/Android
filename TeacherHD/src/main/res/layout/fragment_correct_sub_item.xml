@@ -68,7 +68,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="截止时间： 2017-12-25 12:50"/>
 
-    <ebag.hd.widget.drawable.DrawableTextView
+    <ebag.core.widget.drawable.DrawableTextView
         android:id="@+id/tvStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

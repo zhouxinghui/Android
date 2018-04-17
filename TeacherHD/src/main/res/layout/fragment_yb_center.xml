@@ -14,7 +14,7 @@
 
     </ebag.hd.widget.TitleBar>
 
-    <ebag.hd.widget.drawable.DrawableTextView
+    <ebag.core.widget.drawable.DrawableTextView
         android:id="@+id/btnGift"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnCenter"/>
 
-    <ebag.hd.widget.drawable.DrawableTextView
+    <ebag.core.widget.drawable.DrawableTextView
         android:id="@+id/btnCenter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
         app:layout_constraintStart_toEndOf="@id/btnGift"
         app:layout_constraintEnd_toStartOf="@id/btnOrder"/>
 
-    <ebag.hd.widget.drawable.DrawableTextView
+    <ebag.core.widget.drawable.DrawableTextView
         android:id="@+id/btnOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
         app:layout_constraintStart_toEndOf="@id/btnCenter"
         app:layout_constraintEnd_toStartOf="@id/btnAddress"/>
 
-    <ebag.hd.widget.drawable.DrawableTextView
+    <ebag.core.widget.drawable.DrawableTextView
         android:id="@+id/btnAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

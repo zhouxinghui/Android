@@ -61,7 +61,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
-    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/personalInfo"
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/personalInfo"
         style="@style/mine_tv_btn"
         android:text="@string/personal_info"
         app:leftDrawable="@drawable/mine_personal_info"
@@ -70,7 +70,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/myShop"
         />
-    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/myShop"
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/myShop"
         style="@style/mine_tv_btn"
         android:text="@string/my_shop"
         app:leftDrawable="@drawable/mine_shop"
@@ -79,7 +79,7 @@
         app:layout_constraintStart_toEndOf="@id/personalInfo"
         app:layout_constraintEnd_toStartOf="@id/operation"
         />
-    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/operation"
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/operation"
         style="@style/mine_tv_btn"
         android:text="@string/operation"
         app:leftDrawable="@drawable/mine_operation"
@@ -88,7 +88,7 @@
         app:layout_constraintStart_toEndOf="@id/myShop"
         app:layout_constraintEnd_toEndOf="parent"
         />
-    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/systemSetting"
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/systemSetting"
         style="@style/mine_tv_btn"
         android:text="@string/system_setting"
         app:leftDrawable="@drawable/mine_system_setting"
@@ -98,7 +98,7 @@
         app:layout_constraintEnd_toStartOf="@id/setting"
         android:visibility="gone"
         />
-    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/setting"
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/setting"
         style="@style/mine_tv_btn"
         android:text="@string/setting"
         app:leftDrawable="@drawable/mine_setting"

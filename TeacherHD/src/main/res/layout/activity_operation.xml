@@ -14,7 +14,7 @@
         android:paddingStart="@dimen/x20"
         android:paddingEnd="@dimen/x20"
         >
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/tv1"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/tv1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y60"
             android:textColor="@color/tv_normal"
@@ -37,7 +37,7 @@
             android:src="@drawable/operation1"
             android:visibility="gone"
             />
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/tv2"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/tv2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y60"
             android:textColor="@color/tv_normal"
@@ -60,7 +60,7 @@
             android:src="@drawable/operation2"
             android:visibility="gone"
             />
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/tv3"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/tv3"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y60"
             android:textColor="@color/tv_normal"

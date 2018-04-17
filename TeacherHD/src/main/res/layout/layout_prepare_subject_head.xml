@@ -20,7 +20,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         />
     <!--教材版本-->
-    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/subjectTv"
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/subjectTv"
         android:layout_width="0dp"
         android:layout_height="@dimen/y80"
         android:paddingRight="@dimen/x10"

@@ -1,4 +1,4 @@
-package ebag.hd.widget.drawable;
+package ebag.core.widget.drawable;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

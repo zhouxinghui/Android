@@ -34,7 +34,7 @@
                 android:visibility="gone"
                 tools:visibility="visible"
                 >
-                <ebag.hd.widget.drawable.DrawableTextView
+                <ebag.core.widget.drawable.DrawableTextView
                     android:id="@+id/themeBtn"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y58"
@@ -71,7 +71,7 @@
                     android:id="@+id/re"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-                <ebag.hd.widget.drawable.DrawableTextView
+                <ebag.core.widget.drawable.DrawableTextView
                     android:id="@+id/updateBtn"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y58"
@@ -99,7 +99,7 @@
                         android:textSize="@dimen/x24"
                         tools:ignore="NotSibling" />
                 </RelativeLayout>
-                <ebag.hd.widget.drawable.DrawableTextView
+                <ebag.core.widget.drawable.DrawableTextView
                     android:id="@+id/announceBtn"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y58"
@@ -118,7 +118,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:text="@string/setting_announce"/>
 
-                <ebag.hd.widget.drawable.DrawableTextView
+                <ebag.core.widget.drawable.DrawableTextView
                     android:id="@+id/feedbackBtn"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y58"
@@ -145,7 +145,7 @@
                 android:layout_marginEnd="@dimen/x30"
                 android:layout_marginTop="@dimen/y16"
                 android:background="@drawable/setting_item_bg">
-                <ebag.hd.widget.drawable.DrawableTextView
+                <ebag.core.widget.drawable.DrawableTextView
                     android:id="@+id/aboutBtn"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y58"
@@ -179,7 +179,7 @@
                 android:visibility="gone"
                 tools:visibility="visible"
                 >
-                <ebag.hd.widget.drawable.DrawableTextView
+                <ebag.core.widget.drawable.DrawableTextView
                     android:id="@+id/setBtn"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y58"
@@ -197,7 +197,7 @@
                     android:background="?attr/selectableItemBackground"
                     app:rightDrawableWidth="@dimen/x13"
                     app:rightDrawableHeight="@dimen/x22"/>
-                <ebag.hd.widget.drawable.DrawableTextView
+                <ebag.core.widget.drawable.DrawableTextView
                     android:id="@+id/desktopBtn"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y58"

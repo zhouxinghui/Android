@@ -121,7 +121,7 @@
                 android:textColor="@color/assignment_tv_sub"
                 tools:text="第3题/共10题"
                 />
-            <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/nextQuestion"
+            <ebag.core.widget.drawable.DrawableTextView android:id="@+id/nextQuestion"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="@dimen/x40"
@@ -136,7 +136,7 @@
                 app:rightDrawableWidth="@dimen/x10"
                 app:rightDrawableHeight="@dimen/x19"
                 />
-            <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/previewQuestion"
+            <ebag.core.widget.drawable.DrawableTextView android:id="@+id/previewQuestion"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="?attr/selectableItemBackground"

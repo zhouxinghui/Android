@@ -25,7 +25,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <ebag.hd.widget.drawable.DrawableTextView
+    <ebag.core.widget.drawable.DrawableTextView
         android:id="@+id/class_photo_btn"
         android:layout_width="@dimen/x170"
         android:layout_height="wrap_content"

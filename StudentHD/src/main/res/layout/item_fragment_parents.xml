@@ -76,7 +76,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <ebag.hd.widget.drawable.DrawableTextView
+    <ebag.core.widget.drawable.DrawableTextView
         android:id="@+id/tvPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
         app:layout_constraintBottom_toTopOf="@id/tvAddress"
         app:layout_constraintStart_toEndOf="@id/line2"/>
 
-    <ebag.hd.widget.drawable.DrawableTextView
+    <ebag.core.widget.drawable.DrawableTextView
         android:id="@+id/tvAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

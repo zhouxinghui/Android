@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.yzy.ebag.student.R
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.StringUtils
+import ebag.core.widget.drawable.DrawableTextView
 import ebag.hd.adapter.UnitAdapter
 import ebag.hd.base.BaseListTabActivity
 import ebag.hd.bean.BaseClassesBean
@@ -20,7 +21,6 @@ import ebag.hd.bean.UnitBean
 import ebag.hd.http.EBagApi
 import ebag.hd.widget.ClazzListPopup
 import ebag.hd.widget.ReadRecordTextbookPopup
-import ebag.hd.widget.drawable.DrawableTextView
 
 
 /**

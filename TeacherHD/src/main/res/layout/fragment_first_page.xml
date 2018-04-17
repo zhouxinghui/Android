@@ -40,7 +40,7 @@
         app:layout_constraintRight_toRightOf="parent"
         />
     <!--课堂检测-->
-    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/classTest"
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/classTest"
         style="@style/home_tv_btn"
         android:text="@string/class_test"
         app:leftDrawable="@drawable/home_icon_class_test"
@@ -50,7 +50,7 @@
         app:layout_constraintBottom_toTopOf="@id/horizontal_2"
         />
     <!--课后作业-->
-    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/afterClass"
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/afterClass"
         style="@style/home_tv_btn"
         android:text="@string/after_class"
         app:leftDrawable="@drawable/home_icon_after_class"
@@ -60,7 +60,7 @@
         app:layout_constraintBottom_toTopOf="@id/horizontal_2"
         />
     <!--考试试卷-->
-    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/testPaper"
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/testPaper"
         style="@style/home_tv_btn"
         android:text="@string/test_paper"
         app:leftDrawable="@drawable/home_icon_test_paper"
@@ -70,7 +70,7 @@
         app:layout_constraintBottom_toTopOf="@id/horizontal_2"
         />
     <!--检查作业-->
-    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/checkHomework"
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/checkHomework"
         style="@style/home_tv_btn"
         android:text="@string/check_homework"
         app:leftDrawable="@drawable/home_icon_check_homework"

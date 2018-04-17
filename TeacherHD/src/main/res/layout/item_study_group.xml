@@ -72,7 +72,7 @@
         app:layout_constraintStart_toStartOf="@id/ivHead"
         app:layout_constraintTop_toBottomOf="@id/ivHead" />
 
-    <ebag.hd.widget.drawable.DrawableTextView
+    <ebag.core.widget.drawable.DrawableTextView
         android:id="@+id/manageGroup"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/x54"
@@ -91,7 +91,7 @@
         app:layout_constraintEnd_toStartOf="@id/deleteTv"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         />
-    <ebag.hd.widget.drawable.DrawableTextView
+    <ebag.core.widget.drawable.DrawableTextView
         android:id="@+id/deleteTv"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/x54"

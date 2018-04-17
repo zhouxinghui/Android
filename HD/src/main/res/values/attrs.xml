@@ -1,38 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="DrawableTextView">
-        <attr name="leftDrawable" format="reference" />
-        <attr name="leftDrawableWidth" format="dimension" />
-        <attr name="leftDrawableHeight" format="dimension" />
-        <attr name="leftClickedDrawable" format="reference" />
-        <attr name="leftSelectedDrawable" format="reference" />
-
-
-        <attr name="rightDrawable" format="reference" />
-        <attr name="rightDrawableWidth" format="dimension" />
-        <attr name="rightDrawableHeight" format="dimension" />
-        <attr name="rightClickedDrawable" format="reference" />
-        <attr name="rightSelectedDrawable" format="reference" />
-
-        <attr name="topDrawable" format="reference" />
-        <attr name="topDrawableWidth" format="dimension" />
-        <attr name="topDrawableHeight" format="dimension" />
-        <attr name="topClickedDrawable" format="reference" />
-        <attr name="topSelectedDrawable" format="reference" />
-
-        <attr name="bottomDrawable" format="reference" />
-        <attr name="bottomDrawableWidth" format="dimension" />
-        <attr name="bottomDrawableHeight" format="dimension" />
-        <attr name="bottomClickedDrawable" format="reference" />
-        <attr name="bottomSelectedDrawable" format="reference" />
-
-        <attr name="selectedColor" format="reference" />
-        <attr name="clickedColor" format="reference" />
-
-        <attr name="selectedTextColor" format="color" />
-        <attr name="clickedTextColor" format="color" />
-    </declare-styleable>
-
     <declare-styleable name="Title_bar">
 
         <attr name="titleText" format="string"/>

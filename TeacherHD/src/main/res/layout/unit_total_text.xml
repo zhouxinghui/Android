@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ebag.hd.widget.drawable.DrawableTextView
+<ebag.core.widget.drawable.DrawableTextView
     android:id="@+id/totalUnitTv"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"

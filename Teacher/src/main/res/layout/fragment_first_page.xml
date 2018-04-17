@@ -4,13 +4,118 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
+    <android.support.constraint.Guideline android:id="@+id/horizontal_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="首页"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3"/>
+    <android.support.constraint.Guideline android:id="@+id/horizontal_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65" />
+    <!--banner-->
+    <com.youth.banner.Banner android:id="@+id/banner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/y10"
+        app:delay_time="4000"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/horizontal_1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/classTest"
+        style="@style/home_tv_btn"
+        android:text="课堂检测"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_1"
+        app:layout_constraintEnd_toStartOf="@id/afterClass"
+        app:layout_constraintBottom_toTopOf="@id/book"
+        android:clickable="true"
+        />
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/afterClass"
+        style="@style/home_tv_btn"
+        android:text="课后作业"
+        app:layout_constraintTop_toTopOf="@id/classTest"
+        app:layout_constraintStart_toEndOf="@id/classTest"
+        app:layout_constraintEnd_toStartOf="@id/testPaper"
+        app:layout_constraintBottom_toTopOf="@id/book"
+        />
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/testPaper"
+        style="@style/home_tv_btn"
+        android:text="考试试卷"
+        app:layout_constraintTop_toTopOf="@id/classTest"
+        app:layout_constraintStart_toEndOf="@id/afterClass"
+        app:layout_constraintEnd_toStartOf="@id/checkHomework"
+        app:layout_constraintBottom_toTopOf="@id/book"
+        />
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/checkHomework"
+        style="@style/home_tv_btn"
+        android:text="检查作业"
+        app:layout_constraintTop_toTopOf="@id/classTest"
+        app:layout_constraintStart_toEndOf="@id/testPaper"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/book"
+        />
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/book"
+        style="@style/home_tv_btn"
+        android:text="我的课本"
+        app:layout_constraintTop_toBottomOf="@id/classTest"
+        app:layout_constraintBottom_toTopOf="@id/horizontal_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/prepare"
+        />
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/prepare"
+        style="@style/home_tv_btn"
+        android:text="我的备课"
+        app:layout_constraintTop_toBottomOf="@id/classTest"
+        app:layout_constraintBottom_toTopOf="@id/horizontal_2"
+        app:layout_constraintStart_toEndOf="@id/book"
+        app:layout_constraintEnd_toStartOf="@id/zixi"
+        />
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/zixi"
+        style="@style/home_tv_btn"
+        android:text="学生自习"
+        app:layout_constraintTop_toBottomOf="@id/classTest"
+        app:layout_constraintBottom_toTopOf="@id/horizontal_2"
+        app:layout_constraintStart_toEndOf="@id/prepare"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        />
+        android:background="@color/white"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="作业进度"
+            android:textSize="@dimen/tv_normal"
+            android:textColor="@color/tv_normal"
+            android:paddingStart="@dimen/x10"
+            android:paddingTop="@dimen/y10"
+            android:paddingBottom="@dimen/y10"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray"
+            android:layout_marginStart="@dimen/x10"
+            android:layout_marginEnd="@dimen/x10"
+            android:layout_marginBottom="@dimen/y10"
+            />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            />
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

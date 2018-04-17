@@ -13,12 +13,12 @@
     <LinearLayout android:id="@+id/cityBtn"
         style="@style/create_class_ll"
         >
-        <ebag.hd.widget.drawable.DrawableTextView
+        <ebag.core.widget.drawable.DrawableTextView
             style="@style/create_class_left_tv"
             app:leftDrawable="@drawable/create_class_city"
             android:text="@string/city"
             />
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/cityNameTv"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/cityNameTv"
             style="@style/create_class_right_tv"
             android:text="@string/select_city_hint"
             />
@@ -26,12 +26,12 @@
     <LinearLayout android:id="@+id/campusBtn"
         style="@style/create_class_ll"
         >
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/campusTv"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/campusTv"
             style="@style/create_class_left_tv"
             app:leftDrawable="@drawable/create_class_campu"
             android:text="@string/campus"
             />
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/campusName"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/campusName"
             style="@style/create_class_right_tv"
             android:layout_width="wrap_content"
             android:textColor="@color/title_text_color"

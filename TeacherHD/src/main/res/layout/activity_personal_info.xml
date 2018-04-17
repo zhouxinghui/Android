@@ -55,7 +55,7 @@
                 <TextView style="@style/personal_info_left_tv"
                     android:text="@string/name"
                     />
-                <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/name"
+                <ebag.core.widget.drawable.DrawableTextView android:id="@+id/name"
                     style="@style/personal_info_right_tv"
                     />
             </LinearLayout>
@@ -67,7 +67,7 @@
                 <TextView style="@style/personal_info_left_tv"
                     android:text="@string/bag"
                     />
-                <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/bag"
+                <ebag.core.widget.drawable.DrawableTextView android:id="@+id/bag"
                     style="@style/personal_info_right_tv"
                     />
             </LinearLayout>
@@ -79,7 +79,7 @@
                 <TextView style="@style/personal_info_left_tv"
                     android:text="@string/sex"
                     />
-                <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/sex"
+                <ebag.core.widget.drawable.DrawableTextView android:id="@+id/sex"
                     style="@style/personal_info_right_tv"
                     />
             </LinearLayout>
@@ -91,7 +91,7 @@
                 <TextView style="@style/personal_info_left_tv"
                     android:text="@string/contact_information"
                     />
-                <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/contactInformation"
+                <ebag.core.widget.drawable.DrawableTextView android:id="@+id/contactInformation"
                     style="@style/personal_info_right_tv"
                     />
             </LinearLayout>
@@ -103,7 +103,7 @@
                 <TextView style="@style/personal_info_left_tv"
                     android:text="@string/family_address"
                     />
-                <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/familyAddress"
+                <ebag.core.widget.drawable.DrawableTextView android:id="@+id/familyAddress"
                     style="@style/personal_info_right_tv"
                     />
             </LinearLayout>
@@ -115,7 +115,7 @@
                 <TextView style="@style/personal_info_left_tv"
                     android:text="@string/school_name"
                     />
-                <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/schoolName"
+                <ebag.core.widget.drawable.DrawableTextView android:id="@+id/schoolName"
                     style="@style/personal_info_right_tv"
                     />
             </LinearLayout>

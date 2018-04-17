@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         app:titleText="类型选择"/>
 
-    <ebag.hd.widget.drawable.DrawableTextView
+    <ebag.core.widget.drawable.DrawableTextView
         android:id="@+id/resultBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         app:layout_constraintEnd_toStartOf="@id/courseBtn"
         android:background="?attr/selectableItemBackground"/>
 
-    <ebag.hd.widget.drawable.DrawableTextView
+    <ebag.core.widget.drawable.DrawableTextView
         android:id="@+id/courseBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:background="?attr/selectableItemBackground"/>
 
-    <ebag.hd.widget.drawable.DrawableTextView
+    <ebag.core.widget.drawable.DrawableTextView
         android:id="@+id/momentBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
         app:layout_constraintEnd_toStartOf="@id/experienceBtn"
         android:background="?attr/selectableItemBackground"/>
 
-    <ebag.hd.widget.drawable.DrawableTextView
+    <ebag.core.widget.drawable.DrawableTextView
         android:id="@+id/experienceBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:background="?attr/selectableItemBackground"/>
 
-    <ebag.hd.widget.drawable.DrawableTextView
+    <ebag.core.widget.drawable.DrawableTextView
         android:id="@+id/diaryBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

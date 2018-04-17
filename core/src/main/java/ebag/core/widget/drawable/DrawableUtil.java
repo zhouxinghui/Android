@@ -1,11 +1,11 @@
-package ebag.hd.widget.drawable;
+package ebag.core.widget.drawable;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
-import ebag.hd.R;
+import ebag.core.R;
 
 
 /**

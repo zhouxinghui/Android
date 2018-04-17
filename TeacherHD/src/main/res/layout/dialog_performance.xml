@@ -36,7 +36,7 @@
         app:layout_constraintEnd_toStartOf="@id/correctionBtn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nameTv">
-        <ebag.hd.widget.drawable.DrawableTextView
+        <ebag.core.widget.drawable.DrawableTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -65,7 +65,7 @@
         app:layout_constraintStart_toEndOf="@id/praiseBtn"
         app:layout_constraintTop_toTopOf="@id/praiseBtn"
         app:layout_constraintBottom_toBottomOf="@id/praiseBtn">
-        <ebag.hd.widget.drawable.DrawableTextView
+        <ebag.core.widget.drawable.DrawableTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="需要改正"

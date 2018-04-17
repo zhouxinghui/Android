@@ -26,7 +26,7 @@
             android:id="@+id/re"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/versionUpdate"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/versionUpdate"
             style="@style/setting_item"
             android:text="@string/version_update"
             app:leftDrawable="@drawable/setting_update"
@@ -42,17 +42,17 @@
                 tools:ignore="NotSibling" />
 
         </RelativeLayout>
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/officeNotice"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/officeNotice"
             style="@style/setting_item"
             android:text="@string/office_notice"
             app:leftDrawable="@drawable/setting_notice"
             />
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/userFeedback"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/userFeedback"
             style="@style/setting_item"
             android:text="@string/user_feedback"
             app:leftDrawable="@drawable/setting_feedback"
             />
-        <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/aboutUs"
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/aboutUs"
             style="@style/setting_item"
             android:text="@string/about_us"
             app:leftDrawable="@drawable/setting_about_us"

@@ -20,7 +20,7 @@
         android:text="@string/preview"
         app:layout_constraintEnd_toStartOf="@id/publishTv"
         />
-    <ebag.hd.widget.drawable.DrawableTextView android:id="@+id/questionNumTv"
+    <ebag.core.widget.drawable.DrawableTextView android:id="@+id/questionNumTv"
         style="@style/question_bottom_tv"
         android:text="0题"
         app:leftDrawable="@drawable/question_select_num_icon"
