@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <ebag.mobile.weidget.TitleBar android:id="@+id/titleBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/titleBar"
+        android:orientation="vertical"
+        tools:context="com.yzy.ebag.teacher.module.homework.AssignmentActivity">
+        <!--班级-->
+        <LinearLayout android:id="@+id/clazzBtn"
+            style="@style/assignment_ll"
+            >
+            <TextView
+                style="@style/assignment_tv"
+                android:text="班级"
+                />
+            <ebag.core.widget.drawable.DrawableTextView android:id="@+id/clazzTv"
+                style="@style/assignment_gray_tv"
+                tools:text="一年级一班"
+                />
+        </LinearLayout>
+        <View
+            style="@style/line"
+            />
+        <!--教材-->
+        <LinearLayout android:id="@+id/textbookBtn"
+            style="@style/assignment_ll"
+            >
+            <TextView
+                style="@style/assignment_tv"
+                android:text="教材"
+                />
+            <ebag.core.widget.drawable.DrawableTextView android:id="@+id/textBookVersion"
+                style="@style/assignment_gray_tv"
+                tools:text="一年级一班"
+                />
+        </LinearLayout>
+        <View
+            style="@style/line"/>
+        <!--单元-->
+        <LinearLayout android:id="@+id/unitBtn"
+            style="@style/assignment_ll"
+            >
+            <TextView
+                style="@style/assignment_tv"
+                android:text="单元"
+                />
+            <ebag.core.widget.drawable.DrawableTextView android:id="@+id/unitTv"
+                style="@style/assignment_gray_tv"
+                tools:text="一年级一班"
+                />
+        </LinearLayout>
+        <View
+            style="@style/line"/>
+        <!--难度-->
+        <LinearLayout
+            style="@style/assignment_ll"
+            >
+            <TextView
+                style="@style/assignment_tv"
+                android:text="难度"
+                />
+            <RadioGroup android:id="@+id/difficultyGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginStart="@dimen/x10"
+                >
+                <RadioButton android:id="@+id/unlimitedBtn"
+                    android:checked="true"
+                    style="@style/assignment_radio_button"
+                    android:text="不限"
+                    />
+                <RadioButton android:id="@+id/easyBtn"
+                    style="@style/assignment_radio_button"
+                    android:text="容易"
+                    />
+                <RadioButton android:id="@+id/secondaryBtn"
+                    style="@style/assignment_radio_button"
+                    android:text="中等"
+                    />
+                <RadioButton android:id="@+id/hardBtn"
+                    style="@style/assignment_radio_button"
+                    android:text="困难"
+                    />
+            </RadioGroup>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="题型"
+            android:textSize="@dimen/tv_normal"
+            android:textColor="@color/tv_normal"
+            android:paddingTop="@dimen/y15"
+            android:paddingBottom="@dimen/y15"
+            android:paddingStart="@dimen/x10"
+            android:paddingEnd="@dimen/x10"
+            />
+        <android.support.v7.widget.RecyclerView android:id="@+id/questionsRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+    <ebag.core.widget.empty.StateView android:id="@+id/stateView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>
+

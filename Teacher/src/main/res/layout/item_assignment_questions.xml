@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/y10"
+    android:layout_marginBottom="@dimen/y10"
+    android:background="?attr/selectableItemBackground"
+    >
+    <ImageView android:id="@+id/question_image_id"
+        android:layout_width="@dimen/x50"
+        android:layout_height="@dimen/x50"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+    <TextView android:id="@+id/point_id"
+        style="@style/performance_point"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/red_point"
+        app:layout_constraintTop_toTopOf="@id/question_image_id"
+        app:layout_constraintRight_toRightOf="@id/question_image_id"
+        />
+    <TextView android:id="@+id/question_name_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/tv_normal"
+        android:textSize="@dimen/tv_normal"
+        android:layout_marginTop="@dimen/y10"
+        app:layout_constraintTop_toBottomOf="@id/question_image_id"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+</android.support.constraint.ConstraintLayout>

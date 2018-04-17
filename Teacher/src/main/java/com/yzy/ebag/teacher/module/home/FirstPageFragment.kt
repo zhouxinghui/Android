@@ -13,8 +13,10 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.youth.banner.loader.ImageLoader
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.base.Constants
 import com.yzy.ebag.teacher.bean.FirstPageBean
 import com.yzy.ebag.teacher.http.TeacherApi
+import com.yzy.ebag.teacher.module.homework.AssignmentActivity
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.LoadingDialogUtil
@@ -60,6 +62,25 @@ class FirstPageFragment: BaseFragment() {
         val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = layoutManager
+
+        classTest.setOnClickListener {
+            AssignmentActivity.jump(mContext, Constants.ASSIGN_WORK, classTest.text.toString())
+        }
+        afterClass.setOnClickListener {
+            AssignmentActivity.jump(mContext, Constants.ASSIGN_AFTER, afterClass.text.toString())
+        }
+        testPaper.setOnClickListener {
+            AssignmentActivity.jump(mContext, Constants.ASSIGN_TEST_PAPER, testPaper.text.toString())
+        }
+        prepare.setOnClickListener {
+
+        }
+        checkHomework.setOnClickListener {
+        }
+        book.setOnClickListener {
+        }
+        zixi.setOnClickListener {
+        }
 
         adapter.setOnItemClickListener { holder, view, position ->
             val bean = adapter.datas[position]
