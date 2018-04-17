@@ -8,7 +8,6 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.BaseSubjectBean
 import ebag.core.base.BaseDialog
-import ebag.core.util.DensityUtil
 import ebag.core.util.T
 import kotlinx.android.synthetic.main.dialog_select_subject.*
 
@@ -36,11 +35,11 @@ class SelectSubjectDialog(context: Context): BaseDialog(context) {
     }
 
     override fun setWidth(): Int {
-        return DensityUtil.dip2px(context, context.resources.getDimensionPixelSize(R.dimen.x350).toFloat())
+        return context.resources.getDimensionPixelSize(R.dimen.x450)
     }
 
     override fun setHeight(): Int {
-        return DensityUtil.dip2px(context, context.resources.getDimensionPixelSize(R.dimen.y350).toFloat())
+        return context.resources.getDimensionPixelSize(R.dimen.y450)
     }
     fun show(subjectList: ArrayList<BaseSubjectBean>){
         subjectAdapter.data.clear()

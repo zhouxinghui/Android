@@ -13,7 +13,6 @@ import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.base.BaseDialog
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
-import ebag.core.util.DensityUtil
 import ebag.core.util.StringUtils
 import ebag.core.util.T
 import kotlinx.android.synthetic.main.dialog_textbook_version.*
@@ -27,11 +26,11 @@ class AddCourseDialog(context: Context): BaseDialog(context) {
     }
 
     override fun setWidth(): Int {
-        return DensityUtil.dip2px(context, context.resources.getDimensionPixelSize(R.dimen.x400).toFloat())
+        return context.resources.getDimensionPixelSize(R.dimen.x550)
     }
 
     override fun setHeight(): Int {
-        return DensityUtil.dip2px(context, context.resources.getDimensionPixelSize(R.dimen.y400).toFloat())
+        return context.resources.getDimensionPixelSize(R.dimen.y550)
     }
     private var subCode = ""
     private var subName = ""
