@@ -557,6 +557,8 @@ class ReadDetailActivity: BaseActivity() {
                     LoadingDialogUtil.closeLoadingDialog()
                     if(entity?.err_no == 3302){
                         baiduOauth()
+                    }else if (entity?.err_no == 3301){
+                        T.show(this@ReadDetailActivity, "当前录音质量过低，无法识别，请重试")
                     }else{
                         if(entity != null && entity.result.isNotEmpty()){
                             tempRecognizeString = entity.result[0]
