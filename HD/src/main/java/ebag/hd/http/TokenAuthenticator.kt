@@ -30,7 +30,7 @@ class TokenAuthenticator: Authenticator {
         jsonObject.put("thirdPartyToken", thirdPartyToken)
 
         val requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonObject.toString())
-        val request = Request.Builder().url("${Constants.BASE_URL}user/login/v1").post(requestBody).build()
+        val request = Request.Builder().url("${ebag.core.util.Constants.BASE_URL}user/login/v1").post(requestBody).build()
         val mResponse = OkHttpClient().newCall(request).execute()
         val body = mResponse.body()?.string() ?: ""
         val json = com.alibaba.fastjson.JSONObject.parseObject(body)
