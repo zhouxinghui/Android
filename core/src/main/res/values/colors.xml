@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="gray">#ECE5E5</color>
+    <color name="gray_dark">#DDD0D0</color>
     <color name="white">#FFFFFF</color>
     <color name="light_blue">#F0F6FE</color>
     <color name="ripple">#20000000</color>

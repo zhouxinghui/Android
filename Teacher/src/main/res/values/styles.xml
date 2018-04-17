@@ -16,6 +16,9 @@
         <item name="android:textSize">@dimen/tv_normal</item>
         <item name="android:textColor">@color/tv_normal</item>
         <item name="android:gravity">center</item>
+        <item name="topDrawableWidth">@dimen/x34</item>
+        <item name="topDrawableHeight">@dimen/x34</item>
+        <item name="android:paddingTop">@dimen/y10</item>
     </style>
     <!--Home end-->
 </resources>

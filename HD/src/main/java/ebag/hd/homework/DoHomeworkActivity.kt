@@ -318,6 +318,7 @@ class DoHomeworkActivity: BaseActivity() {
             Constants.REPORT_TYPE ->{
                 questionAdapter.canDo = false
                 questionAdapter.isShowAnalyseTv = true
+                questionAdapter.showResult = true
             }
             Constants.ERROR_TOPIC_TYPE ->{
                 questionAdapter.canDo = true

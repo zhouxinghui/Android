@@ -26,11 +26,11 @@ class MainActivity : BaseActivity() {
                 viewPager.setCurrentItem(position, false)
             }
         })
-        bottomNavigationBar.setMode(BottomNavigationBar.MODE_SHIFTING)
+        bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED)
         bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE)
-        bottomNavigationBar.addItem(BottomNavigationItem(R.drawable.teacher_logo, R.string.first_page).setActiveColorResource(R.color.white))
-                .addItem(BottomNavigationItem(R.drawable.teacher_logo, R.string.clazz).setActiveColorResource(R.color.white))
-                .addItem(BottomNavigationItem(R.drawable.teacher_logo, R.string.mine).setActiveColorResource(R.color.white))
+        bottomNavigationBar.addItem(BottomNavigationItem(R.drawable.icon_home_page, R.string.first_page).setActiveColorResource(R.color.white))
+                .addItem(BottomNavigationItem(R.drawable.icon_home_clazz, R.string.clazz).setActiveColorResource(R.color.white))
+                .addItem(BottomNavigationItem(R.drawable.icon_home_mine, R.string.mine).setActiveColorResource(R.color.white))
                 .setFirstSelectedPosition(0)
                 .initialise() //所有的设置需在调用该方法前完成
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
