@@ -63,50 +63,53 @@ class ShopOrderFragment : BaseFragment() {
         //adapter.setOnItemClickListener { adapter, view, position -> startActivity(Intent(activity, OrderDetailsActivity::class.java)) }
         mAdapter.setOnItemChildClickListener { adapter, view, position ->
 
-            if ((view as TextView).text == "确认收货") {
-                val oid = mData[position].oid
-                val orderProductVOs = mData[position].orderProductVOs
-                val list: MutableList<ShopStatusBean> = mutableListOf()
-                orderProductVOs.forEach {
-                    val s = ShopStatusBean(it.shopId, it.numbers)
-                    list.add(s)
-                }
-                EBagApi.updateShopOrderStaus(oid, list, object : RequestCallBack<String>() {
+            when {
+                (view as TextView).text == "确认收货" -> {
+                    val oid = mData[position].oid
+                    val orderProductVOs = mData[position].orderProductVOs
+                    val list: MutableList<ShopStatusBean> = mutableListOf()
+                    orderProductVOs.forEach {
+                        val s = ShopStatusBean(it.shopId, it.numbers)
+                        list.add(s)
+                    }
+                    EBagApi.updateShopOrderStaus(oid, list, object : RequestCallBack<String>() {
 
 
-                    override fun onSuccess(entity: String?) {
-                        T.show(activity, "收货成功")
-                        mAdapter.remove(position)
-                        mAdapter.notifyItemRemoved(position)
-                        if (mData.isEmpty()) {
-                            stateView.showEmpty()
+                        override fun onSuccess(entity: String?) {
+                            T.show(activity, "收货成功")
+                            mAdapter.remove(position)
+                            mAdapter.notifyItemRemoved(position)
+                            if (mData.isEmpty()) {
+                                stateView.showEmpty()
+                            }
                         }
-                    }
 
-                    override fun onError(exception: Throwable) {
-                        exception.handleThrowable(activity)
-                    }
+                        override fun onError(exception: Throwable) {
+                            exception.handleThrowable(activity)
+                        }
 
-                })
+                    })
 
-            } else {
-                val intent = Intent(activity, OrderDetailsActivity::class.java)
-                intent.putExtra("number", mData[position].oid)
-                val data: ArrayList<ShopListBean.ListBean> = arrayListOf()
-                mData[position].orderProductVOs.forEach {
-                    val bean = ShopListBean.ListBean()
-                    bean.discountPrice = it.price
-                    bean.shoppingName = it.shopName
-                    bean.numbers = it.numbers.toInt()
-                    bean.ysbMoney = it.ysbMoney
-                    bean.shopUrl = it.shopImg
-                    data.add(bean)
                 }
-                intent.putExtra("datas", data)
-                intent.putExtra("which", 1)
-                intent.putExtra("freight", mData[position].freight ?: "0")
-                intent.putExtra("addressStr", mData[position].address)
-                startActivity(intent)
+                else -> {
+                    val intent = Intent(activity, OrderDetailsActivity::class.java)
+                    intent.putExtra("number", mData[position].oid)
+                    val data: ArrayList<ShopListBean.ListBean> = arrayListOf()
+                    mData[position].orderProductVOs.forEach {
+                        val bean = ShopListBean.ListBean()
+                        bean.discountPrice = it.price
+                        bean.shoppingName = it.shopName
+                        bean.numbers = it.numbers.toInt()
+                        bean.ysbMoney = it.ysbMoney
+                        bean.shopUrl = it.shopImg
+                        data.add(bean)
+                    }
+                    intent.putExtra("datas", data)
+                    intent.putExtra("which", 1)
+                    intent.putExtra("freight", mData[position].freight ?: "0")
+                    intent.putExtra("addressStr", mData[position].address)
+                    startActivity(intent)
+                }
             }
         }
         flag = true
@@ -158,7 +161,7 @@ class ShopOrderFragment : BaseFragment() {
             if (flag and !isLoaded) {
                 request()
             } else {
-                if (index<0) {
+                if (index < 0) {
                     refreshlayout?.isRefreshing = true
                     request()
                 }

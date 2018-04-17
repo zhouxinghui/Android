@@ -40,7 +40,6 @@ class OrderListAdapter(private val context: Context, layout: Int, data: MutableL
             "3" -> {
                 statusText = "已收货"
                 statusSubtext = "已收货"
-                helper.addOnClickListener(R.id.order_btn)
             }
 
 
