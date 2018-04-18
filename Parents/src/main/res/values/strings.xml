@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">云书包家长端</string>
+
+    <string-array name="main_rv_label">
+        <item>作业错题本</item>
+        <item>家长激励</item>
+        <item>学生试卷</item>
+        <item>学生自习室</item>
+        <item>我的孩子</item>
+        <item>课堂表现</item>
+    </string-array>
 </resources>
