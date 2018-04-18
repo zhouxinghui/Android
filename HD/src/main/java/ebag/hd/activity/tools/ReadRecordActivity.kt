@@ -45,10 +45,7 @@ class ReadRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
                 showError("暂无班级信息")
                 return
             }
-            classId = entity[0].classId
-            classesTv.text = entity[0].className
             classes.addAll(entity)
-            request()
         }
 
         override fun onError(exception: Throwable) {
@@ -79,13 +76,12 @@ class ReadRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
     }
     private val classes = ArrayList<BaseClassesBean>()
     private lateinit var tvMaterial: TextView
-    private var classId = ""
+    private var classId: String? = ""
     private lateinit var unitId: String
     private var bookVersionId = ""
     private var subCode = "yy"
     private var isFirstRequest = true
     override fun loadConfig() {
-        enableNetWork(false)
         EBagApi.getMyClasses(classesRequest)
         setTitleContent("每日跟读")
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x368))
@@ -122,8 +118,11 @@ class ReadRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
     }
 
     override fun parentToList(parent: EditionBean?): List<UnitBean>? {
-        if (isFirstRequest)
+        if (isFirstRequest) {
             textBookTv.text = parent?.bookVersion
+            classId = parent?.classId
+            classesTv.text = parent?.className
+        }
         return parent?.resultBookUnitOrCatalogVos
     }
 

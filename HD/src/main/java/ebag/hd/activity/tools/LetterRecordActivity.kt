@@ -45,10 +45,7 @@ class LetterRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>()
                 showError("暂无班级信息")
                 return
             }
-            classId = entity[0].classId
-            classesTv.text = entity[0].className
             classes.addAll(entity)
-            request()
         }
 
         override fun onError(exception: Throwable) {
@@ -84,7 +81,6 @@ class LetterRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>()
     private lateinit var unitId: String
     private var subCode = "yw"
     override fun loadConfig() {
-        enableNetWork(false)
         setTitleContent("每日练字")
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x368))
 
@@ -136,8 +132,11 @@ class LetterRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>()
     }
 
     override fun parentToList(parent: EditionBean?): List<UnitBean>? {
-        if (isFirstRequest)
+        if (isFirstRequest) {
             textBookTv.text = parent?.bookVersion
+            classId = parent!!.classId
+            classesTv.text = parent.className
+        }
         return parent?.resultBookUnitOrCatalogVos
     }
 

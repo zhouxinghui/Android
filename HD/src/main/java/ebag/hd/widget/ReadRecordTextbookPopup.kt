@@ -97,7 +97,7 @@ class ReadRecordTextbookPopup(context: Context): PopupWindow(context)  {
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.x24))
         textView
     }
-    private var classId = ""
+    private var classId: String? = ""
     private var requestSubCode: String? = ""
     init {
         contentView = LayoutInflater.from(context).inflate(R.layout.popup_read_record_textbook, null)
@@ -188,7 +188,7 @@ class ReadRecordTextbookPopup(context: Context): PopupWindow(context)  {
         }
     }
 
-    fun setRequest(classId: String, subCode: String? = null){
+    fun setRequest(classId: String?, subCode: String? = null){
         if (this.classId != classId){
             this.classId = classId
             this.requestSubCode = subCode

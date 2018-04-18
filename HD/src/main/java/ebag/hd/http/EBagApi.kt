@@ -418,7 +418,7 @@ object EBagApi {
     /**
      * 获取单元数据
      */
-    fun getUnit(classId: String, subCode: String, callback: RequestCallBack<EditionBean>) {
+    fun getUnit(classId: String?, subCode: String, callback: RequestCallBack<EditionBean>) {
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
         if (!StringUtils.isEmpty(subCode))
@@ -511,7 +511,7 @@ object EBagApi {
     /**
      * 跟读-报告-切换版本
      */
-    fun readRecordVersion(classId: String, subCode: String?, callback: RequestCallBack<ReadRecordVersionBean>) {
+    fun readRecordVersion(classId: String?, subCode: String?, callback: RequestCallBack<ReadRecordVersionBean>) {
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
         if (!StringUtils.isEmpty(subCode))

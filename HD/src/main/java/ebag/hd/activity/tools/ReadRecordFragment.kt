@@ -21,7 +21,7 @@ class ReadRecordFragment : BaseListFragment<List<ReadRecordBaseBean>, ReadRecord
     private var unitCode = ""
     private var classId = ""
     companion object {
-        fun newInstance(unitCode: String, classId: String): ReadRecordFragment{
+        fun newInstance(unitCode: String, classId: String?): ReadRecordFragment{
             val fragment = ReadRecordFragment()
             val bundle = Bundle()
             bundle.putString("unitCode", unitCode)
