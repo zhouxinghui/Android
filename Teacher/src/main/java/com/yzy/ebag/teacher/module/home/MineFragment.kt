@@ -8,6 +8,7 @@ import com.yzy.ebag.teacher.module.account.LoginActivity
 import ebag.core.base.App
 import ebag.core.base.BaseFragment
 import ebag.core.util.AppManager
+import ebag.core.util.loadImage
 import ebag.mobile.bean.Constants
 import kotlinx.android.synthetic.main.fragment_mine.*
 
@@ -37,5 +38,7 @@ class MineFragment: BaseFragment() {
             startActivity(Intent(mContext, LoginActivity::class.java).putExtra(Constants.KEY_TO_MAIN, true))
             AppManager.finishAllActivity()
         }
+
+        imageView.loadImage("https://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/OralLanguage/00ce0945b6db492e84b0d17162a9e836Unit1%20read%20and%20fill%20in%20the%20table%20PartB.mp4")
     }
 }

@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/y10"
-    android:layout_marginBottom="@dimen/y10"
+    android:paddingTop="@dimen/y10"
+    android:paddingBottom="@dimen/y10"
     android:background="?attr/selectableItemBackground"
     >
     <ImageView android:id="@+id/question_image_id"

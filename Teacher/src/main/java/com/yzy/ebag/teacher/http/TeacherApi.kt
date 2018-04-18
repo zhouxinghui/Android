@@ -1,9 +1,6 @@
 package com.yzy.ebag.teacher.http
 
-import com.yzy.ebag.teacher.bean.AssignClassBean
-import com.yzy.ebag.teacher.bean.AssignmentBean
-import com.yzy.ebag.teacher.bean.FirstPageBean
-import com.yzy.ebag.teacher.bean.TestPaperListBean
+import com.yzy.ebag.teacher.bean.*
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.StringUtils
 import ebag.mobile.http.EBagApi
@@ -74,5 +71,12 @@ object TeacherApi {
         jsonObject.put("page",1)
         jsonObject.put("pageSize",100)
         EBagApi.request(teacherService.testPaperList("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**根据班级获取教材版本*/
+    fun searchBookVersion(classesId: List<String>, callback: RequestCallBack<BookVersionBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("clazzIds", JSONArray(classesId))
+        EBagApi.request(teacherService.searchBookVersion("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

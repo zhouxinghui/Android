@@ -15,4 +15,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         />
+    <ImageView android:id="@+id/imageView"
+        android:layout_width="@dimen/x50"
+        android:layout_height="@dimen/x50"
+        />
 </android.support.constraint.ConstraintLayout>

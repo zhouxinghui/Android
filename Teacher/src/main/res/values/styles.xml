@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
     <!--Home start-->
@@ -31,6 +31,7 @@
         <item name="android:paddingEnd">@dimen/x10</item>
         <item name="android:paddingTop">@dimen/y20</item>
         <item name="android:paddingBottom">@dimen/y20</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
     </style>
     <style name="assignment_tv">
         <item name="android:layout_width">wrap_content</item>
