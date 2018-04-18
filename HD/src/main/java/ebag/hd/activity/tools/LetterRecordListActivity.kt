@@ -106,7 +106,7 @@ class LetterRecordListActivity: BaseListActivity<LetterDescBean, LetterDescBean.
         }*/
 
         override fun convert(helper: BaseViewHolder, item: LetterDescBean.NewWordsBean?) {
-            helper.getView<ImageView>(R.id.img_id).loadHead("")
+            helper.getView<ImageView>(R.id.img_id).loadHead(item?.headUrl)
             helper.setText(R.id.nameTv, "${item?.name} ${item?.ysbCode}")
                     .setText(R.id.tvTime, "时间：${DateUtil.getDateTime(item?.createDate ?: 0, "yyyy-MM-dd HH:mm")}")
 

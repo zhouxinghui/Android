@@ -72,6 +72,15 @@ public class LetterDescBean implements Serializable, MultiItemEntity {
         private String ysbCode;
         private String name;
         private String timeLength;
+        private String headUrl;
+
+        public String getHeadUrl() {
+            return headUrl;
+        }
+
+        public void setHeadUrl(String headUrl) {
+            this.headUrl = headUrl;
+        }
 
         public String getPage() {
             return page;
