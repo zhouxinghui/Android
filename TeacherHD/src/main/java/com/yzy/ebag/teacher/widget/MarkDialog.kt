@@ -64,6 +64,7 @@ class MarkDialog(context: Context): BaseDialog(context) {
         this.bean = bean
         this.homeworkId = homeworkId
         this.questionId = questionId
+        markEdit.setText("")
         uid = bean?.uid ?: ""
         nameAndBagId.text = "${bean?.studentName}    书包号：${bean?.ysbCode}"
         val answer = bean?.studentAnswer
