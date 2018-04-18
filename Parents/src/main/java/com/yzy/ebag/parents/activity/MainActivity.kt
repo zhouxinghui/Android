@@ -28,7 +28,7 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
         rb_main.performClick()
         viewpager.offscreenPageLimit = 3
         viewpager.adapter = pagerAdapter
-
+        group.setOnCheckedChangeListener(this)
 
     }
 

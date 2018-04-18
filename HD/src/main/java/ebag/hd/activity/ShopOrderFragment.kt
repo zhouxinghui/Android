@@ -91,7 +91,7 @@ class ShopOrderFragment : BaseFragment() {
                     })
 
                 }
-                else -> {
+                view.text == "付款" -> {
                     val intent = Intent(activity, OrderDetailsActivity::class.java)
                     intent.putExtra("number", mData[position].oid)
                     val data: ArrayList<ShopListBean.ListBean> = arrayListOf()

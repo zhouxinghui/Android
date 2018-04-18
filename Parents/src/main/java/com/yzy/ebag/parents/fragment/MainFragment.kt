@@ -30,6 +30,7 @@ class MainFragment : BaseFragment() {
     }
 
     override fun initViews(rootView: View) {
+
         list.add(R.drawable.banner)
         banner.setImageLoader(GlideImageLoader())
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
@@ -38,6 +39,9 @@ class MainFragment : BaseFragment() {
         banner.setIndicatorGravity(BannerConfig.CENTER)
         banner.setImages(list)
         banner.start()
+
+
+
     }
 
 }
