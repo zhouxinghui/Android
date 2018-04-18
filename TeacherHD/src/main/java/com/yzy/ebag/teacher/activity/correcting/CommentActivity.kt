@@ -59,13 +59,16 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
         }
     }
     override fun loadConfig(intent: Intent) {
-        loadMoreEnabled(false)
         homeworkId = intent.getStringExtra("homeworkId")
         type = intent.getStringExtra("type")
     }
 
+    override fun getPageSize(): Int {
+        return 9
+    }
+
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<CommentBean>>) {
-        TeacherApi.commentList(homeworkId, requestCallBack)
+        TeacherApi.commentList(homeworkId, page, getPageSize(), requestCallBack)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<CommentBean>?): List<CommentBean>? {

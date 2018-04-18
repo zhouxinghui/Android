@@ -474,9 +474,11 @@ object TeacherApi {
     /**
      * 评语列表
      */
-    fun commentList(homeworkId: String, callback: RequestCallBack<List<CommentBean>>){
+    fun commentList(homeworkId: String, page: Int, pageSize: Int, callback: RequestCallBack<List<CommentBean>>){
         val jsonObject = JSONObject()
         jsonObject.put("homeWorkId", homeworkId)
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", pageSize)
         EBagApi.request(teacherService.commentList("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
