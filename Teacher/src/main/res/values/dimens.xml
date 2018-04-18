@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="question_item_bottom_margin">y10</dimen>
-    <dimen name="question_item_start_margin">x10</dimen>
+    <dimen name="question_item_bottom_margin">@dimen/y10</dimen>
+    <dimen name="question_item_start_margin">@dimen/x10</dimen>
 </resources>
