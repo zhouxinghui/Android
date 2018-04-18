@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.base
+package ebag.hd.base
 
 import android.content.Intent
 import android.support.v4.widget.SwipeRefreshLayout

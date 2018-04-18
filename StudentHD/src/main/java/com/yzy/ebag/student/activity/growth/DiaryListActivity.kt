@@ -13,11 +13,11 @@ import android.widget.RelativeLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.base.BaseListActivity
 import com.yzy.ebag.student.bean.Diary
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.*
+import ebag.hd.base.BaseListActivity
 import ebag.hd.base.Constants
 
 /**

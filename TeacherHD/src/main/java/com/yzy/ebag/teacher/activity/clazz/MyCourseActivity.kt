@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.yzy.ebag.student.base.BaseListActivity
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.MyCourseBean
 import com.yzy.ebag.teacher.http.TeacherApi
@@ -19,9 +18,10 @@ import ebag.core.util.DateUtil
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
 import ebag.core.util.loadImage
+import ebag.hd.base.BaseListActivity
 import java.util.*
 
-class MyCourseActivity : BaseListActivity<List<MyCourseBean>,MyCourseBean>() {
+class MyCourseActivity : BaseListActivity<List<MyCourseBean>, MyCourseBean>() {
     private val adapter by lazy { MyAdapter() }
     private lateinit var classId: String
     private var gradeCode = "1"

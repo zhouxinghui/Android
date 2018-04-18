@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.yzy.ebag.student.base.BaseListActivity
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.CommentBean
 import com.yzy.ebag.teacher.http.TeacherApi
@@ -22,6 +21,7 @@ import ebag.core.util.T
 import ebag.core.util.loadHead
 import ebag.hd.activity.ReportClassActivity
 import ebag.hd.activity.ReportTestActivity
+import ebag.hd.base.BaseListActivity
 import ebag.hd.base.Constants
 
 /**

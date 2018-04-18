@@ -6,4 +6,5 @@
 
     <drawable name="white">#FFFFFF</drawable>
     <drawable name="gray">#F2F5F9</drawable>
+    <color name="check_blue_tv">@color/tv_normal</color>
 </resources>

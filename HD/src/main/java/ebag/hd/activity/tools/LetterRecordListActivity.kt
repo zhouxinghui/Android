@@ -11,11 +11,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.yzy.ebag.student.base.BaseListActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.*
 import ebag.hd.R
+import ebag.hd.base.BaseListActivity
 import ebag.hd.bean.LetterDescBean
 import ebag.hd.http.EBagApi
 

@@ -7,7 +7,6 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.yzy.ebag.student.base.BaseListActivity
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.GroupBean
 import com.yzy.ebag.teacher.http.TeacherApi
@@ -15,6 +14,7 @@ import com.yzy.ebag.teacher.widget.GroupManageDialog
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
+import ebag.hd.base.BaseListActivity
 
 class StudyGroupActivity : BaseListActivity<List<GroupBean>, GroupBean>() {
     companion object {

@@ -20,10 +20,10 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.base.BaseListActivity
 import com.yzy.ebag.student.bean.LetterBean
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.VoicePlayerOnline
+import ebag.hd.base.BaseListActivity
 
 
 /**

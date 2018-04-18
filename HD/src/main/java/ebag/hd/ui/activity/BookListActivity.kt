@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.yzy.ebag.student.base.BaseListActivity
 import ebag.core.http.file.DownLoadObserver
 import ebag.core.http.file.DownloadInfo
 import ebag.core.http.file.DownloadManager
@@ -16,6 +15,7 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.util.*
 import ebag.hd.R
 import ebag.hd.activity.ReaderActivity
+import ebag.hd.base.BaseListActivity
 import ebag.hd.bean.BookBean
 import ebag.hd.http.EBagApi
 import java.io.File

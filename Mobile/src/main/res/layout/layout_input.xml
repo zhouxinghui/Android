@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <!--android:layout_weight="1"-->
-            <ebag.mobile.weidget.keyboard.KeyBoardView
+            <ebag.mobile.widget.keyboard.KeyBoardView
                 android:id="@+id/key_board"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
                 android:layout_toLeftOf="@id/key_board"
                 android:visibility="gone">
 
-                <ebag.mobile.weidget.keyboard.KeyBoardView
+                <ebag.mobile.widget.keyboard.KeyBoardView
                     android:id="@+id/key_board_special_numeric_left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

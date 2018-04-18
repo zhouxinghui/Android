@@ -7,7 +7,8 @@
     android:orientation="vertical"
     tools:context="com.yzy.ebag.teacher.MainActivity">
 
-    <ebag.mobile.weidget.TitleBar android:id="@+id/titleBar"
+    <ebag.mobile.widget.TitleBar
+        android:id="@+id/titleBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="-1dp"

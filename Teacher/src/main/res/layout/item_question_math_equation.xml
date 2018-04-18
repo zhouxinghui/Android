@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <TextView android:id="@+id/typeNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/check_blue_tv"
+        android:textSize="@dimen/tv_normal"
+        tools:text="选择题"
+        android:paddingStart="@dimen/x10"
+        android:paddingBottom="@dimen/y10"
+        android:paddingEnd="@dimen/x10"
+        />
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/question_item_bg"
+        android:layout_marginBottom="@dimen/question_item_bottom_margin"
+        android:id="@+id/question_item_root"
+        >
+        <include layout="@layout/question_top_view"/>
+        <ebag.mobile.widget.questions.MathEquationView android:id="@+id/questionView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/question_item_start_margin"
+            />
+        <include layout="@layout/question_bottom_view"/>
+    </LinearLayout>
+</LinearLayout>

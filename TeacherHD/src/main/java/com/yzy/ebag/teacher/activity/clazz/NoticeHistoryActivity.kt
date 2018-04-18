@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.yzy.ebag.student.base.BaseListActivity
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.activity.PublishContentActivity
 import com.yzy.ebag.teacher.base.Constants
@@ -17,6 +16,7 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.util.DateUtil
 import ebag.core.util.loadHead
 import ebag.core.util.loadImage
+import ebag.hd.base.BaseListActivity
 import ebag.hd.bean.response.NoticeBean
 import ebag.hd.http.EBagApi
 import java.util.*

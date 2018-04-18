@@ -8,10 +8,10 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.base.BaseListActivity
 import com.yzy.ebag.student.bean.GroupBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
+import ebag.hd.base.BaseListActivity
 
 /**
  * 学习小组列表

@@ -9,12 +9,12 @@ import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.base.BaseListActivity
 import com.yzy.ebag.student.bean.WordRecordBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.DateUtil
 import ebag.core.util.loadImage
+import ebag.hd.base.BaseListActivity
 
 /**
  * @author caoyu

@@ -8,13 +8,13 @@ import android.view.View
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.yzy.ebag.student.base.BaseListActivity
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.PerformanceBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.widget.PerformanceDialog
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.loadHead
+import ebag.hd.base.BaseListActivity
 
 /**
  * Created by YZY on 2018/3/8.

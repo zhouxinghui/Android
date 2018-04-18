@@ -13,14 +13,14 @@ import com.yzy.ebag.student.R
 import com.yzy.ebag.student.activity.tools.formula.MathFormulaActivity
 import com.yzy.ebag.student.activity.tools.practise.PractiseActivity
 import com.yzy.ebag.student.activity.tools.read.ReadActivity
-import com.yzy.ebag.student.base.BaseListActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.T
+import ebag.hd.base.BaseListActivity
 
 /**
  * Created by caoyu on 2018/1/8.
  */
-class ToolsActivity : BaseListActivity<List<Int>,Int>() {
+class ToolsActivity : BaseListActivity<List<Int>, Int>() {
 
     private val list = intArrayOf(R.drawable.tool_btn_calligraphy,R.drawable.tool_btn_read,
             R.drawable.tool_btn_pinyin,R.drawable.tool_btn_letter,R.drawable.tool_btn_formula,

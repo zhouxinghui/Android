@@ -221,8 +221,13 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 unitAdapter.selectSub = cache.currentUnitBean
                 totalUnitTv.isSelected = true
                 cacheMap[currentGradeCode]!!.isTotal = true
-                assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
-                        if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode, cache.subCode)
+                if(workCategory == Constants.ASSIGN_TEST_PAPER)
+                    assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
+                            if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode, cache.subCode)
+                else {
+                    assignmentPresenter.loadDataByVersion(workCategory.toString(), cache.versionId, cache.subCode, if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode)
+                    isUnitChange = true
+                }
             }
         }
 

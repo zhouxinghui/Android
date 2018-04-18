@@ -13,7 +13,6 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.yzy.ebag.student.base.BaseListActivity
 import ebag.core.base.PhotoPreviewActivity
 import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
@@ -23,6 +22,7 @@ import ebag.core.util.T
 import ebag.core.util.loadImage
 import ebag.hd.R
 import ebag.hd.activity.album.AlbumDetailActivity.Adapter.Companion.TYPE_STICKY_HEAD
+import ebag.hd.base.BaseListActivity
 import ebag.hd.base.Constants
 import ebag.hd.bean.PhotoBean
 import ebag.hd.bean.PhotoRequestBean

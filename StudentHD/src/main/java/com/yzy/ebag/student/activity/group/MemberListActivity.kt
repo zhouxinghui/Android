@@ -9,13 +9,13 @@ import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.base.BaseListActivity
 import com.yzy.ebag.student.bean.GroupBean
 import com.yzy.ebag.student.bean.GroupUserBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.T
 import ebag.core.util.loadHead
+import ebag.hd.base.BaseListActivity
 
 /**
  * Created by unicho on 2018/3/6.

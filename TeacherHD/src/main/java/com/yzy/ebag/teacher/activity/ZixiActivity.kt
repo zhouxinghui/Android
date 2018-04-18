@@ -9,17 +9,17 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.yzy.ebag.student.base.BaseListActivity
 import com.yzy.ebag.teacher.R
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.T
 import ebag.hd.activity.tools.LetterRecordActivity
 import ebag.hd.activity.tools.ReadRecordActivity
+import ebag.hd.base.BaseListActivity
 
 /**
  * Created by YZY on 2018/3/20.
  */
-class ZixiActivity: BaseListActivity<List<Int>,Int>() {
+class ZixiActivity: BaseListActivity<List<Int>, Int>() {
     private val list = intArrayOf(R.drawable.tool_btn_calligraphy, R.drawable.tool_btn_read)
     companion object {
         fun jump(context: Context){

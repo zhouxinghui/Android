@@ -10,46 +10,60 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-        <ebag.mobile.weidget.questions.UnderstandView android:id="@+id/understandView"
+        <ebag.mobile.widget.questions.UnderstandView
+            android:id="@+id/understandView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <ebag.mobile.weidget.questions.SortVerticalView android:id="@+id/sortView"
+        <ebag.mobile.widget.questions.SortVerticalView
+            android:id="@+id/sortView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <ebag.mobile.weidget.questions.SortHorizontalView android:id="@+id/enSortView"
+        <ebag.mobile.widget.questions.SortHorizontalView
+            android:id="@+id/enSortView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <ebag.mobile.weidget.questions.SentenceView android:id="@+id/sentenceView"
+        <ebag.mobile.widget.questions.SentenceView
+            android:id="@+id/sentenceView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <ebag.mobile.weidget.questions.RecorderView android:id="@+id/recorderView"
+        <ebag.mobile.widget.questions.RecorderView
+            android:id="@+id/recorderView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <ebag.mobile.weidget.questions.MathVerticalView android:id="@+id/mathVerticalView"
+        <ebag.mobile.widget.questions.MathVerticalView
+            android:id="@+id/mathVerticalView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <ebag.mobile.weidget.questions.MathVerticalView android:id="@+id/mathVerticalView2"
+        <ebag.mobile.widget.questions.MathVerticalView
+            android:id="@+id/mathVerticalView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <ebag.mobile.weidget.questions.ChoiceView android:id="@+id/choiceView"
+        <ebag.mobile.widget.questions.ChoiceView
+            android:id="@+id/choiceView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <ebag.mobile.weidget.questions.ClassificationView android:id="@+id/classificationView"
+        <ebag.mobile.widget.questions.ClassificationView
+            android:id="@+id/classificationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <ebag.mobile.weidget.questions.CompleteView android:id="@+id/completeView"
+        <ebag.mobile.widget.questions.CompleteView
+            android:id="@+id/completeView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <ebag.mobile.weidget.questions.ConnectionView android:id="@+id/connectionView"
+        <ebag.mobile.widget.questions.ConnectionView
+            android:id="@+id/connectionView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <ebag.mobile.weidget.questions.MathEquationView android:id="@+id/mathEquationView"
+        <ebag.mobile.widget.questions.MathEquationView
+            android:id="@+id/mathEquationView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <ebag.mobile.weidget.questions.MathEquationView android:id="@+id/mathEquationView2"
+        <ebag.mobile.widget.questions.MathEquationView
+            android:id="@+id/mathEquationView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <ebag.mobile.weidget.questions.MathFractionView android:id="@+id/mathFractionView"
+        <ebag.mobile.widget.questions.MathFractionView
+            android:id="@+id/mathFractionView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>

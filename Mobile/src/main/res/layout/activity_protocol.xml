@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-    <ebag.mobile.weidget.TitleBar android:id="@+id/titleBar"
+    <ebag.mobile.widget.TitleBar
+        android:id="@+id/titleBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:titleText="用户服务协议"
