@@ -11,7 +11,7 @@ object DeviceTool {
 
     @SuppressLint("MissingPermission", "HardwareIds")
     @RequiresPermission(READ_PHONE_STATE)
-    fun getIMEI(context: Context): String {
+    fun getIMEI(context: Context): String? {
 
         val telephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
 

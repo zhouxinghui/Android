@@ -31,7 +31,7 @@ open class App: MultiDexApplication(){
     override fun onCreate() {
         super.onCreate()
         mContext = this
-        SPUtils.put(mContext,Constants.IMEI,DeviceTool.getIMEI(mContext!!))
+        SPUtils.put(mContext,Constants.IMEI,DeviceTool.getIMEI(mContext!!) ?: "")
         TOKEN = SPUtils.get(this, Constants.USER_TOKEN,"") as String
     }
 }
