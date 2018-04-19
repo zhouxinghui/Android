@@ -19,6 +19,7 @@ import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.bean.QuestionBean
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.StringUtils
+import ebag.core.util.T
 import ebag.core.util.VoicePlayerOnline
 import ebag.core.xRecyclerView.adapter.OnItemChildClickListener
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
@@ -63,28 +64,39 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
     private lateinit var unitBean: UnitBean.UnitSubBean
     private var workType = 0
     private lateinit var bookVersionId: String
+    private lateinit var classes: ArrayList<AssignClassBean>
+    private var isTest = false
     private var paperId: String? = null
+    private var subCode = ""
     private lateinit var questionNumTv: TextView
     private val previewPopup by lazy {
         val popup = PreviewPopup(this)
         popup.onAssignClick = {
             when(it){
                 1 ->{   // 发布小组
-
+                    when {
+                        classes.isEmpty() -> T.show(this, "未选择班级")
+                        previewList.isEmpty() -> T.show(this, "没有可发布的试题")
+                        else -> PublishWorkActivity.jump(this, true, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId)
+                    }
                 }
                 2 ->{   //发布班级
-
+                    when {
+                        classes.isEmpty() -> T.show(this, "未选择班级")
+                        previewList.isEmpty() -> T.show(this, "没有可发布的试题")
+                        else -> PublishWorkActivity.jump(this, false, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId)
+                    }
                 }
             }
         }
         popup
     }
     override fun loadConfig(intent: Intent) {
-        val isTest = intent.getBooleanExtra("isTest", false)
-        val classes = intent.getSerializableExtra("classes") as java.util.ArrayList<AssignClassBean>
+        isTest = intent.getBooleanExtra("isTest", false)
+        classes = intent.getSerializableExtra("classes") as java.util.ArrayList<AssignClassBean>
         unitBean = intent.getSerializableExtra("unitBean") as UnitBean.UnitSubBean
         workType = intent.getIntExtra("workType", 0)
-        val subCode = intent.getStringExtra("subCode")
+        subCode = intent.getStringExtra("subCode") ?: ""
         bookVersionId = intent.getStringExtra("bookVersionId") ?: ""
         isPreview = intent.getBooleanExtra("isPreview", false)
         paperId = intent.getStringExtra("paperId")
