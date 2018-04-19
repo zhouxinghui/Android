@@ -4,14 +4,19 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.support.v7.widget.RecyclerView
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.RelativeLayout
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.base.Constants
 import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.bean.QuestionBean
+import ebag.core.bean.QuestionTypeUtils
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.StringUtils
 import ebag.core.util.VoicePlayerOnline
@@ -34,6 +39,7 @@ class QuestionActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
     private lateinit var previewList: ArrayList<QuestionBean>
     private var isPreview = false
     private val analyseDialog by lazy { QuestionAnalyseDialog(this) }
+    private lateinit var tempList: ArrayList<QuestionBean>
     companion object {
         fun jump(
                 activity: Activity,
@@ -69,9 +75,34 @@ class QuestionActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
         previewList = intent.getSerializableExtra("previewList") as ArrayList<QuestionBean>
         (mAdapter as QuestionAdapter).previewList = previewList
 
+        titleBar.setTitle(QuestionTypeUtils.getTitle(type))
+
         titleBar.setOnLeftClickListener {
             backEvent()
             finish()
+        }
+
+        val previewTv = TextView(this)
+        previewTv.setTextColor(resources.getColor(R.color.white))
+        previewTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.tv_normal))
+        previewTv.text = "预览"
+        previewTv.background = resources.getDrawable(R.drawable.bac_transparent_selector)
+        previewTv.gravity = Gravity.CENTER
+        val previewParams = RelativeLayout.LayoutParams(resources.getDimensionPixelSize(R.dimen.x40), resources.getDimensionPixelSize(R.dimen.title_bar_height) -1)
+        previewParams.addRule(RelativeLayout.ALIGN_PARENT_END)
+        previewTv.layoutParams = previewParams
+        titleBar.addView(previewTv)
+        previewTv.setOnClickListener {
+            if (isPreview){
+                previewTv.text = "预览"
+                withFirstPageData(tempList, true)
+                isPreview = false
+            }else{
+                previewTv.text = "选题"
+                tempList = mAdapter!!.data as ArrayList<QuestionBean>
+                withFirstPageData(previewList)
+                isPreview = true
+            }
         }
     }
 

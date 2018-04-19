@@ -77,7 +77,7 @@ class LetterRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>()
     }
     private val classes = ArrayList<BaseClassesBean>()
     private lateinit var tvMaterial: TextView
-    private lateinit var classId: String
+    private var classId: String = ""
     private lateinit var unitId: String
     private var subCode = "yw"
     override fun loadConfig() {
