@@ -122,6 +122,10 @@ class PublishWorkActivity : BaseActivity() {
                     T.show(this, "未选择班级")
                     return@setOnClickListener
                 }
+                if (classes.size >1) {
+                    T.show(this, "发布小组时班级不能多选")
+                    return@setOnClickListener
+                }
                 selectGroupDialog.show(classes[0].classId)
             }
         }else{

@@ -11,7 +11,6 @@ import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.base.BaseDialog
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
-import ebag.core.util.DensityUtil
 import kotlinx.android.synthetic.main.dialog_select_group.*
 
 /**
@@ -22,11 +21,11 @@ class DialogSelectGroup(context: Context): BaseDialog(context) {
         return R.layout.dialog_select_group
     }
     override fun setWidth(): Int {
-        return DensityUtil.dip2px(context, context.resources.getDimensionPixelSize(R.dimen.x400).toFloat())
+        return context.resources.getDimensionPixelSize(R.dimen.x250)
     }
 
     override fun setHeight(): Int {
-        return DensityUtil.dip2px(context, context.resources.getDimensionPixelSize(R.dimen.y400).toFloat())
+        return context.resources.getDimensionPixelSize(R.dimen.y500)
     }
     private val request = object : RequestCallBack<List<GroupBean>>(){
         override fun onStart() {

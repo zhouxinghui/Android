@@ -154,6 +154,19 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 .create()
         dialog
     }
+
+    /**重写此方法，加上setIntent(intent);否则在onResume里面得不到intent
+     * @param intent intent
+     */
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        val isClearQuestion = intent.getBooleanExtra("clearQuestion", false)
+        if (cacheMap[currentGradeCode] != null && isClearQuestion){
+            cacheMap[currentGradeCode]!!.clearQuestionSelected()
+            questionAdapter.notifyDataSetChanged()
+        }
+    }
+
     override fun initViews() {
         workCategory = intent.getIntExtra(Constants.ASSIGN_CATEGORY, 0)
         titleBar.setTitle(intent.getStringExtra(Constants.ASSIGN_TITLE) ?: "")
