@@ -58,4 +58,8 @@ interface TeacherService {
     /**根据班级查询班级下所有的学习小组*/
     @POST("clazz/searchClassByGroupAll/{version}")
     fun studyGroup(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<GroupBean>>>
+
+    /**打分*/
+    @POST("correctHome/teacherCurrent/{version}")
+    fun markScore(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 }

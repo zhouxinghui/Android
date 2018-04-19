@@ -155,6 +155,27 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         dialog
     }
 
+    /**智能推送（填写试题数量）对话框*/
+    private val smartPushDialog by lazy {
+        val dialog = SmartPushDialog(this)
+        dialog.onConfirmClickListener = {
+            dialog.dismiss()
+            PreviewActivity.jump(this@AssignmentActivity,
+                    workCategory == Constants.ASSIGN_TEST_PAPER,
+                    cacheMap[currentGradeCode]!!.classes,
+                    cacheMap[currentGradeCode]!!.currentUnitBean,
+                    getPreviewList(),
+                    workCategory,
+                    cacheMap[currentGradeCode]!!.subCode,
+                    cacheMap[currentGradeCode]!!.versionId,
+                    false,
+                    null,
+                    it
+            )
+        }
+        dialog
+    }
+
     /**重写此方法，加上setIntent(intent);否则在onResume里面得不到intent
      * @param intent intent
      */
@@ -273,7 +294,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     jumpToPublish(false)
                 }
                 workImg[0] -> {//智能推送
-//                    smartPushDialog.show()
+                    smartPushDialog.show()
                 }
             /*workImg[1] -> {//自定义
                 toast("自定义")

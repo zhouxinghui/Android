@@ -204,4 +204,16 @@ object TeacherApi {
         jsonObject.put("classId", classId)
         EBagApi.request(teacherService.studyGroup("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**
+     * 打分
+     */
+    fun markScore(homeworkId: String, uid: String?, questionId: String, questionScore: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("homeWorkId", homeworkId)
+        jsonObject.put("uid", uid)
+        jsonObject.put("questionId", questionId)
+        jsonObject.put("questionScore", questionScore)
+        EBagApi.request(teacherService.markScore("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }
