@@ -59,6 +59,8 @@ class LetterRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>()
         popupWindow.onClassSelectListener = {classBean ->
             classesTv.text = classBean.className
             classId = classBean.classId
+            isFirstRequest = false
+            bookVersionId = ""
             request()
         }
         popupWindow
