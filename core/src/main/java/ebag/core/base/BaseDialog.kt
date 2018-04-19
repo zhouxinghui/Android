@@ -4,10 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.graphics.drawable.ColorDrawable
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.Window
-import android.view.WindowManager
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 
 /**
@@ -23,6 +20,7 @@ abstract class BaseDialog(context: Context): Dialog(context) {
         val params = window.attributes
         params.width = this.setWidth()
         params.height = this.setHeight()
+        params.gravity = this.getGravity()
         window.attributes = params
     }
     abstract fun getLayoutRes(): Int
@@ -33,6 +31,8 @@ abstract class BaseDialog(context: Context): Dialog(context) {
     open fun setHeight(): Int{
         return WindowManager.LayoutParams.WRAP_CONTENT
     }
+
+    open fun getGravity(): Int = Gravity.NO_GRAVITY
 
     /**
      * 点击空白位置 隐藏软键盘

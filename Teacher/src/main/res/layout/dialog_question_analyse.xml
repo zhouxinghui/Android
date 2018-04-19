@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="@dimen/x10"
+    android:paddingEnd="@dimen/x10"
+    android:background="@color/white"
+    >
+    <TextView android:id="@+id/parseTv"
+        android:layout_width="@dimen/x64"
+        android:layout_height="@dimen/y100"
+        android:gravity="center"
+        android:background="@drawable/question_preview_tv_icon"
+        android:text="试题解析"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <View android:id="@+id/backgroundImg"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/y80"
+        android:background="@drawable/question_preview_bg_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/parseTv"
+        />
+    <android.support.v4.widget.NestedScrollView android:id="@+id/analyseLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FAFAFA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/backgroundImg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/tv_normal"
+                android:textColor="@color/tv_normal"
+                android:text="答案解析："
+                />
+            <LinearLayout android:id="@+id/rightAnswerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/y15"
+                android:paddingBottom="@dimen/y15"
+                />
+            <TextView android:id="@+id/analyseContentTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/tv_normal"
+                android:textSize="@dimen/tv_normal"
+                android:paddingBottom="@dimen/y15"
+                tools:text="试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo试题解析详情拉科技打发时间发放酒叟按揭房偶发房就slfjfasjfjfo"
+                />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+    <FrameLayout android:id="@+id/emptyAnalyseLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="@dimen/x50"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/backgroundImg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@drawable/question_empty_analyse_icon"
+            />
+    </FrameLayout>
+</android.support.constraint.ConstraintLayout>

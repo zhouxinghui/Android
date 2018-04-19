@@ -33,6 +33,7 @@ class QuestionActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
     private var bookVersionId = ""
     private lateinit var previewList: ArrayList<QuestionBean>
     private var isPreview = false
+    private val analyseDialog by lazy { QuestionAnalyseDialog(this) }
     companion object {
         fun jump(
                 activity: Activity,
@@ -116,7 +117,7 @@ class QuestionActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
                 adapter.selectItem = position
                 val questionBean = adapter.getItem(position)?.clone() as QuestionBean
                 questionBean.answer = questionBean.rightAnswer
-//                onAnalyseClick?.invoke(questionBean)
+                analyseDialog.show(questionBean)
             }
         }
     }
