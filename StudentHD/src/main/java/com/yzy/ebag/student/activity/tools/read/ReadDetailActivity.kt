@@ -109,7 +109,7 @@ class ReadDetailActivity: BaseActivity() {
             videoPlayer.setUp(readBean!!.languageUrl
                     , JZVideoPlayerStandard.SCREEN_STATE_ON, readBean!!.fileName)
             if(readBean!!.type == "video"){
-                videoPlayer.thumbImageView.loadImage(readBean!!.languageUrl)
+                videoPlayer.thumbImageView.loadImage(readBean!!.coveUrl)
             }else{
                 videoPlayer.thumbImageView.loadImage(readBean!!.coveUrl)
             }

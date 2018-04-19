@@ -78,7 +78,7 @@ class ReadFragment: BaseListFragment<ReadOutBean, ReadOutBean.OralLanguageBean>(
     class Adapter: BaseQuickAdapter<ReadOutBean.OralLanguageBean, BaseViewHolder>(R.layout.item_fragment_tools_read){
         override fun convert(helper: BaseViewHolder, item: ReadOutBean.OralLanguageBean?) {
             helper.setText(R.id.text, item?.fileName)
-                    .getView<ImageView>(R.id.image).loadImage(if("video" == item?.type) item.languageUrl else item?.coveUrl)
+                    .getView<ImageView>(R.id.image).loadImage(item?.coveUrl)
         }
     }
 }

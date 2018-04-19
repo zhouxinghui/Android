@@ -28,9 +28,7 @@ import ebag.mobile.bean.UnitBean
 import kotlinx.android.synthetic.main.activity_assignment.*
 
 class AssignmentActivity : MVPActivity(), AssignmentView{
-    override fun getLayoutId(): Int {
-        return R.layout.activity_assignment
-    }
+    override fun getLayoutId(): Int = R.layout.activity_assignment
 
     companion object {
         fun jump(context: Context, workCategory: Int, title: String){
@@ -197,6 +195,9 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             unitPopup.setData(cacheMap[currentGradeCode]!!.unitList)
             unitPopup.showAsDropDown(unitBtn)
         }
+        titleBar.setRightText("预览", {
+
+        })
     }
 
     override fun destroyPresenter() {

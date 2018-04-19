@@ -31,9 +31,7 @@ import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
 import kotlinx.android.synthetic.main.activity_assignment.*
 
 class AssignmentActivity : MVPActivity(), AssignmentView{
-    override fun getLayoutId(): Int {
-        return R.layout.activity_assignment
-    }
+    override fun getLayoutId(): Int = R.layout.activity_assignment
 
     /**
      * 作业类型
