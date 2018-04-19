@@ -20,7 +20,7 @@
     <LinearLayout
         android:id="@+id/homework_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y250"
+        android:layout_height="@dimen/y220"
         android:layout_marginEnd="@dimen/x15"
         android:layout_marginStart="@dimen/x15"
         android:layout_marginTop="@dimen/y300"
@@ -33,13 +33,18 @@
             android:layout_height="48dp"
             android:paddingTop="@dimen/y5"
             android:background="@drawable/main_homework_bcg"
-            app:tl_indicator_width="@dimen/x15"
+            app:tl_indicator_width="@dimen/x16"
             app:tl_textSelectColor="#18b167"
             app:tl_textUnselectColor="#000"
             app:tl_indicator_color="#18b167"
             app:tl_iconVisible="false"
             app:tl_textBold="SELECT"
-            app:tl_textsize="14sp" />
+            app:tl_textsize="@dimen/x12" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#e0e0e0"/>
 
         <FrameLayout
             android:layout_width="match_parent"

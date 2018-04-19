@@ -1,4 +1,4 @@
-package com.yzy.ebag.parents.adapter
+package com.yzy.ebag.parents.ui.adapter
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager

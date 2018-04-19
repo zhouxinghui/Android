@@ -12,7 +12,7 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-
+        manifestPlaceholders = [qqappid: "1105873659"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -22,7 +22,24 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
     }
+
+    signingConfigs {
+        release {
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+            storeFile file(PARENTS_STORE_FILE)
+            storePassword STORE_PASSWORD
+        }
+        debug {
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+            storeFile file(PARENTS_STORE_FILE)
+            storePassword STORE_PASSWORD
+        }
+    }
+
 
 }
 

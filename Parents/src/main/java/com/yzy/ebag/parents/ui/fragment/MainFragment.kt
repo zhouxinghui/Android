@@ -1,4 +1,4 @@
-package com.yzy.ebag.parents.fragment
+package com.yzy.ebag.parents.ui.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -8,9 +8,9 @@ import com.flyco.tablayout.listener.CustomTabEntity
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import com.yzy.ebag.parents.R
-import com.yzy.ebag.parents.adapter.MainRVAdapter
 import com.yzy.ebag.parents.model.MainRVModel
 import com.yzy.ebag.parents.model.TabEntity
+import com.yzy.ebag.parents.ui.adapter.MainRVAdapter
 import com.yzy.ebag.parents.utils.GlideImageLoader
 import ebag.core.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_main.*

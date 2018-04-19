@@ -1,4 +1,4 @@
-package com.yzy.ebag.parents.activity
+package com.yzy.ebag.parents.ui.activity
 
 import android.content.Intent
 import android.os.Handler

@@ -1,4 +1,4 @@
-package com.yzy.ebag.parents.adapter
+package com.yzy.ebag.parents.ui.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder

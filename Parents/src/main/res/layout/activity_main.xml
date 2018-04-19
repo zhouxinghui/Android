@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yzy.ebag.parents.activity.MainActivity">
+    android:id="@+id/rootLayout"
+    tools:context=".ui.activity.MainActivity">
 
     <RelativeLayout
         android:id="@+id/main_title"

@@ -1,4 +1,4 @@
-package com.yzy.ebag.parents.fragment
+package com.yzy.ebag.parents.ui.fragment
 
 import android.os.Bundle
 import android.view.View
