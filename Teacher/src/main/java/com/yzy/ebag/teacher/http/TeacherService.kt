@@ -4,6 +4,7 @@ import com.yzy.ebag.teacher.bean.AssignmentBean
 import com.yzy.ebag.teacher.bean.BookVersionBean
 import com.yzy.ebag.teacher.bean.FirstPageBean
 import com.yzy.ebag.teacher.bean.TestPaperListBean
+import ebag.core.bean.QuestionBean
 import ebag.core.bean.ResponseBean
 import io.reactivex.Observable
 import okhttp3.RequestBody
@@ -34,4 +35,10 @@ interface TeacherService {
     /**根据班级获取教材版本*/
     @POST("sendHome/getBookVersion/{version}")
     fun searchBookVersion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<BookVersionBean>>
+
+    /**
+     * 查询试题
+     */
+    @POST("question/queryQuestion/{version}")
+    fun searchQuestion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<QuestionBean>>>
 }

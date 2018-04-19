@@ -16,6 +16,7 @@ import com.yzy.ebag.teacher.bean.AssignmentBean
 import com.yzy.ebag.teacher.bean.TestPaperListBean
 import ebag.core.base.BasePopupWindow
 import ebag.core.base.mvp.MVPActivity
+import ebag.core.bean.QuestionBean
 import ebag.core.http.network.MsgException
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
@@ -150,7 +151,17 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
 
         questionAdapter.setOnItemClickListener { holder, view, position ->
             val cache = cacheMap[currentGradeCode]!!
-            //TODO 页面跳转
+            QuestionActivity.jump(
+                    this,
+                    questionAdapter.datas[position].questionList,
+                    cache.currentUnitBean,
+                    difficulty,
+                    questionAdapter.datas[position].adverCode,
+                    currentGradeCode,
+                    cache.semesterCode,
+                    cache.subCode,
+                    cache.versionId
+            )
         }
 
         difficultyGroup.setOnCheckedChangeListener { group, checkedId ->
@@ -339,6 +350,33 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     }
 
     override fun loadTestListError(t: Throwable) {
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data == null)
+            return
+        if (requestCode == Constants.QUESTION_REQUEST && resultCode == Constants.QUESTION_RESULT) {
+            val previewList = data.getSerializableExtra("previewList") as ArrayList<QuestionBean>
+            val type = data.getStringExtra("type")
+            cacheMap[currentGradeCode]!!.questionList.forEach {
+                if (it.adverCode == type) {
+                    it.questionList.clear()
+                    it.questionList.addAll(previewList)
+                    return@forEach
+                }
+            }
+            questionAdapter.notifyDataSetChanged()
+        }
+        if (requestCode == Constants.PREVIEW_REQUEST && resultCode == Constants.QUESTION_RESULT) {
+            val previewList = data.getSerializableExtra("previewList") as ArrayList<QuestionBean>
+            cacheMap[currentGradeCode]!!.questionList.forEach {
+                val type = it.adverCode
+                it.questionList.clear()
+                it.questionList.addAll( previewList.filter {it.type == type})
+            }
+            questionAdapter.notifyDataSetChanged()
+        }
     }
 
     /**试题*/

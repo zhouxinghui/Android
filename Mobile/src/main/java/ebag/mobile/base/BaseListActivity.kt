@@ -47,7 +47,7 @@ abstract class BaseListActivity<Parent, E> : BaseActivity(),
 
     private var needFirstLoad = true
 
-    private var mAdapter: BaseQuickAdapter<E, BaseViewHolder>? = null
+    protected var mAdapter: BaseQuickAdapter<E, BaseViewHolder>? = null
     protected var mCurrentPage = 1
     protected lateinit var rootLayout: RelativeLayout
     protected lateinit var titleBar: TitleBar

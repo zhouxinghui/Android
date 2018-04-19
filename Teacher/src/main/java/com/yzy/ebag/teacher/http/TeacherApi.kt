@@ -1,8 +1,10 @@
 package com.yzy.ebag.teacher.http
 
 import com.yzy.ebag.teacher.bean.*
+import ebag.core.bean.QuestionBean
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.StringUtils
+import ebag.mobile.bean.UnitBean
 import ebag.mobile.http.EBagApi
 import ebag.mobile.http.EBagClient
 import org.json.JSONArray
@@ -78,5 +80,27 @@ object TeacherApi {
         val jsonObject = JSONObject()
         jsonObject.put("clazzIds", JSONArray(classesId))
         EBagApi.request(teacherService.searchBookVersion("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**查询试题*/
+    fun searchQuestion(unitBean: UnitBean.UnitSubBean, difficulty: String?, type: String, gradeCode: String, semeterCode: String, course: String, bookVersionId: String, page: Int, callback: RequestCallBack<List<QuestionBean>>){
+        val jsonObject = JSONObject()
+        if (unitBean.unitCode != null) {
+            if (unitBean.isUnit)
+                jsonObject.put("bookUnit", unitBean.unitCode)
+            else
+                jsonObject.put("bookCatalog", unitBean.unitCode)
+        }
+        if (difficulty != null)
+            jsonObject.put("level",difficulty)
+        jsonObject.put("gradeCode",gradeCode)
+        jsonObject.put("semesterCode",semeterCode)
+        jsonObject.put("course",course)
+        jsonObject.put("bookVersionId",bookVersionId)
+
+        jsonObject.put("type",type)
+        jsonObject.put("page",page)
+        jsonObject.put("pageSize",10)
+        EBagApi.request(teacherService.searchQuestion("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

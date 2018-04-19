@@ -9,4 +9,8 @@ object Constants {
     const val ASSIGN_WORK = 1
     const val ASSIGN_AFTER = 2
     const val ASSIGN_TEST_PAPER = 4
+
+    const val QUESTION_REQUEST = 120
+    const val QUESTION_RESULT = 121
+    const val PREVIEW_REQUEST = 130
 }
