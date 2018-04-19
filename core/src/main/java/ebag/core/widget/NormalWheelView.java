@@ -1,4 +1,4 @@
-package ebag.hd.widget;
+package ebag.core.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -23,7 +23,8 @@ import android.view.animation.Interpolator;
 
 import java.util.ArrayList;
 
-import ebag.hd.R;
+import ebag.core.R;
+
 
 public class NormalWheelView extends View {
     private static final String TAG = "WheelView";

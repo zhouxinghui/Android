@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/y100"
+    android:layout_marginTop="@dimen/y15"
+    android:layout_marginEnd="@dimen/x10"
+    android:gravity="center"
+    android:background="@drawable/assignment_test_item_bg"
+    android:textSize="@dimen/tv_normal"
+    android:textColor="@color/tv_normal"
+    tools:text="拉倒会计法奥斯积分颇具佛欧爱菊阿佛就噢爱富阿婆发骄傲我接发动挨罚批发哦自己奋斗就噢爱富阿婆发骄傲我接发动挨罚批发哦自己奋斗就噢爱富阿婆发骄傲我接发动挨罚批发哦自己奋斗就噢爱富阿婆发骄傲我接发动挨罚批发哦自己奋斗就噢爱富阿婆发骄傲我接发动挨罚批发哦自己奋斗"
+    android:id="@+id/tv_id"
+    >
+
+</TextView>

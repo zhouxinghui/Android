@@ -1,4 +1,4 @@
-package ebag.hd.widget;
+package ebag.mobile.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import ebag.core.widget.NormalWheelView;
-import ebag.hd.R;
+import ebag.mobile.R;
 
 public class DatePicker extends LinearLayout implements NormalWheelView.OnSelectListener{
     public DatePicker(Context context) {

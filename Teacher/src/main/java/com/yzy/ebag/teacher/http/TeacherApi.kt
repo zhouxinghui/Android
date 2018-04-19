@@ -103,4 +103,105 @@ object TeacherApi {
         jsonObject.put("pageSize",10)
         EBagApi.request(teacherService.searchQuestion("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**组卷*/
+    fun organizePaper(paperName: String, gradeCode: String, unitId: String?, subCode: String, questionList: ArrayList<QuestionBean>, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("name",paperName)
+        jsonObject.put("gradeCode",gradeCode)
+        jsonObject.put("subCode",subCode)
+        if (unitId != null)
+            jsonObject.put("unitId",unitId)
+        val jsonArray = JSONArray()
+        questionList.forEach {
+            val jsonObj = JSONObject()
+            jsonObj.put("questionId", it.questionId)
+            jsonArray.put(jsonObj)
+        }
+        jsonObject.put("questionVos", jsonArray)
+        EBagApi.request(teacherService.organizePaper("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**智能推送*/
+    fun smartPush(count: Int, unitBean: UnitBean.UnitSubBean, difficulty: String?, type: String, bookVersionId: String?, callback: RequestCallBack<List<QuestionBean>>){
+        val jsonObject = JSONObject()
+        if (unitBean.unitCode != null) {
+            if (unitBean.isUnit)
+                jsonObject.put("bookUnit", unitBean.unitCode)
+            else
+                jsonObject.put("bookCatalog", unitBean.unitCode)
+        }
+        if(bookVersionId != null){
+            jsonObject.put("bookVersionId", bookVersionId)
+        }
+        difficulty ?: jsonObject.put("level",difficulty)
+        jsonObject.put("type",type)
+        jsonObject.put("count", count)
+        EBagApi.request(teacherService.smartPush("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**预览试卷*/
+    fun previewTestPaper(paperId: String, callback: RequestCallBack<List<QuestionBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("testPaperId",paperId)
+        EBagApi.request(teacherService.previewTestPaper("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**发布作业*/
+    fun publishHomework(
+            classes: ArrayList<AssignClassBean>,
+            groupIds: ArrayList<String>? = null,
+            isGroup: Boolean,
+            type: String,
+            remark: String,
+            content: String,
+            endTime: String,
+            subCode: String,
+            bookVersionId: String,
+            questionList: ArrayList<QuestionBean>? = null,
+            testPaperId: String? = null,
+            callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        val classArray = JSONArray()
+        classes.forEach {
+            classArray.put(it.classId)
+        }
+        if (groupIds != null){
+            val groupArray = JSONArray()
+            groupIds.forEach { groupArray.put(it) }
+            jsonObject.put("groupIds", groupArray)
+        }
+        jsonObject.put("clazzIds", classArray)
+        if (isGroup)
+            jsonObject.put("groupType", "2")
+        else
+            jsonObject.put("groupType", "1")
+        jsonObject.put("content", content)
+        jsonObject.put("remark", remark)
+        jsonObject.put("type", type)
+        jsonObject.put("endTime", endTime)
+        jsonObject.put("subCode", subCode)
+        jsonObject.put("bookVersionId", bookVersionId)
+        if (questionList != null) {
+            val questionArray = JSONArray()
+            questionList.forEach {
+                val questionJson = JSONObject()
+                questionJson.put("questionId", it.questionId)
+                questionJson.put("questionType", it.type)
+                questionArray.put(questionJson)
+            }
+            jsonObject.put("homeWorkQuestionDtos", questionArray)
+        }
+        if (testPaperId != null){
+            jsonObject.put("testPaperId", testPaperId)
+        }
+        EBagApi.request(teacherService.publishHomework("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**根据班级查询班级下所有的学习小组*/
+    fun studyGroup(classId: String, callback: RequestCallBack<List<GroupBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        EBagApi.request(teacherService.studyGroup("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

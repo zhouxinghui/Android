@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/normal_dialog_bg"
+    >
+    <TextView android:id="@+id/title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/tv_normal"
+        android:textSize="@dimen/title_bar_title_size"
+        android:text="选择小组"
+        android:padding="@dimen/y20"
+        android:gravity="center"
+        />
+    <android.support.v7.widget.RecyclerView android:id="@+id/recyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_tv"
+        />
+    <TextView android:id="@+id/confirmBtn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y80"
+        android:background="@drawable/normal_dialog_confirm_bg"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="@dimen/title_bar_title_size"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <ebag.core.widget.empty.StateView android:id="@+id/stateView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</android.support.constraint.ConstraintLayout>

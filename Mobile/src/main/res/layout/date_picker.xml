@@ -20,7 +20,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/title_text_color"
+        android:textColor="@color/tv_normal"
         android:text="年"
         android:textSize="22sp"
         />
@@ -34,8 +34,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/title_text_color"
-        android:paddingRight="20dp"
+        android:textColor="@color/tv_normal"
         android:text="月"
         android:textSize="22sp"
         />
@@ -49,8 +48,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/title_text_color"
-        android:paddingRight="20dp"
+        android:textColor="@color/tv_normal"
         android:text="日"
         android:textSize="22sp"
         />

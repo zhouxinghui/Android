@@ -65,6 +65,45 @@
         <item name="android:layout_marginRight">@dimen/x5</item>
         <item name="android:gravity">center</item>
     </style>
+    <style name="publish_item_tv">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/y8</item>
+        <item name="android:padding">@dimen/y15</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:textColor">@color/tv_normal</item>
+        <item name="leftDrawableWidth">@dimen/x16</item>
+        <item name="leftDrawableHeight">@dimen/x16</item>
+        <item name="android:drawablePadding">@dimen/y15</item>
+    </style>
+    <style name="publish_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/y8</item>
+        <item name="android:padding">@dimen/y15</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <style name="deadline_btn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/x32</item>
+        <item name="android:layout_marginLeft">@dimen/x10</item>
+        <item name="android:textColor">@color/tv_normal</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:button">@null</item>
+        <item name="android:drawableLeft">@drawable/assign_deadline_radio_button</item>
+        <item name="android:drawablePadding">@dimen/x5</item>
+    </style>
+    <style name="school_btn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/y48</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:textColor">@color/assignment_btn_tv</item>
+        <item name="android:background">@drawable/assignment_difficulty_bg</item>
+        <item name="android:gravity">center</item>
+    </style>
     <!--assignment end-->
     <!--question start-->
     <style name="question_top_tv">

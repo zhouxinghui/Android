@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/normal_dialog_bg"
+    >
+    <ebag.mobile.widget.DatePicker android:id="@+id/datePicker"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"
+        />
+    <TextView android:id="@+id/confirmTv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y80"
+        android:textColor="@color/white"
+        android:background="@drawable/normal_dialog_confirm_bg"
+        android:textSize="@dimen/title_bar_title_sub_size"
+        android:gravity="center"
+        android:text="确定"
+        />
+</LinearLayout>

@@ -5,4 +5,18 @@
     <string name="mine">我的</string>
     <string name="clazz">班级</string>
     <string name="textbook_name">%1$s - %2$s - %3$s</string>
+
+    <!--<item>自定义</item>-->
+    <array name="bottom_test">
+        <item>系统试卷</item>
+        <item>组卷</item>
+        <item>我的试卷</item>
+        <item>发布班级</item>
+    </array>
+
+    <array name="bottom_work">
+        <item>智能推送</item>
+        <item>发布小组</item>
+        <item>发布班级</item>
+    </array>
 </resources>

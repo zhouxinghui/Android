@@ -137,7 +137,9 @@
                 android:visibility="gone"
                 />
         </RelativeLayout>
-
+        <android.support.v7.widget.RecyclerView android:id="@+id/bottomRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/assignment_tv_height"/>
     </LinearLayout>
     <ebag.core.widget.empty.StateView android:id="@+id/stateView"
         android:layout_width="match_parent"

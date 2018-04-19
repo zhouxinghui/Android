@@ -2,4 +2,5 @@
 <resources>
     <dimen name="question_item_bottom_margin">@dimen/y10</dimen>
     <dimen name="question_item_start_margin">@dimen/x10</dimen>
+    <dimen name="assignment_tv_height">@dimen/y120</dimen>
 </resources>

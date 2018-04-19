@@ -56,4 +56,18 @@
         <item name="android:paddingTop">@dimen/y1</item>
         <item name="android:paddingBottom">@dimen/y1</item>
     </style>
+    <style name="wheel" parent="TextAppearance.AppCompat">
+        <item name="itemNumber">5</item>
+        <item name="lineColor">#EDEDED</item>
+        <item name="lineHeight">1dp</item>
+        <item name="noEmpty">true</item>
+        <item name="normalTextColor">#C7C7C7</item>
+        <item name="normalTextSize">14sp</item>
+        <item name="selectTextColor">@color/tv_normal</item>
+        <item name="selectedTextSize">22sp</item>
+        <item name="unitHeight">50dp</item>
+        <item name="maskDarkColor">@color/transparent</item>
+        <item name="maskLightColor">@color/transparent</item>
+        <item name="isCyclic">false</item>
+    </style>
 </resources>

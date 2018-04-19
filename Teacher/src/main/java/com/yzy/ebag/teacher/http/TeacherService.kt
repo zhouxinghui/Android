@@ -1,9 +1,6 @@
 package com.yzy.ebag.teacher.http
 
-import com.yzy.ebag.teacher.bean.AssignmentBean
-import com.yzy.ebag.teacher.bean.BookVersionBean
-import com.yzy.ebag.teacher.bean.FirstPageBean
-import com.yzy.ebag.teacher.bean.TestPaperListBean
+import com.yzy.ebag.teacher.bean.*
 import ebag.core.bean.QuestionBean
 import ebag.core.bean.ResponseBean
 import io.reactivex.Observable
@@ -41,4 +38,24 @@ interface TeacherService {
      */
     @POST("question/queryQuestion/{version}")
     fun searchQuestion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<QuestionBean>>>
+
+    /**组卷*/
+    @POST("sendHome/addTestPaper/{version}")
+    fun organizePaper(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**智能推送*/
+    @POST("question/smartChoice/{version}")
+    fun smartPush(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<QuestionBean>>>
+
+    /**预览试卷*/
+    @POST("sendHome/queryTestPaperQuestion/{version}")
+    fun previewTestPaper(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<QuestionBean>>>
+
+    /**发布作业*/
+    @POST("sendHome/sendHome/{version}")
+    fun publishHomework(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**根据班级查询班级下所有的学习小组*/
+    @POST("clazz/searchClassByGroupAll/{version}")
+    fun studyGroup(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<GroupBean>>>
 }
