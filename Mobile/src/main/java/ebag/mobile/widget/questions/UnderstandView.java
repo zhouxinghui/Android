@@ -44,8 +44,6 @@ public class UnderstandView extends BaseQuestionView implements FillBlankView.On
 
     @Override
     protected void addBody(Context context) {
-        //隐藏主标题
-        headAdapter.setHideTitle(true);
         fillBlankView = new FillBlankView(context);
         LinearLayout.LayoutParams fillBlankParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
