@@ -50,7 +50,7 @@ class DialogSelectGroup(context: Context): BaseDialog(context) {
     private var classId = ""
     init {
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = GridLayoutManager(context, 3)
+        recyclerView.layoutManager = GridLayoutManager(context, 2)
         confirmBtn.setOnClickListener {
             onConfirmClick?.invoke(selectList)
             dismiss()
