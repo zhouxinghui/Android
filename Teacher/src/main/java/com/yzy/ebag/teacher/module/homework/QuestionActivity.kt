@@ -40,6 +40,7 @@ class QuestionActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
     private var isPreview = false
     private val analyseDialog by lazy { QuestionAnalyseDialog(this) }
     private lateinit var tempList: ArrayList<QuestionBean>
+    private lateinit var questionNumTv: TextView
     companion object {
         fun jump(
                 activity: Activity,
@@ -104,6 +105,17 @@ class QuestionActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
                 isPreview = true
             }
         }
+
+        questionNumTv = TextView(this)
+        questionNumTv.setTextColor(resources.getColor(R.color.white))
+        questionNumTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.tv_normal))
+        questionNumTv.text = "+${previewList.size}题"
+        questionNumTv.gravity = Gravity.CENTER
+        val numParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, resources.getDimensionPixelSize(R.dimen.title_bar_height) -1)
+        numParams.addRule(RelativeLayout.ALIGN_PARENT_END)
+        numParams.marginEnd = resources.getDimensionPixelSize(R.dimen.x40)
+        questionNumTv.layoutParams = numParams
+        titleBar.addView(questionNumTv)
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<QuestionBean>>) {
@@ -140,7 +152,7 @@ class QuestionActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
                         questionBean.isChoose = true
                     }
                 }
-//                onSelectClick?.invoke(questionBean)
+                questionNumTv.text = "+${previewList.size}题"
 
                 adapter.notifyDataSetChanged()
             }
