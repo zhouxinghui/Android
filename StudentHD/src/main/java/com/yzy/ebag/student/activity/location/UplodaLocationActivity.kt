@@ -6,9 +6,8 @@ import com.baidu.location.BDLocation
 import com.baidu.location.LocationClient
 import com.baidu.location.LocationClientOption
 import com.yzy.ebag.student.R
-import ebag.core.base.BaseActivity
-import android.util.Log
 import com.yzy.ebag.student.http.StudentApi
+import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.T
@@ -79,11 +78,12 @@ class UplodaLocationActivity : BaseActivity() {
             val province = p0?.province    //获取省份
             val city = p0?.city    //获取城市
             val district = p0?.district    //获取区县
+            val a = p0?.address
             latitude = p0?.latitude.toString()    //获取纬度信息
             longitude = p0?.longitude.toString()  //获取经度信息
-            if (addr!!.isNotEmpty()) {
-                location = addr[0].name
-                address = "$province$city$district $location"
+            if (a != null ) {
+                //location = addr[0].name
+                address = "$province$city$district ${a.address}"
                 uploadlocation_tv.text = address
                 flag = true
                 timeCountDown.cancel()

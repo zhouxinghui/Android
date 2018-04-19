@@ -19,7 +19,6 @@ import ebag.hd.bean.ReportBean
 import ebag.hd.homework.DoHomeworkActivity
 import ebag.hd.http.EBagApi
 import kotlinx.android.synthetic.main.activity_report_class.*
-import java.text.DecimalFormat
 
 /**
  * @author caoyu
@@ -133,11 +132,10 @@ class ReportClassActivity: BaseActivity() {
     inner class Adapter: BaseQuickAdapter<ReportBean.ReportDetailBean, BaseViewHolder>(R.layout.item_activity_report_class){
 
         override fun convert(helper: BaseViewHolder, item: ReportBean.ReportDetailBean?) {
-            val df = DecimalFormat("#.0")
             helper.setText(R.id.questionType, item?.questionTypeName)
                     .setText(R.id.count, "${item?.questionNum}")
                     .setText(R.id.errorCount, "${item?.errorCount}")
-                    .setText(R.id.score, "${df.format(item?.questionScore)}")
+                    .setText(R.id.score, "${String.format("%.02f",item?.questionScore)}")
                     .setBackgroundRes(R.id.layout,if(helper.adapterPosition % 2 == 0) R.color.light_blue else R.color.white)
         }
 

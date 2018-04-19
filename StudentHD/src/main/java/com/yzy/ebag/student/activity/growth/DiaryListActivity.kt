@@ -55,7 +55,7 @@ class DiaryListActivity : BaseListActivity<List<Diary>, Diary.ResultUserGrowthBy
 
         if (SPUtils.get(this, Constants.GRADE_CODE, -1) == gradeCode.toInt()) {
             titleBar.setRightText("添加") {
-                DiaryDetailActivity.jump(this, gradeId, null,type)
+                DiaryDetailActivity.jump(this, gradeId, null,type,gradeCode)
             }
         }
 
@@ -136,7 +136,7 @@ class DiaryListActivity : BaseListActivity<List<Diary>, Diary.ResultUserGrowthBy
 
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        DiaryDetailActivity.jump(this, gradeId, (adapter as Adapter).getItem(position),type)
+        DiaryDetailActivity.jump(this, gradeId, (adapter as Adapter).getItem(position),type,gradeCode)
     }
 
 

@@ -33,10 +33,11 @@ import java.io.File
 class DiaryDetailActivity : BaseActivity() {
 
     companion object {
-        fun jump(activity: Activity, gradeId: String, diary: Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean?,type:String) {
+        fun jump(activity: Activity, gradeId: String, diary: Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean?,type:String,gradeCode:String) {
             activity.startActivityForResult(
                     Intent(activity, DiaryDetailActivity::class.java)
                             .putExtra("gradeId", gradeId)
+                            .putExtra("gradeCode",gradeCode)
                             .putExtra("diary", diary).putExtra("type",type), 999)
         }
     }
@@ -52,6 +53,7 @@ class DiaryDetailActivity : BaseActivity() {
     private val imgAdapter by lazy { Adapter() }
     private var userId = "1"
     private var type = "1"
+    private var gradeCode = "0"
     private var uploadPosition = 0
     private val sb = StringBuilder()
     private var diary: Diary.ResultUserGrowthByPageVoBean.UserGrowthResultVoListBean? = null
@@ -70,6 +72,7 @@ class DiaryDetailActivity : BaseActivity() {
     override fun initViews() {
         gradeId = intent.getStringExtra("gradeId") ?: ""
         type = intent.getStringExtra("type") ?: ""
+        gradeCode = intent.getStringExtra("gradeCode") ?: ""
         when(type){
             "2" -> {titleBar.setTitle("难忘瞬间")}
             "3" -> {titleBar.setTitle("感悟心得")}
@@ -156,7 +159,7 @@ class DiaryDetailActivity : BaseActivity() {
     }
 
     private fun commit(title: String, content: String, urls: String = "") {
-        StudentApi.addUserGrowth(SPUtils.get(this, ebag.hd.base.Constants.CLASS_NAME, "") as String, type, title, content, urls, gradeId, object : RequestCallBack<String>() {
+        StudentApi.addUserGrowth(SPUtils.get(this, ebag.hd.base.Constants.CLASS_NAME, "") as String, type, title, content, urls, gradeCode, object : RequestCallBack<String>() {
             override fun onSuccess(entity: String?) {
                 T.show(this@DiaryDetailActivity, "成长轨迹添加成功")
                 LoadingDialogUtil.closeLoadingDialog()
