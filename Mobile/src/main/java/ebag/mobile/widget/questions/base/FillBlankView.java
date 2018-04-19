@@ -128,7 +128,7 @@ public class FillBlankView extends FrameLayout {
                     rangeList.add(new AnswerRange(index,index + 4));
                     index = 4 + index;
                     answerList.add("");
-                    stringBuilder.append("____");
+                    stringBuilder.append(" ____ ");
                     break;
                 default:
                     index = index + strings[i].length();
