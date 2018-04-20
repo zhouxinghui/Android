@@ -54,6 +54,9 @@
         <activity android:name=".module.clazz.PublishContentActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".module.clazz.MyCourseActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

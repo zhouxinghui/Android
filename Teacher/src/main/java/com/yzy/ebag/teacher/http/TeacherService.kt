@@ -99,4 +99,20 @@ interface TeacherService {
     /**发布公告*/
     @POST("notice/sendClassNotice/{version}")
     fun publishNotice(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**老师添加班级所教科目*/
+    @POST("clazz/addTaughtCoruses/{version}")
+    fun addCourse(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**添加所教课程-教材版本数据*/
+    @POST("clazz/getPublishedByGrade/{version}")
+    fun courseVersionData(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<AddCourseTextbookBean>>
+
+    /**删除所教课程*/
+    @POST("clazz/deleteTaughtCourses/{version}")
+    fun deleteCourse(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**查询所教课程*/
+    @POST("clazz/getTaughtCourses/{version}")
+    fun searchCourse(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<MyCourseBean>>>
 }

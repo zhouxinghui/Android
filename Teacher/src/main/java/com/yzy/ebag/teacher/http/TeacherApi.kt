@@ -301,4 +301,49 @@ object TeacherApi {
         jsonObject.put("photoUrl", urls)
         EBagApi.request(teacherService.publishNotice("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**添加所教课程*/
+    fun addCourse(classId: String,
+                  bookVersionId: String,
+                  bookVersionCode: String,
+                  bookVersionName: String,
+                  bookCode: String,
+                  bookName: String,
+                  semeterCode: String,
+                  semeterName: String,
+                  gradeCode: String,
+                  callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("bookVersionId", bookVersionId)
+        jsonObject.put("bookVersionCode", bookVersionCode)
+        jsonObject.put("bookVersionName", bookVersionName)
+        jsonObject.put("bookCode", bookCode)
+        jsonObject.put("bookName", bookName)
+        jsonObject.put("semeterCode", semeterCode)
+        jsonObject.put("semeterName", semeterName)
+        jsonObject.put("gradeCode", gradeCode)
+        EBagApi.request(teacherService.addCourse("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**添加所教课程-教材版本数据*/
+    fun courseVersionData(classId: String, callback: RequestCallBack<AddCourseTextbookBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        EBagApi.request(teacherService.courseVersionData("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**删除所教课程*/
+    fun deleteCourse(id: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("id", id)
+        EBagApi.request(teacherService.deleteCourse("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**查询所教科目*/
+    fun searchCourse(classId: String, callback: RequestCallBack<List<MyCourseBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        EBagApi.request(teacherService.searchCourse("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

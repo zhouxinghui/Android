@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/normal_dialog_bg"
+    >
+    <RadioGroup android:id="@+id/semesterGroup"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y80"
+        android:orientation="horizontal"
+        >
+        <RadioButton android:id="@+id/semesterFirst"
+            android:checked="true"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:textColor="@color/version_radio_tv"
+            android:background="?attr/selectableItemBackground"
+            android:text="上学期"
+            />
+        <RadioButton android:id="@+id/semesterSecond"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:button="@null"
+            android:textColor="@color/version_radio_tv"
+            android:background="?attr/selectableItemBackground"
+            android:text="下学期"
+            />
+    </RadioGroup>
+    <android.support.v7.widget.RecyclerView android:id="@+id/gradeRecycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/semesterGroup"
+        app:layout_constraintBottom_toTopOf="@id/confirmBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/versionRecycler"
+        />
+    <android.support.v7.widget.RecyclerView android:id="@+id/versionRecycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/semesterGroup"
+        app:layout_constraintBottom_toTopOf="@id/confirmBtn"
+        app:layout_constraintStart_toEndOf="@id/gradeRecycler"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <TextView android:id="@+id/confirmBtn"
+        style="@style/normal_dialog_confirm_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <ebag.core.widget.empty.StateView android:id="@+id/stateView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</android.support.constraint.ConstraintLayout>

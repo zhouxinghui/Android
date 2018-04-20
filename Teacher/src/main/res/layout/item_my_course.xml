@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_shadow_bg"
+    android:layout_marginLeft="@dimen/x5"
+    android:layout_marginRight="@dimen/x5"
+    android:layout_marginTop="@dimen/y5"
+    android:layout_marginBottom="@dimen/y5"
+    android:padding="@dimen/x5"
+    >
+
+    <TextView
+        android:id="@+id/tvEdition"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/tv_normal"
+        android:textSize="@dimen/tv_big"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="人教版" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y12"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="#BCC1CA"
+        android:textSize="@dimen/tv_normal"
+        app:layout_constraintEnd_toEndOf="@id/tvEdition"
+        app:layout_constraintStart_toStartOf="@id/tvEdition"
+        app:layout_constraintTop_toBottomOf="@id/tvEdition"
+        tools:text="[添加时间：2017-07-25]" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/y1"
+        android:layout_marginTop="@dimen/y14"
+        android:background="@color/login_line"
+        app:layout_constraintTop_toBottomOf="@id/tvTime"
+        />
+
+    <ebag.core.widget.drawable.DrawableTextView
+        android:id="@+id/tvSemester"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#5B626D"
+        tools:text="下学期"
+        android:drawablePadding="@dimen/x5"
+        android:layout_marginTop="@dimen/y14"
+        app:leftDrawable="@drawable/semester_icon"
+        app:leftDrawableWidth="@dimen/x16"
+        app:leftDrawableHeight="@dimen/x16"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tvSubject"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        />
+    <ebag.core.widget.drawable.DrawableTextView
+        android:id="@+id/tvSubject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y14"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#5B626D"
+        android:maxLines="1"
+        android:ellipsize="end"
+        tools:text="英语"
+        android:drawablePadding="@dimen/x5"
+        app:leftDrawable="@drawable/create_class_course"
+        app:leftDrawableWidth="@dimen/x16"
+        app:leftDrawableHeight="@dimen/x16"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        app:layout_constraintStart_toEndOf="@id/tvSemester"
+        app:layout_constraintEnd_toStartOf="@id/tvClass"
+        />
+    <ebag.core.widget.drawable.DrawableTextView
+        android:id="@+id/tvClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y14"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#5B626D"
+        android:maxLines="1"
+        android:ellipsize="end"
+        tools:text="三年级"
+        android:drawablePadding="@dimen/x5"
+        app:leftDrawable="@drawable/create_class_grade"
+        app:leftDrawableWidth="@dimen/x16"
+        app:leftDrawableHeight="@dimen/x16"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        app:layout_constraintStart_toEndOf="@id/tvSubject"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+</android.support.constraint.ConstraintLayout>

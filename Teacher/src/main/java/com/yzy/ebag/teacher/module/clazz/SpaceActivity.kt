@@ -71,7 +71,7 @@ class SpaceActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.course ->{
-//                MyCourseActivity.jump(this, classId, gradeCode)
+                MyCourseActivity.jump(this, classId, gradeCode)
             }
             R.id.noticeHistoryBtn ->{
                 NoticeHistoryActivity.jump(this, classId)
