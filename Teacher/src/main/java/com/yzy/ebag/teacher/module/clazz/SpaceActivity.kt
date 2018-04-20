@@ -74,13 +74,13 @@ class SpaceActivity : BaseActivity(), View.OnClickListener {
 //                MyCourseActivity.jump(this, classId, gradeCode)
             }
             R.id.noticeHistoryBtn ->{
-//                NoticeHistoryActivity.jump(this, classId)
+                NoticeHistoryActivity.jump(this, classId)
             }
             R.id.studyGroup ->{
                 StudyGroupActivity.jump(this, classId)
             }
             R.id.publishNoticeBtn ->{
-//                PublishContentActivity.jump(this, classId)
+                PublishContentActivity.jump(this, classId)
             }
             R.id.courseSchedule ->{
 //                ClassScheduleActivity.jump(this, classId, ebag.hd.base.Constants.ROLE_TEACHER)

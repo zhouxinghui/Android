@@ -292,4 +292,13 @@ object TeacherApi {
         jsonObject.put("groupId", groupId)
         EBagApi.request(teacherService.deleteGroup("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**发布公告*/
+    fun publishNotice(classId: String, content: String, urls: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("content", content)
+        jsonObject.put("photoUrl", urls)
+        EBagApi.request(teacherService.publishNotice("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

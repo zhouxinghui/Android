@@ -95,9 +95,9 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
                         deleteDialog.show()
                     }
                 }
-            }
-            popup.setOnDismissListener {
-                adapter.showOption = false
+                4 ->{
+                    adapter.showOption = false
+                }
             }
         }
         popup

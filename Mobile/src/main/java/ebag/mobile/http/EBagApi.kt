@@ -190,4 +190,13 @@ object EBagApi {
     fun photosUpload(photoUploadBean: PhotoUploadBean, callback: RequestCallBack<String>) {
         request(EBagClient.eBagService.photosUpload("v1", EBagApi.createBody(JSON.toJSONString(photoUploadBean))), callback)
     }
+
+    /**公告列表*/
+    fun noticeList(page: Int, pageSize: Int, classId: String, callback: RequestCallBack<List<NoticeBean>>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("pageSize", pageSize)
+        jsonObject.put("page", page)
+        jsonObject.put("classId", classId)
+        EBagApi.request(eBagService.noticeList("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

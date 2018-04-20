@@ -15,4 +15,6 @@
     <string name="login_code_get">获取验证码</string>
     <string name="login_agree_tip">我已阅读并同意</string>
     <string name="login_agree_title">《云书包服务协议》</string>
+
+    <string name="number_of_word">%1$d/200</string>
 </resources>

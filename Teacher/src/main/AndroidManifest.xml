@@ -48,6 +48,12 @@
         <activity android:name=".module.clazz.StudyGroupActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".module.clazz.NoticeHistoryActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".module.clazz.PublishContentActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

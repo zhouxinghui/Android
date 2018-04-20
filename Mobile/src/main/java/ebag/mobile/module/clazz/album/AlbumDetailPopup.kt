@@ -40,6 +40,7 @@ class AlbumDetailPopup(private val mContext: Context): BasePopupWindow(mContext)
             dismiss()
         }
         cancelTv.setOnClickListener {
+            onModifyClick?.invoke(4)
             dismiss()
         }
     }

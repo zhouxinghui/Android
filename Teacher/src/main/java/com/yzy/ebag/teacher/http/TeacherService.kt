@@ -95,4 +95,8 @@ interface TeacherService {
     /**删除学习小组*/
     @POST("clazz/deleteClassByGroup/{version}")
     fun deleteGroup(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**发布公告*/
+    @POST("notice/sendClassNotice/{version}")
+    fun publishNotice(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 }

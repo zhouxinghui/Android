@@ -8,4 +8,7 @@
 
     <drawable name="white">#FFFFFF</drawable>
     <drawable name="gray">#F2F5F9</drawable>
+
+    <!--公告历史-->
+    <color name="publish_desc">#F2F6FF</color>
 </resources>

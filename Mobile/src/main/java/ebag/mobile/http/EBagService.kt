@@ -84,4 +84,8 @@ interface EBagService {
      */
     @POST("clazz/uploadPhotos/{version}")
     fun photosUpload(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**公告列表*/
+    @POST("notice/queryClassNotice/{version}")
+    fun noticeList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<NoticeBean>>>
 }
