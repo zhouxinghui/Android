@@ -44,7 +44,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -54,4 +54,14 @@ dependencies {
     compile project(':Mobile')
     compile 'com.android.support:cardview-v7:26.1.0'
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    implementation files('lib/SocialSDK_QQ_Simplify.jar')
+    implementation files('lib/SocialSDK_Sina_Simplify.jar')
+    implementation files('lib/SocialSDK_WeiXin_Full.jar')
+    implementation files('lib/umeng_shareboard_widget.jar')
+    //implementation files('lib/umeng_social_api.jar')
+    //implementation files('lib/umeng_social_net.jar')
+    implementation files('lib/umeng_social_shareboard.jar')
+    //implementation files('lib/umeng_social_shareview.jar')
+    //implementation files('lib/umeng_social_tool.jar')
+    //implementation files('lib/wechat-sdk-android-with-mta-1.1.6.jar')
 }

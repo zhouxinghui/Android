@@ -27,19 +27,14 @@
 
 
         <!--umeng-->
-        <!--<activity
+        <activity
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"
             android:configChanges="keyboardHidden|orientation"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:exported="false"
             android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize"
-            >
-        </activity>
+
         <activity
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
             android:launchMode="singleTask"
@@ -58,25 +53,25 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <activity
-            android:name="com.tencent.tauth.AuthActivity"
+            android:name="com.umeng.qq.tencent.AuthActivity"
             android:launchMode="singleTask"
             android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="1105873659" />
+                <data android:scheme="tencent1105318983" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.tencent.connect.common.AssistActivity"
+            android:name="com.umeng.qq.tencent.AssistActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
 
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="599bd2c34544cb06cc000f95">
-        </meta-data>-->
+        </meta-data>
 
         <!--umeng-->
     </application>

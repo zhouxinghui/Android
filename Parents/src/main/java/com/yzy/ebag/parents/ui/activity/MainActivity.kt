@@ -4,6 +4,12 @@ import android.support.v4.app.Fragment
 import android.view.Gravity
 import android.view.View
 import android.widget.RadioGroup
+import com.umeng.socialize.ShareAction
+import com.umeng.socialize.UMShareAPI
+import com.umeng.socialize.UMShareListener
+import com.umeng.socialize.bean.SHARE_MEDIA
+import com.umeng.socialize.media.UMImage
+import com.umeng.socialize.media.UMWeb
 import com.yzy.ebag.parents.R
 import com.yzy.ebag.parents.ui.adapter.MainPagerAdapter
 import com.yzy.ebag.parents.ui.fragment.ClazzFragment
@@ -23,6 +29,7 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener, View.On
     private var mExitTime: Long = 0
 
     override fun getLayoutId(): Int = R.layout.activity_main
+    private lateinit var popupWindow: SharePupopwindow
 
     override fun initViews() {
 
@@ -83,39 +90,55 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener, View.On
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.main_title_right -> {
-                val p = SharePupopwindow(this, object : ShareClickCallback {
+                popupWindow = SharePupopwindow(this, object : ShareClickCallback {
                     override fun wxClick() {
-                       /* if (UMShareAPI.get(this@MainActivity).isInstall(this@MainActivity, SHARE_MEDIA.WEIXIN)) {
-
+                        if (UMShareAPI.get(this@MainActivity).isInstall(this@MainActivity, SHARE_MEDIA.WEIXIN)) {
+                            doShare(SHARE_MEDIA.WEIXIN)
                         } else {
                             T.show(this@MainActivity, "请先安装微信客户端")
-                        }*/
+                        }
                     }
 
                     override fun weiboClick() {
-
+                        doShare(SHARE_MEDIA.SINA)
                     }
 
                     override fun momentClick() {
-                        /*if (UMShareAPI.get(this@MainActivity).isInstall(this@MainActivity, SHARE_MEDIA.WEIXIN)) {
-
+                        if (UMShareAPI.get(this@MainActivity).isInstall(this@MainActivity, SHARE_MEDIA.WEIXIN)) {
+                            doShare(SHARE_MEDIA.WEIXIN_CIRCLE)
                         } else {
                             T.show(this@MainActivity, "请先安装微信客户端")
-                        }*/
+                        }
                     }
 
                     override fun qqClick() {
-                        /*if (UMShareAPI.get(this@MainActivity).isInstall(this@MainActivity, SHARE_MEDIA.QQ)) {
-
+                        if (UMShareAPI.get(this@MainActivity).isInstall(this@MainActivity, SHARE_MEDIA.QQ)) {
+                            doShare(SHARE_MEDIA.QQ)
                         } else {
                             T.show(this@MainActivity, "请先安装QQ客户端")
-                        }*/
+                        }
                     }
 
                 })
-                p.showAtLocation(rootLayout, Gravity.BOTTOM, 0, 0)
+                popupWindow.showAtLocation(rootLayout, Gravity.BOTTOM, 0, 0)
             }
         }
+    }
+
+    private fun doShare(media:SHARE_MEDIA) {
+        var text = "移动端上免费基础教育应用平台,关注小孩安全及学习情况,家长必备神器!"
+        if (media == SHARE_MEDIA.SINA)
+            text += "http://www.yun-bag.com/ebag-portal/index.dhtml"
+        val web = UMWeb("http://www.yun-bag.com/ebag-portal/index.dhtml")
+        web.title = "云书包教育云平台"
+        val thumb = UMImage(this@MainActivity, "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/logo_parents.png")
+        web.setThumb(thumb)
+        web.description = "云书包教育云平台"
+        val shareAction = ShareAction(this@MainActivity)
+        shareAction.setPlatform(media).setCallback(umShareListener).withMedia(web).withText(text)
+        if (media == SHARE_MEDIA.SINA)
+            shareAction.withMedia(thumb)
+        shareAction.share()
     }
 
     interface ShareClickCallback {
@@ -126,4 +149,26 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener, View.On
         fun qqClick()
     }
 
+    private val umShareListener = object : UMShareListener {
+
+        override fun onResult(p0: SHARE_MEDIA?) {
+            T.show(this@MainActivity, "分享成功")
+
+        }
+
+        override fun onCancel(p0: SHARE_MEDIA?) {
+            T.show(this@MainActivity, "分享失败")
+            if (popupWindow != null) {
+                popupWindow.dismiss()
+            }
+        }
+
+        override fun onError(p0: SHARE_MEDIA?, p1: Throwable?) {
+        }
+
+        override fun onStart(p0: SHARE_MEDIA?) {
+            T.show(this@MainActivity, "开始分享..")
+        }
+
+    }
 }
