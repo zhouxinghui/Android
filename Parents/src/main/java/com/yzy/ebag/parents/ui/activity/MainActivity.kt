@@ -39,6 +39,7 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener, View.On
         viewpager.adapter = pagerAdapter
         group.setOnCheckedChangeListener(this)
         main_title_right.setOnClickListener(this)
+        main_title_left.setOnClickListener(this)
     }
 
     override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
@@ -121,6 +122,10 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener, View.On
 
                 })
                 popupWindow.showAtLocation(rootLayout, Gravity.BOTTOM, 0, 0)
+            }
+
+            R.id.main_title_left -> {
+                LocationActivity.start(this)
             }
         }
     }

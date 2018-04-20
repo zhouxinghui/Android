@@ -84,10 +84,10 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
                 }
         )*/
         SerializableUtils.setSerializable(
-                if (getRoleCode() == STUDENT_ROLE) {
-                    Constants.STUDENT_USER_ENTITY
-                } else {
-                    Constants.TEACHER_USER_ENTITY
+                when {
+                    getRoleCode() == STUDENT_ROLE -> Constants.STUDENT_USER_ENTITY
+                    getRoleCode() == PARENT_ROLE -> Constants.PARENTS_USER_ENTITY
+                    else -> Constants.TEACHER_USER_ENTITY
                 }, userEntity)
         if (isToMain)
             startActivity(getJumpIntent())

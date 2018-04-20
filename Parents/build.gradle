@@ -15,6 +15,12 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi'
+            // 还可以添加 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
     }
 
     buildTypes {
@@ -40,6 +46,12 @@ android {
         }
     }
 
+    sourceSets{
+        main{
+            jniLibs.srcDirs =['libs']
+        }
+    }
+
 
 }
 
@@ -54,11 +66,11 @@ dependencies {
     compile project(':Mobile')
     compile 'com.android.support:cardview-v7:26.1.0'
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-    implementation files('lib/SocialSDK_QQ_Simplify.jar')
-    implementation files('lib/SocialSDK_Sina_Simplify.jar')
-    implementation files('lib/SocialSDK_WeiXin_Full.jar')
-    implementation files('lib/umeng_shareboard_widget.jar')
-    implementation files('lib/umeng_social_shareboard.jar')
+    implementation files('libs/SocialSDK_QQ_Simplify.jar')
+    implementation files('libs/SocialSDK_Sina_Simplify.jar')
+    implementation files('libs/SocialSDK_WeiXin_Full.jar')
+    implementation files('libs/umeng_shareboard_widget.jar')
+    implementation files('libs/umeng_social_shareboard.jar')
     compile 'com.android.support:multidex:1.0.2'
-
+    implementation files('libs/BaiduLBS_Android.jar')
 }

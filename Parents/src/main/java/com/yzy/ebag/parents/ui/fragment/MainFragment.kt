@@ -31,6 +31,7 @@ class MainFragment : BaseFragment() {
     private val entityList: ArrayList<CustomTabEntity> = arrayListOf()
     private val msgCountList: MutableList<Int> = mutableListOf()
     private val fragmentList: ArrayList<Fragment> = arrayListOf()
+    private var init = false
 
     companion object {
         fun newInstance(): MainFragment {
@@ -74,8 +75,10 @@ class MainFragment : BaseFragment() {
                 4 -> ChooseChildrenActivity.start(activity)
             }
         }
+
         getOnePageInfo()
 
+        init = true
     }
 
     private fun getOnePageInfo() {
@@ -90,6 +93,7 @@ class MainFragment : BaseFragment() {
             override fun onSuccess(entity: List<OnePageInfoBean>?) {
                 entityList.clear()
                 fragmentList.clear()
+                msgCountList.clear()
                 entity?.forEachIndexed { index, it ->
                     entityList.add(TabEntity(it.subject, 0, 0))
                     if (it.homeWorkNoCompleteCount != 0) {
@@ -110,8 +114,6 @@ class MainFragment : BaseFragment() {
 
                 tablayout.setTabData(entityList, activity, R.id.container_layout, fragmentList)
 
-
-
                 msgCountList.forEachIndexed { index, it ->
                     if (it != 0) {
                         tablayout.showMsg(index, it)
@@ -128,4 +130,9 @@ class MainFragment : BaseFragment() {
     }
 
 
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        if (isVisibleToUser && init) {
+            getOnePageInfo()
+        }
+    }
 }
