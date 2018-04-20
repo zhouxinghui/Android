@@ -97,7 +97,7 @@ public class TitleBar extends RelativeLayout {
         rightTextColor = typedArray.getColor(R.styleable.Title_bar_rightTextColor, getResources().getColor(R.color.title_text_color));
         rightTextSize = typedArray.getDimension(R.styleable.Title_bar_rightTextSize, getResources().getDimension(R.dimen.title_bar_title_sub_size));
 
-        needBottomLine = typedArray.getBoolean(R.styleable.Title_bar_needBottomLine,true);
+        needBottomLine = typedArray.getBoolean(R.styleable.Title_bar_needBottomLine,false);
         typedArray.recycle();
 
         if(titleBackground == null)

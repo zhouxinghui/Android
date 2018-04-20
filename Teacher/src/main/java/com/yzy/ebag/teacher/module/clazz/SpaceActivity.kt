@@ -12,6 +12,7 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.DateUtil
 import ebag.mobile.bean.NoticeBean
+import ebag.mobile.module.clazz.album.AlbumActivity
 import kotlinx.android.synthetic.main.activity_space.*
 import java.util.*
 
@@ -88,7 +89,7 @@ class SpaceActivity : BaseActivity(), View.OnClickListener {
 //                ClassPerformanceActivity.jump(this, classId)
             }
             R.id.classPhotos ->{
-//                AlbumActivity.jump(this, classId, ebag.hd.base.Constants.ROLE_TEACHER)
+                AlbumActivity.jump(this, classId, ebag.mobile.bean.Constants.ROLE_TEACHER)
             }
         }
     }

@@ -11,5 +11,14 @@
         <activity android:name=".module.clazz.ClazzmateActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".module.clazz.album.PhotoUploadActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".module.clazz.album.AlbumDetailActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".module.clazz.album.AlbumActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 </manifest>

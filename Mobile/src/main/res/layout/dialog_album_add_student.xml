@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/x250"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/bg"
+        android:layout_width="@dimen/x250"
+        android:layout_height="@dimen/y500"
+        android:background="@drawable/normal_dialog_bg"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="新增相册"
+        android:textColor="#7ED321"
+        android:textSize="@dimen/tv_normal"
+        android:layout_marginTop="@dimen/y20"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etCode"
+        android:layout_width="@dimen/x230"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y100"
+        android:paddingTop="@dimen/y26"
+        android:paddingBottom="@dimen/x5"
+        android:gravity="center"
+        android:textSize="@dimen/tv_normal"
+        android:hint="请输入相册名称"
+        android:maxLength="10"
+        android:textColor="@color/color_edit_color"
+        android:textColorHint="@color/color_edit_hint"
+        android:inputType="textPersonName"
+        android:background="@null"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <View
+        android:layout_width="@dimen/x250"
+        android:layout_height="@dimen/y2"
+        android:background="#e0e0e0"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintTop_toBottomOf="@+id/etCode"/>
+    <TextView
+        android:id="@+id/tvConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y90"
+        android:gravity="center"
+        android:textSize="@dimen/tv_big"
+        android:text="完成"
+        android:textColor="@color/white"
+        android:background="@drawable/normal_dialog_confirm_bg"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <View
+        android:id="@+id/btnClose"
+        android:layout_width="@dimen/y58"
+        android:layout_height="@dimen/y58"
+        android:background="@drawable/my_class_dialog_close"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintTop_toTopOf="@+id/bg" />
+
+
+</android.support.constraint.ConstraintLayout>

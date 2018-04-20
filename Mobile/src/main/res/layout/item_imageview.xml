@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/y10"
+    >
+    <ImageView
+        android:layout_width="@dimen/y130" android:layout_height="@dimen/y130"
+        android:id="@+id/imageView"
+        android:layout_gravity="center"
+        />
+</FrameLayout>
+

@@ -5,9 +5,7 @@ import ebag.core.base.App
 import ebag.core.bean.ResponseBean
 import ebag.core.http.baseBean.RequestBean
 import ebag.core.http.network.*
-import ebag.mobile.bean.BaseClassesBean
-import ebag.mobile.bean.ClassMemberBean
-import ebag.mobile.bean.UserEntity
+import ebag.mobile.bean.*
 import ebag.mobile.http.EBagClient.eBagService
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -147,5 +145,49 @@ object EBagApi {
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
         EBagApi.request(eBagService.clazzMember("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**获取相册*/
+    fun albums(classId: String, groupType: String, page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<AlbumBean>>, role: String = "student") {
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("groupType", groupType)
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", pageSize)
+        request(EBagClient.eBagService.albums("v1", createBody(jsonObject)), callback)
+    }
+
+    /**创建相册*/
+    fun createAlbum(classId: String, groupType: String, photosName: String, callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("groupType", groupType)
+        jsonObject.put("photosName", photosName)
+        request(EBagClient.eBagService.createAlbum("v1", createBody(jsonObject)), callback)
+    }
+
+    /**相册详情*/
+    fun albumDetail(photoGroupId: String, groupType: String, page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<PhotoBean>>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("photoGroupId", photoGroupId)
+        jsonObject.put("groupType", groupType)
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", pageSize)
+        request(EBagClient.eBagService.albumDetail("v1", createBody(jsonObject)), callback)
+    }
+
+    /**照片分享*/
+    fun photosShare(photoShareBean: PhotoRequestBean, callback: RequestCallBack<String>) {
+        request(EBagClient.eBagService.photosShare("v1", EBagApi.createBody(JSON.toJSONString(photoShareBean))), callback)
+    }
+
+    /**照片删除*/
+    fun photosDelete(photoShareBean: PhotoRequestBean, callback: RequestCallBack<String>) {
+        request(EBagClient.eBagService.photosDelete("v1", EBagApi.createBody(JSON.toJSONString(photoShareBean))), callback)
+    }
+
+    /**照片上传*/
+    fun photosUpload(photoUploadBean: PhotoUploadBean, callback: RequestCallBack<String>) {
+        request(EBagClient.eBagService.photosUpload("v1", EBagApi.createBody(JSON.toJSONString(photoUploadBean))), callback)
     }
 }

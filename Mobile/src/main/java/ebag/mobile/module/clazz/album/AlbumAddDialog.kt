@@ -1,4 +1,4 @@
-package ebag.hd.base
+package ebag.mobile.module.clazz.album
 
 import android.os.Bundle
 import android.text.Editable
@@ -9,8 +9,8 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
-import ebag.hd.R
-import ebag.hd.http.EBagApi
+import ebag.mobile.R
+import ebag.mobile.http.EBagApi
 import kotlinx.android.synthetic.main.dialog_album_add_student.*
 
 /**
@@ -27,7 +27,7 @@ class AlbumAddDialog: BaseFragmentDialog() {
     companion object {
         const val TEACHER_ROLE = 1
         const val STUDENT_ROLE = 2
-        fun newInstance(role: Int, classId: String): AlbumAddDialog{
+        fun newInstance(role: Int, classId: String): AlbumAddDialog {
             val dialog = AlbumAddDialog()
             val bundle = Bundle()
             bundle.putInt("role", role)

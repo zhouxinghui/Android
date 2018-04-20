@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ebag.mobile.widget.TitleBar
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="上传照片"/>
+
+    <View
+        android:id="@+id/bottomView"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/y80"
+        android:background="@color/white"
+        android:layout_marginBottom="@dimen/y20"
+        android:layout_marginStart="@dimen/x5"
+        android:layout_marginEnd="@dimen/x5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/shareTip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="共享到班级相册"
+        android:layout_marginStart="@dimen/x10"
+        android:textSize="@dimen/tv_big"
+        android:textColor="@color/tv_normal"
+        app:layout_constraintTop_toTopOf="@id/bottomView"
+        app:layout_constraintBottom_toBottomOf="@id/bottomView"
+        app:layout_constraintStart_toStartOf="@id/bottomView"/>
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/switchView"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y40"
+        android:layout_marginEnd="@dimen/x10"
+        android:thumb="@drawable/switch_dot"
+        app:track="@drawable/switch_bg"
+        android:checked="false"
+        app:layout_constraintTop_toTopOf="@id/bottomView"
+        app:layout_constraintBottom_toBottomOf="@id/bottomView"
+        app:layout_constraintEnd_toEndOf="@id/bottomView"/>
+    <View
+        android:id="@+id/topView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/y25"
+        android:layout_marginBottom="@dimen/y25"
+        app:layout_constraintTop_toBottomOf="@id/titleView"
+        app:layout_constraintBottom_toTopOf="@id/bottomView"
+        app:layout_constraintStart_toStartOf="@id/bottomView"
+        app:layout_constraintEnd_toEndOf="@id/bottomView"
+        android:background="@color/white"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y15"
+        android:layout_marginBottom="@dimen/y15"
+        app:layout_constraintBottom_toBottomOf="@id/topView"
+        app:layout_constraintStart_toStartOf="@id/topView"
+        app:layout_constraintEnd_toEndOf="@id/topView"/>
+
+    <TextView
+        android:id="@+id/tipView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/x5"
+        android:layout_marginBottom="@dimen/y10"
+        android:textSize="@dimen/tv_sub"
+        android:text="0/100"
+        app:layout_constraintBottom_toTopOf="@id/recyclerView"
+        app:layout_constraintEnd_toEndOf="@id/topView" />
+
+    <EditText
+        android:id="@+id/editView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="@dimen/x5"
+        android:hint="输入照片描述"
+        android:gravity="top|start"
+        android:textSize="@dimen/tv_normal"
+        android:maxLength="100"
+        android:textColor="@color/tv_normal"
+        android:textColorHint="@color/color_edit_hint"
+        android:background="@null"
+        app:layout_constraintTop_toTopOf="@id/topView"
+        app:layout_constraintStart_toStartOf="@id/topView"
+        app:layout_constraintEnd_toEndOf="@id/topView"
+        app:layout_constraintBottom_toTopOf="@id/tipView"/>
+</android.support.constraint.ConstraintLayout>

@@ -1,9 +1,7 @@
 package ebag.mobile.http
 
 import ebag.core.bean.ResponseBean
-import ebag.mobile.bean.BaseClassesBean
-import ebag.mobile.bean.ClassMemberBean
-import ebag.mobile.bean.UserEntity
+import ebag.mobile.bean.*
 import io.reactivex.Observable
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -49,4 +47,41 @@ interface EBagService {
     /**根据班级查询班级下所有的成员（老师，学生，家长）*/
     @POST("clazz/getClassUserByAll/{version}")
     fun clazzMember(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ClassMemberBean>>
+
+    /**
+     * 相册
+     */
+    @POST("clazz/queryPhotoGroup/{version}")
+    fun albums(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<AlbumBean>>>
+
+    /**
+     * 创建相册
+     */
+    @POST("clazz/addAlbum/{version}")
+    fun createAlbum(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+
+    /**
+     * 相册详情
+     */
+    @POST("clazz/queryPhotos/{version}")
+    fun albumDetail(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<PhotoBean>>>
+
+    /**
+     * 照片分享
+     */
+    @POST("clazz/sharePhoto/{version}")
+    fun photosShare(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 照片删除
+     */
+    @POST("clazz/deletePhoto/{version}")
+    fun photosDelete(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 照片上传
+     */
+    @POST("clazz/uploadPhotos/{version}")
+    fun photosUpload(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 }

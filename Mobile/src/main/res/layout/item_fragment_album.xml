@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="@dimen/x5"
+    android:layout_marginLeft="@dimen/x5"
+    android:layout_width="@dimen/x80"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/x80"
+        android:layout_height="@dimen/x80" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:ellipsize="end"
+        android:padding="@dimen/x5"
+        android:background="@color/white"
+        android:textSize="@dimen/tv_normal"
+        android:gravity="center"
+        android:textColor="@color/tv_normal"
+        tools:text="创建相册"/>
+</LinearLayout>

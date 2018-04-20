@@ -17,4 +17,14 @@ object Constants {
     const val THIRD_PARTY_TOKEN = "thirdPartyToken"
     const val THIRD_PARTY_UNION_ID = "thirdPartyUnionid"
     const val CLASS_ID: String = "class_id"
+
+    const val ROLE_STUDENT = 1
+    const val ROLE_TEACHER = 2
+
+    const val NORMAL_REQUEST = 111
+    const val NORMAL_RESULT = 112
+
+    const val CLASS_TYPE = "2" // 班级相册
+    const val PERSONAL_TYPE = "3" // 个人相册
+    const val HONOR_TYPE = "1" // 班级荣誉
 }
