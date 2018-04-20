@@ -4,6 +4,7 @@ import com.yzy.ebag.teacher.bean.*
 import ebag.core.bean.QuestionBean
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.StringUtils
+import ebag.mobile.bean.NoticeBean
 import ebag.mobile.bean.UnitBean
 import ebag.mobile.http.EBagApi
 import ebag.mobile.http.EBagClient
@@ -239,5 +240,12 @@ object TeacherApi {
         jsonObject.put("groupCode", "grade_subject")
         jsonObject.put("parentCode", code)
         EBagApi.request(teacherService.getBaseData("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**查询最新公告*/
+    fun newestNotice(classId: String, callback: RequestCallBack<NoticeBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId",classId)
+        EBagApi.request(teacherService.newestNotice("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

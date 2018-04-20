@@ -19,4 +19,11 @@
         <item>发布小组</item>
         <item>发布班级</item>
     </array>
+
+    <string name="class_photos">班级相册</string>
+    <string name="study_group">学习小组</string>
+    <string name="course_schedule">课程表</string>
+    <string name="course_teaching">所教课程</string>
+    <string name="class_expression">课堂表现</string>
+    <string name="notice_time">发布时间：%1$s</string>
 </resources>

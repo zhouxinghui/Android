@@ -13,4 +13,7 @@ object Constants {
     const val QUESTION_REQUEST = 120
     const val QUESTION_RESULT = 121
     const val PREVIEW_REQUEST = 130
+
+    val PUBLISH_REQUEST = 110
+    val PUBLISH_RESULT = 110
 }

@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.SpaceBean
 import com.yzy.ebag.teacher.http.TeacherApi
+import com.yzy.ebag.teacher.module.clazz.SpaceActivity
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.loadHead
@@ -63,8 +64,8 @@ class ClassFragment: BaseListFragment<List<SpaceBean>, SpaceBean>() {
                 addTeacherDialog.show(adapter.data[position].classId, adapter.data[position].gradeCode)
             }
             R.id.class_space_btn ->{
-                /*val bean = adapter.data[position]
-                SpaceActivity.jump(mContext, bean.classId, bean.clazzName, bean.gradeCode)*/
+                val bean = adapter.data[position]
+                SpaceActivity.jump(mContext, bean.classId, bean.clazzName, bean.gradeCode)
             }
 
             R.id.student_list_btn ->{
