@@ -83,7 +83,7 @@ class UplodaLocationActivity : BaseActivity() {
             longitude = p0?.longitude.toString()  //获取经度信息
             if (a != null ) {
                 //location = addr[0].name
-                address = "$province$city$district ${a.address}"
+                address = "${a.address}"
                 uploadlocation_tv.text = address
                 flag = true
                 timeCountDown.cancel()

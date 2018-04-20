@@ -58,10 +58,7 @@ dependencies {
     implementation files('lib/SocialSDK_Sina_Simplify.jar')
     implementation files('lib/SocialSDK_WeiXin_Full.jar')
     implementation files('lib/umeng_shareboard_widget.jar')
-    //implementation files('lib/umeng_social_api.jar')
-    //implementation files('lib/umeng_social_net.jar')
     implementation files('lib/umeng_social_shareboard.jar')
-    //implementation files('lib/umeng_social_shareview.jar')
-    //implementation files('lib/umeng_social_tool.jar')
-    //implementation files('lib/wechat-sdk-android-with-mta-1.1.6.jar')
+    compile 'com.android.support:multidex:1.0.2'
+
 }

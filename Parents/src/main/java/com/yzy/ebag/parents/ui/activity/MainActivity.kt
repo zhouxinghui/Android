@@ -125,7 +125,7 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener, View.On
         }
     }
 
-    private fun doShare(media:SHARE_MEDIA) {
+    private fun doShare(media: SHARE_MEDIA) {
         var text = "移动端上免费基础教育应用平台,关注小孩安全及学习情况,家长必备神器!"
         if (media == SHARE_MEDIA.SINA)
             text += "http://www.yun-bag.com/ebag-portal/index.dhtml"
@@ -153,17 +153,23 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener, View.On
 
         override fun onResult(p0: SHARE_MEDIA?) {
             T.show(this@MainActivity, "分享成功")
-
+            if (popupWindow != null) {
+                popupWindow.dismiss()
+            }
         }
 
         override fun onCancel(p0: SHARE_MEDIA?) {
-            T.show(this@MainActivity, "分享失败")
+            T.show(this@MainActivity, "分享取消")
             if (popupWindow != null) {
                 popupWindow.dismiss()
             }
         }
 
         override fun onError(p0: SHARE_MEDIA?, p1: Throwable?) {
+            T.show(this@MainActivity, "分享失败")
+            if (popupWindow != null) {
+                popupWindow.dismiss()
+            }
         }
 
         override fun onStart(p0: SHARE_MEDIA?) {

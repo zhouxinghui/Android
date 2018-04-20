@@ -1,6 +1,6 @@
 package com.yzy.ebag.parents.mvp.presenter
 
-interface BasePresenter{
+interface BasePresenter<in V>{
 
     fun start()
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/y150">
+
+
+    <ImageView
+        android:id="@+id/child_head"
+        android:layout_width="@dimen/x40"
+        android:layout_height="@dimen/x40"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/x10"
+        tool:src="@drawable/ic_launcher" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/child_head"
+        android:layout_marginStart="@dimen/x15"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/child_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tool:text="范三" />
+
+            <TextView
+                android:id="@+id/child_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/children_select_btn"
+                android:paddingStart="@dimen/x5"
+                android:paddingEnd="@dimen/x5"
+                android:paddingTop="@dimen/x2"
+                android:paddingBottom="@dimen/x2"
+                android:visibility="gone"
+                android:text="当前选择"
+                android:layout_marginStart="@dimen/x15"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x8" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tool:text="书包号:10086"
+            android:id="@+id/ysb_code"
+            android:layout_marginTop="@dimen/y10"
+            android:textColor="#666"
+            />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/child_class"
+        android:layout_marginEnd="@dimen/x10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        tool:text="一年级二班" />
+
+
+</RelativeLayout>

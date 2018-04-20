@@ -34,6 +34,7 @@ class ClazzmateActivity : BaseActivity() {
             clazzId = intent.getStringExtra("classId")
             clazz_rv.visibility = View.GONE
             getClzzmate(clazzId)
+            titleview.setTitle("班级学生")
 
         } else {
             clazzAdapter = ClazzItemAdapter(clazzList)

@@ -10,6 +10,8 @@ interface BaseView {
 
     fun showError(e: Throwable?): Unit = TODO("no impl")
 
+    fun showEmpty()
+
 
     interface BaseListView:BaseView{
 

@@ -10,6 +10,7 @@ import com.youth.banner.Transformer
 import com.yzy.ebag.parents.R
 import com.yzy.ebag.parents.model.MainRVModel
 import com.yzy.ebag.parents.model.TabEntity
+import com.yzy.ebag.parents.ui.activity.ChooseChildrenActivity
 import com.yzy.ebag.parents.ui.adapter.MainRVAdapter
 import com.yzy.ebag.parents.utils.GlideImageLoader
 import ebag.core.base.BaseFragment
@@ -69,6 +70,13 @@ class MainFragment : BaseFragment() {
         mainRVAdapter = MainRVAdapter(dataList)
         main_rv.layoutManager = GridLayoutManager(activity, 3)
         main_rv.adapter = mainRVAdapter
+
+        mainRVAdapter.setOnItemClickListener { adapter, view, position ->
+
+            when (position) {
+                4 -> ChooseChildrenActivity.start(activity)
+            }
+        }
 
     }
 
