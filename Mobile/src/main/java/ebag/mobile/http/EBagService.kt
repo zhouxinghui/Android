@@ -1,6 +1,8 @@
 package ebag.mobile.http
 
 import ebag.core.bean.ResponseBean
+import ebag.mobile.bean.BaseClassesBean
+import ebag.mobile.bean.ClassMemberBean
 import ebag.mobile.bean.UserEntity
 import io.reactivex.Observable
 import okhttp3.RequestBody
@@ -39,4 +41,12 @@ interface EBagService {
     @Headers("EBag-Special-Url: special/url")
     @POST("util/sendMessage/{version}")
     fun getCheckCode(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**获取用户的所有所在班级*/
+    @POST("clazz/queryAllClazzInfo/{version}")
+    fun getMyClasses(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<BaseClassesBean>>>
+
+    /**根据班级查询班级下所有的成员（老师，学生，家长）*/
+    @POST("clazz/getClassUserByAll/{version}")
+    fun clazzMember(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ClassMemberBean>>
 }

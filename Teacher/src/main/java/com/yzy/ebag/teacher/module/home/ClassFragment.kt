@@ -1,5 +1,6 @@
 package com.yzy.ebag.teacher.module.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -15,6 +16,7 @@ import ebag.core.util.loadHead
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
 import ebag.mobile.bean.ClassMemberBean
+import ebag.mobile.module.clazz.ClazzmateActivity
 import ebag.mobile.widget.ClazzmateInfoDIalog
 
 /**
@@ -66,9 +68,9 @@ class ClassFragment: BaseListFragment<List<SpaceBean>, SpaceBean>() {
             }
 
             R.id.student_list_btn ->{
-                /*val intent = Intent(activity,ClazzmateActivity::class.java)
-                intent.putExtra("classId",adapter.datas[position].classId)
-                startActivity(intent)*/
+                val intent = Intent(activity, ClazzmateActivity::class.java)
+                intent.putExtra("classId",adapter.data[position].classId)
+                startActivity(intent)
             }
         }
     }

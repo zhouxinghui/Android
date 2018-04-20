@@ -5,7 +5,10 @@ import ebag.core.base.App
 import ebag.core.bean.ResponseBean
 import ebag.core.http.baseBean.RequestBean
 import ebag.core.http.network.*
+import ebag.mobile.bean.BaseClassesBean
+import ebag.mobile.bean.ClassMemberBean
 import ebag.mobile.bean.UserEntity
+import ebag.mobile.http.EBagClient.eBagService
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -131,5 +134,18 @@ object EBagApi {
             jsonObject.put("ysbCode", ysbCode)
         }
         request(EBagClient.eBagService.getCheckCode("v1", createBody(jsonObject)), callback)
+    }
+
+    /**获取用户的所有所在班级*/
+    fun getMyClasses(callback: RequestCallBack<List<BaseClassesBean>>) {
+        val jsonObject = JSONObject()
+        EBagApi.request(eBagService.getMyClasses("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**根据班级查询班级下所有的成员（老师，学生，家长）*/
+    fun clazzMember(classId: String, callback: RequestCallBack<ClassMemberBean>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        EBagApi.request(eBagService.clazzMember("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }
