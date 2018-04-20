@@ -77,7 +77,7 @@ class SpaceActivity : BaseActivity(), View.OnClickListener {
 //                NoticeHistoryActivity.jump(this, classId)
             }
             R.id.studyGroup ->{
-//                StudyGroupActivity.jump(this, classId)
+                StudyGroupActivity.jump(this, classId)
             }
             R.id.publishNoticeBtn ->{
 //                PublishContentActivity.jump(this, classId)

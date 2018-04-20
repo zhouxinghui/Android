@@ -45,6 +45,9 @@
         <activity android:name=".module.clazz.SpaceActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".module.clazz.StudyGroupActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

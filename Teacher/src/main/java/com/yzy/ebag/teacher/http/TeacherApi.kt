@@ -4,6 +4,7 @@ import com.yzy.ebag.teacher.bean.*
 import ebag.core.bean.QuestionBean
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.StringUtils
+import ebag.mobile.bean.BaseStudentBean
 import ebag.mobile.bean.NoticeBean
 import ebag.mobile.bean.UnitBean
 import ebag.mobile.http.EBagApi
@@ -206,9 +207,7 @@ object TeacherApi {
         EBagApi.request(teacherService.studyGroup("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    /**
-     * 打分
-     */
+    /**打分*/
     fun markScore(homeworkId: String, uid: String?, questionId: String, questionScore: String, callback: RequestCallBack<String>){
         val jsonObject = JSONObject()
         jsonObject.put("homeWorkId", homeworkId)
@@ -247,5 +246,50 @@ object TeacherApi {
         val jsonObject = JSONObject()
         jsonObject.put("classId",classId)
         EBagApi.request(teacherService.newestNotice("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 创建学习小组
+     */
+    fun createGroup(classId: String, groupName: String, list: List<BaseStudentBean>, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("groupName", groupName)
+        jsonObject.put("studentCount", list.size)
+        val jsonArray = JSONArray()
+        list.forEach {
+            val jsonObj = JSONObject()
+            jsonObj.put("uid", it.uid)
+            jsonObj.put("duties", it.duties)
+            jsonArray.put(jsonObj)
+        }
+        jsonObject.put("clazzUserGroupVos", jsonArray)
+        EBagApi.request(teacherService.createGroup("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**修改小组*/
+    fun modifyGroup(groupId: String, classId: String, groupName: String, list: List<BaseStudentBean>, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("groupName", groupName)
+        jsonObject.put("studentCount", list.size)
+        jsonObject.put("groupId", groupId)
+        val jsonArray = JSONArray()
+        list.forEach {
+            val jsonObj = JSONObject()
+            jsonObj.put("uid", it.uid)
+            jsonObj.put("duties", it.duties)
+            jsonArray.put(jsonObj)
+        }
+        jsonObject.put("clazzUserGroupVos", jsonArray)
+        EBagApi.request(teacherService.modifyGroup("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**删除学习小组*/
+    fun deleteGroup(classId: String, groupId: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("groupId", groupId)
+        EBagApi.request(teacherService.deleteGroup("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

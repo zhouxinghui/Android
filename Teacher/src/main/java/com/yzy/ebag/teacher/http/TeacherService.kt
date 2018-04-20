@@ -83,4 +83,16 @@ interface TeacherService {
     /**查询最新公告*/
     @POST("notice/queryNewClassNotice/{version}")
     fun newestNotice(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<NoticeBean>>
+
+    /**创建学习小组*/
+    @POST("clazz/createByClazzGroup/{version}")
+    fun createGroup(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**修改小组*/
+    @POST("clazz/modifyClassByGroup/{version}")
+    fun modifyGroup(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**删除学习小组*/
+    @POST("clazz/deleteClassByGroup/{version}")
+    fun deleteGroup(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 }
