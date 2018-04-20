@@ -6,8 +6,6 @@ import com.yzy.ebag.student.R
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.T
-import ebag.hd.base.BaseFragmentDialog
-import kotlinx.android.synthetic.main.dialog_parents_add.*
 
 /**
  * @author caoyu

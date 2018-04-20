@@ -1,4 +1,4 @@
-package ebag.hd.base
+package ebag.core.base
 
 import android.content.Context
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import ebag.hd.R
+import ebag.core.R
 
 /**
  * 写这个类

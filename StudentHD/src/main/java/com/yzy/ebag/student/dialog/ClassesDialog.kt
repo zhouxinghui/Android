@@ -7,8 +7,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.bean.ClassListInfoBean
-import ebag.hd.base.BaseFragmentDialog
-import kotlinx.android.synthetic.main.dialog_classes.*
 
 /**
  * @author caoyu

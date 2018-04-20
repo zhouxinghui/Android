@@ -6,6 +6,7 @@ import ebag.core.bean.ResponseBean
 import io.reactivex.Observable
 import okhttp3.RequestBody
 import retrofit2.http.Body
+import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -62,4 +63,19 @@ interface TeacherService {
     /**打分*/
     @POST("correctHome/teacherCurrent/{version}")
     fun markScore(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**班级列表*/
+    @POST("clazz/queryMyClassInfo/{version}")
+    fun clazzSpace(@Path("version") version: String): Observable<ResponseBean<List<SpaceBean>>>
+
+    /**添加老师*/
+    @POST("clazz/joinTeacherBySubject/{version}")
+    fun addTeacher(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 获取基础数据的接口
+     */
+    @Headers("EBag-Special-Url: special/url")
+    @POST("data/queryBaserData/{version}")
+    fun getBaseData(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<BaseSubjectBean>>>
 }

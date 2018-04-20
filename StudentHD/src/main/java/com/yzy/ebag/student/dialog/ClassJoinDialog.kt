@@ -9,9 +9,7 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
-import ebag.hd.base.BaseFragmentDialog
 import ebag.hd.http.EBagApi
-import kotlinx.android.synthetic.main.dialog_class_add.*
 
 /**
  * @author caoyu

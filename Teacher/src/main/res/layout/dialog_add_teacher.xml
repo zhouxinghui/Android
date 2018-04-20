@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/normal_dialog_bg"
+    >
+    <TextView android:id="@+id/title_tv"
+        style="@style/normal_dialog_title"
+        android:text="添加老师"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <EditText android:id="@+id/bagEdit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_bg"
+        android:hint="请输入老师书包号"
+        android:gravity="center"
+        android:maxLength="11"
+        android:inputType="number"
+        android:textColor="@color/tv_normal"
+        android:textSize="@dimen/tv_normal"
+        android:layout_marginStart="@dimen/x10"
+        android:layout_marginEnd="@dimen/x10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/y15"
+        app:layout_constraintTop_toBottomOf="@id/title_tv"
+        app:layout_constraintBottom_toTopOf="@id/recyclerView"
+        />
+    <android.support.v7.widget.RecyclerView android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/y15"
+        android:paddingStart="@dimen/x10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bagEdit"
+        app:layout_constraintBottom_toTopOf="@id/confirmBtn"
+        />
+    <TextView android:id="@+id/confirmBtn"
+        style="@style/normal_dialog_confirm_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+</android.support.constraint.ConstraintLayout>

@@ -2,7 +2,7 @@
 <CheckBox xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/school_btn" android:id="@+id/checkbox"
     android:layout_marginTop="@dimen/y10" android:layout_marginBottom="@dimen/y10"
-    android:layout_marginLeft="@dimen/x5" android:layout_marginRight="@dimen/x5"
+    android:layout_marginLeft="@dimen/x2" android:layout_marginRight="@dimen/x2"
     android:maxLines="1" android:ellipsize="end"
     >
 

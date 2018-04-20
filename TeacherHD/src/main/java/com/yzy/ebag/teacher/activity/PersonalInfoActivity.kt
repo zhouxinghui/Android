@@ -96,7 +96,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
 
             override fun onError(exception: Throwable) {
                 LoadingDialogUtil.closeLoadingDialog()
-                T.show(this@PersonalInfoActivity, "请求失败，请稍后重试")
+                exception.handleThrowable(this@PersonalInfoActivity)
             }
         }
     }

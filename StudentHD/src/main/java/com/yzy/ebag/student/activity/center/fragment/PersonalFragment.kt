@@ -11,6 +11,7 @@ import com.luck.picture.lib.tools.PictureFileUtils
 import com.yzy.ebag.student.R
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
 import ebag.core.util.*
 import ebag.hd.base.Constants
 import ebag.hd.bean.UserInfoBean
@@ -114,7 +115,7 @@ class PersonalFragment : BaseFragment(), View.OnClickListener {
 
             override fun onError(exception: Throwable) {
                 LoadingDialogUtil.closeLoadingDialog()
-                T.show(mContext, "请求失败，请稍后重试")
+                exception.handleThrowable(mContext)
             }
         }
     }

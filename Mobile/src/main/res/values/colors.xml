@@ -5,6 +5,7 @@
     <color name="title_text_color">@color/white</color>
     <color name="transparent">#00000000</color>
     <color name="blue">#6FB1FF</color>
+    <color name="blue_dark">#46A8EA</color>
     <color name="red">#FD7E74</color>
     <drawable name="click_bg">#20000000</drawable>
 

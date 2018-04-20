@@ -7,13 +7,8 @@
     android:background="@drawable/normal_dialog_bg"
     >
     <TextView android:id="@+id/title_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/tv_normal"
-        android:textSize="@dimen/title_bar_title_size"
+        style="@style/normal_dialog_title"
         android:text="试卷名称"
-        android:padding="@dimen/y20"
-        android:gravity="center"
         />
     <EditText android:id="@+id/paperNameEdit"
         android:layout_width="match_parent"
@@ -29,13 +24,7 @@
         app:layout_constraintTop_toBottomOf="@id/title_tv"
         />
     <TextView android:id="@+id/confirmBtn"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y90"
-        android:background="@drawable/normal_dialog_confirm_bg"
-        android:text="确定"
-        android:textColor="@color/white"
-        android:textSize="@dimen/title_bar_title_size"
-        android:gravity="center"
+        style="@style/normal_dialog_confirm_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         />
 </android.support.constraint.ConstraintLayout>

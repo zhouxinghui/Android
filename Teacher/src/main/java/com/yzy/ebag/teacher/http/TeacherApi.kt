@@ -216,4 +216,28 @@ object TeacherApi {
         jsonObject.put("questionScore", questionScore)
         EBagApi.request(teacherService.markScore("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**班级列表*/
+    fun clazzSpace(callback: RequestCallBack<List<SpaceBean>>){
+        EBagApi.request(teacherService.clazzSpace("v1"), callback)
+    }
+
+    /**添加老师*/
+    fun addTeacher(classId: String, ysbCode: String, subCodeList: ArrayList<String>, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("ysbCode",ysbCode)
+        jsonObject.put("classId",classId)
+        val sb = StringBuilder()
+        subCodeList.forEach { sb.append("$it,") }
+        jsonObject.put("subCode", sb.deleteCharAt(sb.length - 1))
+        EBagApi.request(teacherService.addTeacher("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**根据年级 获取科目*/
+    fun getSubject(code: String, callback: RequestCallBack<List<BaseSubjectBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("groupCode", "grade_subject")
+        jsonObject.put("parentCode", code)
+        EBagApi.request(teacherService.getBaseData("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

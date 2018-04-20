@@ -1,11 +1,11 @@
-package ebag.hd.dialog
+package ebag.mobile.widget
 
 import android.os.Bundle
 import android.view.View
 import ebag.core.base.BaseFragmentDialog
 import ebag.core.util.loadHead
-import ebag.hd.R
-import ebag.hd.bean.ClassMemberBean
+import ebag.mobile.R
+import ebag.mobile.bean.ClassMemberBean
 import kotlinx.android.synthetic.main.dialog_classmateinfo.*
 
 /**
@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.dialog_classmateinfo.*
 
 class ClazzmateInfoDIalog: BaseFragmentDialog(){
 
-    private lateinit var datas:ClassMemberBean.StudentsBean
+    private lateinit var datas: ClassMemberBean.StudentsBean
 
     companion object {
         fun newInstance(): ClazzmateInfoDIalog{
