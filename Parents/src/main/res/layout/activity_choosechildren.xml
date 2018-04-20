@@ -39,7 +39,7 @@
         android:orientation="vertical"
         android:paddingEnd="@dimen/x50"
         android:background="#eef2f3"
-        android:paddingBottom="@dimen/y20"
+        android:paddingBottom="@dimen/y40"
         android:paddingStart="@dimen/x50">
 
 
@@ -48,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/y100"
             android:textSize="@dimen/x12"
+            android:paddingStart="@dimen/x10"
             android:background="@drawable/main_homework_bcg"
             android:hint="请输入孩子的昵称" />
 
@@ -57,6 +58,7 @@
             android:layout_height="@dimen/y100"
             android:layout_marginTop="@dimen/y15"
             android:textSize="@dimen/x12"
+            android:paddingStart="@dimen/x10"
             android:background="@drawable/main_homework_bcg"
             android:hint="请给孩子账号设置一个密码" />
 

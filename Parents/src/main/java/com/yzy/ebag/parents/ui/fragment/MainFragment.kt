@@ -8,12 +8,17 @@ import com.flyco.tablayout.listener.CustomTabEntity
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import com.yzy.ebag.parents.R
+import com.yzy.ebag.parents.bean.OnePageInfoBean
+import com.yzy.ebag.parents.common.Constants
+import com.yzy.ebag.parents.http.ParentsAPI
 import com.yzy.ebag.parents.model.MainRVModel
 import com.yzy.ebag.parents.model.TabEntity
 import com.yzy.ebag.parents.ui.activity.ChooseChildrenActivity
 import com.yzy.ebag.parents.ui.adapter.MainRVAdapter
 import com.yzy.ebag.parents.utils.GlideImageLoader
 import ebag.core.base.BaseFragment
+import ebag.core.http.network.RequestCallBack
+import ebag.core.util.SPUtils
 import kotlinx.android.synthetic.main.fragment_main.*
 
 
@@ -23,8 +28,8 @@ class MainFragment : BaseFragment() {
     private val iconList: Array<Int> = arrayOf(R.drawable.icon_home_mistakes, R.drawable.icon_home_parental_incentives, R.drawable.icon_home_student_examination, R.drawable.icon_home_study_room, R.drawable.icon_home_my_student, R.drawable.icon_home_classroom_performance)
     private val dataList: MutableList<MainRVModel> = mutableListOf()
     private lateinit var mainRVAdapter: MainRVAdapter
-    private val tabTitle: Array<String> = arrayOf("语文", "数学", "英语", "历史")
     private val entityList: ArrayList<CustomTabEntity> = arrayListOf()
+    private val msgCountList: MutableList<Int> = mutableListOf()
     private val fragmentList: ArrayList<Fragment> = arrayListOf()
 
     companion object {
@@ -53,14 +58,6 @@ class MainFragment : BaseFragment() {
         banner.setImages(list)
         banner.start()
 
-        tabTitle.forEach {
-            entityList.add(TabEntity(it, 0, 0))
-            fragmentList.add(HomeworkFragment.newInstance())
-        }
-        tablayout.setTabData(entityList, activity, R.id.container_layout, fragmentList)
-        tablayout.showMsg(1, 3)
-        tablayout.showMsg(2, 100)
-
         val labelArray = activity.resources.getStringArray(R.array.main_rv_label)
 
         iconList.forEachIndexed { index, i ->
@@ -77,7 +74,57 @@ class MainFragment : BaseFragment() {
                 4 -> ChooseChildrenActivity.start(activity)
             }
         }
+        getOnePageInfo()
 
+    }
+
+    private fun getOnePageInfo() {
+
+        ParentsAPI.onePageInfo(SPUtils.get(activity, Constants.CURRENT_CHILDREN_YSBCODE, "") as String, object : RequestCallBack<List<OnePageInfoBean>>() {
+
+            override fun onStart() {
+                super.onStart()
+                homework_loading.visibility = View.VISIBLE
+            }
+
+            override fun onSuccess(entity: List<OnePageInfoBean>?) {
+                entityList.clear()
+                fragmentList.clear()
+                entity?.forEachIndexed { index, it ->
+                    entityList.add(TabEntity(it.subject, 0, 0))
+                    if (it.homeWorkNoCompleteCount != 0) {
+                        msgCountList.add(index, it.homeWorkNoCompleteCount)
+                    }
+
+                    it.homeWorkInfoVos.forEach {
+                        val b = Bundle()
+                        b.putString("status", it.state)
+                        b.putString("content", it.content)
+                        b.putString("endTime", it.endTime)
+                        val f = HomeworkFragment.newInstance()
+                        f.arguments = b
+                        fragmentList.add(f)
+                    }
+
+                }
+
+                tablayout.setTabData(entityList, activity, R.id.container_layout, fragmentList)
+
+
+
+                msgCountList.forEachIndexed { index, it ->
+                    if (it != 0) {
+                        tablayout.showMsg(index, it)
+                    }
+                }
+
+                homework_loading.visibility = View.GONE
+            }
+
+            override fun onError(exception: Throwable) {
+            }
+
+        })
     }
 
 

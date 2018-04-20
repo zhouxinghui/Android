@@ -1,7 +1,6 @@
 package com.yzy.ebag.parents.mvp
 
 
-
 interface BaseView {
 
     fun showLoading()
@@ -15,7 +14,7 @@ interface BaseView {
 
     interface BaseListView:BaseView{
 
-        fun showContents(data:List<*>)
+        fun <T> showContents(data:List<T>)
 
         fun showMoreComplete()
 

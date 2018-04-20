@@ -1,6 +1,7 @@
 package com.yzy.ebag.parents.http
 
 import com.yzy.ebag.parents.bean.MyChildrenBean
+import com.yzy.ebag.parents.bean.OnePageInfoBean
 import ebag.core.http.network.RequestCallBack
 import ebag.mobile.http.EBagApi
 import ebag.mobile.http.EBagClient
@@ -16,5 +17,12 @@ object ParentsAPI {
     fun searchMyChildren(callback: RequestCallBack<List<MyChildrenBean>>) {
         val jsonObject = JSONObject()
         EBagApi.request(parentsService.searchChildren("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun onePageInfo(uid: String, callback: RequestCallBack<List<OnePageInfoBean>>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("uid", uid)
+        jsonObject.put("roleCode", "3")
+        EBagApi.request(parentsService.getOnePageInfo("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

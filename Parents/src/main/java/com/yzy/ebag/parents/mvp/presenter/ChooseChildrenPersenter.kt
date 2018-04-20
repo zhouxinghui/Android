@@ -16,7 +16,7 @@ class ChooseChildrenPersenter(context: Context, private val view: ChooseChildren
             }
 
             override fun onSuccess(entity: List<MyChildrenBean>?) {
-                view.showContent(entity)
+                view.showContents(entity!!)
             }
 
             override fun onError(exception: Throwable) {
