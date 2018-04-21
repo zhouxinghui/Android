@@ -102,4 +102,8 @@ interface EBagService {
      */
     @POST("data/queryBaserData/{version}")
     fun getBaseInfo(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<BaseInfoEntity>>>
+
+    /**课堂表现-个人详情*/
+    @POST("clazzSpace/queryUserClazzRoomShow/{version}")
+    fun personalPerformance(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<PersonalPerformanceBean>>
 }

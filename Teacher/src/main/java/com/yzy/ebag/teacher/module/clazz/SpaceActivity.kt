@@ -87,7 +87,7 @@ class SpaceActivity : BaseActivity(), View.OnClickListener {
                 ClassScheduleActivity.jump(this, classId, ebag.mobile.bean.Constants.ROLE_TEACHER)
             }
             R.id.expression ->{
-//                ClassPerformanceActivity.jump(this, classId)
+                ClassPerformanceActivity.jump(this, classId)
             }
             R.id.classPhotos ->{
                 AlbumActivity.jump(this, classId, ebag.mobile.bean.Constants.ROLE_TEACHER)

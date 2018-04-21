@@ -346,4 +346,26 @@ object TeacherApi {
         jsonObject.put("classId", classId)
         EBagApi.request(teacherService.searchCourse("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**课堂表现列表*/
+    fun classPerformance(classId: String, callback: RequestCallBack<List<PerformanceBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        EBagApi.request(teacherService.classPerformance("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**修改学生课堂表现*/
+    fun modifyPerformance(uid: String?, praise: ArrayList<Int>, criticize: ArrayList<Int>, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("uid", uid)
+        val praiseArray = JSONArray()
+        val criticizeArray = JSONArray()
+        for (i in 0 until praise.size){
+            praiseArray.put(praise[i])
+            criticizeArray.put(criticize[i])
+        }
+        jsonObject.put("praise", praiseArray)
+        jsonObject.put("criticize", criticizeArray)
+        EBagApi.request(teacherService.modifyPerformance("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

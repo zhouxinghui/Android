@@ -115,4 +115,12 @@ interface TeacherService {
     /**查询所教课程*/
     @POST("clazz/getTaughtCourses/{version}")
     fun searchCourse(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<MyCourseBean>>>
+
+    /**课堂表现列表*/
+    @POST("clazzSpace/queryUserClazzRoomShowAll/{version}")
+    fun classPerformance(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<PerformanceBean>>>
+
+    /**修改学生课堂表现*/
+    @POST("clazzSpace/addClazzRoomShow/{version}")
+    fun modifyPerformance(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 }

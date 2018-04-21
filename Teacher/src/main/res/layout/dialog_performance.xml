@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/normal_dialog_bg"
+    >
+    <ImageView android:id="@+id/headImg"
+        android:layout_width="@dimen/x50"
+        android:layout_height="@dimen/x50"
+        tools:src="@drawable/head_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/y20"
+        />
+    <TextView android:id="@+id/nameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="@color/tv_normal"
+        tools:text="小茗同学"
+        android:layout_marginTop="@dimen/y15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headImg"
+        android:layout_marginBottom="@dimen/y20"
+        />
+    <FrameLayout
+        android:id="@+id/praiseBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintEnd_toStartOf="@id/correctionBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nameTv">
+        <ebag.core.widget.drawable.DrawableTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="值得表扬"
+            android:paddingTop="@dimen/y15"
+            android:paddingBottom="@dimen/y15"
+            android:drawablePadding="@dimen/x5"
+            android:textColor="@color/praise_tv"
+            android:textSize="@dimen/tv_normal"
+            app:leftDrawable="@drawable/icon_performance_praise"
+            app:leftDrawableHeight="@dimen/x16"
+            app:leftDrawableWidth="@dimen/x16"
+            android:gravity="center"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y1"
+            android:background="@drawable/performance_praise_btn_bg"
+            android:layout_gravity="bottom"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/correctionBtn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/praiseBtn"
+        app:layout_constraintTop_toTopOf="@id/praiseBtn"
+        app:layout_constraintBottom_toBottomOf="@id/praiseBtn">
+        <ebag.core.widget.drawable.DrawableTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="需要改正"
+            android:drawablePadding="@dimen/x5"
+            android:textColor="@color/correction_tv"
+            android:textSize="@dimen/tv_normal"
+            android:gravity="center"
+            android:layout_gravity="center"
+            app:leftDrawable="@drawable/icon_performance_correction"
+            app:leftDrawableHeight="@dimen/x16"
+            app:leftDrawableWidth="@dimen/x16"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y1"
+            android:background="@drawable/performance_correction_btn_bg"
+            android:layout_gravity="bottom"
+            />
+    </FrameLayout>
+    <android.support.v7.widget.RecyclerView android:id="@+id/performanceRecycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/praiseBtn"
+        app:layout_constraintBottom_toTopOf="@id/confirmBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <TextView android:id="@+id/confirmBtn"
+        style="@style/normal_dialog_confirm_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <ebag.core.widget.empty.StateView android:id="@+id/stateView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</android.support.constraint.ConstraintLayout>

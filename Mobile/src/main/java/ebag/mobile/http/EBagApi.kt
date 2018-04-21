@@ -5,6 +5,7 @@ import ebag.core.base.App
 import ebag.core.bean.ResponseBean
 import ebag.core.http.baseBean.RequestBean
 import ebag.core.http.network.*
+import ebag.core.util.StringUtils
 import ebag.mobile.bean.*
 import ebag.mobile.http.EBagClient.eBagService
 import ebag.mobile.request.ClassScheduleEditVo
@@ -221,5 +222,14 @@ object EBagApi {
         val jsonObject = JSONObject()
         jsonObject.put("groupCode", groupCode)
         EBagApi.request(eBagService.getBaseInfo("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**课堂表现-个人详情*/
+    fun personalPerformance(callback: RequestCallBack<PersonalPerformanceBean>, uid: String? = null) {
+        val jsonObject = JSONObject()
+        if (!StringUtils.isEmpty(uid)) {
+            jsonObject.put("uid", uid)
+        }
+        EBagApi.request(eBagService.personalPerformance("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }
