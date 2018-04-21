@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.View
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.bean.GroupUserBean
+import ebag.core.base.BaseFragmentDialog
 import ebag.core.util.DateUtil
 import ebag.core.util.StringUtils
+import ebag.core.util.loadHead
+import kotlinx.android.synthetic.main.dialog_member_detail.*
 
 /**
  * Created by unicho on 2018/3/6.

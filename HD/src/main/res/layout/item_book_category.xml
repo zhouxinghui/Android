@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/title_text_color"
+        android:textColor="@color/tv_normal"
         android:textSize="@dimen/x26"
         android:layout_marginTop="@dimen/y10"
         android:layout_marginBottom="@dimen/y10"

@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.View
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.http.StudentApi
+import ebag.core.base.BaseFragmentDialog
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.T
+import kotlinx.android.synthetic.main.dialog_parents_add.*
 
 /**
  * @author caoyu

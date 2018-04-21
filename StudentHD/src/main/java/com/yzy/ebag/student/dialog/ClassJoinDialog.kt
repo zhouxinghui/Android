@@ -5,11 +5,13 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import com.yzy.ebag.student.R
+import ebag.core.base.BaseFragmentDialog
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
 import ebag.hd.http.EBagApi
+import kotlinx.android.synthetic.main.dialog_class_add.*
 
 /**
  * @author caoyu
