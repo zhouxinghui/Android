@@ -123,7 +123,7 @@ class ClassFragment: BaseListFragment<List<SpaceBean>, SpaceBean>() {
     inner class ClassMemberAdapter: RecyclerAdapter<SpaceBean.ClazzUserVoListBean>(R.layout.item_class_member) {
         override fun fillData(setter: RecyclerViewHolder, position: Int, entity: SpaceBean.ClazzUserVoListBean?) {
             val imageView = setter.getImageView(R.id.img_head)
-            imageView.loadHead(entity?.headUrl)
+            imageView.loadHead(entity?.headUrl, true, System.currentTimeMillis().toString())
             setter.setText(R.id.name_id, entity?.name)
         }
     }

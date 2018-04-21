@@ -143,6 +143,7 @@
             android:layout_height="@dimen/y200"
             android:padding="@dimen/x15"
             android:gravity="start"
+            android:maxLength="200"
             android:layout_marginTop="@dimen/y15"
             android:textColor="@color/tv_normal"
             android:hint="请填写你要发送的注意事项..."
