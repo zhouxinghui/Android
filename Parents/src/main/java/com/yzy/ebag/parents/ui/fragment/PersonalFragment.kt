@@ -8,7 +8,7 @@ import com.yzy.ebag.parents.ui.activity.LoginActivity
 import ebag.core.base.App
 import ebag.core.base.BaseFragment
 import ebag.core.util.AppManager
-import ebag.mobile.bean.Constants
+import ebag.mobile.base.Constants
 import kotlinx.android.synthetic.main.fragment_personal.*
 
 class PersonalFragment : BaseFragment() {

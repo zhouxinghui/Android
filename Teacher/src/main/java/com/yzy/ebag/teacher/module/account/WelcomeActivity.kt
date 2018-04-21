@@ -7,7 +7,7 @@ import com.yzy.ebag.teacher.R
 import ebag.core.base.App
 import ebag.core.base.BaseActivity
 import ebag.core.util.StringUtils
-import ebag.mobile.bean.Constants
+import ebag.mobile.base.Constants
 
 /**
  * Created by YZY on 2018/4/16.

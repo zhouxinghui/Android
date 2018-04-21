@@ -24,4 +24,8 @@ object Constants {
     const val MONITOR_OF_CLASS = "4"
     const val CLASS_REPRESENTATIVE = "5"
     const val GROUP_LEADER = "6"
+
+    val PRIMARY_SCHOOL = "1"
+    val JUNIOR_HIGH_SCHOOL = "2"
+    val HIGH_SCHOOL = "3"
 }

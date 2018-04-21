@@ -17,7 +17,7 @@ import ebag.core.util.StringUtils
 import ebag.mobile.R
 import ebag.mobile.bean.BaseInfoEntity
 import ebag.mobile.bean.ClassScheduleBean
-import ebag.mobile.bean.Constants
+import ebag.mobile.base.Constants
 import ebag.mobile.http.EBagApi
 import ebag.mobile.request.ClassScheduleEditVo
 import ebag.mobile.widget.ListBottomShowDialog

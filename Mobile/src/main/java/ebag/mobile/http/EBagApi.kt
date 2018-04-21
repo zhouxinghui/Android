@@ -232,4 +232,26 @@ object EBagApi {
         }
         EBagApi.request(eBagService.personalPerformance("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**个人中心*/
+    fun queryUserInfo(call: RequestCallBack<UserInfoBean>) {
+        val jsonObject = JSONObject()
+        EBagApi.request(eBagService.queryPersonalCenter("1", EBagApi.createBody(jsonObject)), call)
+    }
+
+    /**查询学校*/
+    fun getSchool(province: String?, city: String?, county: String?, callback: RequestCallBack<List<SchoolBean>>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("province", province)
+        jsonObject.put("city", city)
+        jsonObject.put("county", county)
+        request(EBagClient.eBagService.getSchool("v1", createBody(jsonObject)), callback)
+    }
+
+    /**省市区县基础数*/
+    fun cityData(callback: RequestCallBack<List<ChildNodeBean>>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("id", 1)
+        request(EBagClient.eBagService.cityData("v1", createBody(jsonObject)), callback)
+    }
 }

@@ -38,7 +38,7 @@ class PublishContentActivity : BPublishContentActivity() {
     }
 
     override fun getUid(): String {
-        val userEntity = SerializableUtils.getSerializable<UserEntity>(ebag.mobile.bean.Constants.TEACHER_USER_ENTITY)
+        val userEntity = SerializableUtils.getSerializable<UserEntity>(ebag.mobile.base.Constants.TEACHER_USER_ENTITY)
         return userEntity.uid
     }
 

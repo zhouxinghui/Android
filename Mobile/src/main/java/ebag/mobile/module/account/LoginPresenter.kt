@@ -10,7 +10,7 @@ import ebag.core.util.L
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.SPUtils
 import ebag.core.util.StringUtils
-import ebag.mobile.bean.Constants
+import ebag.mobile.base.Constants
 import ebag.mobile.bean.UserEntity
 import ebag.mobile.http.EBagApi
 

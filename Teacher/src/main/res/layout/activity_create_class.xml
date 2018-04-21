@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <ebag.mobile.widget.TitleBar android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="创建班级"
+        />
+    <LinearLayout android:id="@+id/schoolBtn"
+        style="@style/create_class_ll"
+        >
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/schoolTv"
+            style="@style/create_class_left_tv"
+            app:leftDrawable="@drawable/create_class_school"
+            android:text="@string/school"
+            />
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/schoolName"
+            style="@style/create_class_right_tv"
+            android:text="@string/select_school_hint"
+            />
+    </LinearLayout>
+    <LinearLayout android:id="@+id/phaseBtn"
+        style="@style/create_class_ll"
+        >
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/phaseTv"
+            style="@style/create_class_left_tv"
+            app:leftDrawable="@drawable/create_class_stage"
+            android:text="@string/phase"
+            />
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/phaseName"
+            style="@style/create_class_right_tv"
+            android:text="@string/select_phase_hint"
+            />
+    </LinearLayout>
+    <LinearLayout android:id="@+id/gradeBtn"
+        style="@style/create_class_ll"
+        >
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/gradeTv"
+            style="@style/create_class_left_tv"
+            app:leftDrawable="@drawable/create_class_grade"
+            android:text="@string/grade"
+            />
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/gradeName"
+            style="@style/create_class_right_tv"
+            android:text="@string/select_grade_hint"
+            />
+    </LinearLayout>
+    <LinearLayout android:id="@+id/classBtn"
+        style="@style/create_class_ll"
+        >
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/classTv"
+            style="@style/create_class_left_tv"
+            app:leftDrawable="@drawable/create_class_class"
+            android:text="@string/clazz"
+            />
+        <EditText android:id="@+id/classNameEdit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/select_class_hint"
+            android:textColorHint="@color/gray"
+            android:textSize="@dimen/tv_normal"
+            android:background="@color/transparent"
+            android:maxLength="10"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x15"
+            android:paddingRight="@dimen/x15"
+            />
+    </LinearLayout>
+    <LinearLayout android:id="@+id/courseBtn"
+        style="@style/create_class_ll"
+        >
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/courseTv"
+            style="@style/create_class_left_tv"
+            app:leftDrawable="@drawable/create_class_course"
+            android:text="@string/course"
+            />
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/courseName"
+            style="@style/create_class_right_tv"
+            android:text="@string/select_course_hint"
+            />
+    </LinearLayout>
+</LinearLayout>

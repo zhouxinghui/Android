@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/normal_dialog_bg"
+    >
+    <TextView android:id="@+id/title_tv"
+        style="@style/normal_dialog_title"
+        android:text="选择科目"
+        />
+    <android.support.v7.widget.RecyclerView android:id="@+id/recyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/y15"
+        android:paddingStart="@dimen/x20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_tv"
+        app:layout_constraintBottom_toTopOf="@id/confirmBtn"
+        />
+    <TextView android:id="@+id/confirmBtn"
+        style="@style/normal_dialog_confirm_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+</android.support.constraint.ConstraintLayout>

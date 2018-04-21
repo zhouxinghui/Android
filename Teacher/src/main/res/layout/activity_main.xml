@@ -11,7 +11,6 @@
         android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="-1dp"
         app:titleText="学习中心"
         />
     <android.support.v4.view.ViewPager android:id="@+id/viewPager"

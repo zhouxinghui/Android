@@ -54,7 +54,7 @@ abstract class BPublishContentActivity: BaseActivity() {
                 commit(contentEdit.text.toString())
             else {
                 val fileName = System.currentTimeMillis().toString()
-                val url = "${Constants.OSS_BASE_URL}/personal/$userId/$fileName"
+                val url = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/$userId/$fileName"
                 OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(imgAdapter.getItem(0)), "personal/$userId", fileName, myHandler)
                 sb.append("$url,")
             }
@@ -137,7 +137,7 @@ abstract class BPublishContentActivity: BaseActivity() {
     class MyHandler(activity: BPublishContentActivity): HandlerUtil<BPublishContentActivity>(activity){
         override fun handleMessage(activity: BPublishContentActivity, msg: Message) {
             when(msg.what){
-                Constants.UPLOAD_SUCCESS ->{
+                ebag.core.util.Constants.UPLOAD_SUCCESS ->{
                     activity.uploadPosition ++
                     if (activity.uploadPosition < activity.imgAdapter.itemCount - 1) {
                         val fileName = System.currentTimeMillis().toString()
@@ -156,7 +156,7 @@ abstract class BPublishContentActivity: BaseActivity() {
                         PictureFileUtils.deleteCacheDirFile(activity)
                     }
                 }
-                Constants.UPLOAD_FAIL ->{
+                ebag.core.util.Constants.UPLOAD_FAIL ->{
                     activity.sb = StringBuilder()
                     LoadingDialogUtil.closeLoadingDialog()
                     T.show(activity, "上传图片失败，请稍后重试")

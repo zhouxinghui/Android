@@ -38,7 +38,7 @@ class PhotoUploadActivity: BaseActivity() {
                             .putExtra("classId", classId)
                             .putExtra("photoGroupId", photoGroupId)
                             .putExtra("groupType", groupType)
-                    ,ebag.mobile.bean.Constants.NORMAL_REQUEST
+                    , ebag.mobile.base.Constants.NORMAL_REQUEST
             )
         }
     }
@@ -63,8 +63,8 @@ class PhotoUploadActivity: BaseActivity() {
                 }).create()
     }
     override fun initViews() {
-        if(intent.getStringExtra("groupType") == ebag.mobile.bean.Constants.CLASS_TYPE
-            || intent.getStringExtra("groupType") == ebag.mobile.bean.Constants.HONOR_TYPE){
+        if(intent.getStringExtra("groupType") == ebag.mobile.base.Constants.CLASS_TYPE
+            || intent.getStringExtra("groupType") == ebag.mobile.base.Constants.HONOR_TYPE){
             photoUploadBean.isShare = "true"
             bottomView.visibility = View.INVISIBLE
             shareTip.visibility = View.INVISIBLE
@@ -73,7 +73,7 @@ class PhotoUploadActivity: BaseActivity() {
         photoUploadBean.classId = intent.getStringExtra("classId") ?: ""
         photoUploadBean.photoGroupId = intent.getStringExtra("photoGroupId") ?: ""
 
-        val userEntity = SerializableUtils.getSerializable<UserEntity>(ebag.mobile.bean.Constants.STUDENT_USER_ENTITY)
+        val userEntity = SerializableUtils.getSerializable<UserEntity>(ebag.mobile.base.Constants.STUDENT_USER_ENTITY)
         userId = userEntity?.uid ?: "1"
 
         titleView.setRightText("确定"){
@@ -155,7 +155,7 @@ class PhotoUploadActivity: BaseActivity() {
                 override fun onSuccess(entity: String?) {
                     LoadingDialogUtil.closeLoadingDialog()
                     T.show(this@PhotoUploadActivity, "图片上传成功")
-                    setResult(ebag.mobile.bean.Constants.NORMAL_RESULT)
+                    setResult(ebag.mobile.base.Constants.NORMAL_RESULT)
                     finish()
                 }
 

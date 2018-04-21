@@ -5,7 +5,7 @@ import android.view.View
 import com.yzy.ebag.teacher.MainActivity
 import com.yzy.ebag.teacher.R
 import ebag.core.util.SPUtils
-import ebag.mobile.bean.Constants
+import ebag.mobile.base.Constants
 import ebag.mobile.module.account.BLoginActivity
 
 /**

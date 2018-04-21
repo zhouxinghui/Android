@@ -123,4 +123,12 @@ interface TeacherService {
     /**修改学生课堂表现*/
     @POST("clazzSpace/addClazzRoomShow/{version}")
     fun modifyPerformance(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**创建班级*/
+    @POST("clazz/createClazz/{version}")
+    fun createClass(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**创建学校*/
+    @POST("util/createSchool/{version}")
+    fun createSchool(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 }

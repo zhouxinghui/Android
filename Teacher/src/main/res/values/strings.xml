@@ -41,4 +41,19 @@
     <string name="course_teaching">所教课程</string>
     <string name="class_expression">课堂表现</string>
     <string name="notice_time">发布时间：%1$s</string>
+
+    <!--创建班级start-->
+    <string name="school">学校</string>
+    <string name="grade">年级</string>
+    <string name="course">课程</string>
+    <string name="city">城市</string>
+    <string name="phase">阶段</string>
+    <string name="campus">校区</string>
+    <string name="select_school_hint">请选择学校</string>
+    <string name="select_grade_hint">请选择年级</string>
+    <string name="select_class_hint">请输入班别：例如“1班”</string>
+    <string name="select_course_hint">请选择课程</string>
+    <string name="select_city_hint">请选择所在城市</string>
+    <string name="select_phase_hint">请选择教育阶段</string>
+    <!--创建班级end-->
 </resources>

@@ -1,4 +1,4 @@
-package ebag.mobile.bean
+package ebag.mobile.base
 
 /**
  * Created by YZY on 2018/4/16.
@@ -30,10 +30,17 @@ object Constants {
     const val HONOR_TYPE = "1" // 班级荣誉
 
     //职责(duties) 1 班主任 2 科任老师 3 学生 4 班长 5 课代表 6 组长
-    val TEACHER_IN_CHARGE = "1"
-    val TEACHER = "2"
-    val STUDENT = "3"
-    val MONITOR_OF_CLASS = "4"
-    val CLASS_REPRESENTATIVE = "5"
-    val GROUP_LEADER = "6"
+    const val TEACHER_IN_CHARGE = "1"
+    const val TEACHER = "2"
+    const val STUDENT = "3"
+    const val MONITOR_OF_CLASS = "4"
+    const val CLASS_REPRESENTATIVE = "5"
+    const val GROUP_LEADER = "6"
+
+    const val PROVINCE_INDEX = "PROVENCE_INDEX"
+    const val CITY_INDEX = "CITY_INDEX"
+    const val AREA_INDEX = "AREA_INDEX"
+    const val BACK_TO_CREATE_CLASS = 101
+    const val SELECT_SCHOOL = 102
+    const val CURRENT_CITY = "CURRENT_CITY"
 }

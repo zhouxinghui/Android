@@ -13,7 +13,7 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.util.loadImage
 import ebag.mobile.R
 import ebag.mobile.bean.AlbumBean
-import ebag.mobile.bean.Constants
+import ebag.mobile.base.Constants
 import ebag.mobile.http.EBagApi
 
 /**

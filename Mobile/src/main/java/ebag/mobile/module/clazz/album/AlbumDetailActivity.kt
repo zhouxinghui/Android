@@ -22,7 +22,7 @@ import ebag.core.util.T
 import ebag.core.util.loadImage
 import ebag.mobile.R
 import ebag.mobile.base.BaseListActivity
-import ebag.mobile.bean.Constants
+import ebag.mobile.base.Constants
 import ebag.mobile.bean.PhotoBean
 import ebag.mobile.bean.PhotoRequestBean
 import ebag.mobile.http.EBagApi

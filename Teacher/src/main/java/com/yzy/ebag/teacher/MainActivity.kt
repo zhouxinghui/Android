@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
+import com.yzy.ebag.teacher.module.clazz.CreateClassActivity
 import com.yzy.ebag.teacher.module.home.ClassFragment
 import com.yzy.ebag.teacher.module.home.FirstPageFragment
 import com.yzy.ebag.teacher.module.home.MineFragment
@@ -19,11 +20,15 @@ class MainActivity : BaseActivity() {
 
     override fun initViews() {
         titleBar.hiddenTitleLeftButton()
-
+        titleBar.setRightText("创建班级", {
+            CreateClassActivity.jump(this)
+        })
+        titleBar.setRightBtnVisable(false)
         viewPager.adapter = ViewPagerAdapter(supportFragmentManager)
         bottomNavigationBar.setTabSelectedListener(object : BottomNavigationBar.SimpleOnTabSelectedListener() {
             override fun onTabSelected(position: Int) {
                 viewPager.setCurrentItem(position, false)
+                titleBar.setRightBtnVisable(position == 1)
             }
         })
         bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED)

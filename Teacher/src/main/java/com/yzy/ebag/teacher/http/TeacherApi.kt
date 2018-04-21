@@ -368,4 +368,30 @@ object TeacherApi {
         jsonObject.put("criticize", criticizeArray)
         EBagApi.request(teacherService.modifyPerformance("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**创建班级*/
+    fun createClass(schoolCode: String?, gradeCode: String?, className: String?, subjectCode: String?, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("gradeCode", gradeCode)
+        jsonObject.put("className", className)
+        jsonObject.put("introduce", "")
+        jsonObject.put("school", schoolCode)
+        jsonObject.put("subCode", subjectCode)
+        EBagApi.request(teacherService.createClass("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 创建学校
+     * @param schoolName 省份代码
+     * @param province 市编码
+     * @param city 区编码
+     */
+    fun createSchool(schoolName: String, province: String?, city: String?, county: String?, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("schoolName", schoolName)
+        jsonObject.put("province", province)
+        jsonObject.put("city", city)
+        jsonObject.put("county", county)
+        EBagApi.request(teacherService.createSchool("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

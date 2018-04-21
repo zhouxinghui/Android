@@ -4,7 +4,7 @@ import android.content.Intent
 import android.view.View
 import com.yzy.ebag.parents.R
 import ebag.core.util.SPUtils
-import ebag.mobile.bean.Constants
+import ebag.mobile.base.Constants
 import ebag.mobile.module.account.BLoginActivity
 
 class LoginActivity:BLoginActivity(){

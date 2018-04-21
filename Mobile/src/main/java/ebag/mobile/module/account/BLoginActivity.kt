@@ -16,7 +16,7 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.*
 import ebag.mobile.R
-import ebag.mobile.bean.Constants
+import ebag.mobile.base.Constants
 import ebag.mobile.bean.UserEntity
 import ebag.mobile.http.EBagApi
 import kotlinx.android.synthetic.main.activity_login.*

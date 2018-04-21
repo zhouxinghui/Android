@@ -1,0 +1,69 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <ebag.mobile.widget.TitleBar android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="选择学校"
+        />
+    <LinearLayout android:id="@+id/cityBtn"
+        style="@style/create_class_ll"
+        >
+        <ebag.core.widget.drawable.DrawableTextView
+            style="@style/create_class_left_tv"
+            app:leftDrawable="@drawable/create_class_city"
+            android:text="@string/city"
+            />
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/cityNameTv"
+            style="@style/create_class_right_tv"
+            android:text="@string/select_city_hint"
+            />
+    </LinearLayout>
+    <LinearLayout android:id="@+id/campusBtn"
+        style="@style/create_class_ll"
+        >
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/campusTv"
+            style="@style/create_class_left_tv"
+            app:leftDrawable="@drawable/create_class_campu"
+            android:text="@string/campus"
+            />
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/campusName"
+            style="@style/create_class_right_tv"
+            android:layout_width="wrap_content"
+            android:paddingLeft="@dimen/x5"
+            android:paddingRight="@dimen/x5"
+            android:textColor="@color/tv_normal"
+            app:rightDrawable="@null"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/x5"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            >
+            <TextView android:id="@+id/createSchool"
+                android:layout_width="@dimen/x50"
+                android:layout_height="@dimen/y70"
+                android:layout_gravity="end"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/tv_normal"
+                android:background="@drawable/blue_btn_bg"
+                android:text="创建学校"
+                android:visibility="gone"
+                tools:visibility="visible"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/x5"
+        android:layout_marginRight="@dimen/x5"
+        />
+</LinearLayout>

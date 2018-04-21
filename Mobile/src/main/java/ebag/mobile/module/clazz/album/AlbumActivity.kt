@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
 import ebag.core.base.BaseActivity
 import ebag.mobile.R
-import ebag.mobile.bean.Constants
+import ebag.mobile.base.Constants
 import kotlinx.android.synthetic.main.activity_album.*
 
 /**

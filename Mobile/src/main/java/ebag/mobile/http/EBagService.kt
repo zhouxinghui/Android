@@ -106,4 +106,16 @@ interface EBagService {
     /**课堂表现-个人详情*/
     @POST("clazzSpace/queryUserClazzRoomShow/{version}")
     fun personalPerformance(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<PersonalPerformanceBean>>
+
+    /**查询个人中心*/
+    @POST("user/queryPersonalCenter/{version}")
+    fun queryPersonalCenter(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<UserInfoBean>>
+
+    /**查询学校*/
+    @POST("data/getSchool/{version}")
+    fun getSchool(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<SchoolBean>>>
+
+    /**省市区县基础数据*/
+    @POST("data/getAreaData/{version}")
+    fun cityData(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<ChildNodeBean>>>
 }

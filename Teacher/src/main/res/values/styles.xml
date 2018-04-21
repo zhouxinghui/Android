@@ -145,4 +145,39 @@
         <item name="leftDrawableHeight">@dimen/x50</item>
     </style>
     <!--classFragment-->
+    <!--createClass-->
+    <style name="create_class_ll">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">@drawable/white_shadow_clickable_bg</item>
+        <item name="android:layout_marginTop">@dimen/y15</item>
+        <item name="android:layout_marginLeft">@dimen/x5</item>
+        <item name="android:layout_marginRight">@dimen/x5</item>
+    </style>
+    <style name="create_class_left_tv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/y100</item>
+        <item name="leftDrawableWidth">@dimen/x20</item>
+        <item name="leftDrawableHeight">@dimen/x20</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:textColor">@color/tv_sub</item>
+        <item name="android:gravity">center</item>
+        <item name="android:drawablePadding">@dimen/x5</item>
+        <item name="android:paddingLeft">@dimen/x5</item>
+        <item name="android:paddingRight">@dimen/x5</item>
+    </style>
+    <style name="create_class_right_tv">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="rightDrawableWidth">@dimen/x16</item>
+        <item name="rightDrawableHeight">@dimen/x9</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:textColor">@color/tv_light_gray_selector</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="rightDrawable">@drawable/down_arrow</item>
+        <item name="android:paddingLeft">@dimen/x15</item>
+        <item name="android:paddingRight">@dimen/x15</item>
+    </style>
+    <!--createClass-->
 </resources>

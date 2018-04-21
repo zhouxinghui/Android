@@ -7,7 +7,7 @@ import com.yzy.ebag.parents.R
 import ebag.core.base.App
 import ebag.core.base.BaseActivity
 import ebag.core.util.StringUtils
-import ebag.mobile.bean.Constants
+import ebag.mobile.base.Constants
 
 class WelcomeActivity : BaseActivity() {
 

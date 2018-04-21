@@ -9,7 +9,7 @@ import ebag.core.base.App
 import ebag.core.base.BaseFragment
 import ebag.core.util.AppManager
 import ebag.core.util.loadImage
-import ebag.mobile.bean.Constants
+import ebag.mobile.base.Constants
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 /**

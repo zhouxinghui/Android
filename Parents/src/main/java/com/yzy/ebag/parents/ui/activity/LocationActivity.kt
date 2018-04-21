@@ -15,6 +15,7 @@ import com.baidu.mapapi.model.LatLngBounds
 import com.yzy.ebag.parents.R
 import ebag.core.base.BaseActivity
 import ebag.core.util.SerializableUtils
+import ebag.mobile.base.Constants
 import ebag.mobile.bean.UserEntity
 import kotlinx.android.synthetic.main.activity_location.*
 import java.util.*
@@ -65,7 +66,7 @@ class LocationActivity : BaseActivity() {
             val latitude = p0!!.latitude
             val longitude = p0.longitude
             val point  = LatLng(latitude,longitude)
-            val url = SerializableUtils.getSerializable<UserEntity>(ebag.mobile.bean.Constants.PARENTS_USER_ENTITY).headUrl
+            val url = SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).headUrl
             val latLngBuild = LatLngBounds.Builder()
             latLngBuild.include(point)
             val latLngBounds = latLngBuild.build()
