@@ -123,7 +123,7 @@ class LetterRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>()
         addLeftHeaderView(textBookView)
         addLeftHeaderView(subjectView)
 
-        EBagApi.getMyClasses(classesRequest)
+        EBagApi.getMyClasses(classesRequest, "1")
     }
 
     override fun requestData(requestCallBack: RequestCallBack<EditionBean>) {

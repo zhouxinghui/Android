@@ -31,7 +31,25 @@ import kotlinx.android.synthetic.main.fragment_first_page.*
  * Created by YZY on 2018/4/16.
  */
 class FirstPageFragment: BaseFragment() {
-    private var request: RequestCallBack<FirstPageBean>? = null
+    private var request = object : RequestCallBack<FirstPageBean>(){
+        override fun onStart() {
+//            LoadingDialogUtil.showLoading(mContext)
+        }
+        override fun onSuccess(entity: FirstPageBean?) {
+            LoadingDialogUtil.closeLoadingDialog()
+            //轮播图
+            val images = ArrayList<String>()
+            entity?.resultAdvertisementVos?.mapTo(images) { it.adverUrl }
+            banner.setImageLoader(MyImageLoader()).setImages(images).start()
+            //作业进度
+            adapter.datas = entity?.resultHomeWorkVos
+        }
+
+        override fun onError(exception: Throwable) {
+            LoadingDialogUtil.closeLoadingDialog()
+        }
+    }
+    private val adapter = HomeProgressAdapter()
     companion object {
         fun newInstance(): FirstPageFragment{
             val fragment = FirstPageFragment()
@@ -44,13 +62,26 @@ class FirstPageFragment: BaseFragment() {
         return R.layout.fragment_first_page
     }
 
-    override fun onHiddenChanged(hidden: Boolean) {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        userVisibleHint = userVisibleHint
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (!isVisibleToUser){
+//            mContext.checkUpdate(ebag.hd.base.Constants.UPDATE_TEACHER, false)
+            TeacherApi.firstPage(request)
+        }
+    }
+
+    /*override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden){
 //            mContext.checkUpdate(ebag.hd.base.Constants.UPDATE_TEACHER, false)
             TeacherApi.firstPage(request!!)
         }
-    }
+    }*/
 
 
     override fun getBundle(bundle: Bundle?) {
@@ -58,7 +89,6 @@ class FirstPageFragment: BaseFragment() {
     }
 
     override fun initViews(rootView: View) {
-        val adapter = HomeProgressAdapter()
         val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = layoutManager
@@ -91,27 +121,6 @@ class FirstPageFragment: BaseFragment() {
 //            else
 //                CorrectingDescActivity.jump(mContext, bean.id, bean.type)
         }
-
-        if (request == null)
-            request = object : RequestCallBack<FirstPageBean>(){
-                override fun onStart() {
-                    LoadingDialogUtil.showLoading(mContext)
-                }
-                override fun onSuccess(entity: FirstPageBean?) {
-                    LoadingDialogUtil.closeLoadingDialog()
-                    //轮播图
-                    val images = ArrayList<String>()
-                    entity?.resultAdvertisementVos?.mapTo(images) { it.adverUrl }
-                    banner.setImageLoader(MyImageLoader()).setImages(images).start()
-                    //作业进度
-                    adapter.datas = entity?.resultHomeWorkVos
-                }
-
-                override fun onError(exception: Throwable) {
-                    LoadingDialogUtil.closeLoadingDialog()
-                }
-            }
-        TeacherApi.firstPage(request!!)
     }
 
     private inner class MyImageLoader : ImageLoader(){

@@ -84,7 +84,7 @@ class ReadRecordActivity : BaseListTabActivity<EditionBean, MultiItemEntity>() {
     private var subCode = "yy"
     private var isFirstRequest = true
     override fun loadConfig() {
-        EBagApi.getMyClasses(classesRequest)
+        EBagApi.getMyClasses(classesRequest, "2")
         setTitleContent("每日跟读")
         setLeftWidth(resources.getDimensionPixelSize(R.dimen.x368))
 

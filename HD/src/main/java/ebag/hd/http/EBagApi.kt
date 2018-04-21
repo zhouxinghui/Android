@@ -438,8 +438,11 @@ object EBagApi {
     /**
      * 获取用户的所有所在班级
      */
-    fun getMyClasses(callback: RequestCallBack<List<BaseClassesBean>>) {
+    fun getMyClasses(callback: RequestCallBack<List<BaseClassesBean>>, queryType: String? = null) {
         val jsonObject = JSONObject()
+        if (!StringUtils.isEmpty(queryType)){
+            jsonObject.put("queryType", queryType)
+        }
         EBagApi.request(eBagService.getMyClasses("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
