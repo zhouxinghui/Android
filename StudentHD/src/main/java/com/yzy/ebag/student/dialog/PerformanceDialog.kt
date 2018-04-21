@@ -1,12 +1,12 @@
 package com.yzy.ebag.student.dialog
 
-import android.os.Bundle
+import android.content.Context
 import android.support.v7.widget.GridLayoutManager
-import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import ebag.core.base.BaseFragmentDialog
+import ebag.core.base.App.Companion.mContext
+import ebag.core.base.BaseDialog
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.SerializableUtils
 import ebag.core.util.loadHead
@@ -21,18 +21,12 @@ import kotlinx.android.synthetic.main.dialog_performance.*
  * @date 2018/1/19
  * @description
  */
-class PerformanceDialog: BaseFragmentDialog() {
+class PerformanceDialog(context: Context): BaseDialog(context) {
     override fun getLayoutRes(): Int {
         return R.layout.dialog_performance
     }
-    companion object {
-        fun newInstance(): PerformanceDialog{
-            return PerformanceDialog()
-        }
-    }
 
-    override fun getBundle(bundle: Bundle?) {
-    }
+    override fun setWidth(): Int = context.resources.getDimensionPixelSize(R.dimen.x508)
 
     private val adapter = Adapter()
     private val request = object : RequestCallBack<PersonalPerformanceBean>(){
@@ -103,7 +97,7 @@ class PerformanceDialog: BaseFragmentDialog() {
         arrayListOf(0,0,0,0,0,0)
     }
 
-    override fun initView(view: View) {
+    init {
 
         btnClose.setOnClickListener {
             dismiss()
@@ -142,6 +136,7 @@ class PerformanceDialog: BaseFragmentDialog() {
         adapter.isNice = true
         EBagApi.personalPerformance(request)
     }
+
 
     inner class Adapter: BaseQuickAdapter<Int,BaseViewHolder>(R.layout.item_dialog_performance){
 
