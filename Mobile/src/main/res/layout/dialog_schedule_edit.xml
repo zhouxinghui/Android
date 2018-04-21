@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/normal_dialog_bg"
+    >
+    <TextView android:id="@+id/titleTv"
+        style="@style/normal_dialog_title"
+        android:text="自定义"
+        />
+    <EditText android:id="@+id/countEdit"
+        android:layout_width="@dimen/x200"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_bg"
+        android:hint="请输入自定义课程"
+        android:gravity="center"
+        android:maxLength="3"
+        android:inputType="number"
+        android:textColor="@color/tv_normal"
+        android:textSize="@dimen/tv_normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/confirmBtn"
+        app:layout_constraintVertical_bias="0.5"
+        />
+    <TextView android:id="@+id/confirmBtn"
+        style="@style/normal_dialog_confirm_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+</android.support.constraint.ConstraintLayout>

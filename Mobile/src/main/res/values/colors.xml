@@ -29,4 +29,9 @@
     <color name="login_line">#eeeeee</color>
     <color name="login_tips">#979797</color>
     <color name="login_serve_tips">#6FB1FF</color>
+
+    <color name="schedule_line_color">#979797</color>
+
+    <drawable name="list_dialog_tv_bg_normal">#FFFFFF</drawable>
+    <drawable name="list_dialog_tv_bg_click">#EFF8F3</drawable>
 </resources>

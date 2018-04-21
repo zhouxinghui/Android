@@ -1,0 +1,38 @@
+package ebag.mobile.module.clazz
+
+import android.content.Context
+import ebag.core.base.BaseDialog
+import ebag.core.util.StringUtils
+import ebag.core.util.T
+import ebag.mobile.R
+import kotlinx.android.synthetic.main.dialog_schedule_edit.*
+
+/**
+ * Created by unicho on 2018/3/9.
+ */
+class ScheduleEditDialog(context: Context): BaseDialog(context){
+
+    override fun setWidth(): Int {
+        return context.resources.getDimensionPixelSize(R.dimen.x250)
+    }
+
+    override fun setHeight(): Int {
+        return context.resources.getDimensionPixelSize(R.dimen.y500)
+    }
+
+    override fun getLayoutRes(): Int {
+        return R.layout.dialog_schedule_edit
+    }
+    var onConfirmClickListener: ((subject: String) -> Unit)? = null
+    init {
+        confirmBtn.setOnClickListener {
+            val subject = countEdit.text.toString()
+            if (StringUtils.isEmpty(subject)){
+                T.show(context, "请输入题目数量")
+                return@setOnClickListener
+            }
+            onConfirmClickListener?.invoke(subject)
+        }
+    }
+
+}

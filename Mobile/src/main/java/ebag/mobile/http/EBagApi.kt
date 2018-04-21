@@ -7,6 +7,7 @@ import ebag.core.http.baseBean.RequestBean
 import ebag.core.http.network.*
 import ebag.mobile.bean.*
 import ebag.mobile.http.EBagClient.eBagService
+import ebag.mobile.request.ClassScheduleEditVo
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -198,5 +199,27 @@ object EBagApi {
         jsonObject.put("page", page)
         jsonObject.put("classId", classId)
         EBagApi.request(eBagService.noticeList("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**课程表*/
+    fun classSchedule(classId: String, callback: RequestCallBack<ClassScheduleBean>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        EBagApi.request(eBagService.classSchedule("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**编辑课程表*/
+    fun editSchedule(schedulesVo: ClassScheduleEditVo, callback: RequestCallBack<String>) {
+        EBagApi.request(eBagService.editSchedule("v1", EBagApi.createBody(JSON.toJSONString(schedulesVo))), callback)
+    }
+
+    /**
+     * 获取基础数据信息
+     * subject 科目信息
+     */
+    fun getBaseInfo(groupCode: String, callback: RequestCallBack<ArrayList<BaseInfoEntity>>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("groupCode", groupCode)
+        EBagApi.request(eBagService.getBaseInfo("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

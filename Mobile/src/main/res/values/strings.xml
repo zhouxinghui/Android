@@ -17,4 +17,13 @@
     <string name="login_agree_title">《云书包服务协议》</string>
 
     <string name="number_of_word">%1$d/200</string>
+
+    <!--课程表-->
+    <string name="monday">星期一</string>
+    <string name="tuesday">星期二</string>
+    <string name="wednesday">星期三</string>
+    <string name="thursday">星期四</string>
+    <string name="friday">星期五</string>
+    <string name="morning">上午</string>
+    <string name="afternoon">下午</string>
 </resources>

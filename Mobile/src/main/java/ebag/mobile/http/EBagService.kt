@@ -88,4 +88,18 @@ interface EBagService {
     /**公告列表*/
     @POST("notice/queryClassNotice/{version}")
     fun noticeList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<NoticeBean>>>
+
+    /**课程表*/
+    @POST("clazzSpace/queryScheduleCard/{version}")
+    fun classSchedule(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ClassScheduleBean>>
+
+    /**编辑课程表*/
+    @POST("clazzSpace/addScheduleCard/{version}")
+    fun editSchedule(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
+     * 编辑课程表
+     */
+    @POST("data/queryBaserData/{version}")
+    fun getBaseInfo(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<BaseInfoEntity>>>
 }

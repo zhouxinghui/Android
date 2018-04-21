@@ -7,33 +7,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
-    <!--
-    android:layout_width="match_parent"
-        android:layout_height="@dimen/y90"
-        android:background="@drawable/normal_dialog_confirm_bg"
-        android:text="确定"
-        android:textColor="@color/white"
-        android:textSize="@dimen/title_bar_title_size"
-        android:gravity="center"
-    -->
-    <style name="normal_dialog_title">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/tv_normal</item>
-        <item name="android:textSize">@dimen/title_bar_title_size</item>
-        <item name="android:padding">@dimen/y20</item>
-        <item name="android:gravity">center</item>
-    </style>
-    <style name="normal_dialog_confirm_btn">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/y90</item>
-        <item name="android:background">@drawable/normal_dialog_confirm_bg</item>
-        <item name="android:text">确定</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">@dimen/title_bar_title_size</item>
-        <item name="android:gravity">center</item>
-    </style>
-
     <!--Home start-->
     <style name="home_tv_btn">
         <item name="android:layout_width">0dp</item>

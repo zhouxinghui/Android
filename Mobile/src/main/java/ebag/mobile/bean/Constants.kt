@@ -28,4 +28,12 @@ object Constants {
     const val CLASS_TYPE = "2" // 班级相册
     const val PERSONAL_TYPE = "3" // 个人相册
     const val HONOR_TYPE = "1" // 班级荣誉
+
+    //职责(duties) 1 班主任 2 科任老师 3 学生 4 班长 5 课代表 6 组长
+    val TEACHER_IN_CHARGE = "1"
+    val TEACHER = "2"
+    val STUDENT = "3"
+    val MONITOR_OF_CLASS = "4"
+    val CLASS_REPRESENTATIVE = "5"
+    val GROUP_LEADER = "6"
 }
