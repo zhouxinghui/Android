@@ -582,6 +582,9 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         }else{
             testAdapter.setNewData(testList)
             emptyTestTv.visibility = View.GONE
+            testAdapter.selectPosition = -1
+            currentPaperId = ""
+            currentPaperName = ""
         }
     }
 
