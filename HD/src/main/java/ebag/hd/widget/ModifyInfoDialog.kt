@@ -2,6 +2,7 @@ package ebag.hd.widget
 
 import android.content.Context
 import ebag.core.base.BaseDialog
+import ebag.core.util.EditTextLimitUtil
 import ebag.core.util.StringUtils
 import ebag.core.util.T
 import ebag.hd.R
@@ -19,6 +20,10 @@ class ModifyInfoDialog(context: Context): BaseDialog(context) {
     }
     override fun setHeight(): Int {
         return context.resources.getDimensionPixelSize(R.dimen.y400)
+    }
+
+    init {
+        EditTextLimitUtil.setEditMaxLength(countEdit, 40)
     }
 
     var onConfirmClickListener: ((count: String) -> Unit)? = null
