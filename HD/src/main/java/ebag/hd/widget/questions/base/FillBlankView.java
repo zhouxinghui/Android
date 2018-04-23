@@ -125,8 +125,8 @@ public class FillBlankView extends FrameLayout {
                 case "#E#"://长线
                 case "#A#"://短线
                 case "#C#"://框框，计算题  填空题不会出现
-                    rangeList.add(new AnswerRange(index,index + 4));
-                    index = 4 + index;
+                    rangeList.add(new AnswerRange(index,index + 6));
+                    index = 6 + index;
                     answerList.add("");
                     stringBuilder.append(" ____ ");
                     break;
