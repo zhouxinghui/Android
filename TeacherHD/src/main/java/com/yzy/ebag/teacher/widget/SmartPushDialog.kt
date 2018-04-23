@@ -88,6 +88,7 @@ class SmartPushDialog(context: Context): BaseDialog(context) {
     fun show(bean: CorrectAnswerBean?, homeworkId: String, questionId: String) {
         title_tv.text = "打分"
         countEdit.hint = "请输入分数(0-100)"
+        countEdit.setText("")
         isSmartPush = false
         this.bean = bean
         this.homeworkId = homeworkId
