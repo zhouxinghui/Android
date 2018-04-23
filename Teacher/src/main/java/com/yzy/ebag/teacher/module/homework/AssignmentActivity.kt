@@ -94,7 +94,25 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     private val questionAdapter by lazy { QuestionsAdapter() }
 
     /**试卷列表adapter*/
-    private val testAdapter by lazy { TestAdapter() }
+    private val testFragment by lazy {
+        val fragment = TestPaperFragment.newInstance()
+        fragment.onItemClickListener = {adapter, position ->
+            adapter.selectPosition = position
+            currentPaperId = adapter.data[position].testPaperId
+            currentPaperName = adapter.data[position].testPaperName
+        }
+        fragment.onTestDataReceive = {
+            if(it == null || it.isEmpty()){
+                if (!isOrganizeTest)
+                    emptyTestTv.visibility = View.VISIBLE
+            }else{
+                emptyTestTv.visibility = View.GONE
+                currentPaperId = ""
+                currentPaperName = ""
+            }
+        }
+        fragment
+    }
 
     private var currentPaperId: String? = null
     private var currentPaperName: String? = null
@@ -199,17 +217,10 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
 
         //试卷
         if (workCategory == Constants.ASSIGN_TEST_PAPER){
-            val testLayoutManager = GridLayoutManager(this, 2)
-            testRecycler.adapter = testAdapter
-            testRecycler.layoutManager = testLayoutManager
             questionsRecycler.visibility = View.GONE
-            testRecycler.visibility = View.VISIBLE
 
-            testAdapter.setOnItemClickListener { adapter, view, position ->
-                testAdapter.selectPosition = position
-                currentPaperId = testAdapter.data[position].testPaperId
-                currentPaperName = testAdapter.data[position].testPaperName
-            }
+            supportFragmentManager.beginTransaction().replace(R.id.testPaperLayout, testFragment).commitAllowingStateLoss()
+            testPaperLayout.visibility = View.VISIBLE
         }
 
         //底部导航
@@ -236,7 +247,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     bottomAdapter.datas[1] = "组卷"
                     bottomAdapter.notifyDataSetChanged()
 
-                    testRecycler.visibility = View.VISIBLE
+                    testPaperLayout.visibility = View.VISIBLE
                     questionsRecycler.visibility = View.GONE
                     currentTestType = "1"
                     val cache = cacheMap[currentGradeCode]!!
@@ -261,7 +272,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     }
                     if (emptyTestTv.visibility == View.VISIBLE)
                         emptyTestTv.visibility = View.GONE
-                    testRecycler.visibility = View.GONE
+                    testPaperLayout.visibility = View.GONE
                     questionsRecycler.visibility = View.VISIBLE
                 }
                 testImg[2] -> {//我的试卷
@@ -272,7 +283,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     bottomAdapter.datas[1] = "组卷"
                     bottomAdapter.notifyDataSetChanged()
 
-                    testRecycler.visibility = View.VISIBLE
+                    testPaperLayout.visibility = View.VISIBLE
                     questionsRecycler.visibility = View.GONE
                     currentTestType = "2"
                     val cache = cacheMap[currentGradeCode]!!
@@ -576,16 +587,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     }
 
     override fun getTestList(testList: List<TestPaperListBean>?) {
-        if(testList == null || testList.isEmpty()){
-            if (!isOrganizeTest)
-                emptyTestTv.visibility = View.VISIBLE
-        }else{
-            testAdapter.setNewData(testList)
-            emptyTestTv.visibility = View.GONE
-            testAdapter.selectPosition = -1
-            currentPaperId = ""
-            currentPaperName = ""
-        }
+
     }
 
     override fun loadTestListError(t: Throwable) {

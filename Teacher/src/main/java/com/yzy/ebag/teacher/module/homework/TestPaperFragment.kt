@@ -1,4 +1,4 @@
-package com.yzy.ebag.teacher.activity.assignment
+package com.yzy.ebag.teacher.module.homework
 
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager

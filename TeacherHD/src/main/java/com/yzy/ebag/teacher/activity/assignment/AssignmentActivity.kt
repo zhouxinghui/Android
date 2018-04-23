@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.yzy.ebag.teacher.R
@@ -82,7 +81,25 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     /**
      * 试卷列表
      */
-    private val testAdapter by lazy { TestAdapter() }
+    private val testFragment by lazy { 
+        val fragment = TestPaperFragment.newInstance() 
+        fragment.onItemClickListener = {adapter, position ->
+            adapter.selectPosition = position
+            currentPaperId = adapter.data[position].testPaperId
+            currentPaperName = adapter.data[position].testPaperName
+        }
+        fragment.onTestDataReceive = {
+            if(it == null || it.isEmpty()){
+                if (!isOrganizeTest)
+                    emptyTestTv.visibility = View.VISIBLE
+            }else{
+                emptyTestTv.visibility = View.GONE
+                currentPaperId = ""
+                currentPaperName = ""
+            }
+        }
+        fragment
+    }
     /**
      * 组卷（填写试卷名）对话框
      */
@@ -199,17 +216,10 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
 
         //试卷
         if (workCategory == Constants.ASSIGN_TEST_PAPER){
-            val testLayoutManager = GridLayoutManager(this, 2)
-            testRecycler.adapter = testAdapter
-            testRecycler.layoutManager = testLayoutManager
             questionsRecycler.visibility = View.GONE
-            testRecycler.visibility = View.VISIBLE
 
-            testAdapter.setOnItemClickListener { adapter, view, position ->
-                testAdapter.selectPosition = position
-                currentPaperId = testAdapter.data[position].testPaperId
-                currentPaperName = testAdapter.data[position].testPaperName
-            }
+            supportFragmentManager.beginTransaction().replace(R.id.testPaperLayout, testFragment).commitAllowingStateLoss()
+            testPaperLayout.visibility = View.VISIBLE
         }
         totalUnitTv.isSelected = true
         totalUnitTv.setOnClickListener {
@@ -220,7 +230,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 totalUnitTv.isSelected = true
                 cacheMap[currentGradeCode]!!.isTotal = true
                 if(workCategory == Constants.ASSIGN_TEST_PAPER)
-                    assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
+                    testFragment.requestData(currentTestType, currentGradeCode,
                             if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode, cache.subCode)
                 else {
                     assignmentPresenter.loadDataByVersion(workCategory.toString(), cache.versionId, cache.subCode, if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode)
@@ -279,14 +289,14 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 totalUnitTv.isSelected = true
                 cache.isTotal = true
                 if (workCategory == Constants.ASSIGN_TEST_PAPER)
-                    assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null, cache.subCode)
+                    testFragment.requestData(currentTestType, currentGradeCode, null, cache.subCode)
             }else {
                 unitAdapter.setNewData(unitList as List<MultiItemEntity>)
                 questionAdapter.datas = questionList
                 setVersionTv(cache.versionName, cache.semesterName, cache.subName)
                 totalUnitTv.isSelected = cache.isTotal
                 if (workCategory == Constants.ASSIGN_TEST_PAPER)
-                    assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null, cache.subCode)
+                    testFragment.requestData(currentTestType, currentGradeCode, null, cache.subCode)
             }
         }
 
@@ -305,11 +315,11 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     bottomAdapter.datas[1] = "组卷"
                     bottomAdapter.notifyDataSetChanged()
 
-                    testRecycler.visibility = View.VISIBLE
+                    testPaperLayout.visibility = View.VISIBLE
                     questionsRecycler.visibility = View.GONE
                     currentTestType = "1"
                     val cache = cacheMap[currentGradeCode]!!
-                    assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
+                    testFragment.requestData(currentTestType, currentGradeCode,
                             if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode, cache.subCode)
                 }
                 testImg[1] -> {//组卷
@@ -330,7 +340,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     }
                     if (emptyTestTv.visibility == View.VISIBLE)
                         emptyTestTv.visibility = View.GONE
-                    testRecycler.visibility = View.GONE
+                    testPaperLayout.visibility = View.GONE
                     questionsRecycler.visibility = View.VISIBLE
                 }
                 testImg[2] -> {//我的试卷
@@ -341,11 +351,11 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     bottomAdapter.datas[1] = "组卷"
                     bottomAdapter.notifyDataSetChanged()
 
-                    testRecycler.visibility = View.VISIBLE
+                    testPaperLayout.visibility = View.VISIBLE
                     questionsRecycler.visibility = View.GONE
                     currentTestType = "2"
                     val cache = cacheMap[currentGradeCode]!!
-                    assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
+                    testFragment.requestData(currentTestType, currentGradeCode,
                             if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode, cache.subCode)
                 }
                 workImg[1] -> {//发布小组
@@ -386,7 +396,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 totalUnitTv.isSelected = false
                 cache?.isTotal = false
                 if(workCategory == Constants.ASSIGN_TEST_PAPER)
-                    assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
+                    testFragment.requestData(currentTestType, currentGradeCode,
                             item.unitCode, cache!!.subCode)
                 else {
                     assignmentPresenter.loadDataByVersion(workCategory.toString(), cache?.versionId, cache?.subCode, item.unitCode)
@@ -483,7 +493,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         classAdapter.datas = classList
         gradeAdapter.selectPosition = 0
         if (workCategory == Constants.ASSIGN_TEST_PAPER)
-            assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null, assignmentBean.resultTaughtCoursesVo?.bookCode)
+            testFragment.requestData(currentTestType, currentGradeCode, null, assignmentBean.resultTaughtCoursesVo?.bookCode)
         gradeList.forEach {
             if(cacheMap[it.gradeCode] == null) {
                 val cache = Cache()
@@ -526,16 +536,6 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
     }
 
     override fun getTestList(testList: List<TestPaperListBean>?) {
-        if(testList == null || testList.isEmpty()){
-            if (!isOrganizeTest)
-                emptyTestTv.visibility = View.VISIBLE
-        }else{
-            testAdapter.setNewData(testList)
-            emptyTestTv.visibility = View.GONE
-            testAdapter.selectPosition = -1
-            currentPaperId = ""
-            currentPaperName = ""
-        }
     }
 
     override fun loadTestListError(t: Throwable) {
@@ -609,7 +609,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         cache.subCode = subCode
         cache.subName = subName
         if (workCategory == Constants.ASSIGN_TEST_PAPER)
-            assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null, cache.subCode)
+            testFragment.requestData(currentTestType, currentGradeCode, null, cache.subCode)
     }
 
     /**
@@ -699,21 +699,6 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     tv.isSelected = item == cacheMap[currentGradeCode]!!.currentUnitBean
                 }
             }
-        }
-    }
-
-    /**
-     * 试卷
-     */
-    inner class TestAdapter: BaseQuickAdapter<TestPaperListBean, BaseViewHolder>(R.layout.item_assignment_test){
-        var selectPosition = -1
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-        override fun convert(helper: BaseViewHolder, item: TestPaperListBean?) {
-            helper.setText(R.id.tv_id, item?.testPaperName)
-            helper.getView<TextView>(R.id.tv_id).isSelected = selectPosition == helper.adapterPosition
         }
     }
 
