@@ -233,10 +233,8 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 if(workCategory == Constants.ASSIGN_TEST_PAPER)
                     testFragment.requestData(currentTestType, currentGradeCode,
                             if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode, cache.subCode)
-                else {
-                    assignmentPresenter.loadDataByVersion(workCategory.toString(), cache.versionId, cache.subCode, if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode)
-                    isUnitChange = true
-                }
+                assignmentPresenter.loadDataByVersion(workCategory.toString(), cache.versionId, cache.subCode, if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode)
+                isUnitChange = true
             }
         }
 
@@ -399,10 +397,8 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 if(workCategory == Constants.ASSIGN_TEST_PAPER)
                     testFragment.requestData(currentTestType, currentGradeCode,
                             item.unitCode, cache!!.subCode)
-                else {
-                    assignmentPresenter.loadDataByVersion(workCategory.toString(), cache?.versionId, cache?.subCode, item.unitCode)
-                    isUnitChange = true
-                }
+                assignmentPresenter.loadDataByVersion(workCategory.toString(), cache?.versionId, cache?.subCode, item.unitCode)
+                isUnitChange = true
             }
         }
         //切换版本

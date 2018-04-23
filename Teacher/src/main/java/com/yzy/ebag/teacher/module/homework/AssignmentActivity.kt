@@ -72,6 +72,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         popup
     }
 
+    /**单元popupWindow*/
     private val unitPopup by lazy {
         val popup = UnitPopupWindow(this)
         popup.onConfirmClick = {name, unitBean ->
@@ -81,10 +82,9 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             if(workCategory == Constants.ASSIGN_TEST_PAPER)
                 testFragment.requestData(currentTestType, currentGradeCode,
                         if (cache!!.currentUnitBean?.unitCode == null) null else cache.currentUnitBean?.unitCode, cache.subCode)
-            else {
-                assignmentPresenter.loadDataByVersion(workCategory.toString(), cache?.versionId, cache?.subCode, unitBean?.unitCode)
-                isUnitChange = true
-            }
+            assignmentPresenter.loadDataByVersion(workCategory.toString(), cache?.versionId, cache?.subCode,
+                    if (cache!!.currentUnitBean?.unitCode == null) null else cache.currentUnitBean?.unitCode)
+            isUnitChange = true
             cache?.currentUnitName = name
             unitTv.text = name
         }

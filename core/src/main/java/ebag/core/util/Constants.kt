@@ -12,7 +12,7 @@ object Constants {
     val OSS_BASE_URL = "http://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com"
 
 
-    //    const val BASE_URL = "http://www.yun-bag.com/ebag-portal/"
+//        const val BASE_URL = "http://www.yun-bag.com:9001/"
 //    const val BASE_URL = "http://192.168.1.141:9001/"
 //    const val BASE_URL = "http://192.168.1.155:9001/"
 //    const val BASE_URL = "http://192.168.1.135:9001/"
