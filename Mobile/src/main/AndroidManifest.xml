@@ -28,5 +28,8 @@
         <activity android:name=".module.clazz.ClassScheduleActivity"
             android:screenOrientation="landscape"
             />
+        <activity android:name=".module.book.ReaderActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 </manifest>

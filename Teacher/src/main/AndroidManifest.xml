@@ -66,6 +66,9 @@
         <activity android:name=".module.clazz.SelectSchoolActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".module.book.BookListActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

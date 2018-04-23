@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ebag.hd.widget.ReaderDragLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ebag.mobile.widget.ReaderDragLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ebag.hd.activity.ReaderActivity"
     android:id="@+id/rootView"
     >
-    <ebag.hd.widget.TitleBar android:id="@+id/titleBar"
+    <ebag.mobile.widget.TitleBar android:id="@+id/titleBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:rightImage="@drawable/icon_catalog"
@@ -123,14 +122,14 @@
                 />
         </RadioGroup>
         <TextView android:id="@+id/hidePenSet"
-            android:layout_width="@dimen/x68"
-            android:layout_height="@dimen/x68"
+            android:layout_width="@dimen/x34"
+            android:layout_height="@dimen/x34"
             android:background="@drawable/pen_set8"
             />
     </LinearLayout>
     <TextView android:id="@+id/dragView"
-        android:layout_width="@dimen/x130"
-        android:layout_height="@dimen/x52"
+        android:layout_width="@dimen/x65"
+        android:layout_height="@dimen/x26"
         android:background="@drawable/drag_btn_bg"
         app:layout_constraintBottom_toTopOf="@id/noteLayout"
         app:layout_constraintStart_toStartOf="parent"
@@ -144,7 +143,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         >
-        <ebag.hd.widget.TitleBar android:id="@+id/noteTitle"
+        <ebag.mobile.widget.TitleBar android:id="@+id/noteTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:titleText="笔记本"
@@ -161,11 +160,11 @@
             android:paddingTop="@dimen/y5"
             android:paddingStart="@dimen/x5"
             android:textSize="@dimen/title_bar_title_sub_size"
-            android:textColor="@color/normal_text_color"
+            android:textColor="@color/tv_normal"
             android:layout_marginTop="@dimen/title_bar_height"
             android:gravity="start"
             android:background="@color/white"
             android:visibility="gone"
             />
     </FrameLayout>
-</ebag.hd.widget.ReaderDragLayout>
+</ebag.mobile.widget.ReaderDragLayout>

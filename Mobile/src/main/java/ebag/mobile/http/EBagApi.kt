@@ -254,4 +254,54 @@ object EBagApi {
         jsonObject.put("id", 1)
         request(EBagClient.eBagService.cityData("v1", createBody(jsonObject)), callback)
     }
+
+    /**我的课本*/
+    fun myBookList(callback: RequestCallBack<List<BookBean>>) {
+        EBagApi.request(eBagService.myBookList("v1"), callback)
+    }
+
+    fun studentBookList(classId: String?, callback: RequestCallBack<List<BookBean>>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        EBagApi.request(eBagService.studentBookList("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**删除笔记*/
+    fun deleteNote(noteId: String, callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("id", noteId)
+        EBagApi.request(eBagService.deleteNote("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**查询课本笔记列表*/
+    fun bookNoteList(bookId: String, page: Int, pageSize: Int, callback: RequestCallBack<List<BookNoteBean>>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("bookId", bookId)
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", pageSize)
+        EBagApi.request(eBagService.bookNoteList("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**修改笔记*/
+    fun modifyNote(noteId: String, note: String, callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("note", note)
+        jsonObject.put("id", noteId)
+        EBagApi.request(eBagService.modifyNote("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**新增课本笔记*/
+    fun addBookNote(bookId: String, note: String, callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("bookId", bookId)
+        jsonObject.put("note", note)
+        EBagApi.request(eBagService.addBookNote("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**课本目录*/
+    fun bookCategory(bookId: Int, callback: RequestCallBack<BookCategoryBean>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("bookId", bookId)
+        EBagApi.request(eBagService.bookCategory("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

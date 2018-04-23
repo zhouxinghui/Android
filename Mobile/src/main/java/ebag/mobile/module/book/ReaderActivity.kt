@@ -1,4 +1,4 @@
-package ebag.hd.activity
+package ebag.mobile.module.book
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -19,11 +19,9 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.*
 import ebag.core.widget.PaletteView
-import ebag.hd.R
-import ebag.hd.bean.ReaderBean
-import ebag.hd.http.EBagApi
-import ebag.hd.ui.fragment.BookNoteFragment
-import ebag.hd.widget.BookCatalogPopup
+import ebag.mobile.R
+import ebag.mobile.bean.ReaderBean
+import ebag.mobile.http.EBagApi
 import kotlinx.android.synthetic.main.activity_reader.*
 import java.io.File
 import java.io.FileOutputStream

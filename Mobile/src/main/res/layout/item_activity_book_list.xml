@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_shadow_clickable_bg"
+    android:layout_margin="@dimen/y5"
+    >
+
+    <ImageView
+        android:id="@+id/ivBook"
+        android:layout_width="@dimen/x40"
+        android:layout_height="@dimen/y160"
+        android:layout_marginStart="@dimen/x5"
+        android:layout_marginTop="@dimen/y14"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/def_qq" />
+    
+    <View
+        android:id="@+id/moreIcon"
+        android:layout_width="@dimen/x6"
+        android:layout_height="@dimen/x10"
+        android:layout_marginEnd="@dimen/x5"
+        android:background="@drawable/right_arrow"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/line"
+        />
+
+    <TextView
+        android:id="@+id/tvEdition"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x10"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="@color/question_normal"
+        android:textSize="@dimen/tv_big"
+        app:layout_constraintEnd_toStartOf="@id/moreIcon"
+        app:layout_constraintStart_toEndOf="@id/ivBook"
+        app:layout_constraintTop_toTopOf="@id/ivBook"
+        tools:text="人教版" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/y1"
+        android:layout_marginTop="@dimen/y14"
+        android:layout_marginBottom="@dimen/y14"
+        android:background="@color/login_line"
+        app:layout_constraintEnd_toEndOf="@id/moreIcon"
+        app:layout_constraintStart_toStartOf="@id/ivBook"
+        app:layout_constraintTop_toBottomOf="@id/ivBook" />
+
+    <ebag.core.widget.drawable.DrawableTextView
+        android:id="@+id/tvSemester"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y54"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#5B626D"
+        tools:text="下学期"
+        android:drawablePadding="@dimen/x3"
+        app:leftDrawable="@drawable/book_list_semester_icon"
+        app:leftDrawableWidth="@dimen/x13"
+        app:leftDrawableHeight="@dimen/x13"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        app:layout_constraintStart_toStartOf="@id/line"
+        app:layout_constraintEnd_toStartOf="@id/tvSubject"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        />
+    <ebag.core.widget.drawable.DrawableTextView
+        android:id="@+id/tvSubject"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y54"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#5B626D"
+        tools:text="英语"
+        android:drawablePadding="@dimen/x3"
+        app:leftDrawable="@drawable/book_list_subject_icon"
+        app:leftDrawableWidth="@dimen/x13"
+        app:leftDrawableHeight="@dimen/x13"
+        app:layout_constraintTop_toTopOf="@id/tvSemester"
+        app:layout_constraintStart_toEndOf="@id/tvSemester"
+        app:layout_constraintEnd_toStartOf="@id/tvClass"/>
+    <ebag.core.widget.drawable.DrawableTextView
+        android:id="@+id/tvClass"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y54"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#5B626D"
+        android:gravity="center_vertical"
+        tools:text="三年级"
+        android:drawablePadding="@dimen/x3"
+        app:leftDrawable="@drawable/book_list_class_icon"
+        app:leftDrawableWidth="@dimen/x13"
+        app:leftDrawableHeight="@dimen/x13"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        app:layout_constraintTop_toTopOf="@id/tvSubject"
+        app:layout_constraintStart_toEndOf="@id/tvSubject"
+        app:layout_constraintEnd_toEndOf="@id/line"/>
+
+</android.support.constraint.ConstraintLayout>

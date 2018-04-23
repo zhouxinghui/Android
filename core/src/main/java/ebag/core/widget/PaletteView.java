@@ -1,4 +1,4 @@
-package ebag.hd.widget;
+package ebag.core.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;

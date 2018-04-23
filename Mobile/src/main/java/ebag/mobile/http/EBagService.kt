@@ -118,4 +118,30 @@ interface EBagService {
     /**省市区县基础数据*/
     @POST("data/getAreaData/{version}")
     fun cityData(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<ChildNodeBean>>>
+
+    /**我的课本*/
+    @POST("book/myBook/{version}")
+    fun myBookList(@Path("version") version: String): Observable<ResponseBean<List<BookBean>>>
+    @POST("book/getstudentBook/{version}")
+    fun studentBookList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<BookBean>>>
+
+    /**删除笔记*/
+    @POST("book/deleteNotebook/{version}")
+    fun deleteNote(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**查询课本笔记列表*/
+    @POST("book/queryNotebook/{version}")
+    fun bookNoteList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<BookNoteBean>>>
+
+    /**修改笔记*/
+    @POST("book/updateNotebook/{version}")
+    fun modifyNote(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**新增课本笔记*/
+    @POST("book/addNotebook/{version}")
+    fun addBookNote(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**课本目录*/
+    @POST("book/myBookChapter/{version}")
+    fun bookCategory(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<BookCategoryBean>>
 }

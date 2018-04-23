@@ -136,4 +136,34 @@
         <item name="android:textColor">#5b626d</item>
         <item name="android:textSize">@dimen/tv_normal</item>
     </style>
+
+    <style name="fab_style">
+        <item name="rippleColor">@color/ripple</item>
+        <item name="backgroundTint">@color/blue</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="elevation">6dp</item>
+        <item name="borderWidth">0dp</item>
+        <item name="pressedTranslationZ">12dp</item>
+        <item name="fabSize">normal</item>
+        <item name="android:visibility">invisible</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintHorizontal_bias">0.98</item>
+        <item name="layout_constraintVertical_bias">0.98</item>
+    </style>
+    <!--课本阅读：画笔调整-->
+    <style name="pen_set">
+        <item name="android:layout_width">@dimen/x34</item>
+        <item name="android:layout_height">@dimen/x34</item>
+        <item name="android:button">@null</item>
+    </style>
+
+    <style name="book_catalog_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/catalog_popup_in</item>
+        <item name="android:windowExitAnimation">@anim/catalog_popup_out</item>
+    </style>
 </resources>

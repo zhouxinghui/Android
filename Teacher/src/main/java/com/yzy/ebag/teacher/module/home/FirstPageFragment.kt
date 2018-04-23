@@ -16,6 +16,7 @@ import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.base.Constants
 import com.yzy.ebag.teacher.bean.FirstPageBean
 import com.yzy.ebag.teacher.http.TeacherApi
+import com.yzy.ebag.teacher.module.book.BookListActivity
 import com.yzy.ebag.teacher.module.homework.AssignmentActivity
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
@@ -108,6 +109,7 @@ class FirstPageFragment: BaseFragment() {
         checkHomework.setOnClickListener {
         }
         book.setOnClickListener {
+            BookListActivity.jump(mContext)
         }
         zixi.setOnClickListener {
         }
