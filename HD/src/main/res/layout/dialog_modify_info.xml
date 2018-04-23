@@ -30,7 +30,6 @@
         android:layout_height="wrap_content"
         android:background="@drawable/edit_bg"
         android:gravity="center"
-        android:maxLines="1"
         android:textColor="@color/tv_normal"
         android:textSize="@dimen/tv_normal"
         app:layout_constraintStart_toStartOf="parent"
