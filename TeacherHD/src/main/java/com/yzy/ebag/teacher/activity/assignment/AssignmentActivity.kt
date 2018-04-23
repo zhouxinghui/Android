@@ -23,6 +23,7 @@ import ebag.core.bean.QuestionBean
 import ebag.core.http.network.MsgException
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
+import ebag.core.util.StringUtils
 import ebag.core.util.T
 import ebag.core.util.loadImage
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
@@ -730,7 +731,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             return false
         }
         if (workCategory == Constants.ASSIGN_TEST_PAPER){
-            if (currentPaperId == null){
+            if (StringUtils.isEmpty(currentPaperId)){
                 T.show(this, "请选择你要发布的试卷")
                 return false
             }
