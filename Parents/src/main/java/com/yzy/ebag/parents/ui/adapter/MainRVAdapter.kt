@@ -3,7 +3,7 @@ package com.yzy.ebag.parents.ui.adapter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.parents.R
-import com.yzy.ebag.parents.model.MainRVModel
+import com.yzy.ebag.parents.mvp.model.MainRVModel
 
 class MainRVAdapter(list: List<MainRVModel>) : BaseQuickAdapter<MainRVModel, BaseViewHolder>(R.layout.item_main, list) {
 

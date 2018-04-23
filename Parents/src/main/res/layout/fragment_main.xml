@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tl="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+
 
     <com.youth.banner.Banner
         android:id="@+id/banner"
@@ -14,8 +13,15 @@
         app:indicator_drawable_selected="@drawable/banner_point_selected"
         app:indicator_drawable_unselected="@drawable/banner_point_normal"
         app:indicator_margin="@dimen/x6"
+        android:visibility="gone"
         app:indicator_width="@dimen/x6" />
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y400"
+        android:scaleType="centerCrop"
+        android:src="@drawable/banner"
+        />
 
     <LinearLayout
         android:id="@+id/homework_layout"
@@ -34,6 +40,7 @@
             android:gravity="center"
             android:text="加载中..."
             android:visibility="gone" />
+
 
         <com.yzy.ebag.parents.ui.widget.CommonTabLayout
             android:id="@+id/tablayout"

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tool="http://schemas.android.com/tools"
+    app:cardCornerRadius="5dp"
+    app:cardUseCompatPadding="true">
+
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/y20"
+    android:paddingBottom="@dimen/y20"
+    android:paddingEnd="@dimen/x15"
+    android:paddingStart="@dimen/x15">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/homework_item_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="#000"
+            tool:text="1月1号" />
+
+        <TextView
+            android:id="@+id/homework_item_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:textColor="#000"
+            tool:text="待完成" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/y10"
+        android:background="#e0e0e0" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y15"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="截止时间:"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/homework_item_endtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x10"
+            android:textColor="#000"
+            tool:text="2018年1月1号" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y10"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="作业内容:"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/homework_item_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x10"
+            android:textColor="#000"
+            tool:text="看一看" />
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="@dimen/x90"
+        android:layout_height="wrap_content"
+        android:background="@drawable/homework_item_btn"
+        android:text="查看作业"
+        android:id="@+id/homework_item_btn"
+        android:paddingTop="@dimen/y10"
+        android:paddingBottom="@dimen/y10"
+        android:textColor="@color/white"
+        android:layout_gravity="end"
+        android:gravity="center"
+        />
+
+</LinearLayout>
+
+</android.support.v7.widget.CardView>

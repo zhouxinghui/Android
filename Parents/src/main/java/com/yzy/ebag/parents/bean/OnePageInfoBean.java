@@ -1,5 +1,6 @@
 package com.yzy.ebag.parents.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class OnePageInfoBean {
@@ -59,7 +60,7 @@ public class OnePageInfoBean {
         this.homeWorkInfoVos = homeWorkInfoVos;
     }
 
-    public static class HomeWorkInfoVosBean {
+    public static class HomeWorkInfoVosBean implements Serializable{
         /**
          * id : 167dcc196022420c814de7cf88115df6
          * content : 全部 (共2题)

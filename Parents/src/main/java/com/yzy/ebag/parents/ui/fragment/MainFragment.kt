@@ -1,5 +1,6 @@
 package com.yzy.ebag.parents.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -11,15 +12,17 @@ import com.yzy.ebag.parents.R
 import com.yzy.ebag.parents.bean.OnePageInfoBean
 import com.yzy.ebag.parents.common.Constants
 import com.yzy.ebag.parents.http.ParentsAPI
-import com.yzy.ebag.parents.model.MainRVModel
-import com.yzy.ebag.parents.model.TabEntity
+import com.yzy.ebag.parents.mvp.model.MainRVModel
+import com.yzy.ebag.parents.mvp.model.TabEntity
 import com.yzy.ebag.parents.ui.activity.ChooseChildrenActivity
+import com.yzy.ebag.parents.ui.activity.HomeworkListActivity
 import com.yzy.ebag.parents.ui.adapter.MainRVAdapter
 import com.yzy.ebag.parents.utils.GlideImageLoader
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.SPUtils
 import kotlinx.android.synthetic.main.fragment_main.*
+import java.io.Serializable
 
 
 class MainFragment : BaseFragment() {
@@ -31,6 +34,7 @@ class MainFragment : BaseFragment() {
     private val entityList: ArrayList<CustomTabEntity> = arrayListOf()
     private val msgCountList: MutableList<Int> = mutableListOf()
     private val fragmentList: ArrayList<Fragment> = arrayListOf()
+    private lateinit var homeworkData:ArrayList<OnePageInfoBean>
     private var init = false
 
     companion object {
@@ -79,6 +83,14 @@ class MainFragment : BaseFragment() {
         getOnePageInfo()
 
         init = true
+
+        container_layout.setOnClickListener {
+            val data  = homeworkData[tablayout.currentTab].homeWorkInfoVos
+            val i = Intent(activity,HomeworkListActivity::class.java)
+            i.putExtra("datas",data as Serializable)
+            i.putExtra("subject",homeworkData[tablayout.currentTab].subject)
+            startActivity(i)
+        }
     }
 
     private fun getOnePageInfo() {
@@ -86,7 +98,6 @@ class MainFragment : BaseFragment() {
         ParentsAPI.onePageInfo(SPUtils.get(activity, Constants.CURRENT_CHILDREN_YSBCODE, "") as String, object : RequestCallBack<List<OnePageInfoBean>>() {
 
             override fun onStart() {
-                super.onStart()
                 homework_loading.visibility = View.VISIBLE
             }
 
@@ -94,25 +105,32 @@ class MainFragment : BaseFragment() {
                 entityList.clear()
                 fragmentList.clear()
                 msgCountList.clear()
-                entity?.forEachIndexed { index, it ->
+                homeworkData = entity!! as ArrayList<OnePageInfoBean>
+                entity.forEachIndexed { index, it ->
                     entityList.add(TabEntity(it.subject, 0, 0))
-                    if (it.homeWorkNoCompleteCount != 0) {
-                        msgCountList.add(index, it.homeWorkNoCompleteCount)
-                    }
+                    msgCountList.add(it.homeWorkNoCompleteCount)
 
-                    it.homeWorkInfoVos.forEach {
+                    if (it.homeWorkInfoVos.isNotEmpty()) {
+                        it.homeWorkInfoVos.forEach {
+                            val b = Bundle()
+                            b.putString("status", it.state)
+                            b.putString("content", it.content)
+                            b.putString("endTime", it.endTime)
+                            val f = HomeworkFragment.newInstance()
+                            f.arguments = b
+                            fragmentList.add(f)
+                        }
+                    } else {
                         val b = Bundle()
-                        b.putString("status", it.state)
-                        b.putString("content", it.content)
-                        b.putString("endTime", it.endTime)
+                        b.putBoolean("empty", true)
                         val f = HomeworkFragment.newInstance()
                         f.arguments = b
                         fragmentList.add(f)
                     }
 
                 }
-
                 tablayout.setTabData(entityList, activity, R.id.container_layout, fragmentList)
+                tablayout.notifyDataSetChanged()
 
                 msgCountList.forEachIndexed { index, it ->
                     if (it != 0) {

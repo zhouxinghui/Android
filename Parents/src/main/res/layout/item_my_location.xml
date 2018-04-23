@@ -10,38 +10,38 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:layout_width="@dimen/x90"
-            android:layout_height="@dimen/x90"
+            android:layout_width="@dimen/x30"
+            android:layout_height="@dimen/x30"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/y38"
+            android:layout_marginTop="@dimen/y80"
             android:background="@drawable/ic_my_location"
             />
 
         <ImageView
             android:id="@+id/head_img_id"
-            android:layout_width="@dimen/x45"
-            android:layout_height="@dimen/x45"
+            android:layout_width="@dimen/x20"
+            android:layout_height="@dimen/x20"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/y59"
-            android:src="@drawable/ic_launcher"
+            android:layout_marginTop="@dimen/y90"
+            android:src="@drawable/head_default"
             />
 
         <TextView
             android:id="@+id/location_detail"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/x5"
+            android:paddingEnd="@dimen/x5"
+            android:layout_height="@dimen/y80"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/rectangle_location_bg"
             android:gravity="center"
-            android:maxHeight="@dimen/y50"
-            android:maxWidth="@dimen/x250"
             android:minHeight="0dp"
             android:minWidth="0dp"
             android:paddingBottom="@dimen/y14"
             android:maxLines="2"
             android:paddingLeft="@dimen/x9"
             android:paddingRight="@dimen/x9"
-            android:paddingTop="@dimen/y6"
+            android:paddingTop="@dimen/y15"
             android:text="广东省深圳市"
             android:textColor="#4B5269"
             android:textSize="13sp" />

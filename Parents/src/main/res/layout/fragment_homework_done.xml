@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/x15"
+        android:paddingStart="@dimen/x15">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="总体表现"
+            android:textColor="#000"
+            android:textSize="@dimen/x15"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/y15"
+            android:background="#e0e0e0" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/y30">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="总分"
+                    android:textColor="#868da0"
+                    android:textSize="@dimen/x12" />
+
+                <TextView
+                    android:id="@+id/homework_sum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"
+                    android:textColor="#868da0"
+                    android:textSize="@dimen/x16" />
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="#e0e0e0" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="班级最高"
+                    android:textColor="#868da0"
+                    android:textSize="@dimen/x12" />
+
+                <TextView
+                    android:id="@+id/homework_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="老师未批改"
+                    android:textColor="#868da0"
+                    android:textSize="@dimen/x16" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="#e0e0e0" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="错题"
+                    android:textColor="#868da0"
+                    android:textSize="@dimen/x12" />
+
+                <TextView
+                    android:id="@+id/homework_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--"
+                    android:textColor="#868da0"
+                    android:textSize="@dimen/x16" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y35"
+            android:drawableEnd="@drawable/icon_homework_drop_down"
+            android:drawablePadding="@dimen/x6"
+            android:text="作业详情"
+            android:textColor="#000"
+            android:textSize="@dimen/x12" />
+
+        <LinearLayout
+            android:id="@+id/homework_error_layout"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/y20"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y30"
+                android:text="错题"
+                android:textColor="#000"
+                android:textSize="@dimen/x13"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/homework_error_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y15"
+                android:paddingStart="@dimen/x18"
+                android:textColor="#000"
+                tool:text="2月19号语文一共6道错题" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="@dimen/y15"
+                android:background="@drawable/homework_item_btn"
+                android:paddingBottom="@dimen/y8"
+                android:paddingEnd="@dimen/x10"
+                android:paddingStart="@dimen/x10"
+                android:paddingTop="@dimen/y8"
+                android:text="错题预览"
+                android:textColor="#fff" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/homework_teacher_layout"
+            android:layout_marginTop="@dimen/y45"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="老师评语"
+                android:textColor="#000"
+                android:textSize="@dimen/x13"
+                android:textStyle="bold"
+                />
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/y25"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/sort_homework_teacher"
+                    android:gravity="center"
+                    android:text="师"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/x14" />
+
+
+                <TextView
+                    android:id="@+id/homework_teacher_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/x10"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:textSize="@dimen/x12"
+                    tool:text="王凯老师" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/homework_teacher_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y15"
+                android:gravity="center"
+                android:textColor="#868da0"
+                tool:text="李毅敏未完成作业，请家长督促学生完成" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y45"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="家长评语"
+                android:textColor="#000"
+                android:textSize="@dimen/x13"
+                android:textStyle="bold"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y25"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/sort_homework_parents"
+                    android:gravity="center"
+                    android:text="家"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/x14" />
+
+
+                <TextView
+                    android:id="@+id/homework_parents_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/x10"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:textSize="@dimen/x12"
+                    tool:text="你家长" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/homework_parents_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/x10"
+                android:layout_marginTop="@dimen/y15"
+                android:gravity="center"
+                android:textColor="#868da0"
+                android:visibility="gone"
+                tool:text="666" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y15"
+                android:id="@+id/homework_parents_edit"
+                android:hint="请输入评语"
+                android:maxLines="2" />
+
+
+            <TextView
+                android:id="@+id/homework_parents_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="@dimen/y15"
+                android:background="@drawable/homework_item_btn"
+                android:paddingBottom="@dimen/y8"
+                android:paddingEnd="@dimen/x10"
+                android:paddingStart="@dimen/x10"
+                android:paddingTop="@dimen/y8"
+                android:text="确定"
+                android:textColor="#fff" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/y30"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/gift_record"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="点击礼物,奖励学生的优秀表现吧"
+                android:textColor="#868da0" />
+
+
+            <TextView
+                android:id="@+id/homework_gift"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y25"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/icon_homework_gift"
+                android:gravity="center"
+                android:text="去奖励"
+                android:textColor="@color/colorPrimary" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

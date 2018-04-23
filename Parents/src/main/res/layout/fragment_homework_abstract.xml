@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:paddingStart="@dimen/x15"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/recyclerview"
+        android:layout_height="wrap_content">
+
+
+    </android.support.v7.widget.RecyclerView>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:text="感谢老师"
+        android:textStyle="bold"
+        android:textSize="@dimen/x18"
+        android:layout_marginTop="@dimen/y60"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/y15"
+        android:layout_marginBottom="@dimen/y15"
+        android:background="#e0e0e0"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/y10"
+        android:layout_height="match_parent">
+
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:id="@+id/gift_record"
+            android:layout_height="wrap_content"
+            tool:text="已赠送:鲜花x2;笔记本x1;画板x5"
+            android:textColor="#868da0"
+            />
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/homework_gift"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/icon_homework_gift"
+            android:text="去感谢"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/y25"
+            android:textColor="@color/colorPrimary"
+            />
+
+
+    </LinearLayout>
+
+</LinearLayout>

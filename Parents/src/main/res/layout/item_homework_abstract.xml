@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:paddingTop="@dimen/y10"
+    android:paddingBottom="@dimen/y10"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="截止时间:"
+        android:textColor ="#000"
+        android:id="@+id/item_homework_label"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginStart="@dimen/x15"
+        tool:text = "~~~~~~~\n~~~~\n~~~~\n~~~~"
+        android:textColor="#868da0"
+        android:id="@+id/item_homework_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

@@ -2,8 +2,9 @@ package com.yzy.ebag.parents.ui.activity
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
+import android.graphics.Bitmap
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.baidu.location.BDAbstractLocationListener
 import com.baidu.location.BDLocation
@@ -15,6 +16,7 @@ import com.baidu.mapapi.model.LatLngBounds
 import com.yzy.ebag.parents.R
 import ebag.core.base.BaseActivity
 import ebag.core.util.SerializableUtils
+import ebag.core.util.loadHead
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.UserEntity
 import kotlinx.android.synthetic.main.activity_location.*
@@ -43,6 +45,8 @@ class LocationActivity : BaseActivity() {
         map.mapType = BaiduMap.MAP_TYPE_NORMAL
         myLocationView = View.inflate(this,R.layout.item_my_location,null)
         locationTv = myLocationView.findViewById(R.id.location_detail)
+        val imgView = myLocationView.findViewById<ImageView>(R.id.head_img_id)
+        imgView.loadHead(SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).headUrl)
         val location = LocationClient(this)
         locationListener = MyLocationListener()
         location.registerLocationListener(locationListener)
@@ -66,15 +70,14 @@ class LocationActivity : BaseActivity() {
             val latitude = p0!!.latitude
             val longitude = p0.longitude
             val point  = LatLng(latitude,longitude)
-            val url = SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).headUrl
             val latLngBuild = LatLngBounds.Builder()
             latLngBuild.include(point)
             val latLngBounds = latLngBuild.build()
             val mMapStatusUpdate = MapStatusUpdateFactory.newLatLngBounds(latLngBounds)
             //改变地图状态
             map.setMapStatus(mMapStatusUpdate)
-            val myOption =   MarkerOptions().perspective(true).position(point).icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(resources,R.mipmap.ic_launcher_round)))
             locationTv.text = p0.address.address
+            val myOption =   MarkerOptions().perspective(true).position(point).icon(BitmapDescriptorFactory.fromBitmap(getBitmapFromView(myLocationView,false)))
             map.addOverlay(myOption)
             map.setMapStatus(MapStatusUpdateFactory.zoomTo(20f))
 
@@ -82,6 +85,15 @@ class LocationActivity : BaseActivity() {
 
         }
 
+    }
+
+
+    fun getBitmapFromView(view:View,isChild:Boolean): Bitmap {
+        view.destroyDrawingCache()
+        view.measure(View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED),View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED))
+        view.layout(0,0,view.measuredWidth,view.measuredHeight)
+        view.isDrawingCacheEnabled = true
+        return view.getDrawingCache(true)
     }
 
     override fun onDestroy() {

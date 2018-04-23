@@ -1,5 +1,6 @@
 package com.yzy.ebag.parents.http
 
+import com.yzy.ebag.parents.bean.HomeworkAbstractBean
 import com.yzy.ebag.parents.bean.MyChildrenBean
 import com.yzy.ebag.parents.bean.OnePageInfoBean
 import ebag.core.bean.ResponseBean
@@ -17,4 +18,8 @@ interface ParentsService{
     /*首页作业*/
     @POST("user/getOnePageInfo/{version}")
     fun getOnePageInfo(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<OnePageInfoBean>>>
+
+    /*作业报告*/
+    @POST("correctHome/createHomeWorkRep/{version}")
+    fun homeReport(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<HomeworkAbstractBean>>
 }
