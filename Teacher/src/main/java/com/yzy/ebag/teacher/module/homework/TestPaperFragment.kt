@@ -47,8 +47,10 @@ class TestPaperFragment: BaseListFragment<List<TestPaperListBean>, TestPaperList
         onRetryClick()
     }
 
+    override fun getPageSize(): Int  = 10
+
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<TestPaperListBean>>) {
-        TeacherApi.testPaperList(testPaperFlag, gradeCode, unitId, subCode, requestCallBack)
+        TeacherApi.testPaperList(testPaperFlag, gradeCode, unitId, subCode, page, getPageSize(), requestCallBack)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<TestPaperListBean>?): List<TestPaperListBean>? {

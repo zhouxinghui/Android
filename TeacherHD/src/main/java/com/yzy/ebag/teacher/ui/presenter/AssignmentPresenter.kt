@@ -64,7 +64,7 @@ class AssignmentPresenter(view: AssignmentView, listener: OnToastListener): Base
     fun loadDataByVersion(type: String, versionId: String?, subCode: String?, unitCode: String? = null){
         TeacherApi.assignDataByVersion(type, versionId, subCode, unitCode, unitRequest)
     }
-    fun loadTestListData(testPaperFlag: String, gradeCode: String, unitId: String?, subCode: String?){
+    /*fun loadTestListData(testPaperFlag: String, gradeCode: String, unitId: String?, subCode: String?){
         TeacherApi.testPaperList(testPaperFlag, gradeCode, unitId, subCode, testRequest)
-    }
+    }*/
 }

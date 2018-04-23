@@ -78,7 +78,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
             cache?.currentUnitBean = unitBean ?: UnitBean.UnitSubBean()
             cache?.isTotal = unitBean == null
             if(workCategory == Constants.ASSIGN_TEST_PAPER)
-                assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
+                testFragment.requestData(currentTestType, currentGradeCode,
                         if (cache!!.currentUnitBean?.unitCode == null) null else cache.currentUnitBean?.unitCode, cache.subCode)
             else {
                 assignmentPresenter.loadDataByVersion(workCategory.toString(), cache?.versionId, cache?.subCode, unitBean?.unitCode)
@@ -251,7 +251,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     questionsRecycler.visibility = View.GONE
                     currentTestType = "1"
                     val cache = cacheMap[currentGradeCode]!!
-                    assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
+                    testFragment.requestData(currentTestType, currentGradeCode,
                             if (cache.currentUnitBean?.unitCode == null) null else cache.currentUnitBean?.unitCode, cache.subCode)
                 }
                 testImg[1] -> {//组卷
@@ -287,7 +287,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     questionsRecycler.visibility = View.GONE
                     currentTestType = "2"
                     val cache = cacheMap[currentGradeCode]!!
-                    assignmentPresenter.loadTestListData(currentTestType, currentGradeCode,
+                    testFragment.requestData(currentTestType, currentGradeCode,
                             if (cache.currentUnitBean?.unitCode == null) null else cache.currentUnitBean?.unitCode, cache.subCode)
                 }
                 workImg[1] -> {//发布小组
@@ -441,7 +441,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         clazzTv.text = name
 
         if (workCategory == Constants.ASSIGN_TEST_PAPER)
-            assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null, assignmentBean.resultTaughtCoursesVo?.bookCode)
+            testFragment.requestData(currentTestType, currentGradeCode, null, assignmentBean.resultTaughtCoursesVo?.bookCode)
         gradeList!!.forEach {
             if(cacheMap[it.gradeCode] == null) {
                 val cache = Cache()
@@ -516,7 +516,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         cache.subCode = subCode
         cache.subName = subName
         if (workCategory == Constants.ASSIGN_TEST_PAPER)
-            assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null, cache.subCode)
+            testFragment.requestData(currentTestType, currentGradeCode, null, cache.subCode)
     }
 
     override fun loadBaseError(t: Throwable) {
@@ -714,13 +714,13 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     cache.isTotal = true
                     unitTv.text = "全部"
                     if (workCategory == Constants.ASSIGN_TEST_PAPER)
-                        assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null, cache.subCode)
+                        testFragment.requestData(currentTestType, currentGradeCode, null, cache.subCode)
                 }else {
                     questionAdapter.datas = questionList
                     setVersionTv(cache.versionName, cache.semesterName, cache.subName)
                     unitTv.text = cache.currentUnitName
                     if (workCategory == Constants.ASSIGN_TEST_PAPER)
-                        assignmentPresenter.loadTestListData(currentTestType, currentGradeCode, null, cache.subCode)
+                        testFragment.requestData(currentTestType, currentGradeCode, null, cache.subCode)
                 }
             }
 
