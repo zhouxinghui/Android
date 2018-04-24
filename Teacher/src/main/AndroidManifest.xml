@@ -72,6 +72,9 @@
         <activity android:name=".module.prepare.MyPrepareActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".ZixiActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

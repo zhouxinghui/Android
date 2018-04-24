@@ -21,6 +21,8 @@ class MarkDialog(context: Context): BaseDialog(context) {
     override fun getLayoutRes(): Int {
         return R.layout.dialog_mark
     }
+
+    override fun setWidth(): Int = context.resources.getDimensionPixelSize(R.dimen.x550)
     private var homeworkId = ""
     private var questionId = ""
     private var uid = ""
