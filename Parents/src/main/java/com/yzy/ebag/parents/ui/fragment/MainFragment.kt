@@ -17,6 +17,7 @@ import com.yzy.ebag.parents.mvp.model.TabEntity
 import com.yzy.ebag.parents.ui.activity.ChooseChildrenActivity
 import com.yzy.ebag.parents.ui.activity.ExcitationActivity
 import com.yzy.ebag.parents.ui.activity.HomeworkListActivity
+import com.yzy.ebag.parents.ui.activity.RepresentActivity
 import com.yzy.ebag.parents.ui.adapter.MainRVAdapter
 import com.yzy.ebag.parents.utils.GlideImageLoader
 import ebag.core.base.BaseFragment
@@ -35,7 +36,7 @@ class MainFragment : BaseFragment() {
     private val entityList: ArrayList<CustomTabEntity> = arrayListOf()
     private val msgCountList: MutableList<Int> = mutableListOf()
     private val fragmentList: ArrayList<Fragment> = arrayListOf()
-    private lateinit var homeworkData:ArrayList<OnePageInfoBean>
+    private lateinit var homeworkData: ArrayList<OnePageInfoBean>
     private var init = false
 
     companion object {
@@ -79,6 +80,7 @@ class MainFragment : BaseFragment() {
             when (position) {
                 4 -> ChooseChildrenActivity.start(activity)
                 1 -> ExcitationActivity.start(activity)
+                5 -> RepresentActivity.start(activity)
             }
         }
 
@@ -87,10 +89,10 @@ class MainFragment : BaseFragment() {
         init = true
 
         container_layout.setOnClickListener {
-            val data  = homeworkData[tablayout.currentTab].homeWorkInfoVos
-            val i = Intent(activity,HomeworkListActivity::class.java)
-            i.putExtra("datas",data as Serializable)
-            i.putExtra("subject",homeworkData[tablayout.currentTab].subject)
+            val data = homeworkData[tablayout.currentTab].homeWorkInfoVos
+            val i = Intent(activity, HomeworkListActivity::class.java)
+            i.putExtra("datas", data as Serializable)
+            i.putExtra("subject", homeworkData[tablayout.currentTab].subject)
             startActivity(i)
         }
     }

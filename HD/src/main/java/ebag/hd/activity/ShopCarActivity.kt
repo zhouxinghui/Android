@@ -6,9 +6,6 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.widget.CompoundButton
-import android.widget.Toast
-import com.youth.banner.Banner
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.LoadingDialogUtil
@@ -84,8 +81,11 @@ class ShopCarActivity : BaseActivity() {
                             array.add(mDatas[position].shopCartId.toString())
                             EBagApi.removeShopCar(array, object : RequestCallBack<String>() {
                                 override fun onSuccess(entity: String?) {
+                                    totalPrice -= mDatas[position].discountPrice.toInt()
                                     mDatas.removeAt(position)
                                     mAdapter.notifyItemRemoved(position)
+                                    selectedCount.remove(position)
+                                    all_check.isChecked = false
                                 }
 
                                 override fun onError(exception: Throwable) {
