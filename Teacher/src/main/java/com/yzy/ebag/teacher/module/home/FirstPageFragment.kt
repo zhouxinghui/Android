@@ -14,7 +14,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.youth.banner.loader.ImageLoader
 import com.yzy.ebag.teacher.R
-import com.yzy.ebag.teacher.ZixiActivity
+import com.yzy.ebag.teacher.module.tools.ZixiActivity
 import com.yzy.ebag.teacher.base.Constants
 import com.yzy.ebag.teacher.bean.FirstPageBean
 import com.yzy.ebag.teacher.http.TeacherApi

@@ -153,5 +153,19 @@ interface TeacherService {
     @POST("clazzSpace/changeBookVersion/{version}")
     fun prepareVersion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<PrepareVersionBean>>
     @POST("data/getBookUnit/{version}")
-    fun prepareUnit(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<UnitBean>>>
+
+    /**获取单元*/
+    fun getUnit(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<UnitBean>>>
+
+    /**自习室-生字总览列表*/
+    @POST("util/queryNewWordsTime/{version}")
+    fun getLetterRecord(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<LetterRecordBaseBean>>>
+
+    /**自习室-生字详情*/
+    @POST("util/queryNewWords/{version}")
+    fun getLetterDesc(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<LetterDescBean>>
+
+    /**自习室-上传生字评分*/
+    @POST("util/correctWords/{version}")
+    fun uploadReadScore(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 }

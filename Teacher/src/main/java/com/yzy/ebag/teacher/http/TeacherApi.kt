@@ -445,10 +445,42 @@ object TeacherApi {
         EBagApi.request(teacherService.prepareVersion("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    /**备课-获取单元*/
-    fun prepareUnit(versionId: String, callback: RequestCallBack<List<UnitBean>>){
+    /**获取单元*/
+    fun getUnit(versionId: String, callback: RequestCallBack<List<UnitBean>>){
         val jsonObject = JSONObject()
         jsonObject.put("bookVersionId", versionId)
-        EBagApi.request(teacherService.prepareUnit("v1", EBagApi.createBody(jsonObject)), callback)
+        EBagApi.request(teacherService.getUnit("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**自习室-生字总览列表*/
+    fun getLetterRecord(unitId: String, classId: String, callback: RequestCallBack<List<LetterRecordBaseBean>>) {
+        val jsonObject = JSONObject()
+        if (!StringUtils.isEmpty(unitId))
+            jsonObject.put("unitId", unitId)
+        jsonObject.put("classId", classId)
+        EBagApi.request(teacherService.getLetterRecord("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**自习室-生字详情*/
+    fun getLetterDesc(unitId: String, createDate: Long, classId: String, callback: RequestCallBack<LetterDescBean>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("unitId", unitId)
+        jsonObject.put("createDate", createDate)
+        jsonObject.put("classId", classId)
+        EBagApi.request(teacherService.getLetterDesc("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**自习室-上传生字评分*/
+    fun uploadReadScore(scoreList: ArrayList<LetterDescBean.NewWordsBean>, callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        val jsonArray = JSONArray()
+        scoreList.forEach {
+            val jsonObj = JSONObject()
+            jsonObj.put("id", it.id)
+            jsonObj.put("score", it.score)
+            jsonArray.put(jsonObj)
+        }
+        jsonObject.put("wordrecordVoList", jsonArray)
+        EBagApi.request(teacherService.uploadReadScore("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

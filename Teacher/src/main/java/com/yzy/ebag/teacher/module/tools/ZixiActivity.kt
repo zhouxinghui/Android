@@ -1,4 +1,4 @@
-package com.yzy.ebag.teacher
+package com.yzy.ebag.teacher.module.tools
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.yzy.ebag.teacher.R
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.T
 import ebag.mobile.base.BaseListActivity
@@ -73,7 +74,7 @@ class ZixiActivity: BaseListActivity<List<Int>, Int>() {
         when(list[position]){
 
             R.drawable.tool_btn_calligraphy -> {//每日练字
-//                LetterRecordActivity.jump(this)
+                LetterRecordActivity.jump(this)
             }
 
             R.drawable.tool_btn_read -> {//每日练字

@@ -100,7 +100,7 @@ class MyPrepareActivity: BaseActivity() {
         popup.onTextbookSelectListener = {versionBean, semesterCode, semesterName ->
             textbookTv.text = "${versionBean.bookVersionName} $semesterName"
             unitList.clear()
-            TeacherApi.prepareUnit(versionBean.bookVersionId, unitRequest)
+            TeacherApi.getUnit(versionBean.bookVersionId, unitRequest)
         }
         popup
     }

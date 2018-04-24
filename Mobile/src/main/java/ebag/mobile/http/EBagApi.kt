@@ -136,9 +136,12 @@ object EBagApi {
         request(EBagClient.eBagService.getCheckCode("v1", createBody(jsonObject)), callback)
     }
 
-    /**获取用户的所有所在班级*/
-    fun getMyClasses(callback: RequestCallBack<List<BaseClassesBean>>) {
+    /**获取用户的所有所在班级 queryType不传，查询所有所教班级，传“1”：查询教授语文的班级（练字），传“2”：查询教授语文和英语的班级（跟读）*/
+    fun getMyClasses(callback: RequestCallBack<List<BaseClassesBean>>, queryType: String? = null) {
         val jsonObject = JSONObject()
+        if (!StringUtils.isEmpty(queryType)){
+            jsonObject.put("queryType", queryType)
+        }
         EBagApi.request(eBagService.getMyClasses("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
@@ -303,5 +306,21 @@ object EBagApi {
         val jsonObject = JSONObject()
         jsonObject.put("bookId", bookId)
         EBagApi.request(eBagService.bookCategory("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**获取单元数据*/
+    fun getUnit(classId: String?, subCode: String, callback: RequestCallBack<EditionBean>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        if (!StringUtils.isEmpty(subCode))
+            jsonObject.put("subCode", subCode)
+        EBagApi.request(eBagService.getUnit("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**获取单元数据*/
+    fun getUnit(bookVersionId: String, callback: RequestCallBack<EditionBean>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("bookVersionId", bookVersionId)
+        EBagApi.request(eBagService.getUnit("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

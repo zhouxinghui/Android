@@ -3,6 +3,7 @@ package com.yzy.ebag.teacher.module.homework
 import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -66,6 +67,10 @@ class UnitPopupWindow(private val mContext: Context): BasePopupWindow(mContext) 
             unitAdapter.selectPosition = 0
             subAdapter.selectPosition = -1
         }
+    }
+
+    fun setTotalTvGone(isGone: Boolean){
+        totalTv.visibility = if (isGone) View.GONE else View.VISIBLE
     }
 
     private inner class UnitAdapter: BaseQuickAdapter<UnitBean, BaseViewHolder>(R.layout.item_assign_popup){

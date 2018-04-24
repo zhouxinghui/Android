@@ -144,4 +144,8 @@ interface EBagService {
     /**课本目录*/
     @POST("book/myBookChapter/{version}")
     fun bookCategory(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<BookCategoryBean>>
+
+    /**获取单元数据*/
+    @POST("util/getBookVersionOrUnit/{version}")
+    fun getUnit(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<EditionBean>>
 }
