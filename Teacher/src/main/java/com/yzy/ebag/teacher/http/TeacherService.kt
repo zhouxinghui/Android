@@ -4,6 +4,7 @@ import com.yzy.ebag.teacher.bean.*
 import ebag.core.bean.QuestionBean
 import ebag.core.bean.ResponseBean
 import ebag.mobile.bean.NoticeBean
+import ebag.mobile.bean.UnitBean
 import io.reactivex.Observable
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -131,4 +132,26 @@ interface TeacherService {
     /**创建学校*/
     @POST("util/createSchool/{version}")
     fun createSchool(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**备课-默认数据*/
+    @POST("clazzSpace/initMyLessonInfo/{version}")
+    fun prepareBaseData(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<PrepareBaseBean>>
+
+    /**删除指定备课文件*/
+    @POST("clazzSpace/delLessonFileInfoById/{version}")
+    fun deletePrepareFile(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**备课文件列表*/
+    @POST("clazzSpace/searchLessonFileInfoItemList/{version}")
+    fun prepareList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<PrepareFileBean>>>
+
+    /**备课-获取年级科目数据*/
+    @POST("clazzSpace/changeGradeOrSubject/{version}")
+    fun prepareSubject(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<PrepareSubjectBean>>>
+
+    /**备课-获取版本数据*/
+    @POST("clazzSpace/changeBookVersion/{version}")
+    fun prepareVersion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<PrepareVersionBean>>
+    @POST("data/getBookUnit/{version}")
+    fun prepareUnit(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<UnitBean>>>
 }

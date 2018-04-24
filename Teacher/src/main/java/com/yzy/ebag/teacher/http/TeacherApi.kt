@@ -394,4 +394,61 @@ object TeacherApi {
         jsonObject.put("county", county)
         EBagApi.request(teacherService.createSchool("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**
+     * 备课文件-首次进入的数据
+     * @param lessonType 资源库类型  1 备课 2 校园资源  3 共享资源
+     */
+    fun prepareBaseData(lessonType: String, callback: RequestCallBack<PrepareBaseBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("lessonType", lessonType)
+        jsonObject.put("page", 1)
+        jsonObject.put("pageSize", 10)
+        EBagApi.request(teacherService.prepareBaseData("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**删除指定备课文件*/
+    fun deletePrepareFile(id: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("id", id)
+        EBagApi.request(teacherService.deletePrepareFile("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**备课文件列表*/
+    fun prepareList(lessonType: String, page: Int, pageSize: Int, callback: RequestCallBack<List<PrepareFileBean>>, gradeCode: String?, subCode: String?, unitId: String?){
+        val jsonObject = JSONObject()
+        jsonObject.put("lessonType", lessonType)
+        if (!StringUtils.isEmpty(gradeCode))
+            jsonObject.put("gradeCode", gradeCode)
+        if (!StringUtils.isEmpty(subCode))
+            jsonObject.put("subCode", subCode)
+        if (!StringUtils.isEmpty(unitId))
+            jsonObject.put("unitCode", unitId)
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", pageSize)
+        EBagApi.request(teacherService.prepareList("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**备课-获取年级科目数据*/
+    fun prepareSubject(lessonType: String, callback: RequestCallBack<List<PrepareSubjectBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("lessonType", lessonType)
+        EBagApi.request(teacherService.prepareSubject("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**备课-获取版本数据*/
+    fun prepareVersion(gradeCode: String, lessonType: String, subCode: String, callback: RequestCallBack<PrepareVersionBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("lessonType", lessonType)
+        jsonObject.put("subCode", subCode)
+        jsonObject.put("gradeCode", gradeCode)
+        EBagApi.request(teacherService.prepareVersion("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**备课-获取单元*/
+    fun prepareUnit(versionId: String, callback: RequestCallBack<List<UnitBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("bookVersionId", versionId)
+        EBagApi.request(teacherService.prepareUnit("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

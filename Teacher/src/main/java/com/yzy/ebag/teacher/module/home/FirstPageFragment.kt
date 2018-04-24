@@ -1,6 +1,7 @@
 package com.yzy.ebag.teacher.module.home
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.SpannableString
@@ -18,6 +19,7 @@ import com.yzy.ebag.teacher.bean.FirstPageBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.module.book.BookListActivity
 import com.yzy.ebag.teacher.module.homework.AssignmentActivity
+import com.yzy.ebag.teacher.module.prepare.MyPrepareActivity
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.LoadingDialogUtil
@@ -41,7 +43,7 @@ class FirstPageFragment: BaseFragment() {
             //轮播图
             val images = ArrayList<String>()
             entity?.resultAdvertisementVos?.mapTo(images) { it.adverUrl }
-            banner.setImageLoader(MyImageLoader()).setImages(images).start()
+            banner?.setImageLoader(MyImageLoader())?.setImages(images)?.start()
             //作业进度
             adapter.datas = entity?.resultHomeWorkVos
         }
@@ -104,7 +106,7 @@ class FirstPageFragment: BaseFragment() {
             AssignmentActivity.jump(mContext, Constants.ASSIGN_TEST_PAPER, testPaper.text.toString())
         }
         prepare.setOnClickListener {
-
+            startActivity(Intent(mContext, MyPrepareActivity::class.java))
         }
         checkHomework.setOnClickListener {
         }

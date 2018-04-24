@@ -33,6 +33,7 @@ class UnitPopupWindow(private val mContext: Context): BasePopupWindow(mContext) 
     init {
         val unitRecycler = contentView.findViewById<RecyclerView>(R.id.unitRecycler)
         val subRecyclerView = contentView.findViewById<RecyclerView>(R.id.subRecycler)
+        stateView.setBackgroundRes(R.color.white)
         unitRecycler.layoutManager = LinearLayoutManager(mContext)
         subRecyclerView.layoutManager = LinearLayoutManager(mContext)
         unitRecycler.adapter = unitAdapter

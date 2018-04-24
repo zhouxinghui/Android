@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+    <RadioGroup android:id="@+id/semesterGroup"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y80"
+        android:orientation="horizontal"
+        >
+        <RadioButton android:id="@+id/semesterFirst"
+            android:checked="true"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:textColor="@color/version_radio_tv"
+            android:background="?attr/selectableItemBackground"
+            android:text="上学期"
+            />
+        <RadioButton android:id="@+id/semesterSecond"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:button="@null"
+            android:textColor="@color/version_radio_tv"
+            android:background="?attr/selectableItemBackground"
+            android:text="下学期"
+            />
+    </RadioGroup>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView android:id="@+id/bookRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        <ebag.core.widget.empty.StateView android:id="@+id/stateView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+</LinearLayout>

@@ -14,8 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/titleBar"
-        android:orientation="vertical"
-        tools:context="com.yzy.ebag.teacher.module.homework.AssignmentActivity">
+        android:orientation="vertical">
         <!--班级-->
         <LinearLayout android:id="@+id/clazzBtn"
             style="@style/assignment_ll"
