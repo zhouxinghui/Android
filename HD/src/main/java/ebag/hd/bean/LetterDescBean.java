@@ -73,6 +73,15 @@ public class LetterDescBean implements Serializable, MultiItemEntity {
         private String name;
         private String timeLength;
         private String headUrl;
+        private boolean bscore;
+
+        public boolean isBscore() {
+            return bscore;
+        }
+
+        public void setBscore(boolean bscore) {
+            this.bscore = bscore;
+        }
 
         public String getHeadUrl() {
             return headUrl;

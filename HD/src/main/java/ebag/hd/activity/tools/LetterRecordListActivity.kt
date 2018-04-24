@@ -45,6 +45,7 @@ class LetterRecordListActivity: BaseListActivity<LetterDescBean, LetterDescBean.
 
         override fun onSuccess(entity: String?) {
             LoadingDialogUtil.closeLoadingDialog()
+            onRetryClick()
             T.show(this@LetterRecordListActivity, "上传成功")
         }
 
@@ -124,6 +125,7 @@ class LetterRecordListActivity: BaseListActivity<LetterDescBean, LetterDescBean.
             if (scoreEdit.tag is TextWatcher)
                 scoreEdit.removeTextChangedListener(scoreEdit.tag as TextWatcher)
             scoreEdit.setText(item?.score)
+            scoreEdit.isEnabled = item?.isBscore ?: true
             val textWatcher = object : TextWatcher{
                 override fun afterTextChanged(s: Editable?) {
                     if (!StringUtils.isEmpty(s.toString())){
