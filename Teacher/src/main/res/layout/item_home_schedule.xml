@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="@dimen/x80"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/x10"
@@ -23,20 +24,24 @@
         android:progressDrawable="@drawable/home_progress_bg"
         android:indeterminateOnly="false"
         android:max="100"
-        app:layout_constraintTop_toBottomOf="@id/subjectTv"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_gravity="center_horizontal"
         />
-    <TextView android:id="@+id/class_tv_id"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:maxLines="2"
-        android:ellipsize="end"
+    <TextView android:id="@+id/numTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/tv_normal"
-        app:layout_constraintTop_toBottomOf="@id/progress_id"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        tools:text="0/12"
         />
-</android.support.constraint.ConstraintLayout>
+    <TextView android:id="@+id/class_tv_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textColor="@color/tv_normal"
+        android:textSize="@dimen/tv_normal"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        tools:text="一年级一班"
+        />
+</LinearLayout>

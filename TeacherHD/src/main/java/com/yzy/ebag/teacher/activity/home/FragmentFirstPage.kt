@@ -147,7 +147,7 @@ class FragmentFirstPage : BaseFragment() {
     }
     inner class HomeProgressAdapter: RecyclerAdapter<FirstPageBean.ResultHomeWorkVosBean>(R.layout.item_home_schedule) {
         override fun fillData(setter: RecyclerViewHolder, position: Int, entity: FirstPageBean.ResultHomeWorkVosBean) {
-            val classTv = setter.getTextView(R.id.class_tv_id)
+            val numTv = setter.getTextView(R.id.numTv)
             val progressBar = setter.getView<ProgressBar>(R.id.progress_id)
             val current = Integer.parseInt(entity.homeWorkCompleteCount)
             val total = Integer.parseInt(entity.studentHomeWorkCount)
@@ -155,9 +155,11 @@ class FragmentFirstPage : BaseFragment() {
             progressBar.progress = current
 
             setter.setText(R.id.subjectTv, entity.subject)
+            setter.setText(R.id.class_tv_id, "${entity.gradeByClazzName}${entity.grade}")
+            setter.getTextView(R.id.class_tv_id).isSelected = true
 
             val name = entity.className ?: ""
-            setWorkTextStyle(entity.homeWorkCompleteCount, entity.studentHomeWorkCount,classTv,entity.gradeByClazzName,entity.grade)
+            setWorkTextStyle(entity.homeWorkCompleteCount, entity.studentHomeWorkCount,numTv)
         }
     }
 
@@ -176,8 +178,8 @@ class FragmentFirstPage : BaseFragment() {
     /**
      * 作业进度字体样式
      */
-    private fun setWorkTextStyle(current: String, total: String, textView: TextView,grade:String,clazzName:String){
-        val spannableString = SpannableString("$current/$total\n$clazzName$grade")
+    private fun setWorkTextStyle(current: String, total: String, textView: TextView){
+        val spannableString = SpannableString("$current/$total")
         spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.x30),false), 0, current.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(ForegroundColorSpan(resources.getColor(R.color.progress_second_bg)), 0, current.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.x22),false), current.length, spannableString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)

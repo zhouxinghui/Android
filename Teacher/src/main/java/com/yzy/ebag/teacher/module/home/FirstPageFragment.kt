@@ -132,7 +132,7 @@ class FirstPageFragment: BaseFragment() {
     }
     inner class HomeProgressAdapter: RecyclerAdapter<FirstPageBean.ResultHomeWorkVosBean>(R.layout.item_home_schedule) {
         override fun fillData(setter: RecyclerViewHolder, position: Int, entity: FirstPageBean.ResultHomeWorkVosBean) {
-            val classTv = setter.getTextView(R.id.class_tv_id)
+            val numTv = setter.getTextView(R.id.numTv)
             val progressBar = setter.getView<ProgressBar>(R.id.progress_id)
             val current = Integer.parseInt(entity.homeWorkCompleteCount)
             val total = Integer.parseInt(entity.studentHomeWorkCount)
@@ -140,17 +140,19 @@ class FirstPageFragment: BaseFragment() {
             progressBar.progress = current
 
             setter.setText(R.id.subjectTv, entity.subject)
+            setter.setText(R.id.class_tv_id, entity.gradeByClazzName)
+            setter.getTextView(R.id.class_tv_id).isSelected = true
 
             val name = entity.className ?: ""
-            setWorkTextStyle(entity.homeWorkCompleteCount, entity.studentHomeWorkCount,classTv,entity.gradeByClazzName)
+            setWorkTextStyle(entity.homeWorkCompleteCount, entity.studentHomeWorkCount,numTv)
         }
     }
 
     /**
      * 作业进度字体样式
      */
-    private fun setWorkTextStyle(current: String, total: String, textView: TextView, grade:String){
-        val spannableString = SpannableString("$current/$total\n$grade")
+    private fun setWorkTextStyle(current: String, total: String, textView: TextView){
+        val spannableString = SpannableString("$current/$total")
         spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.tv_big),false), 0, current.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(ForegroundColorSpan(resources.getColor(R.color.blue)), 0, current.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.tv_normal),false), current.length, spannableString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -159,8 +161,7 @@ class FirstPageFragment: BaseFragment() {
     }
 
     override fun onDestroy() {
-        if (request != null)
-            request!!.cancelRequest()
+        request.cancelRequest()
         super.onDestroy()
     }
 }
