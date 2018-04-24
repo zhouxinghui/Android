@@ -51,7 +51,7 @@ class HomeworkReportActivity : BaseActivity(), HomeworkReportContract.HomeworkRe
     override fun <T> showContent(data: T?) {
 
         mFragmentList.add(HomeworkAbstractFragment(data as HomeworkAbstractBean, mEndTime))
-        mFragmentList.add(HomeworkDoneFragment(data as HomeworkAbstractBean,mEndTime,mSubject))
+        mFragmentList.add(HomeworkDoneFragment(data as HomeworkAbstractBean,mEndTime,mSubject,mHomeworkId))
         tablayout.setViewPager(viewpager, titleArray, this, mFragmentList)
         stateview.showContent()
     }

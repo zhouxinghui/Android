@@ -18,3 +18,15 @@ interface HomeworkReportContract {
         fun request(homeworkId: String, uid: String)
     }
 }
+
+interface ExcitationJobContract{
+
+    interface ExcitationJobView:BaseView.BaseListView
+
+    interface Persenter:BasePresenter<ExcitationJobView>{
+
+        fun request()
+
+        fun finish()
+    }
+}

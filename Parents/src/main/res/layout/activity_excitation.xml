@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:id="@+id/title"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingBottom="@dimen/x5"
+            android:paddingEnd="@dimen/x15"
+            android:paddingStart="@dimen/x15"
+            android:paddingTop="@dimen/x5"
+            android:src="@drawable/icon_back" />
+
+
+        <com.flyco.tablayout.SegmentTabLayout
+            android:id="@+id/tablayout"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            app:tl_bar_color="@color/colorPrimary"
+            app:tl_indicator_color="#fff"
+            app:tl_textSelectColor="@color/colorPrimary"
+            app:tl_indicator_corner_radius="8dp"
+            app:tl_tab_padding="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加任务"
+            android:id="@+id/add_job"
+            android:textColor="#fff"
+            android:layout_alignParentEnd="true"
+            android:paddingEnd="@dimen/x12"
+            android:layout_centerVertical="true"
+            />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/title"
+        android:id="@+id/container_layout"
+        android:layout_height="match_parent"/>
+
+</RelativeLayout>

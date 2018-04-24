@@ -155,7 +155,7 @@ class FragmentFirstPage : BaseFragment() {
             progressBar.progress = current
 
             setter.setText(R.id.subjectTv, entity.subject)
-            setter.setText(R.id.class_tv_id, "${entity.gradeByClazzName}${entity.grade}")
+            setter.setText(R.id.class_tv_id, "${entity.gradeByClazzName}")
             setter.getTextView(R.id.class_tv_id).isSelected = true
 
             val name = entity.className ?: ""

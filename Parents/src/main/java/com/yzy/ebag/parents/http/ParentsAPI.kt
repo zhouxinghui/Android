@@ -27,10 +27,24 @@ object ParentsAPI {
         EBagApi.request(parentsService.getOnePageInfo("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    fun getHomeworkReport(homeWorkId:String,uid: String,callback: RequestCallBack<HomeworkAbstractBean>){
+    fun getHomeworkReport(homeWorkId: String, uid: String, callback: RequestCallBack<HomeworkAbstractBean>) {
         val jsonObject = JSONObject()
         jsonObject.put("uid", uid)
         jsonObject.put("homeWorkId", homeWorkId)
         EBagApi.request(parentsService.homeReport("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun parentComment(uid: String, homeWorkId: String, parentComment: String, isComment: Boolean, callback: RequestCallBack<String>) {
+
+        val jsonObject = JSONObject()
+        jsonObject.put("uid", uid)
+        jsonObject.put("homeWorkId", homeWorkId)
+        if (isComment) {
+            jsonObject.put("parentComment", parentComment)
+        } else {
+            jsonObject.put("parentAutograph", parentComment)
+        }
+
+        EBagApi.request(parentsService.parentComment("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

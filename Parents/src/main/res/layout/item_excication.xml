@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="@dimen/y5"
+    android:layout_marginBottom="@dimen/y5"
+    android:layout_marginStart="@dimen/x5"
+    android:layout_marginEnd="@dimen/x5"
+    app:cardCornerRadius="5dp"
+    app:cardUseCompatPadding="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/y10"
+        android:paddingBottom="@dimen/y10"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/item_excitation_title"
+                android:layout_height="wrap_content"
+                android:background="@drawable/excitation_title_bcg"
+                android:paddingStart="@dimen/x5"
+                android:paddingEnd="@dimen/x5"
+                android:text="洗碗" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/x5"
+                android:textColor="#f5a523"
+                android:id="@+id/item_excitation_reward"
+                android:text="奖励20金币" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/x5"
+                    android:drawableStart="@drawable/excitation_clock"
+                    android:layout_alignParentEnd="true"
+                    android:paddingEnd="@dimen/x5"
+                    android:id="@+id/item_excitation_date"
+                    android:textColor="#f5a523"
+                    android:text="10-20" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/x5"
+            android:paddingEnd="@dimen/x5"
+            android:layout_marginTop="@dimen/y50"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:id="@+id/item_excitation_content"
+                android:text="今天洗完碗带你去游乐园" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/excitation_task_bcg"
+                android:gravity="center"
+                android:textColor="#fff"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/item_excitation_progressbtn"
+                android:text="+1 (0/3)" />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

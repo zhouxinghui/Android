@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,6 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingEnd="@dimen/x15"
+        android:layout_marginTop="@dimen/y30"
         android:paddingStart="@dimen/x15">
 
         <TextView
@@ -127,13 +129,14 @@
             android:drawablePadding="@dimen/x6"
             android:text="作业详情"
             android:textColor="#000"
-            android:textSize="@dimen/x12" />
+            android:textSize="@dimen/x12"
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/homework_error_layout"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/y20"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y20"
             android:orientation="vertical">
 
             <TextView
@@ -171,10 +174,10 @@
 
 
         <LinearLayout
+            android:id="@+id/homework_teacher_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/homework_teacher_layout"
-            android:layout_marginTop="@dimen/y45"
+            android:layout_marginTop="@dimen/y60"
             android:orientation="vertical">
 
             <TextView
@@ -183,13 +186,12 @@
                 android:text="老师评语"
                 android:textColor="#000"
                 android:textSize="@dimen/x13"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <LinearLayout
-                android:layout_marginTop="@dimen/y25"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y25"
                 android:orientation="horizontal">
 
 
@@ -220,7 +222,7 @@
                 android:id="@+id/homework_teacher_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y15"
+                android:layout_marginTop="@dimen/y30"
                 android:gravity="center"
                 android:textColor="#868da0"
                 tool:text="李毅敏未完成作业，请家长督促学生完成" />
@@ -231,7 +233,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y45"
+            android:layout_marginTop="@dimen/y60"
             android:orientation="vertical">
 
             <TextView
@@ -240,8 +242,7 @@
                 android:text="家长评语"
                 android:textColor="#000"
                 android:textSize="@dimen/x13"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -278,19 +279,39 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/x10"
-                android:layout_marginTop="@dimen/y15"
+                android:layout_marginTop="@dimen/y30"
                 android:gravity="center"
                 android:textColor="#868da0"
                 android:visibility="gone"
                 tool:text="666" />
 
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y15"
-                android:id="@+id/homework_parents_edit"
-                android:hint="请输入评语"
-                android:maxLines="2" />
+                android:layout_marginTop="@dimen/y30"
+                android:id="@+id/homework_parents_edit_layout"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/homework_parents_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="请输入评语"
+                    android:maxLines="1" />
+
+                <TextView
+                    android:layout_width="@dimen/x80"
+                    android:layout_height="@dimen/y60"
+                    android:id="@+id/homework_parents_comment_comfirm"
+                    android:layout_weight="1"
+                    android:textColor="#fff"
+                    android:layout_marginTop="@dimen/y20"
+                    android:gravity="center"
+                    android:background="@drawable/homework_item_btn"
+                    android:text="评论" />
+
+            </LinearLayout>
 
 
             <TextView
@@ -298,13 +319,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginTop="@dimen/y15"
+                android:layout_marginTop="@dimen/y80"
                 android:background="@drawable/homework_item_btn"
                 android:paddingBottom="@dimen/y8"
                 android:paddingEnd="@dimen/x10"
                 android:paddingStart="@dimen/x10"
                 android:paddingTop="@dimen/y8"
-                android:text="确定"
+                android:text="点击家长签字"
                 android:textColor="#fff" />
 
         </LinearLayout>
@@ -312,7 +333,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/y30"
+            android:layout_marginTop="@dimen/y60"
             android:orientation="horizontal">
 
 

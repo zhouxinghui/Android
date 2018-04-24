@@ -15,6 +15,7 @@ import com.yzy.ebag.parents.http.ParentsAPI
 import com.yzy.ebag.parents.mvp.model.MainRVModel
 import com.yzy.ebag.parents.mvp.model.TabEntity
 import com.yzy.ebag.parents.ui.activity.ChooseChildrenActivity
+import com.yzy.ebag.parents.ui.activity.ExcitationActivity
 import com.yzy.ebag.parents.ui.activity.HomeworkListActivity
 import com.yzy.ebag.parents.ui.adapter.MainRVAdapter
 import com.yzy.ebag.parents.utils.GlideImageLoader
@@ -77,6 +78,7 @@ class MainFragment : BaseFragment() {
 
             when (position) {
                 4 -> ChooseChildrenActivity.start(activity)
+                1 -> ExcitationActivity.start(activity)
             }
         }
 
