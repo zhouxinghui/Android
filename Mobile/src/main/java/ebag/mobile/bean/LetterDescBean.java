@@ -1,4 +1,4 @@
-package com.yzy.ebag.teacher.bean;
+package ebag.mobile.bean;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 

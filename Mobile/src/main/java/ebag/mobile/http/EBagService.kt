@@ -148,4 +148,16 @@ interface EBagService {
     /**获取单元数据*/
     @POST("util/getBookVersionOrUnit/{version}")
     fun getUnit(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<EditionBean>>
+
+    /**跟读-报告-切换版本*/
+    @POST("util/getBookVersion/{version}")
+    fun readRecordVersion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ReadRecordVersionBean>>
+
+    /**自习室-生字详情*/
+    @POST("util/queryNewWords/{version}")
+    fun getLetterDesc(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<LetterDescBean>>
+
+    /**自习室-上传生字评分*/
+    @POST("util/correctWords/{version}")
+    fun uploadReadScore(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 }

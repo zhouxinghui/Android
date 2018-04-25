@@ -65,7 +65,7 @@ class LetterRecordFragment: BaseListFragment<List<LetterRecordBaseBean>, LetterR
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
         adapter as Adapter
-//        LetterRecordListActivity.jump(unitCode, adapter.data[position].createDate, classId, mContext)
+        LetterRecordListActivity.jump(unitCode, adapter.data[position].createDate, classId, mContext)
     }
     inner class Adapter: BaseQuickAdapter<LetterRecordBaseBean, BaseViewHolder>(R.layout.item_tools_record_history){
         override fun convert(helper: BaseViewHolder, item: LetterRecordBaseBean?) {

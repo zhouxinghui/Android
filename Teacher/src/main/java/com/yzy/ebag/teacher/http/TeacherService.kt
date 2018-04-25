@@ -160,12 +160,4 @@ interface TeacherService {
     /**自习室-生字总览列表*/
     @POST("util/queryNewWordsTime/{version}")
     fun getLetterRecord(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<LetterRecordBaseBean>>>
-
-    /**自习室-生字详情*/
-    @POST("util/queryNewWords/{version}")
-    fun getLetterDesc(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<LetterDescBean>>
-
-    /**自习室-上传生字评分*/
-    @POST("util/correctWords/{version}")
-    fun uploadReadScore(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 }

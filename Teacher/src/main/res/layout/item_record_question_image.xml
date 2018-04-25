@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tvChar"
+    android:layout_marginTop="@dimen/y10"
+    android:layout_marginEnd="@dimen/x3"
+    android:layout_width="@dimen/x40"
+    android:layout_height="@dimen/x40"
+    android:gravity="center"
+    tools:text="画"
+
+    android:background="@drawable/bac_practise_zh_normal"/>
+<!--android:textSize="@dimen/x50"
+    android:textColor="#FD8F41"-->

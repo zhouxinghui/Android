@@ -78,6 +78,9 @@
         <activity android:name=".module.tools.LetterRecordActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".module.tools.LetterRecordListActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

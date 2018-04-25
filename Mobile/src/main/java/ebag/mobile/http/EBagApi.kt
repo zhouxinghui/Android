@@ -14,6 +14,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType
 import okhttp3.RequestBody
+import org.json.JSONArray
 import org.json.JSONObject
 
 
@@ -322,5 +323,41 @@ object EBagApi {
         val jsonObject = JSONObject()
         jsonObject.put("bookVersionId", bookVersionId)
         EBagApi.request(eBagService.getUnit("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**跟读-报告-切换版本*/
+    fun readRecordVersion(classId: String?, subCode: String?, callback: RequestCallBack<ReadRecordVersionBean>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        if (!StringUtils.isEmpty(subCode))
+            jsonObject.put("subCode", subCode)
+        EBagApi.request(eBagService.readRecordVersion("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 自习室-生字详情
+     */
+    fun getLetterDesc(unitId: String, createDate: Long, classId: String, callback: RequestCallBack<LetterDescBean>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("unitId", unitId)
+        jsonObject.put("createDate", createDate)
+        jsonObject.put("classId", classId)
+        EBagApi.request(eBagService.getLetterDesc("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 自习室-上传生字评分
+     */
+    fun uploadReadScore(scoreList: ArrayList<LetterDescBean.NewWordsBean>, callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        val jsonArray = JSONArray()
+        scoreList.forEach {
+            val jsonObj = JSONObject()
+            jsonObj.put("id", it.id)
+            jsonObj.put("score", it.score)
+            jsonArray.put(jsonObj)
+        }
+        jsonObject.put("wordrecordVoList", jsonArray)
+        EBagApi.request(eBagService.uploadReadScore("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

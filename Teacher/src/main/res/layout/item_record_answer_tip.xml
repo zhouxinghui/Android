@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/x10"
+    android:background="@drawable/white_shadow_bg"
+    android:layout_marginLeft="@dimen/x3"
+    android:layout_marginRight="@dimen/x3"
+    android:layout_marginTop="@dimen/y7"
+    android:layout_marginBottom="@dimen/y7">
+
+    <ImageView android:id="@+id/img_id"
+        android:layout_width="@dimen/x35"
+        android:layout_height="@dimen/x35"
+        tools:src="@drawable/head_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/nameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#3a3a3a"
+        tools:text="默写生字:阿丶西丶吧"
+        app:layout_constraintStart_toEndOf="@id/img_id"
+        android:layout_marginStart="@dimen/x5"
+        />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y15"
+        android:textColor="#9b9b9b"
+        android:textSize="@dimen/tv_normal"
+        tools:text="2017-12-24 12:33"
+        app:layout_constraintStart_toStartOf="@id/nameTv"
+        app:layout_constraintBottom_toBottomOf="@id/img_id"
+        />
+
+    <TextView
+        android:id="@+id/tvEdition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#717171"
+        tools:text="三年级-北师大-上册-第一单元-观潮"
+        app:layout_constraintTop_toBottomOf="@id/nameTv" />
+
+    <EditText android:id="@+id/scoreEdit"
+        android:layout_width="@dimen/x30"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@drawable/edit_bg"
+        android:inputType="number"
+        android:maxLength="3"
+        android:textSize="@dimen/tv_big"
+        android:textColor="@color/blue"
+        app:layout_constraintEnd_toStartOf="@id/scoreTv"
+        app:layout_constraintBottom_toBottomOf="@id/scoreTv"
+        />
+
+    <TextView android:id="@+id/scoreTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#9b9b9b"
+        android:textSize="@dimen/tv_big"
+        android:text="分"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_id"/>
+
+</android.support.constraint.ConstraintLayout>

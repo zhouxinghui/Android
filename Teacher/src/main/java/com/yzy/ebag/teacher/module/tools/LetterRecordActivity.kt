@@ -75,7 +75,17 @@ class LetterRecordActivity: BaseActivity() {
             unitList.clear()
             unitTv.text = ""
             textbookTv.text = ""
+            isVersionRequest = false
             request()
+        }
+        popup
+    }
+    private val bookVersionPopup by lazy {
+        val popup = PreparebookversionPopup(this)
+        popup.onConfirmClick = {versionName, versionId, semesterCode, semesterName, subCode, subName ->
+            textbookTv.text = "$subName-$versionName-$semesterName"
+            isVersionRequest = true
+            EBagApi.getUnit(versionId, request)
         }
         popup
     }
@@ -99,6 +109,10 @@ class LetterRecordActivity: BaseActivity() {
         unitBtn.setOnClickListener {
             unitPopup.setData(unitList)
             unitPopup.showAsDropDown(unitBtn)
+        }
+        textbookBtn.setOnClickListener {
+            bookVersionPopup.setRequest(classId, "yw")
+            bookVersionPopup.showAsDropDown(textbookBtn)
         }
     }
 

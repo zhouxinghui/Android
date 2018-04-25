@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="@dimen/tv_big"
+    android:textColor="#4B4B4B"
+    tools:text="默写生字:阿丶西丶吧"
+    android:padding="@dimen/y24"
+    android:background="@drawable/white_shadow_bg"
+    android:layout_marginLeft="@dimen/x5"
+    android:layout_marginRight="@dimen/x5"
+    android:layout_marginTop="@dimen/y10"
+    android:layout_marginBottom="@dimen/y10"/>

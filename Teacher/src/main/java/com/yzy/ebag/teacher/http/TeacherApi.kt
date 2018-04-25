@@ -460,27 +460,4 @@ object TeacherApi {
         jsonObject.put("classId", classId)
         EBagApi.request(teacherService.getLetterRecord("v1", EBagApi.createBody(jsonObject)), callback)
     }
-
-    /**自习室-生字详情*/
-    fun getLetterDesc(unitId: String, createDate: Long, classId: String, callback: RequestCallBack<LetterDescBean>) {
-        val jsonObject = JSONObject()
-        jsonObject.put("unitId", unitId)
-        jsonObject.put("createDate", createDate)
-        jsonObject.put("classId", classId)
-        EBagApi.request(teacherService.getLetterDesc("v1", EBagApi.createBody(jsonObject)), callback)
-    }
-
-    /**自习室-上传生字评分*/
-    fun uploadReadScore(scoreList: ArrayList<LetterDescBean.NewWordsBean>, callback: RequestCallBack<String>) {
-        val jsonObject = JSONObject()
-        val jsonArray = JSONArray()
-        scoreList.forEach {
-            val jsonObj = JSONObject()
-            jsonObj.put("id", it.id)
-            jsonObj.put("score", it.score)
-            jsonArray.put(jsonObj)
-        }
-        jsonObject.put("wordrecordVoList", jsonArray)
-        EBagApi.request(teacherService.uploadReadScore("v1", EBagApi.createBody(jsonObject)), callback)
-    }
 }
