@@ -17,8 +17,8 @@ import com.yzy.ebag.parents.mvp.model.TabEntity
 import com.yzy.ebag.parents.ui.activity.ChooseChildrenActivity
 import com.yzy.ebag.parents.ui.activity.ExcitationActivity
 import com.yzy.ebag.parents.ui.activity.HomeworkListActivity
-import com.yzy.ebag.parents.ui.activity.RepresentActivity
 import com.yzy.ebag.parents.ui.adapter.MainRVAdapter
+import com.yzy.ebag.parents.ui.widget.PerformanceDialog
 import com.yzy.ebag.parents.utils.GlideImageLoader
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
@@ -46,6 +46,10 @@ class MainFragment : BaseFragment() {
             fragment.arguments = bundle
             return fragment
         }
+    }
+
+    private val performanceDialog by lazy {
+        PerformanceDialog(activity)
     }
 
     override fun getLayoutRes(): Int = R.layout.fragment_main
@@ -80,7 +84,7 @@ class MainFragment : BaseFragment() {
             when (position) {
                 4 -> ChooseChildrenActivity.start(activity)
                 1 -> ExcitationActivity.start(activity)
-                5 -> RepresentActivity.start(activity)
+                5 -> performanceDialog.show()
             }
         }
 

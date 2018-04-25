@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+    <RelativeLayout
+        android:layout_width="@dimen/x60"
+        android:layout_height="@dimen/x45">
+
+        <ImageView
+            android:id="@+id/represent_img"
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/x40"
+            android:layout_centerInParent="true"
+            android:src="@drawable/icon_performance_bsjl" />
+
+        <TextView
+            android:layout_width="@dimen/x12"
+            android:layout_height="@dimen/x12"
+            android:layout_marginTop="@dimen/y5"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/represent_oval"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="#fff" />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x45"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/x15">
+
+        <TextView
+            android:id="@+id/represent_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="努力学习"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/represent_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y10"
+            android:text="老师评价"
+            android:textColor="#868da0" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

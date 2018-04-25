@@ -14,6 +14,8 @@ import com.yzy.ebag.parents.mvp.presenter.ChooseChildrenPersenter
 import com.yzy.ebag.parents.ui.adapter.ChooseChildrenAdapter
 import ebag.core.base.BaseActivity
 import ebag.core.util.SPUtils
+import ebag.core.util.SerializableUtils
+import ebag.mobile.bean.UserEntity
 import kotlinx.android.synthetic.main.activity_choosechildren.*
 
 
@@ -38,6 +40,11 @@ class ChooseChildrenActivity : BaseActivity(), ChooseChildrenContract.ChooseChil
 
         mAdapter.setOnItemClickListener { _, view, position ->
             if (view.findViewById<View>(R.id.child_select).visibility == View.GONE) {
+                val userEntity = UserEntity()
+                userEntity.headUrl = mAdapter.getItem(position)!!.headUrl
+                userEntity.name = mAdapter.getItem(position)!!.name
+                userEntity.uid = mAdapter.getItem(position)!!.uid
+                SerializableUtils.setSerializable(ebag.mobile.base.Constants.STUDENT_USER_ENTITY,userEntity)
                 SPUtils.put(this, Constants.CURRENT_CHILDREN_YSBCODE, mAdapter.getItem(position)!!.uid)
                 mAdapter.uid = SPUtils.get(this, Constants.CURRENT_CHILDREN_YSBCODE, "") as String
                 mAdapter.notifyDataSetChanged()
