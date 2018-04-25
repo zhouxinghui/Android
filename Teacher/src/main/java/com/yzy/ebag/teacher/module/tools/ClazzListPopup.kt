@@ -17,7 +17,7 @@ import ebag.mobile.http.EBagApi
 /**
  * Created by YZY on 2018/4/24.
  */
-class ClazzListPopup(private val mContext: Context): BasePopupWindow(mContext) {
+class ClazzListPopup(private val mContext: Context, queryType: String): BasePopupWindow(mContext) {
     override fun getLayoutRes(): Int = R.layout.popup_clazz_list
     override fun setWidth(): Int = WindowManager.LayoutParams.MATCH_PARENT
     override fun setHeight(): Int = contentView.resources.getDimensionPixelSize(R.dimen.y500)
@@ -55,7 +55,7 @@ class ClazzListPopup(private val mContext: Context): BasePopupWindow(mContext) {
             dismiss()
         }
 
-        EBagApi.getMyClasses(classesRequest, "1")
+        EBagApi.getMyClasses(classesRequest, queryType)
     }
 
     inner class MyAdapter: BaseQuickAdapter<BaseClassesBean, BaseViewHolder>(R.layout.item_assign_popup){

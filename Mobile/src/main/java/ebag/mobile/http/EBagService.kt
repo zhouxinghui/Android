@@ -160,4 +160,16 @@ interface EBagService {
     /**自习室-上传生字评分*/
     @POST("util/correctWords/{version}")
     fun uploadReadScore(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**自习室-口语总览列表*/
+    @POST("/util/searchOralCount/{version}")
+    fun getReadRecord(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<ReadRecordBaseBean>>>
+
+    /**自习-口语学生作答详情*/
+    @POST("/util/searchOralRecord/{version}")
+    fun getReadRecordDesc(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<ReadRecordAnswerBean>>>
+
+    /**获取跟读列表里头的每个句子的详情*/
+    @POST("util/getOralLanguageDetailByUnitCode/{version}")
+    fun getReadDetailList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<ReadRecordVoiceBean>>>
 }

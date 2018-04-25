@@ -15,11 +15,13 @@ import kotlinx.android.synthetic.main.activity_letter_record.*
 /**
  * Created by YZY on 2018/4/24.
  */
-class LetterRecordActivity: BaseActivity() {
+class ZixiRecordActivity: BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_letter_record
     companion object {
-        fun jump(context: Context){
-            context.startActivity(Intent(context, LetterRecordActivity::class.java))
+        fun jump(context: Context, queryType: String){
+            context.startActivity(Intent(context, ZixiRecordActivity::class.java)
+                    .putExtra("queryType", queryType)
+            )
         }
     }
     private val request = object : RequestCallBack<EditionBean>(){
@@ -54,11 +56,14 @@ class LetterRecordActivity: BaseActivity() {
             }
             unitList.clear()
             unitList.addAll(unitListt)
-            fragment.update(unitId, classId)
+            if (queryType == "1")
+                letterFragment.update(unitId, classId)
+            else
+                readFragment.update(unitId, classId)
         }
 
         override fun onError(exception: Throwable) {
-            exception.handleThrowable(this@LetterRecordActivity)
+            exception.handleThrowable(this@ZixiRecordActivity)
         }
     }
     private var isVersionRequest = false
@@ -66,20 +71,9 @@ class LetterRecordActivity: BaseActivity() {
     private var unitId: String = ""
     private val unitList = ArrayList<UnitBean>()
     private var subCode = "yw"
-    private val fragment = LetterRecordFragment.newInstance()
-    private val clazzListPopup by lazy {
-        val popup = ClazzListPopup(this)
-        popup.onClassSelectListener = {
-            clazzTv.text = it.className
-            classId = it.classId
-            unitList.clear()
-            unitTv.text = ""
-            textbookTv.text = ""
-            isVersionRequest = false
-            request()
-        }
-        popup
-    }
+    private val letterFragment = LetterRecordFragment.newInstance()
+    private val readFragment = ReadRecordFragment.newInstance()
+    private var clazzListPopup: ClazzListPopup? = null
     private val bookVersionPopup by lazy {
         val popup = PreparebookversionPopup(this)
         popup.onConfirmClick = {versionName, versionId, semesterCode, semesterName, subCode, subName ->
@@ -95,28 +89,50 @@ class LetterRecordActivity: BaseActivity() {
         popup.onConfirmClick = {name, unitBean ->
             unitTv.text = name
             unitId = unitBean?.unitCode ?: ""
-            fragment.update(unitId, classId)
+            if (queryType == "1")
+                letterFragment.update(unitId, classId)
+            else
+                readFragment.update(unitId, classId)
         }
         popup
     }
+    private var queryType = "1"
     override fun initViews() {
+        queryType = intent.getStringExtra("queryType")
         request()
-        supportFragmentManager.beginTransaction().replace(R.id.fragmentLayout, fragment).commitAllowingStateLoss()
-
+        if (queryType == "1") {
+            supportFragmentManager.beginTransaction().replace(R.id.fragmentLayout, letterFragment).commitAllowingStateLoss()
+            titleBar.setTitle("每日练字")
+        }else{
+            supportFragmentManager.beginTransaction().replace(R.id.fragmentLayout, readFragment).commitAllowingStateLoss()
+            titleBar.setTitle("每日跟读")
+        }
         clazzBtn.setOnClickListener {
-            clazzListPopup.showAsDropDown(clazzBtn)
+            if(clazzListPopup == null){
+                clazzListPopup = ClazzListPopup(this, queryType)
+                clazzListPopup?.onClassSelectListener = {
+                    clazzTv.text = it.className
+                    classId = it.classId
+                    unitList.clear()
+                    unitTv.text = ""
+                    textbookTv.text = ""
+                    isVersionRequest = false
+                    request()
+                }
+            }
+            clazzListPopup?.showAsDropDown(clazzBtn)
         }
         unitBtn.setOnClickListener {
             unitPopup.setData(unitList)
             unitPopup.showAsDropDown(unitBtn)
         }
         textbookBtn.setOnClickListener {
-            bookVersionPopup.setRequest(classId, "yw")
+            bookVersionPopup.setRequest(classId, if (queryType == "1") "yw" else null)
             bookVersionPopup.showAsDropDown(textbookBtn)
         }
     }
 
     private fun request(){
-        EBagApi.getUnit(classId, subCode, request)
+        EBagApi.getUnit(classId, if (queryType == "1") subCode else "", request)
     }
 }

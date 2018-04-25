@@ -75,10 +75,13 @@
         <activity android:name=".module.tools.ZixiActivity"
             android:screenOrientation="portrait"
             />
-        <activity android:name=".module.tools.LetterRecordActivity"
+        <activity android:name=".module.tools.ZixiRecordActivity"
             android:screenOrientation="portrait"
             />
         <activity android:name=".module.tools.LetterRecordListActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".module.tools.ReadRecordListActivity"
             android:screenOrientation="portrait"
             />
     </application>

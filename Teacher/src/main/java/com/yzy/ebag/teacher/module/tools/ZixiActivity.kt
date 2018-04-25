@@ -74,11 +74,11 @@ class ZixiActivity: BaseListActivity<List<Int>, Int>() {
         when(list[position]){
 
             R.drawable.tool_btn_calligraphy -> {//每日练字
-                LetterRecordActivity.jump(this)
+                ZixiRecordActivity.jump(this, "1")
             }
 
-            R.drawable.tool_btn_read -> {//每日练字
-//                ReadRecordActivity.jump(this)
+            R.drawable.tool_btn_read -> {//每日跟读
+                ZixiRecordActivity.jump(this, "2")
             }
             else -> {
                 T.show(this,"点击了第${position + 1}个条目")

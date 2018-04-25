@@ -334,9 +334,7 @@ object EBagApi {
         EBagApi.request(eBagService.readRecordVersion("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    /**
-     * 自习室-生字详情
-     */
+    /**自习室-生字详情*/
     fun getLetterDesc(unitId: String, createDate: Long, classId: String, callback: RequestCallBack<LetterDescBean>) {
         val jsonObject = JSONObject()
         jsonObject.put("unitId", unitId)
@@ -345,9 +343,7 @@ object EBagApi {
         EBagApi.request(eBagService.getLetterDesc("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    /**
-     * 自习室-上传生字评分
-     */
+    /**自习室-上传生字评分*/
     fun uploadReadScore(scoreList: ArrayList<LetterDescBean.NewWordsBean>, callback: RequestCallBack<String>) {
         val jsonObject = JSONObject()
         val jsonArray = JSONArray()
@@ -359,5 +355,29 @@ object EBagApi {
         }
         jsonObject.put("wordrecordVoList", jsonArray)
         EBagApi.request(eBagService.uploadReadScore("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**自习室-口语总览列表*/
+    fun getReadRecord(unitCode: String, classId: String, callback: RequestCallBack<List<ReadRecordBaseBean>>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("unitCode", unitCode)
+        jsonObject.put("classId", classId)
+        EBagApi.request(eBagService.getReadRecord("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**自习-口语学生作答详情*/
+    fun getReadRecordDesc(classId: String, languageDetailId: String, dateTime: Long, callback: RequestCallBack<List<ReadRecordAnswerBean>>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("languageDetailId", languageDetailId)
+        jsonObject.put("dateTime", dateTime)
+        EBagApi.request(eBagService.getReadRecordDesc("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**获取跟读详情里头 句子的详情*/
+    fun getReadDetailList(unitCode: String, callback: RequestCallBack<List<ReadRecordVoiceBean>>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("unitCode", unitCode)
+        EBagApi.request(eBagService.getReadDetailList("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }
