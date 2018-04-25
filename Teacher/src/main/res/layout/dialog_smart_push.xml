@@ -2,19 +2,13 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/normal_dialog_bg"
     >
     <TextView android:id="@+id/title_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/tv_normal"
-        android:textSize="@dimen/title_bar_title_size"
-        tools:text="智能推送"
-        android:padding="@dimen/y20"
-        android:gravity="center"
+        style="@style/normal_dialog_title"
+        android:text="智能推送"
         />
     <EditText android:id="@+id/countEdit"
         android:layout_width="@dimen/x200"
@@ -33,13 +27,7 @@
         app:layout_constraintVertical_bias="0.5"
         />
     <TextView android:id="@+id/confirmBtn"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y90"
-        android:background="@drawable/normal_dialog_confirm_bg"
-        android:text="确定"
-        android:textColor="@color/white"
-        android:textSize="@dimen/title_bar_title_size"
-        android:gravity="center"
+        style="@style/normal_dialog_confirm_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         />
 </android.support.constraint.ConstraintLayout>

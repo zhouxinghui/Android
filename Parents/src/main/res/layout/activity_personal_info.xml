@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ebag.mobile.widget.TitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="个人信息" />
+
+    <!--头像-->
+    <LinearLayout
+        android:id="@+id/headImageBtn"
+        style="@style/personal_info_ll_btn">
+
+        <TextView
+            style="@style/personal_info_left_tv"
+            android:text="头像" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/headImage"
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/x40"
+            android:layout_marginBottom="@dimen/y10"
+            android:layout_marginTop="@dimen/y10"
+            android:padding="1dp" />
+    </LinearLayout>
+
+    <View style="@style/personal_info_line" />
+    <!--姓名-->
+    <LinearLayout
+        android:id="@+id/nameBtn"
+        style="@style/personal_info_ll_btn">
+
+        <TextView
+            style="@style/personal_info_left_tv"
+            android:text="姓名" />
+
+        <ebag.core.widget.drawable.DrawableTextView
+            android:id="@+id/name"
+            style="@style/personal_info_right_tv" />
+    </LinearLayout>
+
+    <View style="@style/personal_info_line" />
+    <!--书包号-->
+    <LinearLayout
+        android:id="@+id/bagBtn"
+        style="@style/personal_info_ll_btn">
+
+        <TextView
+            style="@style/personal_info_left_tv"
+            android:text="书包号" />
+
+        <ebag.core.widget.drawable.DrawableTextView
+            android:id="@+id/bag"
+            style="@style/personal_info_right_tv" />
+    </LinearLayout>
+
+    <View style="@style/personal_info_line" />
+    <!--性别-->
+    <LinearLayout
+        android:id="@+id/sexBtn"
+        style="@style/personal_info_ll_btn">
+
+        <TextView
+            style="@style/personal_info_left_tv"
+            android:text="性别" />
+
+        <ebag.core.widget.drawable.DrawableTextView
+            android:id="@+id/sex"
+            style="@style/personal_info_right_tv" />
+    </LinearLayout>
+
+    <View style="@style/personal_info_line" />
+    <!--联系方式-->
+    <LinearLayout
+        android:id="@+id/contactBtn"
+        style="@style/personal_info_ll_btn">
+
+        <TextView
+            style="@style/personal_info_left_tv"
+            android:text="联系方式" />
+
+        <ebag.core.widget.drawable.DrawableTextView
+            android:id="@+id/contactInformation"
+            style="@style/personal_info_right_tv" />
+    </LinearLayout>
+
+    <View style="@style/personal_info_line" />
+    <!--家庭住址-->
+    <LinearLayout
+        android:id="@+id/addressBtn"
+        style="@style/personal_info_ll_btn">
+
+        <TextView
+            style="@style/personal_info_left_tv"
+            android:text="家庭住址" />
+
+        <ebag.core.widget.drawable.DrawableTextView
+            android:id="@+id/familyAddress"
+            style="@style/personal_info_right_tv" />
+    </LinearLayout>
+
+    <View style="@style/personal_info_line" />
+    <!--所在学校-->
+    <LinearLayout
+        android:id="@+id/schoolBtn"
+        style="@style/personal_info_ll_btn">
+
+        <TextView
+            style="@style/personal_info_left_tv"
+            android:text="学校名称" />
+
+        <ebag.core.widget.drawable.DrawableTextView
+            android:id="@+id/schoolName"
+            style="@style/personal_info_right_tv" />
+    </LinearLayout>
+</LinearLayout>

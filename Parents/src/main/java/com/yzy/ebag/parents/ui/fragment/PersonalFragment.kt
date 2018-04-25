@@ -1,5 +1,6 @@
 package com.yzy.ebag.parents.ui.fragment
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
@@ -7,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.yzy.ebag.parents.R
 import com.yzy.ebag.parents.mvp.model.PersonalItemModel
+import com.yzy.ebag.parents.ui.activity.PersonalInfoActivity
+import com.yzy.ebag.parents.ui.activity.SettingActivity
 import com.yzy.ebag.parents.ui.adapter.PersonalAdapter
 import ebag.core.base.BaseFragment
 import ebag.core.util.SerializableUtils
@@ -48,19 +51,21 @@ class PersonalFragment : BaseFragment() {
         val name = SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).name
         personal_head.loadHead(url)
         personal_name.text = name
-
         recyclerview.layoutManager = LinearLayoutManager(activity)
         recyclerview.adapter = mAdapter
-        recyclerview.addItemDecoration(ebag.core.xRecyclerView.manager.DividerItemDecoration(DividerItemDecoration.VERTICAL,1, Color.parseColor("#e0e0e0")))
+        recyclerview.addItemDecoration(ebag.core.xRecyclerView.manager.DividerItemDecoration(DividerItemDecoration.VERTICAL, 1, Color.parseColor("#e0e0e0")))
 
 
-        /*temp.setOnClickListener {
-            App.deleteToken()
-            SerializableUtils.deleteSerializable(Constants.STUDENT_USER_ENTITY)
-            SPUtils.remove(activity,com.yzy.ebag.parents.common.Constants.CURRENT_CHILDREN_YSBCODE)
-            startActivity(Intent(mContext, LoginActivity::class.java).putExtra(Constants.KEY_TO_MAIN, true))
-            AppManager.finishAllActivity()
-        }*/
+        mAdapter.setOnItemClickListener { _, _, position ->
+            when (position) {
+                2 -> SettingActivity.start(activity)
+            }
+        }
+
+        personal_head.setOnClickListener {
+            startActivity(Intent(activity, PersonalInfoActivity::class.java))
+        }
+
     }
 
 }

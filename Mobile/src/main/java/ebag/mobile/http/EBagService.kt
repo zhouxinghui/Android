@@ -172,4 +172,10 @@ interface EBagService {
     /**获取跟读列表里头的每个句子的详情*/
     @POST("util/getOralLanguageDetailByUnitCode/{version}")
     fun getReadDetailList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<ReadRecordVoiceBean>>>
+
+    /**
+     * 修改个人信息
+     */
+    @POST("user/modifyPersonalCenter/{version}")
+    fun modifyPersonalInfo(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 }

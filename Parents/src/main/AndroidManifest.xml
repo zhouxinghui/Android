@@ -106,12 +106,18 @@
         <activity
             android:name=".ui.activity.ExcitationActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.RepresentActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".ui.activity.CreateTaskActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".ui.activity.RepresentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.CreateTaskActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.PersonalInfoActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="UMENG_APPKEY"
