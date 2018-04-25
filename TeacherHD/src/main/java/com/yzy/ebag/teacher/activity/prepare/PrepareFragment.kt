@@ -134,6 +134,7 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
         when(fileType){
             "doc","docx","xls","xlsx","ppt","pptx" ->{
                 DisplayOfficeFileActivity.jump(mContext, bean.fileUrl)
+//                OfficeActivity.jump(mContext, bean.fileUrl, bean.fileName)
             }
             "txt" ->{
                 DisplayTxtFileActivity.jump(mContext, bean.fileUrl)

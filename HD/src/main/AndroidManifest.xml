@@ -116,6 +116,9 @@
         <activity android:name=".activity.OfficialAnnounceActivity"
             android:screenOrientation="landscape"
             />
+        <activity android:name=".activity.OfficeActivity"
+            android:screenOrientation="landscape"
+            />
         <service
             android:name=".service.AIDLTestService"
             android:process=":countdown" />

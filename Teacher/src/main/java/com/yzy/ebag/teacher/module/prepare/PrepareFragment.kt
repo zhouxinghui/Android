@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.yzy.ebag.teacher.DisplayOfficeFileActivity
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.PrepareFileBean
 import com.yzy.ebag.teacher.http.TeacherApi
@@ -91,7 +92,7 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
     }
 
     override fun getPageSize(): Int {
-        return 16
+        return 9
     }
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<PrepareFileBean>>) {
         TeacherApi.prepareList(type, page, getPageSize(), requestCallBack, gradeCode, subCode, unitId)
@@ -118,14 +119,8 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
         val bean = adapter.data[position]
         val fileType = bean.fileType ?: bean.fileName.substring(bean.fileName.lastIndexOf(".") + 1, bean.fileName.length)
         when(fileType){
-            "doc","docx","xls","xlsx","ppt","pptx" ->{
-//                DisplayOfficeFileActivity.jump(mContext, bean.fileUrl)
-            }
-            "txt" ->{
-//                DisplayTxtFileActivity.jump(mContext, bean.fileUrl)
-            }
-            "pdf" ->{
-//                DisplayPdfFileActivity.jump(mContext, bean.fileUrl)
+            "doc","docx","xls","xlsx","ppt","pptx","txt","pdf" ->{
+                DisplayOfficeFileActivity.jump(mContext, bean.fileUrl, bean.fileName)
             }
             "jpg","png","bmp","jpeg","gif" ->{
                 val imgList = ArrayList<String>()
