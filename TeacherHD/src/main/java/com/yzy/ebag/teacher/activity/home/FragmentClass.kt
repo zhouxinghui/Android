@@ -82,9 +82,6 @@ class FragmentClass : BaseFragment() {
     override fun initViews(rootView: View) {
         recyclerView.layoutManager = LinearLayoutManager(mContext)
         recyclerView.adapter = adapter
-        adapter.setOnItemClickListener { holder, view, position ->
-
-        }
         adapter.setOnItemChildClickListener { holder, view, position ->
             when(view.id){
                 R.id.add_teacher_btn ->{

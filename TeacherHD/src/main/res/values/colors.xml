@@ -26,6 +26,7 @@
     <!--布置作业end-->
     <!--班级start-->
     <color name="desc_blue">#6F8BB0</color>
+    <color name="desc_blue_dark">#637FA5</color>
     <!--班级end-->
     <color name="title_text_color">#5B5852</color>
     <!--关于我们-->
