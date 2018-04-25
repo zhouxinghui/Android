@@ -1,11 +1,13 @@
 package com.yzy.ebag.parents.http
 
+import com.yzy.ebag.parents.bean.ExcitationWorkBean
 import com.yzy.ebag.parents.bean.HomeworkAbstractBean
 import com.yzy.ebag.parents.bean.MyChildrenBean
 import com.yzy.ebag.parents.bean.OnePageInfoBean
 import ebag.core.http.network.RequestCallBack
 import ebag.mobile.http.EBagApi
 import ebag.mobile.http.EBagClient
+import org.json.JSONArray
 import org.json.JSONObject
 
 object ParentsAPI {
@@ -46,5 +48,33 @@ object ParentsAPI {
         }
 
         EBagApi.request(parentsService.parentComment("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun createTask(title: String, content: String, uid: String, callback: RequestCallBack<String>) {
+
+        val jsonObject = JSONObject()
+        jsonObject.put("title", title)
+        jsonObject.put("content", content)
+        val jay = JSONArray()
+        jay.put(uid)
+        jsonObject.put("studentUid", jay)
+
+        EBagApi.request(parentsService.createTask("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun queryTask(uid: String, page: String, callback: RequestCallBack<List<ExcitationWorkBean>>) {
+
+        val jsonObject = JSONObject()
+        jsonObject.put("uid", uid)
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", 10)
+
+        EBagApi.request(parentsService.queryTask("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    fun updateTask(id: String, callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("id", id)
+        EBagApi.request(parentsService.updateTask("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

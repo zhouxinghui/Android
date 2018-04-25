@@ -10,14 +10,32 @@ import kotlinx.android.synthetic.main.activity_excitation.*
 
 class ExcitationActivity : BaseActivity() {
 
-    private val titleData:Array<String> = arrayOf("劳动任务","学习任务")
+    private val titleData: Array<String> = arrayOf("劳动任务", "学习任务")
 
     override fun getLayoutId(): Int = R.layout.activity_excitation
+    private val list: ArrayList<Fragment> = arrayListOf(ExcitationJobFragment("0"), ExcitationJobFragment("1"))
 
     override fun initViews() {
-        val list:ArrayList<Fragment> = arrayListOf(ExcitationJobFragment("0"),ExcitationJobFragment("1"))
-        tablayout.setTabData(titleData,this,R.id.container_layout,list)
 
+        tablayout.setTabData(titleData, this, R.id.container_layout, list)
+
+        add_job.setOnClickListener {
+
+            if (tablayout.currentTab == 0) {
+                CreateTaskActivity.start(this)
+            }
+        }
+
+        back_btn.setOnClickListener {
+            finish()
+        }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == 999) {
+            (list[0] as ExcitationJobFragment).refresh()
+        }
     }
 
     companion object {

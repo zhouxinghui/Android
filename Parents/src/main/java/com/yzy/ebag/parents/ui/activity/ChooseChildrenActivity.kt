@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_choosechildren.*
 @Suppress("UNCHECKED_CAST")
 class ChooseChildrenActivity : BaseActivity(), ChooseChildrenContract.ChooseChildrenView {
 
+
     private val mPersenter: ChooseChildrenPersenter by lazy { ChooseChildrenPersenter(this, this) }
     private lateinit var mAdapter: ChooseChildrenAdapter
     private var mData: MutableList<MyChildrenBean> = mutableListOf()
@@ -74,7 +75,7 @@ class ChooseChildrenActivity : BaseActivity(), ChooseChildrenContract.ChooseChil
 
     }
 
-    override fun showMoreComplete() {
+    override fun <T> showMoreComplete(data: List<T>) {
 
     }
 

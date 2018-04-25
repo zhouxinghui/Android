@@ -19,14 +19,39 @@ interface HomeworkReportContract {
     }
 }
 
-interface ExcitationJobContract{
+interface ExcitationJobContract {
 
-    interface ExcitationJobView:BaseView.BaseListView
+    interface ExcitationJobView : BaseView.BaseListView {
 
-    interface Persenter:BasePresenter<ExcitationJobView>{
+        fun notifyBtn(position:Int)
 
-        fun request()
+        fun finishError(e: Throwable?): Unit = TODO("no impl")
+    }
 
-        fun finish()
+    interface Persenter : BasePresenter<ExcitationJobView> {
+
+        fun requestTask(page: String, uid: String)
+
+        fun requestHomeWork()
+
+        fun finish(id: String,position:Int)
+    }
+}
+
+
+interface CreateTaskContract{
+
+    interface CreateTaskView:BaseView.BaseListView{
+
+        fun createSuccess()
+
+        fun createFailed(e: Throwable?)
+    }
+
+    interface Parsenter:BasePresenter<CreateTaskView>{
+
+        fun queryChild()
+
+        fun createTask(title:String,content:String,uid:String)
     }
 }

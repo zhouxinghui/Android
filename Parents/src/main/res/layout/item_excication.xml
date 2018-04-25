@@ -38,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/x5"
                 android:textColor="#f5a523"
+                android:visibility="gone"
                 android:id="@+id/item_excitation_reward"
                 android:text="奖励20金币" />
 
@@ -53,6 +54,7 @@
                     android:drawableStart="@drawable/excitation_clock"
                     android:layout_alignParentEnd="true"
                     android:paddingEnd="@dimen/x5"
+                    android:drawablePadding="@dimen/x5"
                     android:id="@+id/item_excitation_date"
                     android:textColor="#f5a523"
                     android:text="10-20" />
@@ -84,7 +86,7 @@
                 android:textColor="#fff"
                 android:layout_alignParentEnd="true"
                 android:id="@+id/item_excitation_progressbtn"
-                android:text="+1 (0/3)" />
+                android:text="完成" />
 
 
         </RelativeLayout>

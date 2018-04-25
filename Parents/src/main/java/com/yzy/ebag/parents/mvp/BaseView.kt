@@ -12,11 +12,11 @@ interface BaseView {
     fun showEmpty()
 
 
-    interface BaseListView:BaseView{
+    interface BaseListView : BaseView {
 
-        fun <T> showContents(data:List<T>)
+        fun <T> showContents(data: List<T>)
 
-        fun showMoreComplete()
+        fun <T> showMoreComplete(data: List<T>)
 
         fun loadmoreEnd()
 

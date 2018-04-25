@@ -1,5 +1,6 @@
 package com.yzy.ebag.parents.http
 
+import com.yzy.ebag.parents.bean.ExcitationWorkBean
 import com.yzy.ebag.parents.bean.HomeworkAbstractBean
 import com.yzy.ebag.parents.bean.MyChildrenBean
 import com.yzy.ebag.parents.bean.OnePageInfoBean
@@ -29,13 +30,13 @@ interface ParentsService{
 
     /*查询小孩劳动任务*/
     @POST("user/searchChildTargetList/{version}")
-    fun queryTask(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+    fun queryTask(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<ExcitationWorkBean>>>
 
     /*创建劳动任务*/
     @POST("user/createTargetToChild/{version}")
     fun createTask(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /*更新任务*/
-    @POST("user/updateChildTargetCount/{version}")
+    @POST("user/updateChildTargetCompleted/{version}")
     fun updateTask(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 }

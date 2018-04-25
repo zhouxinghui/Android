@@ -27,6 +27,16 @@ public class MyChildrenBean {
     private String ysbCode;
     private String headUrl;
 
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    private boolean isSelected;
+
     public String getName() {
         return name;
     }

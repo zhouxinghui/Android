@@ -59,7 +59,7 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener, View.On
             R.id.rb_personal -> {
                 viewpager.setCurrentItem(2, false)
                 setTilteVisiable(false)
-                setTitle("个人信息")
+                setTitle("我的")
             }
         }
     }
