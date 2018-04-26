@@ -180,4 +180,26 @@
         <item name="android:paddingRight">@dimen/x15</item>
     </style>
     <!--createClass-->
+    <!--mine-->
+    <style name="mine_item_tv">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/white_shadow_clickable_bg</item>
+        <item name="android:textColor">@color/tv_normal</item>
+        <item name="android:textSize">@dimen/tv_big</item>
+        <item name="android:layout_marginTop">@dimen/y10</item>
+        <item name="android:layout_marginStart">@dimen/x5</item>
+        <item name="android:layout_marginEnd">@dimen/x5</item>
+        <item name="android:paddingTop">@dimen/y20</item>
+        <item name="android:paddingBottom">@dimen/y20</item>
+        <item name="android:paddingStart">@dimen/x10</item>
+        <item name="android:paddingEnd">@dimen/x10</item>
+        <item name="android:drawablePadding">@dimen/x5</item>
+        <item name="leftDrawableWidth">@dimen/x20</item>
+        <item name="leftDrawableHeight">@dimen/x20</item>
+        <item name="rightDrawableWidth">@dimen/x6</item>
+        <item name="rightDrawableHeight">@dimen/x10</item>
+        <item name="rightDrawable">@drawable/right_arrow</item>
+    </style>
+    <!--mine-->
 </resources>

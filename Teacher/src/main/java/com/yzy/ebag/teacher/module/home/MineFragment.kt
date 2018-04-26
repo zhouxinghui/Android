@@ -4,18 +4,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.yzy.ebag.teacher.R
-import com.yzy.ebag.teacher.module.account.LoginActivity
-import ebag.core.base.App
+import com.yzy.ebag.teacher.module.personal.SettingActivity
 import ebag.core.base.BaseFragment
-import ebag.core.util.AppManager
-import ebag.core.util.loadImage
+import ebag.core.util.SerializableUtils
+import ebag.core.util.loadHead
 import ebag.mobile.base.Constants
+import ebag.mobile.bean.UserEntity
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 /**
  * Created by YZY on 2018/4/16.
  */
-class MineFragment: BaseFragment() {
+class MineFragment: BaseFragment(), View.OnClickListener {
     companion object {
         fun newInstance(): MineFragment{
             val fragment = MineFragment()
@@ -32,13 +32,45 @@ class MineFragment: BaseFragment() {
 
     }
 
-    override fun initViews(rootView: View) {
-        btn.setOnClickListener {
-            App.deleteToken()
-            startActivity(Intent(mContext, LoginActivity::class.java).putExtra(Constants.KEY_TO_MAIN, true))
-            AppManager.finishAllActivity()
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden){
+            modifyInfo()
         }
+    }
 
-        imageView.loadImage("https://ebag-public-resource.oss-cn-shenzhen.aliyuncs.com/OralLanguage/00ce0945b6db492e84b0d17162a9e836Unit1%20read%20and%20fill%20in%20the%20table%20PartB.mp4")
+    override fun onResume() {
+        super.onResume()
+        modifyInfo()
+    }
+
+
+    override fun initViews(rootView: View) {
+        personalInfo.setOnClickListener(this)
+        operation.setOnClickListener(this)
+        setting.setOnClickListener(this)
+    }
+
+    private fun modifyInfo(){
+        val userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.TEACHER_USER_ENTITY)
+        if (userEntity != null) {
+            headImg.loadHead(userEntity.headUrl, true, System.currentTimeMillis().toString())
+            name.text = userEntity.name
+            bagNumber.text = "书包号：${userEntity.ysbCode}"
+        }
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.personalInfo ->{
+//                startActivity(Intent(mContext, PersonalInfoActivity::class.java))
+            }
+            R.id.operation ->{
+//                OperationActivity.jump(mContext)
+            }
+            R.id.setting ->{
+                startActivity(Intent(mContext, SettingActivity::class.java))
+            }
+        }
     }
 }
