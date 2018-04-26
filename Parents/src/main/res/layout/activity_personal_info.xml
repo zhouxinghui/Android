@@ -27,8 +27,8 @@
 
         <ImageView
             android:id="@+id/headImage"
-            android:layout_width="@dimen/x40"
-            android:layout_height="@dimen/x40"
+            android:layout_width="@dimen/x30"
+            android:layout_height="@dimen/x30"
             android:layout_marginBottom="@dimen/y10"
             android:layout_marginTop="@dimen/y10"
             android:padding="1dp" />

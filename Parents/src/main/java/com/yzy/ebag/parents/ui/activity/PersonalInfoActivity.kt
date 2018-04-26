@@ -9,6 +9,7 @@ import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.tools.PictureFileUtils
 import com.yzy.ebag.parents.R
+import com.yzy.ebag.parents.ui.widget.ModifyInfoDialog
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
@@ -32,7 +33,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
     private var modifyType = 0
     private var key = "headUrl"
     private var modifyStr = ""
-   /* private val modifyDialog by lazy {
+    private val modifyDialog by lazy {
         val dialog = ModifyInfoDialog(this)
         dialog.onConfirmClickListener = {
             modifyStr = it
@@ -40,7 +41,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
             dialog.dismiss()
         }
         dialog
-    }*/
+    }
     private val sexDialog by lazy {
         val sexList = ArrayList<SexBean>()
         val bean1 = SexBean()
@@ -75,6 +76,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                     0 ->{
                         headImage.loadHead(uploadHeadUrl, true, System.currentTimeMillis().toString())
                         userEntity?.headUrl = uploadHeadUrl
+                        setResult(999)
                     }
                     1 ->{
                         name.text = modifyStr
@@ -160,7 +162,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
             R.id.nameBtn ->{
                 modifyType = 1
                 key = "name"
-                //modifyDialog.show("请输入姓名")
+                modifyDialog.show("请输入姓名")
             }
             R.id.bagBtn ->{
                 T.show(this, "书包号")
@@ -176,7 +178,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
             R.id.addressBtn ->{
                 modifyType = 3
                 key = "address"
-                //modifyDialog.show("请输入地址")
+                modifyDialog.show("请输入地址")
             }
             R.id.schoolBtn ->{
                 T.show(this, "所在学校")
@@ -224,4 +226,5 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
         var sex = "1"
         var sexStr = "男"
     }
+
 }

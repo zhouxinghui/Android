@@ -2,11 +2,11 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/y60"
+    android:layout_height="@dimen/y90"
     android:gravity="center"
     android:background="@drawable/list_dialog_tv_bg"
     android:textColor="#5B5852"
-    android:textSize="@dimen/tv_sub"
+    android:textSize="@dimen/tv_normal"
     android:id="@+id/tv_id"
     tools:text="取消">
 </TextView>

@@ -49,7 +49,7 @@ class PersonalFragment : BaseFragment() {
         mAdapter = PersonalAdapter(datas)
         val url = SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).headUrl
         val name = SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).name
-        personal_head.loadHead(url)
+        personal_head.loadHead(url,true)
         personal_name.text = name
         recyclerview.layoutManager = LinearLayoutManager(activity)
         recyclerview.adapter = mAdapter
@@ -63,9 +63,15 @@ class PersonalFragment : BaseFragment() {
         }
 
         personal_head.setOnClickListener {
-            startActivity(Intent(activity, PersonalInfoActivity::class.java))
+            startActivityForResult(Intent(activity, PersonalInfoActivity::class.java),998)
         }
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == 999){
+            personal_head.loadHead(SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).headUrl,true)
+        }
     }
 
 }
