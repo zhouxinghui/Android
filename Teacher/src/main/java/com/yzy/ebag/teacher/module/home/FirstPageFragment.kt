@@ -14,13 +14,14 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import com.youth.banner.loader.ImageLoader
 import com.yzy.ebag.teacher.R
-import com.yzy.ebag.teacher.module.tools.ZixiActivity
 import com.yzy.ebag.teacher.base.Constants
 import com.yzy.ebag.teacher.bean.FirstPageBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.module.book.BookListActivity
+import com.yzy.ebag.teacher.module.correcting.CorrectingActivity
 import com.yzy.ebag.teacher.module.homework.AssignmentActivity
 import com.yzy.ebag.teacher.module.prepare.MyPrepareActivity
+import com.yzy.ebag.teacher.module.tools.ZixiActivity
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.LoadingDialogUtil
@@ -110,6 +111,7 @@ class FirstPageFragment: BaseFragment() {
             startActivity(Intent(mContext, MyPrepareActivity::class.java))
         }
         checkHomework.setOnClickListener {
+            startActivity(Intent(mContext, CorrectingActivity::class.java))
         }
         book.setOnClickListener {
             BookListActivity.jump(mContext)

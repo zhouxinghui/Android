@@ -39,6 +39,20 @@ object Constants {
     const val CLASS_REPRESENTATIVE = "5"
     const val GROUP_LEADER = "6"
 
+    //状态 1 未批改 2 已批改 0 未完成 3 老师评语完成 4 家长签名和评语完成
+    const val CORRECT_UNFINISH =  "0"
+    const val CORRECT_UNCORRECT =  "1"
+    const val CORRECT_CORRECTED =  "2"
+    const val CORRECT_TEACHER_REMARKED = "3"
+    const val CORRECT_PARENT_REMARKED = "4"
+
+    const val STZY_TYPE = "1"
+    const val KHZY_TYPE = "2"
+    const val PARENT_TYPE = "3"
+    const val KSSJ_TYPE = "4"
+    const val ERROR_TOPIC_TYPE = "5"
+    const val REPORT_TYPE = "6"
+
     const val PROVINCE_INDEX = "PROVENCE_INDEX"
     const val CITY_INDEX = "CITY_INDEX"
     const val AREA_INDEX = "AREA_INDEX"

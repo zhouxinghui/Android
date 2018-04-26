@@ -11,4 +11,6 @@
 
     <!--公告历史-->
     <color name="publish_desc">#F2F6FF</color>
+
+    <color name="orange">#FF860C</color>
 </resources>

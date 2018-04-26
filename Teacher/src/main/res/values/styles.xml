@@ -256,4 +256,8 @@
         <item name="android:padding">@dimen/y15</item>
         <item name="android:drawablePadding">@dimen/x10</item>
     </style>
+
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">@dimen/tv_normal</item>
+    </style>
 </resources>

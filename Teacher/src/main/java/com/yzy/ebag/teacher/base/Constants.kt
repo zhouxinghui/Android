@@ -17,6 +17,13 @@ object Constants {
     val PUBLISH_REQUEST = 110
     val PUBLISH_RESULT = 110
 
+    //状态 1 未批改 2 已批改 0 未完成 3 老师评语完成 4 家长签名和评语完成
+    const val CORRECT_UNFINISH =  "0"
+    const val CORRECT_UNCORRECT =  "1"
+    const val CORRECT_CORRECTED =  "2"
+    const val CORRECT_TEACHER_REMARKED = "3"
+    const val CORRECT_PARENT_REMARKED = "4"
+
     //职责(duties) 1 班主任 2 科任老师 3 学生 4 班长 5 课代表 6 组长
     const val TEACHER_IN_CHARGE = "1"
     const val TEACHER = "2"

@@ -12,8 +12,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".QuestionTestActivity"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".QuestionTestActivity" />
         <activity
             android:name=".module.account.WelcomeActivity"
             android:screenOrientation="portrait">
@@ -25,72 +25,75 @@
         </activity>
         <activity
             android:name=".module.account.LoginActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".module.homework.AssignmentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.homework.AssignmentActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.homework.QuestionActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.homework.QuestionActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
-            />
-        <activity android:name=".module.homework.PreviewActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.homework.PreviewActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
-            />
-        <activity android:name=".module.homework.PublishWorkActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.homework.PublishWorkActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
-            />
-        <activity android:name=".module.clazz.SpaceActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.clazz.StudyGroupActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.clazz.NoticeHistoryActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.clazz.PublishContentActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.clazz.MyCourseActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.clazz.ClassPerformanceActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.clazz.CreateClassActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.clazz.SelectSchoolActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.book.BookListActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.prepare.MyPrepareActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.tools.ZixiActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.tools.ZixiRecordActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.tools.LetterRecordListActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.tools.ReadRecordListActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".DisplayOfficeFileActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.personal.SettingActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.personal.PersonalInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.clazz.SpaceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.clazz.StudyGroupActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.clazz.NoticeHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.clazz.PublishContentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.clazz.MyCourseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.clazz.ClassPerformanceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.clazz.CreateClassActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.clazz.SelectSchoolActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.book.BookListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.prepare.MyPrepareActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.tools.ZixiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.tools.ZixiRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.tools.LetterRecordListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.tools.ReadRecordListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DisplayOfficeFileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.personal.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.personal.PersonalInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".module.correcting.CorrectingActivity"
             android:screenOrientation="portrait"
             />
     </application>
