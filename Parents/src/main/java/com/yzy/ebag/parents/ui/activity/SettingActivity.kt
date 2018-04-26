@@ -14,6 +14,7 @@ import ebag.core.util.SPUtils
 import ebag.core.util.SerializableUtils
 import ebag.mobile.base.Constants
 import ebag.mobile.module.AboutUsActivity
+import ebag.mobile.module.OfficialAnnounceActivity
 import ebag.mobile.widget.UserFeedbackDialog
 import kotlinx.android.synthetic.main.activity_setting.*
 
@@ -48,6 +49,7 @@ class SettingActivity : BaseActivity() {
 
                 2 -> UserFeedbackDialog(this).show()
 
+                1 -> OfficialAnnounceActivity.jump(this, "parents")
 
             }
         }
