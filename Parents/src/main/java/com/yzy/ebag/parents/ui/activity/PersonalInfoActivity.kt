@@ -64,7 +64,8 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
         }
         dialog
     }
-    private val modifyRequest by lazy {
+    private val
+            modifyRequest by lazy {
         object : RequestCallBack<String>(){
             override fun onStart() {
                 LoadingDialogUtil.showLoading(this@PersonalInfoActivity,"正在上传...")
@@ -165,7 +166,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                 modifyDialog.show("请输入姓名")
             }
             R.id.bagBtn ->{
-                T.show(this, "书包号")
+                //T.show(this, "书包号")
             }
             R.id.sexBtn ->{
                 modifyType = 2
@@ -173,7 +174,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                 sexDialog.show()
             }
             R.id.contactBtn ->{
-                T.show(this, "联系方式")
+                //T.show(this, "联系方式")
             }
             R.id.addressBtn ->{
                 modifyType = 3
@@ -181,7 +182,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                 modifyDialog.show("请输入地址")
             }
             R.id.schoolBtn ->{
-                T.show(this, "所在学校")
+                //T.show(this, "所在学校")
             }
         }
     }

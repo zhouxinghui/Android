@@ -16,10 +16,10 @@ class ModifyInfoDialog(context: Context): BaseDialog(context) {
         return R.layout.dialog_modify_info
     }
     override fun setWidth(): Int {
-        return context.resources.getDimensionPixelSize(R.dimen.x300)
+        return context.resources.getDimensionPixelSize(R.dimen.x200)
     }
     override fun setHeight(): Int {
-        return context.resources.getDimensionPixelSize(R.dimen.y200)
+        return context.resources.getDimensionPixelSize(R.dimen.y300)
     }
 
     init {

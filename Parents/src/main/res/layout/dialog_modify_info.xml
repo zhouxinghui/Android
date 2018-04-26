@@ -47,8 +47,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         />
     <TextView android:id="@+id/gou"
-        android:layout_width="@dimen/x54"
-        android:layout_height="@dimen/x40"
+        android:layout_width="@dimen/x40"
+        android:layout_height="@dimen/x30"
         android:background="@drawable/icon_version_gou"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
