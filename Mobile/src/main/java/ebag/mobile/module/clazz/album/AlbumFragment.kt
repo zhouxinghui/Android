@@ -12,8 +12,8 @@ import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.loadImage
 import ebag.mobile.R
-import ebag.mobile.bean.AlbumBean
 import ebag.mobile.base.Constants
+import ebag.mobile.bean.AlbumBean
 import ebag.mobile.http.EBagApi
 
 /**
@@ -59,7 +59,7 @@ class AlbumFragment: BaseListFragment<ArrayList<AlbumBean>, AlbumBean>() {
 
     override fun parentToList(isFirstPage: Boolean, parent: ArrayList<AlbumBean>?): ArrayList<AlbumBean>? {
         var result = parent
-        if(isFirstPage && (role == Constants.ROLE_TEACHER || (role == Constants.ROLE_STUDENT && groupType == Constants.PERSONAL_TYPE))){
+        if(isFirstPage && (role == Constants.ROLE_TEACHER || ((role == Constants.ROLE_STUDENT || role == Constants.ROLE_PARENT) && groupType == Constants.PERSONAL_TYPE))){
             if(result == null){
                 result = ArrayList<AlbumBean>()
             }

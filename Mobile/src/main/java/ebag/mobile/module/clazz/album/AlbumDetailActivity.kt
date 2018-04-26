@@ -159,7 +159,7 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
         editBtn = optionView.findViewById(R.id.editBtn)
         uploadBtn = optionView.findViewById(R.id.uploadBtn)
 
-        if(role == Constants.ROLE_STUDENT && groupType != Constants.PERSONAL_TYPE){
+        if((role == Constants.ROLE_STUDENT || role == Constants.ROLE_PARENT) && groupType != Constants.PERSONAL_TYPE){
             editBtn.visibility = View.GONE
             uploadBtn.visibility = View.GONE
         }
@@ -215,7 +215,7 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
 
         // 上传
         uploadBtn.setOnClickListener {
-            PhotoUploadActivity.jump(this, classId, photoGroupId, groupType)
+            PhotoUploadActivity.jump(this, classId, photoGroupId, groupType, role)
         }
 
         showOptions(false)
@@ -319,8 +319,8 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
             chooseBtn.visibility = View.GONE
             shareBtn.visibility = View.GONE
             deleteBtn.visibility = View.GONE
-            editBtn.visibility = if(groupType != Constants.PERSONAL_TYPE && role == Constants.ROLE_STUDENT) View.GONE else View.VISIBLE
-            uploadBtn.visibility = if(groupType != Constants.PERSONAL_TYPE && role == Constants.ROLE_STUDENT) View.GONE else View.VISIBLE
+            editBtn.visibility = if(groupType != Constants.PERSONAL_TYPE && (role == Constants.ROLE_STUDENT || role == Constants.ROLE_PARENT)) View.GONE else View.VISIBLE
+            uploadBtn.visibility = if(groupType != Constants.PERSONAL_TYPE && (role == Constants.ROLE_STUDENT || role == Constants.ROLE_PARENT)) View.GONE else View.VISIBLE
 
             adapter.data.filter { it.isPhoto }.forEach { it.isSelected = false}
         }

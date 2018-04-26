@@ -32,12 +32,13 @@ import java.io.File
 class PhotoUploadActivity: BaseActivity() {
 
     companion object {
-        fun jump(context: Activity, classId: String, photoGroupId: String, groupType: String){
+        fun jump(context: Activity, classId: String, photoGroupId: String, groupType: String, role: Int){
             context.startActivityForResult(
                     Intent(context, PhotoUploadActivity::class.java)
                             .putExtra("classId", classId)
                             .putExtra("photoGroupId", photoGroupId)
                             .putExtra("groupType", groupType)
+                            .putExtra("role", role)
                     , ebag.mobile.base.Constants.NORMAL_REQUEST
             )
         }
@@ -70,10 +71,17 @@ class PhotoUploadActivity: BaseActivity() {
             shareTip.visibility = View.INVISIBLE
             switchView.visibility = View.INVISIBLE
         }
+        val role = intent.getIntExtra("role", ebag.mobile.base.Constants.ROLE_STUDENT)
         photoUploadBean.classId = intent.getStringExtra("classId") ?: ""
         photoUploadBean.photoGroupId = intent.getStringExtra("photoGroupId") ?: ""
 
-        val userEntity = SerializableUtils.getSerializable<UserEntity>(ebag.mobile.base.Constants.STUDENT_USER_ENTITY)
+        val entityType = when(role){
+            ebag.mobile.base.Constants.ROLE_TEACHER ->{ebag.mobile.base.Constants.TEACHER_USER_ENTITY}
+            ebag.mobile.base.Constants.ROLE_STUDENT ->{ebag.mobile.base.Constants.STUDENT_USER_ENTITY}
+            ebag.mobile.base.Constants.ROLE_PARENT ->{ebag.mobile.base.Constants.PARENTS_USER_ENTITY}
+            else ->{ebag.mobile.base.Constants.STUDENT_USER_ENTITY}
+        }
+        val userEntity = SerializableUtils.getSerializable<UserEntity>(entityType)
         userId = userEntity?.uid ?: "1"
 
         titleView.setRightText("确定"){
