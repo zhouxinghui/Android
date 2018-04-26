@@ -237,4 +237,23 @@
         <item name="android:layout_marginRight">@dimen/x5</item>
     </style>
     <!--个人中心end-->
+    <!--设置-->
+    <style name="setting_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="rightDrawable">@drawable/right_arrow</item>
+        <item name="rightDrawableWidth">@dimen/x6</item>
+        <item name="rightDrawableHeight">@dimen/x10</item>
+        <item name="leftDrawableWidth">@dimen/x25</item>
+        <item name="leftDrawableHeight">@dimen/x25</item>
+        <item name="android:textColor">@color/tv_sub</item>
+        <item name="android:textSize">@dimen/tv_big</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/white_shadow_clickable_bg</item>
+        <item name="android:layout_marginTop">@dimen/y15</item>
+        <item name="android:layout_marginStart">@dimen/x5</item>
+        <item name="android:layout_marginEnd">@dimen/x5</item>
+        <item name="android:padding">@dimen/y15</item>
+        <item name="android:drawablePadding">@dimen/x10</item>
+    </style>
 </resources>

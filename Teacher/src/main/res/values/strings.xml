@@ -64,4 +64,12 @@
     <string name="contact_information">联系方式</string>
     <string name="family_address">家庭住址</string>
     <string name="school_name">所在学校</string>
+    <!--个人信息end-->
+    <!--设置start-->
+    <string name="version_update">版本更新</string>
+    <string name="office_notice">官方公告</string>
+    <string name="user_feedback">用户反馈</string>
+    <string name="about_us">关于我们</string>
+    <string name="exit_login">退出登录</string>
+    <!--设置end-->
 </resources>

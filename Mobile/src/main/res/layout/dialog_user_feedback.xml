@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/normal_dialog_bg"
+    >
+    <TextView android:id="@+id/title"
+        style="@style/normal_dialog_title"
+        android:text="用户反馈"
+        />
+    <EditText android:id="@+id/feedbackEdit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y350"
+        android:gravity="start"
+        android:padding="@dimen/y10"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="@color/tv_normal"
+        android:hint="想要新功能？ 使用体验不好？ 在这里吐槽吧！"
+        android:background="@drawable/blue_stroke"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:layout_margin="@dimen/y15"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/tv_sub"
+        android:textColor="#9E9E9E"
+        app:layout_constraintTop_toBottomOf="@id/feedbackEdit"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/y15"
+        android:text="如果您在使用时出现急需解决的问题\n也可以直接联系客服QQ：80319447"
+        />
+    <TextView
+        android:id="@+id/confirmBtn"
+        style="@style/normal_dialog_confirm_btn"
+        android:text="提交反馈"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+</android.support.constraint.ConstraintLayout>

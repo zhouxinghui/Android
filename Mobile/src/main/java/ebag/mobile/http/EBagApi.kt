@@ -389,4 +389,11 @@ object EBagApi {
         jsonObject.put(key, value)
         EBagApi.request(eBagService.modifyPersonalInfo("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**用户反馈*/
+    fun userFeedback(content: String, callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("content", content)
+        EBagApi.request(eBagService.userFeedback("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }
