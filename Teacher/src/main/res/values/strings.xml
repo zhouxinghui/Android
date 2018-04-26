@@ -56,4 +56,12 @@
     <string name="select_city_hint">请选择所在城市</string>
     <string name="select_phase_hint">请选择教育阶段</string>
     <!--创建班级end-->
+    <!--个人信息start-->
+    <string name="head_image">头像</string>
+    <string name="name">姓名</string>
+    <string name="bag">书包号</string>
+    <string name="sex">性别</string>
+    <string name="contact_information">联系方式</string>
+    <string name="family_address">家庭住址</string>
+    <string name="school_name">所在学校</string>
 </resources>

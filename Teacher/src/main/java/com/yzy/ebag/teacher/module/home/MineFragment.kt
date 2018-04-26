@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.module.personal.PersonalInfoActivity
 import com.yzy.ebag.teacher.module.personal.SettingActivity
 import ebag.core.base.BaseFragment
 import ebag.core.util.SerializableUtils
@@ -63,7 +64,7 @@ class MineFragment: BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.personalInfo ->{
-//                startActivity(Intent(mContext, PersonalInfoActivity::class.java))
+                startActivity(Intent(mContext, PersonalInfoActivity::class.java))
             }
             R.id.operation ->{
 //                OperationActivity.jump(mContext)

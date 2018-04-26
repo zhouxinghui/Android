@@ -90,6 +90,9 @@
         <activity android:name=".module.personal.SettingActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".module.personal.PersonalInfoActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>
