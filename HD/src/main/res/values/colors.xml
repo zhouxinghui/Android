@@ -18,6 +18,7 @@
 
     <drawable name="list_dialog_tv_bg_normal">#FFFFFF</drawable>
     <drawable name="list_dialog_tv_bg_click">#EFF8F3</drawable>
+    <drawable name="transparent">#00000000</drawable>
 
     <!--TabLayout-->
     <color name="color_tab_selected_text">#1E85FF</color>
