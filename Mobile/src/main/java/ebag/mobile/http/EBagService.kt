@@ -180,4 +180,8 @@ interface EBagService {
     /**用户反馈*/
     @POST("user/addUserFeedback/{version}")
     fun userFeedback(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**官方公告*/
+    @POST("user/APPVersion/{version}")
+    fun officialAnnounce(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<OfficialAnnounceBean>>
 }

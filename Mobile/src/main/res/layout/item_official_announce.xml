@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/x10">
+    <ImageView android:id="@+id/img"
+        android:layout_width="@dimen/x39"
+        android:layout_height="@dimen/x39"
+        android:src="@drawable/official_announce_item_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <TextView android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/y100"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="@color/tv_normal"
+        android:lineSpacingMultiplier="1.5"
+        android:background="@drawable/official_announce_item_bg"
+        android:layout_marginStart="@dimen/x10"
+        app:layout_constraintStart_toEndOf="@id/img"
+        tools:text="V3.1.2\n觉得哦啊牛粪阿牛发街舞脾气加上公开负压工时费阿苏用电饭锅我啊预估覅富贵爱一个覅"
+        />
+</android.support.constraint.ConstraintLayout>

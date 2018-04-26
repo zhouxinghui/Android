@@ -8,6 +8,8 @@ import ebag.core.base.App
 import ebag.core.base.BaseActivity
 import ebag.core.util.AppManager
 import ebag.mobile.base.Constants
+import ebag.mobile.module.AboutUsActivity
+import ebag.mobile.module.OfficialAnnounceActivity
 import ebag.mobile.widget.UserFeedbackDialog
 import kotlinx.android.synthetic.main.activity_setting.*
 
@@ -33,13 +35,13 @@ class SettingActivity: BaseActivity(), View.OnClickListener {
 //                checkUpdate(Constants.UPDATE_TEACHER)
             }
             R.id.officeNotice ->{
-//                OfficialAnnounceActivity.jump(this, "teacher")
+                OfficialAnnounceActivity.jump(this, "teacher")
             }
             R.id.userFeedback ->{
                 feedbackDialog.show()
             }
             R.id.aboutUs ->{
-//                startActivity(Intent(this, AboutUsActivity::class.java))
+                startActivity(Intent(this, AboutUsActivity::class.java))
             }
             R.id.exitLogin ->{
                 App.deleteToken()

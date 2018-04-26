@@ -381,9 +381,7 @@ object EBagApi {
         EBagApi.request(eBagService.getReadDetailList("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    /**
-     * 修改个人信息
-     */
+    /**修改个人信息*/
     fun modifyPersonalInfo(key: String, value: String, callback: RequestCallBack<String>) {
         val jsonObject = JSONObject()
         jsonObject.put(key, value)
@@ -395,5 +393,19 @@ object EBagApi {
         val jsonObject = JSONObject()
         jsonObject.put("content", content)
         EBagApi.request(eBagService.userFeedback("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 官方公告
+     * @param type 1-IOS,2-android,3-android-HD
+     * @param versionCode 老师-teacher,学生-student,家长-parent
+     */
+    fun officialAnnounce(type: String, versionCode: String, page: Int, pageSize: Int, callback: RequestCallBack<OfficialAnnounceBean>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("type", type)
+        jsonObject.put("versionCode", versionCode)
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", pageSize)
+        EBagApi.request(eBagService.officialAnnounce("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

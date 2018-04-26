@@ -34,4 +34,6 @@
 
     <drawable name="list_dialog_tv_bg_normal">#FFFFFF</drawable>
     <drawable name="list_dialog_tv_bg_click">#EFF8F3</drawable>
+
+    <color name="setting_line_color">#F4F4F4</color>
 </resources>

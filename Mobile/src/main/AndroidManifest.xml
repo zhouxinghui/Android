@@ -31,5 +31,11 @@
         <activity android:name=".module.book.ReaderActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".module.OfficialAnnounceActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".module.AboutUsActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 </manifest>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ebag.mobile.widget.TitleBar
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="关于我们"/>
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="@dimen/x66"
+        android:layout_height="@dimen/x54"
+        android:layout_marginTop="@dimen/y40"
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleView"
+        />
+
+    <TextView
+        android:id="@+id/tvSub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y12"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/tv_normal"
+        android:text="@string/about_us_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivLogo" />
+
+    <LinearLayout
+        android:id="@+id/infoLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:showDividers="middle"
+        android:divider="@drawable/setting_line"
+        android:layout_marginRight="@dimen/x10"
+        android:layout_marginLeft="@dimen/x10"
+        android:layout_marginTop="@dimen/x10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/white_shadow_bg"
+        app:layout_constraintTop_toBottomOf="@id/tvSub">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/x5"
+            android:paddingTop="@dimen/y11"
+            android:paddingBottom="@dimen/y11"
+            android:textSize="@dimen/tv_normal"
+            android:textColor="@color/tv_normal"
+            android:text="@string/about_us_website"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/x5"
+            android:paddingTop="@dimen/y11"
+            android:paddingBottom="@dimen/y11"
+            android:textSize="@dimen/tv_normal"
+            android:textColor="@color/tv_normal"
+            android:text="@string/about_us_phone"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/x5"
+            android:paddingTop="@dimen/y11"
+            android:paddingBottom="@dimen/y11"
+            android:textSize="@dimen/tv_normal"
+            android:textColor="@color/tv_normal"
+            android:text="@string/about_us_email"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvSub2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y24"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/tv_normal"
+        android:layout_marginLeft="@dimen/x10"
+        android:drawableLeft="@drawable/about_us_left_line"
+        android:drawablePadding="@dimen/x10"
+        android:text="@string/about_us_desc_tip"
+        app:layout_constraintStart_toStartOf="@id/infoLayout"
+        app:layout_constraintTop_toBottomOf="@id/infoLayout" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y12"
+        android:textColor="@color/tv_normal"
+        android:textSize="@dimen/tv_normal"
+        android:text="@string/about_us_desc"
+        app:layout_constraintStart_toStartOf="@id/tvSub2"
+        app:layout_constraintTop_toBottomOf="@id/tvSub2"
+        app:layout_constraintEnd_toEndOf="@id/infoLayout"/>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -142,6 +142,7 @@ abstract class BaseListFragment<Parent, E> : LazyFragment(),
         recyclerView = rootView.findViewById(R.id.recyclerView)
         stateView = rootView.findViewById(R.id.stateView)
         refreshLayout = rootView.findViewById(R.id.refreshLayout)
+        refreshLayout.setColorSchemeResources(R.color.blue)
         // 设置 recyclerView 的 Adapter
         mAdapter = getAdapter()
         mAdapter?.enableLoadMoreEndClick(true)
