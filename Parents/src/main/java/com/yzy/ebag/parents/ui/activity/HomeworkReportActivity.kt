@@ -18,7 +18,7 @@ class HomeworkReportActivity : BaseActivity(), HomeworkReportContract.HomeworkRe
 
     private val titleArray: Array<String> = arrayOf("作业简介", "完成情况")
     private val mFragmentList: ArrayList<Fragment> = arrayListOf()
-    private lateinit var mPersenter: HomeworkReportContract.Persenter
+    private lateinit var mPersenter: HomeworkReportContract.Presenter
     private lateinit var mHomeworkId: String
     private lateinit var mEndTime: String
     private lateinit var mSubject: String

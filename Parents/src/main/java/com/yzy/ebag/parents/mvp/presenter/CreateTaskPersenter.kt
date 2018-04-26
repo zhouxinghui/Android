@@ -5,7 +5,7 @@ import com.yzy.ebag.parents.http.ParentsAPI
 import com.yzy.ebag.parents.mvp.CreateTaskContract
 import ebag.core.http.network.RequestCallBack
 
-class CreateTaskPersenter(private val view: CreateTaskContract.CreateTaskView) : CreateTaskContract.Parsenter {
+class CreateTaskPersenter(private val view: CreateTaskContract.CreateTaskView) : CreateTaskContract.Presenter {
 
 
     override fun queryChild() {

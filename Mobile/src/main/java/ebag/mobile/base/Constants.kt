@@ -7,6 +7,7 @@ object Constants {
     const val STUDENT_USER_ENTITY = "student_entity"
     const val TEACHER_USER_ENTITY = "teacher_entity"
     const val PARENTS_USER_ENTITY = "parends_entity"
+    const val CHILD_USER_ENTITY = "child_entity"
     const val KEY_TO_MAIN = "key_to_main"
     const val CODE_LOGIN_RESULT = 11
 

@@ -13,7 +13,7 @@ class LoginActivity:BLoginActivity(){
 
     override fun getRoleCode(): String = BLoginActivity.PARENT_ROLE
 
-    override fun getJumpIntent(): Intent =  Intent(this, MainActivity::class.java)
+    override fun getJumpIntent(): Intent =  if ((SPUtils.get(this,com.yzy.ebag.parents.common.Constants.CURRENT_CHILDREN_YSBCODE,"") as String).isEmpty()) Intent(this,ChooseChildrenActivity::class.java).putExtra("flag",true) else Intent(this,MainActivity::class.java)
     override fun forgetClick(view: View) {
 
     }

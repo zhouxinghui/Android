@@ -5,25 +5,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/imageview"
+    <ebag.mobile.widget.TitleBar
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y300"
-        android:scaleType="centerCrop"
-        android:src="@drawable/img_excitation_home" />
+        android:layout_height="wrap_content"
+        app:titleText="已发布通知" />
 
     <ebag.core.widget.empty.StateView
         android:id="@+id/stateview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:emptyLayout="@layout/mobile_empty"
+        app:emptyLayout="@layout/mobile_loading"
         app:errorLayout="@layout/mobile_error"
         app:loadingLayout="@layout/mobile_loading" />
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 
 </LinearLayout>

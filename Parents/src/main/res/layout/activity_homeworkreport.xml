@@ -16,8 +16,8 @@
         android:id="@+id/stateview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:errorLayout="@layout/base_error"
-        app:loadingLayout="@layout/base_loading" />
+        app:errorLayout="@layout/mobile_error"
+        app:loadingLayout="@layout/mobile_loading" />
 
     <com.flyco.tablayout.SlidingTabLayout
         android:id="@+id/tablayout"

@@ -1,6 +1,8 @@
 package com.yzy.ebag.parents.bean;
 
-public class MyChildrenBean {
+import java.io.Serializable;
+
+public class MyChildrenBean implements Serializable {
 
 
     /**

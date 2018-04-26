@@ -82,6 +82,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                     1 ->{
                         name.text = modifyStr
                         userEntity?.name = modifyStr
+                        setResult(999)
                     }
                     2 ->{
                         sex.text = modifyStr

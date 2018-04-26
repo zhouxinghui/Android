@@ -27,9 +27,9 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/layout"
         android:layout_below="@+id/titlebar"
-        app:emptyLayout="@layout/base_empty"
-        app:errorLayout="@layout/base_error"
-        app:loadingLayout="@layout/base_loading" />
+        app:emptyLayout="@layout/mobile_empty"
+        app:errorLayout="@layout/mobile_error"
+        app:loadingLayout="@layout/mobile_loading" />
 
     <LinearLayout
         android:id="@+id/layout"

@@ -6,6 +6,7 @@ import android.view.KeyEvent
 import com.yzy.ebag.parents.R
 import ebag.core.base.App
 import ebag.core.base.BaseActivity
+import ebag.core.util.SPUtils
 import ebag.core.util.StringUtils
 import ebag.mobile.base.Constants
 
@@ -18,7 +19,11 @@ class WelcomeActivity : BaseActivity() {
         Handler().postDelayed({
             startActivity(
                     if (!StringUtils.isEmpty(token)) {
-                        Intent(this, MainActivity::class.java)
+                        if ((SPUtils.get(this, com.yzy.ebag.parents.common.Constants.CURRENT_CHILDREN_YSBCODE, "") as String).isNotEmpty()) {
+                            Intent(this, MainActivity::class.java)
+                        } else {
+                            Intent(this, ChooseChildrenActivity::class.java).putExtra("flag", true)
+                        }
                     } else {
                         Intent(this, LoginActivity::class.java).putExtra(Constants.KEY_TO_MAIN, true)
                     }

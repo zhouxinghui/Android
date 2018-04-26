@@ -71,6 +71,7 @@ class PersonalFragment : BaseFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == 999){
             personal_head.loadHead(SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).headUrl,true)
+            personal_name.text = SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).name
         }
     }
 

@@ -11,13 +11,16 @@ import com.umeng.socialize.bean.SHARE_MEDIA
 import com.umeng.socialize.media.UMImage
 import com.umeng.socialize.media.UMWeb
 import com.yzy.ebag.parents.R
+import com.yzy.ebag.parents.bean.MyChildrenBean
 import com.yzy.ebag.parents.ui.adapter.MainPagerAdapter
 import com.yzy.ebag.parents.ui.fragment.ClazzFragment
 import com.yzy.ebag.parents.ui.fragment.MainFragment
 import com.yzy.ebag.parents.ui.fragment.PersonalFragment
 import com.yzy.ebag.parents.ui.widget.SharePupopwindow
 import ebag.core.base.BaseActivity
+import ebag.core.util.SerializableUtils
 import ebag.core.util.T
+import ebag.mobile.base.Constants
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -53,7 +56,8 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener, View.On
             R.id.rb_clazz -> {
                 viewpager.setCurrentItem(1, false)
                 setTilteVisiable(false)
-                setTitle("班级")
+                val bean = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY)
+                setTitle(bean.className)
             }
 
             R.id.rb_personal -> {

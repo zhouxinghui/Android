@@ -118,6 +118,7 @@
         <activity
             android:name=".ui.activity.PersonalInfoActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.NoticeListActivity" />
 
         <meta-data
             android:name="UMENG_APPKEY"

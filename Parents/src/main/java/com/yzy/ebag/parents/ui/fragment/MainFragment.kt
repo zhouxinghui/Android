@@ -82,7 +82,7 @@ class MainFragment : BaseFragment() {
         mainRVAdapter.setOnItemClickListener { adapter, view, position ->
 
             when (position) {
-                4 -> ChooseChildrenActivity.start(activity)
+                4 -> ChooseChildrenActivity.start(activity,false)
                 1 -> ExcitationActivity.start(activity)
                 5 -> performanceDialog.show()
             }

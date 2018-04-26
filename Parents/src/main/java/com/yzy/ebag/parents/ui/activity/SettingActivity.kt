@@ -13,8 +13,9 @@ import ebag.core.util.AppManager
 import ebag.core.util.SPUtils
 import ebag.core.util.SerializableUtils
 import ebag.mobile.base.Constants
+import ebag.mobile.module.AboutUsActivity
+import ebag.mobile.widget.UserFeedbackDialog
 import kotlinx.android.synthetic.main.activity_setting.*
-
 
 
 class SettingActivity : BaseActivity() {
@@ -25,17 +26,30 @@ class SettingActivity : BaseActivity() {
     override fun initViews() {
 
 
-       recyclerview.layoutManager = LinearLayoutManager(this)
-       mAdapter = SettingAdapter(datas)
-       recyclerview.addItemDecoration(ebag.core.xRecyclerView.manager.DividerItemDecoration(DividerItemDecoration.VERTICAL, 1, Color.parseColor("#e0e0e0")))
-       recyclerview.adapter = mAdapter
+        recyclerview.layoutManager = LinearLayoutManager(this)
+        mAdapter = SettingAdapter(datas)
+        recyclerview.addItemDecoration(ebag.core.xRecyclerView.manager.DividerItemDecoration(DividerItemDecoration.VERTICAL, 1, Color.parseColor("#e0e0e0")))
+        recyclerview.adapter = mAdapter
 
         logout.setOnClickListener {
             App.deleteToken()
-            SerializableUtils.deleteSerializable(Constants.STUDENT_USER_ENTITY)
+            SerializableUtils.deleteSerializable(Constants.CHILD_USER_ENTITY)
             SPUtils.remove(this, com.yzy.ebag.parents.common.Constants.CURRENT_CHILDREN_YSBCODE)
             startActivity(Intent(this, LoginActivity::class.java).putExtra(Constants.KEY_TO_MAIN, true))
             AppManager.finishAllActivity()
+        }
+
+        mAdapter.setOnItemClickListener { adapter, view, position ->
+            when (position) {
+                3 -> {
+                    startActivity(Intent(this,AboutUsActivity::class.java))
+
+                }
+
+                2 -> UserFeedbackDialog(this).show()
+
+
+            }
         }
 
     }

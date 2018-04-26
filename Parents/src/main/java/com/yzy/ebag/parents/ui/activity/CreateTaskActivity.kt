@@ -20,7 +20,7 @@ class CreateTaskActivity : BaseActivity(), CreateTaskContract.CreateTaskView {
 
     private var datas: ArrayList<MyChildrenBean> = arrayListOf()
     private lateinit var mAdapter: CreateTaskAdapter
-    private lateinit var mPersenter: CreateTaskContract.Parsenter
+    private lateinit var mPersenter: CreateTaskContract.Presenter
     private var selectedUid = ""
     override fun getLayoutId(): Int = R.layout.activity_createtask
 

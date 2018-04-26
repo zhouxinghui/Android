@@ -5,6 +5,7 @@ import com.yzy.ebag.parents.bean.HomeworkAbstractBean
 import com.yzy.ebag.parents.bean.MyChildrenBean
 import com.yzy.ebag.parents.bean.OnePageInfoBean
 import ebag.core.http.network.RequestCallBack
+import ebag.mobile.bean.NoticeBean
 import ebag.mobile.http.EBagApi
 import ebag.mobile.http.EBagClient
 import org.json.JSONArray
@@ -76,5 +77,12 @@ object ParentsAPI {
         val jsonObject = JSONObject()
         jsonObject.put("id", id)
         EBagApi.request(parentsService.updateTask("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**查询最新公告*/
+    fun newestNotice(classId: String, callback: RequestCallBack<NoticeBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId",classId)
+        EBagApi.request(parentsService.newestNotice("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

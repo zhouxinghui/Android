@@ -5,6 +5,7 @@ import android.support.v7.widget.GridLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.parents.R
+import com.yzy.ebag.parents.bean.MyChildrenBean
 import ebag.core.base.App
 import ebag.core.base.BaseDialog
 import ebag.core.http.network.RequestCallBack
@@ -13,7 +14,6 @@ import ebag.core.util.SerializableUtils
 import ebag.core.util.loadHead
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.PersonalPerformanceBean
-import ebag.mobile.bean.UserEntity
 import ebag.mobile.http.EBagApi
 import kotlinx.android.synthetic.main.dialog_performance.*
 
@@ -105,7 +105,7 @@ class PerformanceDialog(context: Context) : BaseDialog(context) {
             dismiss()
         }
 
-        val userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.STUDENT_USER_ENTITY)
+        val userEntity = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY)
 
         if (userEntity != null) {
             ivHead.loadHead(userEntity.headUrl)

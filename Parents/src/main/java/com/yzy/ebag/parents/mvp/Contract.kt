@@ -13,7 +13,7 @@ interface ChooseChildrenContract {
 interface HomeworkReportContract {
     interface HomeworkReportView : BaseView
 
-    interface Persenter : BasePresenter<HomeworkReportView> {
+    interface Presenter : BasePresenter<HomeworkReportView> {
 
         fun request(homeworkId: String, uid: String)
     }
@@ -23,7 +23,7 @@ interface ExcitationJobContract {
 
     interface ExcitationJobView : BaseView.BaseListView {
 
-        fun notifyBtn(position:Int)
+        fun notifyBtn(position: Int)
 
         fun finishError(e: Throwable?): Unit = TODO("no impl")
     }
@@ -34,24 +34,47 @@ interface ExcitationJobContract {
 
         fun requestHomeWork()
 
-        fun finish(id: String,position:Int)
+        fun finish(id: String, position: Int)
     }
 }
 
 
-interface CreateTaskContract{
+interface CreateTaskContract {
 
-    interface CreateTaskView:BaseView.BaseListView{
+    interface CreateTaskView : BaseView.BaseListView {
 
         fun createSuccess()
 
         fun createFailed(e: Throwable?)
     }
 
-    interface Parsenter:BasePresenter<CreateTaskView>{
+    interface Presenter : BasePresenter<CreateTaskView> {
 
         fun queryChild()
 
-        fun createTask(title:String,content:String,uid:String)
+        fun createTask(title: String, content: String, uid: String)
+    }
+}
+
+interface ClazzMainContract {
+
+    interface ClazzMainView : BaseView
+
+    interface Presenter : BasePresenter<ClazzMainView> {
+
+        fun queryClazzNews(id: String)
+
+    }
+}
+
+interface NoticeListContract {
+
+    interface NoticeListView : BaseView.BaseListView
+
+    interface Presenter : BasePresenter<NoticeListView> {
+
+        fun firstList(clazzId: String)
+
+        fun loadMore()
     }
 }

@@ -5,7 +5,7 @@ import com.yzy.ebag.parents.http.ParentsAPI
 import com.yzy.ebag.parents.mvp.HomeworkReportContract
 import ebag.core.http.network.RequestCallBack
 
-class HomeworkReportPersenter(private val view:HomeworkReportContract.HomeworkReportView):HomeworkReportContract.Persenter {
+class HomeworkReportPersenter(private val view:HomeworkReportContract.HomeworkReportView):HomeworkReportContract.Presenter {
 
     override fun request(homeworkId: String, uid: String) {
         ParentsAPI.getHomeworkReport(homeworkId,uid,object:RequestCallBack<HomeworkAbstractBean>(){

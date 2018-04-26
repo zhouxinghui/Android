@@ -5,6 +5,7 @@ import com.yzy.ebag.parents.bean.HomeworkAbstractBean
 import com.yzy.ebag.parents.bean.MyChildrenBean
 import com.yzy.ebag.parents.bean.OnePageInfoBean
 import ebag.core.bean.ResponseBean
+import ebag.mobile.bean.NoticeBean
 import io.reactivex.Observable
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -39,4 +40,8 @@ interface ParentsService{
     /*更新任务*/
     @POST("user/updateChildTargetCompleted/{version}")
     fun updateTask(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**查询最新公告*/
+    @POST("notice/queryNewClassNotice/{version}")
+    fun newestNotice(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<NoticeBean>>
 }
