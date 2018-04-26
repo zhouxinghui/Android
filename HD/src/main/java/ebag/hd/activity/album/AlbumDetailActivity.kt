@@ -175,7 +175,7 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
 
         // 上传
         uploadBtn.setOnClickListener {
-            PhotoUploadActivity.jump(this, classId, photoGroupId, groupType)
+            PhotoUploadActivity.jump(this, classId, photoGroupId, groupType, role)
         }
 
         showOptions(false)

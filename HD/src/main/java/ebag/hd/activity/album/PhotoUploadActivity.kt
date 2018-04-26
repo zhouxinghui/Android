@@ -32,12 +32,13 @@ import java.io.File
 class PhotoUploadActivity: BaseActivity() {
 
     companion object {
-        fun jump(context: Activity, classId: String, photoGroupId: String, groupType: String){
+        fun jump(context: Activity, classId: String, photoGroupId: String, groupType: String, role: Int){
             context.startActivityForResult(
                     Intent(context, PhotoUploadActivity::class.java)
                             .putExtra("classId", classId)
                             .putExtra("photoGroupId", photoGroupId)
                             .putExtra("groupType", groupType)
+                            .putExtra("role", role)
                     ,ebag.hd.base.Constants.NORMAL_REQUEST
             )
         }
@@ -72,8 +73,13 @@ class PhotoUploadActivity: BaseActivity() {
         }
         photoUploadBean.classId = intent.getStringExtra("classId") ?: ""
         photoUploadBean.photoGroupId = intent.getStringExtra("photoGroupId") ?: ""
-
-        val userEntity = SerializableUtils.getSerializable<UserEntity>(ebag.hd.base.Constants.STUDENT_USER_ENTITY)
+        val role = intent.getIntExtra("role", ebag.hd.base.Constants.ROLE_STUDENT)
+        val entityType = when(role){
+            ebag.hd.base.Constants.ROLE_TEACHER ->{ebag.hd.base.Constants.TEACHER_USER_ENTITY}
+            ebag.hd.base.Constants.ROLE_STUDENT ->{ebag.hd.base.Constants.STUDENT_USER_ENTITY}
+            else ->{ebag.hd.base.Constants.STUDENT_USER_ENTITY}
+        }
+        val userEntity = SerializableUtils.getSerializable<UserEntity>(entityType)
         userId = userEntity?.uid ?: "1"
 
         titleView.setRightText("确定"){
