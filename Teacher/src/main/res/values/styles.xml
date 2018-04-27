@@ -256,7 +256,30 @@
         <item name="android:padding">@dimen/y15</item>
         <item name="android:drawablePadding">@dimen/x10</item>
     </style>
-
+    <!--检查作业start-->
+    <!--android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/x5"
+    android:paddingEnd="@dimen/x5"
+    android:paddingTop="@dimen/y10"
+    android:paddingBottom="@dimen/y10"
+    android:background="@drawable/white_shadow_bg"
+    android:layout_marginStart="@dimen/x10"
+    android:layout_marginEnd="@dimen/x10"
+    android:layout_marginBottom="@dimen/y10"-->
+    <style name="correcting_answer_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">@dimen/x5</item>
+        <item name="android:paddingEnd">@dimen/x5</item>
+        <item name="android:paddingTop">@dimen/y10</item>
+        <item name="android:paddingBottom">@dimen/y10</item>
+        <item name="android:background">@drawable/white_shadow_bg</item>
+        <item name="android:layout_marginStart">@dimen/x5</item>
+        <item name="android:layout_marginEnd">@dimen/x5</item>
+        <item name="android:layout_marginBottom">@dimen/y10</item>
+    </style>
+    <!--检查作业end-->
     <style name="TabLayoutTextStyle">
         <item name="android:textSize">@dimen/tv_normal</item>
     </style>

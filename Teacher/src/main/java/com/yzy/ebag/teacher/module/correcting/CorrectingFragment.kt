@@ -2,6 +2,7 @@ package com.yzy.ebag.teacher.module.correcting
 
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -85,6 +86,11 @@ class CorrectingFragment: BaseListFragment<List<CorrectingBean>, CorrectingBean.
             return ArrayList()
         className = parent[0].className
         return parent[0].subjectVos[0].homeWorkInfoVos
+    }
+
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+        adapter as MyAdapter
+        CorrectingDescActivity.jump(mContext, adapter.data[position].id, type)
     }
 
     override fun getAdapter(): BaseQuickAdapter<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean, BaseViewHolder> = MyAdapter()

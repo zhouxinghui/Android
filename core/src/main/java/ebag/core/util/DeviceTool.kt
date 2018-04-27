@@ -18,9 +18,11 @@ object DeviceTool {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             telephonyManager.imei
         } else {
-            telephonyManager.deviceId
+            try {
+                telephonyManager.deviceId
+            } catch (e: Exception) {
+                ""
+            }
         }
-
     }
-
 }

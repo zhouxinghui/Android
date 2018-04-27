@@ -473,4 +473,40 @@ object TeacherApi {
             jsonObject.put("subCode", subCode)
         EBagApi.request(teacherService.searchPublish("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**检查作业*/
+    fun correctWork(id: String, type: String, callback: RequestCallBack<List<QuestionBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("id", id)
+        jsonObject.put("type", type)
+        EBagApi.request(teacherService.correctWork("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**检查作业学生答案*/
+    fun correctStudentAnswer(homeworkId: String, questionId: String, callback: RequestCallBack<List<CorrectAnswerBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("homeWorkId", homeworkId)
+        jsonObject.put("questionId", questionId)
+        EBagApi.request(teacherService.correctStudentAnswer("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**评语列表*/
+    fun commentList(homeworkId: String, page: Int, pageSize: Int, callback: RequestCallBack<List<CommentBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("homeWorkId", homeworkId)
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", pageSize)
+        EBagApi.request(teacherService.commentList("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 提交评语
+     */
+    fun uploadComment(homeworkId: String, uid: String, teacherComment: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("homeWorkId", homeworkId)
+        jsonObject.put("uid", uid)
+        jsonObject.put("teacherComment", teacherComment)
+        EBagApi.request(teacherService.uploadComment("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

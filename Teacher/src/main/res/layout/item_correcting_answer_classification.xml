@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/correcting_answer_item"
+    >
+    <TextView android:id="@+id/studentName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="@color/tv_normal"
+        tools:text="张三"
+
+        />
+    <TextView android:id="@+id/bagId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/tv_sub"
+        android:textColor="@color/tv_sub"
+        tools:text="书包号：1000734"
+        android:layout_marginStart="@dimen/x10"
+        app:layout_constraintStart_toEndOf="@id/studentName"
+        />
+    <TextView android:id="@+id/commitTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y10"
+        android:textSize="@dimen/tv_sub"
+        android:textColor="@color/tv_sub"
+        tools:text="提交时间：2018-02-05"
+        app:layout_constraintTop_toBottomOf="@id/studentName"
+        />
+    <TextView android:id="@+id/answerTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y10"
+        android:text="学生答案："
+        android:textSize="@dimen/tv_normal"
+        android:textColor="@color/tv_normal"
+        app:layout_constraintTop_toBottomOf="@id/commitTime"
+        />
+    <LinearLayout android:id="@+id/classifyLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y10"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/answerTv"
+        >
+
+    </LinearLayout>
+    <TextView android:id="@+id/correctIcon"
+        android:layout_width="@dimen/x20"
+        android:layout_height="@dimen/x20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/correct_select_bg"
+        />
+</android.support.constraint.ConstraintLayout>

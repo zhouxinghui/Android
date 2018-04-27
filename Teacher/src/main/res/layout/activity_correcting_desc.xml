@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <ebag.mobile.widget.TitleBar android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:rightText="查看报告"
+        />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottomLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <!--试题详情-解析-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/white_shadow_bg"
+                    android:paddingStart="@dimen/x5"
+                    android:paddingEnd="@dimen/x5"
+                    android:paddingTop="@dimen/y10"
+                    android:paddingBottom="@dimen/y10"
+                    android:layout_marginTop="@dimen/y10"
+                    android:layout_marginStart="@dimen/x5"
+                    android:layout_marginEnd="@dimen/x5"
+                    android:orientation="vertical"
+                    >
+                    <LinearLayout android:id="@+id/questionLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        />
+                    <TextView android:id="@+id/analyseTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/y10"
+                        android:textSize="@dimen/tv_normal"
+                        android:textColor="@color/tv_normal"
+                        />
+                </LinearLayout>
+                <android.support.v7.widget.RecyclerView android:id="@+id/answerRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+        <RelativeLayout android:id="@+id/bottomLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y80"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray"
+                />
+            <TextView android:id="@+id/questionNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="@dimen/tv_sub"
+                android:textColor="@color/tv_sub"
+                tools:text="第3题/共10题"
+                />
+            <ebag.core.widget.drawable.DrawableTextView android:id="@+id/nextQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/x10"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:layout_alignParentEnd="true"
+                android:textSize="@dimen/tv_normal"
+                android:textColor="@color/correcting_exchange_tv"
+                android:text="下一题"
+                android:drawablePadding="@dimen/x10"
+                app:rightDrawable="@drawable/question_next_page_icon"
+                app:rightDrawableWidth="@dimen/x7"
+                app:rightDrawableHeight="@dimen/x13"
+                />
+            <ebag.core.widget.drawable.DrawableTextView android:id="@+id/previewQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:textSize="@dimen/tv_normal"
+                android:textColor="@color/correcting_exchange_tv"
+                android:text="上一题"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="@dimen/x10"
+                android:drawablePadding="@dimen/x10"
+                app:leftDrawable="@drawable/question_preview_page_icon"
+                app:leftDrawableWidth="@dimen/x7"
+                app:leftDrawableHeight="@dimen/x13"
+                />
+        </RelativeLayout>
+        <ebag.core.widget.empty.StateView android:id="@+id/stateView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>
