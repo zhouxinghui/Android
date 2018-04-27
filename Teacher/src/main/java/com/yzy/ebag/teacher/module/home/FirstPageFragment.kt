@@ -19,6 +19,7 @@ import com.yzy.ebag.teacher.bean.FirstPageBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.module.book.BookListActivity
 import com.yzy.ebag.teacher.module.correcting.CorrectingActivity
+import com.yzy.ebag.teacher.module.correcting.CorrectingDescActivity
 import com.yzy.ebag.teacher.module.homework.AssignmentActivity
 import com.yzy.ebag.teacher.module.prepare.MyPrepareActivity
 import com.yzy.ebag.teacher.module.tools.ZixiActivity
@@ -126,8 +127,8 @@ class FirstPageFragment: BaseFragment() {
             val type = bean.type
             if (StringUtils.isEmpty(id) || StringUtils.isEmpty(type))
                 T.show(mContext, "作业信息不全！")
-//            else
-//                CorrectingDescActivity.jump(mContext, bean.id, bean.type)
+            else
+                CorrectingDescActivity.jump(mContext, bean.id, bean.type)
         }
     }
 

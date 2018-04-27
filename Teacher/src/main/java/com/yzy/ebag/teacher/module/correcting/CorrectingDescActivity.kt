@@ -80,6 +80,7 @@ class CorrectingDescActivity : BaseActivity() {
                 it.answer = it.rightAnswer
             }
             showQuestion(entity[0])
+            titleBar.setTitle(QuestionTypeUtils.getTitle(entity[0].type))
             stateView.showContent()
             questionNum.text = "第${currentQuestionIndex + 1}题/共${questionList?.size}题"
         }
