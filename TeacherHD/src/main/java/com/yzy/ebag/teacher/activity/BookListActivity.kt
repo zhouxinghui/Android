@@ -10,6 +10,7 @@ import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.activity.clazz.CreateClassActivity
 import ebag.core.http.file.DownLoadObserver
 import ebag.core.http.file.DownloadInfo
 import ebag.core.http.file.DownloadManager
@@ -38,12 +39,24 @@ class BookListActivity: BaseListActivity<List<BookBean>, BookBean>() {
         }
     }
     private var classId: String? = ""
-    private val createClassDialog by lazy {
+    private val courseDialog by lazy {
         val dialog = AlertDialog.Builder(this)
                 .setTitle("温馨提示")
                 .setMessage("你当前所在班级没有添加所教课程，请在对应班级的班级空间中添加所教课程")
                 .setNegativeButton("取消", null)
                 .setPositiveButton("确定", null)
+                .create()
+        dialog
+    }
+    private val createClassDialog by lazy {
+        val dialog = AlertDialog.Builder(this)
+                .setTitle("温馨提示")
+                .setMessage("你暂未加入班级，你可以联系对应班级班主任添加任课老师，也可自己创建班级")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("创建班级", {dialog, which ->
+                    CreateClassActivity.jump(this)
+                    finish()
+                })
                 .create()
         dialog
     }
@@ -67,6 +80,8 @@ class BookListActivity: BaseListActivity<List<BookBean>, BookBean>() {
 
     override fun onSpecialError(exception: MsgException) {
         if (exception.code == "3001"){
+            courseDialog.show()
+        }else if (exception.code == "2001"){
             createClassDialog.show()
         }
     }
