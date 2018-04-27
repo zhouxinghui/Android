@@ -5,18 +5,87 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.ViewPager
 import android.util.TypedValue
 import android.widget.LinearLayout
 import com.yzy.ebag.teacher.R
+import com.yzy.ebag.teacher.bean.CorrectingBean
+import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.base.BaseActivity
+import ebag.core.http.network.MsgException
+import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
+import ebag.mobile.base.Constants
 import kotlinx.android.synthetic.main.activity_correcting.*
 import java.lang.reflect.Field
 
 class CorrectingActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_correcting
+    var classId = ""
+    var subCode = ""
+    private val classList = ArrayList<CorrectingBean>()
+    private lateinit var fragments: List<CorrectingFragment>
+    private var currentPage = 0
+    private val request = object : RequestCallBack<List<CorrectingBean>>(){
+        override fun onStart() {
+            stateView.showLoading()
+        }
+
+        override fun onSuccess(entity: List<CorrectingBean>?) {
+            if (entity == null || entity.isEmpty()){
+                stateView.showEmpty()
+                return
+            }
+            val classBean = entity[0]
+            if (classBean.subjectVos.isEmpty()){
+                stateView.showEmpty("暂无所教课程")
+                return
+            }
+            stateView.showContent()
+            classList.clear()
+            classList.addAll(entity)
+            classId = classBean.classId
+            val subjectBean = classBean.subjectVos[0]
+            subCode = subjectBean.subCode
+            clazzTv.text = "${classBean.className} - ${subjectBean.subject}"
+
+            initFragment(classId, subCode)
+
+            fragments[0].setData(subjectBean.homeWorkInfoVos)
+        }
+
+        override fun onError(exception: Throwable) {
+            if (exception is MsgException){
+                stateView.showError("${exception.message.toString()}")
+            }else{
+                exception.handleThrowable(this@CorrectingActivity)
+            }
+        }
+    }
+
+    private val classPopup by lazy {
+        val popup = CorrectingSubjectPopup(this)
+        popup.onSubjectSelect = {classId, className, subCode, subName ->
+            clazzTv.text = "$className - $subName"
+            this.classId = classId
+            this.subCode = subCode
+            fragments[currentPage].update(classId, subCode)
+        }
+        popup
+    }
 
     override fun initViews() {
-        val fragments = arrayListOf(CorrectingFragment.newInstance(), CorrectingFragment.newInstance(), CorrectingFragment.newInstance())
+        TeacherApi.searchPublish(Constants.STZY_TYPE, request)
+        subjectBtn.setOnClickListener {
+            classPopup.show(classList, subjectBtn)
+        }
+    }
+
+    private fun initFragment(classId: String, subCode: String){
+        fragments = arrayListOf(
+                CorrectingFragment.newInstance(Constants.STZY_TYPE, classId, subCode),
+                CorrectingFragment.newInstance(Constants.KHZY_TYPE, classId, subCode),
+                CorrectingFragment.newInstance(Constants.KSSJ_TYPE, classId, subCode))
         val titleList = arrayListOf("随堂作业", "课后作业", "考试试卷")
 
         val adapter = ViewPagerAdapter(
@@ -25,6 +94,16 @@ class CorrectingActivity : BaseActivity() {
         viewPager.offscreenPageLimit = 2
         tabLayout.post{setIndicator(tabLayout, 5, 5)}
         tabLayout.setupWithViewPager(viewPager)
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+            override fun onPageSelected(position: Int) {
+                currentPage = position
+            }
+
+        })
     }
 
     inner class ViewPagerAdapter(fm: FragmentManager, private val fragments: List<Fragment>, private val titleList: List<String>): FragmentPagerAdapter(fm){

@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.CorrectingBean
+import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.DateUtil
@@ -36,15 +37,47 @@ class CorrectingFragment: BaseListFragment<List<CorrectingBean>, CorrectingBean.
         }
     }
     override fun getBundle(bundle: Bundle?) {
+        type = bundle?.getString("type") ?: "1"
+        classId = bundle?.getString("classId") ?: ""
+        subCode = bundle?.getString("subCode") ?: ""
     }
     private var type = ""
     private var classId = ""
     private var subCode = ""
     private var className = ""
     override fun loadConfig() {
+
     }
 
+    fun setData(list: List<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>?){
+        withFirstPageData(list)
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        if (isVisibleToUser && mContext is CorrectingActivity){
+            val classId = (mContext as CorrectingActivity).classId
+            val subCode = (mContext as CorrectingActivity).subCode
+            if (this.classId != classId || this.subCode != subCode){
+                this.classId = classId
+                this.subCode = subCode
+                onRetryClick()
+            }
+        }
+        super.setUserVisibleHint(isVisibleToUser)
+    }
+
+    fun update(classId: String, subCode: String){
+        if (this.classId != classId || this.subCode != subCode){
+            this.classId = classId
+            this.subCode = subCode
+            onRetryClick()
+        }
+    }
+
+    override fun getPageSize(): Int = 10
+
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<CorrectingBean>>) {
+        TeacherApi.searchPublish(type, requestCallBack, classId, subCode, page, getPageSize())
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<CorrectingBean>?): List<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>? {

@@ -160,4 +160,8 @@ interface TeacherService {
     /**自习室-生字总览列表*/
     @POST("util/queryNewWordsTime/{version}")
     fun getLetterRecord(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<LetterRecordBaseBean>>>
+
+    /**查询已经布置的作业列表*/
+    @POST("sendHome/searchSendHomeWork/{version}")
+    fun searchPublish(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<CorrectingBean>>>
 }
