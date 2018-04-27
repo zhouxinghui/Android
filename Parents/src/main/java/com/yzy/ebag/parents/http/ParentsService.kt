@@ -1,9 +1,6 @@
 package com.yzy.ebag.parents.http
 
-import com.yzy.ebag.parents.bean.ExcitationWorkBean
-import com.yzy.ebag.parents.bean.HomeworkAbstractBean
-import com.yzy.ebag.parents.bean.MyChildrenBean
-import com.yzy.ebag.parents.bean.OnePageInfoBean
+import com.yzy.ebag.parents.bean.*
 import ebag.core.bean.ResponseBean
 import ebag.mobile.bean.NoticeBean
 import io.reactivex.Observable
@@ -44,4 +41,8 @@ interface ParentsService{
     /**查询最新公告*/
     @POST("notice/queryNewClassNotice/{version}")
     fun newestNotice(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<NoticeBean>>
+
+    /**自习室-生字总览列表*/
+    @POST("util/queryNewWordsTime/{version}")
+    fun getLetterRecord(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<LetterRecordBaseBean>>>
 }

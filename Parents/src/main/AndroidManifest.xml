@@ -118,7 +118,21 @@
         <activity
             android:name=".ui.activity.PersonalInfoActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.NoticeListActivity" />
+        <activity
+            android:name=".ui.activity.NoticeListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ZixiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ZixiRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ReadRecordListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.LetterRecordListActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="UMENG_APPKEY"

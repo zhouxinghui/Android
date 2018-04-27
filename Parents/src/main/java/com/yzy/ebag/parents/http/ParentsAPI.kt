@@ -1,10 +1,8 @@
 package com.yzy.ebag.parents.http
 
-import com.yzy.ebag.parents.bean.ExcitationWorkBean
-import com.yzy.ebag.parents.bean.HomeworkAbstractBean
-import com.yzy.ebag.parents.bean.MyChildrenBean
-import com.yzy.ebag.parents.bean.OnePageInfoBean
+import com.yzy.ebag.parents.bean.*
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.StringUtils
 import ebag.mobile.bean.NoticeBean
 import ebag.mobile.http.EBagApi
 import ebag.mobile.http.EBagClient
@@ -85,4 +83,15 @@ object ParentsAPI {
         jsonObject.put("classId",classId)
         EBagApi.request(parentsService.newestNotice("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**自习室-生字总览列表*/
+    fun getLetterRecord(unitId: String, classId: String, callback: RequestCallBack<List<LetterRecordBaseBean>>) {
+        val jsonObject = JSONObject()
+        if (!StringUtils.isEmpty(unitId))
+            jsonObject.put("unitId", unitId)
+        jsonObject.put("classId", classId)
+        EBagApi.request(parentsService.getLetterRecord("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+
 }

@@ -138,10 +138,13 @@ object EBagApi {
     }
 
     /**获取用户的所有所在班级 queryType不传，查询所有所教班级，传“1”：查询教授语文的班级（练字），传“2”：查询教授语文和英语的班级（跟读）*/
-    fun getMyClasses(callback: RequestCallBack<List<BaseClassesBean>>, queryType: String? = null) {
+    fun getMyClasses(callback: RequestCallBack<List<BaseClassesBean>>, queryType: String? = null,uid:String? = null) {
         val jsonObject = JSONObject()
         if (!StringUtils.isEmpty(queryType)){
             jsonObject.put("queryType", queryType)
+        }
+        if (!StringUtils.isEmpty(uid)){
+            jsonObject.put("uid", uid)
         }
         EBagApi.request(eBagService.getMyClasses("v1", EBagApi.createBody(jsonObject)), callback)
     }

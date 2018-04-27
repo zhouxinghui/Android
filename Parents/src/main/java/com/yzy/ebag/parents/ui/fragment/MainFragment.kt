@@ -17,6 +17,7 @@ import com.yzy.ebag.parents.mvp.model.TabEntity
 import com.yzy.ebag.parents.ui.activity.ChooseChildrenActivity
 import com.yzy.ebag.parents.ui.activity.ExcitationActivity
 import com.yzy.ebag.parents.ui.activity.HomeworkListActivity
+import com.yzy.ebag.parents.ui.activity.ZixiActivity
 import com.yzy.ebag.parents.ui.adapter.MainRVAdapter
 import com.yzy.ebag.parents.ui.widget.PerformanceDialog
 import com.yzy.ebag.parents.utils.GlideImageLoader
@@ -82,9 +83,10 @@ class MainFragment : BaseFragment() {
         mainRVAdapter.setOnItemClickListener { adapter, view, position ->
 
             when (position) {
-                4 -> ChooseChildrenActivity.start(activity,false)
+                4 -> ChooseChildrenActivity.start(activity, false)
                 1 -> ExcitationActivity.start(activity)
                 5 -> performanceDialog.show()
+                3 -> ZixiActivity.jump(activity)
             }
         }
 

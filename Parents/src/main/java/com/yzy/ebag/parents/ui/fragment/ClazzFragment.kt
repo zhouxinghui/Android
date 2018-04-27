@@ -1,5 +1,6 @@
 package com.yzy.ebag.parents.ui.fragment
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
@@ -20,6 +21,7 @@ import ebag.core.util.loadHead
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.NoticeBean
 import ebag.mobile.module.clazz.ClassScheduleActivity
+import ebag.mobile.module.clazz.ClazzmateActivity
 import ebag.mobile.module.clazz.album.AlbumActivity
 import kotlinx.android.synthetic.main.fragment_class.*
 
@@ -32,6 +34,7 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
     private val icons: Array<Int> = arrayOf(R.drawable.icon_class_tongji, R.drawable.icon_class_class_photo, R.drawable.icon_class_class_schedule_card, R.drawable.icon_class_banji)
     private var isFirst = true
     private var isViewPrepare = false
+    private val bean = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY)
 
     companion object {
         fun newInstance(): ClazzFragment {
@@ -67,9 +70,16 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
 
         adapter.setOnItemClickListener { _, _, position ->
 
-            when(position){
-                1 -> {AlbumActivity.jump(activity,(SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).classId,Constants.ROLE_PARENT)}
-                2 -> {ClassScheduleActivity.jump(activity,(SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).classId)}
+            when (position) {
+                1 -> {
+                    AlbumActivity.jump(activity, (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).classId, Constants.ROLE_PARENT)
+                }
+                2 -> {
+                    ClassScheduleActivity.jump(activity, (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).classId)
+                }
+                3 -> {
+                    startActivity(Intent(activity, ClazzmateActivity::class.java).putExtra("classId", bean.classId))
+                }
             }
         }
     }
@@ -100,7 +110,6 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser && isViewPrepare && isFirst) {
-            val bean = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY)
             mPersenter.queryClazzNews(bean.classId)
             isFirst = false
         }
