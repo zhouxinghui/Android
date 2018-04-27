@@ -55,6 +55,9 @@ class CorrectingFragment: BaseListFragment<List<CorrectingBean>, CorrectingBean.
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (!isViewCreated)
+            return
         if (isVisibleToUser && mContext is CorrectingActivity){
             val classId = (mContext as CorrectingActivity).classId
             val subCode = (mContext as CorrectingActivity).subCode
@@ -64,7 +67,6 @@ class CorrectingFragment: BaseListFragment<List<CorrectingBean>, CorrectingBean.
                 onRetryClick()
             }
         }
-        super.setUserVisibleHint(isVisibleToUser)
     }
 
     fun update(classId: String, subCode: String){
@@ -90,6 +92,8 @@ class CorrectingFragment: BaseListFragment<List<CorrectingBean>, CorrectingBean.
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
         adapter as MyAdapter
+        if (mContext == null)
+            mContext = activity
         CorrectingDescActivity.jump(mContext, adapter.data[position].id, type)
     }
 

@@ -2,7 +2,6 @@ package com.yzy.ebag.teacher.module.correcting
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.EditText
@@ -78,7 +77,7 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
     }
 
     override fun getLayoutManager(adapter: BaseQuickAdapter<CommentBean, BaseViewHolder>): RecyclerView.LayoutManager? {
-        return GridLayoutManager(this, 2)
+        return null
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {

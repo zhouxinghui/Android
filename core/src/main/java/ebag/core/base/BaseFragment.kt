@@ -12,11 +12,16 @@ import android.view.ViewGroup
  */
 abstract class BaseFragment : Fragment() {
 
-    val mContext: Context by lazy { activity}
+    protected lateinit var mContext: Context
     private var mRootView : View? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getBundle(arguments)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

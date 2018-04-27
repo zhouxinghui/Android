@@ -30,7 +30,7 @@
         />
     <TextView android:id="@+id/scoreTv"
         android:layout_width="@dimen/x45"
-        android:layout_height="@dimen/x55"
+        android:layout_height="@dimen/x40"
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="@dimen/tv_big"

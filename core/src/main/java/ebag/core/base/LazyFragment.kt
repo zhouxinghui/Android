@@ -13,7 +13,7 @@ abstract class LazyFragment: BaseFragment(){
     abstract fun lazyLoad()
 
     //Fragment的View加载完毕的标记
-    private var isViewCreated = false
+    protected var isViewCreated = false
     //Fragment对用户可见的标记
     private var isUIVisible = false
 

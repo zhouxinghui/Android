@@ -138,6 +138,7 @@ class CorrectingDescActivity : BaseActivity() {
         }
         answerRecycler.adapter = answerAdapter
         answerRecycler.layoutManager = LinearLayoutManager(this)
+        answerRecycler.isNestedScrollingEnabled = false
 
         titleBar.setOnRightClickListener {
             CommentActivity.jump(this@CorrectingDescActivity, homeworkId, type)
