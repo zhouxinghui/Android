@@ -162,7 +162,7 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
             categoryOut.setOrientation(VERTICAL);
             LinearLayout.LayoutParams outParams = new LinearLayout.LayoutParams(
                     (int)getResources().getDimension(R.dimen.x120), ViewGroup.LayoutParams.WRAP_CONTENT);
-            outParams.leftMargin = (int) getResources().getDimension(R.dimen.x15);
+            outParams.leftMargin = (int) getResources().getDimension(R.dimen.x10);
             outParams.topMargin = (int) getResources().getDimension(R.dimen.y10);
             categoryOut.setLayoutParams(outParams);
             categoryOut.setMinimumHeight((int)getResources().getDimension(R.dimen.y230));
