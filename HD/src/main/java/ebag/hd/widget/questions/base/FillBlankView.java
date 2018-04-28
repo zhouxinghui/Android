@@ -284,7 +284,7 @@ public class FillBlankView extends FrameLayout {
         AnswerRange range = rangeList.get(position);
         if(StringUtils.INSTANCE.isEmpty(answer))
             if(range.line)
-                answer = "____";
+                answer = " ____ ";
             else
                 answer = "\u3000\u3000\u3000";
         else

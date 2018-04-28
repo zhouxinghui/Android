@@ -1,4 +1,4 @@
-package ebag.mobile.module
+package ebag.mobile.module.homework
 
 import android.content.Context
 import android.content.Intent
@@ -64,7 +64,7 @@ class WorkReportActivity: BaseActivity() {
 
 
         titleBar.setRightText("作业详情"){
-//            DoHomeworkActivity.jump(this, homeworkId, Constants.REPORT_TYPE, workType, studentId)
+            HomeworkDescActivity.jump(this, homeworkId, workType, studentId)
         }
 
         recyclerView.adapter = adapter

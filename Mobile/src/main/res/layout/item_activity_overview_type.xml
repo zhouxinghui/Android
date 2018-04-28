@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ebag.core.widget.drawable.DrawableTextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="@dimen/y30"
+    android:layout_marginBottom="@dimen/y10"
+    android:paddingStart="@dimen/x10"
+    android:id="@+id/tv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textColor="#4a4a4a"
+    android:textSize="@dimen/tv_big"
+    app:leftDrawable="@drawable/icon_overview_type_selector"
+    app:leftDrawableWidth="@dimen/x11"
+    app:leftDrawableHeight="@dimen/x11"
+    android:gravity="center_vertical"
+    android:drawablePadding="@dimen/x10"
+    tools:text="填空题"/>

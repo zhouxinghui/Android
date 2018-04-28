@@ -41,9 +41,12 @@
         <activity
             android:name=".module.account.YBCenterActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".module.WorkReportActivity"
+        <activity android:name=".module.homework.WorkReportActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"
+            />
+        <activity android:name=".module.homework.HomeworkDescActivity"
+            android:screenOrientation="portrait"
             />
     </application>
 </manifest>

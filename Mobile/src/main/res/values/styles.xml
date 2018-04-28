@@ -192,5 +192,26 @@
         <item name="android:textSize">@dimen/tv_big</item>
         <item name="android:includeFontPadding">false</item>
     </style>
+    <style name="question_analyse_tv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/y10</item>
+        <item name="android:paddingBottom">@dimen/y10</item>
+        <item name="android:paddingStart">@dimen/x10</item>
+        <item name="android:paddingEnd">@dimen/x10</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="android:textColor">@color/tv_normal</item>
+        <item name="android:text">查看解析</item>
+    </style>
+    <style name="question_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@drawable/white_shadow_bg</item>
+        <item name="android:layout_marginTop">@dimen/y5</item>
+        <item name="android:layout_marginStart">@dimen/x5</item>
+        <item name="android:layout_marginEnd">@dimen/x5</item>
+    </style>
     <!--work_report-->
 </resources>

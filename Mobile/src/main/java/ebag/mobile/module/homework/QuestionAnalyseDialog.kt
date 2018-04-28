@@ -1,15 +1,15 @@
-package com.yzy.ebag.teacher.module.homework
+package ebag.mobile.module.homework
 
 import android.content.Context
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
-import com.yzy.ebag.teacher.R
 import ebag.core.base.BaseDialog
 import ebag.core.bean.QuestionBean
 import ebag.core.bean.QuestionTypeUtils
 import ebag.core.util.StringUtils
 import ebag.core.util.T
+import ebag.mobile.R
 import ebag.mobile.widget.questions.*
 import ebag.mobile.widget.questions.base.BaseQuestionView
 import kotlinx.android.synthetic.main.dialog_question_analyse.*

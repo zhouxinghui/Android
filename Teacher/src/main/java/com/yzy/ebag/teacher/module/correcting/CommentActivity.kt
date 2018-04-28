@@ -20,7 +20,7 @@ import ebag.core.util.T
 import ebag.core.util.loadHead
 import ebag.mobile.base.BaseListActivity
 import ebag.mobile.base.Constants
-import ebag.mobile.module.WorkReportActivity
+import ebag.mobile.module.homework.WorkReportActivity
 
 /**
  * Created by YZY on 2018/3/1.

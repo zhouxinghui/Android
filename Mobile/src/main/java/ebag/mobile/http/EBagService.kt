@@ -1,6 +1,7 @@
 package ebag.mobile.http
 
 import ebag.core.bean.ResponseBean
+import ebag.core.bean.TypeQuestionBean
 import ebag.mobile.bean.*
 import io.reactivex.Observable
 import okhttp3.RequestBody
@@ -189,8 +190,11 @@ interface EBagService {
     @POST("correctHome/createHomeWorkRep/{version}")
     fun homeworkReport(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ReportBean>>
 
-
     //云币中心查询支出收入
     @POST("user/serchYsbMoneyDetail/{version}")
     fun queryYBCurrent(@Path("version")version: String, @Body requestBody: RequestBody):Observable<ResponseBean<YBCurrentBean>>
+
+    /**获取作业详情*/
+    @POST("homeWork/getHomeWorkQuestion/{version}")
+    fun getQuestions(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<TypeQuestionBean>>>
 }

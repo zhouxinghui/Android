@@ -3,6 +3,7 @@ package ebag.mobile.http
 import com.alibaba.fastjson.JSON
 import ebag.core.base.App
 import ebag.core.bean.ResponseBean
+import ebag.core.bean.TypeQuestionBean
 import ebag.core.http.baseBean.RequestBean
 import ebag.core.http.network.*
 import ebag.core.util.StringUtils
@@ -430,5 +431,16 @@ object EBagApi {
         jsonObject.put("page", page)
         jsonObject.put("pageSize", pageSize)
         EBagApi.request(eBagService.queryYBCurrent("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**获取作业详情*/
+    fun getQuestions(homeWorkId: String, type: String, studentId: String?, callback: RequestCallBack<List<TypeQuestionBean>>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("homeWorkId", homeWorkId)
+        jsonObject.put("type", type)
+        if (!StringUtils.isEmpty(studentId)) {
+            jsonObject.put("uid", studentId)
+        }
+        EBagApi.request(eBagService.getQuestions("v1", EBagApi.createBody(jsonObject)), callback)
     }
 }

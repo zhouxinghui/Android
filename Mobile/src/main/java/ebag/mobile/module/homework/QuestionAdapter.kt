@@ -1,20 +1,38 @@
-package com.yzy.ebag.teacher.module.homework
+package ebag.mobile.module.homework
 
-import android.graphics.Color
 import android.view.View
-import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.yzy.ebag.teacher.R
 import ebag.core.bean.QuestionBean
 import ebag.core.bean.QuestionTypeUtils
+import ebag.mobile.R
 import ebag.mobile.widget.questions.base.BaseQuestionView
 
 /**
- * Created by YZY on 2018/1/30.
+ * @author caoyu
+ * @date 2018/2/2
+ * @description
  */
-class QuestionAdapter(private val isPreviewPage: Boolean = false): BaseMultiItemQuickAdapter<QuestionBean, BaseViewHolder>(null) {
+class QuestionAdapter: BaseMultiItemQuickAdapter<QuestionBean, BaseViewHolder>(null) {
+
+    var onDoingListener: BaseQuestionView.OnDoingListener? = null
+    var isShowAnalyseTv = false
+    set(value) {
+        field = value
+        notifyDataSetChanged()
+    }
+    var canDo = true
+    set(value) {
+        field = value
+        notifyDataSetChanged()
+    }
+    var showResult = false
+    set(value) {
+        field = value
+        notifyDataSetChanged()
+    }
     init {
         //看单词选图
         addItemType(QuestionTypeUtils.QUESTIONS_CHOOSE_PIC_BY_WORD, R.layout.item_questions_choice)
@@ -61,12 +79,6 @@ class QuestionAdapter(private val isPreviewPage: Boolean = false): BaseMultiItem
         //阅读理解
         addItemType(QuestionTypeUtils.QUESTIONS_CHINESE_READ_UNDERSTAND, R.layout.item_questions_understand)
     }
-    var selectItem = -1
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-    var previewList = ArrayList<QuestionBean>()
 
     private var onItemChildClickListener: ebag.core.xRecyclerView.adapter.OnItemChildClickListener? = null
 
@@ -77,55 +89,34 @@ class QuestionAdapter(private val isPreviewPage: Boolean = false): BaseMultiItem
     override fun convert(helper: BaseViewHolder, item: QuestionBean?) {
         val questionView = helper.getView<BaseQuestionView>(R.id.questionView)
         questionView.setData(item)
-        questionView.show(false)
+        questionView.tag = item
+        questionView.setOnDoingListener(onDoingListener)
+        questionView.show(canDo)
+        if (showResult){
+            questionView.showResult()
+        }
 
-        helper.addOnClickListener(R.id.feedBackTv)
+        helper.getView<TextView>(R.id.analyseTv).visibility = if (isShowAnalyseTv) View.VISIBLE else View.GONE
         helper.addOnClickListener(R.id.analyseTv)
-        helper.addOnClickListener(R.id.selectTv)
-
-//        helper.getView<View>(R.id.question_item_root).isSelected = selectItem != -1 && selectItem == helper.adapterPosition
-        if(selectItem != -1 && selectItem == helper.adapterPosition){
-            helper.getView<ViewGroup>(R.id.question_item_root).setBackgroundColor(Color.parseColor("#FFF9F0"))
-        }else
-            helper.getView<ViewGroup>(R.id.question_item_root).setBackgroundColor(Color.parseColor("#FFFFFF"))
-        val selectTv = helper.getView<TextView>(R.id.selectTv)
-        if (item!!.isChoose){
-            selectTv.text = "移除"
-            selectTv.isSelected = true
-        }else{
-            selectTv.text = "选入"
-            selectTv.isSelected = false
-        }
-        if (previewList.contains(item)){
-            item.isChoose = true
-            selectTv.isSelected = true
-            selectTv.text = "移除"
-        }
-        if (isPreviewPage) {
-            if (helper.adapterPosition != 0 && item.type == mData[helper.adapterPosition - 1].type)
-                helper.getView<TextView>(R.id.typeNameTv).visibility = View.GONE
-            else {
-                helper.setText(R.id.typeNameTv, QuestionTypeUtils.getTitle(item.type))
-                helper.getView<TextView>(R.id.typeNameTv).visibility = View.VISIBLE
-            }
-        }else{
-            helper.getView<TextView>(R.id.typeNameTv).visibility = View.GONE
-        }
 
         when(helper.itemViewType){
             QuestionTypeUtils.QUESTIONS_CHINESE_WRITE_BY_VOICE,
             QuestionTypeUtils.QUESTIONS_CHOOSE_BY_VOICE,
-            QuestionTypeUtils.QUESTIONS_COMPLETION_BY_VOICE,
-            QuestionTypeUtils.QUESTIONS_FOLLOW_READ ->{
+            QuestionTypeUtils.QUESTIONS_COMPLETION_BY_VOICE ->{
                 questionView.setOnItemChildClickListener(onItemChildClickListener)
             }
-        }
+            QuestionTypeUtils.QUESTIONS_FOLLOW_READ ->{
+                questionView.setOnItemChildClickListener(onItemChildClickListener)
 
-        helper.setText(R.id.useNumTv, "共被使用${item.useCount ?: "0"}次")
-        helper.setText(R.id.errorNumTv, "错题次数${item.errNum ?: "0"}")
-        if (item.createDate == null)
-            helper.setText(R.id.createTimeTv, "")
-        else
-            helper.setText(R.id.createTimeTv, "创建时间${item.createDate}")
+                val recorderBtn = helper.getView<ImageView>(R.id.recorder_id)
+                val playBtn = helper.getView<TextView>(R.id.recorder_play_id)
+                val uploadBtn = helper.getView<TextView>(R.id.recorder_upload_id)
+                recorderBtn.setTag(R.id.recorder_upload_id, uploadBtn)
+                recorderBtn.setTag(R.id.recorder_play_id, playBtn)
+                helper.addOnClickListener(R.id.recorder_id)
+                helper.addOnClickListener(R.id.recorder_upload_id)
+                helper.addOnClickListener(R.id.recorder_play_id)
+            }
+        }
     }
 }

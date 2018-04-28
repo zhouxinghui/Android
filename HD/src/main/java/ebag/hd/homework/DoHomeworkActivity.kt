@@ -537,7 +537,8 @@ class DoHomeworkActivity: BaseActivity() {
 
     inner class QuestionItemChildClickListener : OnItemChildClickListener {
         override fun onItemChildClick(holder: RecyclerViewHolder, view: View, position: Int) {
-            voicePlaySetting(view)
+            if (view.id == R.id.play_id)
+                voicePlaySetting(view)
         }
     }
     private fun voicePlaySetting(view: View){
