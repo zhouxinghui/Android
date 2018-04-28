@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    android:paddingTop="@dimen/y15"
+    android:paddingBottom="@dimen/y15">
+
+    <TextView
+        android:id="@+id/questionType"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.2"
+        android:paddingStart="@dimen/x10"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#4a4a4a"
+        android:text="类别"/>
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#4a4a4a"
+        android:text="数量"/>
+    <TextView
+        android:id="@+id/errorCount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#4a4a4a"
+        android:text="错题"/>
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:gravity="center"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#4a4a4a"
+        android:text="分数"/>
+
+</LinearLayout>

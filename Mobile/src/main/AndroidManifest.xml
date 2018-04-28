@@ -37,5 +37,9 @@
         <activity android:name=".module.AboutUsActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".module.WorkReportActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+            />
     </application>
 </manifest>

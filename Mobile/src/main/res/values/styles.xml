@@ -166,4 +166,31 @@
         <item name="android:windowEnterAnimation">@anim/catalog_popup_in</item>
         <item name="android:windowExitAnimation">@anim/catalog_popup_out</item>
     </style>
+    <!--work_report-->
+    <!--
+    android:layout_width="@dimen/x70"
+                android:layout_height="@dimen/x70"
+                android:background="@drawable/icon_report_error"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="#181818"
+                android:textSize="@dimen/tv_big"
+                android:includeFontPadding="false"
+    -->
+    <style name="report_round_view">
+        <item name="android:layout_width">@dimen/x75</item>
+        <item name="android:layout_height">@dimen/x75</item>
+        <item name="progress">80</item>
+        <item name="roundWidth">@dimen/x2</item>
+    </style>
+    <style name="report_score_tv">
+        <item name="android:layout_width">@dimen/x70</item>
+        <item name="android:layout_height">@dimen/x70</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#181818</item>
+        <item name="android:textSize">@dimen/tv_big</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <!--work_report-->
 </resources>

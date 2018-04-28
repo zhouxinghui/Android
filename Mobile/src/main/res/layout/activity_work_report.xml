@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <ebag.mobile.widget.TitleBar android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y350">
+                <View android:id="@+id/bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/paper_report_bg"
+                    />
+                <View android:id="@+id/bg2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/paper_report_juan"
+                    android:layout_marginTop="@dimen/y15"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/bg"
+                    />
+                <FrameLayout
+                    android:id="@+id/scoreLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/bg"
+                    app:layout_constraintEnd_toStartOf="@id/heightLayout"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/bg"
+                    >
+
+                    <ebag.core.widget.RoundView
+                        android:id="@+id/scoreRound"
+                        style="@style/report_round_view"
+                        app:roundColor="#D5D5D5"
+                        app:roundProgressColor="#4CB06C"/>
+
+                    <TextView
+                        android:id="@+id/scoreTv"
+                        style="@style/report_score_tv"
+                        android:background="@drawable/icon_report_score"
+                        tools:text="总分\n80"/>
+
+                </FrameLayout>
+                <FrameLayout
+                    android:id="@+id/heightLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/scoreLayout"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/bg"
+                    app:layout_constraintEnd_toStartOf="@id/errorLayout"
+                    >
+
+                    <ebag.core.widget.RoundView
+                        android:id="@+id/heightRound"
+                        style="@style/report_round_view"
+                        app:roundColor="#D5D5D5"
+                        app:roundProgressColor="#ECAA38"/>
+                    <TextView
+                        android:id="@+id/heightTv"
+                        style="@style/report_score_tv"
+                        android:background="@drawable/icon_report_height"
+                        tools:text="最高分\n80"/>
+
+                </FrameLayout>
+                <FrameLayout
+                    android:id="@+id/errorLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/bg"
+                    app:layout_constraintStart_toEndOf="@id/heightLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    >
+                    <ebag.core.widget.RoundView
+                        android:id="@+id/errorRound"
+                        style="@style/report_round_view"
+                        app:roundColor="#D5D5D5"
+                        app:roundProgressColor="#E76647"/>
+                    <TextView
+                        android:id="@+id/errorTv"
+                        style="@style/report_score_tv"
+                        android:background="@drawable/icon_report_error"
+                        tools:text="错题\n8"/>
+                </FrameLayout>
+            </android.support.constraint.ConstraintLayout>
+            <include layout="@layout/item_activity_report"/>
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
+                    <android.support.v7.widget.RecyclerView android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/tv_normal"
+                        android:textColor="@color/tv_normal"
+                        android:paddingStart="@dimen/x5"
+                        android:paddingEnd="@dimen/x5"
+                        android:paddingTop="@dimen/y10"
+                        android:paddingBottom="@dimen/y10"
+                        android:text="老师评语"
+                        />
+                    <EditText android:id="@+id/editTeacher"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y200"
+                        android:background="@drawable/blue_stroke"
+                        android:textColor="@color/tv_normal"
+                        android:textSize="@dimen/tv_normal"
+                        android:gravity="start"
+                        android:padding="@dimen/y10"
+                        android:layout_marginStart="@dimen/x5"
+                        android:layout_marginEnd="@dimen/x5"
+                        android:enabled="false"
+                        android:hint="暂未编写评语"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/tv_normal"
+                        android:textColor="@color/tv_normal"
+                        android:paddingStart="@dimen/x5"
+                        android:paddingEnd="@dimen/x5"
+                        android:paddingTop="@dimen/y10"
+                        android:paddingBottom="@dimen/y10"
+                        android:text="家长评语"
+                        />
+                    <EditText android:id="@+id/editParent"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y200"
+                        android:background="@drawable/blue_stroke"
+                        android:textColor="@color/tv_normal"
+                        android:textSize="@dimen/tv_normal"
+                        android:gravity="start"
+                        android:padding="@dimen/y10"
+                        android:layout_marginStart="@dimen/x5"
+                        android:layout_marginEnd="@dimen/x5"
+                        android:enabled="false"
+                        android:hint="暂未编写评语"
+                        />
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+        </LinearLayout>
+        <ebag.core.widget.empty.StateView android:id="@+id/stateView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+</LinearLayout>

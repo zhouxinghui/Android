@@ -411,4 +411,14 @@ object EBagApi {
         jsonObject.put("pageSize", pageSize)
         EBagApi.request(eBagService.officialAnnounce("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**作业报告*/
+    fun homeworkReport(homeworkId: String, studentId: String?, callback: RequestCallBack<ReportBean>) {
+        val jsonObject = JSONObject()
+        if (!StringUtils.isEmpty(studentId)) {
+            jsonObject.put("uid", studentId)
+        }
+        jsonObject.put("homeWorkId", homeworkId)
+        EBagApi.request(eBagService.homeworkReport("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

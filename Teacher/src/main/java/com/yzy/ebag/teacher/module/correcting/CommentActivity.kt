@@ -20,6 +20,7 @@ import ebag.core.util.T
 import ebag.core.util.loadHead
 import ebag.mobile.base.BaseListActivity
 import ebag.mobile.base.Constants
+import ebag.mobile.module.WorkReportActivity
 
 /**
  * Created by YZY on 2018/3/1.
@@ -89,6 +90,7 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
                     ReportTestActivity.jump(this, homeworkId, type, commentBean.uid, commentBean.studentName)
                 else
                     ReportClassActivity.jump(this, homeworkId, type, commentBean.uid, commentBean.studentName)*/
+                WorkReportActivity.jump(this, homeworkId, type, commentBean.uid, commentBean.studentName)
             }
             R.id.commitCommentBtn ->{
                 val commentEdit = view.tag as EditText

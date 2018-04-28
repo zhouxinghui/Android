@@ -184,4 +184,8 @@ interface EBagService {
     /**官方公告*/
     @POST("user/APPVersion/{version}")
     fun officialAnnounce(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<OfficialAnnounceBean>>
+
+    /**作业报告*/
+    @POST("correctHome/createHomeWorkRep/{version}")
+    fun homeworkReport(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ReportBean>>
 }
