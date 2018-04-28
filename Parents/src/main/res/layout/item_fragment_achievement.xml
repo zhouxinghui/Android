@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center_vertical"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/x40"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    android:layout_marginTop="@dimen/x10">
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/x12"
+        android:paddingStart="@dimen/x10"
+        android:textColor="#666666"
+        android:text="2017年3月22日"/>
+    
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="invisible"
+        android:textSize="@dimen/x12"
+        android:textColor="#666666"
+        android:text="12:30"/>
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/x14"
+        android:layout_marginStart="@dimen/x25"
+        android:textColor="#494949"
+        android:text="98分"/>
+
+    <TextView
+        android:id="@+id/summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/x12"
+        android:layout_marginStart="@dimen/x10"
+        android:textColorHint="#9b9b9b"
+        android:textColor="#4a4a4a"
+        android:hint="暂无总结"/>
+</LinearLayout>

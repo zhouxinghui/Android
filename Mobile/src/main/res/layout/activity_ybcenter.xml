@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ebag.mobile.widget.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="我的云币" />
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y400"
+        app:cardCornerRadius="@dimen/x5"
+        android:layout_marginStart="@dimen/x10"
+        android:layout_marginEnd="@dimen/x10"
+        android:layout_marginTop="@dimen/y20"
+        app:cardUseCompatPadding="true">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y50"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="收入:" />
+
+                <ImageView
+                    android:layout_width="@dimen/x20"
+                    android:layout_height="@dimen/x20"
+                    android:layout_marginStart="@dimen/x10"
+                    tools:src="@drawable/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/income"
+                    android:layout_width="wrap_content"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="@dimen/x10"
+                    tools:text="10086" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y50"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="支出:" />
+
+                <ImageView
+                    android:layout_width="@dimen/x20"
+                    android:layout_height="@dimen/x20"
+                    android:layout_marginStart="@dimen/x10"
+                    tools:src="@drawable/ic_launcher" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/expense"
+                    android:layout_marginStart="@dimen/x10"
+                    tools:text="10086" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="@dimen/x70"
+                android:layout_height="@dimen/y70"
+                android:text="立即充值"
+                android:gravity="center"
+                android:id="@+id/charge"
+                android:layout_gravity="center"
+                android:textColor="#fff"
+                android:layout_marginTop="@dimen/y50"
+                android:background="@drawable/charge_bcg"
+                />
+
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+
+    <TextView
+        android:layout_marginTop="@dimen/y40"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y60"
+        android:text="收支明细"
+        android:background="#fff"
+        android:textSize="@dimen/tv_big"
+        android:textColor="#000"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/x20"
+
+        />
+
+    <ebag.core.widget.empty.StateView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/stateview"
+        app:loadingLayout="@layout/base_loading"
+        app:errorLayout="@layout/base_error"
+        app:emptyLayout="@layout/base_empty"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/recyclerview"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

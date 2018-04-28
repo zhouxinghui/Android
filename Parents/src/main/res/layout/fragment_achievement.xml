@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+
+        <FrameLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y400"
+            android:paddingTop="@dimen/y20"
+            android:paddingStart="@dimen/x5"
+            android:paddingEnd="@dimen/x5"
+            android:paddingBottom="@dimen/y20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent">
+
+            <!--<ebag.core.widget.FoldChartView
+                android:id="@+id/chartView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />-->
+        </FrameLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/pageBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout" />
+    </android.support.constraint.ConstraintLayout>
+
+    <ebag.core.widget.empty.StateView
+        android:layout_width="match_parent"
+        android:id="@+id/stateview"
+        android:layout_height="match_parent"
+        app:emptyLayout="@layout/base_empty"
+        app:errorLayout="@layout/base_error"
+        app:loadingLayout="@layout/base_loading" />
+
+</RelativeLayout>

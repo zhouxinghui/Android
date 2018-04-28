@@ -188,4 +188,9 @@ interface EBagService {
     /**作业报告*/
     @POST("correctHome/createHomeWorkRep/{version}")
     fun homeworkReport(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ReportBean>>
+
+
+    //云币中心查询支出收入
+    @POST("user/serchYsbMoneyDetail/{version}")
+    fun queryYBCurrent(@Path("version")version: String, @Body requestBody: RequestBody):Observable<ResponseBean<YBCurrentBean>>
 }

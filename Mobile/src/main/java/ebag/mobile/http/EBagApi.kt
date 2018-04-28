@@ -421,4 +421,14 @@ object EBagApi {
         jsonObject.put("homeWorkId", homeworkId)
         EBagApi.request(eBagService.homeworkReport("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**
+     * 查询云币
+     */
+    fun queryYBCurrent(page: Int, pageSize: Int, callback: RequestCallBack<YBCurrentBean>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", pageSize)
+        EBagApi.request(eBagService.queryYBCurrent("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

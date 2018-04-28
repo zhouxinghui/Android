@@ -7,6 +7,7 @@ import ebag.mobile.http.EBagApi
 
 class NoticeListPresenter(private val view:NoticeListContract.NoticeListView):NoticeListContract.Presenter{
 
+
     private var id:String = ""
     private var page:Int = 1
 

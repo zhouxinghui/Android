@@ -1,42 +1,46 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="ebag.mobile">
+
     <application>
-        <activity android:name=".module.account.BLoginActivity"
-            android:screenOrientation="portrait"
+        <activity
+            android:name=".module.account.BLoginActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
-            />
-        <activity android:name="ebag.core.base.PhotoPreviewActivity"
-            tools:replace="android:screenOrientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="ebag.core.base.PhotoPreviewActivity"
             android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.account.ProtocolActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.clazz.ClazzmateActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.clazz.album.PhotoUploadActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.clazz.album.AlbumDetailActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.clazz.album.AlbumActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.clazz.ClassScheduleActivity"
-            android:screenOrientation="landscape"
-            />
-        <activity android:name=".module.book.ReaderActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.OfficialAnnounceActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.AboutUsActivity"
-            android:screenOrientation="portrait"
-            />
+            tools:replace="android:screenOrientation" />
+        <activity
+            android:name=".module.account.ProtocolActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.clazz.ClazzmateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.clazz.album.PhotoUploadActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.clazz.album.AlbumDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.clazz.album.AlbumActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.clazz.ClassScheduleActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".module.book.ReaderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.OfficialAnnounceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.AboutUsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.account.YBCenterActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".module.WorkReportActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"

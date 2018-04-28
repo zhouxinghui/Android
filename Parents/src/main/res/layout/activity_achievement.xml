@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ebag.mobile.widget.TitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/white"
+        app:tabSelectedTextColor="#ffffff" app:tabTextColor="@color/gray"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+    <!--<RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/titleBar">
+        <RadioButton
+            android:id="@+id/rbSt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:textSize="@dimen/x24"
+            android:textColor="@color/color_achievement_text_selector"
+            android:background="@drawable/bac_achievement_selector"
+            android:layout_marginEnd="@dimen/x20"
+            android:text="随堂作业"
+            android:button="@null"/>
+
+        <RadioButton
+            android:id="@+id/rbKh"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/x24"
+            android:textColor="@color/color_achievement_text_selector"
+            android:background="@drawable/bac_achievement_selector"
+            android:layout_marginStart="@dimen/x20"
+            android:layout_marginEnd="@dimen/x20"
+            android:text="课后作业"
+            android:button="@null"/>
+
+        <RadioButton
+            android:id="@+id/rbKs"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/x20"
+            android:textSize="@dimen/x24"
+            android:textColor="@color/color_achievement_text_selector"
+            android:background="@drawable/bac_achievement_selector"
+            android:text="考试试卷"
+            android:button="@null"/>
+    </RadioGroup>-->
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/titleBar"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</android.support.constraint.ConstraintLayout>

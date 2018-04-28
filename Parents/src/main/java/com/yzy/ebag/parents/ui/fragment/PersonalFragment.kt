@@ -16,6 +16,7 @@ import ebag.core.util.SerializableUtils
 import ebag.core.util.loadHead
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.UserEntity
+import ebag.mobile.module.account.YBCenterActivity
 import kotlinx.android.synthetic.main.fragment_personal.*
 
 class PersonalFragment : BaseFragment() {
@@ -49,7 +50,7 @@ class PersonalFragment : BaseFragment() {
         mAdapter = PersonalAdapter(datas)
         val url = SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).headUrl
         val name = SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).name
-        personal_head.loadHead(url,true)
+        personal_head.loadHead(url, true)
         personal_name.text = name
         recyclerview.layoutManager = LinearLayoutManager(activity)
         recyclerview.adapter = mAdapter
@@ -59,18 +60,19 @@ class PersonalFragment : BaseFragment() {
         mAdapter.setOnItemClickListener { _, _, position ->
             when (position) {
                 2 -> SettingActivity.start(activity)
+                0 -> YBCenterActivity.start(activity)
             }
         }
 
         personal_head.setOnClickListener {
-            startActivityForResult(Intent(activity, PersonalInfoActivity::class.java),998)
+            startActivityForResult(Intent(activity, PersonalInfoActivity::class.java), 998)
         }
 
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == 999){
-            personal_head.loadHead(SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).headUrl,true)
+        if (resultCode == 999) {
+            personal_head.loadHead(SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).headUrl, true)
             personal_name.text = SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).name
         }
     }

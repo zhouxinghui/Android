@@ -11,6 +11,7 @@ import com.yzy.ebag.parents.bean.MyChildrenBean
 import com.yzy.ebag.parents.mvp.ClazzMainContract
 import com.yzy.ebag.parents.mvp.model.PersonalItemModel
 import com.yzy.ebag.parents.mvp.presenter.ClazzMainPresenter
+import com.yzy.ebag.parents.ui.activity.AchievementActivity
 import com.yzy.ebag.parents.ui.activity.NoticeListActivity
 import com.yzy.ebag.parents.ui.adapter.PersonalAdapter
 import ebag.core.base.BaseFragment
@@ -79,6 +80,10 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
                 }
                 3 -> {
                     startActivity(Intent(activity, ClazzmateActivity::class.java).putExtra("classId", bean.classId))
+                }
+
+                0 -> {
+                    AchievementActivity.jump(activity,(SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).grade)
                 }
             }
         }

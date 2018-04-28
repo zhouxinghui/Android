@@ -58,7 +58,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile project(':Mobile')
-    compile 'com.android.support:cardview-v7:26.1.0'
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     compile 'com.android.support:multidex:1.0.2'
     implementation files('libs/SocialSDK_QQ_Simplify.jar')

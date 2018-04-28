@@ -76,5 +76,6 @@ interface NoticeListContract {
         fun firstList(clazzId: String)
 
         fun loadMore()
+
     }
 }
