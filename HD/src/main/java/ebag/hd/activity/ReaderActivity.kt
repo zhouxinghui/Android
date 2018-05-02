@@ -351,8 +351,9 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             val palletView = PaletteView(this@ReaderActivity)
             val trackPath = "${FileUtil.getBookTrackPath()}Track$position.png"
-            if (FileUtil.isFileExists(trackPath))
+            if (FileUtil.isFileExists(trackPath)) {
                 palletView.setFirstLoadBitmap(trackPath)
+            }
             palletView.setCanDraw(false)
             container.addView(palletView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
             return palletView

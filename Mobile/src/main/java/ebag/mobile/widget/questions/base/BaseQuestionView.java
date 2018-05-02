@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import java.util.ArrayList;
 import java.util.List;
 
-import ebag.core.http.image.SingleImageLoader;
+import ebag.core.util.ImageLoadUtilKt;
 import ebag.core.util.StringUtils;
 import ebag.core.xRecyclerView.adapter.OnItemChildClickListener;
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter;
@@ -150,7 +150,7 @@ public abstract class BaseQuestionView extends LinearLayout implements IQuestion
                     if(StringUtils.INSTANCE.isEmpty(entity)){
                         setter.setGone(R.id.ivImage,true);
                     }else{
-                        SingleImageLoader.getInstance().setImage(entity,setter.getImageView(R.id.ivImage));
+                        ImageLoadUtilKt.loadImage(setter.getImageView(R.id.ivImage), entity);
                     }
                     break;
                 case VIEW_SUB_TITLE:
