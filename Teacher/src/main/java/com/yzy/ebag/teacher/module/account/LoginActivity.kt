@@ -25,7 +25,7 @@ class LoginActivity: BLoginActivity() {
     }
 
     override fun forgetClick(view: View) {
-
+        startActivity(Intent(this, ForgetActivity::class.java))
     }
 
     override fun threeParty(view: View, uid: String?, accessToken: String?, name: String?, iconurl: String?, gender: String?, share_media: String?) {

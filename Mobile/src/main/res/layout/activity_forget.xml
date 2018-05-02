@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ebag.mobile.widget.TitleBar
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="@string/login_pwd_forget"/>
+    <LinearLayout android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/x10"
+        android:paddingEnd="@dimen/x10"
+        app:layout_constraintTop_toBottomOf="@id/titleView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.15"
+        >
+        <EditText
+            android:id="@+id/phoneEdit"
+            style="@style/register_edit_text"
+            android:hint="@string/login_hint_phone"
+            android:drawableLeft="@drawable/login_icon_phone"
+            android:inputType="phone"
+            android:maxLength="11"/>
+        <FrameLayout
+            android:id="@+id/forgetCodeLayout"
+            android:layout_width="match_parent"
+            style="@style/registerHeight">
+            <EditText
+                android:id="@+id/codeEdit"
+                style="@style/register_edit_text"
+                android:hint="@string/login_hint_code"
+                android:drawableLeft="@drawable/login_icon_code"
+                android:inputType="number"
+                android:maxLength="6"/>
+            <TextView
+                android:id="@+id/codeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/y60"
+                android:paddingStart="@dimen/x5"
+                android:paddingEnd="@dimen/x5"
+                android:layout_marginRight="@dimen/x7"
+                android:text="@string/login_code_get"
+                android:layout_gravity="end|center_vertical"
+                android:gravity="center"
+                android:background="@drawable/login_code_btn"
+                android:textColor="@color/white"
+                android:textSize="@dimen/tv_normal"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/forgetPwdLayout"
+            android:layout_width="match_parent"
+            style="@style/registerHeight"
+            >
+            <EditText
+                android:id="@+id/pwdEdit"
+                style="@style/register_edit_text"
+                android:hint="@string/login_hint_pwd"
+                android:drawableLeft="@drawable/login_pwd"
+                android:inputType="textPassword"/>
+
+            <ImageView
+                android:id="@+id/imageSee"
+                android:layout_width="@dimen/x20"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="0dp"
+                android:src="@drawable/login_see_selector"/>
+
+        </FrameLayout>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/completeBtn"
+        android:clickable="true"
+        android:layout_width="@dimen/x250"
+        android:layout_height="@dimen/y90"
+        android:textSize="@dimen/tv_big"
+        android:gravity="center"
+        android:text="完成"
+        android:textColor="@color/white"
+        android:background="@drawable/login_btn_bac"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll"
+        app:layout_constraintVertical_bias="0.5"
+        />
+
+</android.support.constraint.ConstraintLayout>
