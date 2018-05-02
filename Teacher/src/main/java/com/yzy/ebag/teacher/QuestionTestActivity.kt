@@ -43,7 +43,7 @@ class QuestionTestActivity : AppCompatActivity() {
                 "Lily: How are you?\n" +
                 "Lilei: ______"
         questionBean.content =
-                "How do you do?;How about you?;Fine, thank you.;Good,how about you?"
+                "How do you do?;How about you?;Fine, thank youFine, thank youFine, thank youFine, thank youFine, thank you.;Good,how about you?"
         questionBean.rightAnswer = "C"
 
         /*questionBean.type = "8"

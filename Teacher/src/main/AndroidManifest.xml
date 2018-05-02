@@ -103,7 +103,7 @@
             android:screenOrientation="portrait"
             />
         <activity android:name=".module.account.ForgetActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation=""
             />
     </application>
 
