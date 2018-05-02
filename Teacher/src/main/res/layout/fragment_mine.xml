@@ -64,6 +64,11 @@
             android:text="个人信息"
             app:leftDrawable="@drawable/mine_personal_info"
             />
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/myShop"
+            style="@style/mine_item_tv"
+            android:text="我的商城"
+            app:leftDrawable="@drawable/mine_shop"
+            />
         <ebag.core.widget.drawable.DrawableTextView android:id="@+id/operation"
             style="@style/mine_item_tv"
             android:text="操作指南"

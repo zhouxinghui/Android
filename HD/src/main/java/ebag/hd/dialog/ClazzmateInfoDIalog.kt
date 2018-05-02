@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.dialog_classmateinfo.*
 
 class ClazzmateInfoDIalog: BaseFragmentDialog(){
 
-    private lateinit var datas:ClassMemberBean.StudentsBean
+    private lateinit var datas:ClassMemberBean.SubMemberBean
 
     companion object {
         fun newInstance(): ClazzmateInfoDIalog{
@@ -24,7 +24,7 @@ class ClazzmateInfoDIalog: BaseFragmentDialog(){
 
     override fun getBundle(bundle: Bundle?) {
             @Suppress("UNCHECKED_CAST")
-            datas = bundle?.get("data") as ClassMemberBean.StudentsBean
+            datas = bundle?.get("data") as ClassMemberBean.SubMemberBean
 
     }
 

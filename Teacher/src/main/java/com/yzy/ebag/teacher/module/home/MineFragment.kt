@@ -11,6 +11,7 @@ import ebag.core.util.SerializableUtils
 import ebag.core.util.loadHead
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.UserEntity
+import ebag.mobile.module.account.YBCenterActivity
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 /**
@@ -50,6 +51,7 @@ class MineFragment: BaseFragment(), View.OnClickListener {
         personalInfo.setOnClickListener(this)
         operation.setOnClickListener(this)
         setting.setOnClickListener(this)
+        myShop.setOnClickListener(this)
     }
 
     private fun modifyInfo(){
@@ -71,6 +73,9 @@ class MineFragment: BaseFragment(), View.OnClickListener {
             }
             R.id.setting ->{
                 startActivity(Intent(mContext, SettingActivity::class.java))
+            }
+            R.id.myShop ->{
+                YBCenterActivity.start(mContext)
             }
         }
     }
