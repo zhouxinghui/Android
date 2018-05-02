@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ebag.mobile.widget.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="收银台" />
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/x15"
+        android:layout_height="@dimen/y90">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_shop_alipay"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x15"
+            android:text="支付宝"
+            />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            />
+
+
+
+    </LinearLayout>-->
+
+
+    <CheckBox
+        android:id="@+id/cb_ali_pay"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:background="@color/white"
+        android:button="@null"
+        android:drawableLeft="@drawable/icon_shop_alipay"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/cb_shop_car_selector"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="支付宝支付" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#dfdfdf" />
+
+    <CheckBox
+        android:id="@+id/cb_wechat_pay"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y100"
+        android:background="@color/white"
+        android:button="@null"
+        android:drawableLeft="@drawable/icon_shop_wechat"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/cb_shop_car_selector"
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="微信支付" />
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/x15"
+        android:gravity="center_vertical"
+        android:layout_height="@dimen/y90">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_shop_wechat"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginStart="@dimen/x15"
+            android:layout_height="wrap_content"
+            android:text="微信"
+            />
+
+    </LinearLayout>-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100"
+            android:layout_alignParentBottom="true"
+            android:background="#fff"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/x15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="支付金额:"
+                android:textColor="#000"
+
+                />
+
+
+            <TextView
+                android:id="@+id/shouldpay"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/x15"
+                android:gravity="center_vertical"
+                android:text="300元"
+                android:textColor="@color/colorPrimary"
+
+                />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/pay_btn"
+            android:layout_width="@dimen/x110"
+            android:layout_height="@dimen/y100"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="付款"
+            android:textColor="#fff" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

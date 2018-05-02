@@ -197,4 +197,14 @@ interface EBagService {
     /**获取作业详情*/
     @POST("homeWork/getHomeWorkQuestion/{version}")
     fun getQuestions(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<TypeQuestionBean>>>
+
+    @POST("shop/AliPay/{version}")
+    fun getAiliPrepayid(@Path("version") version: String,@Body requestBody: RequestBody): Observable<ResponseBean<String>>
+    /*生成订单*/
+    @POST("shop/createShopOrderNo/{version}")
+    fun createShopOrderNo(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+
+    /*微信支付*/
+    @POST("shop/WXPay/{version}")
+    fun getPrepayid(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<WXPayBean>>
 }

@@ -7,6 +7,7 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import ebag.core.base.BaseActivity
 import ebag.mobile.R
+import ebag.mobile.base.ActivityUtils
 import ebag.mobile.bean.YBCurrentBean
 import kotlinx.android.synthetic.main.activity_ybcenter.*
 
@@ -15,11 +16,13 @@ class YBCenterActivity : BaseActivity(), YBCenterContract.YBCenterView {
     private lateinit var mPersenter: YBCenterPersenter
     private lateinit var mAdapter: YBCenterAdapter
     private val datas: MutableList<YBCurrentBean.MoneyDetailsBean> = mutableListOf()
+    private  var money:Int = 0
 
     override fun getLayoutId(): Int = R.layout.activity_ybcenter
 
     override fun initViews() {
 
+        ActivityUtils.addActivity(this)
         mPersenter = YBCenterPersenter()
         recyclerview.layoutManager = LinearLayoutManager(this)
         recyclerview.addItemDecoration(ebag.core.xRecyclerView.manager.DividerItemDecoration(DividerItemDecoration.VERTICAL, 1, Color.parseColor("#e0e0e0")))
@@ -32,6 +35,11 @@ class YBCenterActivity : BaseActivity(), YBCenterContract.YBCenterView {
 
         mPersenter.startFirstpage(this)
 
+        charge.setOnClickListener {
+
+            YBChargeActivity.start(this,money)
+        }
+
     }
 
     override fun <T> showContents(data: T) {
@@ -43,6 +51,8 @@ class YBCenterActivity : BaseActivity(), YBCenterContract.YBCenterView {
     }
 
     override fun <T> showData(data: T) {
+        money = (data as YBCurrentBean).remainMoney
+        charge.isClickable = true
         income.text = (data as YBCurrentBean).increasedMoney.toString()
         expense.text = (data as YBCurrentBean).reduceMoney.toString()
     }

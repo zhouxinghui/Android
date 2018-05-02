@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/ybcharge_bcg_normal"
+    android:id="@+id/layout"
+    android:gravity="center_vertical"
+    android:layout_marginStart="@dimen/x10"
+    android:layout_marginEnd="@dimen/x10"
+    android:layout_marginBottom="@dimen/y15"
+    android:layout_height="@dimen/y120">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:text="1000 Y币"
+        android:id="@+id/label"
+        android:textColor="#000"
+        />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="￥ 10.00"
+        android:id="@+id/money"
+        android:textColor="#9b9a9b"
+        android:textSize="@dimen/tv_sub"
+        android:gravity="center_horizontal"
+        />
+
+</LinearLayout>

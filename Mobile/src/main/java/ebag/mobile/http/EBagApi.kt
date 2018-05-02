@@ -443,4 +443,29 @@ object EBagApi {
         }
         EBagApi.request(eBagService.getQuestions("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+
+    /**支付宝
+     *
+     */
+    fun getAiliPrepayid(oid: String, allPrice: String, callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("oid", oid)
+        jsonObject.put("allPrice", allPrice)
+        EBagApi.request(eBagService.getAiliPrepayid("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**获取订单编号*/
+    fun createShopOrderNo(callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        EBagApi.request(eBagService.createShopOrderNo("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**微信支付请求*/
+    fun getPrepayid(id: String, price: String, callback: RequestCallBack<WXPayBean>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("oid", id)
+        jsonObject.put("allPrice", price)
+        EBagApi.request(eBagService.getPrepayid("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

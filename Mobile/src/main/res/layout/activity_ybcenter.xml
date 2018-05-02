@@ -90,6 +90,7 @@
                 android:text="立即充值"
                 android:gravity="center"
                 android:id="@+id/charge"
+                android:clickable="false"
                 android:layout_gravity="center"
                 android:textColor="#fff"
                 android:layout_marginTop="@dimen/y50"

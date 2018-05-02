@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <ebag.mobile.widget.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText = "Y币充值"
+        app:rightText = "充值规则"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y190"
+        android:background="@color/colorPrimary"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Y币余额"
+            android:textColor="@color/white"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/tv_big"
+            android:text="0"
+            android:layout_marginTop="@dimen/y10"
+            android:id="@+id/ybcount"
+            android:layout_gravity="center_horizontal"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Y币充值"
+        android:paddingTop="@dimen/y10"
+        android:paddingBottom="@dimen/y10"
+        android:textColor="#000"
+        android:paddingStart="@dimen/x10"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/y20"
+        android:layout_height="wrap_content"
+        android:id="@+id/recyclerview"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/x10"
+        android:layout_marginTop="@dimen/y50"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支付金额："
+            android:textColor="#000"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:id="@+id/paymoney"
+            android:textColor="@color/colorPrimary"
+            />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_marginStart="@dimen/x30"
+        android:layout_marginEnd="@dimen/x30"
+        android:layout_marginTop="@dimen/y50"
+        android:text="确认支付"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:id="@+id/confirm"
+        android:layout_height="@dimen/y90" />
+
+</LinearLayout>

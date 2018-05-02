@@ -39,7 +39,6 @@ class LocationActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_location
 
     override fun initViews() {
-
         map = mapview.map
         map.isMyLocationEnabled = true
         map.mapType = BaiduMap.MAP_TYPE_NORMAL

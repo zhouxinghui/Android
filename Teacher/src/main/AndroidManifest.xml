@@ -93,18 +93,21 @@
         <activity
             android:name=".module.personal.PersonalInfoActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".module.correcting.CorrectingActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.correcting.CorrectingDescActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.correcting.CommentActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.account.ForgetActivity"
-            android:screenOrientation=""
-            />
+        <activity
+            android:name=".module.correcting.CorrectingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.correcting.CorrectingDescActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.correcting.CommentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.account.ForgetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -41,12 +41,33 @@
         <activity
             android:name=".module.account.YBCenterActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".module.homework.WorkReportActivity"
+        <activity
+            android:name=".module.homework.WorkReportActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"
-            />
-        <activity android:name=".module.homework.HomeworkDescActivity"
-            android:screenOrientation="portrait"
-            />
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".module.homework.HomeworkDescActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.account.YBChargeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.account.CashierActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
     </application>
 </manifest>
