@@ -16,8 +16,8 @@ public class ReportBean {
      * homeWorkRepDetailVos : [{"type":"10","typeName":null,"questionNum":"3","errorCount":3}]
      */
 
-    private int totalScore;
-    private int maxScore;
+    private float totalScore;
+    private float maxScore;
     private int errorNum;
     private String teacherComment;
     private String parentComment;
@@ -39,19 +39,19 @@ public class ReportBean {
         this.parentComment = parentComment;
     }
 
-    public int getTotalScore() {
+    public float getTotalScore() {
         return totalScore;
     }
 
-    public void setTotalScore(int totalScore) {
+    public void setTotalScore(float totalScore) {
         this.totalScore = totalScore;
     }
 
-    public int getMaxScore() {
+    public float getMaxScore() {
         return maxScore;
     }
 
-    public void setMaxScore(int maxScore) {
+    public void setMaxScore(float maxScore) {
         this.maxScore = maxScore;
     }
 
