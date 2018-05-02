@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
     <ebag.hd.widget.TitleBar
         android:id="@+id/titleview"
@@ -24,17 +26,102 @@
     </android.support.v7.widget.RecyclerView>
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/clazzmate_rv"
+    <RelativeLayout android:id="@+id/teacherRl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/clazz_rv"
-        android:paddingStart="@dimen/x20"
-        android:paddingEnd="@dimen/x20"
-        android:layout_marginTop="@dimen/y25">
-
-
-    </android.support.v7.widget.RecyclerView>
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/y10"
+        android:padding="5dp"
+        android:layout_below="@id/clazz_rv"
+        >
+        <TextView android:id="@+id/teacherTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="班级老师"
+            android:textSize="@dimen/tv_normal"
+            android:textColor="@color/tv_normal"
+            />
+        <TextView android:id="@+id/teacherCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="老师人数"
+            android:textSize="@dimen/tv_normal"
+            android:textColor="@color/tv_normal"
+            android:layout_below="@id/teacherTv"
+            />
+        <View
+            android:layout_width="@dimen/x12"
+            android:layout_height="@dimen/x20"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/x5"
+            android:background="@drawable/right_arrow"
+            />
+    </RelativeLayout>
+    <RelativeLayout android:id="@+id/studentRl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/teacherRl"
+        android:background="@color/white"
+        android:padding="5dp"
+        android:layout_marginTop="@dimen/y10"
+        >
+        <TextView android:id="@+id/studentTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="班级老师"
+            android:textSize="@dimen/tv_normal"
+            android:textColor="@color/tv_normal"
+            />
+        <TextView android:id="@+id/studentCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="老师人数"
+            android:textSize="@dimen/tv_normal"
+            android:textColor="@color/tv_normal"
+            android:layout_below="@id/studentTv"
+            />
+        <View
+            android:layout_width="@dimen/x12"
+            android:layout_height="@dimen/x20"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/x5"
+            android:background="@drawable/right_arrow"
+            />
+    </RelativeLayout>
+    <RelativeLayout android:id="@+id/parentRl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/studentRl"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/y10"
+        android:padding="5dp"
+        >
+        <TextView android:id="@+id/parentTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="班级老师"
+            android:textSize="@dimen/tv_normal"
+            android:textColor="@color/tv_normal"
+            />
+        <TextView android:id="@+id/parentCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="老师人数"
+            android:textSize="@dimen/tv_normal"
+            android:textColor="@color/tv_normal"
+            android:layout_below="@id/parentTv"
+            />
+        <View
+            android:layout_width="@dimen/x12"
+            android:layout_height="@dimen/x20"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/x5"
+            android:background="@drawable/right_arrow"
+            />
+    </RelativeLayout>
 
     <ebag.core.widget.empty.StateView
         android:layout_width="match_parent"

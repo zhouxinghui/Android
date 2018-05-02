@@ -1,17 +1,16 @@
 package ebag.hd.activity
 
-import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.hd.R
-import ebag.hd.adapter.ClazzItemAdapter
-import ebag.hd.adapter.ClazzmateAdapter
+import ebag.hd.base.Constants
 import ebag.hd.bean.BaseClassesBean
 import ebag.hd.bean.ClassMemberBean
-import ebag.hd.dialog.ClazzmateInfoDIalog
 import ebag.hd.http.EBagApi
 import kotlinx.android.synthetic.main.activity_myclassmate.*
 
@@ -21,20 +20,17 @@ import kotlinx.android.synthetic.main.activity_myclassmate.*
 class ClazzmateActivity : BaseActivity() {
 
     private var clazzList: MutableList<BaseClassesBean> = mutableListOf()
-    private var clazzmateList: MutableList<ClassMemberBean.StudentsBean> = mutableListOf()
     private lateinit var clazzAdapter: ClazzItemAdapter
-    private lateinit var clazzmateAdapter: ClazzmateAdapter
     override fun getLayoutId(): Int = R.layout.activity_myclassmate
     private lateinit var clazzId: String
     private var nowPosition: Int = 0
-
+    private var memberBean: ClassMemberBean? = null
     override fun initViews() {
 
         if (intent.hasExtra("classId")) {
             clazzId = intent.getStringExtra("classId")
             clazz_rv.visibility = View.GONE
             getClzzmate(clazzId)
-            titleview.setTitle("班级学生")
 
         } else {
             clazzAdapter = ClazzItemAdapter(clazzList)
@@ -50,19 +46,6 @@ class ClazzmateActivity : BaseActivity() {
             getClazz()
         }
 
-
-        clazzmateAdapter = ClazzmateAdapter(clazzmateList)
-        clazzmate_rv.layoutManager = GridLayoutManager(this, 5)
-        clazzmate_rv.adapter = clazzmateAdapter
-        clazzmateAdapter.setOnItemClickListener { adapter, view, position ->
-            val b = Bundle()
-            b.putSerializable("data", clazzmateList[position])
-            val f = ClazzmateInfoDIalog.newInstance()
-            f.arguments = b
-            f.show(supportFragmentManager, "clazzDialog")
-
-        }
-
         second_stateviwe.setOnRetryClickListener {
             if (clazzId.isEmpty()) {
                 getClzzmate(clazzList[nowPosition].classId)
@@ -74,6 +57,16 @@ class ClazzmateActivity : BaseActivity() {
 
         first_stateviwe.setOnRetryClickListener {
             getClazz()
+        }
+
+        teacherRl.setOnClickListener {
+            ClassMateSubActivity.jump(this, memberBean?.teachers as ArrayList<ClassMemberBean.SubMemberBean>, Constants.ROLE_TEACHER)
+        }
+        studentRl.setOnClickListener {
+            ClassMateSubActivity.jump(this, memberBean?.students as ArrayList<ClassMemberBean.SubMemberBean>, Constants.ROLE_STUDENT)
+        }
+        parentRl.setOnClickListener {
+            ClassMateSubActivity.jump(this, memberBean?.parents as ArrayList<ClassMemberBean.SubMemberBean>, Constants.ROLE_PARENT)
         }
     }
 
@@ -115,9 +108,11 @@ class ClazzmateActivity : BaseActivity() {
             }
 
             override fun onSuccess(entity: ClassMemberBean?) {
-                if (entity?.students!!.isNotEmpty()) {
-                    clazzmateList.addAll(entity.students)
-                    clazzmateAdapter.notifyDataSetChanged()
+                if (entity != null) {
+                    memberBean = entity
+                    teacherCount.text = "老师人数：${entity.teachers.size}"
+                    studentCount.text = "学生人数：${entity.students.size}"
+                    parentCount.text = "家长人数：${entity.parents.size}"
                     second_stateviwe.showContent()
                 } else {
                     second_stateviwe.showEmpty()
@@ -139,7 +134,13 @@ class ClazzmateActivity : BaseActivity() {
         }
 
         clazzAdapter.notifyDataSetChanged()
+    }
 
+    private inner class ClazzItemAdapter(data: List<BaseClassesBean>) : BaseQuickAdapter<BaseClassesBean, BaseViewHolder>(R.layout.item_clazztitle, data) {
+        override fun convert(helper: BaseViewHolder, item: BaseClassesBean?) {
+            helper.setChecked(R.id.clazz_title, item!!.checked)
+            helper.setText(R.id.clazz_title, item.className)
+        }
     }
 
 }

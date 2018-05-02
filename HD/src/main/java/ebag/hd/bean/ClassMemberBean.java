@@ -9,35 +9,35 @@ import java.util.List;
 
 public class ClassMemberBean implements Serializable {
 
-    private List<StudentsBean> students;
-    private List<TeachersBean> teachers;
-    private List<ParentsBean> parents;
+    private List<SubMemberBean> students;
+    private List<SubMemberBean> teachers;
+    private List<SubMemberBean> parents;
 
-    public List<StudentsBean> getStudents() {
+    public List<SubMemberBean> getStudents() {
         return students;
     }
 
-    public void setStudents(List<StudentsBean> students) {
+    public void setStudents(List<SubMemberBean> students) {
         this.students = students;
     }
 
-    public List<TeachersBean> getTeachers() {
+    public List<SubMemberBean> getTeachers() {
         return teachers;
     }
 
-    public void setTeachers(List<TeachersBean> teachers) {
+    public void setTeachers(List<SubMemberBean> teachers) {
         this.teachers = teachers;
     }
 
-    public List<ParentsBean> getParents() {
+    public List<SubMemberBean> getParents() {
         return parents;
     }
 
-    public void setParents(List<ParentsBean> parents) {
+    public void setParents(List<SubMemberBean> parents) {
         this.parents = parents;
     }
 
-    public static class StudentsBean extends BaseStudentBean{
+    public static class SubMemberBean extends BaseStudentBean {
         /**
          * uid : 1730
          * name : 学生A

@@ -175,8 +175,8 @@ class GroupManageDialog(context: Context, private val classId: String): BaseDial
         super.show()
     }
 
-    inner class AllAdapter: BaseQuickAdapter<ClassMemberBean.StudentsBean, BaseViewHolder>(R.layout.item_all_group_member){
-        override fun convert(helper: BaseViewHolder, item: ClassMemberBean.StudentsBean) {
+    inner class AllAdapter: BaseQuickAdapter<ClassMemberBean.SubMemberBean, BaseViewHolder>(R.layout.item_all_group_member){
+        override fun convert(helper: BaseViewHolder, item: ClassMemberBean.SubMemberBean) {
             val hasGroup = item.isHasGroup
             val nameTv = helper.getView<TextView>(R.id.name_id)
             if (hasGroup && !isModify){

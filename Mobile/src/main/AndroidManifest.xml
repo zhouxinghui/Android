@@ -69,5 +69,8 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
+        <activity android:name=".module.clazz.ClassMateSubActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 </manifest>

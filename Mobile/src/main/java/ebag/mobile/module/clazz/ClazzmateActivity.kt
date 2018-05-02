@@ -1,20 +1,17 @@
 package ebag.mobile.module.clazz
 
-import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
-import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
-import ebag.core.util.loadHead
 import ebag.mobile.R
+import ebag.mobile.base.Constants
 import ebag.mobile.bean.BaseClassesBean
 import ebag.mobile.bean.ClassMemberBean
 import ebag.mobile.http.EBagApi
-import ebag.mobile.widget.ClazzmateInfoDIalog
 import kotlinx.android.synthetic.main.activity_myclassmate.*
 
 /**
@@ -23,13 +20,11 @@ import kotlinx.android.synthetic.main.activity_myclassmate.*
 class ClazzmateActivity : BaseActivity() {
 
     private var clazzList: MutableList<BaseClassesBean> = mutableListOf()
-    private var clazzmateList: MutableList<ClassMemberBean.StudentsBean> = mutableListOf()
     private lateinit var clazzAdapter: ClazzItemAdapter
-    private lateinit var clazzmateAdapter: ClazzmateAdapter
     override fun getLayoutId(): Int = R.layout.activity_myclassmate
     private lateinit var clazzId: String
     private var nowPosition: Int = 0
-
+    private var memberBean: ClassMemberBean? = null
     override fun initViews() {
 
         if (intent.hasExtra("classId")) {
@@ -51,19 +46,6 @@ class ClazzmateActivity : BaseActivity() {
             getClazz()
         }
 
-
-        clazzmateAdapter = ClazzmateAdapter(clazzmateList)
-        clazzmate_rv.layoutManager = GridLayoutManager(this, 3)
-        clazzmate_rv.adapter = clazzmateAdapter
-        clazzmateAdapter.setOnItemClickListener { adapter, view, position ->
-            val b = Bundle()
-            b.putSerializable("data", clazzmateList[position])
-            val f = ClazzmateInfoDIalog.newInstance()
-            f.arguments = b
-            f.show(supportFragmentManager, "clazzDialog")
-
-        }
-
         second_stateviwe.setOnRetryClickListener {
             if (clazzId.isEmpty()) {
                 getClzzmate(clazzList[nowPosition].classId)
@@ -75,6 +57,16 @@ class ClazzmateActivity : BaseActivity() {
 
         first_stateviwe.setOnRetryClickListener {
             getClazz()
+        }
+
+        teacherRl.setOnClickListener {
+            ClassMateSubActivity.jump(this, memberBean?.teachers as ArrayList<ClassMemberBean.SubMemberBean>, Constants.ROLE_TEACHER)
+        }
+        studentRl.setOnClickListener {
+            ClassMateSubActivity.jump(this, memberBean?.students as ArrayList<ClassMemberBean.SubMemberBean>, Constants.ROLE_STUDENT)
+        }
+        parentRl.setOnClickListener {
+            ClassMateSubActivity.jump(this, memberBean?.parents as ArrayList<ClassMemberBean.SubMemberBean>, Constants.ROLE_PARENT)
         }
     }
 
@@ -116,9 +108,11 @@ class ClazzmateActivity : BaseActivity() {
             }
 
             override fun onSuccess(entity: ClassMemberBean?) {
-                if (entity?.students!!.isNotEmpty()) {
-                    clazzmateList.addAll(entity.students)
-                    clazzmateAdapter.notifyDataSetChanged()
+                if (entity != null) {
+                    memberBean = entity
+                    teacherCount.text = "老师人数：${entity.teachers.size}"
+                    studentCount.text = "学生人数：${entity.students.size}"
+                    parentCount.text = "家长人数：${entity.parents.size}"
                     second_stateviwe.showContent()
                 } else {
                     second_stateviwe.showEmpty()
@@ -146,12 +140,6 @@ class ClazzmateActivity : BaseActivity() {
         override fun convert(helper: BaseViewHolder, item: BaseClassesBean?) {
             helper.setChecked(R.id.clazz_title, item!!.checked)
             helper.setText(R.id.clazz_title, item.className)
-        }
-    }
-    private inner class ClazzmateAdapter(data: List<ClassMemberBean.StudentsBean>) : BaseQuickAdapter<ClassMemberBean.StudentsBean, BaseViewHolder>(R.layout.item_clazzmate, data) {
-        override fun convert(helper: BaseViewHolder, item: ClassMemberBean.StudentsBean?) {
-            helper.setText(R.id.clazz_name, item?.name)
-            helper.getView<ImageView>(R.id.clazz_head).loadHead(item?.headUrl,true)
         }
     }
 }

@@ -40,6 +40,7 @@ object Constants {
 
     val ROLE_STUDENT = 1
     val ROLE_TEACHER = 2
+    val ROLE_PARENT = 2
 
     val CLASS_TYPE = "2" // 班级相册
     val PERSONAL_TYPE = "3" // 个人相册
