@@ -128,7 +128,7 @@ class FragmentClass : BaseFragment() {
             adapter.datas = entity?.clazzUserVoList
             adapter.setOnItemChildClickListener { holder, view, position ->
                 val b = entity!!.clazzUserVoList[position]
-                val bean = ClassMemberBean.StudentsBean()
+                val bean = ClassMemberBean.SubMemberBean()
                 bean.city = b.city
                 bean.birthday = b.birthday
                 bean.county = b.county

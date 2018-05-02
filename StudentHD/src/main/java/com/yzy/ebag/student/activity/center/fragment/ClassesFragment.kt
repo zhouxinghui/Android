@@ -106,7 +106,7 @@ class ClassesFragment : BaseListFragment<List<SpaceBean>, SpaceBean>() {
             adapter.setOnItemChildClickListener { adapter, view, position ->
 
                 val b = adapter.getItem(position) as SpaceBean.ClazzUserVoListBean
-                val bean = ClassMemberBean.StudentsBean()
+                val bean = ClassMemberBean.SubMemberBean()
                 bean.city = b.city
                 bean.birthday = b.birthday
                 bean.county = b.county
