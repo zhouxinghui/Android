@@ -140,6 +140,7 @@
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
+        <activity android:name=".ui.activity.PaperActivity" />
 
         <meta-data
             android:name="UMENG_APPKEY"

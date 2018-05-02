@@ -24,10 +24,11 @@ class HomeworkListAdapter(data: List<OnePageInfoBean.HomeWorkInfoVosBean>) : Bas
             "0" -> helper.setText(R.id.homework_item_btn, "查看作业")
             else -> {
                 helper.setText(R.id.homework_item_btn, "查看作业报告")
-                helper.addOnClickListener(R.id.homework_item_btn)
             }
 
         }
+
+        helper.addOnClickListener(R.id.homework_item_btn)
     }
 
 }

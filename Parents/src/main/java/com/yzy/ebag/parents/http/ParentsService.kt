@@ -48,4 +48,11 @@ interface ParentsService{
 
     @POST("homeStatistics/yearStatisticsByHomeWork/{version}")
     fun yearStatisticsByHomeWork(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<List<HomeworkBean>>>
+
+    /**
+     * 随堂 课后作业
+     * @return
+     */
+    @POST("homeWork/getMyHomeWork/{version}")
+    fun subjectWorkList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<SubjectBean>>>
 }

@@ -106,5 +106,18 @@ object ParentsAPI {
         EBagApi.request(parentsService.yearStatisticsByHomeWork("1", EBagApi.createBody(jsonObject)), callback)
     }
 
+    /**
+     * 作业列表
+     */
+    fun subjectWorkList(type: String, classId: String?, subCode: String, page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<SubjectBean>>) {
+        val jsonObj = JSONObject()
+        jsonObj.put("classId", classId)
+        jsonObj.put("type", type)
+        jsonObj.put("subCode", subCode)
+        jsonObj.put("page", page)
+        jsonObj.put("pageSize", pageSize)
+        EBagApi.request(parentsService.subjectWorkList("v1", EBagApi.createBody(jsonObj)), callback)
+    }
+
 
 }
