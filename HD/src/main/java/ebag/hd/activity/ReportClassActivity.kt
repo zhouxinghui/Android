@@ -92,13 +92,13 @@ class ReportClassActivity: BaseActivity() {
                 stateView.showContent()
                 adapter.setNewData(entity.homeWorkRepDetailVos)
 
-                scoreRound.progress = entity.totalScore
+                scoreRound.progress = entity.totalScore.toInt()
                 var spannableString = SpannableString("总分\n${entity.totalScore}")
                 spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.x34))
                         , 3, 3 + "${entity.totalScore}".length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                 scoreTv.text = spannableString
 
-                heightRound.progress = entity.maxScore
+                heightRound.progress = entity.maxScore.toInt()
                 spannableString = SpannableString("最高分\n${entity.maxScore}")
                 spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.x34))
                         , 4, 4 + "${entity.maxScore}".length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
