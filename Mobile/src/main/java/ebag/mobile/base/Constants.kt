@@ -24,6 +24,10 @@ object Constants {
     const val ROLE_TEACHER = 2
     const val ROLE_PARENT = 3
 
+    const val UPDATE_TEACHER = "teacher"
+    const val UPDATE_STUDENT = "student"
+    const val UPDATE_PARENT = "parent"
+
     const val NORMAL_REQUEST = 111
     const val NORMAL_RESULT = 112
 

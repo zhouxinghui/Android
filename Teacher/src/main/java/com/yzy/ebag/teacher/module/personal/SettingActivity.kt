@@ -8,6 +8,7 @@ import ebag.core.base.App
 import ebag.core.base.BaseActivity
 import ebag.core.util.AppManager
 import ebag.mobile.base.Constants
+import ebag.mobile.checkUpdate
 import ebag.mobile.module.AboutUsActivity
 import ebag.mobile.module.OfficialAnnounceActivity
 import ebag.mobile.widget.UserFeedbackDialog
@@ -32,7 +33,7 @@ class SettingActivity: BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.versionUpdate ->{
-//                checkUpdate(Constants.UPDATE_TEACHER)
+                checkUpdate(Constants.UPDATE_TEACHER)
             }
             R.id.officeNotice ->{
                 OfficialAnnounceActivity.jump(this, "teacher")

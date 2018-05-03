@@ -30,6 +30,14 @@
     <color name="login_tips">#979797</color>
     <color name="login_serve_tips">#6FB1FF</color>
 
+    <!--更新-->
+    <color name="color_update_version_text">#1E85FF</color>
+    <color name="color_update_context_bg">#FFFFFF</color>
+    <color name="color_update_title_text">#F5F595</color>
+    <color name="color_update_version_bg">#F6F69C</color>
+    <color name="color_update_context_text">#4A4A4A</color>
+    <color name="color_update_update_text">#1E85FF</color>
+
     <color name="schedule_line_color">#979797</color>
 
     <drawable name="list_dialog_tv_bg_normal">#FFFFFF</drawable>

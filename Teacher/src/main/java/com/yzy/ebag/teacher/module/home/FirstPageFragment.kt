@@ -31,6 +31,7 @@ import ebag.core.util.T
 import ebag.core.util.loadImage
 import ebag.core.xRecyclerView.adapter.RecyclerAdapter
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
+import ebag.mobile.checkUpdate
 import kotlinx.android.synthetic.main.fragment_first_page.*
 
 /**
@@ -75,8 +76,9 @@ class FirstPageFragment: BaseFragment() {
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
-        if (!isVisibleToUser){
-//            mContext.checkUpdate(ebag.hd.base.Constants.UPDATE_TEACHER, false)
+        if (isVisibleToUser){
+            if (activity != null)
+                mContext.checkUpdate(ebag.mobile.base.Constants.UPDATE_TEACHER, false)
             TeacherApi.firstPage(request)
         }
     }

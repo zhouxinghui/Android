@@ -21,6 +21,8 @@ class TokenAuthenticator: Authenticator {
         val thirdPartyType = SPUtils.get(App.mContext, Constants.THIRD_PARTY_TYPE, "") as String
 
         val jsonObject = JSONObject()
+        jsonObject.put("deviceCode",SPUtils.get(App.mContext, ebag.core.util.Constants.IMEI, "") as String)
+        jsonObject.put("isHDorPHONE","HD")
         jsonObject.put("password", pwd)
         jsonObject.put("loginAccount", account)
         jsonObject.put("loginType", loginType)

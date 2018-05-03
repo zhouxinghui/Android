@@ -207,4 +207,9 @@ interface EBagService {
     /*微信支付*/
     @POST("shop/WXPay/{version}")
     fun getPrepayid(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<WXPayBean>>
+
+    /**检查版本更新*/
+    @Headers("EBag-Special-Url: special/url")
+    @POST("user/MobileAPPVersion/{version}")
+    fun checkUpdate(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<VersionUpdateBean>>
 }

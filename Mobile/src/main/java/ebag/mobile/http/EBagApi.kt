@@ -465,4 +465,15 @@ object EBagApi {
         jsonObject.put("allPrice", price)
         EBagApi.request(eBagService.getPrepayid("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**
+     * 检查版本更新
+     */
+    fun checkUpdate(roleName: String, versionCode: String, callback: RequestCallBack<VersionUpdateBean>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("type", "2")
+        jsonObject.put("versionCode", roleName)
+        jsonObject.put("versionNumber", versionCode)
+        EBagApi.request(eBagService.checkUpdate("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }
