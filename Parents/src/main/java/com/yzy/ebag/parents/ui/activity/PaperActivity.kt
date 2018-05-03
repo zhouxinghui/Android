@@ -27,7 +27,8 @@ class PaperActivity : BaseActivity() {
     override fun initViews() {
 
 
-        ParentsAPI.subjectWorkList("4",(SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).classId,"",1,10,object:RequestCallBack<List<SubjectBean>>(){
+        val childrenBean = SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean
+        ParentsAPI.subjectWorkList("4",childrenBean.classId,"",1,10,childrenBean.uid,object:RequestCallBack<List<SubjectBean>>(){
 
             override fun onStart() {
                 stateview.showLoading()
