@@ -6,8 +6,8 @@ import android.graphics.Bitmap
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.baidu.location.BDAbstractLocationListener
 import com.baidu.location.BDLocation
+import com.baidu.location.BDLocationListener
 import com.baidu.location.LocationClient
 import com.baidu.location.LocationClientOption
 import com.baidu.mapapi.map.*
@@ -62,7 +62,7 @@ class LocationActivity : BaseActivity() {
     }
 
 
-    inner class MyLocationListener : BDAbstractLocationListener() {
+    inner class MyLocationListener : BDLocationListener {
 
         override fun onReceiveLocation(p0: BDLocation?) {
 

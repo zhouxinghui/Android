@@ -1,3 +1,3 @@
 package com.yzy.ebag.parents.mvp.model
 
-data class PersonalItemModel(val id:Int,val label:String)
+data class PersonalItemModel(var id:Int,var label:String)

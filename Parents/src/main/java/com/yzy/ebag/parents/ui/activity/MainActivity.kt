@@ -1,5 +1,6 @@
 package com.yzy.ebag.parents.ui.activity
 
+import android.content.Intent
 import android.support.v4.app.Fragment
 import android.view.Gravity
 import android.view.View
@@ -185,5 +186,9 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener, View.On
             T.show(this@MainActivity, "开始分享..")
         }
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }

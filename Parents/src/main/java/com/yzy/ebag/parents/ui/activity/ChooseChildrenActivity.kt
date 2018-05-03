@@ -31,10 +31,13 @@ class ChooseChildrenActivity : BaseActivity(), ChooseChildrenContract.ChooseChil
     private lateinit var mAdapter: ChooseChildrenAdapter
     private var mData: MutableList<MyChildrenBean> = mutableListOf()
     override fun getLayoutId(): Int = R.layout.activity_choosechildren
+    private lateinit var oldUid: String
     private var flag = false
 
 
     override fun initViews() {
+
+        oldUid = SPUtils.get(this, Constants.CURRENT_CHILDREN_YSBCODE, "") as String
         flag = intent.getBooleanExtra("flag", false)
         if (flag) {
             titlebar.setLeftBtnVisible(false)
@@ -137,6 +140,14 @@ class ChooseChildrenActivity : BaseActivity(), ChooseChildrenContract.ChooseChil
     override fun loadmoreFail() {
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (oldUid != mAdapter.uid) {
+            setResult(999)
+        }
+    }
+
 
 
     companion object {

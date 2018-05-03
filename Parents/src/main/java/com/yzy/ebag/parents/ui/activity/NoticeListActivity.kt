@@ -10,6 +10,7 @@ import com.yzy.ebag.parents.mvp.NoticeListContract
 import com.yzy.ebag.parents.mvp.presenter.NoticeListPresenter
 import com.yzy.ebag.parents.ui.adapter.NoticeListAdapter
 import ebag.core.base.BaseActivity
+import ebag.core.http.network.handleThrowable
 import ebag.core.util.SerializableUtils
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.MyChildrenBean
@@ -72,5 +73,9 @@ class NoticeListActivity : BaseActivity(), NoticeListContract.NoticeListView {
     override fun loadmoreFail() {
 
         mAdapter.loadMoreFail()
+    }
+
+    override fun showError(e: Throwable?) {
+        e!!.handleThrowable(this)
     }
 }

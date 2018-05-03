@@ -36,6 +36,7 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
     private var isFirst = true
     private var isViewPrepare = false
     private val bean = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY)
+    private lateinit var mAdapter:PersonalAdapter
 
     companion object {
         fun newInstance(): ClazzFragment {
@@ -59,8 +60,8 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
         labels.forEachIndexed { index, s ->
             datas.add(PersonalItemModel(icons[index], s))
         }
-        val adapter = PersonalAdapter(datas)
-        recyclerview.adapter = adapter
+        mAdapter = PersonalAdapter(datas)
+        recyclerview.adapter = mAdapter
         recyclerview.addItemDecoration(ebag.core.xRecyclerView.manager.DividerItemDecoration(DividerItemDecoration.VERTICAL, 1, Color.parseColor("#e0e0e0")))
         isViewPrepare = true
 
@@ -69,7 +70,7 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
             NoticeListActivity.start(activity)
         }
 
-        adapter.setOnItemClickListener { _, _, position ->
+        mAdapter.setOnItemClickListener { _, _, position ->
 
             when (position) {
                 1 -> {
@@ -87,6 +88,13 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
                 }
             }
         }
+    }
+
+
+    fun updataClazz(){
+        datas[3].label = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).className
+        mAdapter.notifyDataSetChanged()
+        isFirst = true
     }
 
 
