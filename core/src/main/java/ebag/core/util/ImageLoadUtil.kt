@@ -1,10 +1,14 @@
 package ebag.core.util
 
+import android.graphics.Bitmap
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import ebag.core.R
+
 
 /**
  * 图片加载工具类
@@ -51,6 +55,33 @@ fun ImageView.loadImage(url: String?) {
                     .load(url)
                     .apply(it)
                     .into(this)
+            }
+}
+
+fun ImageView.loadInsideImage(url: String?) {
+    ImageViewUtils.requestOptions
+            .placeholder(R.drawable.replace_img)
+            .error(R.drawable.replace_img)
+            .centerCrop()
+            .let {
+                Glide
+                    .with(this)
+                    .asBitmap()
+                    .load(url)
+                    .apply(it)
+                    .into(object : SimpleTarget<Bitmap>(com.bumptech.glide.request.target.Target.SIZE_ORIGINAL, com.bumptech.glide.request.target.Target.SIZE_ORIGINAL) {
+                        override fun onResourceReady(resource: Bitmap, glideAnimation: Transition<in Bitmap>) {
+                            val imageWidth = resource.width
+                            val imageHeight = resource.height
+                            val width = DensityUtil.dip2px(context, 100F)//固定宽度
+                            //宽度固定,然后根据原始宽高比得到此固定宽度需要的高度
+                            val height = width * imageHeight / imageWidth
+                            val para = this@loadInsideImage.layoutParams
+                            para.height = height
+                            para.width = width
+                            this@loadInsideImage.setImageBitmap(resource)
+                        }
+                    })
             }
 }
 fun ImageView.loadPhoto(url: String?) {

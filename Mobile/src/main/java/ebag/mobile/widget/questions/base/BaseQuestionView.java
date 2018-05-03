@@ -150,7 +150,7 @@ public abstract class BaseQuestionView extends LinearLayout implements IQuestion
                     if(StringUtils.INSTANCE.isEmpty(entity)){
                         setter.setGone(R.id.ivImage,true);
                     }else{
-                        ImageLoadUtilKt.loadImage(setter.getImageView(R.id.ivImage), entity);
+                        ImageLoadUtilKt.loadInsideImage(setter.getImageView(R.id.ivImage), entity);
                     }
                     break;
                 case VIEW_SUB_TITLE:
