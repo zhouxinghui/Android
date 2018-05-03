@@ -36,8 +36,14 @@ class CorrectingActivity : BaseActivity() {
                 stateView.showEmpty()
                 return
             }
-            val classBean = entity[0]
-            if (classBean.subjectVos.isEmpty()){
+            var classBean : CorrectingBean? = null
+            for (i in entity.indices){
+                if (!entity[i].subjectVos.isEmpty()){
+                    classBean = entity[i]
+                    break
+                }
+            }
+            if (classBean == null) {
                 stateView.showEmpty("暂无所教课程")
                 return
             }
@@ -78,6 +84,9 @@ class CorrectingActivity : BaseActivity() {
         TeacherApi.searchPublish(Constants.STZY_TYPE, request)
         subjectBtn.setOnClickListener {
             classPopup.show(classList, subjectBtn)
+        }
+        stateView.setOnRetryClickListener {
+            TeacherApi.searchPublish(Constants.STZY_TYPE, request)
         }
     }
 

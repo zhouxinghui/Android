@@ -109,6 +109,9 @@ class WorkReportActivity: BaseActivity() {
                 spannableString.setSpan(AbsoluteSizeSpan(resources.getDimensionPixelSize(R.dimen.tv_big))
                         , 3, 3 + "${entity.errorNum}".length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                 errorTv.text = spannableString
+
+                editParent.setText(entity.parentComment ?: "")
+                editTeacher.setText(entity.teacherComment ?: "")
             }
 
         }
