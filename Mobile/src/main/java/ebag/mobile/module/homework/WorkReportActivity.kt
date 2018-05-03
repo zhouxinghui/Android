@@ -42,7 +42,6 @@ class WorkReportActivity: BaseActivity() {
     private var workType = ""
     private var studentName = ""
     override fun initViews() {
-
         homeworkId = intent.getStringExtra("homeworkId") ?: ""
         studentId = intent.getStringExtra("studentId") ?: ""
         workType = intent.getStringExtra("workType") ?: ""
@@ -53,6 +52,8 @@ class WorkReportActivity: BaseActivity() {
         else
             scoreTv.visibility = View.GONE
         fillData()
+        if (workType == Constants.STZY_TYPE)
+            commentLayout.visibility = View.GONE
     }
 
     private fun fillData(){
