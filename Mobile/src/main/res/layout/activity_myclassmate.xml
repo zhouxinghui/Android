@@ -68,7 +68,7 @@
         <TextView android:id="@+id/studentTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="班级老师"
+            android:text="班级学生"
             android:textSize="@dimen/tv_normal"
             android:textColor="@color/tv_sub"
             />
@@ -100,7 +100,7 @@
         <TextView android:id="@+id/parentTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="班级老师"
+            android:text="班级家长"
             android:textSize="@dimen/tv_normal"
             android:textColor="@color/tv_sub"
             />
