@@ -22,6 +22,17 @@
         app:layout_constraintStart_toStartOf="parent"
         />
     <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/tv_sub"
+        android:textColor="#8892a1"
+        android:layout_marginTop="@dimen/y14"
+        android:layout_marginStart="@dimen/x10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/createTime"
+        tools:text="截止时间： 2017-12-25 12:50"/>
+    <TextView
         android:id="@+id/classNameTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +40,7 @@
         android:textColor="@color/tv_normal"
         android:layout_marginTop="@dimen/y14"
         android:layout_marginStart="@dimen/x10"
-        app:layout_constraintTop_toBottomOf="@id/createTime"
+        app:layout_constraintTop_toBottomOf="@id/tvTime"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="一年级一班"/>
 
@@ -56,17 +67,6 @@
         app:layout_constraintStart_toStartOf="@id/classNameTv"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:text="完成： 28/28"/>
-
-    <TextView
-        android:id="@+id/tvTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/tv_sub"
-        android:textColor="#8892a1"
-        android:layout_marginEnd="@dimen/x10"
-        app:layout_constraintBaseline_toBaselineOf="@id/createTime"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="截止时间： 2017-12-25 12:50"/>
 
     <ebag.core.widget.drawable.DrawableTextView
         android:id="@+id/tvStatus"
