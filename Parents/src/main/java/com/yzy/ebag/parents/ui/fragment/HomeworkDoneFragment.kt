@@ -1,6 +1,7 @@
 package com.yzy.ebag.parents.ui.fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
@@ -16,6 +17,7 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.util.SPUtils
 import ebag.core.util.StringUtils
 import ebag.core.util.T
+import ebag.mobile.module.homework.HomeworkDescActivity
 import kotlinx.android.synthetic.main.fragment_homework_done.*
 import java.text.DecimalFormat
 
@@ -71,6 +73,17 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
 
                 })
             }
+        }
+
+        error_preview.setOnClickListener {
+
+            val intent = Intent(activity, HomeworkDescActivity::class.java)
+            intent.putExtra("homeworkId", homeworkId)
+                    .putExtra("testTime", 0)
+                    .putExtra("studentId", SPUtils.get(activity, com.yzy.ebag.parents.common.Constants.CURRENT_CHILDREN_YSBCODE, "") as String)
+                    .putExtra("workType", "")
+                    .putExtra("error", true)
+            startActivity(intent)
         }
     }
 

@@ -7,6 +7,7 @@ interface ChooseChildrenContract {
 
     interface Presenter : BasePresenter<ChooseChildrenView> {
         fun request()
+        fun refresh()
     }
 }
 

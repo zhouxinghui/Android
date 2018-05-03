@@ -2,6 +2,7 @@ package com.yzy.ebag.parents.http
 
 import com.yzy.ebag.parents.bean.*
 import ebag.core.bean.ResponseBean
+import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.bean.NoticeBean
 import io.reactivex.Observable
 import okhttp3.RequestBody
@@ -55,4 +56,14 @@ interface ParentsService{
      */
     @POST("homeWork/getMyHomeWork/{version}")
     fun subjectWorkList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<SubjectBean>>>
+
+    /**
+     * 我的错题
+     */
+    @POST("homeWork/myErrorHomeWork/{version}")
+    fun errorTopic(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<ErrorTopicBean>>>
+
+    @POST("user/createByParent/{version}")
+    fun createChildCode(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
+
 }

@@ -7,14 +7,19 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.yzy.ebag.parents.R
-import com.yzy.ebag.parents.bean.MyChildrenBean
 import com.yzy.ebag.parents.common.Constants
+import com.yzy.ebag.parents.http.ParentsAPI
 import com.yzy.ebag.parents.mvp.ChooseChildrenContract
 import com.yzy.ebag.parents.mvp.presenter.ChooseChildrenPersenter
 import com.yzy.ebag.parents.ui.adapter.ChooseChildrenAdapter
 import ebag.core.base.BaseActivity
+import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
+import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.SPUtils
 import ebag.core.util.SerializableUtils
+import ebag.core.util.T
+import ebag.mobile.bean.MyChildrenBean
 import kotlinx.android.synthetic.main.activity_choosechildren.*
 
 
@@ -54,6 +59,47 @@ class ChooseChildrenActivity : BaseActivity(), ChooseChildrenContract.ChooseChil
                 startActivity(Intent(this, MainActivity::class.java))
             }
         }
+
+        stateview.setOnRetryClickListener {
+            mPersenter.start()
+        }
+
+        create_ysbcode.setOnClickListener {
+
+            if (et_childname.text.toString().isEmpty()) {
+                T.show(this@ChooseChildrenActivity, "请输入孩子的名字")
+                return@setOnClickListener
+            }
+
+            if (et_psw.text.toString().isEmpty()) {
+                T.show(this@ChooseChildrenActivity, "请输入密码")
+                return@setOnClickListener
+            }
+
+            if (et_psw.text.toString().length < 6) {
+                T.show(this@ChooseChildrenActivity, "密码太短,请重新输入")
+                return@setOnClickListener
+            }
+
+            ParentsAPI.createChildCode(et_psw.text.toString(), et_childname.text.toString(), object : RequestCallBack<String>() {
+
+                override fun onStart() {
+                    LoadingDialogUtil.showLoading(this@ChooseChildrenActivity, "正在请求")
+                }
+
+                override fun onSuccess(entity: String?) {
+                    mPersenter.refresh()
+                    LoadingDialogUtil.closeLoadingDialog()
+                }
+
+                override fun onError(exception: Throwable) {
+                    exception.handleThrowable(this@ChooseChildrenActivity)
+                    LoadingDialogUtil.closeLoadingDialog()
+                }
+
+            })
+        }
+
     }
 
     override fun showLoading() {
@@ -79,7 +125,9 @@ class ChooseChildrenActivity : BaseActivity(), ChooseChildrenContract.ChooseChil
     }
 
     override fun <T> showMoreComplete(data: List<T>) {
-
+        mData.clear()
+        mData.addAll(data as MutableList<MyChildrenBean>)
+        mAdapter.notifyDataSetChanged()
     }
 
     override fun loadmoreEnd() {

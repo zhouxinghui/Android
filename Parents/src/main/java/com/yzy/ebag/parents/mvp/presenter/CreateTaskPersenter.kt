@@ -1,9 +1,9 @@
 package com.yzy.ebag.parents.mvp.presenter
 
-import com.yzy.ebag.parents.bean.MyChildrenBean
 import com.yzy.ebag.parents.http.ParentsAPI
 import com.yzy.ebag.parents.mvp.CreateTaskContract
 import ebag.core.http.network.RequestCallBack
+import ebag.mobile.bean.MyChildrenBean
 
 class CreateTaskPersenter(private val view: CreateTaskContract.CreateTaskView) : CreateTaskContract.Presenter {
 

@@ -5,7 +5,6 @@ import android.support.v7.widget.GridLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.parents.R
-import com.yzy.ebag.parents.bean.MyChildrenBean
 import ebag.core.base.App
 import ebag.core.base.BaseDialog
 import ebag.core.http.network.RequestCallBack
@@ -13,6 +12,7 @@ import ebag.core.util.SPUtils
 import ebag.core.util.SerializableUtils
 import ebag.core.util.loadHead
 import ebag.mobile.base.Constants
+import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.bean.PersonalPerformanceBean
 import ebag.mobile.http.EBagApi
 import kotlinx.android.synthetic.main.dialog_performance.*

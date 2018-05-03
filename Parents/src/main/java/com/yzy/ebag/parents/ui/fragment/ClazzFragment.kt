@@ -7,7 +7,6 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.yzy.ebag.parents.R
-import com.yzy.ebag.parents.bean.MyChildrenBean
 import com.yzy.ebag.parents.mvp.ClazzMainContract
 import com.yzy.ebag.parents.mvp.model.PersonalItemModel
 import com.yzy.ebag.parents.mvp.presenter.ClazzMainPresenter
@@ -20,6 +19,7 @@ import ebag.core.util.DateUtil
 import ebag.core.util.SerializableUtils
 import ebag.core.util.loadHead
 import ebag.mobile.base.Constants
+import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.bean.NoticeBean
 import ebag.mobile.module.clazz.ClassScheduleActivity
 import ebag.mobile.module.clazz.ClazzmateActivity

@@ -166,6 +166,7 @@
                 android:paddingBottom="@dimen/y8"
                 android:paddingEnd="@dimen/x10"
                 android:paddingStart="@dimen/x10"
+                android:id="@+id/error_preview"
                 android:paddingTop="@dimen/y8"
                 android:text="错题预览"
                 android:textColor="#fff" />

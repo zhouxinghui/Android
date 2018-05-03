@@ -5,62 +5,67 @@ import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentPagerAdapter
 import com.yzy.ebag.parents.R
-import com.yzy.ebag.parents.bean.SubjectBean
+import com.yzy.ebag.parents.bean.ErrorTopicBean
 import com.yzy.ebag.parents.http.ParentsAPI
-import com.yzy.ebag.parents.ui.fragment.PaperFragment
+import com.yzy.ebag.parents.ui.fragment.ErrorBookFragment
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.SerializableUtils
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.MyChildrenBean
-import kotlinx.android.synthetic.main.activity_paper.*
+import kotlinx.android.synthetic.main.activity_errorbook.*
 
-class PaperActivity : BaseActivity() {
+
+class ErrorBookActivity:BaseActivity(){
 
     private val titleList:ArrayList<String> = arrayListOf()
     private val subCodeList:MutableList<String> = mutableListOf()
     private val fragmentList: MutableList<Fragment> = mutableListOf()
 
-    override fun getLayoutId(): Int = R.layout.activity_paper
+    override fun getLayoutId(): Int = R.layout.activity_errorbook
 
     override fun initViews() {
 
-
         val childrenBean = SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean
-        ParentsAPI.subjectWorkList("4",childrenBean.classId,"",1,10,childrenBean.uid,object:RequestCallBack<List<SubjectBean>>(){
+
+        init(childrenBean)
+
+        stateview.setOnRetryClickListener {
+            init(childrenBean)
+        }
+
+
+    }
+
+    private fun init(childrenBean: MyChildrenBean) {
+        ParentsAPI.errorTopic(childrenBean.classId, "", 1, 10, childrenBean.uid, object : RequestCallBack<ArrayList<ErrorTopicBean>>() {
 
             override fun onStart() {
                 stateview.showLoading()
             }
 
-            override fun onSuccess(entity: List<SubjectBean>?) {
+            override fun onSuccess(entity: ArrayList<ErrorTopicBean>?) {
                 entity?.forEach {
                     titleList.add(it.subject)
                     subCodeList.add(it.subCode)
                 }
+
                 initTab()
                 stateview.showContent()
             }
 
             override fun onError(exception: Throwable) {
-                exception.handleThrowable(this@PaperActivity)
+                exception.handleThrowable(this@ErrorBookActivity)
                 stateview.showError()
             }
 
         })
-
-
-
-
-
-
-
     }
 
     private fun initTab() {
         titleList.forEachIndexed { index, _ ->
-            fragmentList.add(PaperFragment(subCodeList[index]))
+            fragmentList.add(ErrorBookFragment(subCodeList[index]))
         }
         val mAdapter = PaperAdapter()
         viewpager.adapter = mAdapter
@@ -69,7 +74,7 @@ class PaperActivity : BaseActivity() {
 
     companion object {
         fun start(c: Context) {
-            c.startActivity(Intent(c, PaperActivity::class.java))
+            c.startActivity(Intent(c, ErrorBookActivity::class.java))
         }
     }
 

@@ -4,8 +4,8 @@ import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.parents.R
-import com.yzy.ebag.parents.bean.MyChildrenBean
 import ebag.core.util.loadHead
+import ebag.mobile.bean.MyChildrenBean
 
 class ChooseChildrenAdapter(data: List<MyChildrenBean>) : BaseQuickAdapter<MyChildrenBean, BaseViewHolder>(R.layout.item_choosechildren, data) {
 

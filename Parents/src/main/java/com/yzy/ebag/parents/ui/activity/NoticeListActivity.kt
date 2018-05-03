@@ -6,13 +6,13 @@ import android.graphics.Color
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import com.yzy.ebag.parents.R
-import com.yzy.ebag.parents.bean.MyChildrenBean
 import com.yzy.ebag.parents.mvp.NoticeListContract
 import com.yzy.ebag.parents.mvp.presenter.NoticeListPresenter
 import com.yzy.ebag.parents.ui.adapter.NoticeListAdapter
 import ebag.core.base.BaseActivity
 import ebag.core.util.SerializableUtils
 import ebag.mobile.base.Constants
+import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.bean.NoticeBean
 import kotlinx.android.synthetic.main.activity_noticelist.*
 

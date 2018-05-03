@@ -3,11 +3,13 @@ package com.yzy.ebag.parents.http
 import com.yzy.ebag.parents.bean.*
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.StringUtils
+import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.bean.NoticeBean
 import ebag.mobile.http.EBagApi
 import ebag.mobile.http.EBagClient
 import org.json.JSONArray
 import org.json.JSONObject
+import java.util.*
 
 object ParentsAPI {
 
@@ -78,9 +80,9 @@ object ParentsAPI {
     }
 
     /**查询最新公告*/
-    fun newestNotice(classId: String, callback: RequestCallBack<NoticeBean>){
+    fun newestNotice(classId: String, callback: RequestCallBack<NoticeBean>) {
         val jsonObject = JSONObject()
-        jsonObject.put("classId",classId)
+        jsonObject.put("classId", classId)
         EBagApi.request(parentsService.newestNotice("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
@@ -96,7 +98,7 @@ object ParentsAPI {
 
     /*成长轨迹，考试成绩*/
 
-    fun examSocre(classId: String, homeType: String, rid: String,gradeCode:String,studentUid:String, callback: RequestCallBack<List<HomeworkBean>>) {
+    fun examSocre(classId: String, homeType: String, rid: String, gradeCode: String, studentUid: String, callback: RequestCallBack<List<HomeworkBean>>) {
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
         jsonObject.put("studentUid", studentUid)
@@ -109,7 +111,7 @@ object ParentsAPI {
     /**
      * 作业列表
      */
-    fun subjectWorkList(type: String, classId: String?, subCode: String, page: Int, pageSize: Int,uid:String, callback: RequestCallBack<ArrayList<SubjectBean>>) {
+    fun subjectWorkList(type: String, classId: String?, subCode: String, page: Int, pageSize: Int, uid: String, callback: RequestCallBack<ArrayList<SubjectBean>>) {
         val jsonObj = JSONObject()
 
         jsonObj.put("classId", classId)
@@ -119,6 +121,34 @@ object ParentsAPI {
         jsonObj.put("pageSize", pageSize)
         jsonObj.put("uid", uid)
         EBagApi.request(parentsService.subjectWorkList("v1", EBagApi.createBody(jsonObj)), callback)
+    }
+
+    /**
+     * 我的错题
+     */
+    fun errorTopic(classId: String, subCode: String, page: Int, pageSize: Int, uid: String, callback: RequestCallBack<ArrayList<ErrorTopicBean>>) {
+        val jsonObj = JSONObject()
+        jsonObj.put("classId", classId)
+        jsonObj.put("subCode", subCode)
+        jsonObj.put("page", page)
+        jsonObj.put("pageSize", pageSize)
+        jsonObj.put("uid", uid)
+        EBagApi.request(parentsService.errorTopic("v1", EBagApi.createBody(jsonObj)), callback)
+    }
+
+    /**
+     * 生成小孩
+     */
+
+    fun createChildCode(psw: String,  name: String, callback: RequestCallBack<String>,relation: String = "家长") {
+        val jsonObj = JSONObject()
+        jsonObj.put("password", psw)
+        jsonObj.put("relation", relation)
+        val jsonObject = JSONObject()
+        jsonObject.put("name", name)
+        jsonObj.put("userInfoVo", jsonObject)
+
+        EBagApi.request(parentsService.createChildCode("v1", EBagApi.createBody(jsonObj)), callback)
     }
 
 

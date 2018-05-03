@@ -212,4 +212,10 @@ interface EBagService {
     @Headers("EBag-Special-Url: special/url")
     @POST("user/MobileAPPVersion/{version}")
     fun checkUpdate(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<VersionUpdateBean>>
+
+    /**
+     * 获取错题详情
+     */
+    @POST("homeWork/myErrorQuestion/{version}")
+    fun getErrorDetail(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<TypeQuestionBean>>>
 }

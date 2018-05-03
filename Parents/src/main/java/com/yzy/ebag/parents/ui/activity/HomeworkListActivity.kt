@@ -4,12 +4,12 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.TextView
 import com.yzy.ebag.parents.R
-import com.yzy.ebag.parents.bean.MyChildrenBean
 import com.yzy.ebag.parents.bean.OnePageInfoBean
 import com.yzy.ebag.parents.ui.adapter.HomeworkListAdapter
 import ebag.core.base.BaseActivity
 import ebag.core.util.SerializableUtils
 import ebag.mobile.base.Constants
+import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.module.homework.HomeworkDescActivity
 import kotlinx.android.synthetic.main.activity_homeworklist.*
 

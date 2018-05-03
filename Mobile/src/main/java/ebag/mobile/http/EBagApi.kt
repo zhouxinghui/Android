@@ -476,4 +476,15 @@ object EBagApi {
         jsonObject.put("versionNumber", versionCode)
         EBagApi.request(eBagService.checkUpdate("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+
+    /**
+     * 获取错题详情
+     */
+    fun getErrorDetail(homeWorkId: String,uid:String,callback: RequestCallBack<List<TypeQuestionBean>>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("homeWorkId", homeWorkId)
+        jsonObject.put("uid", uid)
+        EBagApi.request(eBagService.getErrorDetail("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import com.yzy.ebag.parents.R
-import com.yzy.ebag.parents.bean.MyChildrenBean
 import com.yzy.ebag.parents.mvp.CreateTaskContract
 import com.yzy.ebag.parents.mvp.presenter.CreateTaskPersenter
 import com.yzy.ebag.parents.ui.adapter.CreateTaskAdapter
@@ -12,6 +11,7 @@ import ebag.core.base.BaseActivity
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.StringUtils
 import ebag.core.util.T
+import ebag.mobile.bean.MyChildrenBean
 import kotlinx.android.synthetic.main.activity_createtask.*
 
 

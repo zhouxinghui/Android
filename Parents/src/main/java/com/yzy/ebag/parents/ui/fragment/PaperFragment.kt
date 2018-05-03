@@ -7,7 +7,6 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.parents.R
-import com.yzy.ebag.parents.bean.MyChildrenBean
 import com.yzy.ebag.parents.bean.SubjectBean
 import com.yzy.ebag.parents.http.ParentsAPI
 import ebag.core.base.BaseFragment
@@ -15,6 +14,7 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.SerializableUtils
 import ebag.mobile.base.Constants
+import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.module.homework.HomeworkDescActivity
 import kotlinx.android.synthetic.main.fragment_paper.*
 

@@ -11,7 +11,6 @@ import com.umeng.socialize.bean.SHARE_MEDIA
 import com.umeng.socialize.media.UMImage
 import com.umeng.socialize.media.UMWeb
 import com.yzy.ebag.parents.R
-import com.yzy.ebag.parents.bean.MyChildrenBean
 import com.yzy.ebag.parents.ui.adapter.MainPagerAdapter
 import com.yzy.ebag.parents.ui.fragment.ClazzFragment
 import com.yzy.ebag.parents.ui.fragment.MainFragment
@@ -21,6 +20,7 @@ import ebag.core.base.BaseActivity
 import ebag.core.util.SerializableUtils
 import ebag.core.util.T
 import ebag.mobile.base.Constants
+import ebag.mobile.bean.MyChildrenBean
 import kotlinx.android.synthetic.main.activity_main.*
 
 

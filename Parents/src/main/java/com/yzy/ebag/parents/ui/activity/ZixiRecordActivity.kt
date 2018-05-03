@@ -3,7 +3,6 @@ package com.yzy.ebag.parents.ui.activity
 import android.content.Context
 import android.content.Intent
 import com.yzy.ebag.parents.R
-import com.yzy.ebag.parents.bean.MyChildrenBean
 import com.yzy.ebag.parents.ui.fragment.LetterRecordFragment
 import com.yzy.ebag.parents.ui.fragment.ReadRecordFragment
 import com.yzy.ebag.parents.ui.widget.ClazzListPopup
@@ -16,6 +15,7 @@ import ebag.core.http.network.handleThrowable
 import ebag.core.util.SerializableUtils
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.EditionBean
+import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.bean.UnitBean
 import ebag.mobile.http.EBagApi
 import kotlinx.android.synthetic.main.activity_letter_record.*

@@ -8,13 +8,13 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.parents.R
 import com.yzy.ebag.parents.bean.Achievement
 import com.yzy.ebag.parents.bean.HomeworkBean
-import com.yzy.ebag.parents.bean.MyChildrenBean
 import com.yzy.ebag.parents.http.ParentsAPI
 import ebag.core.base.LazyFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.SerializableUtils
 import ebag.core.widget.FoldChartView
 import ebag.mobile.base.Constants
+import ebag.mobile.bean.MyChildrenBean
 import kotlinx.android.synthetic.main.fragment_achievement.*
 
 /**

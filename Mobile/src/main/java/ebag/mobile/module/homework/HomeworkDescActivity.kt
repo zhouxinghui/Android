@@ -17,11 +17,14 @@ import ebag.core.bean.QuestionTypeUtils
 import ebag.core.bean.TypeQuestionBean
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
+import ebag.core.util.SerializableUtils
 import ebag.core.util.StringUtils
 import ebag.core.util.VoicePlayerOnline
 import ebag.core.xRecyclerView.adapter.OnItemChildClickListener
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
 import ebag.mobile.R
+import ebag.mobile.base.Constants
+import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.http.EBagApi
 import ebag.mobile.widget.questions.base.BaseQuestionView
 import kotlinx.android.synthetic.main.activity_homework_desc.*
@@ -29,13 +32,13 @@ import kotlinx.android.synthetic.main.activity_homework_desc.*
 /**
  * Created by YZY on 2018/4/28.
  */
-class HomeworkDescActivity: BaseActivity() {
+class HomeworkDescActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_homework_desc
 
     companion object {
-        fun jump(context: Context, homeworkId: String, workType: String, studentId: String? = null, testTime: Int = 0){
+        fun jump(context: Context, homeworkId: String, workType: String, studentId: String? = null, testTime: Int = 0) {
             context.startActivity(
-                    Intent(context , HomeworkDescActivity::class.java)
+                    Intent(context, HomeworkDescActivity::class.java)
                             .putExtra("homeworkId", homeworkId)
                             .putExtra("testTime", testTime)
                             .putExtra("studentId", studentId)
@@ -43,6 +46,8 @@ class HomeworkDescActivity: BaseActivity() {
             )
         }
     }
+
+    private var isError = false
     private lateinit var homeworkId: String
     private var workType = ""
     private var studentId = ""
@@ -57,13 +62,14 @@ class HomeworkDescActivity: BaseActivity() {
     private val typeDialog by lazy {
         TypeDialog()
     }
-    private val detailRequest = object : RequestCallBack<List<TypeQuestionBean>>(){
+    private val detailRequest = object : RequestCallBack<List<TypeQuestionBean>>() {
         override fun onStart() {
             stateView.showLoading()
         }
+
         override fun onSuccess(entity: List<TypeQuestionBean>?) {
             typeQuestionList = entity ?: ArrayList()
-            if(typeQuestionList.isNotEmpty()){
+            if (typeQuestionList.isNotEmpty()) {
                 titleBar.setTitle(QuestionTypeUtils.getTitle(typeQuestionList[0]?.type))
                 (0 until typeQuestionList.size).forEach {
                     typeQuestionList[it]?.initQuestionPosition(it)
@@ -73,7 +79,7 @@ class HomeworkDescActivity: BaseActivity() {
                 typeAdapter.expandAll()
                 questionList = typeQuestionList[0]?.questionVos
                 questionAdapter.setNewData(questionList)
-            }else{
+            } else {
                 stateView.showEmpty()
             }
         }
@@ -85,10 +91,14 @@ class HomeworkDescActivity: BaseActivity() {
             exception.handleThrowable(this@HomeworkDescActivity)
         }
     }
+
     override fun initViews() {
         homeworkId = intent.getStringExtra("homeworkId") ?: ""
         workType = intent.getStringExtra("workType") ?: ""
         studentId = intent.getStringExtra("studentId") ?: ""
+        if (intent.hasExtra("error")) {
+            isError = intent.getBooleanExtra("error", false)
+        }
 
         questionRecycler.layoutManager = questionManager
         questionRecycler.adapter = questionAdapter
@@ -110,14 +120,14 @@ class HomeworkDescActivity: BaseActivity() {
 
         questionAdapter.setOnItemChildClickListener(questionClickListener)
         questionAdapter.setOnItemChildClickListener { adapter, view, position ->
-            if (view.id == R.id.analyseTv){
+            if (view.id == R.id.analyseTv) {
                 analyseDialog.show(questionAdapter.data[position])
             }
         }
 
         questionAdapter.setOnItemChildClickListener { adapter, view, position ->
             adapter as QuestionAdapter
-            if (view.id == R.id.analyseTv){
+            if (view.id == R.id.analyseTv) {
                 analyseDialog.show(questionAdapter.data[position])
             }
         }
@@ -126,27 +136,28 @@ class HomeworkDescActivity: BaseActivity() {
         questionAdapter.showResult = true
 
         typeAdapter.setSpanSizeLookup { gridLayoutManager, position ->
-            if(typeAdapter.getItemViewType(position) == TypeQuestionBean.TYPE){
+            if (typeAdapter.getItemViewType(position) == TypeQuestionBean.TYPE) {
                 gridLayoutManager.spanCount
-            }else{
+            } else {
                 1
             }
         }
 
         typeAdapter.setOnItemClickListener { _, _, position ->
-            if(typeAdapter.getItemViewType(position) == TypeQuestionBean.ITEM){
+            if (typeAdapter.getItemViewType(position) == TypeQuestionBean.ITEM) {
                 typeDialog.dismiss()
 
-                val item = typeAdapter.getItem(position) as QuestionBean? ?: return@setOnItemClickListener
+                val item = typeAdapter.getItem(position) as QuestionBean?
+                        ?: return@setOnItemClickListener
 
                 val parentPosition = typeAdapter.getParentPosition(item)
                 val ss = typeAdapter.getItem(parentPosition) as TypeQuestionBean?
                 titleBar.setTitle(QuestionTypeUtils.getTitle(ss?.type))
-                if(ss != null){
+                if (ss != null) {
                     val sss = ss.questionVos
-                    if(sss === questionList){
+                    if (sss === questionList) {
                         questionManager.scrollToPositionWithOffset(item.position, 0)
-                    }else{
+                    } else {
                         questionList = sss
                         questionAdapter.setNewData(questionList)
                         questionRecycler.postDelayed({
@@ -165,11 +176,16 @@ class HomeworkDescActivity: BaseActivity() {
 
     }
 
-    private fun request(){
-        EBagApi.getQuestions(homeworkId, workType, studentId, detailRequest)
+    private fun request() {
+
+        if (isError) {
+            EBagApi.getErrorDetail(homeworkId, (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid, detailRequest)
+        } else {
+            EBagApi.getQuestions(homeworkId, workType, studentId, detailRequest)
+        }
     }
 
-    private inner class TypeDialog: BaseDialog(this){
+    private inner class TypeDialog : BaseDialog(this) {
         override fun getLayoutRes(): Int = R.layout.recycler_view_layout
 
         override fun setWidth(): Int = WindowManager.LayoutParams.MATCH_PARENT
@@ -184,13 +200,14 @@ class HomeworkDescActivity: BaseActivity() {
     }
 
     //-----------------------------------------语音播放相关
-    private val questionClickListener : QuestionItemChildClickListener by lazy { QuestionItemChildClickListener() }
-    private val voicePlayer : VoicePlayerOnline by lazy {
+    private val questionClickListener: QuestionItemChildClickListener by lazy { QuestionItemChildClickListener() }
+    private val voicePlayer: VoicePlayerOnline by lazy {
         val player = VoicePlayerOnline(this)
-        player.setOnPlayChangeListener(object : VoicePlayerOnline.OnPlayChangeListener{
+        player.setOnPlayChangeListener(object : VoicePlayerOnline.OnPlayChangeListener {
             override fun onProgressChange(progress: Int) {
                 progressBar!!.progress = progress
             }
+
             override fun onCompletePlay() {
                 tempUrl = null
                 anim!!.stop()
@@ -200,8 +217,8 @@ class HomeworkDescActivity: BaseActivity() {
         })
         player
     }
-    private var anim : AnimationDrawable? = null
-    private var progressBar : ProgressBar? = null
+    private var anim: AnimationDrawable? = null
+    private var progressBar: ProgressBar? = null
     private var tempUrl: String? = null
 
     inner class QuestionItemChildClickListener : OnItemChildClickListener {
@@ -210,13 +227,14 @@ class HomeworkDescActivity: BaseActivity() {
                 voicePlaySetting(view)
         }
     }
-    private fun voicePlaySetting(view: View){
-        var url : String = view.getTag(R.id.play_id) as String
+
+    private fun voicePlaySetting(view: View) {
+        var url: String = view.getTag(R.id.play_id) as String
         url = url.substring(3, url.length)
         if (StringUtils.isEmpty(url))
             return
-        if (url != tempUrl){
-            if(anim != null) {
+        if (url != tempUrl) {
+            if (anim != null) {
                 anim!!.stop()
                 anim!!.selectDrawable(0)
                 progressBar!!.progress = 0
@@ -226,11 +244,11 @@ class HomeworkDescActivity: BaseActivity() {
             voicePlayer.playUrl(url)
             anim!!.start()
             tempUrl = url
-        }else{
-            if (voicePlayer.isPlaying && !voicePlayer.isPause){
+        } else {
+            if (voicePlayer.isPlaying && !voicePlayer.isPause) {
                 voicePlayer.pause()
                 anim!!.stop()
-            }else{
+            } else {
                 voicePlayer.play()
                 anim!!.start()
             }

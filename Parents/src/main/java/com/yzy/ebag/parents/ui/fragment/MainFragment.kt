@@ -85,6 +85,7 @@ class MainFragment : BaseFragment() {
                 5 -> performanceDialog.show()
                 3 -> ZixiActivity.jump(activity)
                 2 -> PaperActivity.start(activity)
+                0 -> ErrorBookActivity.start(activity)
             }
         }
 

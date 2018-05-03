@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/x10"
+    android:layout_marginLeft="@dimen/x5"
+    android:layout_marginRight="@dimen/x5"
+    android:layout_marginTop="@dimen/x5"
+    android:layout_marginBottom="@dimen/x5"
+    android:background="@drawable/adapter_item_bg">
+
+    <TextView
+        android:id="@+id/tvCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#4A4A4A"
+        android:textSize="@dimen/x12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="完成： 28/28" />
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:textColor="#4A4A4A"
+        android:textSize="@dimen/x12"
+        app:layout_constraintStart_toStartOf="@id/tvCount"
+        app:layout_constraintTop_toBottomOf="@id/tvCount"
+        tools:text="内容： 第一单元 看一看" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#8892a1"
+        android:textSize="@dimen/x8"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvCount"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="截止时间： 2017-12-25 12:50" />
+
+    <ebag.core.widget.drawable.DrawableTextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/x14"
+        android:drawablePadding="@dimen/x10"
+        android:textColor="@color/color_homework_list_selector"
+        android:textSize="@dimen/x12"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvContent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rightDrawable="@drawable/homework_list_arrow"
+        app:rightDrawableHeight="@dimen/x10"
+        app:rightDrawableWidth="@dimen/x10"
+        tools:text="未完成" />
+
+</android.support.constraint.ConstraintLayout>
