@@ -175,8 +175,11 @@ object TeacherApi {
     /**
      * 布置作业页面-切换版本请求数据
      */
-    fun assignDataByVersion(type: String, versionId: String?, subCode: String?, unitCode: String?, callback: RequestCallBack<AssignmentBean>){
+    fun assignDataByVersion(type: String, versionId: String?, subCode: String?, unitCode: String?, level: String?, callback: RequestCallBack<AssignmentBean>){
         val jsonObject = JSONObject()
+        if (!StringUtils.isEmpty(level)){
+            jsonObject.put("level", level)
+        }
         jsonObject.put("type", type)
         jsonObject.put("bookVersionId", versionId)
         jsonObject.put("subCode", subCode)

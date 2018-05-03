@@ -60,8 +60,8 @@ class AssignmentPresenter(view: AssignmentView, listener: OnToastListener): Base
     fun loadUnitAndQuestion(type: String, gradeCode: String,classIds: ArrayList<AssignClassBean>? = null, bookVersionId: String? = null){
         TeacherApi.unitAndQuestion(type, gradeCode,classIds, bookVersionId, unitRequest)
     }
-    fun loadDataByVersion(type: String, versionId: String?, subCode: String?, unitCode: String? = null){
-        TeacherApi.assignDataByVersion(type, versionId, subCode, unitCode, unitRequest)
+    fun loadDataByVersion(type: String, versionId: String?, subCode: String?, unitCode: String? = null, level: String? = null){
+        TeacherApi.assignDataByVersion(type, versionId, subCode, unitCode, level, unitRequest)
     }
     /*fun loadTestListData(testPaperFlag: String, gradeCode: String, unitId: String?, subCode: String?){
         TeacherApi.testPaperList(testPaperFlag, gradeCode, unitId, subCode, testRequest)

@@ -67,7 +67,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     subCode,
                     subName)
             isGradeRequest = false
-            assignmentPresenter.loadDataByVersion(workCategory.toString(), versionId, subCode)
+            assignmentPresenter.loadDataByVersion(workCategory.toString(), versionId, subCode, difficulty)
             isUnitChange = false
         }
         popup
@@ -84,9 +84,9 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 testFragment.requestData(currentTestType, currentGradeCode,
                         if (cache!!.currentUnitBean?.unitCode == null) null else cache.currentUnitBean?.unitCode, cache.subCode)
             assignmentPresenter.loadDataByVersion(workCategory.toString(), cache?.versionId, cache?.subCode,
-                    if (cache!!.currentUnitBean?.unitCode == null) null else cache.currentUnitBean?.unitCode)
+                    if (cache!!.currentUnitBean?.unitCode == null) null else cache.currentUnitBean?.unitCode, difficulty)
             isUnitChange = true
-            cache?.currentUnitName = name
+            cache.currentUnitName = name
             unitTv.text = name
         }
         popup
@@ -350,6 +350,9 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     difficulty = "3"
                 }
             }
+            val cache = cacheMap[currentGradeCode]
+            assignmentPresenter.loadDataByVersion(workCategory.toString(), cache?.versionId, cache?.subCode,
+                    if (cache!!.currentUnitBean?.unitCode == null) null else cache.currentUnitBean?.unitCode, difficulty)
         }
 
         clazzBtn.setOnClickListener {

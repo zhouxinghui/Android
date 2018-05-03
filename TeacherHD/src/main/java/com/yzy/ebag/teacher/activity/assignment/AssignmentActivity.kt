@@ -58,7 +58,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     subCode,
                     subName)
             isGradeRequest = false
-            assignmentPresenter.loadDataByVersion(workCategory.toString(), versionId, subCode)
+            assignmentPresenter.loadDataByVersion(workCategory.toString(), versionId, subCode, difficulty)
             isUnitChange = false
         }
         dialog
@@ -233,7 +233,11 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 if(workCategory == Constants.ASSIGN_TEST_PAPER)
                     testFragment.requestData(currentTestType, currentGradeCode,
                             if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode, cache.subCode)
-                assignmentPresenter.loadDataByVersion(workCategory.toString(), cache.versionId, cache.subCode, if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode)
+                assignmentPresenter.loadDataByVersion(
+                        workCategory.toString(),
+                        cache.versionId, cache.subCode,
+                        difficulty,
+                        if (cache.currentUnitBean.unitCode == null) null else cache.currentUnitBean.unitCode)
                 isUnitChange = true
             }
         }
@@ -253,6 +257,12 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     difficulty = "3"
                 }
             }
+            val cache = cacheMap[currentGradeCode]
+            assignmentPresenter.loadDataByVersion(
+                    workCategory.toString(),
+                    cache?.versionId, cache?.subCode,
+                    difficulty,
+                    if (cache?.currentUnitBean?.unitCode == null) null else cache.currentUnitBean.unitCode)
         }
 
         questionAdapter.setOnItemClickListener { holder, view, position ->
@@ -397,7 +407,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 if(workCategory == Constants.ASSIGN_TEST_PAPER)
                     testFragment.requestData(currentTestType, currentGradeCode,
                             item.unitCode, cache!!.subCode)
-                assignmentPresenter.loadDataByVersion(workCategory.toString(), cache?.versionId, cache?.subCode, item.unitCode)
+                assignmentPresenter.loadDataByVersion(workCategory.toString(), cache?.versionId, cache?.subCode, difficulty, item.unitCode)
                 isUnitChange = true
             }
         }

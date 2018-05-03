@@ -73,9 +73,9 @@ fun ImageView.loadInsideImage(url: String?) {
                         override fun onResourceReady(resource: Bitmap, glideAnimation: Transition<in Bitmap>) {
                             val imageWidth = resource.width
                             val imageHeight = resource.height
-                            val width = DensityUtil.dip2px(context, 100F)//固定宽度
+                            val height = DensityUtil.dip2px(context, 100F)//固定宽度
                             //宽度固定,然后根据原始宽高比得到此固定宽度需要的高度
-                            val height = width * imageHeight / imageWidth
+                            val width = height * imageWidth / imageHeight
                             val para = this@loadInsideImage.layoutParams
                             para.height = height
                             para.width = width
