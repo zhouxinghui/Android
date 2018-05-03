@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/x65"
+    android:layout_width="@dimen/x66"
     android:layout_height="@dimen/y55"
     android:orientation="horizontal"
     android:gravity="center">
@@ -12,7 +12,7 @@
         android:minWidth="@dimen/x30"
         tools:text="英语"
         android:gravity="center"
-        android:textSize="@dimen/tv_normal"
+        android:textSize="@dimen/tv_sub"
         />
     <ImageView
         android:id="@+id/arrowView"
