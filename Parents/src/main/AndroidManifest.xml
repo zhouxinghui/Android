@@ -140,8 +140,15 @@
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
-        <activity android:name=".ui.activity.PaperActivity" />
-        <activity android:name=".ui.activity.ErrorBookActivity" />
+        <activity android:name=".ui.activity.PaperActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.activity.ErrorBookActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.activity.ForgetActivity"
+            android:screenOrientation="portrait"
+            />
 
         <meta-data
             android:name="UMENG_APPKEY"

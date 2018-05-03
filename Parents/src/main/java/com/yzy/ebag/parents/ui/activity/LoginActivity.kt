@@ -15,7 +15,7 @@ class LoginActivity:BLoginActivity(){
 
     override fun getJumpIntent(): Intent =  if ((SPUtils.get(this,com.yzy.ebag.parents.common.Constants.CURRENT_CHILDREN_YSBCODE,"") as String).isEmpty()) Intent(this,ChooseChildrenActivity::class.java).putExtra("flag",true) else Intent(this,MainActivity::class.java)
     override fun forgetClick(view: View) {
-
+        startActivity(Intent(this,ForgetActivity::class.java))
     }
 
     override fun threeParty(view: View, uid: String?, accessToken: String?, name: String?, iconurl: String?, gender: String?, share_media: String?) {
