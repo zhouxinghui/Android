@@ -73,9 +73,14 @@ class CorrectingActivity : BaseActivity() {
         val popup = CorrectingSubjectPopup(this)
         popup.onSubjectSelect = {classId, className, subCode, subName ->
             clazzTv.text = "$className - $subName"
-            this.classId = classId
-            this.subCode = subCode
-            fragments[currentPage].update(classId, subCode)
+            if (this.classId != classId || this.subCode != subCode){
+                this.classId = classId
+                this.subCode = subCode
+                fragments[currentPage].update(classId, subCode)
+                fragments.forEach {
+                    it.setReloadData(classId, subCode)
+                }
+            }
         }
         popup
     }

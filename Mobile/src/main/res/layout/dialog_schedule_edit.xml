@@ -16,8 +16,6 @@
         android:background="@drawable/edit_bg"
         android:hint="请输入自定义课程"
         android:gravity="center"
-        android:maxLength="3"
-        android:inputType="number"
         android:textColor="@color/tv_normal"
         android:textSize="@dimen/tv_normal"
         app:layout_constraintStart_toStartOf="parent"

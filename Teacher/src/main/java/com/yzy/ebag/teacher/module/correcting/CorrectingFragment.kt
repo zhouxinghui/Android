@@ -46,27 +46,28 @@ class CorrectingFragment: BaseListFragment<List<CorrectingBean>, CorrectingBean.
     private var classId = ""
     private var subCode = ""
     private var className = ""
+    private var shouldReloadData = false
     override fun loadConfig() {
 
     }
 
     fun setData(list: List<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>?){
-        withFirstPageData(list)
+        withFirstPageData(list, true)
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
-        if (!isViewCreated)
+        if (activity == null)
             return
-        if (isVisibleToUser && mContext is CorrectingActivity){
-            val classId = (mContext as CorrectingActivity).classId
-            val subCode = (mContext as CorrectingActivity).subCode
-            if (this.classId != classId || this.subCode != subCode){
-                this.classId = classId
-                this.subCode = subCode
-                onRetryClick()
-            }
+        if (isVisibleToUser && shouldReloadData){
+            onRetryClick()
         }
+    }
+
+    fun setReloadData(classId: String, subCode: String){
+        this.classId = classId
+        this.subCode = subCode
+        shouldReloadData = true
     }
 
     fun update(classId: String, subCode: String){
@@ -84,6 +85,7 @@ class CorrectingFragment: BaseListFragment<List<CorrectingBean>, CorrectingBean.
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<CorrectingBean>?): List<CorrectingBean.SubjectVosBean.HomeWorkInfoVosBean>? {
+        shouldReloadData = false
         if (parent == null || parent.isEmpty() || parent[0].subjectVos == null || parent[0].subjectVos.isEmpty())
             return ArrayList()
         className = parent[0].className
@@ -113,7 +115,7 @@ class CorrectingFragment: BaseListFragment<List<CorrectingBean>, CorrectingBean.
             contentTv.text = item.content
             completeTv.text = "完成： ${item.homeWorkCompleteCount}/${item.studentCount}"
             if (type ==  Constants.KSSJ_TYPE)
-                timeTv.text = "考试时间： ${item.endTime}"
+                timeTv.text = "考试时间： ${item.endTime} 分钟"
             else
                 timeTv.text = "截止时间： ${item.endTime}"
             if (item.state == Constants.CORRECT_CORRECTED)
