@@ -370,15 +370,17 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
                 adapter.updateSelected(position)
             }else{// 跳转照片预览
                 val list = ArrayList<String>()
+                val commentList = ArrayList<String>()
                 var index = -1
                 (0 until  adapter.itemCount).forEach {
                     if(adapter.getItem(it)?.isPhoto == true) {
                         list.add(adapter.getItem(it)!!.photoUrl)
+                        commentList.add(adapter.getItem(it)!!.comment)
                         if(it <= position)
                             index++
                     }
                 }
-                PhotoPreviewActivity.jump(this, list, index)
+                PhotoPreviewActivity.jump(this, list, index, commentList)
             }
         }
     }

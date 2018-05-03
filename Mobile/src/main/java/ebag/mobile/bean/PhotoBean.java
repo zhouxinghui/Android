@@ -18,6 +18,7 @@ public class PhotoBean implements MultiItemEntity {
 
     private String id;
     private String photoUrl;
+    private String comment;
 
     private String createDate;
     private List<PhotoBean> photoUrls;
@@ -54,6 +55,14 @@ public class PhotoBean implements MultiItemEntity {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public String getPhotoUrl() {

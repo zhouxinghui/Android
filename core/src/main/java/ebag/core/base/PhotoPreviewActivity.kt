@@ -15,12 +15,15 @@ import kotlinx.android.synthetic.main.activity_photo_preview.*
 
 class PhotoPreviewActivity : BaseActivity() {
     private val urlList by lazy { intent.getSerializableExtra("urlList") as ArrayList<String>}
+    private val descriptionList: ArrayList<String> by lazy { (intent.getSerializableExtra("descriptionList") ?: ArrayList<String>()) as ArrayList<String>}
     private val currentPosition by lazy { intent.getIntExtra("position", 0) }
     companion object {
-        fun jump(context: Context, urlList: List<String>, position: Int){
+        fun jump(context: Context, urlList: List<String>, position: Int, descriptionList: ArrayList<String>? = null){
             context.startActivity(Intent(context, PhotoPreviewActivity::class.java)
                     .putExtra("urlList", urlList as ArrayList<String>)
-                    .putExtra("position", position))
+                    .putExtra("position", position)
+                    .putExtra("descriptionList", descriptionList)
+            )
         }
     }
     override fun getLayoutId(): Int {
@@ -31,6 +34,9 @@ class PhotoPreviewActivity : BaseActivity() {
         viewPager.adapter = ViewPagerAdapter(urlList)
         viewPager.setCurrentItem(currentPosition, false)
         positionTv.text = "${currentPosition + 1}/${urlList.size}"
+        if (!descriptionList.isEmpty()){
+            descriptionTv.text = descriptionList[0]
+        }
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {
             }
@@ -40,6 +46,9 @@ class PhotoPreviewActivity : BaseActivity() {
 
             override fun onPageSelected(position: Int) {
                 positionTv.text = "${position + 1}/${urlList.size}"
+                if (!descriptionList.isEmpty()){
+                    descriptionTv.text = descriptionList[position]
+                }
             }
         })
     }
