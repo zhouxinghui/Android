@@ -67,7 +67,7 @@ class AlbumDetailActivity: BaseListActivity<ArrayList<PhotoBean>, PhotoBean>() {
     private var dataChanged = false
 
     private val modifyPopup by lazy {
-        val popup = AlbumDetailPopup(this)
+        val popup = AlbumDetailPopup(this, groupType)
         popup.onModifyClick = {
             when(it){
                 1 ->{   //全选&全不选
