@@ -17,6 +17,7 @@ import com.yzy.ebag.teacher.bean.AssignClassBean
 import com.yzy.ebag.teacher.bean.AssignGradeBean
 import com.yzy.ebag.teacher.bean.AssignmentBean
 import com.yzy.ebag.teacher.bean.TestPaperListBean
+import com.yzy.ebag.teacher.module.clazz.CreateClassActivity
 import ebag.core.base.BasePopupWindow
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.bean.QuestionBean
@@ -167,7 +168,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 .setMessage("你暂未加入班级，你可以联系对应班级班主任添加任课老师，也可自己创建班级")
                 .setNegativeButton("取消", null)
                 .setPositiveButton("创建班级", {dialog, which ->
-//                    CreateClassActivity.jump(this)
+                    CreateClassActivity.jump(this)
                     finish()
                 })
                 .create()
