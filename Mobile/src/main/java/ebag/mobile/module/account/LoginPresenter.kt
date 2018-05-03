@@ -1,7 +1,6 @@
 package ebag.mobile.module.account
 
 import android.content.Context
-import ebag.core.base.App
 import ebag.core.base.mvp.BasePresenter
 import ebag.core.base.mvp.OnToastListener
 import ebag.core.http.network.MsgException
@@ -127,11 +126,11 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
         if (getView() is Context)
             context = getView() as Context
         if (StringUtils.isMobileNo(account)) {
-            EBagApi.login(BLoginActivity.ISPHONE, account, pwd, BLoginActivity.PHONE_TYPE, null, roleCode, null, null, loginRequest!!)
+            EBagApi.login(account, pwd, BLoginActivity.PHONE_TYPE, null, roleCode, null, null, loginRequest!!)
             if (context != null)
                 SPUtils.put(context, Constants.LOGIN_TYPE, BLoginActivity.PHONE_TYPE)
         } else {
-            EBagApi.login(BLoginActivity.ISPHONE, account, pwd, BLoginActivity.EBAG_TYPE, null, roleCode, null, null, loginRequest!!)
+            EBagApi.login(account, pwd, BLoginActivity.EBAG_TYPE, null, roleCode, null, null, loginRequest!!)
             if (context != null)
                 SPUtils.put(context, Constants.LOGIN_TYPE, BLoginActivity.EBAG_TYPE)
         }
@@ -234,7 +233,7 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
                     }
 
                 })
-            EBagApi.register(SPUtils.get(App.mContext, ebag.core.util.Constants.IMEI, "") as String,BLoginActivity.ISHD, name, null, null, phone, code, roleCode, pwd, thirdPartyToken, thirdPartyUnionid, BLoginActivity.PHONE_TYPE, null, registerRequest!!)
+            EBagApi.register(name, null, null, phone, code, roleCode, pwd, thirdPartyToken, thirdPartyUnionid, BLoginActivity.PHONE_TYPE, null, registerRequest!!)
         }
 
     }

@@ -70,10 +70,9 @@ object EBagApi {
     }
 
     /**登录*/
-    fun login(isHDorPHONE: String, account: String?, pwd: String?, loginType: String?, thirdPartyType: String?,
+    fun login(account: String?, pwd: String?, loginType: String?, thirdPartyType: String?,
               roleCode: String, thirdPartyToken: String?, thirdPartyUnionid: String?, callback: RequestCallBack<UserEntity>) {
         val jsonObj = JSONObject()
-        jsonObj.put("isHDorPHONE",isHDorPHONE)
         jsonObj.put("password", pwd)
         jsonObj.put("loginAccount", account)
         jsonObj.put("loginType", loginType)
@@ -92,9 +91,8 @@ object EBagApi {
     }*/
 
     /**注册*/
-    fun register(deviceCode:String,isHDorPHONE: String,name: String, headUrl: String?, sex: String?, phone: String?, verifyCode: String?, roleCode: String?, pwd: String, thirdPartyToken: String?, thirdPartyUnionid: String?, loginType: String?, thirdPartyType: String?, callback: RequestCallBack<UserEntity>) {
+    fun register(name: String, headUrl: String?, sex: String?, phone: String?, verifyCode: String?, roleCode: String?, pwd: String, thirdPartyToken: String?, thirdPartyUnionid: String?, loginType: String?, thirdPartyType: String?, callback: RequestCallBack<UserEntity>) {
         val jsonObj = JSONObject()
-        jsonObj.put("isHDorPHONE",isHDorPHONE)
         jsonObj.put("nickName", name)
         jsonObj.put("headUrl", headUrl)
         jsonObj.put("sex", sex)
@@ -106,7 +104,6 @@ object EBagApi {
         jsonObj.put("thirdPartyToken", thirdPartyToken)
         jsonObj.put("thirdPartyUnionid", thirdPartyUnionid)
         jsonObj.put("roleCode", roleCode)
-        jsonObj.put("deviceCode",deviceCode)
         request(EBagClient.eBagService.register("v1", createBody(jsonObj)), callback)
     }
 
