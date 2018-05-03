@@ -142,6 +142,15 @@ object TeacherApi {
         EBagApi.request(teacherService.smartPush("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
+    /**错题反馈*/
+    fun wrongQuestionFeedback(content: String, questionId: String, uid: String, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("content", content)
+        jsonObject.put("qid", questionId)
+        jsonObject.put("uid", uid)
+        EBagApi.request(teacherService.wrongQuestionFeedback("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
     /**预览试卷*/
     fun previewTestPaper(paperId: String, callback: RequestCallBack<List<QuestionBean>>){
         val jsonObject = JSONObject()

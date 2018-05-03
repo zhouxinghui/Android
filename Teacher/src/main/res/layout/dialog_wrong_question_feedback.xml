@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/normal_dialog_bg"
+    >
+    <TextView android:id="@+id/title_tv"
+        style="@style/normal_dialog_title"
+        android:text="@string/wrong_question_feedback"
+        />
+    <EditText android:id="@+id/feedbackEdit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y250"
+        android:gravity="start"
+        android:padding="@dimen/x5"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="@color/tv_normal"
+        android:hint="@string/wrong_question_feedback_hint"
+        android:background="@drawable/blue_stroke"
+        app:layout_constraintTop_toBottomOf="@id/title_tv"
+        android:layout_margin="@dimen/x10"
+        />
+    <TextView android:id="@+id/confirmBtn"
+        style="@style/normal_dialog_confirm_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+</android.support.constraint.ConstraintLayout>

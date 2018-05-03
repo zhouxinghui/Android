@@ -55,7 +55,7 @@
             >
             <TextView android:id="@+id/student_list_btn"
                 style="@style/btn_style"
-                android:text="班级学生"
+                android:text="班级成员"
                 />
             <View
                 android:layout_width="0.5dp"

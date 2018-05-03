@@ -23,6 +23,8 @@
         <item>发布小组</item>
         <item>发布班级</item>
     </array>
+    <string name="wrong_question_feedback">错题反馈</string>
+    <string name="wrong_question_feedback_hint">如果您发现题目错误，请及时反馈给我们，感谢您的大力支持</string>
     <!--学习小组start-->
     <string name="create_group">创建小组</string>
     <string name="manage_group">管理小组</string>

@@ -50,6 +50,10 @@ interface TeacherService {
     @POST("question/smartChoice/{version}")
     fun smartPush(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<QuestionBean>>>
 
+    /**错题反馈*/
+    @POST("homeWork/addFeedBackQuestion/{version}")
+    fun wrongQuestionFeedback(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
     /**预览试卷*/
     @POST("sendHome/queryTestPaperQuestion/{version}")
     fun previewTestPaper(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<QuestionBean>>>

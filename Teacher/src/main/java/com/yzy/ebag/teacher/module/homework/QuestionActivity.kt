@@ -40,6 +40,7 @@ class QuestionActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
     private lateinit var previewList: ArrayList<QuestionBean>
     private var isPreview = false
     private val analyseDialog by lazy { QuestionAnalyseDialog(this) }
+    private val feedbackDialog by lazy { QuestionFeedbackDialog(this) }
     private lateinit var tempList: ArrayList<QuestionBean>
     private lateinit var questionNumTv: TextView
     companion object {
@@ -135,7 +136,7 @@ class QuestionActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
         adapter as QuestionAdapter
         when(view.id){
             R.id.feedBackTv ->{
-//                feedbackDialog.show(adapter.data[position].questionId)
+                feedbackDialog.show(adapter.data[position].questionId)
             }
             R.id.selectTv ->{
                 val questionBean = adapter.getItem(position)
