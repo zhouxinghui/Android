@@ -76,6 +76,7 @@ class NoticeListActivity : BaseActivity(), NoticeListContract.NoticeListView {
     }
 
     override fun showError(e: Throwable?) {
+        stateview.showError()
         e!!.handleThrowable(this)
     }
 }

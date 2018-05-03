@@ -13,6 +13,7 @@ import ebag.core.util.AppManager
 import ebag.core.util.SPUtils
 import ebag.core.util.SerializableUtils
 import ebag.mobile.base.Constants
+import ebag.mobile.checkUpdate
 import ebag.mobile.module.AboutUsActivity
 import ebag.mobile.module.OfficialAnnounceActivity
 import ebag.mobile.widget.UserFeedbackDialog
@@ -43,9 +44,11 @@ class SettingActivity : BaseActivity() {
         mAdapter.setOnItemClickListener { adapter, view, position ->
             when (position) {
                 3 -> {
-                    startActivity(Intent(this,AboutUsActivity::class.java))
+                    startActivity(Intent(this, AboutUsActivity::class.java))
 
                 }
+
+                0 -> checkUpdate(Constants.UPDATE_PARENT)
 
                 2 -> UserFeedbackDialog(this).show()
 

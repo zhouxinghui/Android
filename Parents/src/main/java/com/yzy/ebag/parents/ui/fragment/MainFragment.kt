@@ -80,7 +80,7 @@ class MainFragment : BaseFragment() {
         mainRVAdapter.setOnItemClickListener { adapter, view, position ->
 
             when (position) {
-                4 -> ChooseChildrenActivity.start(activity, false)
+                4 -> activity.startActivityForResult(Intent(activity,ChooseChildrenActivity::class.java).putExtra("flag",false),998)
                 1 -> ExcitationActivity.start(activity)
                 5 -> performanceDialog.show()
                 3 -> ZixiActivity.jump(activity)

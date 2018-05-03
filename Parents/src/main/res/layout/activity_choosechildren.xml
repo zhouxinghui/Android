@@ -50,7 +50,7 @@
             android:textSize="@dimen/x12"
             android:paddingStart="@dimen/x10"
             android:background="@drawable/main_homework_bcg"
-            android:hint="请输入孩子的昵称" />
+            android:hint="请输入孩子的姓名" />
 
         <EditText
             android:id="@+id/et_psw"

@@ -103,6 +103,22 @@ class ChooseChildrenActivity : BaseActivity(), ChooseChildrenContract.ChooseChil
             })
         }
 
+        titlebar.setOnLeftClickListener {
+            backEvent()
+            finish()
+        }
+
+    }
+
+    override fun onBackPressed() {
+        backEvent()
+        super.onBackPressed()
+    }
+
+    private fun backEvent(){
+        if (oldUid != mAdapter.uid) {
+            setResult(999)
+        }
     }
 
     override fun showLoading() {
@@ -140,14 +156,6 @@ class ChooseChildrenActivity : BaseActivity(), ChooseChildrenContract.ChooseChil
     override fun loadmoreFail() {
 
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (oldUid != mAdapter.uid) {
-            setResult(999)
-        }
-    }
-
 
 
     companion object {

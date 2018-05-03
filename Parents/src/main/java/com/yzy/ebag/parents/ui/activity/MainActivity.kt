@@ -22,6 +22,7 @@ import ebag.core.util.SerializableUtils
 import ebag.core.util.T
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.MyChildrenBean
+import ebag.mobile.checkUpdate
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -190,5 +191,14 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener, View.On
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == 999){
+            fragmentList[1] = ClazzFragment.newInstance()
+            pagerAdapter.notifyDataSetChanged()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkUpdate(Constants.UPDATE_PARENT,false)
     }
 }
