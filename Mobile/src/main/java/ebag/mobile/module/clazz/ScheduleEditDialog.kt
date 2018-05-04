@@ -28,7 +28,7 @@ class ScheduleEditDialog(context: Context): BaseDialog(context){
         confirmBtn.setOnClickListener {
             val subject = countEdit.text.toString()
             if (StringUtils.isEmpty(subject)){
-                T.show(context, "请输入题目数量")
+                T.show(context, "你没有输入任何内容")
                 return@setOnClickListener
             }
             onConfirmClickListener?.invoke(subject)
