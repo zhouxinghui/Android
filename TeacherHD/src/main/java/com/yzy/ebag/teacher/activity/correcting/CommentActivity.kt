@@ -101,6 +101,7 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
                     return
                 }
                 TeacherApi.uploadComment(homeworkId, commentBean.uid, commentStr, uploadRequest)
+                commentBean.comment = commentStr
             }
         }
     }
@@ -116,6 +117,8 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
             val commitCommentBtn = helper.getView<TextView>(R.id.commitCommentBtn)
             if (!StringUtils.isEmpty(item.comment)){
                 commentEdit.setText(item.comment)
+            }else{
+                commentEdit.setText("")
             }
             helper.addOnClickListener(R.id.checkReportBtn)
             helper.addOnClickListener(R.id.commitCommentBtn)
