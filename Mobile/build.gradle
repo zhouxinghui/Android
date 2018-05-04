@@ -41,5 +41,7 @@ dependencies {
     compile 'com.umeng.sdk:analytics:latest.integration'
     //视频播放器
     compile 'cn.jzvd:jiaozivideoplayer:6.2.7'
+    //权限申请
+    compile 'com.yanzhenjie:permission:2.0.0-rc4'
     compile project(':core')
 }

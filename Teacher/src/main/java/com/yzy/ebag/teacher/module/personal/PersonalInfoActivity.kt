@@ -126,15 +126,14 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                     userEntity?.address = entity?.address
                     userEntity?.schoolName = entity?.schoolName
                     userEntity?.className = entity?.className
-
-                    headImage.loadHead(entity?.headUrl, true, System.currentTimeMillis().toString())
-                    setTv(name, entity?.name)
-                    setTv(bag, entity?.ysbCode)
-                    setTv(sex, if(entity?.sex == "1") "男" else "女")
-                    setTv(contactInformation, entity?.phone) //联系方式
-                    setTv(familyAddress, entity?.address)
-                    setTv(schoolName, entity?.schoolName)
                 }
+                headImage.loadHead(entity?.headUrl, true, System.currentTimeMillis().toString())
+                setTv(name, entity?.name)
+                setTv(bag, entity?.ysbCode)
+                setTv(sex, if(entity?.sex == "1") "男" else "女")
+                setTv(contactInformation, entity?.phone) //联系方式
+                setTv(familyAddress, entity?.address)
+                setTv(schoolName, entity?.schoolName)
             }
 
             override fun onError(exception: Throwable) {
