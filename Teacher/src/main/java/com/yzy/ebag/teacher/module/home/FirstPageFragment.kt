@@ -83,15 +83,6 @@ class FirstPageFragment: BaseFragment() {
         }
     }
 
-    /*override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        if (!hidden){
-//            mContext.checkUpdate(ebag.hd.base.Constants.UPDATE_TEACHER, false)
-            TeacherApi.firstPage(request!!)
-        }
-    }*/
-
-
     override fun getBundle(bundle: Bundle?) {
 
     }
