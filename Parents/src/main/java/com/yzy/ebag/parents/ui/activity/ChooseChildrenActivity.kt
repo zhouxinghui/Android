@@ -92,6 +92,8 @@ class ChooseChildrenActivity : BaseActivity(), ChooseChildrenContract.ChooseChil
 
                 override fun onSuccess(entity: String?) {
                     mPersenter.refresh()
+                    et_psw.setText("")
+                    et_childname.setText("")
                     LoadingDialogUtil.closeLoadingDialog()
                 }
 

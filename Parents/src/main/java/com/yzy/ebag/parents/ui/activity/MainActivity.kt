@@ -104,7 +104,12 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener, View.On
                     }
 
                     override fun weiboClick() {
-                        doShare(SHARE_MEDIA.SINA)
+                        if (UMShareAPI.get(this@MainActivity).isInstall(this@MainActivity, SHARE_MEDIA.SINA)) {
+                            doShare(SHARE_MEDIA.SINA)
+                        } else {
+                            T.show(this@MainActivity, "请先安装微博客户端")
+                        }
+
                     }
 
                     override fun momentClick() {
@@ -190,12 +195,14 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener, View.On
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == 999) {
             (fragmentList[1] as ClazzFragment).updataClazz()
-            (fragmentList[0] as MainFragment).getOnePageInfo()
         }
     }
 
     override fun onResume() {
         super.onResume()
         checkUpdate(Constants.UPDATE_PARENT, false)
+        if ((fragmentList[0] as MainFragment).init) {
+            (fragmentList[0] as MainFragment).getOnePageInfo()
+        }
     }
 }

@@ -37,6 +37,10 @@ class NoticeListActivity : BaseActivity(), NoticeListContract.NoticeListView {
 
         mAdapter.disableLoadMoreIfNotFullPage(recyclerview)
         mPresenter.firstList(SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).classId)
+
+        stateview.setOnRetryClickListener {
+            mPresenter.firstList(SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).classId)
+        }
     }
 
 

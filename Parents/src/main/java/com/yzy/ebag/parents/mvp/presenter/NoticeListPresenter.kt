@@ -30,7 +30,7 @@ class NoticeListPresenter(private val view:NoticeListContract.NoticeListView):No
             }
 
             override fun onError(exception: Throwable) {
-                view.showError(exception)
+                view.showEmpty()
             }
 
         })

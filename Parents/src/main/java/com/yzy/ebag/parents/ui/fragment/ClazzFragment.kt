@@ -15,7 +15,6 @@ import com.yzy.ebag.parents.ui.activity.NoticeListActivity
 import com.yzy.ebag.parents.ui.adapter.PersonalAdapter
 import com.yzy.ebag.parents.ui.widget.ClassJoinDialog
 import ebag.core.base.BaseFragment
-import ebag.core.http.network.handleThrowable
 import ebag.core.util.DateUtil
 import ebag.core.util.SerializableUtils
 import ebag.core.util.loadHead
@@ -32,12 +31,12 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
 
     private lateinit var mPersenter: ClazzMainPresenter
     private val datas: MutableList<PersonalItemModel> = mutableListOf()
-    private val labels: Array<String> = arrayOf("成绩统计", "班级相册", "课程表", "","加入班级")
-    private val icons: Array<Int> = arrayOf(R.drawable.icon_class_tongji, R.drawable.icon_class_class_photo, R.drawable.icon_class_class_schedule_card, R.drawable.icon_class_banji,R.drawable.my_class_add_icon)
+    private val labels: Array<String> = arrayOf("成绩统计", "班级相册", "课程表", "", "加入班级")
+    private val icons: Array<Int> = arrayOf(R.drawable.icon_class_tongji, R.drawable.icon_class_class_photo, R.drawable.icon_class_class_schedule_card, R.drawable.icon_class_banji, R.drawable.my_class_add_icon)
     private var isFirst = true
     private var isViewPrepare = false
     private var bean = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY)
-    private lateinit var mAdapter:PersonalAdapter
+    private lateinit var mAdapter: PersonalAdapter
 
     companion object {
         fun newInstance(): ClazzFragment {
@@ -67,7 +66,7 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
     override fun initViews(rootView: View) {
         mPersenter = ClazzMainPresenter(this)
         recyclerview.layoutManager = LinearLayoutManager(activity)
-        labels[3] = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).className
+        labels[3] = if (SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).className.isEmpty()) "暂无班级" else SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).className
         labels.forEachIndexed { index, s ->
             datas.add(PersonalItemModel(icons[index], s))
         }
@@ -95,10 +94,10 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
                 }
 
                 0 -> {
-                    AchievementActivity.jump(activity,(SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).grade)
+                    AchievementActivity.jump(activity, (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).grade)
                 }
 
-                4 -> joinDialog.show(childFragmentManager,"joindialog")
+                4 -> joinDialog.show(childFragmentManager, "joindialog")
             }
         }
 
@@ -106,9 +105,9 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
     }
 
 
-    fun updataClazz(){
+    fun updataClazz() {
         bean = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY)
-        datas[3].label = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).className?:"暂无班级"
+        datas[3].label = if (bean.className.isEmpty()) "暂无班级" else bean.className
         mAdapter.notifyDataSetChanged()
         isFirst = true
     }
@@ -132,7 +131,6 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
     }
 
     override fun showError(e: Throwable?) {
-        e?.handleThrowable(activity)
         stateview.showError("暂无公告")
     }
 

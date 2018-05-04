@@ -57,10 +57,10 @@
                 android:id="@+id/stateview"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y300"
-                app:emptyLayout="@layout/mobile_empty"
+                app:emptyLayout="@layout/base_empty"
                 android:background="#fff"
                 app:errorLayout="@layout/news_empyt"
-                app:loadingLayout="@layout/mobile_loading" />
+                app:loadingLayout="@layout/base_loading" />
 
 
             <LinearLayout

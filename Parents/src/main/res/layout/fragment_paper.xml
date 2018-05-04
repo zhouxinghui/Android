@@ -12,9 +12,9 @@
     <ebag.core.widget.empty.StateView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:emptyLayout="@layout/mobile_empty"
-        app:errorLayout="@layout/mobile_error"
+        app:emptyLayout="@layout/base_empty"
+        app:errorLayout="@layout/base_error"
         android:id="@+id/stateview"
-        app:loadingLayout="@layout/mobile_loading" />
+        app:loadingLayout="@layout/base_loading" />
 
 </RelativeLayout>
