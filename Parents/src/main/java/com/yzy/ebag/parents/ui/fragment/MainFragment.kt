@@ -3,9 +3,11 @@ package com.yzy.ebag.parents.ui.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.PagerAdapter
 import android.support.v7.widget.GridLayoutManager
+import android.view.MotionEvent
 import android.view.View
-import com.flyco.tablayout.listener.CustomTabEntity
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import com.yzy.ebag.parents.R
@@ -13,7 +15,6 @@ import com.yzy.ebag.parents.bean.OnePageInfoBean
 import com.yzy.ebag.parents.common.Constants
 import com.yzy.ebag.parents.http.ParentsAPI
 import com.yzy.ebag.parents.mvp.model.MainRVModel
-import com.yzy.ebag.parents.mvp.model.TabEntity
 import com.yzy.ebag.parents.ui.activity.*
 import com.yzy.ebag.parents.ui.adapter.MainRVAdapter
 import com.yzy.ebag.parents.ui.widget.PerformanceDialog
@@ -31,10 +32,11 @@ class MainFragment : BaseFragment() {
     private val iconList: Array<Int> = arrayOf(R.drawable.icon_home_mistakes, R.drawable.icon_home_parental_incentives, R.drawable.icon_home_student_examination, R.drawable.icon_home_study_room, R.drawable.icon_home_my_student, R.drawable.icon_home_classroom_performance)
     private val dataList: MutableList<MainRVModel> = mutableListOf()
     private lateinit var mainRVAdapter: MainRVAdapter
-    private val entityList: ArrayList<CustomTabEntity> = arrayListOf()
     private val msgCountList: MutableList<Int> = mutableListOf()
     private val fragmentList: ArrayList<Fragment> = arrayListOf()
+    private val titleList: ArrayList<String> = arrayListOf()
     private lateinit var homeworkData: ArrayList<OnePageInfoBean>
+    private lateinit var mAdapter: MainAdapter
     private var init = false
 
     companion object {
@@ -72,7 +74,7 @@ class MainFragment : BaseFragment() {
         iconList.forEachIndexed { index, i ->
             dataList.add(MainRVModel(labelArray[index], i))
         }
-
+        mAdapter = MainAdapter()
         mainRVAdapter = MainRVAdapter(dataList)
         main_rv.layoutManager = GridLayoutManager(activity, 3)
         main_rv.adapter = mainRVAdapter
@@ -80,7 +82,7 @@ class MainFragment : BaseFragment() {
         mainRVAdapter.setOnItemClickListener { adapter, view, position ->
 
             when (position) {
-                4 -> activity.startActivityForResult(Intent(activity,ChooseChildrenActivity::class.java).putExtra("flag",false),998)
+                4 -> activity.startActivityForResult(Intent(activity, ChooseChildrenActivity::class.java).putExtra("flag", false), 998)
                 1 -> ExcitationActivity.start(activity)
                 5 -> performanceDialog.show()
                 3 -> ZixiActivity.jump(activity)
@@ -89,68 +91,84 @@ class MainFragment : BaseFragment() {
             }
         }
 
-        getOnePageInfo()
+        viewpager.adapter = mAdapter
+        tablayout.setViewPager(viewpager)
 
+        viewpager.setOnTouchListener { v, event ->
+            if (event!!.action == MotionEvent.ACTION_DOWN) {
+                val data = homeworkData[tablayout.currentTab].homeWorkInfoVos
+                if (data.size != 0) {
+                    val i = Intent(activity, HomeworkListActivity::class.java)
+                    i.putExtra("datas", data as Serializable)
+                    i.putExtra("subject", homeworkData[tablayout.currentTab].subject)
+                    startActivity(i)
+                }
+            }
+            false
+        }
+        getOnePageInfo()
         init = true
 
-        container_layout.setOnClickListener {
-            val data = homeworkData[tablayout.currentTab].homeWorkInfoVos
-            val i = Intent(activity, HomeworkListActivity::class.java)
-            i.putExtra("datas", data as Serializable)
-            i.putExtra("subject", homeworkData[tablayout.currentTab].subject)
-            startActivity(i)
-        }
     }
 
-    private fun getOnePageInfo() {
+    fun getOnePageInfo() {
 
         ParentsAPI.onePageInfo(SPUtils.get(activity, Constants.CURRENT_CHILDREN_YSBCODE, "") as String, object : RequestCallBack<List<OnePageInfoBean>>() {
 
             override fun onStart() {
-                homework_loading.visibility = View.VISIBLE
+
             }
 
             override fun onSuccess(entity: List<OnePageInfoBean>?) {
-                entityList.clear()
-                fragmentList.clear()
-                msgCountList.clear()
-                homeworkData = entity!! as ArrayList<OnePageInfoBean>
-                entity.forEachIndexed { index, it ->
-                    entityList.add(TabEntity(it.subject, 0, 0))
-                    msgCountList.add(it.homeWorkNoCompleteCount)
+                val flist:ArrayList<Fragment> = arrayListOf()
+                if (entity!!.isEmpty()) {
+                    homework_loading.text = "没有对应科目"
+                    homework_loading.visibility = View.VISIBLE
+                } else {
+                    homework_loading.visibility = View.GONE
+                    titleList.clear()
+                    msgCountList.clear()
+                    homeworkData = entity!! as ArrayList<OnePageInfoBean>
 
-                    if (it.homeWorkInfoVos.isNotEmpty()) {
-                        it.homeWorkInfoVos.forEach {
+                    entity.forEachIndexed { index, it ->
+                        titleList.add(it.subject)
+                        msgCountList.add(it.homeWorkNoCompleteCount)
+
+                        if (it.homeWorkInfoVos.isNotEmpty()) {
                             val b = Bundle()
-                            b.putString("status", it.state)
-                            b.putString("content", it.content)
-                            b.putString("endTime", it.endTime)
+                            b.putString("status", it.homeWorkInfoVos[0].state)
+                            b.putString("content", it.homeWorkInfoVos[0].content)
+                            b.putString("endTime", it.homeWorkInfoVos[0].endTime)
                             val f = HomeworkFragment.newInstance()
                             f.arguments = b
-                            fragmentList.add(f)
+                            flist.add(f)
+                        } else {
+                            val b = Bundle()
+                            b.putBoolean("empty", true)
+                            val f = HomeworkFragment.newInstance()
+                            f.arguments = b
+                            flist.add(f)
                         }
-                    } else {
-                        val b = Bundle()
-                        b.putBoolean("empty", true)
-                        val f = HomeworkFragment.newInstance()
-                        f.arguments = b
-                        fragmentList.add(f)
+
+                    }
+
+                    mAdapter.setFragments(flist)
+                    tablayout.notifyDataSetChanged()
+
+
+                    msgCountList.forEachIndexed { index, it ->
+                        if (it != 0) {
+                            tablayout.showMsg(index, it)
+                        }
                     }
 
                 }
-                tablayout.setTabData(entityList, activity, R.id.container_layout, fragmentList)
-                tablayout.notifyDataSetChanged()
 
-                msgCountList.forEachIndexed { index, it ->
-                    if (it != 0) {
-                        tablayout.showMsg(index, it)
-                    }
-                }
-
-                homework_loading.visibility = View.GONE
             }
 
             override fun onError(exception: Throwable) {
+                homework_loading.visibility = View.VISIBLE
+                homework_loading.text = exception.message
             }
 
         })
@@ -161,5 +179,33 @@ class MainFragment : BaseFragment() {
         if (isVisibleToUser && init) {
             getOnePageInfo()
         }
+    }
+
+    inner class MainAdapter : FragmentPagerAdapter(childFragmentManager) {
+
+        override fun getItem(position: Int): Fragment = fragmentList[position]
+
+        override fun getCount(): Int = fragmentList.size
+
+        override fun getItemPosition(`object`: Any?): Int = PagerAdapter.POSITION_NONE
+
+        override fun getPageTitle(position: Int): CharSequence {
+            return titleList[position]
+        }
+
+        fun setFragments(mFragmentList: ArrayList<Fragment>) {
+
+            val fragmentTransaction = childFragmentManager.beginTransaction()
+            fragmentList.forEach {
+                fragmentTransaction.remove(it)
+            }
+            fragmentTransaction.commit()
+            childFragmentManager.executePendingTransactions()
+            fragmentList.clear()
+            fragmentList.addAll(mFragmentList)
+            notifyDataSetChanged()
+        }
+
+
     }
 }

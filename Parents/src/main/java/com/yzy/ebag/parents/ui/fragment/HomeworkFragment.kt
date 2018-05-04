@@ -36,6 +36,7 @@ class HomeworkFragment : BaseFragment() {
 
     override fun initViews(rootView: View) {
 
+
         if (!empty) {
 
             homework_status.visibility = View.VISIBLE

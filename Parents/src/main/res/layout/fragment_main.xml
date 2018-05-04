@@ -38,35 +38,34 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="加载中..."
+            android:text=""
             android:visibility="gone" />
 
 
-        <com.yzy.ebag.parents.ui.widget.CommonTabLayout
-            android:id="@+id/tablayout"
+
+        <com.yzy.ebag.parents.ui.widget.SlidingTabLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            app:tl_indicator_color="#18b167"
+            android:id="@+id/tablayout"
             android:background="@drawable/main_homework_bcg"
             android:paddingTop="@dimen/y5"
-            app:tl_iconVisible="false"
-            app:tl_indicator_color="#18b167"
-            app:tl_indicator_width="@dimen/x16"
             app:tl_textBold="SELECT"
             app:tl_textSelectColor="#18b167"
             app:tl_textUnselectColor="#000"
-            app:tl_textsize="@dimen/x12" />
+            app:tl_textsize="@dimen/x12"
+            app:tl_indicator_width_equal_title="true"
+            android:layout_height="48dp"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="#e0e0e0" />
 
-        <FrameLayout
-            android:id="@+id/container_layout"
+        <ebag.core.widget.empty.NoScrollViewPager
+            android:id="@+id/viewpager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"/>
 
-        </FrameLayout>
     </LinearLayout>
 
     <TextView

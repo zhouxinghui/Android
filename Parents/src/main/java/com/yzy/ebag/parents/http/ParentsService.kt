@@ -66,4 +66,11 @@ interface ParentsService{
     @POST("user/createByParent/{version}")
     fun createChildCode(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
 
+    /**
+     * 加入班级
+     */
+    @POST("clazz/joinByClass/{version}")
+    fun joinClazz(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
+
+
 }

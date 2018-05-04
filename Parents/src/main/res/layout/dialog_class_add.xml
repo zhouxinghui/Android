@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/x200"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/bg"
+        android:layout_width="@dimen/x200"
+        android:layout_height="@dimen/x180"
+        android:background="@drawable/dialog_radius_bg"
+        android:layout_marginTop="@dimen/x50"
+        app:layout_constraintTop_toTopOf="@id/ivHead"/>
+
+    <View
+        android:id="@+id/ivHead"
+        android:layout_width="@dimen/x50"
+        android:layout_height="@dimen/x50"
+        android:background="@drawable/my_class_add_icon"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintEnd_toEndOf="@id/bg"/>
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="加入班级"
+        android:textColor="#7ED321"
+        android:textSize="@dimen/x12"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintTop_toBottomOf="@+id/ivHead" />
+
+    <ImageView
+        android:id="@+id/ivScan"
+        android:layout_width="@dimen/x40"
+        android:layout_height="@dimen/x40"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        app:srcCompat="@drawable/my_class_dialog_scan" />
+
+    <EditText
+        android:id="@+id/etCode"
+        android:layout_width="@dimen/x180"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/x26"
+        android:paddingBottom="@dimen/x5"
+        android:gravity="center"
+        android:textSize="@dimen/x12"
+        android:hint="请输入班级邀请码"
+        android:textColor="@color/color_edit_color"
+        android:textColorHint="@color/color_edit_hint"
+        android:inputType="textPersonName"
+        android:background="@null"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintTop_toBottomOf="@+id/ivScan" />
+
+    <View
+        android:layout_width="@dimen/x200"
+        android:layout_height="0.5dp"
+        android:background="#e0e0e0"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintTop_toBottomOf="@+id/etCode"/>
+    <TextView
+        android:id="@+id/tvConfirm"
+        android:layout_width="@dimen/x180"
+        android:layout_height="@dimen/y80"
+        android:gravity="center"
+        android:textSize="@dimen/x12"
+        android:layout_marginTop="@dimen/x40"
+        android:text="确认"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_blue_confirm_selector"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintTop_toBottomOf="@+id/etCode" />
+
+    <View
+        android:id="@+id/btnClose"
+        android:layout_width="@dimen/x20"
+        android:layout_height="@dimen/x20"
+        android:background="@drawable/my_class_dialog_close"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintTop_toTopOf="@+id/bg" />
+
+
+</android.support.constraint.ConstraintLayout>

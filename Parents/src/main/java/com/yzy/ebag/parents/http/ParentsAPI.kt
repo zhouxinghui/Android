@@ -140,7 +140,7 @@ object ParentsAPI {
      * 生成小孩
      */
 
-    fun createChildCode(psw: String,  name: String, callback: RequestCallBack<String>,relation: String = "家长") {
+    fun createChildCode(psw: String, name: String, callback: RequestCallBack<String>, relation: String = "家长") {
         val jsonObj = JSONObject()
         jsonObj.put("password", psw)
         jsonObj.put("relation", relation)
@@ -151,5 +151,16 @@ object ParentsAPI {
         EBagApi.request(parentsService.createChildCode("v1", EBagApi.createBody(jsonObj)), callback)
     }
 
+    /**
+     * 加入班级
+     */
+
+    fun joinClazz(code: String, studentId: String, callback: RequestCallBack<String>) {
+
+        val jsonObj = JSONObject()
+        jsonObj.put("inviteCode", code)
+        jsonObj.put("studentId", studentId)
+        EBagApi.request(parentsService.joinClazz("v1", EBagApi.createBody(jsonObj)), callback)
+    }
 
 }

@@ -18,10 +18,8 @@ import com.yzy.ebag.parents.ui.fragment.MainFragment
 import com.yzy.ebag.parents.ui.fragment.PersonalFragment
 import com.yzy.ebag.parents.ui.widget.SharePupopwindow
 import ebag.core.base.BaseActivity
-import ebag.core.util.SerializableUtils
 import ebag.core.util.T
 import ebag.mobile.base.Constants
-import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.checkUpdate
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -58,8 +56,7 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener, View.On
             R.id.rb_clazz -> {
                 viewpager.setCurrentItem(1, false)
                 setTilteVisiable(false)
-                val bean = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY)
-                setTitle(bean.className)
+                setTitle("班级")
             }
 
             R.id.rb_personal -> {
@@ -191,14 +188,14 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener, View.On
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == 999){
-            fragmentList[1] = ClazzFragment.newInstance()
-            pagerAdapter.notifyDataSetChanged()
+        if (resultCode == 999) {
+            (fragmentList[1] as ClazzFragment).updataClazz()
+            (fragmentList[0] as MainFragment).getOnePageInfo()
         }
     }
 
     override fun onResume() {
         super.onResume()
-        checkUpdate(Constants.UPDATE_PARENT,false)
+        checkUpdate(Constants.UPDATE_PARENT, false)
     }
 }

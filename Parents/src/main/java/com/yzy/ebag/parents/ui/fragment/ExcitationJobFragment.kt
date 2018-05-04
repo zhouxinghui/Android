@@ -9,6 +9,7 @@ import com.yzy.ebag.parents.bean.ExcitationWorkBean
 import com.yzy.ebag.parents.mvp.ExcitationJobContract
 import com.yzy.ebag.parents.mvp.presenter.ExcitationPersenter
 import com.yzy.ebag.parents.ui.adapter.ExcitationAdapter
+import com.yzy.ebag.parents.ui.widget.ClassJoinDialog
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.SPUtils
@@ -22,6 +23,8 @@ class ExcitationJobFragment(private val type: String) : BaseFragment(), Excitati
     private var page = 1
     private val datas: ArrayList<ExcitationWorkBean> = arrayListOf()
     private lateinit var workAdapter: ExcitationAdapter
+
+
 
     override fun getLayoutRes(): Int = R.layout.fragment_excitation
 
@@ -46,7 +49,7 @@ class ExcitationJobFragment(private val type: String) : BaseFragment(), Excitati
 
             workAdapter.setOnItemChildClickListener { adapter, _, position ->
 
-                mPersenter.finish((adapter.getItem(position) as ExcitationWorkBean).targetId, position)
+                mPersenter.finish((adapter.getItem(position) as ExcitationWorkBean).id, position)
             }
         }
     }

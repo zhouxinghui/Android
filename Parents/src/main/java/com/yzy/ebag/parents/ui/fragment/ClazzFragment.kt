@@ -13,6 +13,7 @@ import com.yzy.ebag.parents.mvp.presenter.ClazzMainPresenter
 import com.yzy.ebag.parents.ui.activity.AchievementActivity
 import com.yzy.ebag.parents.ui.activity.NoticeListActivity
 import com.yzy.ebag.parents.ui.adapter.PersonalAdapter
+import com.yzy.ebag.parents.ui.widget.ClassJoinDialog
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.DateUtil
@@ -31,11 +32,11 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
 
     private lateinit var mPersenter: ClazzMainPresenter
     private val datas: MutableList<PersonalItemModel> = mutableListOf()
-    private val labels: Array<String> = arrayOf("成绩统计", "班级相册", "课程表", "")
-    private val icons: Array<Int> = arrayOf(R.drawable.icon_class_tongji, R.drawable.icon_class_class_photo, R.drawable.icon_class_class_schedule_card, R.drawable.icon_class_banji)
+    private val labels: Array<String> = arrayOf("成绩统计", "班级相册", "课程表", "","加入班级")
+    private val icons: Array<Int> = arrayOf(R.drawable.icon_class_tongji, R.drawable.icon_class_class_photo, R.drawable.icon_class_class_schedule_card, R.drawable.icon_class_banji,R.drawable.my_class_add_icon)
     private var isFirst = true
     private var isViewPrepare = false
-    private val bean = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY)
+    private var bean = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY)
     private lateinit var mAdapter:PersonalAdapter
 
     companion object {
@@ -45,6 +46,16 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
             fragment.arguments = bundle
             return fragment
         }
+    }
+
+    private val joinDialog by lazy {
+        val dialog = ClassJoinDialog.newInstance()
+        dialog.successListener = {
+            updataClazz()
+            mPersenter.queryClazzNews(bean.classId)
+            dialog.dismiss()
+        }
+        dialog
     }
 
     override fun getLayoutRes(): Int = R.layout.fragment_class
@@ -86,13 +97,18 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
                 0 -> {
                     AchievementActivity.jump(activity,(SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).grade)
                 }
+
+                4 -> joinDialog.show(childFragmentManager,"joindialog")
             }
         }
+
+
     }
 
 
     fun updataClazz(){
-        datas[3].label = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).className
+        bean = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY)
+        datas[3].label = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).className?:"暂无班级"
         mAdapter.notifyDataSetChanged()
         isFirst = true
     }
