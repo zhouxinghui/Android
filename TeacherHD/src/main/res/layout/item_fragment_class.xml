@@ -23,7 +23,7 @@
 
     <TextView android:id="@+id/student_list_btn"
         style="@style/btn_style"
-        android:text="查看学生"
+        android:text="班级成员"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/line1"
         app:layout_constraintEnd_toStartOf="@id/add_teacher_btn"

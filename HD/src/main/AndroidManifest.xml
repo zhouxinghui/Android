@@ -119,6 +119,10 @@
         <activity android:name=".activity.OfficeActivity"
             android:screenOrientation="landscape"
             />
+        <activity android:name=".activity.ClassMateSubActivity"
+            android:screenOrientation="landscape"
+            />
+
         <service
             android:name=".service.AIDLTestService"
             android:process=":countdown" />
