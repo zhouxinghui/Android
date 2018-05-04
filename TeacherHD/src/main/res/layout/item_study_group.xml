@@ -9,6 +9,8 @@
     android:layout_marginRight="@dimen/x5"
     android:layout_marginTop="@dimen/y5"
     android:layout_marginBottom="@dimen/y5"
+    android:paddingTop="@dimen/y20"
+    android:paddingBottom="@dimen/y20"
     >
 
     <ImageView
@@ -61,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@id/groupNameTv"
         tools:text="[添加时间：2017-07-25]" />
 
-    <View
+    <!--<View
         android:id="@+id/line"
         android:layout_width="0dp"
         android:layout_height="@dimen/y1"
@@ -107,6 +109,6 @@
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintTop_toTopOf="@id/manageGroup"
         app:layout_constraintStart_toEndOf="@id/manageGroup"
-        app:layout_constraintEnd_toEndOf="@id/line"/>
+        app:layout_constraintEnd_toEndOf="@id/line"/>-->
 
 </android.support.constraint.ConstraintLayout>

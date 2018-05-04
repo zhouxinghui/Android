@@ -35,7 +35,7 @@ class MyPrepareActivity: BaseActivity() {
 
             unitList.clear()
             unitList.addAll(entity.resultBookUnitOrCatalogVos)
-            fragment.notifyRequest(type, gradeCode, subjectCode, unitId)
+            fragment.notifyRequest(type, gradeCode, subjectCode, unitId, semesterCode, textbookCode)
         }
 
         override fun onError(exception: Throwable) {
@@ -57,23 +57,9 @@ class MyPrepareActivity: BaseActivity() {
         }
         override fun onSuccess(entity: List<UnitBean>?) {
             LoadingDialogUtil.closeLoadingDialog()
-            entity?.forEach {
-                val subList = it.resultBookUnitOrCatalogVos
-                if (subList.isEmpty()){
-                    val subBean = UnitBean.UnitSubBean()
-                    subBean.id = it.id
-                    subBean.code = it.code
-                    subBean.name = it.name
-                    subBean.bookVersionId = it.bookVersionId
-                    subBean.pid = it.pid
-                    subBean.unitCode = it.unitCode
-                    subBean.isUnit = true
-                    it.resultBookUnitOrCatalogVos.add(subBean)
-                }
-            }
             unitList.clear()
             unitList.addAll(entity!!)
-            fragment.notifyRequest(type, gradeCode, subjectCode, null)
+            fragment.notifyRequest(type, gradeCode, subjectCode, null, semesterCode, textbookCode)
         }
 
         override fun onError(exception: Throwable) {
@@ -91,7 +77,7 @@ class MyPrepareActivity: BaseActivity() {
             textbookTv.text = ""
             unitTv.text = "请选择单元"
             unitList.clear()
-            fragment.notifyRequest(type, gradeCode, subjectCode, null)
+            fragment.notifyRequest(type, gradeCode, subjectCode, null, semesterCode, textbookCode)
         }
         popup
     }
@@ -100,6 +86,8 @@ class MyPrepareActivity: BaseActivity() {
         popup.onTextbookSelectListener = {versionBean, semesterCode, semesterName ->
             textbookTv.text = "${versionBean.bookVersionName} $semesterName"
             unitList.clear()
+            this.semesterCode = semesterCode
+            this.textbookCode = versionBean.bookVersionCode
             TeacherApi.getUnit(versionBean.bookVersionId, unitRequest)
         }
         popup
@@ -108,7 +96,7 @@ class MyPrepareActivity: BaseActivity() {
         val popup = UnitPopupWindow(this)
         popup.onConfirmClick = {name, unitBean ->
             unitTv.text = name
-            fragment.notifyRequest(type, gradeCode, subjectCode, unitBean?.unitCode)
+            fragment.notifyRequest(type, gradeCode, subjectCode, unitBean?.unitCode, semesterCode, textbookCode)
         }
         popup
     }

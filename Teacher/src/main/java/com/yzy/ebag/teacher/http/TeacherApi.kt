@@ -427,7 +427,16 @@ object TeacherApi {
     }
 
     /**备课文件列表*/
-    fun prepareList(lessonType: String, page: Int, pageSize: Int, callback: RequestCallBack<List<PrepareFileBean>>, gradeCode: String?, subCode: String?, unitId: String?){
+    fun prepareList(
+            lessonType: String,
+            page: Int,
+            pageSize: Int,
+            callback: RequestCallBack<List<PrepareFileBean>>,
+            gradeCode: String?,
+            subCode: String?,
+            unitId: String?,
+            semesterCode: String?,
+            versionCode: String?){
         val jsonObject = JSONObject()
         jsonObject.put("lessonType", lessonType)
         if (!StringUtils.isEmpty(gradeCode))
@@ -436,6 +445,10 @@ object TeacherApi {
             jsonObject.put("subCode", subCode)
         if (!StringUtils.isEmpty(unitId))
             jsonObject.put("unitCode", unitId)
+        if (!StringUtils.isEmpty(semesterCode))
+            jsonObject.put("semesterCode", semesterCode)
+        if (!StringUtils.isEmpty(versionCode))
+            jsonObject.put("bookVersion", versionCode)
         jsonObject.put("page", page)
         jsonObject.put("pageSize", pageSize)
         EBagApi.request(teacherService.prepareList("v1", EBagApi.createBody(jsonObject)), callback)

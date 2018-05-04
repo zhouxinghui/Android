@@ -63,6 +63,20 @@ class UnitPopupWindow(private val mContext: Context): BasePopupWindow(mContext) 
         }else{
             stateView.showContent()
             totalTv.isSelected = false
+            unitList.forEach {
+                val subList = it.resultBookUnitOrCatalogVos
+                if (subList.isEmpty()){
+                    val subBean = UnitBean.UnitSubBean()
+                    subBean.id = it.id
+                    subBean.code = it.code
+                    subBean.name = it.name
+                    subBean.bookVersionId = it.bookVersionId
+                    subBean.pid = it.pid
+                    subBean.unitCode = it.unitCode
+                    subBean.isUnit = true
+                    it.resultBookUnitOrCatalogVos.add(subBean)
+                }
+            }
             unitAdapter.setNewData(unitList)
             unitAdapter.selectPosition = 0
             subAdapter.selectPosition = -1

@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/white_shadow_bg"
-    android:layout_marginTop="@dimen/y5"
-    android:layout_marginBottom="@dimen/y5"
+    android:background="@drawable/white_shadow_clickable_bg"
+    android:paddingTop="@dimen/y50"
+    android:paddingBottom="@dimen/y50"
     >
     <TextView
         android:id="@+id/groupNameTv"
@@ -28,12 +28,13 @@
         android:lines="1"
         android:textColor="#BCC1CA"
         android:textSize="@dimen/tv_normal"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="@id/groupNameTv"
         app:layout_constraintStart_toStartOf="@id/groupNameTv"
         app:layout_constraintTop_toBottomOf="@id/groupNameTv"
         tools:text="[添加时间：2017-07-25]" />
 
-    <View
+    <!--<View
         android:id="@+id/line"
         android:layout_width="0dp"
         android:layout_height="@dimen/y1"
@@ -80,6 +81,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/line"
         app:layout_constraintStart_toEndOf="@id/manageGroup"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"/>-->
 
 </android.support.constraint.ConstraintLayout>

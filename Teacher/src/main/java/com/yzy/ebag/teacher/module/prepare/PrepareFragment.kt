@@ -56,6 +56,8 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
     private var unitId: String? = ""
     private var fileId = ""
     private var type = ""
+    private var semesterCode: String? = ""
+    private var versionCode: String? = ""
     private val deleteFileDialog by lazy {
         val dialog = AlertDialog.Builder(mContext)
                 .setMessage("删除此文件？")
@@ -83,19 +85,21 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
     override fun loadConfig() {
     }
 
-    fun notifyRequest(type: String, gradeCode: String?, subCode: String?, unitId: String?){
+    fun notifyRequest(type: String, gradeCode: String?, subCode: String?, unitId: String?, semesterCode: String?, versionCode: String?){
         this.type = type
         this.gradeCode = gradeCode
         this.subCode = subCode
         this.unitId = unitId
+        this.semesterCode = semesterCode
+        this.versionCode = versionCode
         onRetryClick()
     }
 
     override fun getPageSize(): Int {
-        return 9
+        return 12
     }
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<PrepareFileBean>>) {
-        TeacherApi.prepareList(type, page, getPageSize(), requestCallBack, gradeCode, subCode, unitId)
+        TeacherApi.prepareList(type, page, getPageSize(), requestCallBack, gradeCode, subCode, unitId, semesterCode, versionCode)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<PrepareFileBean>?): List<PrepareFileBean>? {

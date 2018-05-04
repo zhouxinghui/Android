@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.teacher.R
@@ -72,7 +73,7 @@ class StudyGroupActivity : BaseListActivity<List<GroupBean>, GroupBean>() {
         })
         classId = intent.getStringExtra("classId") ?: ""
 
-        adapter.setOnItemChildClickListener { _, view, position ->
+        /*adapter.setOnItemChildClickListener { _, view, position ->
             when(view.id){
                 R.id.manageGroup ->{
                     val item = adapter.getItem(position)
@@ -83,7 +84,7 @@ class StudyGroupActivity : BaseListActivity<List<GroupBean>, GroupBean>() {
                     deleteDialog.show()
                 }
             }
-        }
+        }*/
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<GroupBean>>) {
@@ -98,6 +99,12 @@ class StudyGroupActivity : BaseListActivity<List<GroupBean>, GroupBean>() {
         return adapter
     }
 
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        adapter as MyAdapter
+        val item = adapter.getItem(position)
+        groupDialog.show(item?.clazzUserVos!!, item.groupName, item.groupId)
+    }
+
     override fun getLayoutManager(adapter: BaseQuickAdapter<GroupBean, BaseViewHolder>): RecyclerView.LayoutManager? {
         return GridLayoutManager(this, 2)
     }
@@ -106,8 +113,8 @@ class StudyGroupActivity : BaseListActivity<List<GroupBean>, GroupBean>() {
         override fun convert(helper: BaseViewHolder, item: GroupBean) {
             helper.setText(R.id.groupNameTv, item.groupName)
                     .setText(R.id.studentCount, resources.getString(R.string.student_count, item.clazzUserVos.size))
-            helper.addOnClickListener(R.id.manageGroup)
-            helper.addOnClickListener(R.id.deleteTv)
+//            helper.addOnClickListener(R.id.manageGroup)
+//            helper.addOnClickListener(R.id.deleteTv)
         }
     }
 }
