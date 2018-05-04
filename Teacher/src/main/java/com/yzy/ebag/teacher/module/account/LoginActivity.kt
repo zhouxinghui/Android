@@ -25,8 +25,7 @@ class LoginActivity: BLoginActivity() {
         val permissions = arrayOf(
                 Permission.CAMERA,
                 Permission.WRITE_EXTERNAL_STORAGE,
-                Permission.READ_EXTERNAL_STORAGE,
-                Permission.RECORD_AUDIO)
+                Permission.READ_EXTERNAL_STORAGE)
         requestPermission(*permissions)
     }
 
