@@ -48,9 +48,6 @@ class MainFragment : BaseFragment() {
         }
     }
 
-    private val performanceDialog by lazy {
-        PerformanceDialog(activity)
-    }
 
     override fun getLayoutRes(): Int = R.layout.fragment_main
 
@@ -84,7 +81,7 @@ class MainFragment : BaseFragment() {
             when (position) {
                 4 -> activity.startActivityForResult(Intent(activity, ChooseChildrenActivity::class.java).putExtra("flag", false), 998)
                 1 -> ExcitationActivity.start(activity)
-                5 -> performanceDialog.show()
+                5 -> PerformanceDialog(activity).show()
                 3 -> ZixiActivity.jump(activity)
                 2 -> PaperActivity.start(activity)
                 0 -> ErrorBookActivity.start(activity)
