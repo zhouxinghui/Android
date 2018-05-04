@@ -18,6 +18,8 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
+import ebag.mobile.VideoPlayDialog
+import ebag.mobile.VoicePlayDialog
 
 /**
  * Created by YZY on 2018/3/2.
@@ -69,12 +71,12 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
                 }).create()
         dialog
     }
-    /*private val videoPlayerDialog by lazy {
+    private val videoPlayerDialog by lazy {
         VideoPlayDialog(mContext)
     }
     private val voicePlayerDialog by lazy {
         VoicePlayDialog(mContext)
-    }*/
+    }
     override fun getBundle(bundle: Bundle?) {
     }
 
@@ -132,10 +134,10 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
                 PhotoPreviewActivity.jump(mContext, imgList , 0)
             }
             "mp4","rmvb","avi"->{
-//                videoPlayerDialog.show(bean.fileUrl, bean.fileName)
+                videoPlayerDialog.show(bean.fileUrl, bean.fileName)
             }
             "mp3", "amr", "wav" ->{
-//                voicePlayerDialog.show(bean.fileUrl, bean.fileName)
+                voicePlayerDialog.show(bean.fileUrl, bean.fileName)
             }
             else ->{
                 T.show(mContext, "不支持的文件类型，请在PC端尝试打开此文件")
@@ -196,7 +198,7 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
     }
 
     override fun onDestroy() {
-//        voicePlayerDialog.stop()
+        voicePlayerDialog.stop()
         super.onDestroy()
     }
 }

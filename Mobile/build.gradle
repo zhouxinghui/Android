@@ -39,5 +39,7 @@ dependencies {
     //    友盟基础库
     compile 'com.umeng.sdk:common:latest.integration'
     compile 'com.umeng.sdk:analytics:latest.integration'
+    //视频播放器
+    compile 'cn.jzvd:jiaozivideoplayer:6.2.7'
     compile project(':core')
 }
