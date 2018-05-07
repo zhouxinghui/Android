@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <ebag.mobile.widget.TitleBar
+        android:layout_width="match_parent"
+        app:titleText="云币中心"
+        android:id="@+id/title"
+        android:layout_height="wrap_content">
+
+
+    </ebag.mobile.widget.TitleBar>
+
+    <ebag.core.widget.drawable.DrawableTextView
+        android:id="@+id/btnGift"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:topDrawable="@drawable/yb_center_my_mall_btn_gift_house"
+        app:topDrawableWidth="@dimen/x60"
+        app:topDrawableHeight="@dimen/x60"
+        android:text="礼品屋"
+        android:gravity="center"
+        android:drawablePadding="@dimen/x15"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#444444"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnCenter"/>
+
+    <ebag.core.widget.drawable.DrawableTextView
+        android:id="@+id/btnCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:topDrawable="@drawable/yb_center_my_mall_btn_yb_center"
+        app:topDrawableWidth="@dimen/x60"
+        app:topDrawableHeight="@dimen/x60"
+        android:text="云币中心"
+        android:gravity="center"
+        android:drawablePadding="@dimen/x15"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#444444"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnGift"
+        app:layout_constraintEnd_toStartOf="@id/btnOrder"/>
+
+    <ebag.core.widget.drawable.DrawableTextView
+        android:id="@+id/btnOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:topDrawable="@drawable/yb_center_my_mall_btn_orderform"
+        app:topDrawableWidth="@dimen/x60"
+        app:topDrawableHeight="@dimen/x60"
+        android:text="我的订单"
+        android:gravity="center"
+        android:drawablePadding="@dimen/x15"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#444444"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnCenter"
+        app:layout_constraintEnd_toStartOf="@id/btnAddress"/>
+
+    <ebag.core.widget.drawable.DrawableTextView
+        android:id="@+id/btnAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:topDrawable="@drawable/yb_center_my_mall_btn_address"
+        app:topDrawableWidth="@dimen/x60"
+        app:topDrawableHeight="@dimen/x60"
+        android:text="收货地址"
+        android:gravity="center"
+        android:drawablePadding="@dimen/x15"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#444444"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnOrder"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

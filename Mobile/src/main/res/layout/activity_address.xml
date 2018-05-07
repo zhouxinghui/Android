@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+
+    <ebag.mobile.widget.TitleBar
+        android:layout_width="match_parent"
+        android:id="@+id/activity_address_titlebar"
+        app:titleText ="收货地址"
+        android:layout_height="wrap_content"/>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/activity_address_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/activity_address_add_layout"
+        android:layout_below="@+id/activity_address_titlebar">
+
+
+    </android.support.v7.widget.RecyclerView>
+
+
+    <ebag.core.widget.empty.StateView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:loadingLayout="@layout/base_loading"
+        app:emptyLayout="@layout/base_empty"
+        app:errorLayout="@layout/base_error"
+        android:layout_below="@+id/activity_address_titlebar"
+        android:id="@+id/activity_address_stateview"
+        android:layout_above="@+id/activity_address_add_layout"
+        />
+
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:background="#fff"
+        android:id="@+id/activity_address_add_layout"
+        android:layout_height="@dimen/y120">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100"
+            android:id="@+id/activity_address_add"
+            android:text="新增收货地址"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/x50"
+            android:layout_marginEnd="@dimen/x50"
+            android:textSize="@dimen/tv_normal"
+            android:background="@drawable/address_add_bcg"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="@dimen/y60"
+
+            />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

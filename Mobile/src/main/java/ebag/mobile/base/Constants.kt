@@ -63,4 +63,6 @@ object Constants {
     const val BACK_TO_CREATE_CLASS = 101
     const val SELECT_SCHOOL = 102
     const val CURRENT_CITY = "CURRENT_CITY"
+
+    val MOBILENUMBER_REGEX = "^((13[0-9])|(14[5,7,9])|(15[^4])|(18[0-9])|(17[0,1,3,5,6,7,8]))\\d{8}$"
 }

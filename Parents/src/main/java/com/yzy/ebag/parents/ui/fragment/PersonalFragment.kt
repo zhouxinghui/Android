@@ -16,7 +16,7 @@ import ebag.core.util.SerializableUtils
 import ebag.core.util.loadHead
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.UserEntity
-import ebag.mobile.module.account.YBCenterActivity
+import ebag.mobile.module.shop.YBActivity
 import kotlinx.android.synthetic.main.fragment_personal.*
 
 class PersonalFragment : BaseFragment() {
@@ -60,7 +60,7 @@ class PersonalFragment : BaseFragment() {
         mAdapter.setOnItemClickListener { _, _, position ->
             when (position) {
                 2 -> SettingActivity.start(activity)
-                0 -> YBCenterActivity.start(activity)
+                0 -> YBActivity.start(activity)
             }
         }
 

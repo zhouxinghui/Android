@@ -218,4 +218,57 @@ interface EBagService {
      */
     @POST("homeWork/myErrorQuestion/{version}")
     fun getErrorDetail(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<TypeQuestionBean>>>
+
+    //更新收货地址
+    @POST("shop/updateShopAddress/{version}")
+    fun updateAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+
+    //保存收货地址
+    @POST("shop/saveShopAddress/{version}")
+    fun saveAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+
+    //查询订单
+    @POST("shop/serchOrderByStatus/{version}")
+    fun queryOrder(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<QueryOrderBean>>
+
+    //更新订单状态
+    @POST("shop/updateShopOrderStaus/{version}")
+    fun updateShopOrderStaus(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /*保存订单*/
+    @POST("shop/saveOrder/{version}")
+    fun saveOrder(@Path("version") version: String,@Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    //云币支付
+    @POST("shop/ybPay/{version}")
+    fun ybPay(@Path("version") version: String,@Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    //查询用户收货地址列表
+    @POST("shop/serchShopAddress/{version}")
+    fun queryAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<MutableList<AddressListBean>>>
+    //删除用户收货地址
+    @POST("shop/deleteShopAddress/{version}")
+    fun deleteAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+
+    //获取商品列表
+    @POST("shop/getShopList/{version}")
+    fun getShopList(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<ShopListBean>>
+
+    //查询购物车
+    @POST("shop/serchShopCart/{version}")
+    fun queryShopCar(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<MutableList<ShopListBean.ListBean>>>
+
+    //添加商品到购物车
+    @POST("shop/addShop2Cart/{version}")
+    fun addGoods2Car(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+
+    @POST("shop/removeShopCart/{version}")
+    fun removeShopCar(@Path("version") version: String,@Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /*更新购物车*/
+    @POST("shop/updateShopCart/{version}")
+    fun updateShopCar(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+
+    @POST("shop/getShopDetailInfo/{version}")
+    fun shopDeatils(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<GoodsDetailsBean>>
 }

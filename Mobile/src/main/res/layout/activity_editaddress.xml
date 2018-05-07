@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ebag.mobile.widget.TitleBar
+        android:layout_width="match_parent"
+        android:id="@+id/activity_editaddress_title"
+        app:titleText="编辑地址"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/activity_editaddress_title"
+        android:id="@+id/activity_editaddress_recyclerview"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y120">
+
+        <!--<TextView
+            android:layout_width="@dimen/x480"
+            android:layout_height="@dimen/y80"
+            android:id="@+id/activity_editaddress_save"
+            android:text="保存"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:textSize="@dimen/x20"
+            android:background="@drawable/address_add_bcg"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="@dimen/y60"
+
+            />-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100"
+            android:id="@+id/activity_editaddress_save"
+            android:text="保存"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/x50"
+            android:layout_marginEnd="@dimen/x50"
+            android:textSize="@dimen/tv_normal"
+            android:background="@drawable/address_add_bcg"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="@dimen/y60"
+
+            />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

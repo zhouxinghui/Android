@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/y70"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:paddingBottom="@dimen/y8"
+    android:background="#fff"
+    android:paddingTop="@dimen/y8">
+
+    <TextView android:id="@+id/editaddress_label" android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/x20"
+        android:text="收货人"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#000"
+        />
+
+    <EditText android:id="@+id/editaddress_edittext" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/x20"
+        android:layout_toRightOf="@+id/editaddress_label"
+        android:background="#fff"
+        android:maxLength="11"
+        android:maxLines="1"
+        android:textColor="#000"
+        android:textSize="@dimen/tv_normal"
+        />
+
+    <TextView android:id="@+id/editaddress_area"  android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/x20"
+        android:layout_toRightOf="@+id/editaddress_label"
+        android:background="#fff"
+        android:maxLines="1"
+        android:textColor="#000"
+        android:hint="点击选择地址"
+        android:textSize="@dimen/tv_normal"
+        android:visibility="gone"
+        android:text=""
+        />
+
+    <!--<ImageView android:id="@+id/editaddress_arrow" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/x10"
+        android:src="@mipmap/message_arrow"
+        android:visibility="gone"
+        />-->
+
+</RelativeLayout>

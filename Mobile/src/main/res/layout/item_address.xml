@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#fff"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/tv_normal"
+            android:paddingStart="@dimen/x10"
+            android:paddingTop="@dimen/y16">
+
+
+            <TextView android:id="@+id/myaddress_item_username" android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="范三"
+                android:textColor="#333"
+                android:textSize="@dimen/tv_normal"
+                android:textStyle="bold"
+                />
+
+            <TextView android:id="@+id/myaddress_item_phone" android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="17718397309"
+                android:layout_marginStart="@dimen/x50"
+                android:textSize="@dimen/tv_normal"
+                android:textColor="#333"
+                />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/y16"
+            android:layout_marginTop="@dimen/y16"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/x10">
+
+
+            <TextView android:id="@+id/myaddress_item__area" android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/tv_normal"
+                android:text="广东省,深圳市,龙岗区"
+                android:textColor="#767676"
+                />
+
+
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="0.5dp"
+            android:background="#d7d7d7"/>
+
+
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="@dimen/y70"
+            android:gravity="center_vertical"
+            android:paddingEnd="@dimen/x10"
+            android:paddingStart="@dimen/x10">
+
+            <CheckBox android:id="@+id/myaddress_defult_toggle" android:layout_width="@dimen/x160"
+                android:layout_height="@dimen/y40"
+                android:layout_centerVertical="true"
+                android:text="设为默认"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/tv_normal"
+                android:drawablePadding="@dimen/x8"
+                android:textColor="#333"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/item_address_edit"
+                android:layout_marginEnd="@dimen/x90"
+                android:padding="@dimen/x20"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <ImageView  android:layout_width="@dimen/x20"
+                    android:layout_height="@dimen/y18"
+                    android:layout_marginTop="@dimen/y5"
+                    android:src="@drawable/icon_delivery_addressedit_edit"
+                    />
+
+                <TextView  android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/x8"
+                    android:text="编辑"
+                    android:textSize="@dimen/tv_normal"
+                    android:layout_marginTop="@dimen/y5"
+                    android:textColor="#333"
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:id="@+id/item_address_delete"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/x20"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <ImageView  android:layout_width="@dimen/x20"
+                    android:layout_height="@dimen/y18"
+                    android:layout_marginTop="@dimen/y5"
+                    android:src="@drawable/icon_delivery_addressedit_delect"
+                    />
+
+                <TextView  android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/x8"
+                    android:text="删除"
+                    android:textSize="@dimen/tv_normal"
+                    android:layout_marginTop="@dimen/y5"
+                    android:textColor="#333"
+                    />
+
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

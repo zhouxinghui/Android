@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ebag.mobile.widget.TitleBar
+        android:layout_width="match_parent"
+        app:titleText="我的订单"
+        android:id="@+id/title"
+        android:layout_height="wrap_content"/>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout_id"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/title"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="#FF3F14"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="#FF3F14"
+        app:tabTextColor="@color/black" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_below="@+id/tab_layout_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ebag.core.widget.empty.StateView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/stateView"
+        app:loadingLayout="@layout/base_loading"
+        app:errorLayout="@layout/base_error"
+        />
+
+</RelativeLayout>

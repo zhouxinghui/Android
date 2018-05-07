@@ -214,4 +214,8 @@
         <item name="android:layout_marginEnd">@dimen/x5</item>
     </style>
     <!--work_report-->
+
+    <style name="MyTabLayoutTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">13sp</item>
+    </style>
 </resources>

@@ -71,6 +71,31 @@
         <activity android:name=".module.clazz.ClassMateSubActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".module.shop.AddressListActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".module.shop.EditAddressActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".module.shop.OrderDetailsActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".module.shop.YBActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".module.shop.ShopActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".module.shop.GoodsDetailActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".module.shop.ShopOrderActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".module.shop.ShopCarActivity"
+            android:screenOrientation="portrait"
+            />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"

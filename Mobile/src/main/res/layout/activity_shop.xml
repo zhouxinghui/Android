@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+
+    <ebag.mobile.widget.TitleBar
+        android:id="@+id/shop_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="商城">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="@dimen/x60"
+            android:layout_height="@dimen/x20"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/x10">
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/icon_shoppingcart" />
+
+
+            <TextView
+                android:layout_width="@dimen/x15"
+                android:layout_height="@dimen/x15"
+                android:id="@+id/shop_carcount"
+                android:maxLength="2"
+                android:ellipsize="end"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/icon_shop_add_goods_shape"
+                android:gravity="center"
+                android:layout_marginEnd="@dimen/x7"
+                android:text="0"
+                android:textColor="#fff" />
+
+        </RelativeLayout>
+
+
+    </ebag.mobile.widget.TitleBar>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/shop_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shop_titlebar">
+
+
+    </android.support.v7.widget.RecyclerView>
+
+    <ebag.core.widget.empty.StateView
+        android:id="@+id/shop_stateview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:emptyLayout="@layout/base_empty"
+        app:errorLayout="@layout/base_error"
+        app:loadingLayout="@layout/base_loading" />
+
+</RelativeLayout>

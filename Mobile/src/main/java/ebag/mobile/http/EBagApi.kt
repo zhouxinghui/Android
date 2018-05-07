@@ -487,4 +487,144 @@ object EBagApi {
         jsonObject.put("uid", uid)
         EBagApi.request(eBagService.getErrorDetail("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**更新地址*/
+    fun updateAddress(id: String, consignee: String, phone: String, preAddress: String, address: String, type: String, callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("consignee", consignee)
+        jsonObject.put("id", id)
+        jsonObject.put("phone", phone)
+        jsonObject.put("preAddress", preAddress)
+        jsonObject.put("address", address)
+        jsonObject.put("type", type)
+        EBagApi.request(eBagService.updateAddress("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**新增地址*/
+    fun saveAddress(consignee: String, phone: String, preAddress: String, address: String, callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("consignee", consignee)
+        jsonObject.put("phone", phone)
+        jsonObject.put("preAddress", preAddress)
+        jsonObject.put("address", address)
+        jsonObject.put("type", "1")
+        EBagApi.request(eBagService.saveAddress("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**查询订单*/
+    fun queryOrder(status: String, callback: RequestCallBack<QueryOrderBean>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("staus", status)
+        EBagApi.request(eBagService.queryOrder("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+
+    /*更新订单状态，确认收货*/
+    fun updateShopOrderStaus(oid: String, numList: List<ShopStatusBean>, callback: RequestCallBack<String>, staus: String = "3") {
+        val jsonObject = JSONObject()
+        jsonObject.put("oid", oid)
+        jsonObject.put("staus", staus)
+        val array = JSONArray()
+        numList.forEach {
+            val json = JSONObject()
+            json.put("shopId", it.shopId)
+            json.put("Number", it.Number)
+            array.put(json)
+        }
+        jsonObject.put("requestOrderVos", array)
+        EBagApi.request(eBagService.updateShopOrderStaus("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /*保存订单*/
+    fun saveOrder(ybMoneyAll: String, freight: String, address: String, price: String, allPrice: String, list: ArrayList<SaveOrderPBean.ListBean>, oid: String, shopcarid: String = "", callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("address", address)
+        jsonObject.put("ybMoneyAll", ybMoneyAll)
+        jsonObject.put("freight", freight)
+        jsonObject.put("price", price)
+        jsonObject.put("allPrice", allPrice)
+        jsonObject.put("shopCartId", shopcarid)
+        val array = JSONArray()
+        list.forEach {
+            val json = JSONObject()
+            json.put("ybMoney", it.ybMoney)
+            json.put("shopId", it.ShopId)
+            json.put("numbers", it.numbers)
+            array.put(json)
+        }
+        jsonObject.put("requestOrderVos", array)
+        jsonObject.put("oid", oid)
+        EBagApi.request(eBagService.saveOrder("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /*云币支付*/
+
+    fun ybPay(oid: String, allPrice: String, callback: RequestCallBack<String>) {
+
+        val jsonObject = JSONObject()
+        jsonObject.put("oid", oid)
+        jsonObject.put("allPrice", allPrice)
+        EBagApi.request(eBagService.ybPay("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**查询用户地址*/
+    fun queryAddress(callback: RequestCallBack<MutableList<AddressListBean>>) {
+        val jsonObject = JSONObject()
+        EBagApi.request(eBagService.queryAddress("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**删除地址*/
+    fun deleteAddress(id: String, callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("id", id)
+        EBagApi.request(eBagService.deleteAddress("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**查询商店商品列表*/
+    fun getShopList(page: Int, callback: RequestCallBack<ShopListBean>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", 10)
+        EBagApi.request(eBagService.getShopList("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**查询购物车*/
+    fun queryShopCar(callback: RequestCallBack<MutableList<ShopListBean.ListBean>>) {
+        val jsonObject = JSONObject()
+        EBagApi.request(eBagService.queryShopCar("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**添加商品到购物车*/
+    fun addGoods2Car(id: String, count: String, callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("id", id)
+        jsonObject.put("numbers", count)
+        EBagApi.request(eBagService.addGoods2Car("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /*移除购物车*/
+    fun removeShopCar(id: ArrayList<String>, callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        val array = JSONArray()
+        id.forEach {
+            array.put(it)
+        }
+        jsonObject.put("shopsCartId", array)
+        EBagApi.request(eBagService.removeShopCar("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**更新购物车*/
+    fun updateShopCar(numbers: String, id: String, callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("shopCartId", id)
+        jsonObject.put("numbers", numbers)
+        EBagApi.request(eBagService.updateShopCar("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**商品详情信息*/
+    fun shopDetails(id: String, callback: RequestCallBack<GoodsDetailsBean>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("id", id)
+        EBagApi.request(eBagService.shopDeatils("v1", EBagApi.createBody(jsonObject)), callback)
+    }
 }
