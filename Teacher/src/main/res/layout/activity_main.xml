@@ -22,7 +22,7 @@
         android:id="@+id/bottomNavigationBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:bnbInactiveColor="@color/gray_dark"
+        app:bnbInactiveColor="#CDCDCD"
         app:bnbBackgroundColor="@color/colorPrimary"
         app:bnbActiveColor="@color/white"
         />

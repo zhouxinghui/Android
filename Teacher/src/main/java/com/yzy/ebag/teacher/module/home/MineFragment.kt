@@ -11,7 +11,7 @@ import ebag.core.util.SerializableUtils
 import ebag.core.util.loadHead
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.UserEntity
-import ebag.mobile.module.account.YBCenterActivity
+import ebag.mobile.module.shop.YBActivity
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 /**
@@ -75,7 +75,7 @@ class MineFragment: BaseFragment(), View.OnClickListener {
                 startActivity(Intent(mContext, SettingActivity::class.java))
             }
             R.id.myShop ->{
-                YBCenterActivity.start(mContext)
+                YBActivity.start(mContext)
             }
         }
     }
