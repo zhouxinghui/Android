@@ -1,7 +1,6 @@
-package com.yzy.ebag.teacher.module.account
+package com.yzy.ebag.parents.ui.activity
 
 import android.content.Intent
-import com.yzy.ebag.teacher.MainActivity
 import ebag.mobile.module.account.BaseBindingActivity
 
 /**

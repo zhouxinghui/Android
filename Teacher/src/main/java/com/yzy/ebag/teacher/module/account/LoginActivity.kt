@@ -11,7 +11,6 @@ import ebag.mobile.base.Constants
 import ebag.mobile.module.account.BLoginActivity
 import ebag.mobile.util.requestPermission
 
-
 /**
  * Created by YZY on 2018/4/16.
  */

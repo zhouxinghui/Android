@@ -146,17 +146,17 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
             App.modifyToken(userEntity.token)
             userEntity.roleCode = getRoleCode()
             SerializableUtils.deleteSerializable(
-                    if (getRoleCode() == STUDENT_ROLE) {
-                        Constants.STUDENT_USER_ENTITY
-                    } else {
-                        Constants.TEACHER_USER_ENTITY
+                    when {
+                        getRoleCode() == STUDENT_ROLE -> Constants.STUDENT_USER_ENTITY
+                        getRoleCode() == TEACHER_ROLE -> Constants.TEACHER_USER_ENTITY
+                        else -> Constants.PARENTS_USER_ENTITY
                     }
             )
             SerializableUtils.setSerializable(
-                    if (getRoleCode() == STUDENT_ROLE) {
-                        Constants.STUDENT_USER_ENTITY
-                    } else {
-                        Constants.TEACHER_USER_ENTITY
+                    when {
+                        getRoleCode() == STUDENT_ROLE -> Constants.STUDENT_USER_ENTITY
+                        getRoleCode() == TEACHER_ROLE -> Constants.TEACHER_USER_ENTITY
+                        else -> Constants.PARENTS_USER_ENTITY
                     }, userEntity)
             startActivity(getJumpIntent())
             finish()
@@ -339,7 +339,8 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
                 var uid = p2?.get("uid")
                 var openid = p2?.get("openid")//微博没有
                 var unionid = p2?.get("unionid")//微博没有
-                var access_token = p2?.get("access_token")
+//                var access_token = p2?.get("access_token")
+                var access_token = ""
                 var refresh_token = p2?.get("refresh_token")//微信,qq,微博都没有获取到
                 var expires_in = p2?.get("expires_in")
                 var name = p2?.get("name")

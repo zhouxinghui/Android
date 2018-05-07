@@ -107,6 +107,11 @@
         <activity
             android:name=".module.account.ForgetActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".module.account.BindingActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".module.account.LoginSelectActivity"
+            android:screenOrientation="portrait"/>
         <!--微信支付-->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
@@ -156,9 +161,6 @@
             android:excludeFromRecents="true"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.UMDefault" />
-        <activity android:name=".module.account.LoginSelectActivity" />
-        <activity android:name=".module.account.BindingActivity" />
-
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="599bd2c34544cb06cc000f95" />

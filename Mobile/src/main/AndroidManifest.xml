@@ -54,7 +54,6 @@
         <activity
             android:name=".module.account.CashierActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"

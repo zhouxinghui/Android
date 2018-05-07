@@ -1,4 +1,4 @@
-package com.yzy.ebag.teacher.module.account
+package com.yzy.ebag.parents.ui.activity
 
 import ebag.mobile.module.account.BaseLoginSelectActivity
 

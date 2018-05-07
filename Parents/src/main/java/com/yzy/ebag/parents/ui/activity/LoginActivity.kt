@@ -22,7 +22,13 @@ class LoginActivity : BLoginActivity() {
     }
 
     override fun threeParty(view: View, uid: String?, accessToken: String?, name: String?, iconurl: String?, gender: String?, share_media: String?) {
-
+        startActivity(Intent(this, LoginSelectActivity::class.java)
+                .putExtra("uid", uid)
+                .putExtra("accessToken", accessToken)
+                .putExtra("name", name)
+                .putExtra("iconurl",iconurl)
+                .putExtra("gender", gender)
+                .putExtra("share_media",share_media))
     }
 
     override fun initViews() {

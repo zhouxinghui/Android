@@ -152,6 +152,10 @@
         <activity android:name=".ui.activity.ForgetActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".ui.activity.BindingActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.LoginSelectActivity"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="UMENG_APPKEY"
