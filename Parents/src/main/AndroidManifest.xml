@@ -12,6 +12,8 @@
     <uses-permission android:name="com.android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:name=".App"
@@ -91,6 +93,7 @@
             android:name="com.umeng.qq.tencent.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
         <activity
             android:name=".ui.activity.ChooseChildrenActivity"
             android:screenOrientation="portrait" />
@@ -152,7 +155,7 @@
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="599bd2c34544cb06cc000f95" />
+            android:value="599e86f5c62dca3901001d52" />
 
         <!--umeng-->
 

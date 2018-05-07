@@ -5,15 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EFF2F4"
-    android:orientation="vertical"
-    tools:context="com.yzy.ebag.teacher.activity.account.LoginSelectActivity">
-    <ebag.hd.widget.TitleBar android:id="@+id/titleBar"
+    android:orientation="vertical">
+    <ebag.mobile.widget.TitleBar android:id="@+id/titleBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:titleText="登录选项"
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x203"
+        android:layout_height="@dimen/y203"
         android:layout_gravity="center_horizontal"
         android:background="@color/blue"
         >
@@ -31,12 +32,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
-        <ImageView
-            android:layout_width="@dimen/x79"
-            android:layout_height="@dimen/x79"
+        <TextView
+            android:layout_width="@dimen/x50"
+            android:layout_height="@dimen/x50"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="16dp"
-            android:src="@drawable/icon_yun"/>
+            android:background="@drawable/blue_round_stroke"
+            android:textSize="@dimen/tv_normal"
+            android:textColor="@color/tv_normal"
+            android:text="云书包"
+            android:gravity="center"
+            />
         <TextView
             android:id="@+id/tv_tips"
             android:layout_width="wrap_content"
@@ -56,7 +62,7 @@
 
         <Button
             android:id="@+id/btn_create"
-            android:layout_width="@dimen/x405"
+            android:layout_width="@dimen/x100"
             android:layout_height="@dimen/y70"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="40dp"
@@ -67,7 +73,7 @@
 
         <Button
             android:id="@+id/btn_binding"
-            android:layout_width="@dimen/x405"
+            android:layout_width="@dimen/x100"
             android:layout_height="@dimen/y70"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="32dp"

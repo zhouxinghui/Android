@@ -4,7 +4,21 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 26
 
-
+    //签名配置
+    signingConfigs {
+        release {
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+            storeFile file(TEACHER_STORE_FILE)
+            storePassword STORE_PASSWORD
+        }
+        debug {
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+            storeFile file(TEACHER_STORE_FILE)
+            storePassword STORE_PASSWORD
+        }
+    }
 
     defaultConfig {
         applicationId "com.yzy.ebag.teacher"
@@ -39,5 +53,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.ashokvarma.android:bottom-navigation-bar:1.4.1'
+    //    友盟基础库
+    compile 'com.umeng.sdk:common:latest.integration'
+    compile 'com.umeng.sdk:analytics:latest.integration'
     compile project(':Mobile')
 }

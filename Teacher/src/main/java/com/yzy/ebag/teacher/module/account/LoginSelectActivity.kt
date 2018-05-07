@@ -1,4 +1,4 @@
-package com.yzy.ebag.teacher.activity.account
+package com.yzy.ebag.teacher.module.account
 
 import android.app.Activity
 import android.content.Intent
@@ -33,6 +33,7 @@ class LoginSelectActivity : BaseActivity(), View.OnClickListener {
                         .putExtra("shareMedia",shareMedia)
                         .putExtra("accessToken", accessToken)
                         .putExtra("uid",uid)
+                        .putExtra("titleText","绑定账号")
                 )
             }
             R.id.btn_create -> {
@@ -44,6 +45,7 @@ class LoginSelectActivity : BaseActivity(), View.OnClickListener {
                         .putExtra("iconurl", iconurl)
                         .putExtra("gender",gender)
                         .putExtra("shareMedia",shareMedia)
+                        .putExtra("titleText","创建账号")
                 )
             }
             R.id.titleBar -> {

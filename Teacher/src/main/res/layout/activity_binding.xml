@@ -5,22 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EFF2F4"
-    tools:context="com.yzy.ebag.teacher.activity.account.BindingActivity"
     android:orientation="vertical">
-    <ebag.hd.widget.TitleBar android:id="@+id/titleBar"
+    <ebag.mobile.widget.TitleBar android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x180"
+        android:layout_height="@dimen/y180"
         android:layout_gravity="center_horizontal"
         android:background="@color/blue">
 
         <ImageView
             android:id="@+id/iv_thirdly"
-            android:layout_width="@dimen/x110"
-            android:layout_height="@dimen/x110"
+            android:layout_width="@dimen/y110"
+            android:layout_height="@dimen/y110"
             android:layout_centerInParent="true"
             android:layout_marginRight="16dp"
             android:src="@drawable/icon_sign_in_micro_blog"/>
@@ -32,8 +31,8 @@
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
         <TextView
-            android:layout_width="@dimen/x86"
-            android:layout_height="@dimen/x86"
+            android:layout_width="@dimen/x50"
+            android:layout_height="@dimen/x50"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="16dp"
             android:background="@drawable/blue_oval"
@@ -61,8 +60,8 @@
 
         <EditText
             android:id="@+id/et_user"
-            android:layout_width="@dimen/x540"
-            android:layout_height="@dimen/y64"
+            android:layout_width="@dimen/x200"
+            android:layout_height="@dimen/y75"
             android:layout_marginBottom="20dp"
             android:background="@drawable/common_white_edittext_bg_radius"
             android:hint="请输入书包号或手机号"
@@ -75,8 +74,8 @@
             />
         <EditText
             android:id="@+id/et_pwd"
-            android:layout_width="@dimen/x540"
-            android:layout_height="@dimen/y64"
+            android:layout_width="@dimen/x200"
+            android:layout_height="@dimen/y75"
             android:background="@drawable/common_white_edittext_bg_radius"
             android:hint="请输入密码"
             android:inputType="textPassword"
@@ -101,8 +100,8 @@
 
     <Button
         android:id="@+id/btn_binding"
-        android:layout_width="@dimen/x450"
-        android:layout_height="@dimen/y65"
+        android:layout_width="@dimen/x200"
+        android:layout_height="@dimen/y75"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="37dp"
         android:background="@drawable/login_btn_bac"
