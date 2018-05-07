@@ -528,6 +528,7 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
         stateView.showError()
         if(t is MsgException && t.code == "2001"){
             createClassDialog.show()
+            stateView.showError(t.message.toString())
         }else {
             t.handleThrowable(this)
         }
