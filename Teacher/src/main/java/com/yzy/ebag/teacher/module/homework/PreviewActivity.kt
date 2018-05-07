@@ -93,6 +93,7 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
         popup
     }
     override fun loadConfig(intent: Intent) {
+        loadMoreEnabled(false)
         isTest = intent.getBooleanExtra("isTest", false)
         classes = intent.getSerializableExtra("classes") as java.util.ArrayList<AssignClassBean>
         unitBean = intent.getSerializableExtra("unitBean") as UnitBean.UnitSubBean
@@ -150,6 +151,7 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
         if (parent != null && !parent.isEmpty())
             previewList = parent as ArrayList<QuestionBean>
         questionNumTv.text = "+${previewList.size}题"
+        (mAdapter as QuestionAdapter).previewList = previewList
         return parent
     }
 
