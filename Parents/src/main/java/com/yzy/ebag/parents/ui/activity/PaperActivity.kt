@@ -39,6 +39,7 @@ class PaperActivity : BaseActivity() {
                     titleList.add(it.subject)
                     subCodeList.add(it.subCode)
                 }
+                viewpager.offscreenPageLimit = entity!!.size
                 initTab()
                 stateview.showContent()
             }

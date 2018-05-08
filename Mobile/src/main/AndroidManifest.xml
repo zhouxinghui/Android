@@ -95,6 +95,9 @@
         <activity android:name=".module.shop.ShopCarActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".module.shop.YBProtocolActivity"
+            android:screenOrientation="portrait"
+            />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

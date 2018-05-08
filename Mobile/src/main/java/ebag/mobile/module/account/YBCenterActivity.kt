@@ -9,6 +9,7 @@ import ebag.core.base.BaseActivity
 import ebag.mobile.R
 import ebag.mobile.base.ActivityUtils
 import ebag.mobile.bean.YBCurrentBean
+import ebag.mobile.module.shop.YBProtocolActivity
 import kotlinx.android.synthetic.main.activity_ybcenter.*
 
 class YBCenterActivity : BaseActivity(), YBCenterContract.YBCenterView {
@@ -38,6 +39,11 @@ class YBCenterActivity : BaseActivity(), YBCenterContract.YBCenterView {
         charge.setOnClickListener {
 
             YBChargeActivity.start(this,money)
+        }
+
+        titlebar.setOnRightClickListener {
+
+            YBProtocolActivity.start(this)
         }
 
     }

@@ -9,7 +9,9 @@
 
     <ebag.mobile.widget.TitleBar
         android:layout_width="match_parent"
+        android:id="@+id/titlebar"
         android:layout_height="wrap_content"
+        app:rightText = "云币规则"
         app:titleText="我的云币" />
 
 
