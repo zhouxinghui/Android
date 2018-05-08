@@ -35,7 +35,7 @@
         android:textSize="@dimen/tv_normal"
         tools:text="2012-12-12"
         android:textColor="#c9c9c9"
-        android:layout_weight="1"
+        android:layout_weight="2"
         />
 
 </LinearLayout>
