@@ -36,7 +36,11 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
         homework_top.text = setSpan("${data.maxScore}分")
         homework_error.text = setSpan(DecimalFormat("0").format(data.errorNum) + "道")
         val time = endTime.split(" ")[0].split("-")
-        homework_error_content.text = "${time[1]}月${time[2]}日${subject}作业共错${DecimalFormat("0").format(data.errorNum)}道题"
+        if (data.errorNum == 0){
+            homework_error_layout.visibility = View.GONE
+        }else {
+            homework_error_content.text = "${time[1]}月${time[2]}日${subject}作业共错${DecimalFormat("0").format(data.errorNum)}道题"
+        }
         if (data.teacherComment.isNullOrEmpty()) {
             homework_teacher_layout.visibility = View.GONE
         } else {
