@@ -33,7 +33,7 @@ class HomeworkListActivity : BaseActivity() {
             if ((adapter.getItem(position) as OnePageInfoBean.HomeWorkInfoVosBean).state == "0") {
                 HomeworkDescActivity.jump(this,datas[position].id,"2",(SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid)
             } else {
-                HomeworkReportActivity.start(this, datas[0].id, datas[0].endTime, subject)
+                HomeworkReportActivity.start(this, datas[position].id, datas[position].endTime, subject)
             }
 
         }

@@ -1,11 +1,14 @@
 package com.yzy.ebag.student.dialog
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseFragmentDialog
 import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
 import ebag.core.util.T
 import kotlinx.android.synthetic.main.dialog_parents_add.*
 
@@ -14,13 +17,14 @@ import kotlinx.android.synthetic.main.dialog_parents_add.*
  * @date 2018/1/18
  * @description
  */
-class ParentAddDialog : BaseFragmentDialog() {
+@SuppressLint("ValidFragment")
+class ParentAddDialog(private val c:Context) : BaseFragmentDialog() {
 
     private lateinit var listener:SuccessListener
 
     companion object {
-        fun newInstance(): ParentAddDialog {
-            return ParentAddDialog()
+        fun newInstance(c: Context): ParentAddDialog {
+            return ParentAddDialog(c)
         }
     }
 
@@ -67,7 +71,7 @@ class ParentAddDialog : BaseFragmentDialog() {
                 }
 
                 override fun onError(exception: Throwable) {
-                    T.show(activity,"添加失败")
+                    exception.handleThrowable(c)
                     dismiss()
                 }
 

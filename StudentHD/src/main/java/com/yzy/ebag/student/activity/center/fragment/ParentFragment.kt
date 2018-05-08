@@ -85,7 +85,7 @@ class ParentFragment : BaseListFragment<List<ParentBean>, ParentBean>() {
         return null
     }
 
-    private val addDialog by lazy { ParentAddDialog.newInstance() }
+    private val addDialog by lazy { ParentAddDialog.newInstance(activity) }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
 

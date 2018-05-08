@@ -1,11 +1,8 @@
 package ebag.core.http.network
 
-import android.util.Log
 import ebag.core.bean.ResponseBean
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
-import java.lang.reflect.ParameterizedType
-import kotlin.reflect.KTypeParameter
 
 /**
  * Created by caoyu on 2017/11/9.
@@ -25,7 +22,7 @@ class EBagRequestObserver<E>(private val requestCallBack: RequestCallBack<E>) : 
         if(response.success == "200")
             this.requestCallBack.onSuccess(response.data)
         else
-            this.requestCallBack.onError(MsgException(response.success ?: "0", response.message ?: "服务器异常"))
+            this.requestCallBack.onError(MsgException(response.success ?: "0", response.message))
     }
 
     override fun onComplete() {
