@@ -84,6 +84,11 @@ class ChooseChildrenActivity : BaseActivity(), ChooseChildrenContract.ChooseChil
                 return@setOnClickListener
             }
 
+            if (et_relation.text.toString().isEmpty()) {
+                T.show(this@ChooseChildrenActivity, "请输入和小孩的关系")
+                return@setOnClickListener
+            }
+
             ParentsAPI.createChildCode(et_psw.text.toString(), et_childname.text.toString(), object : RequestCallBack<String>() {
 
                 override fun onStart() {
@@ -102,7 +107,7 @@ class ChooseChildrenActivity : BaseActivity(), ChooseChildrenContract.ChooseChil
                     LoadingDialogUtil.closeLoadingDialog()
                 }
 
-            })
+            }, et_relation.text.toString())
         }
 
         titlebar.setOnLeftClickListener {
@@ -117,7 +122,7 @@ class ChooseChildrenActivity : BaseActivity(), ChooseChildrenContract.ChooseChil
         super.onBackPressed()
     }
 
-    private fun backEvent(){
+    private fun backEvent() {
         if (oldUid != mAdapter.uid) {
             setResult(999)
         }

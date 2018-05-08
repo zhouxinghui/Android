@@ -62,6 +62,16 @@
             android:background="@drawable/main_homework_bcg"
             android:hint="请给孩子账号设置一个密码" />
 
+        <EditText
+            android:id="@+id/et_relation"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100"
+            android:layout_marginTop="@dimen/y15"
+            android:textSize="@dimen/x12"
+            android:paddingStart="@dimen/x10"
+            android:background="@drawable/main_homework_bcg"
+            android:hint="您是小孩的？" />
+
         <TextView
             android:id="@+id/create_ysbcode"
             android:layout_width="match_parent"
