@@ -98,7 +98,7 @@ class ParentFragment : BaseListFragment<List<ParentBean>, ParentBean>() {
 
         override fun convert(helper: BaseViewHolder, item: ParentBean?) {
             helper.setText(R.id.tvName, item?.name)
-                    .setText(R.id.tvStudentName, userEntity?.name)
+                    .setText(R.id.tvStudentName, item?.relationType)
                     .setText(R.id.tvEBagCode, "书包号: ${item?.ysbCode}")
                     .setText(R.id.tvPhone, item?.phone)
                     .setText(R.id.tvAddress, item?.address ?: "暂无地址")
