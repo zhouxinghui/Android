@@ -164,13 +164,14 @@
         <!--umeng-->
 
         <!--baidu map-->
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="0qKNIut4jdbpM4GCTV0CV0fhcNfzqNrX" />
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="0qKNIut4jdbpM4GCTV0CV0fhcNfzqNrX" />
     </application>
 
 </manifest>

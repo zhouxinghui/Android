@@ -99,6 +99,7 @@ class ChooseChildrenActivity : BaseActivity(), ChooseChildrenContract.ChooseChil
                     mPersenter.refresh()
                     et_psw.setText("")
                     et_childname.setText("")
+                    et_relation.setText("")
                     LoadingDialogUtil.closeLoadingDialog()
                 }
 

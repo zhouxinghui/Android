@@ -29,6 +29,7 @@ class ErrorBookActivity:BaseActivity(){
 
         val childrenBean = SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean
 
+        viewpager.offscreenPageLimit  = 3
         init(childrenBean)
 
         stateview.setOnRetryClickListener {
