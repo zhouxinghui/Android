@@ -121,16 +121,12 @@ class HomeworkDescActivity : BaseActivity() {
         questionAdapter.setOnItemChildClickListener(questionClickListener)
         questionAdapter.setOnItemChildClickListener { adapter, view, position ->
             if (view.id == R.id.analyseTv) {
-                analyseDialog.show(questionAdapter.data[position])
+                val questionBean = questionAdapter.data[position]?.clone() as QuestionBean
+                questionBean.answer = questionBean.rightAnswer
+                analyseDialog.show(questionBean)
             }
         }
 
-        questionAdapter.setOnItemChildClickListener { adapter, view, position ->
-            adapter as QuestionAdapter
-            if (view.id == R.id.analyseTv) {
-                analyseDialog.show(questionAdapter.data[position])
-            }
-        }
         questionAdapter.canDo = false
         questionAdapter.isShowAnalyseTv = true
         questionAdapter.showResult = true

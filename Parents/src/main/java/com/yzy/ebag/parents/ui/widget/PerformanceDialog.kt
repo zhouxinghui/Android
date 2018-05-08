@@ -26,6 +26,9 @@ class PerformanceDialog(context: Context) : BaseDialog(context) {
         return context.resources.getDimensionPixelSize(R.dimen.x250)
     }
 
+    override fun setHeight(): Int {
+        return context.resources.getDimensionPixelSize(R.dimen.y800)
+    }
 
     private val adapter = Adapter()
     private val request = object : RequestCallBack<PersonalPerformanceBean>() {

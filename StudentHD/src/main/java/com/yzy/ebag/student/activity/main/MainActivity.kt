@@ -4,6 +4,10 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import cn.jpush.android.api.JPushInterface
+import com.baidu.trace.LBSTraceClient
+import com.baidu.trace.Trace
+import com.baidu.trace.model.OnTraceListener
+import com.baidu.trace.model.PushMessage
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
@@ -29,6 +33,8 @@ import ebag.hd.ui.activity.BookListActivity
 import ebag.hd.ui.activity.account.BInviteActivity
 import ebag.hd.util.checkUpdate
 import kotlinx.android.synthetic.main.activity_main.*
+
+
 
 class MainActivity : MVPActivity(), MainView {
 
@@ -62,6 +68,8 @@ class MainActivity : MVPActivity(), MainView {
         initUserInfo()
         initListener()
         getMainClassInfo()
+
+        initTrack()
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -250,5 +258,60 @@ class MainActivity : MVPActivity(), MainView {
         override fun convert(helper: BaseViewHolder?, item: ClassesInfoBean?) {
             helper?.setText(R.id.tv, "${item?.subject} : ${item?.teacherName}")
         }
+    }
+
+    /**
+     * 鹰眼追踪
+     */
+    private fun initTrack(){
+        // 轨迹服务ID
+        val serviceId: Long = 116060
+        // 设备标识
+        val entityName = SerializableUtils.getSerializable<String>(Constants.STUDENT_USER_ENTITY) ?: "myTrack"
+        // 是否需要对象存储服务，默认为：false，关闭对象存储服务。
+        // 注：鹰眼 Android SDK v3.0以上版本支持随轨迹上传图像等对象数据，若需使用此功能，该参数需设为 true，且需导入bos-android-sdk-1.0.2.jar。
+        val isNeedObjectStorage = false
+        // 初始化轨迹服务
+        val mTrace = Trace(serviceId, entityName, isNeedObjectStorage)
+        // 初始化轨迹服务客户端
+        val mTraceClient = LBSTraceClient(applicationContext)
+
+        // 初始化轨迹服务监听器
+        val mTraceListener = object : OnTraceListener {
+            override fun onBindServiceCallback(p0: Int, p1: String?) {
+            }
+
+            override fun onInitBOSCallback(p0: Int, p1: String?) {
+            }
+
+            // 开启服务回调
+            override fun onStartTraceCallback(status: Int, message: String) {
+                if (status == 0)
+                // 开启采集
+                    mTraceClient.startGather(null)
+            }
+
+            // 停止服务回调
+            override fun onStopTraceCallback(status: Int, message: String){}
+
+            // 开启采集回调
+            override fun onStartGatherCallback(status: Int, message: String) {}
+
+            // 停止采集回调
+            override fun onStopGatherCallback(status: Int, message: String) {}
+
+            // 推送回调
+            override fun onPushCallback(messageNo: Byte, message: PushMessage) {}
+        }
+
+        mTraceClient.setOnTraceListener(mTraceListener)
+        // 定位周期(单位:秒)
+        val gatherInterval = 30
+        // 打包回传周期(单位:秒)
+        val packInterval = 60
+        // 设置定位和打包周期
+        mTraceClient.setInterval(gatherInterval, packInterval)
+        // 开启服务
+        mTraceClient.startTrace(mTrace, null)
     }
 }

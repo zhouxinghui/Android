@@ -305,14 +305,21 @@
         <!--<meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>-->
         <!--<meta-data android:name="JPUSH_APPKEY" android:value="6bd8d03a24c76d3830cd7e7b" /> &lt;!&ndash;  </>值来自开发者平台取得的AppKey&ndash;&gt;-->
 
+        <service
+            android:name="com.baidu.trace.LBSTraceService"
+            android:enabled="true"
+            android:process=":remote">
+        </service>
         <!--百度地图-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="fdDs2pusQ1VCLhRghy4DUDhrPi1KWBwM"></meta-data>
+            android:value="fdDs2pusQ1VCLhRghy4DUDhrPi1KWBwM"/>
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote">
+
+        </service>
     </application>
 
 </manifest>
