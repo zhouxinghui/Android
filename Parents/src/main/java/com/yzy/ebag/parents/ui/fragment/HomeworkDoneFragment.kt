@@ -32,8 +32,8 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
 
     override fun initViews(rootView: View) {
 
-        homework_sum.text = setSpan(DecimalFormat("0").format(data.totalScore) + "分")
-        homework_top.text = setSpan(DecimalFormat("0").format(data.maxScore) + "分")
+        homework_sum.text = setSpan("${data.totalScore}分")
+        homework_top.text = setSpan("${data.maxScore}分")
         homework_error.text = setSpan(DecimalFormat("0").format(data.errorNum) + "道")
         val time = endTime.split(" ")[0].split("-")
         homework_error_content.text = "${time[1]}月${time[2]}日${subject}作业共错${DecimalFormat("0").format(data.errorNum)}道题"

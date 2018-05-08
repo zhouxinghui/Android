@@ -56,11 +56,11 @@ class CashierActivity : BaseActivity() {
 
         cb_ali_pay.isChecked = true
 
-        cb_ali_pay.setOnCheckedChangeListener { buttonView, isChecked ->
+        cb_ali_pay.setOnCheckedChangeListener { _, isChecked ->
             cb_wechat_pay.isChecked = !isChecked
         }
 
-        cb_wechat_pay.setOnCheckedChangeListener { buttonView, isChecked ->
+        cb_wechat_pay.setOnCheckedChangeListener { _, isChecked ->
             cb_ali_pay.isChecked = !isChecked
         }
 
@@ -79,7 +79,7 @@ class CashierActivity : BaseActivity() {
     }
 
     private fun getAlipayInfo() {
-        EBagApi.getAiliPrepayid(number, shouldPayCount, object : RequestCallBack<String>() {
+        EBagApi.getAiliPrepayid(number, "0.01", object : RequestCallBack<String>() {
             override fun onStart() {
                 super.onStart()
                 LoadingDialogUtil.showLoading(this@CashierActivity, "正在跳转支付页面...")
@@ -112,7 +112,7 @@ class CashierActivity : BaseActivity() {
 
 
     private fun getWxPayInfo() {
-        EBagApi.getPrepayid(number, shouldPayCount, object : RequestCallBack<WXPayBean>() {
+        EBagApi.getPrepayid(number, "0.01", object : RequestCallBack<WXPayBean>() {
             override fun onStart() {
                 super.onStart()
                 LoadingDialogUtil.showLoading(this@CashierActivity, "正在跳转支付页面...")
@@ -134,8 +134,7 @@ class CashierActivity : BaseActivity() {
     }
 
     private fun WXPay(bean: WXPayBean) {
-        var wxKey: String = ""
-        wxKey = if (packageName.contains("parents")) {
+        var wxKey: String = if (packageName.contains("parents")) {
             "wx626a1c084ecd9ca9"
         } else {
             "wx4adbb68ec1c80484"

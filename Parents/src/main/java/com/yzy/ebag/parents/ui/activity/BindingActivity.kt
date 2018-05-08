@@ -11,6 +11,6 @@ class BindingActivity: BaseBindingActivity() {
     }
 
     override fun jumpToSelectChild() {
-        ChooseChildrenActivity.start(this, false)
+        ChooseChildrenActivity.start(this, true)
     }
 }
