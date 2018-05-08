@@ -114,6 +114,9 @@ class AddressListActivity : BaseActivity(), AddressContract.View {
     override fun delete(position: Int) {
         mAdapter.remove(position)
         T.show(this, "删除成功")
+        if (mAdapter.itemCount == 0){
+            activity_address_stateview.showEmpty()
+        }
     }
 
     override fun edit(position: Int) {
