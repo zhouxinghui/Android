@@ -215,7 +215,7 @@
     </style>
     <!--work_report-->
 
-    <style name="MyTabLayoutTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">13sp</item>
+    <style name="MyTabLayoutTextAppearance">
+        <item name="android:textSize">@dimen/tv_sub</item>
     </style>
 </resources>

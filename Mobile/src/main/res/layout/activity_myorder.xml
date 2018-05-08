@@ -20,6 +20,7 @@
         app:tabGravity="fill"
         app:tabIndicatorColor="#FF3F14"
         app:tabMode="fixed"
+        app:tabTextAppearance="@style/TextAppearance.AppCompat.Small"
         app:tabSelectedTextColor="#FF3F14"
         app:tabTextColor="@color/black" />
 
