@@ -20,6 +20,16 @@ public class HomeworkAbstractBean {
     private String teacherComment;
     private int totalScore;
     private int maxScore;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    private String remark;
     private int errorNum;
     private List<HomeWorkRepDetailVosBean> homeWorkRepDetailVos;
 

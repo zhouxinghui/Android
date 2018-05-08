@@ -36,7 +36,7 @@ class HomeworkAbstractFragment(private val bean: HomeworkAbstractBean, private v
             when (index) {
                 0 -> dataList.add(HomeworkAbsModel(s, endTime))
                 1 -> dataList.add(HomeworkAbsModel(s, bean.unitName?:""))
-                2 -> dataList.add(HomeworkAbsModel(s, "认真做题，自信看，不马虎"))
+                2 -> dataList.add(HomeworkAbsModel(s, bean.remark?:""))
                 3 -> dataList.add(HomeworkAbsModel(s, sb.toString()))
             }
         }

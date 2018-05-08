@@ -27,7 +27,7 @@ class PerformanceDialog(context: Context) : BaseDialog(context) {
     }
 
     override fun setHeight(): Int {
-        return context.resources.getDimensionPixelSize(R.dimen.y800)
+        return context.resources.getDimensionPixelSize(R.dimen.y600)
     }
 
     private val adapter = Adapter()

@@ -110,6 +110,7 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
         datas[3].label = if (bean.className.isEmpty()) "暂无班级" else bean.className
         mAdapter.notifyDataSetChanged()
         isFirst = true
+        mPersenter.queryClazzNews(bean.classId)
     }
 
 
