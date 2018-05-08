@@ -15,7 +15,7 @@
         android:id="@+id/ivHead"
         android:layout_width="@dimen/x40"
         android:layout_height="@dimen/x40"
-        android:layout_marginTop="@dimen/x20"
+        android:layout_marginTop="@dimen/y20"
         android:src="@drawable/head_default"
         app:layout_constraintEnd_toEndOf="@id/bg"
         app:layout_constraintStart_toStartOf="@id/bg"
@@ -27,7 +27,9 @@
         android:layout_height="@dimen/x20"
         android:background="@drawable/my_class_dialog_close"
         app:layout_constraintEnd_toEndOf="@id/bg"
-        app:layout_constraintTop_toTopOf="@id/bg" />
+        app:layout_constraintTop_toTopOf="@id/bg"
+        android:visibility="gone"
+        />
 
     <TextView
         android:id="@+id/tvName"
@@ -98,11 +100,14 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="@id/bg"
         app:layout_constraintEnd_toEndOf="@id/bg"
-        app:layout_constraintTop_toBottomOf="@id/tvReward"/>
+        app:layout_constraintTop_toBottomOf="@id/tvReward"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
     <ebag.core.widget.empty.StateView android:id="@+id/stateView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        />
 </android.support.constraint.ConstraintLayout>

@@ -267,7 +267,7 @@ public class FillBlankView extends FrameLayout {
         @Override
         public void updateDrawState(TextPaint ds) {
             // 不显示下划线
-            ds.setUnderlineText(false);
+//            ds.setUnderlineText(false);
         }
     }
 

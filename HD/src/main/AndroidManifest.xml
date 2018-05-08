@@ -68,7 +68,9 @@
 
         <activity
             android:name=".homework.DoHomeworkActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:configChanges="keyboard|orientation|screenSize"
+            />
         <activity
             android:name=".activity.AddressListActivity"
             android:screenOrientation="landscape" />
