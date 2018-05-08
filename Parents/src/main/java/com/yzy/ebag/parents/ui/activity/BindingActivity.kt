@@ -1,6 +1,5 @@
 package com.yzy.ebag.parents.ui.activity
 
-import android.content.Intent
 import ebag.mobile.module.account.BaseBindingActivity
 
 /**
@@ -8,6 +7,10 @@ import ebag.mobile.module.account.BaseBindingActivity
  */
 class BindingActivity: BaseBindingActivity() {
     override fun jumpToMain() {
-        startActivity(Intent(this, MainActivity::class.java))
+//        startActivity(Intent(this, MainActivity::class.java))
+    }
+
+    override fun jumpToSelectChild() {
+        ChooseChildrenActivity.start(this, false)
     }
 }

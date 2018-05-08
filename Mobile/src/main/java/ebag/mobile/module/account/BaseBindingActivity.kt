@@ -70,7 +70,10 @@ abstract class BaseBindingActivity : BaseActivity() {
                         }
                         SerializableUtils.setSerializable(entityName, entity)
 //                        setResult(Constants.CODE_LOGIN_RESULT)
-                        jumpToMain()
+                        if(entityName == Constants.PARENTS_USER_ENTITY)
+                            jumpToSelectChild()
+                        else
+                            jumpToMain()
                         BLoginActivity.mActivity!!.finish()
                         BaseLoginSelectActivity.mActivity!!.finish()
                         finish()
@@ -98,13 +101,15 @@ abstract class BaseBindingActivity : BaseActivity() {
                     "2"
                 }, null, null, roleName, et_pwd.text.toString(), accessToken, uid, type, judge(shareMedia), object : RequestCallBack<UserEntity>() {
                     override fun onSuccess(entity: UserEntity?) {
-
                         if (entity != null) {
                             LoadingDialogUtil.closeLoadingDialog()
                             App.modifyToken(entity.token)
                             entity.roleCode = roleName
                             SerializableUtils.setSerializable(entityName, entity)
-                            jumpToMain()
+                            if(entityName == Constants.PARENTS_USER_ENTITY)
+                                jumpToSelectChild()
+                            else
+                                jumpToMain()
                             finish()
                         } else {
                             LoadingDialogUtil.closeLoadingDialog()
@@ -153,4 +158,8 @@ abstract class BaseBindingActivity : BaseActivity() {
     }
 
     abstract fun jumpToMain()
+
+    protected open fun jumpToSelectChild(){
+
+    }
 }
