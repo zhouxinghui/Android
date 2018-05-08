@@ -204,5 +204,9 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener, View.On
         if ((fragmentList[0] as MainFragment).init) {
             (fragmentList[0] as MainFragment).getOnePageInfo()
         }
+
+        if ((fragmentList[1] as ClazzFragment).isViewPrepare){
+            (fragmentList[1] as ClazzFragment).updataClazz()
+        }
     }
 }

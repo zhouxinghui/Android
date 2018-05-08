@@ -33,8 +33,7 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
     private val datas: MutableList<PersonalItemModel> = mutableListOf()
     private val labels: Array<String> = arrayOf("成绩统计", "班级相册", "课程表", "", "加入班级")
     private val icons: Array<Int> = arrayOf(R.drawable.icon_class_tongji, R.drawable.icon_class_class_photo, R.drawable.icon_class_class_schedule_card, R.drawable.icon_class_banji, R.drawable.my_class_add_icon)
-    private var isFirst = true
-    private var isViewPrepare = false
+    var isViewPrepare = false
     private var bean = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY)
     private lateinit var mAdapter: PersonalAdapter
 
@@ -109,7 +108,6 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
         bean = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY)
         datas[3].label = if (bean.className.isEmpty()) "暂无班级" else bean.className
         mAdapter.notifyDataSetChanged()
-        isFirst = true
         mPersenter.queryClazzNews(bean.classId)
     }
 
@@ -137,9 +135,8 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser && isViewPrepare && isFirst) {
+        if (isVisibleToUser && isViewPrepare) {
             mPersenter.queryClazzNews(bean.classId)
-            isFirst = false
         }
     }
 }
