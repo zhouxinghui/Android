@@ -70,7 +70,7 @@ interface ParentsService{
      * 加入班级
      */
     @POST("clazz/joinByClass/{version}")
-    fun joinClazz(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    fun joinClazz(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<JoinClazzBean>>
 
 
 }

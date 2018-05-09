@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import com.yzy.ebag.parents.R
+import com.yzy.ebag.parents.bean.JoinClazzBean
 import com.yzy.ebag.parents.http.ParentsAPI
 import ebag.core.base.BaseFragmentDialog
 import ebag.core.http.network.RequestCallBack
@@ -41,7 +42,7 @@ class ClassJoinDialog: BaseFragmentDialog() {
         return R.layout.dialog_class_add
     }
 
-    var successListener: (() -> Unit)? = null
+    var successListener: ((clazzName:String,clazzId:String) -> Unit)? = null
 
     override fun initView(view: View) {
         btnClose.setOnClickListener {
@@ -63,16 +64,16 @@ class ClassJoinDialog: BaseFragmentDialog() {
         })
 
         tvConfirm.setOnClickListener {
-            ParentsAPI.joinClazz(etCode.text.toString(),(SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid, object : RequestCallBack<String>(){
+            ParentsAPI.joinClazz(etCode.text.toString(),(SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid, object : RequestCallBack<JoinClazzBean>(){
 
                 override fun onStart() {
                     LoadingDialogUtil.showLoading(mContext)
                 }
 
-                override fun onSuccess(entity: String?) {
+                override fun onSuccess(entity: JoinClazzBean?) {
                     T.show(mContext, "加入班级成功")
                     if(successListener != null)
-                        successListener!!.invoke()
+                        successListener!!.invoke(entity!!.className,entity!!.classId)
                     LoadingDialogUtil.closeLoadingDialog()
                 }
 

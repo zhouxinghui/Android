@@ -48,8 +48,10 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
 
     private val joinDialog by lazy {
         val dialog = ClassJoinDialog.newInstance()
-        dialog.successListener = {
-            //todo
+        dialog.successListener = { clazzName, clazzId ->
+            bean.classId = clazzId
+            bean.className = clazzName
+            SerializableUtils.setSerializable(Constants.CHILD_USER_ENTITY, bean)
             updataClazz()
             mPersenter.queryClazzNews(bean.classId)
             dialog.dismiss()

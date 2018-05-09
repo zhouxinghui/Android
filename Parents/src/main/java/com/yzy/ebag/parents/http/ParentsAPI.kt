@@ -155,7 +155,7 @@ object ParentsAPI {
      * 加入班级
      */
 
-    fun joinClazz(code: String, studentId: String, callback: RequestCallBack<String>) {
+    fun joinClazz(code: String, studentId: String, callback: RequestCallBack<JoinClazzBean>) {
 
         val jsonObj = JSONObject()
         jsonObj.put("inviteCode", code)
