@@ -8,7 +8,9 @@
     app:cardCornerRadius="5dp"
     app:cardUseCompatPadding="true"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/y250"
+    android:paddingTop="@dimen/y10"
+    android:paddingBottom="@dimen/y10"
+    android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/x5"
     android:layout_marginStart="@dimen/x5">
 
@@ -68,6 +70,15 @@
             android:paddingStart="@dimen/x10"
             android:textSize="@dimen/tv_sub"
             tools:text="去春游去春游去春游去春游去春游去春游去春游去春游去春游去春游去春游去春游" />
+
+
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/recyclerview"
+            android:paddingStart="@dimen/x10"
+            android:layout_marginTop="@dimen/y5"
+            android:layout_height="wrap_content"/>
 
 
     </LinearLayout>

@@ -103,8 +103,8 @@ class MainFragment : BaseFragment() {
             }
             false
         }
-        getOnePageInfo()
         init = true
+        getOnePageInfo()
 
     }
 

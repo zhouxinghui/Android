@@ -28,7 +28,7 @@ class NoticeListActivity : BaseActivity(), NoticeListContract.NoticeListView {
     override fun initViews() {
         mPresenter = NoticeListPresenter(this)
         recyclerview.layoutManager = LinearLayoutManager(this)
-        mAdapter = NoticeListAdapter(datas)
+        mAdapter = NoticeListAdapter(this,datas)
         recyclerview.adapter = mAdapter
         recyclerview.addItemDecoration(ebag.core.xRecyclerView.manager.DividerItemDecoration(DividerItemDecoration.VERTICAL, 1, Color.parseColor("#e0e0e0")))
         mAdapter.setOnLoadMoreListener({
