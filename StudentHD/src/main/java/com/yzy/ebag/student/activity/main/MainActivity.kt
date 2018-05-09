@@ -279,17 +279,17 @@ class MainActivity : MVPActivity(), MainView {
 
         // 初始化轨迹服务监听器
         val mTraceListener = object : OnTraceListener {
-            override fun onBindServiceCallback(p0: Int, p1: String?) {
-            }
+            override fun onBindServiceCallback(p0: Int, p1: String?) {}
 
-            override fun onInitBOSCallback(p0: Int, p1: String?) {
-            }
+            override fun onInitBOSCallback(p0: Int, p1: String?) {}
 
             // 开启服务回调
             override fun onStartTraceCallback(status: Int, message: String) {
-                if (status == 0)
-                // 开启采集
+                if (status == 0) {
+                    // 开启采集
                     mTraceClient.startGather(null)
+                    L.e("鹰眼服务开启")
+                }
             }
 
             // 停止服务回调
