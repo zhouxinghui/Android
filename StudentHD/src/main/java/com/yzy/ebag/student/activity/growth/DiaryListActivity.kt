@@ -15,6 +15,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.bean.Diary
 import com.yzy.ebag.student.http.StudentApi
+import ebag.core.base.PhotoPreviewActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.*
 import ebag.hd.base.BaseListActivity
@@ -169,6 +170,9 @@ class DiaryListActivity : BaseListActivity<List<Diary>, Diary.ResultUserGrowthBy
     inner class ImageAdapter : BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_activity_announce_image) {
         override fun convert(helper: BaseViewHolder, item: String?) {
             helper.getView<ImageView>(R.id.image).loadImage(item)
+            helper.itemView.setOnClickListener {
+                PhotoPreviewActivity.jump(this@DiaryListActivity, data, helper.adapterPosition)
+            }
         }
     }
 
