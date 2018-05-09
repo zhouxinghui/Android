@@ -13,7 +13,7 @@
             android:layout_width="@dimen/x30"
             android:layout_height="@dimen/x30"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/y80"
+            android:layout_marginTop="@dimen/y100"
             android:background="@drawable/ic_my_location"
             />
 
@@ -22,27 +22,21 @@
             android:layout_width="@dimen/x20"
             android:layout_height="@dimen/x20"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/y90"
+            android:layout_marginTop="@dimen/y110"
             android:src="@drawable/head_default"
             />
 
         <TextView
             android:id="@+id/location_detail"
             android:layout_width="wrap_content"
-            android:layout_marginStart="@dimen/x10"
-            android:layout_marginEnd="@dimen/x10"
-            android:layout_height="@dimen/y80"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/rectangle_location_bg"
             android:gravity="center"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:paddingBottom="@dimen/y14"
-            android:maxLines="2"
-            android:paddingLeft="@dimen/x9"
-            android:paddingRight="@dimen/x9"
-            android:paddingTop="@dimen/y15"
-            android:text="广东省深圳市"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:padding="@dimen/x5"
+            android:text="正在加载..."
             android:textColor="#4B5269"
             android:textSize="13sp" />
     </FrameLayout>

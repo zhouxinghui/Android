@@ -18,8 +18,8 @@ public class HomeworkAbstractBean {
     private String unitName;
     private String parentComment;
     private String teacherComment;
-    private int totalScore;
-    private int maxScore;
+    private double totalScore;
+    private double maxScore;
 
     public String getRemark() {
         return remark;
@@ -57,19 +57,19 @@ public class HomeworkAbstractBean {
         this.teacherComment = teacherComment;
     }
 
-    public int getTotalScore() {
+    public double getTotalScore() {
         return totalScore;
     }
 
-    public void setTotalScore(int totalScore) {
+    public void setTotalScore(double totalScore) {
         this.totalScore = totalScore;
     }
 
-    public int getMaxScore() {
+    public double getMaxScore() {
         return maxScore;
     }
 
-    public void setMaxScore(int maxScore) {
+    public void setMaxScore(double maxScore) {
         this.maxScore = maxScore;
     }
 
