@@ -6,6 +6,9 @@ import android.view.View
 import cn.jpush.android.api.JPushInterface
 import com.baidu.trace.LBSTraceClient
 import com.baidu.trace.Trace
+import com.baidu.trace.api.track.HistoryTrackRequest
+import com.baidu.trace.api.track.HistoryTrackResponse
+import com.baidu.trace.api.track.OnTrackListener
 import com.baidu.trace.model.OnTraceListener
 import com.baidu.trace.model.PushMessage
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -33,7 +36,6 @@ import ebag.hd.ui.activity.BookListActivity
 import ebag.hd.ui.activity.account.BInviteActivity
 import ebag.hd.util.checkUpdate
 import kotlinx.android.synthetic.main.activity_main.*
-
 
 
 class MainActivity : MVPActivity(), MainView {
@@ -70,6 +72,7 @@ class MainActivity : MVPActivity(), MainView {
         getMainClassInfo()
 
         initTrack()
+
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -314,5 +317,29 @@ class MainActivity : MVPActivity(), MainView {
         mTraceClient.setInterval(gatherInterval, packInterval)
         // 开启服务
         mTraceClient.startTrace(mTrace, null)
+
+        // 创建历史轨迹请求实例
+        val historyTrackRequest = HistoryTrackRequest(1, serviceId, entityName)
+
+        //设置轨迹查询起止时间
+        // 开始时间(单位：秒)
+        val startTime = System.currentTimeMillis() / 1000 - 60 * 60
+        // 结束时间(单位：秒)
+        val endTime = System.currentTimeMillis() / 1000
+        // 设置开始时间
+        historyTrackRequest.startTime = startTime
+        // 设置结束时间
+        historyTrackRequest.endTime = endTime
+
+
+        // 初始化轨迹监听器
+        val mTrackListener = object : OnTrackListener() {
+            // 历史轨迹回调
+            override fun onHistoryTrackCallback(response: HistoryTrackResponse) {
+                L.e("轨迹response：：$response")
+            }
+        }
+        // 查询历史轨迹
+        mTraceClient.queryHistoryTrack(historyTrackRequest, mTrackListener)
     }
 }

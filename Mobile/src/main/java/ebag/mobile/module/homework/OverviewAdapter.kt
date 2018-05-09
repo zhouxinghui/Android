@@ -68,7 +68,7 @@ class OverviewAdapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>(null){
             else ->{
                 item as QuestionBean?
                 tv.text = ((item?.position ?: 0) + 1).toString()
-                if(showResult){
+                if(showResult && !QuestionTypeUtils.isMarkType(QuestionTypeUtils.getIntType(item))){
                     if(item?.isCorrect == true){
                         tv.setBackgroundResource(R.drawable.bac_overview_green)
                     }else{
