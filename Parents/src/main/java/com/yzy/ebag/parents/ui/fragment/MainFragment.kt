@@ -110,65 +110,65 @@ class MainFragment : BaseFragment() {
 
     fun getOnePageInfo() {
 
-            ParentsAPI.onePageInfo(SPUtils.get(activity, Constants.CURRENT_CHILDREN_YSBCODE, "") as String, object : RequestCallBack<List<OnePageInfoBean>>() {
+        ParentsAPI.onePageInfo(SPUtils.get(activity, Constants.CURRENT_CHILDREN_YSBCODE, "") as String, object : RequestCallBack<List<OnePageInfoBean>>() {
 
-                override fun onStart() {
+            override fun onStart() {
 
-                }
+            }
 
-                override fun onSuccess(entity: List<OnePageInfoBean>?) {
-                    val flist: ArrayList<Fragment> = arrayListOf()
-                    if (entity!!.isEmpty()) {
-                        homework_loading.text = "没有对应科目"
-                        homework_loading.visibility = View.VISIBLE
-                    } else {
-                        homework_loading.visibility = View.GONE
-                        titleList.clear()
-                        msgCountList.clear()
-                        homeworkData = entity!! as ArrayList<OnePageInfoBean>
+            override fun onSuccess(entity: List<OnePageInfoBean>?) {
+                val flist: ArrayList<Fragment> = arrayListOf()
+                if (entity!!.isEmpty()) {
+                    homework_loading.text = "没有对应科目"
+                    homework_loading.visibility = View.VISIBLE
+                } else {
+                    homework_loading.visibility = View.GONE
+                    titleList.clear()
+                    msgCountList.clear()
+                    homeworkData = entity!! as ArrayList<OnePageInfoBean>
 
-                        entity.forEachIndexed { index, it ->
-                            titleList.add(it.subject)
-                            msgCountList.add(it.homeWorkNoCompleteCount)
+                    entity.forEachIndexed { index, it ->
+                        titleList.add(it.subject)
+                        msgCountList.add(it.homeWorkNoCompleteCount)
 
-                            if (it.homeWorkInfoVos.isNotEmpty()) {
-                                val b = Bundle()
-                                b.putString("status", it.homeWorkInfoVos[0].state)
-                                b.putString("content", it.homeWorkInfoVos[0].content)
-                                b.putString("endTime", it.homeWorkInfoVos[0].endTime)
-                                val f = HomeworkFragment.newInstance()
-                                f.arguments = b
-                                flist.add(f)
-                            } else {
-                                val b = Bundle()
-                                b.putBoolean("empty", true)
-                                val f = HomeworkFragment.newInstance()
-                                f.arguments = b
-                                flist.add(f)
-                            }
-
-                        }
-
-                        mAdapter.setFragments(flist)
-                        tablayout.notifyDataSetChanged()
-
-
-                        msgCountList.forEachIndexed { index, it ->
-                            if (it != 0) {
-                                tablayout.showMsg(index, it)
-                            }
+                        if (it.homeWorkInfoVos.isNotEmpty()) {
+                            val b = Bundle()
+                            b.putString("status", it.homeWorkInfoVos[0].state)
+                            b.putString("content", it.homeWorkInfoVos[0].content)
+                            b.putString("endTime", it.homeWorkInfoVos[0].endTime)
+                            val f = HomeworkFragment.newInstance()
+                            f.arguments = b
+                            flist.add(f)
+                        } else {
+                            val b = Bundle()
+                            b.putBoolean("empty", true)
+                            val f = HomeworkFragment.newInstance()
+                            f.arguments = b
+                            flist.add(f)
                         }
 
                     }
 
+                    mAdapter.setFragments(flist)
+                    tablayout.notifyDataSetChanged()
+
+
+                    msgCountList.forEachIndexed { index, it ->
+                        if (it != 0) {
+                            tablayout.showMsg(index, it)
+                        }
+                    }
+
                 }
 
-                override fun onError(exception: Throwable) {
-                    homework_loading.visibility = View.VISIBLE
-                    homework_loading.text = exception.message
-                }
+            }
 
-            })
+            override fun onError(exception: Throwable) {
+                homework_loading.visibility = View.VISIBLE
+                homework_loading.text = exception.message
+            }
+
+        })
 
     }
 
@@ -197,11 +197,14 @@ class MainFragment : BaseFragment() {
             fragmentList.forEach {
                 fragmentTransaction.remove(it)
             }
-            fragmentTransaction.commit()
-            childFragmentManager.executePendingTransactions()
-            fragmentList.clear()
-            fragmentList.addAll(mFragmentList)
-            notifyDataSetChanged()
+            try {
+                fragmentTransaction.commit()
+                childFragmentManager.executePendingTransactions()
+                fragmentList.clear()
+                fragmentList.addAll(mFragmentList)
+                notifyDataSetChanged()
+            } catch (e: Exception) {
+            }
         }
 
 

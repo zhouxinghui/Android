@@ -23,7 +23,11 @@ class ExcitationActivity : BaseActivity() {
 
             if (tablayout.currentTab == 0) {
                 CreateTaskActivity.start(this)
+            }else{
+
             }
+
+
         }
 
         back_btn.setOnClickListener {
