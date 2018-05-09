@@ -266,8 +266,9 @@ class MainActivity : MVPActivity(), MainView {
     private fun initTrack(){
         // 轨迹服务ID
         val serviceId: Long = 116060
+        val userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.STUDENT_USER_ENTITY)
         // 设备标识
-        val entityName = SerializableUtils.getSerializable<String>(Constants.STUDENT_USER_ENTITY) ?: "myTrack"
+        val entityName = userEntity?.uid ?: "myTrack"
         // 是否需要对象存储服务，默认为：false，关闭对象存储服务。
         // 注：鹰眼 Android SDK v3.0以上版本支持随轨迹上传图像等对象数据，若需使用此功能，该参数需设为 true，且需导入bos-android-sdk-1.0.2.jar。
         val isNeedObjectStorage = false
