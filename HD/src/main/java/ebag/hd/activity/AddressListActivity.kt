@@ -1,13 +1,11 @@
 package ebag.hd.activity
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import ebag.core.base.BaseActivity
-import ebag.core.base.BaseDialog
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.T
 import ebag.hd.R
@@ -39,6 +37,18 @@ class AddressListActivity : BaseActivity(), AddressContract.View {
                             if (i == position) mData[i].type = "0" else mData[i].type = "1"
                         }
                         mAdapter.notifyDataSetChanged()
+
+                        if (flag) {
+                            val build = StringBuilder()
+                            build.append(mData[position].consignee + "/")
+                            build.append(mData[position].phone + "/")
+                            build.append(mData[position].preAddress + "/")
+                            build.append(mData[position].address + "/")
+                            build.append(mData[position].id)
+                            val intent = Intent()
+                            intent.putExtra("result", build.toString())
+                            setResult(666, intent)
+                        }
                     }
 
                     override fun onError(exception: Throwable) {

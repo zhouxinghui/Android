@@ -29,8 +29,8 @@
         <TextView
             android:id="@+id/location_detail"
             android:layout_width="wrap_content"
-            android:paddingStart="@dimen/x5"
-            android:paddingEnd="@dimen/x5"
+            android:layout_marginStart="@dimen/x10"
+            android:layout_marginEnd="@dimen/x10"
             android:layout_height="@dimen/y80"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/rectangle_location_bg"

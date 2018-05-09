@@ -12,8 +12,8 @@
     <uses-permission android:name="com.android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".App"
@@ -143,19 +143,21 @@
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop" />
-        <activity android:name=".ui.activity.PaperActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".ui.activity.ErrorBookActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".ui.activity.ForgetActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".ui.activity.BindingActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.LoginSelectActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.PaperActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ErrorBookActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ForgetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.BindingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.LoginSelectActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="UMENG_APPKEY"
@@ -167,11 +169,14 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" />
-
+            android:process=":remote"/>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="0qKNIut4jdbpM4GCTV0CV0fhcNfzqNrX" />
+        <service
+            android:name="com.baidu.trace.LBSTraceService"
+            android:enabled="true"
+            android:process=":remote"/>
     </application>
 
 </manifest>

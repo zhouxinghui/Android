@@ -34,6 +34,17 @@ class AddressListActivity : BaseActivity(), AddressContract.View {
                             if (i == position) mData[i].type = "0" else mData[i].type = "1"
                         }
                         mAdapter.notifyDataSetChanged()
+                        if (flag) {
+                            val build = StringBuilder()
+                            build.append(mData[position].consignee + "/")
+                            build.append(mData[position].phone + "/")
+                            build.append(mData[position].preAddress + "/")
+                            build.append(mData[position].address + "/")
+                            build.append(mData[position].id)
+                            val intent = Intent()
+                            intent.putExtra("result", build.toString())
+                            setResult(666, intent)
+                        }
                     }
 
                     override fun onError(exception: Throwable) {

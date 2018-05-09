@@ -308,8 +308,7 @@
         <service
             android:name="com.baidu.trace.LBSTraceService"
             android:enabled="true"
-            android:process=":remote">
-        </service>
+            android:process=":remote"/>
         <!--百度地图-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
