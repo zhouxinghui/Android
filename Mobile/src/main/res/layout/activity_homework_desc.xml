@@ -10,19 +10,15 @@
         app:titleText="作业报告"
         app:rightText="切换题型"
         />
-    <android.support.constraint.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView android:id="@+id/questionRecycler"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <android.support.v4.view.ViewPager android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             />
         <ebag.core.widget.empty.StateView android:id="@+id/stateView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </android.support.constraint.ConstraintLayout>
+    </FrameLayout>
 </LinearLayout>
