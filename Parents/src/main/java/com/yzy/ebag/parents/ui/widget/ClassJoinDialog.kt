@@ -73,7 +73,7 @@ class ClassJoinDialog: BaseFragmentDialog() {
                 override fun onSuccess(entity: JoinClazzBean?) {
                     T.show(mContext, "加入班级成功")
                     if(successListener != null)
-                        successListener!!.invoke(entity!!.className,entity!!.classId)
+                        successListener!!.invoke(entity!!.className,entity.classId)
                     LoadingDialogUtil.closeLoadingDialog()
                 }
 

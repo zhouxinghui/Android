@@ -109,7 +109,7 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
 
     fun updataClazz() {
         bean = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY)
-        datas[3].label = if (bean.className.isEmpty()) "暂无班级" else bean.className
+        datas[3].label = if (bean.className.isEmpty()) "暂无班级" else bean.className?:""
         mAdapter.notifyDataSetChanged()
         mPersenter.queryClazzNews(bean.classId)
     }

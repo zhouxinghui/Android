@@ -159,7 +159,7 @@ class DiaryListActivity : BaseListActivity<List<Diary>, Diary.ResultUserGrowthBy
 
             if (!StringUtils.isEmpty(item.image)) {
                 recycler.postDelayed({
-                    (recycler.adapter as ImageAdapter).setNewData(item.image.split(","))
+                    (recycler.adapter as ImageAdapter).setNewData(item.image.split(",").toMutableList())
                 }, 20)
             }
 
