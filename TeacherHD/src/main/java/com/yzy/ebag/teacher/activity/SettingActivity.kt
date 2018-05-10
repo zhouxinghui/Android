@@ -2,7 +2,6 @@ package com.yzy.ebag.teacher.activity
 
 import android.content.Intent
 import android.view.View
-import android.widget.Toast
 import cn.jpush.android.api.JPushInterface
 import com.umeng.socialize.UMAuthListener
 import com.umeng.socialize.UMShareAPI
@@ -64,7 +63,6 @@ class SettingActivity : BaseActivity(), View.OnClickListener{
         UMShareAPI.get(this).deleteOauth(this, share_media, object : UMAuthListener {
             override fun onComplete(p0: SHARE_MEDIA?, p1: Int, p2: MutableMap<String, String>?) {
                 Log.d("取消授权成功")
-                Toast.makeText(this@SettingActivity, "取消授权成功", Toast.LENGTH_SHORT)
             }
 
             override fun onCancel(p0: SHARE_MEDIA?, p1: Int) {

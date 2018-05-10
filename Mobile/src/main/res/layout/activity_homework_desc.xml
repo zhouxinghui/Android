@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:titleText="作业报告"
-        app:rightText="切换题型"
+        app:rightImage="@drawable/more"
         />
     <FrameLayout
         android:layout_width="match_parent"

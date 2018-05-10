@@ -5,6 +5,10 @@ import android.content.Intent
 import android.graphics.Color
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import com.umeng.socialize.UMAuthListener
+import com.umeng.socialize.UMShareAPI
+import com.umeng.socialize.bean.SHARE_MEDIA
+import com.umeng.socialize.utils.Log
 import com.yzy.ebag.parents.R
 import com.yzy.ebag.parents.ui.adapter.SettingAdapter
 import ebag.core.base.App
@@ -39,6 +43,9 @@ class SettingActivity : BaseActivity() {
             SPUtils.remove(this, com.yzy.ebag.parents.common.Constants.CURRENT_CHILDREN_YSBCODE)
             startActivity(Intent(this, LoginActivity::class.java).putExtra(Constants.KEY_TO_MAIN, true))
             AppManager.finishAllActivity()
+            cancelThreeParty(SHARE_MEDIA.QQ)
+            cancelThreeParty(SHARE_MEDIA.WEIXIN)
+            cancelThreeParty(SHARE_MEDIA.SINA)
         }
 
         mAdapter.setOnItemClickListener { adapter, view, position ->
@@ -57,6 +64,23 @@ class SettingActivity : BaseActivity() {
             }
         }
 
+    }
+
+    private fun  cancelThreeParty(share_media: SHARE_MEDIA) {
+        UMShareAPI.get(this).deleteOauth(this, share_media, object : UMAuthListener {
+            override fun onComplete(p0: SHARE_MEDIA?, p1: Int, p2: MutableMap<String, String>?) {
+                Log.d("取消授权成功")
+            }
+
+            override fun onCancel(p0: SHARE_MEDIA?, p1: Int) {
+            }
+
+            override fun onError(p0: SHARE_MEDIA?, p1: Int, p2: Throwable?) {
+            }
+
+            override fun onStart(p0: SHARE_MEDIA?) {
+            }
+        })
     }
 
 

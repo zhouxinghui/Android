@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -103,22 +104,19 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
         isPreview = intent.getBooleanExtra("isPreview", false)
         paperId = intent.getStringExtra("paperId")
 
-        val previewTv = TextView(this)
-        previewTv.setTextColor(resources.getColor(R.color.white))
-        previewTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.tv_normal))
-        previewTv.text = "..."
-        previewTv.background = resources.getDrawable(R.drawable.bac_transparent_selector)
-        previewTv.gravity = Gravity.CENTER
-        val previewParams = RelativeLayout.LayoutParams(resources.getDimensionPixelSize(R.dimen.x40), resources.getDimensionPixelSize(R.dimen.title_bar_height) -1)
+        val rightImage = ImageView(this)
+        rightImage.setImageResource(R.drawable.more)
+        rightImage.setPadding(resources.getDimension(ebag.mobile.R.dimen.x8).toInt(), 0, resources.getDimension(ebag.mobile.R.dimen.x8).toInt(), 0)
+        val previewParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, resources.getDimensionPixelSize(R.dimen.title_bar_height))
         previewParams.addRule(RelativeLayout.ALIGN_PARENT_END)
-        previewTv.layoutParams = previewParams
-        titleBar.addView(previewTv)
-        previewTv.setOnClickListener {
-            previewPopup.showAsDropDown(previewTv)
+        rightImage.layoutParams = previewParams
+        titleBar.addView(rightImage)
+        rightImage.setOnClickListener {
+            previewPopup.showAsDropDown(rightImage)
         }
 
         if (isTest){
-            previewTv.visibility = View.GONE
+            rightImage.visibility = View.GONE
         }
 
         questionNumTv = TextView(this)

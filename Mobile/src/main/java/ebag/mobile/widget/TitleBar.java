@@ -149,8 +149,8 @@ public class TitleBar extends RelativeLayout {
         //设置了右侧的点击图片，或者设置了回到首页
         if(rightImage != null || toMainTab){
             rightView = new ImageView(context);
-            rightView.setPadding((int) getResources().getDimension(R.dimen.x15),(int) getResources().getDimension(R.dimen.x8)
-                    ,(int) getResources().getDimension(R.dimen.x15),(int) getResources().getDimension(R.dimen.x8));
+            rightView.setPadding((int) getResources().getDimension(R.dimen.x8),0
+                    ,(int) getResources().getDimension(R.dimen.x8),0);
             if(toMainTab){
                 ((ImageView)rightView).setImageResource(R.drawable.invite_register_tip);
 
