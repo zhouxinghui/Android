@@ -16,4 +16,5 @@ class CreateTaskAdapter(datas: List<MyChildrenBean>) : BaseQuickAdapter<MyChildr
         helper.setGone(R.id.isselected, item!!.isSelected)
     }
 
+
 }

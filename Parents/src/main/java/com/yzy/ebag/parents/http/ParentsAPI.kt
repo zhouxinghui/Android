@@ -163,4 +163,14 @@ object ParentsAPI {
         EBagApi.request(parentsService.joinClazz("v1", EBagApi.createBody(jsonObj)), callback)
     }
 
+    /**
+     * 查询科目
+     */
+
+    fun getTaughtCourses(clazzId: String, callback: RequestCallBack<List<StudentSubjectBean>>) {
+        val jsonObj = JSONObject()
+        jsonObj.put("classId", clazzId)
+        EBagApi.request(parentsService.getTaughtCourses("v1", EBagApi.createBody(jsonObj)), callback)
+    }
+
 }

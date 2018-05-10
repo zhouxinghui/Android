@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/y60">
+    android:paddingTop="@dimen/y40"
+    android:paddingBottom="@dimen/y40"
+    android:layout_height="wrap_content">
 
     <TextView
         android:layout_width="0dp"

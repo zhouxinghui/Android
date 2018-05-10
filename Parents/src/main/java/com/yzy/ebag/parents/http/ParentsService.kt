@@ -10,7 +10,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Path
 
-interface ParentsService{
+interface ParentsService {
     /*查询孩子*/
     @POST("user/searchMyChildren/{version}")
     fun searchChildren(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<MyChildrenBean>>>
@@ -48,7 +48,7 @@ interface ParentsService{
     fun getLetterRecord(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<LetterRecordBaseBean>>>
 
     @POST("homeStatistics/yearStatisticsByHomeWork/{version}")
-    fun yearStatisticsByHomeWork(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<List<HomeworkBean>>>
+    fun yearStatisticsByHomeWork(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<HomeworkBean>>>
 
     /**
      * 随堂 课后作业
@@ -64,13 +64,19 @@ interface ParentsService{
     fun errorTopic(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<ErrorTopicBean>>>
 
     @POST("user/createByParent/{version}")
-    fun createChildCode(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    fun createChildCode(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /**
      * 加入班级
      */
     @POST("clazz/joinByClass/{version}")
-    fun joinClazz(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<JoinClazzBean>>
+    fun joinClazz(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<JoinClazzBean>>
+/**
+ * 查科目
+*/
+    @POST("clazz/getTaughtCourses/{version}")
+    fun getTaughtCourses(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<List<StudentSubjectBean>>>
+
 
 
 }

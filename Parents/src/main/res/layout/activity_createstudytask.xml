@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ebag.mobile.widget.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:titleText="添加学习任务" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:paddingStart="@dimen/x10"
+                android:paddingTop="@dimen/y15"
+                android:text="请选择孩子"
+                android:textColor="#000"
+                android:textSize="@dimen/tv_normal" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:paddingTop="@dimen/y30" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y30"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x8"
+                    android:layout_marginTop="@dimen/y5"
+                    android:text="请选择课程"
+                    android:textColor="@color/black" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="@dimen/x5"
+                    android:background="#EEF0F0" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/subject_type_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y30"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x8"
+                    android:layout_marginTop="@dimen/x5"
+                    android:text="请选择章节"
+                    android:textColor="@color/black" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/x5"
+                    android:layout_marginRight="@dimen/x5"
+                    android:layout_marginTop="@dimen/x5"
+                    android:background="#EEF0F0" />
+
+                <TextView
+                    android:id="@+id/unit_tv_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y80"
+                    android:drawableRight="@drawable/icon_paper_more"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/x20"
+                    android:paddingRight="@dimen/x20"
+                    android:text="点击选择章节"
+                    android:textColor="#5E5E5E"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y30"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x8"
+                    android:layout_marginTop="@dimen/y5"
+                    android:text="题目数量"
+                    android:textColor="@color/black" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="@dimen/x5"
+                    android:background="#EEF0F0" />
+
+                <RadioGroup
+                    android:id="@+id/question_count_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y10"
+                    android:layout_marginStart="@dimen/x10"
+                    android:layout_marginEnd="@dimen/x10"
+                    android:layout_marginTop="@dimen/y10"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/count_a"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/y60"
+                        android:layout_weight="1"
+                        android:background="@drawable/radio_btn_blue_bg"
+                        android:button="@null"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:text="10题"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <RadioButton
+                        android:id="@+id/count_b"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/y60"
+                        android:layout_weight="1"
+                        android:background="@drawable/radio_btn_blue_bg"
+                        android:button="@null"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:layout_marginRight="@dimen/x10"
+                        android:gravity="center"
+                        android:text="20题"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <RadioButton
+                        android:id="@+id/count_c"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/y60"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:layout_marginRight="@dimen/x10"
+                        android:layout_weight="1"
+                        android:background="@drawable/radio_btn_blue_bg"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="30题"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <RadioButton
+                        android:id="@+id/count_d"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/y60"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/x10"
+                        android:layout_marginRight="@dimen/x10"
+                        android:background="@drawable/radio_btn_blue_bg"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="40题"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/comfirm_btn"
+                android:layout_width="@dimen/x180"
+                android:layout_height="@dimen/y80"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/y80"
+                android:layout_marginBottom="@dimen/y50"
+                android:background="@drawable/blue_btn"
+                android:gravity="center"
+                android:text="立即发布"
+                android:textColor="#fff" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -9,7 +9,6 @@ import com.yzy.ebag.parents.bean.ExcitationWorkBean
 import com.yzy.ebag.parents.mvp.ExcitationJobContract
 import com.yzy.ebag.parents.mvp.presenter.ExcitationPersenter
 import com.yzy.ebag.parents.ui.adapter.ExcitationAdapter
-import com.yzy.ebag.parents.ui.widget.ClassJoinDialog
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.SPUtils
@@ -86,7 +85,7 @@ class ExcitationJobFragment(private val type: String) : BaseFragment(), Excitati
     }
 
     override fun showError(e: Throwable?) {
-        super.showError(e)
+        stateview.showError()
     }
 
     override fun notifyBtn(position: Int) {

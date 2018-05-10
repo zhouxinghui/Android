@@ -65,7 +65,7 @@ class PersonalActivity: MVPActivity() {
             if(adapter.selectedPosition != position){
                 when(position){
                     3 -> {
-                        performanceDialog.show()
+                        PerformanceDialog(this@PersonalActivity).show()
                     }
                     else -> {
                         adapter.selectedPosition = position
@@ -156,10 +156,6 @@ class PersonalActivity: MVPActivity() {
         }
     }
 
-
-    private val performanceDialog by lazy {
-        PerformanceDialog(this)
-    }
 
     private class Adapter: BaseQuickAdapter<Int,BaseViewHolder>(R.layout.item_activity_personal_left){
 

@@ -27,21 +27,19 @@ class CreateTaskActivity : BaseActivity(), CreateTaskContract.CreateTaskView {
     override fun initViews() {
 
         mAdapter = CreateTaskAdapter(datas)
-        recyclerview.layoutManager = GridLayoutManager(this, 4)
+        recyclerview.layoutManager = GridLayoutManager(this, 3)
         recyclerview.adapter = mAdapter
         mPersenter = CreateTaskPersenter(this)
         mPersenter.start()
 
         mAdapter.setOnItemClickListener { adapter, _, position ->
 
-            if ((adapter.getItem(position) as MyChildrenBean).isSelected) {
-                (adapter.getItem(position) as MyChildrenBean).isSelected = false
-                selectedUid = ""
-                adapter.notifyDataSetChanged()
-            } else {
-                (adapter.getItem(position) as MyChildrenBean).isSelected = true
-                selectedUid = (adapter.getItem(position) as MyChildrenBean).uid
-                adapter.notifyDataSetChanged()
+            if (!(adapter.getItem(position) as MyChildrenBean).isSelected) {
+                datas.forEachIndexed { index, myChildrenBean ->
+                    myChildrenBean.isSelected = index == position
+                }
+                selectedUid = datas[position].uid
+                mAdapter.notifyItemRangeChanged(0,datas.size)
             }
         }
 
@@ -82,6 +80,7 @@ class CreateTaskActivity : BaseActivity(), CreateTaskContract.CreateTaskView {
 
         datas.addAll(data as ArrayList<MyChildrenBean>)
         mAdapter.notifyDataSetChanged()
+        selectedUid = data[0].uid
     }
 
     override fun <T> showMoreComplete(data: List<T>) {

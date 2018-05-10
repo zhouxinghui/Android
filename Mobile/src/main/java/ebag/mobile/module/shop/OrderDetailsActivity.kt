@@ -107,6 +107,12 @@ class OrderDetailsActivity : BaseActivity() {
             queryAddress()
         }
 
+        try {
+            tv_should_pay.text = "¥ ${count + freight.toInt()}"
+        } catch (e: Exception) {
+            tv_should_pay.text = "¥ $count"
+        }
+
         if (packageName.contains("student")) {
             isStudent = true
             cb_ali_pay.visibility = View.GONE
@@ -115,19 +121,12 @@ class OrderDetailsActivity : BaseActivity() {
             cb_yb_pay.isEnabled = false
             tv_total_money.text = "Y币 $ybCount"
         } else {
-            tv_total_money.text = "¥ $count"
+            tv_total_money.text = tv_should_pay.text.toString()
         }
-
 
         cb_yb_pay.text = "Y币 $ybCount"
         tv_yunfei.text = "¥ $freight"
-        tv_total_pay.text = "¥ $count"
-        try {
-            tv_should_pay.text = "¥ ${count + freight.toInt()}"
-        } catch (e: Exception) {
-            tv_should_pay.text = "¥ $count"
-        }
-
+        tv_total_pay.text = tv_should_pay.text.toString()
 
         cb_ali_pay.performClick()
 
@@ -139,7 +138,7 @@ class OrderDetailsActivity : BaseActivity() {
                 cb_yb_pay.isEnabled = true
                 cb_wechat_pay.isChecked = false
                 cb_yb_pay.isChecked = false
-                tv_total_money.text = "¥ $count"
+                tv_total_money.text = tv_should_pay.text.toString()
             }
         }
 
@@ -150,7 +149,7 @@ class OrderDetailsActivity : BaseActivity() {
                 cb_yb_pay.isEnabled = true
                 cb_ali_pay.isChecked = false
                 cb_yb_pay.isChecked = false
-                tv_total_money.text = "¥ $count"
+                tv_total_money.text = tv_should_pay.text.toString()
             }
         }
 

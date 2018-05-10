@@ -1,5 +1,6 @@
 package com.yzy.ebag.parents.mvp
 
+import com.yzy.ebag.parents.bean.StudentSubjectBean
 import com.yzy.ebag.parents.mvp.presenter.BasePresenter
 
 interface ChooseChildrenContract {
@@ -78,5 +79,28 @@ interface NoticeListContract {
 
         fun loadMore()
 
+    }
+}
+
+interface CreateStudyTaskContract{
+
+    interface CreateStudyTaskView:BaseView.BaseListView{
+
+        fun showSubject(datas:List<StudentSubjectBean>)
+
+        fun showSubjectEmpty()
+
+        fun <T> showUnitDialog(datas:List<T>)
+
+        fun refreshUnitText(str:String = "点击选择章节")
+    }
+
+    interface Persenter:BasePresenter<CreateStudyTaskView>{
+
+        fun queryChild()
+
+        fun querySubject(uid:String)
+
+        fun queryDetails(id:String)
     }
 }
