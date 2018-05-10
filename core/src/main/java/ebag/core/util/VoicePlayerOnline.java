@@ -91,11 +91,13 @@ public class VoicePlayerOnline implements OnCompletionListener, MediaPlayer.OnPr
     public void onCompletion(MediaPlayer arg0) {
         Log.e("mediaPlayer", "onCompletion");
         isPlaying = false;
-        onPlayChangeListener.onProgressChange(100);
         if(playTimer != null) {
             playTimer.cancel();
         }
-        onPlayChangeListener.onCompletePlay();
+        if (onPlayChangeListener != null) {
+            onPlayChangeListener.onProgressChange(100);
+            onPlayChangeListener.onCompletePlay();
+        }
     }
 
    public interface OnPlayChangeListener{
@@ -122,7 +124,8 @@ public class VoicePlayerOnline implements OnCompletionListener, MediaPlayer.OnPr
                     ((Activity) context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            onPlayChangeListener.onProgressChange(100 * position / duration);
+                            if (onPlayChangeListener != null)
+                                onPlayChangeListener.onProgressChange(100 * position / duration);
                         }
                     });
                 }

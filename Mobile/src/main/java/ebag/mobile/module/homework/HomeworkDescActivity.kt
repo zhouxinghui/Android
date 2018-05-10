@@ -125,6 +125,9 @@ class HomeworkDescActivity : BaseActivity() {
                 questionBean.answer = questionBean.rightAnswer
                 analyseDialog.show(questionBean)
             }
+            if(view.id == R.id.recorder_play_id){
+                recorderPlayer.playUrl(questionAdapter.getItem(position)?.answer)
+            }
         }
 
         questionAdapter.canDo = false
@@ -196,6 +199,8 @@ class HomeworkDescActivity : BaseActivity() {
     }
 
     //-----------------------------------------语音播放相关
+    private val recorderPlayer = VoicePlayerOnline(this)
+
     private val questionClickListener: QuestionItemChildClickListener by lazy { QuestionItemChildClickListener() }
     private val voicePlayer: VoicePlayerOnline by lazy {
         val player = VoicePlayerOnline(this)

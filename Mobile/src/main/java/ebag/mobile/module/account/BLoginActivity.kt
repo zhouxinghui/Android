@@ -401,12 +401,10 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
     }
 
     private fun queryThirdPartyType(thirdPartyType: String): String {
-        return if (thirdPartyType.equals("qq", true)) {
-            BLoginActivity.QQ_TYPE
-        } else if (thirdPartyType.equals("sina", true)) {
-            BLoginActivity.SIAN_TYPE
-        } else {
-            BLoginActivity.WEIXIN_TYPE
+        return when {
+            thirdPartyType.equals("qq", true) -> BLoginActivity.QQ_TYPE
+            thirdPartyType.equals("sina", true) -> BLoginActivity.SIAN_TYPE
+            else -> BLoginActivity.WEIXIN_TYPE
         }
     }
 }

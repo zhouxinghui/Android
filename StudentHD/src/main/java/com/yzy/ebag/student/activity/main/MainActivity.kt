@@ -6,9 +6,6 @@ import android.view.View
 import cn.jpush.android.api.JPushInterface
 import com.baidu.trace.LBSTraceClient
 import com.baidu.trace.Trace
-import com.baidu.trace.api.track.HistoryTrackRequest
-import com.baidu.trace.api.track.HistoryTrackResponse
-import com.baidu.trace.api.track.OnTrackListener
 import com.baidu.trace.model.OnTraceListener
 import com.baidu.trace.model.PushMessage
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -318,7 +315,7 @@ class MainActivity : MVPActivity(), MainView {
         // 开启服务
         mTraceClient.startTrace(mTrace, null)
 
-        // 创建历史轨迹请求实例
+        /*// 创建历史轨迹请求实例
         val historyTrackRequest = HistoryTrackRequest(1, serviceId, entityName)
 
         //设置轨迹查询起止时间
@@ -340,6 +337,6 @@ class MainActivity : MVPActivity(), MainView {
             }
         }
         // 查询历史轨迹
-        mTraceClient.queryHistoryTrack(historyTrackRequest, mTrackListener)
+        mTraceClient.queryHistoryTrack(historyTrackRequest, mTrackListener)*/
     }
 }
