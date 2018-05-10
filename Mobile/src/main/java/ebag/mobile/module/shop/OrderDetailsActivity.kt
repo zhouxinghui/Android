@@ -126,7 +126,7 @@ class OrderDetailsActivity : BaseActivity() {
 
         cb_yb_pay.text = "Y币 $ybCount"
         tv_yunfei.text = "¥ $freight"
-        tv_total_pay.text = tv_should_pay.text.toString()
+        tv_total_pay.text = "¥ $count"
 
         cb_ali_pay.performClick()
 

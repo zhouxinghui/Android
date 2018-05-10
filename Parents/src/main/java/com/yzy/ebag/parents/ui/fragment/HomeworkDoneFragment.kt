@@ -12,6 +12,7 @@ import android.view.View
 import com.yzy.ebag.parents.R
 import com.yzy.ebag.parents.bean.HomeworkAbstractBean
 import com.yzy.ebag.parents.http.ParentsAPI
+import com.yzy.ebag.parents.ui.widget.DialogOfferPresent
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.SPUtils
@@ -88,6 +89,15 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
                     .putExtra("workType", "")
                     .putExtra("error", true)
             startActivity(intent)
+        }
+
+        homework_gift.setOnClickListener {
+
+            val dialog = DialogOfferPresent(activity,1)
+            dialog.setOnOfferSuccessListener {
+
+            }
+            dialog.show(1)
         }
     }
 

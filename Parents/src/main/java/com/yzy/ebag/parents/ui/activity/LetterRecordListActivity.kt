@@ -75,6 +75,8 @@ class LetterRecordListActivity: BaseListActivity<LetterDescBean, LetterDescBean.
             }
             EBagApi.uploadReadScore(list, scoreRequest)
         })
+
+        titleBar.setRightBtnVisable(false)
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<LetterDescBean>) {

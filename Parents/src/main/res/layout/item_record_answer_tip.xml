@@ -53,6 +53,7 @@
 
     <EditText android:id="@+id/scoreEdit"
         android:layout_width="@dimen/x30"
+        android:visibility="gone"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:background="@drawable/edit_bg"
@@ -67,6 +68,7 @@
     <TextView android:id="@+id/scoreTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:textColor="#9b9b9b"
         android:textSize="@dimen/tv_big"
         android:text="分"

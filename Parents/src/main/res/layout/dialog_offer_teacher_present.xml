@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:text="赠送老师礼物"
+        android:layout_margin="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#F2F2F2">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <ImageView android:id="@+id/img1"
+                    style="@style/offer_gift_img"
+                    android:src="@drawable/icon_paper_flower"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y10"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+                    <Button android:id="@+id/cut1"
+                        style="@style/btn_cut"/>
+                    <TextView android:id="@+id/num1"
+                        style="@style/offer_gift_tv_num"
+                        />
+                    <Button android:id="@+id/add1"
+                        style="@style/btn_add"/>
+                </LinearLayout>
+                <TextView android:id="@+id/tv1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#777777"
+                    android:layout_gravity="center"
+                    android:text="鲜花"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y15"
+                    android:textColor="#F19D2B"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    android:drawableLeft="@drawable/icon_yun_b_small"
+                    android:text="10YB"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <ImageView android:id="@+id/img2"
+                    style="@style/offer_gift_img"
+                    android:src="@drawable/icon_paper_greet_card"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y15"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+                    <Button android:id="@+id/cut2"
+                        style="@style/btn_cut"/>
+                    <TextView android:id="@+id/num2"
+                        style="@style/offer_gift_tv_num"
+                        />
+                    <Button android:id="@+id/add2"
+                        style="@style/btn_add"/>
+                </LinearLayout>
+                <TextView android:id="@+id/tv2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#777777"
+                    android:layout_gravity="center"
+                    android:text="贺卡"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y10"
+                    android:textColor="#F19D2B"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    android:drawableLeft="@drawable/icon_yun_b_small"
+                    android:text="50YB"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <ImageView android:id="@+id/img3"
+                    style="@style/offer_gift_img"
+                    android:src="@drawable/icon_paper_pen"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y15"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+                    <Button android:id="@+id/cut3"
+                        style="@style/btn_cut"/>
+                    <TextView android:id="@+id/num3"
+                        style="@style/offer_gift_tv_num"
+                        />
+                    <Button android:id="@+id/add3"
+                        style="@style/btn_add"/>
+                </LinearLayout>
+                <TextView android:id="@+id/tv3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#777777"
+                    android:layout_gravity="center"
+                    android:text="钢笔"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y15"
+                    android:textColor="#F19D2B"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    android:drawableLeft="@drawable/icon_yun_b_small"
+                    android:text="100YB"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#F2F2F2">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <ImageView android:id="@+id/img4"
+                    style="@style/offer_gift_img"
+                    android:src="@drawable/icon_paper_table_lamp"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y10"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+                    <Button android:id="@+id/cut4"
+                        style="@style/btn_cut"/>
+                    <TextView android:id="@+id/num4"
+                        style="@style/offer_gift_tv_num"
+                        />
+                    <Button android:id="@+id/add4"
+                        style="@style/btn_add"/>
+                </LinearLayout>
+                <TextView android:id="@+id/tv4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#777777"
+                    android:layout_gravity="center"
+                    android:text="台灯"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y15"
+                    android:textColor="#F19D2B"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    android:drawableLeft="@drawable/icon_yun_b_small"
+                    android:text="150YB"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <ImageView android:id="@+id/img5"
+                    style="@style/offer_gift_img"
+                    android:src="@drawable/icon_paper_massage_cushion"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y10"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+                    <Button android:id="@+id/cut5"
+                        style="@style/btn_cut"/>
+                    <TextView android:id="@+id/num5"
+                        style="@style/offer_gift_tv_num"
+                        />
+                    <Button android:id="@+id/add5"
+                        style="@style/btn_add"/>
+                </LinearLayout>
+                <TextView android:id="@+id/tv5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#777777"
+                    android:layout_gravity="center"
+                    android:text="按摩椅"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/y15"
+                    android:textColor="#F19D2B"
+                    android:layout_gravity="center"
+                    android:textSize="12sp"
+                    android:drawableLeft="@drawable/icon_yun_b_small"
+                    android:text="200YB"/>
+            </LinearLayout>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        >
+        <TextView android:id="@+id/zhifujine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:text="支付金额："
+            />
+        <TextView android:id="@+id/total_count_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/zhifujine"
+            android:text="0YB"
+            android:textColor="#F19D2B"
+            android:drawableLeft="@drawable/icon_yun_b_big"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_below="@id/zhifujine"
+            android:text="账户余额：2783YB"
+            android:textSize="10sp"
+            android:visibility="gone"
+            android:textColor="#9C9C9C"
+            />
+        <Button android:id="@+id/btn_confirm"
+            android:layout_width="@dimen/x80"
+            android:layout_height="@dimen/y70"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_green_bg"
+            android:text="赠送"
+            android:textColor="@color/white"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -8,6 +8,7 @@ import com.yzy.ebag.parents.R
 import com.yzy.ebag.parents.bean.HomeworkAbstractBean
 import com.yzy.ebag.parents.mvp.model.HomeworkAbsModel
 import com.yzy.ebag.parents.ui.adapter.HomeworkAbstractAdapter
+import com.yzy.ebag.parents.ui.widget.DialogOfferPresent
 import ebag.core.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_homework_abstract.*
 
@@ -44,6 +45,16 @@ class HomeworkAbstractFragment(private val bean: HomeworkAbstractBean, private v
         recyclerview.layoutManager = LinearLayoutManager(activity)
         adapter = HomeworkAbstractAdapter(dataList)
         recyclerview.adapter = adapter
+
+        thanks.setOnClickListener {
+
+            val dialog = DialogOfferPresent(activity,0)
+            dialog.setOnOfferSuccessListener {
+                
+            }
+            dialog.show()
+
+        }
 
     }
 }
