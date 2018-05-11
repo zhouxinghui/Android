@@ -142,4 +142,9 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
             mPersenter.queryClazzNews(bean.classId)
         }
     }
+
+    override fun onDestroy() {
+        mPersenter.destroyRequest()
+        super.onDestroy()
+    }
 }

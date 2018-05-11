@@ -7,9 +7,11 @@ import ebag.mobile.bean.NoticeBean
 
 class ClazzMainPresenter(private val view: ClazzMainContract.ClazzMainView):ClazzMainContract.Presenter{
 
+    private lateinit var request:RequestCallBack<NoticeBean>
+
     override fun queryClazzNews(id: String) {
 
-        ParentsAPI.newestNotice(id,object:RequestCallBack<NoticeBean>(){
+        request = object:RequestCallBack<NoticeBean>(){
 
             override fun onStart() {
                 view.showLoading()
@@ -23,11 +25,17 @@ class ClazzMainPresenter(private val view: ClazzMainContract.ClazzMainView):Claz
                 view.showError(exception)
             }
 
-        })
+        }
+
+        ParentsAPI.newestNotice(id,request)
     }
 
     override fun start() {
 
+    }
+
+    fun destroyRequest(){
+        request.cancelRequest()
     }
 
 }

@@ -7,8 +7,11 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.parents.R
+import com.yzy.ebag.parents.bean.OnePageInfoBean
 import com.yzy.ebag.parents.bean.SubjectBean
 import com.yzy.ebag.parents.http.ParentsAPI
+import com.yzy.ebag.parents.ui.activity.HomeworkReportActivity
+import com.yzy.ebag.parents.ui.adapter.HomeworkListAdapter
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
@@ -19,12 +22,14 @@ import ebag.mobile.module.homework.HomeworkDescActivity
 import kotlinx.android.synthetic.main.fragment_paper.*
 
 @SuppressWarnings("ValidFragment")
-class PaperFragment(private val code: String) : BaseFragment() {
+class PaperFragment(private val code: String, private val type: String) : BaseFragment() {
 
     override fun getLayoutRes(): Int = R.layout.fragment_paper
     private val datas: MutableList<SubjectBean.HomeWorkInfoBean> = mutableListOf()
+    private val homeworkdatas: MutableList<OnePageInfoBean.HomeWorkInfoVosBean> = mutableListOf()
     private lateinit var mAdapter: HomeWorkListAdapter
-    private lateinit var  childrenBean:MyChildrenBean
+    private lateinit var homeWorkAdapter: HomeworkListAdapter
+    private lateinit var childrenBean: MyChildrenBean
     override fun getBundle(bundle: Bundle?) {
 
     }
@@ -34,22 +39,38 @@ class PaperFragment(private val code: String) : BaseFragment() {
         childrenBean = SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean
         recyclerview.layoutManager = LinearLayoutManager(activity)
         mAdapter = HomeWorkListAdapter(datas)
-        recyclerview.adapter = mAdapter
+        homeWorkAdapter = HomeworkListAdapter(homeworkdatas)
+        if (type == "2") {
+            recyclerview.adapter = homeWorkAdapter
+
+            homeWorkAdapter.setOnItemChildClickListener { adapter, view, position ->
+
+                if ((adapter.getItem(position) as OnePageInfoBean.HomeWorkInfoVosBean).state == "0") {
+                    HomeworkDescActivity.jump(activity,homeworkdatas[position].id,"2",(SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid)
+                } else {
+                    HomeworkReportActivity.start(activity, homeworkdatas[position].id, homeworkdatas[position].endTime)
+                }
+            }
+
+        } else {
+            recyclerview.adapter = mAdapter
+            mAdapter.setOnItemClickListener { adapter, view, position ->
+
+                HomeworkDescActivity.jump(activity, datas[position].id, "4", childrenBean.uid)
+            }
+        }
+
         request()
         stateview.setOnRetryClickListener {
             request()
         }
 
-        mAdapter.setOnItemClickListener { adapter, view, position ->
-
-            HomeworkDescActivity.jump(activity,datas[position].id,"4",childrenBean.uid)
-        }
 
     }
 
     private fun request() {
 
-        ParentsAPI.subjectWorkList("4", childrenBean.classId, code, 1, 10, childrenBean.uid, object : RequestCallBack<List<SubjectBean>>() {
+        ParentsAPI.subjectWorkList(type, childrenBean.classId, code, 1, 10, childrenBean.uid, object : RequestCallBack<List<SubjectBean>>() {
 
             override fun onStart() {
                 stateview.showLoading()
@@ -59,8 +80,23 @@ class PaperFragment(private val code: String) : BaseFragment() {
                 if (entity!![0].homeWorkInfoVos.size == 0) {
                     stateview.showEmpty()
                 } else {
-                    datas.addAll(entity[0].homeWorkInfoVos)
-                    mAdapter.notifyDataSetChanged()
+                    if (type == "2") {
+                        entity[0].homeWorkInfoVos.forEach {
+                            val bean = OnePageInfoBean.HomeWorkInfoVosBean()
+                            bean.state = it.state
+                            bean.content = it.content
+                            bean.endTime = it.endTime
+                            bean.id = it.id
+                            bean.questionComplete = it.questionComplete
+                            bean.questionCount = it.questionCount
+                            bean.remark = it.remark
+                            homeworkdatas.add(bean)
+                        }
+                        homeWorkAdapter.notifyDataSetChanged()
+                    } else {
+                        datas.addAll(entity[0].homeWorkInfoVos)
+                        mAdapter.notifyDataSetChanged()
+                    }
                     stateview.showContent()
                 }
             }
@@ -74,7 +110,7 @@ class PaperFragment(private val code: String) : BaseFragment() {
     }
 
 
-    inner class HomeWorkListAdapter(datas: MutableList<SubjectBean.HomeWorkInfoBean>) : BaseQuickAdapter<SubjectBean.HomeWorkInfoBean, BaseViewHolder>(R.layout.item_paper,datas) {
+    inner class HomeWorkListAdapter(datas: MutableList<SubjectBean.HomeWorkInfoBean>) : BaseQuickAdapter<SubjectBean.HomeWorkInfoBean, BaseViewHolder>(R.layout.item_paper, datas) {
 
         override fun convert(helper: BaseViewHolder, item: SubjectBean.HomeWorkInfoBean?) {
             helper.setText(R.id.completeNum, Html.fromHtml("完成： <font color='#FF7800'>${item?.questionComplete}</font>/${item?.questionCount}"))

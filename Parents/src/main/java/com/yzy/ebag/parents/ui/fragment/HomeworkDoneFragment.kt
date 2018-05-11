@@ -15,15 +15,19 @@ import com.yzy.ebag.parents.http.ParentsAPI
 import com.yzy.ebag.parents.ui.widget.DialogOfferPresent
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
 import ebag.core.util.SPUtils
+import ebag.core.util.SerializableUtils
 import ebag.core.util.StringUtils
 import ebag.core.util.T
+import ebag.mobile.base.Constants
+import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.module.homework.HomeworkDescActivity
 import kotlinx.android.synthetic.main.fragment_homework_done.*
 import java.text.DecimalFormat
 
 @SuppressLint("ValidFragment")
-class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val endTime: String, private val subject: String, private val homeworkId: String) : BaseFragment() {
+class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val endTime: String, private val homeworkId: String) : BaseFragment() {
 
     override fun getLayoutRes(): Int = R.layout.fragment_homework_done
 
@@ -37,10 +41,10 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
         homework_top.text = setSpan("${data.maxScore}分")
         homework_error.text = setSpan(DecimalFormat("0").format(data.errorNum) + "道")
         val time = endTime.split(" ")[0].split("-")
-        if (data.errorNum == 0){
+        if (data.errorNum == 0) {
             homework_error_layout.visibility = View.GONE
-        }else {
-            homework_error_content.text = "${time[1]}月${time[2]}日${subject}作业共错${DecimalFormat("0").format(data.errorNum)}道题"
+        } else {
+            homework_error_content.text = "${time[1]}月${time[2]}日 本次作业共错${DecimalFormat("0").format(data.errorNum)}道题"
         }
         if (data.teacherComment.isNullOrEmpty()) {
             homework_teacher_layout.visibility = View.GONE
@@ -93,9 +97,19 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
 
         homework_gift.setOnClickListener {
 
-            val dialog = DialogOfferPresent(activity,1)
-            dialog.setOnOfferSuccessListener {
+            val dialog = DialogOfferPresent(activity, 1, homeworkId)
+            dialog.setOnOfferSuccessListener { bean ->
+                ParentsAPI.giveYsbMoneyGifg2User(bean, object : RequestCallBack<String>() {
+                    override fun onSuccess(entity: String?) {
+                        T.show(activity, "赠送成功")
 
+                    }
+
+                    override fun onError(exception: Throwable) {
+                        exception.handleThrowable(activity)
+                    }
+
+                }, SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).uid)
             }
             dialog.show(1)
         }

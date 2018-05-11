@@ -21,14 +21,21 @@ class PaperActivity : BaseActivity() {
     private val titleList:ArrayList<String> = arrayListOf()
     private val subCodeList:MutableList<String> = mutableListOf()
     private val fragmentList: MutableList<Fragment> = mutableListOf()
-
+    private var type = ""
     override fun getLayoutId(): Int = R.layout.activity_paper
 
     override fun initViews() {
 
 
+
+        type = intent.getStringExtra("type")
+
+        if (type == "2"){
+            titlebar.setTitle("所有作业")
+        }
+
         val childrenBean = SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean
-        ParentsAPI.subjectWorkList("4",childrenBean.classId,"",1,10,childrenBean.uid,object:RequestCallBack<List<SubjectBean>>(){
+        ParentsAPI.subjectWorkList(type,childrenBean.classId,"",1,10,childrenBean.uid,object:RequestCallBack<List<SubjectBean>>(){
 
             override fun onStart() {
                 stateview.showLoading()
@@ -61,7 +68,7 @@ class PaperActivity : BaseActivity() {
 
     private fun initTab() {
         titleList.forEachIndexed { index, _ ->
-            fragmentList.add(PaperFragment(subCodeList[index]))
+            fragmentList.add(PaperFragment(subCodeList[index],type))
         }
         val mAdapter = PaperAdapter()
         viewpager.adapter = mAdapter
@@ -69,8 +76,8 @@ class PaperActivity : BaseActivity() {
     }
 
     companion object {
-        fun start(c: Context) {
-            c.startActivity(Intent(c, PaperActivity::class.java))
+        fun start(c: Context,type:String) {
+            c.startActivity(Intent(c, PaperActivity::class.java).putExtra("type",type))
         }
     }
 

@@ -6,14 +6,18 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.yzy.ebag.parents.R
 import com.yzy.ebag.parents.bean.HomeworkAbstractBean
+import com.yzy.ebag.parents.http.ParentsAPI
 import com.yzy.ebag.parents.mvp.model.HomeworkAbsModel
 import com.yzy.ebag.parents.ui.adapter.HomeworkAbstractAdapter
 import com.yzy.ebag.parents.ui.widget.DialogOfferPresent
 import ebag.core.base.BaseFragment
+import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
+import ebag.core.util.T
 import kotlinx.android.synthetic.main.fragment_homework_abstract.*
 
 @SuppressLint("ValidFragment")
-class HomeworkAbstractFragment(private val bean: HomeworkAbstractBean, private val endTime: String) : BaseFragment() {
+class HomeworkAbstractFragment(private val bean: HomeworkAbstractBean, private val endTime: String, private val homeworkId: String) : BaseFragment() {
 
     private val labelArray: Array<String> = arrayOf("截止时间:", "作业内容:", "作业要求:", "练习内容:")
     private lateinit var adapter: HomeworkAbstractAdapter
@@ -36,8 +40,8 @@ class HomeworkAbstractFragment(private val bean: HomeworkAbstractBean, private v
         labelArray.forEachIndexed { index, s ->
             when (index) {
                 0 -> dataList.add(HomeworkAbsModel(s, endTime))
-                1 -> dataList.add(HomeworkAbsModel(s, bean.unitName?:""))
-                2 -> dataList.add(HomeworkAbsModel(s, bean.remark?:""))
+                1 -> dataList.add(HomeworkAbsModel(s, bean.unitName ?: ""))
+                2 -> dataList.add(HomeworkAbsModel(s, bean.remark ?: ""))
                 3 -> dataList.add(HomeworkAbsModel(s, sb.toString()))
             }
         }
@@ -48,9 +52,19 @@ class HomeworkAbstractFragment(private val bean: HomeworkAbstractBean, private v
 
         thanks.setOnClickListener {
 
-            val dialog = DialogOfferPresent(activity,0)
-            dialog.setOnOfferSuccessListener {
-                
+            val dialog = DialogOfferPresent(activity, 0, homeworkId)
+            dialog.setOnOfferSuccessListener { bean ->
+                ParentsAPI.giveYsbMoneyGifg2User(bean, object : RequestCallBack<String>() {
+                    override fun onSuccess(entity: String?) {
+                        T.show(activity,"赠送成功")
+
+                    }
+
+                    override fun onError(exception: Throwable) {
+                        exception.handleThrowable(activity)
+                    }
+
+                })
             }
             dialog.show()
 

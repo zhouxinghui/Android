@@ -33,7 +33,7 @@ class SettingActivity : BaseActivity() {
 
 
         recyclerview.layoutManager = LinearLayoutManager(this)
-        mAdapter = SettingAdapter(datas)
+        mAdapter = SettingAdapter(datas,packageManager.getPackageInfo(packageName,0).versionName)
         recyclerview.addItemDecoration(ebag.core.xRecyclerView.manager.DividerItemDecoration(DividerItemDecoration.VERTICAL, 1, Color.parseColor("#e0e0e0")))
         recyclerview.adapter = mAdapter
 
@@ -50,10 +50,7 @@ class SettingActivity : BaseActivity() {
 
         mAdapter.setOnItemClickListener { adapter, view, position ->
             when (position) {
-                3 -> {
-                    startActivity(Intent(this, AboutUsActivity::class.java))
-
-                }
+                3 -> { startActivity(Intent(this, AboutUsActivity::class.java)) }
 
                 0 -> checkUpdate(Constants.UPDATE_PARENT)
 

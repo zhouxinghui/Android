@@ -13,10 +13,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yzy.ebag.parents.R;
-import com.yzy.ebag.parents.bean.PresentCollectBean;
+import com.yzy.ebag.parents.bean.GiftBean;
+import com.yzy.ebag.parents.bean.GiftPayBean;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ebag.core.util.SerializableUtils;
+import ebag.mobile.bean.UserEntity;
 
 /**
  * Created by YZY on 2017/7/5.
@@ -26,12 +30,14 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
     private TextView num1,num2,num3,num4,num5,tv1,tv2,tv3,tv4,tv5,totalNum;
     private ImageView img2,img3,img4,img5;
     private Button cut1,cut2,cut3,cut4,cut5,add1,add2,add3,add4,add5;
+    private String homeworkId;
     /**对话框类型：0 送老师；1 送孩子*/
     private int type = 0;
-    public DialogOfferPresent(Context context, int type) {
+    public DialogOfferPresent(Context context, int type,String id) {
         super(context, R.style.ActionSheetDialogStyle);
         init(context);
         this.type = type;
+        homeworkId = id;
     }
 
     private void init(Context context){
@@ -90,7 +96,7 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
             public void onClick(View v) {
                 collectPresent();
                 clearPresent();
-                onOfferSuccessListener.onOfferSuccess(list);
+                onOfferSuccessListener.onOfferSuccess(bean);
                 dismiss();
             }
         });
@@ -240,7 +246,7 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
     }
 
     public interface OnOfferSuccessListener{
-        void onOfferSuccess(List<PresentCollectBean> list);
+        void onOfferSuccess(GiftPayBean bean);
     }
 
     private void clearPresent(){
@@ -263,41 +269,44 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
         totalNum.setText("0YB");
     }
 
-    private List<PresentCollectBean> list;
+    private List<GiftBean> list;
+    private GiftPayBean bean = null;
     private void collectPresent(){
         if (list == null){
             list = new ArrayList<>();
         }
         list.clear();
         if (count1 > 0){
-            PresentCollectBean bean = new PresentCollectBean();
-            bean.setName("鲜花");
-            bean.setCount(count1);
+            GiftBean bean = new GiftBean();
+            bean.setGiftName("鲜花");
+            bean.setGiftNum(count1);
             list.add(bean);
         }
         if (count2 > 0){
-            PresentCollectBean bean = new PresentCollectBean();
-            bean.setName(type == 0 ? "贺卡" : "笔记本");
-            bean.setCount(count2);
+            GiftBean bean = new GiftBean();
+            bean.setGiftName(type == 0 ? "贺卡" : "笔记本");
+            bean.setGiftNum(count2);
             list.add(bean);
         }
         if (count3 > 0){
-            PresentCollectBean bean = new PresentCollectBean();
-            bean.setName(type == 0 ? "钢笔" : "画板");
-            bean.setCount(count3);
+            GiftBean bean = new GiftBean();
+            bean.setGiftName(type == 0 ? "钢笔" : "画板");
+            bean.setGiftNum(count3);
             list.add(bean);
         }
         if (count4 > 0){
-            PresentCollectBean bean = new PresentCollectBean();
-            bean.setName(type == 0 ? "台灯" : "储蓄罐");
-            bean.setCount(count4);
+            GiftBean bean = new GiftBean();
+            bean.setGiftName(type == 0 ? "台灯" : "储蓄罐");
+            bean.setGiftNum(count4);
             list.add(bean);
         }
         if (count5 > 0){
-            PresentCollectBean bean = new PresentCollectBean();
-            bean.setName(type == 0 ? "按摩椅" : "奖章");
-            bean.setCount(count5);
+            GiftBean bean = new GiftBean();
+            bean.setGiftName(type == 0 ? "按摩椅" : "奖章");
+            bean.setGiftNum(count5);
             list.add(bean);
         }
+
+        bean = new GiftPayBean(((UserEntity)SerializableUtils.getSerializable(ebag.mobile.base.Constants.PARENTS_USER_ENTITY)).getUid(),homeworkId,totalPayCount,list);
     }
 }

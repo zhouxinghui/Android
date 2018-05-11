@@ -77,6 +77,42 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/x8"
                     android:layout_marginTop="@dimen/x5"
+                    android:text="请选择教材"
+                    android:textColor="@color/black" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/x5"
+                    android:layout_marginRight="@dimen/x5"
+                    android:layout_marginTop="@dimen/x5"
+                    android:background="#EEF0F0" />
+
+                <TextView
+                    android:id="@+id/unit__id"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y80"
+                    android:drawableRight="@drawable/icon_paper_more"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/x20"
+                    android:paddingRight="@dimen/x20"
+                    android:text="点击选择教材"
+                    android:textColor="#5E5E5E"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y30"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x8"
+                    android:layout_marginTop="@dimen/x5"
                     android:text="请选择章节"
                     android:textColor="@color/black" />
 
