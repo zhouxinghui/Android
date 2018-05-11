@@ -21,6 +21,7 @@ import com.baidu.trace.api.track.OnTrackListener
 import com.yzy.ebag.parents.R
 import ebag.core.base.BaseActivity
 import ebag.core.util.SerializableUtils
+import ebag.core.util.T
 import ebag.core.util.loadHead
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.MyChildrenBean
@@ -45,6 +46,8 @@ class LocationActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_location
     private var childLatitude: Double = 0.0
     private var childLongitude: Double = 0.0
+    private lateinit var option:LocationClientOption
+    private lateinit var location:LocationClient
     /*-------------------------------------------------------*/
     private val tag = 1
     private val serviceId: Long = 116060
@@ -52,6 +55,8 @@ class LocationActivity : BaseActivity() {
     private lateinit var childView: View
     private val latLngBuild = LatLngBounds.Builder()
     private lateinit var geo: GeoCoder
+    private lateinit var historyTrackRequest: HistoryTrackRequest
+    private lateinit var client: LBSTraceClient
 
     override fun initViews() {
         map = mapview.map
@@ -65,10 +70,10 @@ class LocationActivity : BaseActivity() {
         val childImg = myLocationView.findViewById<ImageView>(R.id.head_img_id)
         imgView.loadHead(SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).headUrl)
         childImg.loadHead(SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).headUrl)
-        val location = LocationClient(this)
+        location = LocationClient(this)
         locationListener = MyLocationListener()
         location.registerLocationListener(locationListener)
-        val option = LocationClientOption()
+        option = LocationClientOption()
         option.setCoorType("bd09ll")
         option.setScanSpan(0)
         option.isOpenGps = true
@@ -76,7 +81,6 @@ class LocationActivity : BaseActivity() {
         option.setIgnoreKillProcess(false)
         option.setIsNeedLocationPoiList(true)
         location.locOption = option
-        location.start()
         /*------------------------------------------*/
 
         geo = GeoCoder.newInstance()
@@ -87,17 +91,31 @@ class LocationActivity : BaseActivity() {
 
             override fun onGetReverseGeoCodeResult(p0: ReverseGeoCodeResult?) {
                 childLocationTv.text = p0?.address
+                location.start()
             }
 
         })
         entityName = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).uid
-        val historyTrackRequest = HistoryTrackRequest(tag, serviceId, entityName)
+        historyTrackRequest = HistoryTrackRequest(tag, serviceId, entityName)
         historyTrackRequest.startTime = System.currentTimeMillis() / 1000 - 60 * 60
         historyTrackRequest.endTime = System.currentTimeMillis() / 1000
-        val client = LBSTraceClient(applicationContext)
+        client = LBSTraceClient(applicationContext)
+        queryTrack()
+
+
+    }
+
+    private fun queryTrack() {
         client.queryHistoryTrack(historyTrackRequest, object : OnTrackListener() {
             override fun onHistoryTrackCallback(p0: HistoryTrackResponse?) {
-
+                if (p0!!.status == 14004) {
+                    queryTrack()
+                    return
+                }
+                if (p0.trackPoints== null || p0.trackPoints.isEmpty()){
+                    T.show(this@LocationActivity,"没有记录孩子位置")
+                    finish()
+                }
                 childLatitude = p0?.endPoint?.location?.getLatitude() ?: 0.0
                 childLongitude = p0?.endPoint?.location?.getLongitude() ?: 0.0
                 geo.reverseGeoCode(ReverseGeoCodeOption().location(LatLng(childLatitude, childLongitude)))
@@ -105,8 +123,6 @@ class LocationActivity : BaseActivity() {
 
 
         })
-
-
     }
 
     inner class MyLocationListener : BDAbstractLocationListener() {

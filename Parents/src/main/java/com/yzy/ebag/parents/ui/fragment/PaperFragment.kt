@@ -30,6 +30,7 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
     private lateinit var mAdapter: HomeWorkListAdapter
     private lateinit var homeWorkAdapter: HomeworkListAdapter
     private lateinit var childrenBean: MyChildrenBean
+    private var page = 1
     override fun getBundle(bundle: Bundle?) {
 
     }
@@ -46,7 +47,7 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
             homeWorkAdapter.setOnItemChildClickListener { adapter, view, position ->
 
                 if ((adapter.getItem(position) as OnePageInfoBean.HomeWorkInfoVosBean).state == "0") {
-                    HomeworkDescActivity.jump(activity,homeworkdatas[position].id,"2",(SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid)
+                    HomeworkDescActivity.jump(activity, homeworkdatas[position].id, "2", (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid)
                 } else {
                     HomeworkReportActivity.start(activity, homeworkdatas[position].id, homeworkdatas[position].endTime)
                 }
@@ -61,16 +62,18 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
         }
 
         request()
+
         stateview.setOnRetryClickListener {
             request()
         }
 
-
+        mAdapter.setOnLoadMoreListener({ loadmore() }, recyclerview)
+        homeWorkAdapter.setOnLoadMoreListener({ loadmore() }, recyclerview)
     }
 
     private fun request() {
 
-        ParentsAPI.subjectWorkList(type, childrenBean.classId, code, 1, 10, childrenBean.uid, object : RequestCallBack<List<SubjectBean>>() {
+        ParentsAPI.subjectWorkList(type, childrenBean.classId, code, page, 10, childrenBean.uid, object : RequestCallBack<List<SubjectBean>>() {
 
             override fun onStart() {
                 stateview.showLoading()
@@ -97,6 +100,7 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
                         datas.addAll(entity[0].homeWorkInfoVos)
                         mAdapter.notifyDataSetChanged()
                     }
+                    page++
                     stateview.showContent()
                 }
             }
@@ -104,6 +108,46 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
             override fun onError(exception: Throwable) {
                 exception.handleThrowable(activity)
                 stateview.showError()
+            }
+
+        })
+    }
+
+
+    private fun loadmore() {
+        ParentsAPI.subjectWorkList(type, childrenBean.classId, code, page, 10, childrenBean.uid, object : RequestCallBack<List<SubjectBean>>() {
+
+            override fun onSuccess(entity: List<SubjectBean>?) {
+                if (entity!![0].homeWorkInfoVos.size == 0) {
+                    if (type == "2") {
+                        homeWorkAdapter.loadMoreEnd()
+                    } else {
+                        mAdapter.loadMoreEnd()
+                    }
+                } else {
+                    if (type == "2") {
+                        entity[0].homeWorkInfoVos.forEach {
+                            val bean = OnePageInfoBean.HomeWorkInfoVosBean()
+                            bean.state = it.state
+                            bean.content = it.content
+                            bean.endTime = it.endTime
+                            bean.id = it.id
+                            bean.questionComplete = it.questionComplete
+                            bean.questionCount = it.questionCount
+                            bean.remark = it.remark
+                            homeworkdatas.add(bean)
+                        }
+                        homeWorkAdapter.loadMoreComplete()
+                    } else {
+                        datas.addAll(entity[0].homeWorkInfoVos)
+                        mAdapter.loadMoreComplete()
+                    }
+
+                }
+            }
+
+            override fun onError(exception: Throwable) {
+                if (type == "2") homeWorkAdapter.loadMoreFail() else mAdapter.loadMoreFail()
             }
 
         })

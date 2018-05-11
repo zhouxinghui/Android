@@ -14,7 +14,7 @@ class ChooseChildrenAdapter(data: List<MyChildrenBean>) : BaseQuickAdapter<MyChi
     override fun convert(helper: BaseViewHolder, item: MyChildrenBean?) {
         helper.setText(R.id.child_name, item?.name)
                 .setText(R.id.ysb_code, "书包号:${item?.ysbCode}")
-                .setText(R.id.child_class, item?.className)
+                .setText(R.id.child_class, "${item?.grade}年级${item?.className}")
 
         helper.getView<ImageView>(R.id.child_head).loadHead(item?.headUrl)
 

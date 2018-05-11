@@ -4,13 +4,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.parents.R
 import com.yzy.ebag.parents.bean.OnePageInfoBean
-import ebag.core.util.DateUtil
 
 class HomeworkListAdapter(data: List<OnePageInfoBean.HomeWorkInfoVosBean>) : BaseQuickAdapter<OnePageInfoBean.HomeWorkInfoVosBean, BaseViewHolder>(R.layout.item_homeworklist, data) {
 
     override fun convert(helper: BaseViewHolder, item: OnePageInfoBean.HomeWorkInfoVosBean?) {
-        helper.setText(R.id.homework_item_date, DateUtil.getCurrentDate())
-        when (item!!.state) {
+        helper.setText(R.id.homework_item_date, item?.endTime!!.split(" ")[0])
+        when (item.state) {
             "0" -> helper.setText(R.id.homework_item_state, "未完成")
             "1" -> helper.setText(R.id.homework_item_state, "未批改")
             "2" -> helper.setText(R.id.homework_item_state, "已批改")

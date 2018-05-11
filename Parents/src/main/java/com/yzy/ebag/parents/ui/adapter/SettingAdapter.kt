@@ -10,7 +10,7 @@ class SettingAdapter(datas: List<String>,private val verisonName:String) : BaseQ
 
         helper.setText(R.id.label, item)
         if (helper.layoutPosition == 0) {
-            helper.setText(R.id.mark, verisonName)
+            helper.setText(R.id.mark, "当前版本:$verisonName")
         }
     }
 

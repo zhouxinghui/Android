@@ -68,7 +68,7 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
     override fun initViews(rootView: View) {
         mPersenter = ClazzMainPresenter(this)
         recyclerview.layoutManager = LinearLayoutManager(activity)
-        labels[3] = if (SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).className.isEmpty()) "暂无班级" else SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).className
+        labels[3] = if (SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).className.isEmpty()) "暂无班级" else SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).grade + "年级" + SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).className
         labels.forEachIndexed { index, s ->
             datas.add(PersonalItemModel(icons[index], s))
         }
@@ -109,7 +109,7 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
 
     fun updataClazz() {
         bean = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY)
-        datas[3].label = if (bean.className.isEmpty()) "暂无班级" else bean.className?:""
+        datas[3].label = if (bean.className.isEmpty()) "暂无班级" else "${bean.grade?:""}年级${bean.className?:""}"
         mAdapter.notifyDataSetChanged()
         mPersenter.queryClazzNews(bean.classId)
     }
