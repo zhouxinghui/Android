@@ -143,6 +143,8 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
                         mAdapter.loadMoreComplete()
                     }
 
+                    page++
+
                 }
             }
 

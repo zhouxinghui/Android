@@ -107,6 +107,10 @@ class ZixiRecordActivity: BaseActivity() {
     }
     private var queryType = "1"
     override fun initViews() {
+        if (classId.isEmpty()){
+            stateview.showEmpty("未加入班级")
+            return
+        }
         queryType = intent.getStringExtra("queryType")
         request()
         clazzTv.text = (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).className

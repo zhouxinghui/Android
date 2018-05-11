@@ -197,4 +197,13 @@ object ParentsAPI {
         EBagApi.request(parentsService.giveYsbMoneyGifg2User("v1", EBagApi.createBody(jsonObj)), callback)
     }
 
+    /**
+     * 查询礼物列表
+     */
+    fun getGiftDetail(homeWorkId: String, callback: RequestCallBack<String>) {
+        val jsonObj = JSONObject()
+        jsonObj.put("givingUid", homeWorkId)
+        EBagApi.request(parentsService.getGiftDetail("v1", EBagApi.createBody(jsonObj)), callback)
+    }
+
 }

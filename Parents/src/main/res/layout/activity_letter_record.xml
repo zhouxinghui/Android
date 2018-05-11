@@ -9,6 +9,12 @@
         android:layout_height="wrap_content"
         app:titleText="每日练字"
         />
+
+    <ebag.core.widget.empty.StateView
+        android:layout_width="match_parent"
+        android:id="@+id/stateview"
+        app:emptyLayout="@layout/base_empty"
+        android:layout_height="match_parent" />
     <!--班级-->
     <LinearLayout android:id="@+id/clazzBtn"
         style="@style/assignment_ll"
@@ -58,4 +64,6 @@
     <FrameLayout android:id="@+id/fragmentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+
 </LinearLayout>
