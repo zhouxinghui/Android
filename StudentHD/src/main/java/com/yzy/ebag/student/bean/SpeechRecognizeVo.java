@@ -15,7 +15,7 @@ public class SpeechRecognizeVo implements Serializable{
      * 注意，采样率的数据类型一定是 int，不能是 String
      */
     // 采样率，支持 8000 或者 16000，在我们的项目中，写 16000
-    private int rate = 16000;
+    private int rate = 8000;
     // 声道数，仅支持单声道，请填写 1
     private String channel = "1";
 
