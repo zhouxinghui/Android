@@ -14,8 +14,9 @@ import android.widget.TextView
 import com.yzy.ebag.student.bean.ClassListInfoBean
 import com.yzy.ebag.student.bean.ClassesInfoBean
 import com.yzy.ebag.student.http.StudentApi
-import com.yzy.ebag.student.moudle.personal.ClassesDialog
-import com.yzy.ebag.student.moudle.personal.PersonalInfoActivity
+import com.yzy.ebag.student.module.personal.ClassesDialog
+import com.yzy.ebag.student.module.personal.MyMissionActivity
+import com.yzy.ebag.student.module.personal.PersonalInfoActivity
 import com.yzy.ebag.student.util.StatusUtil
 import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
@@ -144,7 +145,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.myMission -> {
-
+                MyMissionActivity.jump(this, classId)
             }
             R.id.nav_gallery -> {
 

@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.moudle.account
+package com.yzy.ebag.student.module.account
 
 import android.content.Intent
 import android.os.Bundle

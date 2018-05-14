@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ebag.mobile.widget.TitleBar android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y80"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/titleBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+        <RadioButton
+            android:id="@+id/rbLabour"
+            android:layout_width="@dimen/x75"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/tv_big"
+            android:gravity="center"
+            android:button="@null"
+            android:checked="true"
+            android:background="@drawable/task_tab_bg"
+            android:textColor="@color/color_task_text_selector"
+            android:text="劳动任务"/>
+        <RadioButton
+            android:id="@+id/rbStudy"
+            android:layout_width="@dimen/x75"
+            android:layout_height="match_parent"
+            android:background="@drawable/task_tab_bg"
+            android:textColor="@color/color_task_text_selector"
+            android:textSize="@dimen/tv_big"
+            android:gravity="center"
+            android:button="@null"
+            android:text="学习任务"/>
+    </RadioGroup>
+</android.support.constraint.ConstraintLayout>

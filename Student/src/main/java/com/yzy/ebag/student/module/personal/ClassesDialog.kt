@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.moudle.personal
+package com.yzy.ebag.student.module.personal
 
 import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
