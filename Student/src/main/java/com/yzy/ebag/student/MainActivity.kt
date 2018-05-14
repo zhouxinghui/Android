@@ -1,4 +1,4 @@
-package com.yzy.ebag.student.moudle.account
+package com.yzy.ebag.student
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,16 +11,19 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
-import com.yzy.ebag.student.R
 import com.yzy.ebag.student.bean.ClassListInfoBean
 import com.yzy.ebag.student.bean.ClassesInfoBean
 import com.yzy.ebag.student.http.StudentApi
+import com.yzy.ebag.student.moudle.personal.ClassesDialog
 import com.yzy.ebag.student.moudle.personal.PersonalInfoActivity
 import com.yzy.ebag.student.util.StatusUtil
 import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
-import ebag.core.util.*
+import ebag.core.util.LoadingDialogUtil
+import ebag.core.util.SPUtils
+import ebag.core.util.SerializableUtils
+import ebag.core.util.loadHead
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.UserEntity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -50,13 +53,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         ysbCodeTv = headView.findViewById(R.id.ysbCodeTv)
         clazzTv = headView.findViewById(R.id.clazzTv)
         headImg.setOnClickListener {
-            drawer_layout.closeDrawer(GravityCompat.START)
             startActivity(Intent(this, PersonalInfoActivity::class.java))
         }
         clazzTv.setOnClickListener {
-            T.show(this,"切换班级")
+            classesDialog.show(classesInfo, classId)
         }
-        StudentApi.mainInfo(classId, mainInfoRequest)
+        request()
         initUserInfo()
     }
     private lateinit var headImg: ImageView
@@ -93,7 +95,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             exception.handleThrowable(this@MainActivity)
         }
     }
-
+    private val classesDialog by lazy {
+        val dialog = ClassesDialog(this)
+        dialog.listener = {
+            if(it?.classId != classId){
+                classId = it?.classId ?: ""
+                SPUtils.put(this,Constants.CLASS_ID,classId)
+                request()
+            }
+        }
+        dialog
+    }
+    private fun request(){
+        StudentApi.mainInfo(classId, mainInfoRequest)
+    }
     private fun initUserInfo(){
         val userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.STUDENT_USER_ENTITY)
         nameTv.text = userEntity?.name
@@ -128,8 +143,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_camera -> {
-                // Handle the camera action
+            R.id.myMission -> {
+
             }
             R.id.nav_gallery -> {
 

@@ -28,7 +28,7 @@
             android:name=".moudle.account.ForgetActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".moudle.account.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/MainActivityTheme"/>
         <activity android:name=".moudle.personal.PersonalInfoActivity"

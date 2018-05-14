@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.view.View
 import com.yanzhenjie.permission.Permission
+import com.yzy.ebag.student.MainActivity
 import com.yzy.ebag.student.R
 import ebag.mobile.module.account.BLoginActivity
 import ebag.mobile.util.requestPermission

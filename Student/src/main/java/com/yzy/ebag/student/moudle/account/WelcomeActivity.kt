@@ -2,6 +2,7 @@ package com.yzy.ebag.student.moudle.account
 
 import android.content.Intent
 import android.os.Handler
+import com.yzy.ebag.student.MainActivity
 import com.yzy.ebag.student.R
 import ebag.core.base.App
 import ebag.core.base.BaseActivity
