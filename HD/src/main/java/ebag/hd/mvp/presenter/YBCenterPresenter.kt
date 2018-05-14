@@ -1,12 +1,8 @@
 package ebag.hd.mvp.presenter
 
 import android.content.Context
-import android.util.Log
-import android.widget.Toast
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
-import ebag.core.util.T
-import ebag.hd.bean.VersionUpdateBean
 import ebag.hd.bean.YBCurrentBean
 import ebag.hd.http.EBagApi
 import ebag.hd.mvp.contract.YBCenterContract
@@ -47,6 +43,7 @@ class YBCenterPresenter(context: Context, view: YBCenterContract.View) : YBCente
                     } else {
                         mView.showDataEmpty()
                     }
+                    return
                 }
                 when {
                     isFirst -> mView.showSuccess(entity.remainMoney.toString(), entity.increasedMoney.toString(), entity.reduceMoney.toString(), datas)

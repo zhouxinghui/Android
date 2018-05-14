@@ -11,6 +11,9 @@ import com.yzy.ebag.parents.ui.activity.ReadRecordListActivity
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.DateUtil
+import ebag.core.util.SerializableUtils
+import ebag.mobile.base.Constants
+import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.bean.ReadRecordBaseBean
 import ebag.mobile.http.EBagApi
 import java.util.*
@@ -21,25 +24,28 @@ import java.util.*
 class ReadRecordFragment : BaseListFragment<List<ReadRecordBaseBean>, ReadRecordBaseBean>() {
     private var unitCode = ""
     private var classId = ""
+
     companion object {
-        fun newInstance(): ReadRecordFragment{
+        fun newInstance(): ReadRecordFragment {
             val fragment = ReadRecordFragment()
             val bundle = Bundle()
             fragment.arguments = bundle
             return fragment
         }
     }
+
     override fun getBundle(bundle: Bundle?) {
     }
 
     override fun loadConfig() {
         loadMoreEnabled(false)
     }
+
     /**
      * 数据更新
      */
-    fun update(unitCode: String?, classId: String?){
-        if(this.unitCode != unitCode || this.classId != classId){
+    fun update(unitCode: String?, classId: String?) {
+        if (this.unitCode != unitCode || this.classId != classId) {
             this.unitCode = unitCode ?: ""
             this.classId = classId ?: ""
             cancelRequest()
@@ -48,7 +54,11 @@ class ReadRecordFragment : BaseListFragment<List<ReadRecordBaseBean>, ReadRecord
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<ReadRecordBaseBean>>) {
-        EBagApi.getReadRecord(unitCode, classId, requestCallBack)
+        var studentId = ""
+        if (activity.packageName.contains("parents")) {
+            studentId = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).uid
+        }
+        EBagApi.getReadRecord(unitCode, classId, requestCallBack,studentId)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<ReadRecordBaseBean>?): List<ReadRecordBaseBean>? {
@@ -68,9 +78,10 @@ class ReadRecordFragment : BaseListFragment<List<ReadRecordBaseBean>, ReadRecord
         ReadRecordListActivity.jump(unitCode, classId, adapter.data[position].dateTime, mContext)
     }
 
-    inner class Adapter: BaseQuickAdapter<ReadRecordBaseBean, BaseViewHolder>(R.layout.item_tools_record_history){
+    inner class Adapter : BaseQuickAdapter<ReadRecordBaseBean, BaseViewHolder>(R.layout.item_tools_record_history) {
         override fun convert(helper: BaseViewHolder, item: ReadRecordBaseBean?) {
-            helper.setText(R.id.tvTime, DateUtil.getFormatDateTime(Date(item?.dateTime ?: 0), "yyyy年MM月dd日"))
+            helper.setText(R.id.tvTime, DateUtil.getFormatDateTime(Date(item?.dateTime
+                    ?: 0), "yyyy年MM月dd日"))
                     .setText(R.id.tvNumber, "${item?.studentCount}人口语练习")
         }
     }

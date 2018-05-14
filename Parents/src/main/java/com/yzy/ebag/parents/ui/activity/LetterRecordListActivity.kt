@@ -16,20 +16,23 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.*
 import ebag.mobile.base.BaseListActivity
+import ebag.mobile.base.Constants
 import ebag.mobile.bean.LetterDescBean
+import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.http.EBagApi
 
 /**
  * Created by unicho on 2018/3/13.
  */
-class LetterRecordListActivity: BaseListActivity<LetterDescBean, LetterDescBean.NewWordsBean>() {
+class LetterRecordListActivity : BaseListActivity<LetterDescBean, LetterDescBean.NewWordsBean>() {
     private var unitId = ""
-    private var createDate : Long = 0
+    private var createDate: Long = 0
     private var classId = ""
     private lateinit var headLayout: TextView
     private lateinit var adapter: Adapter
+
     companion object {
-        fun jump(unitId: String, createDate: Long, classId:String, context: Context){
+        fun jump(unitId: String, createDate: Long, classId: String, context: Context) {
             context.startActivity(
                     Intent(context, LetterRecordListActivity::class.java)
                             .putExtra("unitId", unitId)
@@ -38,7 +41,8 @@ class LetterRecordListActivity: BaseListActivity<LetterDescBean, LetterDescBean.
             )
         }
     }
-    private val scoreRequest = object : RequestCallBack<String>(){
+
+    private val scoreRequest = object : RequestCallBack<String>() {
         override fun onStart() {
             LoadingDialogUtil.showLoading(this@LetterRecordListActivity, "正在上传评分")
         }
@@ -55,6 +59,7 @@ class LetterRecordListActivity: BaseListActivity<LetterDescBean, LetterDescBean.
         }
 
     }
+
     override fun loadConfig(intent: Intent) {
         loadMoreEnabled(false)
         setPageTitle("生字默写")
@@ -65,8 +70,8 @@ class LetterRecordListActivity: BaseListActivity<LetterDescBean, LetterDescBean.
         titleBar.setRightText("提交评分", {
             val list = ArrayList<LetterDescBean.NewWordsBean>()
             adapter.data.forEach {
-                if (!StringUtils.isEmpty(it.score)){
-                    if (it.score.toInt() > 100){
+                if (!StringUtils.isEmpty(it.score)) {
+                    if (it.score.toInt() > 100) {
                         T.show(this, "分数范围：0-100")
                         return@setRightText
                     }
@@ -80,7 +85,11 @@ class LetterRecordListActivity: BaseListActivity<LetterDescBean, LetterDescBean.
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<LetterDescBean>) {
-        EBagApi.getLetterDesc(unitId, createDate, classId, requestCallBack)
+        var uid = ""
+        if (packageName.contains("parents")) {
+            uid = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).uid
+        }
+        EBagApi.getLetterDesc(unitId, createDate, classId, requestCallBack, uid)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: LetterDescBean?): List<LetterDescBean.NewWordsBean>? {
@@ -100,7 +109,7 @@ class LetterRecordListActivity: BaseListActivity<LetterDescBean, LetterDescBean.
         return null
     }
 
-    inner class Adapter: BaseQuickAdapter<LetterDescBean.NewWordsBean, BaseViewHolder>(R.layout.item_record_answer_tip){
+    inner class Adapter : BaseQuickAdapter<LetterDescBean.NewWordsBean, BaseViewHolder>(R.layout.item_record_answer_tip) {
         /*val question_type = 1
         val answer_type = 2
         init {
@@ -111,26 +120,27 @@ class LetterRecordListActivity: BaseListActivity<LetterDescBean, LetterDescBean.
         override fun convert(helper: BaseViewHolder, item: LetterDescBean.NewWordsBean?) {
             helper.getView<ImageView>(R.id.img_id).loadHead(item?.headUrl)
             helper.setText(R.id.nameTv, "${item?.name} ${item?.ysbCode}")
-                    .setText(R.id.tvTime, "时间：${DateUtil.getDateTime(item?.createDate ?: 0, "yyyy-MM-dd HH:mm")}")
+                    .setText(R.id.tvTime, "时间：${DateUtil.getDateTime(item?.createDate
+                            ?: 0, "yyyy-MM-dd HH:mm")}")
 
             val recyclerView = helper.getView<RecyclerView>(R.id.recyclerView)
             recyclerView.isNestedScrollingEnabled = false
-            if(recyclerView.adapter == null)
+            if (recyclerView.adapter == null)
                 recyclerView.adapter = ItemAdapter()
-            if(recyclerView.layoutManager == null)
-                recyclerView.layoutManager = GridLayoutManager(mContext,5)
+            if (recyclerView.layoutManager == null)
+                recyclerView.layoutManager = GridLayoutManager(mContext, 5)
             recyclerView.postDelayed({
                 (recyclerView.adapter as ItemAdapter).setNewData(item?.wordUrl?.split(","))
-            },20)
+            }, 20)
 
             val scoreEdit = helper.getView<EditText>(R.id.scoreEdit)
             if (scoreEdit.tag is TextWatcher)
                 scoreEdit.removeTextChangedListener(scoreEdit.tag as TextWatcher)
             scoreEdit.setText(item?.score)
             scoreEdit.isEnabled = !(item?.isBscore ?: true)
-            val textWatcher = object : TextWatcher{
+            val textWatcher = object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
-                    if (!StringUtils.isEmpty(s.toString())){
+                    if (!StringUtils.isEmpty(s.toString())) {
                         item?.score = s.toString()
                     }
                 }
@@ -147,7 +157,7 @@ class LetterRecordListActivity: BaseListActivity<LetterDescBean, LetterDescBean.
 
     }
 
-    inner class ItemAdapter: BaseQuickAdapter<String,BaseViewHolder>(R.layout.item_record_question_image){
+    inner class ItemAdapter : BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_record_question_image) {
         override fun convert(helper: BaseViewHolder, item: String?) {
             helper.getView<ImageView>(R.id.tvChar).loadImage(item)
         }

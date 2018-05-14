@@ -136,12 +136,12 @@ object EBagApi {
     }
 
     /**获取用户的所有所在班级 queryType不传，查询所有所教班级，传“1”：查询教授语文的班级（练字），传“2”：查询教授语文和英语的班级（跟读）*/
-    fun getMyClasses(callback: RequestCallBack<List<BaseClassesBean>>, queryType: String? = null,uid:String? = null) {
+    fun getMyClasses(callback: RequestCallBack<List<BaseClassesBean>>, queryType: String? = null, uid: String? = null) {
         val jsonObject = JSONObject()
-        if (!StringUtils.isEmpty(queryType)){
+        if (!StringUtils.isEmpty(queryType)) {
             jsonObject.put("queryType", queryType)
         }
-        if (!StringUtils.isEmpty(uid)){
+        if (!StringUtils.isEmpty(uid)) {
             jsonObject.put("uid", uid)
         }
         EBagApi.request(eBagService.getMyClasses("v1", EBagApi.createBody(jsonObject)), callback)
@@ -336,11 +336,14 @@ object EBagApi {
     }
 
     /**自习室-生字详情*/
-    fun getLetterDesc(unitId: String, createDate: Long, classId: String, callback: RequestCallBack<LetterDescBean>) {
+    fun getLetterDesc(unitId: String, createDate: Long, classId: String, callback: RequestCallBack<LetterDescBean>, uid: String = "") {
         val jsonObject = JSONObject()
+        jsonObject.put("unitId", unitId)
         jsonObject.put("unitId", unitId)
         jsonObject.put("createDate", createDate)
         jsonObject.put("classId", classId)
+        if (!StringUtils.isEmpty(uid))
+            jsonObject.put("uid", uid)
         EBagApi.request(eBagService.getLetterDesc("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
@@ -359,10 +362,13 @@ object EBagApi {
     }
 
     /**自习室-口语总览列表*/
-    fun getReadRecord(unitCode: String, classId: String, callback: RequestCallBack<List<ReadRecordBaseBean>>) {
+    fun getReadRecord(unitCode: String, classId: String, callback: RequestCallBack<List<ReadRecordBaseBean>>,studentId: String = "") {
         val jsonObject = JSONObject()
         jsonObject.put("unitCode", unitCode)
         jsonObject.put("classId", classId)
+        if (studentId.isNotEmpty()){
+            jsonObject.put("studentId", studentId)
+        }
         EBagApi.request(eBagService.getReadRecord("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
@@ -481,7 +487,7 @@ object EBagApi {
     /**
      * 获取错题详情
      */
-    fun getErrorDetail(homeWorkId: String,uid:String,callback: RequestCallBack<List<TypeQuestionBean>>) {
+    fun getErrorDetail(homeWorkId: String, uid: String, callback: RequestCallBack<List<TypeQuestionBean>>) {
         val jsonObject = JSONObject()
         jsonObject.put("homeWorkId", homeWorkId)
         jsonObject.put("uid", uid)

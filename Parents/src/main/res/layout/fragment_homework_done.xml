@@ -96,8 +96,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:id="@+id/error_btn"
                 android:gravity="center"
-
                 android:orientation="vertical">
 
                 <TextView
@@ -167,7 +167,7 @@
                 android:paddingStart="@dimen/x10"
                 android:id="@+id/error_preview"
                 android:paddingTop="@dimen/y8"
-                android:text="错题预览"
+                android:text="查看作业"
                 android:textColor="#fff" />
 
         </LinearLayout>
@@ -306,7 +306,6 @@
                     android:id="@+id/homework_parents_comment_comfirm"
                     android:layout_weight="1"
                     android:textColor="#fff"
-                    android:layout_marginTop="@dimen/y20"
                     android:gravity="center"
                     android:background="@drawable/homework_item_btn"
                     android:text="评论" />

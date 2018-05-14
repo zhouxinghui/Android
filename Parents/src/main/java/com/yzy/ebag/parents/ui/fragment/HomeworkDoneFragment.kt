@@ -44,7 +44,20 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
         if (data.errorNum == 0) {
             homework_error_layout.visibility = View.GONE
         } else {
-            homework_error_content.text = "${time[1]}月${time[2]}日 本次作业共错${DecimalFormat("0").format(data.errorNum)}道题"
+            var num = 0
+            data.homeWorkRepDetailVos.forEach {
+                num += it.questionNum
+            }
+            homework_error_content.text = "${time[1]}月${time[2]}日 本次作业共${num}道题,做错${data.errorNum}道"
+            error_btn.setOnClickListener {
+                val intent = Intent(activity, HomeworkDescActivity::class.java)
+                intent.putExtra("homeworkId", homeworkId)
+                        .putExtra("testTime", 0)
+                        .putExtra("studentId", SPUtils.get(activity, com.yzy.ebag.parents.common.Constants.CURRENT_CHILDREN_YSBCODE, "") as String)
+                        .putExtra("workType", "")
+                        .putExtra("error", true)
+                startActivity(intent)
+            }
         }
         if (data.teacherComment.isNullOrEmpty()) {
             homework_teacher_layout.visibility = View.GONE
@@ -84,15 +97,9 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
             }
         }
 
-        error_preview.setOnClickListener {
 
-            val intent = Intent(activity, HomeworkDescActivity::class.java)
-            intent.putExtra("homeworkId", homeworkId)
-                    .putExtra("testTime", 0)
-                    .putExtra("studentId", SPUtils.get(activity, com.yzy.ebag.parents.common.Constants.CURRENT_CHILDREN_YSBCODE, "") as String)
-                    .putExtra("workType", "")
-                    .putExtra("error", true)
-            startActivity(intent)
+        error_preview.setOnClickListener {
+            HomeworkDescActivity.jump(activity,homeworkId,"2",(SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid)
         }
 
         homework_gift.setOnClickListener {

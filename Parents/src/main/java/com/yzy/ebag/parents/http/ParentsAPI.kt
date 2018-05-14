@@ -87,10 +87,12 @@ object ParentsAPI {
     }
 
     /**自习室-生字总览列表*/
-    fun getLetterRecord(unitId: String, classId: String, callback: RequestCallBack<List<LetterRecordBaseBean>>) {
+    fun getLetterRecord(unitId: String, classId: String, callback: RequestCallBack<List<LetterRecordBaseBean>>,uid:String = "") {
         val jsonObject = JSONObject()
         if (!StringUtils.isEmpty(unitId))
             jsonObject.put("unitId", unitId)
+        if (!StringUtils.isEmpty(uid))
+            jsonObject.put("uid", uid)
         jsonObject.put("classId", classId)
         EBagApi.request(parentsService.getLetterRecord("v1", EBagApi.createBody(jsonObject)), callback)
     }
@@ -200,9 +202,12 @@ object ParentsAPI {
     /**
      * 查询礼物列表
      */
-    fun getGiftDetail(homeWorkId: String, callback: RequestCallBack<String>) {
+    fun getGiftDetail(homeWorkId: String, callback: RequestCallBack<String>,uid: String = "") {
         val jsonObj = JSONObject()
-        jsonObj.put("givingUid", homeWorkId)
+        jsonObj.put("homeWorkId", homeWorkId)
+        if (uid.isNotEmpty()){
+            jsonObj.put("uid", uid)
+        }
         EBagApi.request(parentsService.getGiftDetail("v1", EBagApi.createBody(jsonObj)), callback)
     }
 

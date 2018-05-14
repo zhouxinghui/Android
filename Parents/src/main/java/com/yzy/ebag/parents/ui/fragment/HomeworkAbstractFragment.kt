@@ -13,6 +13,7 @@ import com.yzy.ebag.parents.ui.widget.DialogOfferPresent
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
+import ebag.core.util.L
 import ebag.core.util.T
 import kotlinx.android.synthetic.main.fragment_homework_abstract.*
 
@@ -69,6 +70,18 @@ class HomeworkAbstractFragment(private val bean: HomeworkAbstractBean, private v
             dialog.show()
 
         }
+
+
+        ParentsAPI.getGiftDetail(homeworkId,object:RequestCallBack<String>(){
+            override fun onSuccess(entity: String?) {
+                L.d("")
+            }
+
+            override fun onError(exception: Throwable) {
+                L.d("")
+            }
+
+        })
 
     }
 }
