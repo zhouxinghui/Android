@@ -1,11 +1,11 @@
-package com.yzy.ebag.teacher.module.personal
+package ebag.mobile.module.personal
 
 import android.content.Context
-import com.yzy.ebag.teacher.R
 import ebag.core.base.BaseDialog
 import ebag.core.util.EditTextLimitUtil
 import ebag.core.util.StringUtils
 import ebag.core.util.T
+import ebag.mobile.R
 import kotlinx.android.synthetic.main.dialog_modify_info.*
 
 /**

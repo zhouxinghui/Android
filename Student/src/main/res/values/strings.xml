@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Student</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="center_personal_avatar">头像</string>
+    <string name="center_personal_name">姓名</string>
+    <string name="center_personal_id">书包号</string>
+    <string name="center_personal_gander">性别</string>
+    <string name="center_personal_contact">联系方式</string>
+    <string name="center_personal_address">家庭地址</string>
+    <string name="center_personal_school">所在学校</string>
+    <string name="center_personal_class">所在班级</string>
+</resources>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:showDividers="middle|end"
+    android:divider="@drawable/center_personal_line">
+    <ebag.mobile.widget.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="个人中心"
+        />
+    <LinearLayout android:id="@+id/llAvatar"
+        style="@style/center_personal_item"
+        android:paddingBottom="@dimen/y15"
+        android:paddingTop="@dimen/y15">
+        <TextView
+            style="@style/center_personal_tip" android:text="@string/center_personal_avatar"/>
+        <View android:layout_weight="1"
+            android:layout_width="0dp" android:layout_height="0dp" />
+        <ImageView android:id="@+id/ivAvatar"
+            android:layout_width="@dimen/y110" android:layout_height="@dimen/y110"
+            android:layout_gravity="end"/>
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/llName" style="@style/center_personal_item">
+        <TextView
+            style="@style/center_personal_tip" android:text="@string/center_personal_name"/>
+
+        <TextView android:id="@+id/tvName"
+            style="@style/center_personal_right_text"
+            tools:text="联系方式"/>
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/llId" style="@style/center_personal_item">
+        <TextView
+            style="@style/center_personal_tip" android:text="@string/center_personal_id"/>
+
+        <TextView android:id="@+id/tvId"
+            style="@style/center_personal_right_text"
+            tools:text="联系方式"/>
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/llGander" style="@style/center_personal_item">
+        <TextView
+            style="@style/center_personal_tip" android:text="@string/center_personal_gander"/>
+
+        <TextView android:id="@+id/tvGender"
+            style="@style/center_personal_right_text"
+            tools:text="联系方式"/>
+
+        <View style="@style/center_personal_more_icon"/>
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/llContact" style="@style/center_personal_item">
+        <TextView
+            style="@style/center_personal_tip" android:text="@string/center_personal_contact"/>
+
+        <TextView android:id="@+id/tvContact"
+            style="@style/center_personal_right_text"
+            tools:text="联系方式"/>
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/llAddress" style="@style/center_personal_item">
+        <TextView
+            style="@style/center_personal_tip" android:text="@string/center_personal_address"/>
+
+        <TextView android:id="@+id/tvAddress"
+            style="@style/center_personal_right_text"
+            tools:text="联系方式"/>
+
+        <View style="@style/center_personal_more_icon"/>
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/llSchool" style="@style/center_personal_item">
+        <TextView
+            style="@style/center_personal_tip" android:text="@string/center_personal_school"/>
+
+        <TextView android:id="@+id/tvSchool"
+            style="@style/center_personal_right_text"
+            tools:text="联系方式"/>
+
+        <View style="@style/center_personal_more_icon"/>
+    </LinearLayout>
+
+    <LinearLayout android:id="@+id/llClass" style="@style/center_personal_item">
+        <TextView
+            style="@style/center_personal_tip" android:text="@string/center_personal_class"/>
+
+        <TextView android:id="@+id/tvClass"
+            style="@style/center_personal_right_text"
+            tools:text="联系方式"/>
+
+        <View style="@style/center_personal_more_icon"/>
+    </LinearLayout>
+
+</LinearLayout>

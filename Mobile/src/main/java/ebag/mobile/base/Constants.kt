@@ -57,6 +57,9 @@ object Constants {
     const val ERROR_TOPIC_TYPE = "5"
     const val REPORT_TYPE = "6"
 
+    const val CLASS_NAME: String = "class_name"
+    const val GRADE_CODE: String = "grade_code"
+
     const val PROVINCE_INDEX = "PROVENCE_INDEX"
     const val CITY_INDEX = "CITY_INDEX"
     const val AREA_INDEX = "AREA_INDEX"
