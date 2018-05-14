@@ -11,7 +11,9 @@ import com.yzy.ebag.parents.ui.fragment.HomeworkAbstractFragment
 import com.yzy.ebag.parents.ui.fragment.HomeworkDoneFragment
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.handleThrowable
-import ebag.core.util.SPUtils
+import ebag.core.util.SerializableUtils
+import ebag.mobile.base.Constants
+import ebag.mobile.bean.MyChildrenBean
 import kotlinx.android.synthetic.main.activity_homeworkreport.*
 
 class HomeworkReportActivity : BaseActivity(), HomeworkReportContract.HomeworkReportView {
@@ -21,20 +23,22 @@ class HomeworkReportActivity : BaseActivity(), HomeworkReportContract.HomeworkRe
     private lateinit var mPersenter: HomeworkReportContract.Presenter
     private lateinit var mHomeworkId: String
     private lateinit var mEndTime: String
+    private lateinit var mType: String
     override fun getLayoutId(): Int = R.layout.activity_homeworkreport
 
     override fun initViews() {
 
         mHomeworkId = intent.getStringExtra("homeworkid")
         mEndTime = intent.getStringExtra("endTime")
+        mType = intent.getStringExtra("type")
         mPersenter = HomeworkReportPersenter(this)
-        mPersenter.request(mHomeworkId, SPUtils.get(this, com.yzy.ebag.parents.common.Constants.CURRENT_CHILDREN_YSBCODE, "") as String)
+        mPersenter.request(mHomeworkId, SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).uid)
     }
 
 
     companion object {
-        fun start(context: Context, homeworkid: String, endTime: String) {
-            context.startActivity(Intent(context, HomeworkReportActivity::class.java).putExtra("homeworkid", homeworkid).putExtra("endTime", endTime))
+        fun start(context: Context, homeworkid: String, endTime: String,type:String) {
+            context.startActivity(Intent(context, HomeworkReportActivity::class.java).putExtra("homeworkid", homeworkid).putExtra("endTime", endTime).putExtra("type",type))
         }
     }
 
@@ -49,7 +53,7 @@ class HomeworkReportActivity : BaseActivity(), HomeworkReportContract.HomeworkRe
     override fun <T> showContent(data: T?) {
 
         mFragmentList.add(HomeworkAbstractFragment(data as HomeworkAbstractBean, mEndTime,mHomeworkId))
-        mFragmentList.add(HomeworkDoneFragment(data as HomeworkAbstractBean,mEndTime,mHomeworkId))
+        mFragmentList.add(HomeworkDoneFragment(data as HomeworkAbstractBean,mEndTime,mHomeworkId,mType))
         tablayout.setViewPager(viewpager, titleArray, this, mFragmentList)
         stateview.showContent()
     }

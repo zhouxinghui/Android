@@ -49,15 +49,18 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
                 if ((adapter.getItem(position) as OnePageInfoBean.HomeWorkInfoVosBean).state == "0") {
                     HomeworkDescActivity.jump(activity, homeworkdatas[position].id, "2", (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid)
                 } else {
-                    HomeworkReportActivity.start(activity, homeworkdatas[position].id, homeworkdatas[position].endTime)
+                    HomeworkReportActivity.start(activity, homeworkdatas[position].id, homeworkdatas[position].endTime, "2")
                 }
             }
 
         } else {
             recyclerview.adapter = mAdapter
             mAdapter.setOnItemClickListener { adapter, view, position ->
-
-                HomeworkDescActivity.jump(activity, datas[position].id, "4", childrenBean.uid)
+                if ((adapter.getItem(position) as SubjectBean.HomeWorkInfoBean).state.toInt() > 1) {
+                    HomeworkReportActivity.start(activity, datas[position].id, datas[position].endTime, "4")
+                } else {
+                    HomeworkDescActivity.jump(activity, datas[position].id, "4", childrenBean.uid)
+                }
             }
         }
 

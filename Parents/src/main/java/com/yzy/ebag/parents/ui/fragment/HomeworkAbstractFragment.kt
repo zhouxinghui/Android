@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.yzy.ebag.parents.R
+import com.yzy.ebag.parents.bean.GiftListBean
 import com.yzy.ebag.parents.bean.HomeworkAbstractBean
 import com.yzy.ebag.parents.http.ParentsAPI
 import com.yzy.ebag.parents.mvp.model.HomeworkAbsModel
@@ -13,7 +14,6 @@ import com.yzy.ebag.parents.ui.widget.DialogOfferPresent
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
-import ebag.core.util.L
 import ebag.core.util.T
 import kotlinx.android.synthetic.main.fragment_homework_abstract.*
 
@@ -57,8 +57,8 @@ class HomeworkAbstractFragment(private val bean: HomeworkAbstractBean, private v
             dialog.setOnOfferSuccessListener { bean ->
                 ParentsAPI.giveYsbMoneyGifg2User(bean, object : RequestCallBack<String>() {
                     override fun onSuccess(entity: String?) {
-                        T.show(activity,"赠送成功")
-
+                        T.show(activity, "赠送成功")
+                        queryGiftList()
                     }
 
                     override fun onError(exception: Throwable) {
@@ -72,16 +72,24 @@ class HomeworkAbstractFragment(private val bean: HomeworkAbstractBean, private v
         }
 
 
-        ParentsAPI.getGiftDetail(homeworkId,object:RequestCallBack<String>(){
-            override fun onSuccess(entity: String?) {
-                L.d("")
+        queryGiftList()
+
+    }
+
+    private fun queryGiftList() {
+        ParentsAPI.getGiftDetail(homeworkId, object : RequestCallBack<List<GiftListBean>>() {
+            override fun onSuccess(entity: List<GiftListBean>?) {
+                val stringb = StringBuilder()
+                entity?.forEach {
+                    stringb.append("${it.giftName}*${it.giftNum};")
+                }
+                gift_record.text = stringb.toString()
             }
 
             override fun onError(exception: Throwable) {
-                L.d("")
+
             }
 
         })
-
     }
 }

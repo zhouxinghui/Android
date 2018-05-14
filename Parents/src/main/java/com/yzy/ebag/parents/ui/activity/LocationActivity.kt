@@ -67,7 +67,7 @@ class LocationActivity : BaseActivity() {
         locationTv = myLocationView.findViewById(R.id.location_detail)
         childLocationTv = childView.findViewById(R.id.location_detail)
         val imgView = myLocationView.findViewById<ImageView>(R.id.head_img_id)
-        val childImg = myLocationView.findViewById<ImageView>(R.id.head_img_id)
+        val childImg = childView.findViewById<ImageView>(R.id.head_img_id)
         imgView.loadHead(SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).headUrl)
         childImg.loadHead(SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).headUrl)
         location = LocationClient(this)

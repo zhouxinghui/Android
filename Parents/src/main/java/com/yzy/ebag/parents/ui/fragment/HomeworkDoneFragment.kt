@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.fragment_homework_done.*
 import java.text.DecimalFormat
 
 @SuppressLint("ValidFragment")
-class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val endTime: String, private val homeworkId: String) : BaseFragment() {
+class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val endTime: String, private val homeworkId: String, private val mType: String) : BaseFragment() {
 
     override fun getLayoutRes(): Int = R.layout.fragment_homework_done
 
@@ -47,7 +47,12 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
         data.homeWorkRepDetailVos.forEach {
             num += it.questionNum
         }
-        homework_error_content.text = "${time[1]}月${time[2]}日 本次作业共${num}道题,做错${data.errorNum}道"
+
+        try {
+            homework_error_content.text = "${time[1]}月${time[2]}日 本次作业共${num}道题,做错${data.errorNum}道"
+        } catch (e: Exception) {
+            homework_error_content.text = "本次作业共${num}道题,做错${data.errorNum}道"
+        }
 
         if (data.errorNum > 0)
             error_btn.setOnClickListener {
@@ -100,7 +105,7 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
 
 
         error_preview.setOnClickListener {
-            HomeworkDescActivity.jump(activity, homeworkId, "2", (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid)
+            HomeworkDescActivity.jump(activity, homeworkId, mType, (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid)
         }
 
         homework_gift.setOnClickListener {

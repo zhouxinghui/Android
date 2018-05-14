@@ -202,7 +202,7 @@ object ParentsAPI {
     /**
      * 查询礼物列表
      */
-    fun getGiftDetail(homeWorkId: String, callback: RequestCallBack<String>,uid: String = "") {
+    fun getGiftDetail(homeWorkId: String, callback: RequestCallBack<List<GiftListBean>>,uid: String = "") {
         val jsonObj = JSONObject()
         jsonObj.put("homeWorkId", homeWorkId)
         if (uid.isNotEmpty()){
