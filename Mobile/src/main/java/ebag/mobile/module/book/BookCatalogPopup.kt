@@ -66,7 +66,7 @@ class BookCatalogPopup(context: Context): PopupWindow(context) {
         recyclerView.adapter = adapter
 
         adapter.setOnItemClickListener { _, _, position ->
-            onCategoryClick?.invoke(adapter.data[position].p)
+            onCategoryClick?.invoke(adapter.data[position].p - 1)
         }
     }
 
