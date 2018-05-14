@@ -38,7 +38,7 @@ class MainFragment : BaseFragment() {
     private lateinit var homeworkData: ArrayList<OnePageInfoBean>
     private lateinit var mAdapter: MainAdapter
     var init = false
-    private lateinit var request:RequestCallBack<List<OnePageInfoBean>>
+    private lateinit var request: RequestCallBack<List<OnePageInfoBean>>
 
     companion object {
         fun newInstance(): MainFragment {
@@ -76,6 +76,41 @@ class MainFragment : BaseFragment() {
         mainRVAdapter = MainRVAdapter(dataList)
         main_rv.layoutManager = GridLayoutManager(activity, 3)
         main_rv.adapter = mainRVAdapter
+
+
+        mainRVAdapter.setOnItemClickListener { adapter, view, position ->
+
+            when (position) {
+                4 -> activity.startActivityForResult(Intent(activity, ChooseChildrenActivity::class.java).putExtra("flag", false), 998)
+                1 -> ExcitationActivity.start(activity)
+                5 -> PerformanceDialog(activity).show()
+                3 -> ZixiActivity.jump(activity)
+                2 -> PaperActivity.start(activity, "4")
+                0 -> ErrorBookActivity.start(activity)
+            }
+        }
+
+        viewpager.adapter = mAdapter
+        tablayout.setViewPager(viewpager)
+
+        viewpager.setOnTouchListener { _, event ->
+            if (event!!.action == MotionEvent.ACTION_DOWN) {
+                val data = homeworkData[tablayout.currentTab].homeWorkInfoVos
+                if (data.size != 0) {
+                    val i = Intent(activity, HomeworkListActivity::class.java)
+                    i.putExtra("datas", data as Serializable)
+                    i.putExtra("subject", homeworkData[tablayout.currentTab].subject)
+                    startActivity(i)
+                }
+            }
+            false
+        }
+
+        allhomework.setOnClickListener {
+            PaperActivity.start(activity, "2")
+        }
+
+        init = true
 
         request = object : RequestCallBack<List<OnePageInfoBean>>() {
 
@@ -137,39 +172,6 @@ class MainFragment : BaseFragment() {
 
         }
 
-        mainRVAdapter.setOnItemClickListener { adapter, view, position ->
-
-            when (position) {
-                4 -> activity.startActivityForResult(Intent(activity, ChooseChildrenActivity::class.java).putExtra("flag", false), 998)
-                1 -> ExcitationActivity.start(activity)
-                5 -> PerformanceDialog(activity).show()
-                3 -> ZixiActivity.jump(activity)
-                2 -> PaperActivity.start(activity, "4")
-                0 -> ErrorBookActivity.start(activity)
-            }
-        }
-
-        viewpager.adapter = mAdapter
-        tablayout.setViewPager(viewpager)
-
-        viewpager.setOnTouchListener { v, event ->
-            if (event!!.action == MotionEvent.ACTION_DOWN) {
-                val data = homeworkData[tablayout.currentTab].homeWorkInfoVos
-                if (data.size != 0) {
-                    val i = Intent(activity, HomeworkListActivity::class.java)
-                    i.putExtra("datas", data as Serializable)
-                    i.putExtra("subject", homeworkData[tablayout.currentTab].subject)
-                    startActivity(i)
-                }
-            }
-            false
-        }
-
-        allhomework.setOnClickListener {
-            PaperActivity.start(activity, "2")
-        }
-
-        init = true
         getOnePageInfo()
 
 
@@ -177,7 +179,7 @@ class MainFragment : BaseFragment() {
 
     fun getOnePageInfo() {
 
-        ParentsAPI.onePageInfo(SPUtils.get(activity, Constants.CURRENT_CHILDREN_YSBCODE, "") as String,request)
+        ParentsAPI.onePageInfo(SPUtils.get(activity, Constants.CURRENT_CHILDREN_YSBCODE, "") as String, request)
 
     }
 

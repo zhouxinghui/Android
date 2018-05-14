@@ -142,7 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/y30"
-                android:text="错题"
+                android:text="作业详情"
                 android:textColor="#000"
                 android:textSize="@dimen/x13"
                 android:textStyle="bold" />
@@ -316,6 +316,7 @@
             <TextView
                 android:id="@+id/homework_parents_btn"
                 android:layout_width="wrap_content"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginTop="@dimen/y80"

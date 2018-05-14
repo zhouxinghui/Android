@@ -14,8 +14,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/y20"
-    android:paddingBottom="@dimen/y20"
+    android:paddingTop="@dimen/y30"
+    android:paddingBottom="@dimen/y30"
     android:paddingEnd="@dimen/x15"
     android:paddingStart="@dimen/x15">
 
@@ -104,6 +104,7 @@
         android:text="查看作业"
         android:id="@+id/homework_item_btn"
         android:paddingTop="@dimen/y10"
+        android:layout_marginTop="@dimen/y20"
         android:paddingBottom="@dimen/y10"
         android:textColor="@color/white"
         android:layout_gravity="end"

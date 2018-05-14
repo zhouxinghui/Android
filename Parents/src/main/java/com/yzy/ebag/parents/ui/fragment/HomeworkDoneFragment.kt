@@ -22,6 +22,7 @@ import ebag.core.util.StringUtils
 import ebag.core.util.T
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.MyChildrenBean
+import ebag.mobile.bean.UserEntity
 import ebag.mobile.module.homework.HomeworkDescActivity
 import kotlinx.android.synthetic.main.fragment_homework_done.*
 import java.text.DecimalFormat
@@ -41,14 +42,14 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
         homework_top.text = setSpan("${data.maxScore}分")
         homework_error.text = setSpan(DecimalFormat("0").format(data.errorNum) + "道")
         val time = endTime.split(" ")[0].split("-")
-        if (data.errorNum == 0) {
-            homework_error_layout.visibility = View.GONE
-        } else {
-            var num = 0
-            data.homeWorkRepDetailVos.forEach {
-                num += it.questionNum
-            }
-            homework_error_content.text = "${time[1]}月${time[2]}日 本次作业共${num}道题,做错${data.errorNum}道"
+
+        var num = 0
+        data.homeWorkRepDetailVos.forEach {
+            num += it.questionNum
+        }
+        homework_error_content.text = "${time[1]}月${time[2]}日 本次作业共${num}道题,做错${data.errorNum}道"
+
+        if (data.errorNum > 0)
             error_btn.setOnClickListener {
                 val intent = Intent(activity, HomeworkDescActivity::class.java)
                 intent.putExtra("homeworkId", homeworkId)
@@ -58,7 +59,7 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
                         .putExtra("error", true)
                 startActivity(intent)
             }
-        }
+
         if (data.teacherComment.isNullOrEmpty()) {
             homework_teacher_layout.visibility = View.GONE
         } else {
@@ -99,7 +100,7 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
 
 
         error_preview.setOnClickListener {
-            HomeworkDescActivity.jump(activity,homeworkId,"2",(SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid)
+            HomeworkDescActivity.jump(activity, homeworkId, "2", (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid)
         }
 
         homework_gift.setOnClickListener {
@@ -119,6 +120,22 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
                 }, SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).uid)
             }
             dialog.show(1)
+        }
+
+
+        homework_parents_btn.setOnClickListener {
+            ParentsAPI.parentComment(SPUtils.get(activity, com.yzy.ebag.parents.common.Constants.CURRENT_CHILDREN_YSBCODE, "") as String, homeworkId, SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).name, false, object : RequestCallBack<String>() {
+
+                override fun onSuccess(entity: String?) {
+
+                }
+
+                override fun onError(exception: Throwable) {
+
+                }
+
+            })
+
         }
     }
 
