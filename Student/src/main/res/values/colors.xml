@@ -5,4 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="color_dialog_add_class_title">#7ED321</color>
+    <!--作业列表-->
+    <color name="color_homework_normal">#888888</color>
+    <color name="color_homework_selected">#ff7800</color>
 </resources>

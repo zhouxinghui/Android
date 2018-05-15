@@ -15,7 +15,7 @@ import com.yzy.ebag.student.bean.ClassListInfoBean
 import com.yzy.ebag.student.bean.ClassesInfoBean
 import com.yzy.ebag.student.http.StudentApi
 import com.yzy.ebag.student.module.personal.ClassesDialog
-import com.yzy.ebag.student.module.personal.MyMissionActivity
+import com.yzy.ebag.student.module.mission.MyMissionActivity
 import com.yzy.ebag.student.module.personal.PersonalInfoActivity
 import com.yzy.ebag.student.util.StatusUtil
 import ebag.core.http.network.MsgException
