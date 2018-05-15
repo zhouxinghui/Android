@@ -41,7 +41,7 @@ class HomeworkAbstractFragment(private val bean: HomeworkAbstractBean, private v
         labelArray.forEachIndexed { index, s ->
             when (index) {
                 0 -> dataList.add(HomeworkAbsModel(s, endTime))
-                1 -> dataList.add(HomeworkAbsModel(s, bean.unitName ?: ""))
+                1 -> dataList.add(HomeworkAbsModel(s, bean.content ?: ""))
                 2 -> dataList.add(HomeworkAbsModel(s, bean.remark ?: ""))
                 3 -> dataList.add(HomeworkAbsModel(s, sb.toString()))
             }
@@ -51,7 +51,7 @@ class HomeworkAbstractFragment(private val bean: HomeworkAbstractBean, private v
         adapter = HomeworkAbstractAdapter(dataList)
         recyclerview.adapter = adapter
 
-        thanks.setOnClickListener {
+        homework_gift.setOnClickListener {
 
             val dialog = DialogOfferPresent(activity, 0, homeworkId)
             dialog.setOnOfferSuccessListener { bean ->
@@ -83,12 +83,14 @@ class HomeworkAbstractFragment(private val bean: HomeworkAbstractBean, private v
     private fun queryGiftList() {
         ParentsAPI.getGiftDetail(homeworkId, object : RequestCallBack<List<GiftListBean>>() {
             override fun onSuccess(entity: List<GiftListBean>?) {
-                val stringb = StringBuilder()
-                stringb.append("已赠送:")
-                entity?.forEach {
-                    stringb.append("${it.giftName}*${it.giftNum};")
+                if (entity!!.isNotEmpty()) {
+                    val stringb = StringBuilder()
+                    stringb.append("已赠送:")
+                    entity.forEach {
+                        stringb.append("${it.giftName}*${it.giftNum};")
+                    }
+                    gift_record.text = stringb.toString()
                 }
-                gift_record.text = stringb.toString()
             }
 
             override fun onError(exception: Throwable) {

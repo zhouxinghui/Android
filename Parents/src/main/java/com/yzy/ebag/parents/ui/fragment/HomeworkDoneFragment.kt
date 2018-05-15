@@ -150,12 +150,15 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
     private fun queryGiftList() {
         ParentsAPI.getGiftDetail(homeworkId, object : RequestCallBack<List<GiftListBean>>() {
             override fun onSuccess(entity: List<GiftListBean>?) {
-                val stringb = StringBuilder()
-                stringb.append("已赠送:")
-                entity?.forEach {
-                    stringb.append("${it.giftName}*${it.giftNum};")
+
+                if (entity!!.isNotEmpty()) {
+                    val stringb = StringBuilder()
+                    stringb.append("已赠送:")
+                    entity?.forEach {
+                        stringb.append("${it.giftName}*${it.giftNum};")
+                    }
+                    gift_record.text = stringb.toString()
                 }
-                gift_record.text = stringb.toString()
             }
 
             override fun onError(exception: Throwable) {

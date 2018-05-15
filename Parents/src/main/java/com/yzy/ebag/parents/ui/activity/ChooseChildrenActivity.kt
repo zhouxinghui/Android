@@ -47,6 +47,7 @@ class ChooseChildrenActivity : BaseActivity(), ChooseChildrenContract.ChooseChil
         stateview.setOnRetryClickListener { mPersenter.start() }
         mAdapter = ChooseChildrenAdapter(mData)
         mAdapter.uid = SPUtils.get(this, Constants.CURRENT_CHILDREN_YSBCODE, "") as String
+        mAdapter.setHasStableIds(true)
         recyclerView.adapter = mAdapter
         mPersenter.start()
 
@@ -55,7 +56,7 @@ class ChooseChildrenActivity : BaseActivity(), ChooseChildrenContract.ChooseChil
                 SerializableUtils.setSerializable(ebag.mobile.base.Constants.CHILD_USER_ENTITY, mAdapter.getItem(position))
                 SPUtils.put(this, Constants.CURRENT_CHILDREN_YSBCODE, mAdapter.getItem(position)!!.uid)
                 mAdapter.uid = SPUtils.get(this, Constants.CURRENT_CHILDREN_YSBCODE, "") as String
-                mAdapter.notifyDataSetChanged()
+                mAdapter.notifyItemRangeChanged(0,mData.size)
             }
 
             if (flag) {

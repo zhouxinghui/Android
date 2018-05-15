@@ -64,10 +64,6 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
         val bookList: ArrayList<String> = arrayListOf()
         val newList: ArrayList<StudentSubjectBean> = arrayListOf()
 
-        /*val yyList = datas.filter {
-            it.bookName == "语文"
-        }
-*/
         datas.forEach {
             if (!bookList.contains(it.bookName)){
                 bookList.add(it.bookName)

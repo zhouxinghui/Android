@@ -21,6 +21,16 @@ public class HomeworkAbstractBean {
     private double totalScore;
     private double maxScore;
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    private String content;
+
     public String getRemark() {
         return remark;
     }

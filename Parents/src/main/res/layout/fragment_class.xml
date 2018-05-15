@@ -102,18 +102,19 @@
 
             </LinearLayout>
 
-
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/y20"
+                android:paddingEnd="@dimen/x10"
+                android:paddingStart="@dimen/x10"
+                android:layout_height="wrap_content">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/y20"
-                android:ellipsize="end"
-                android:paddingEnd="@dimen/x10"
-                android:paddingStart="@dimen/x10"
                 android:id="@+id/content"
                 android:textSize="@dimen/tv_sub"
                 tools:text="去春游去春游去春游去春游去春游去春游去春游去春游去春游去春游去春游去春游" />
-
+            </ScrollView>
 
         </LinearLayout>
 
