@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.yzy.ebag.student.bean.ClassListInfoBean
@@ -16,6 +17,7 @@ import com.yzy.ebag.student.bean.ClassesInfoBean
 import com.yzy.ebag.student.http.StudentApi
 import com.yzy.ebag.student.module.mission.MyMissionActivity
 import com.yzy.ebag.student.module.personal.*
+import com.yzy.ebag.student.module.tools.ToolsActivity
 import com.yzy.ebag.student.util.StatusUtil
 import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
@@ -29,8 +31,9 @@ import ebag.mobile.bean.UserEntity
 import ebag.mobile.module.shop.YBActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -59,6 +62,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         clazzTv.setOnClickListener {
             classesDialog.show(classesInfo, classId)
         }
+        btnDailyPractice.setOnClickListener(this)
         request()
         initUserInfo()
     }
@@ -166,5 +170,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.btnDailyPractice ->{
+                ToolsActivity.jump(this)
+            }
+        }
     }
 }

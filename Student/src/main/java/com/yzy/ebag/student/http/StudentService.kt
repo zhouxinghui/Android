@@ -37,4 +37,8 @@ interface StudentService {
 
     @POST("user/addUserPositioning/{version}")
     fun uploadLocation(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
+
+    /**数学公式*/
+    @POST("util/queryFormulaTool/{version}")
+    fun formula(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<FormulaTypeBean>>>
 }

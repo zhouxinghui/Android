@@ -7,5 +7,16 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.yzy.ebag.student.MainActivity"
     tools:showIn="@layout/app_bar_main">
-
+    <ebag.core.widget.FlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <TextView android:id="@+id/btnDailyPractice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="学习工具"
+            android:padding="10dp"
+            android:background="?attr/selectableItemBackground"
+            />
+    </ebag.core.widget.FlowLayout>
 </android.support.constraint.ConstraintLayout>

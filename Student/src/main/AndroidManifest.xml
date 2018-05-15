@@ -69,6 +69,10 @@
             />
         <activity android:name=".module.personal.UploadLocationActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".module.tools.ToolsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".module.tools.MathFormulaActivity"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name="com.baidu.trace.LBSTraceService"
