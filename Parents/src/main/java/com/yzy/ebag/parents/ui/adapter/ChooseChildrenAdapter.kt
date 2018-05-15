@@ -26,6 +26,8 @@ class ChooseChildrenAdapter(data: List<MyChildrenBean>) : BaseQuickAdapter<MyChi
             helper.setGone(R.id.child_select, false)
         }
 
+
     }
+
 
 }

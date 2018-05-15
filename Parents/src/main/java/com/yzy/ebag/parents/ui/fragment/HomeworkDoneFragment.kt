@@ -112,17 +112,21 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
 
             val dialog = DialogOfferPresent(activity, 1, homeworkId)
             dialog.setOnOfferSuccessListener { bean ->
-                ParentsAPI.giveYsbMoneyGifg2User(bean, object : RequestCallBack<String>() {
-                    override fun onSuccess(entity: String?) {
-                        T.show(activity, "赠送成功")
+                if (bean.giftVos.isNotEmpty()) {
+                    ParentsAPI.giveYsbMoneyGifg2User(bean, object : RequestCallBack<String>() {
+                        override fun onSuccess(entity: String?) {
+                            T.show(activity, "赠送成功")
 
-                    }
+                        }
 
-                    override fun onError(exception: Throwable) {
-                        exception.handleThrowable(activity)
-                    }
+                        override fun onError(exception: Throwable) {
+                            exception.handleThrowable(activity)
+                        }
 
-                }, SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).uid)
+                    }, SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).uid)
+                } else {
+                    T.show(activity, "未选择礼物")
+                }
             }
             dialog.show(1)
         }
