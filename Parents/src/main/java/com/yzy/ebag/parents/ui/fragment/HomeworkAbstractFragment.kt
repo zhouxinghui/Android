@@ -84,6 +84,7 @@ class HomeworkAbstractFragment(private val bean: HomeworkAbstractBean, private v
         ParentsAPI.getGiftDetail(homeworkId, object : RequestCallBack<List<GiftListBean>>() {
             override fun onSuccess(entity: List<GiftListBean>?) {
                 val stringb = StringBuilder()
+                stringb.append("已赠送:")
                 entity?.forEach {
                     stringb.append("${it.giftName}*${it.giftNum};")
                 }

@@ -10,6 +10,7 @@ import android.text.style.AbsoluteSizeSpan
 import android.text.style.ForegroundColorSpan
 import android.view.View
 import com.yzy.ebag.parents.R
+import com.yzy.ebag.parents.bean.GiftListBean
 import com.yzy.ebag.parents.bean.HomeworkAbstractBean
 import com.yzy.ebag.parents.http.ParentsAPI
 import com.yzy.ebag.parents.ui.widget.DialogOfferPresent
@@ -82,6 +83,8 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
             homework_parents_comment.text = data.parentComment
         }
 
+        homework_parents_name.text = "${SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).name}家长"
+
 
         homework_parents_comment_comfirm.setOnClickListener {
             if (StringUtils.isEmpty(homework_parents_edit.text.toString())) {
@@ -116,7 +119,7 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
                     ParentsAPI.giveYsbMoneyGifg2User(bean, object : RequestCallBack<String>() {
                         override fun onSuccess(entity: String?) {
                             T.show(activity, "赠送成功")
-
+                            queryGiftList()
                         }
 
                         override fun onError(exception: Throwable) {
@@ -131,21 +134,8 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
             dialog.show(1)
         }
 
+        queryGiftList()
 
-        homework_parents_btn.setOnClickListener {
-            ParentsAPI.parentComment(SPUtils.get(activity, com.yzy.ebag.parents.common.Constants.CURRENT_CHILDREN_YSBCODE, "") as String, homeworkId, SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).name, false, object : RequestCallBack<String>() {
-
-                override fun onSuccess(entity: String?) {
-
-                }
-
-                override fun onError(exception: Throwable) {
-
-                }
-
-            })
-
-        }
     }
 
     private fun setSpan(text: String): SpannableStringBuilder {
@@ -155,6 +145,24 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
         if (text.contains("道"))
             ssb.setSpan(ForegroundColorSpan(Color.parseColor("#ff7500")), 0, text.length - 1, Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
         return ssb
+    }
+
+    private fun queryGiftList() {
+        ParentsAPI.getGiftDetail(homeworkId, object : RequestCallBack<List<GiftListBean>>() {
+            override fun onSuccess(entity: List<GiftListBean>?) {
+                val stringb = StringBuilder()
+                stringb.append("已赠送:")
+                entity?.forEach {
+                    stringb.append("${it.giftName}*${it.giftNum};")
+                }
+                gift_record.text = stringb.toString()
+            }
+
+            override fun onError(exception: Throwable) {
+
+            }
+
+        }, SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).uid)
     }
 
 }
