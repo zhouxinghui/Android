@@ -1,5 +1,6 @@
 package com.yzy.ebag.parents.ui.adapter
 
+import android.graphics.Color
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.parents.R
@@ -15,6 +16,11 @@ class HomeworkListAdapter(data: List<OnePageInfoBean.HomeWorkInfoVosBean>) : Bas
             "2" -> helper.setText(R.id.homework_item_state, "已批改")
             "3" -> helper.setText(R.id.homework_item_state, "老师评语完成")
             "4" -> helper.setText(R.id.homework_item_state, "家长签名和评语完成")
+        }
+        if (item.state == "0"){
+            helper.setTextColor(R.id.homework_item_state,Color.BLACK)
+        }else{
+            helper.setTextColor(R.id.homework_item_state,Color.GRAY)
         }
         helper.setText(R.id.homework_item_endtime, item.endTime)
                 .setText(R.id.homework_item_content, item.content)

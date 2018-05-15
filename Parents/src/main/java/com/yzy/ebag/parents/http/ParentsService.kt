@@ -75,7 +75,7 @@ interface ParentsService {
     /**
      * 查科目
      */
-    @POST("clazz/getTaughtCourses/{version}")
+    @POST("clazz/getClassCourses/{version}")
     fun getTaughtCourses(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<StudentSubjectBean>>>
 
     @POST("user/giveYsbMoneyGift2User/{version}")

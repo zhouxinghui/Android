@@ -61,20 +61,8 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
 
     override fun showSubject(datas: List<StudentSubjectBean>) {
 
-        val bookList: ArrayList<String> = arrayListOf()
-        val newList: ArrayList<StudentSubjectBean> = arrayListOf()
-
-        datas.forEach {
-            if (!bookList.contains(it.bookName)){
-                bookList.add(it.bookName)
-                newList.add(it)
-            }
-        }
-
-
         subjectDatas.clear()
-        mSubjectAdapter.bookList.clear()
-        subjectDatas.addAll(newList)
+        subjectDatas.addAll(datas)
         mSubjectAdapter.notifyDataSetChanged()
     }
 
@@ -128,15 +116,11 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
 
 
     inner class SubjectChooseAdapter(datas: List<StudentSubjectBean>) : BaseQuickAdapter<StudentSubjectBean, BaseViewHolder>(R.layout.item_subject_choice, datas) {
-        var bookList: ArrayList<String> = arrayListOf()
         var selectedPosition: Int = 0
 
         override fun convert(helper: BaseViewHolder, item: StudentSubjectBean?) {
             helper.getView<TextView>(R.id.subject_tv).isSelected = helper.layoutPosition == selectedPosition
-            if (!bookList.contains(item!!.bookName)) {
-                bookList.add(item.bookName)
-                helper.setText(R.id.subject_tv, item.bookName)
-            }
+            helper.setText(R.id.subject_tv, item?.subName)
 
         }
 

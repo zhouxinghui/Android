@@ -24,16 +24,18 @@ import kotlinx.android.synthetic.main.activity_letter_record.*
 /**
  * Created by YZY on 2018/4/24.
  */
-class ZixiRecordActivity: BaseActivity() {
+class ZixiRecordActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_letter_record
+
     companion object {
-        fun jump(context: Context, queryType: String){
+        fun jump(context: Context, queryType: String) {
             context.startActivity(Intent(context, ZixiRecordActivity::class.java)
                     .putExtra("queryType", queryType)
             )
         }
     }
-    private val request = object : RequestCallBack<EditionBean>(){
+
+    private val request = object : RequestCallBack<EditionBean>() {
         override fun onStart() {
 
         }
@@ -47,7 +49,7 @@ class ZixiRecordActivity: BaseActivity() {
             val unitListt = entity?.resultBookUnitOrCatalogVos as ArrayList
             unitListt.forEach {
                 val subList = it.resultBookUnitOrCatalogVos
-                if (subList.isEmpty()){
+                if (subList.isEmpty()) {
                     val subBean = UnitBean.UnitSubBean()
                     subBean.id = it.id
                     subBean.code = it.code
@@ -85,7 +87,7 @@ class ZixiRecordActivity: BaseActivity() {
     private var clazzListPopup: ClazzListPopup? = null
     private val bookVersionPopup by lazy {
         val popup = PreparebookversionPopup(this)
-        popup.onConfirmClick = {versionName, versionId, semesterCode, semesterName, subCode, subName ->
+        popup.onConfirmClick = { versionName, versionId, semesterCode, semesterName, subCode, subName ->
             textbookTv.text = "$subName-$versionName-$semesterName"
             isVersionRequest = true
             EBagApi.getUnit(versionId, request)
@@ -95,7 +97,7 @@ class ZixiRecordActivity: BaseActivity() {
     private val unitPopup by lazy {
         val popup = UnitPopupWindow(this)
         popup.setTotalTvGone(true)
-        popup.onConfirmClick = {name, unitBean ->
+        popup.onConfirmClick = { name, unitBean ->
             unitTv.text = name
             unitId = unitBean?.unitCode ?: ""
             if (queryType == "1")
@@ -107,7 +109,7 @@ class ZixiRecordActivity: BaseActivity() {
     }
     private var queryType = "1"
     override fun initViews() {
-        if (classId.isEmpty()){
+        if (classId.isEmpty()) {
             stateview.showEmpty("未加入班级")
             return
         }
@@ -117,25 +119,28 @@ class ZixiRecordActivity: BaseActivity() {
         if (queryType == "1") {
             supportFragmentManager.beginTransaction().replace(R.id.fragmentLayout, letterFragment).commitAllowingStateLoss()
             titleBar.setTitle("每日练字")
-        }else{
+        } else {
             supportFragmentManager.beginTransaction().replace(R.id.fragmentLayout, readFragment).commitAllowingStateLoss()
             titleBar.setTitle("每日跟读")
         }
-        clazzBtn.setOnClickListener {
-            if(clazzListPopup == null){
-                val bean = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY)
-                clazzListPopup = ClazzListPopup(this,bean.uid)
-                clazzListPopup?.onClassSelectListener = {
-                    clazzTv.text = it.className
-                    classId = it.classId
-                    unitList.clear()
-                    unitTv.text = ""
-                    textbookTv.text = ""
-                    isVersionRequest = false
-                    request()
+
+        if (!packageName.contains("parents")) {
+            clazzBtn.setOnClickListener {
+                if (clazzListPopup == null) {
+                    val bean = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY)
+                    clazzListPopup = ClazzListPopup(this, bean.uid)
+                    clazzListPopup?.onClassSelectListener = {
+                        clazzTv.text = it.className
+                        classId = it.classId
+                        unitList.clear()
+                        unitTv.text = ""
+                        textbookTv.text = ""
+                        isVersionRequest = false
+                        request()
+                    }
                 }
+                clazzListPopup?.showAsDropDown(clazzBtn)
             }
-            clazzListPopup?.showAsDropDown(clazzBtn)
         }
         unitBtn.setOnClickListener {
             unitPopup.setData(unitList)
@@ -147,7 +152,7 @@ class ZixiRecordActivity: BaseActivity() {
         }
     }
 
-    private fun request(){
+    private fun request() {
         EBagApi.getUnit(classId, if (queryType == "1") subCode else "", request)
     }
 }
