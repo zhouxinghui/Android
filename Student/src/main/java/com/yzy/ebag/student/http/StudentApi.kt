@@ -2,6 +2,7 @@ package com.yzy.ebag.student.http
 
 import com.yzy.ebag.student.bean.ClassesInfoBean
 import com.yzy.ebag.student.bean.LabourBean
+import com.yzy.ebag.student.bean.ParentBean
 import com.yzy.ebag.student.bean.SubjectBean
 import ebag.core.http.network.RequestCallBack
 import ebag.mobile.http.EBagApi
@@ -40,5 +41,19 @@ object StudentApi {
         jsonObj.put("page", page)
         jsonObj.put("pageSize", pageSize)
         EBagApi.request(studentService.subjectWorkList("v1", EBagApi.createBody(jsonObj)), callback)
+    }
+
+    /**查询家长*/
+    fun searchFamily(callback: RequestCallBack<List<ParentBean>>) {
+        val jsonObject = JSONObject()
+        EBagApi.request(studentService.searchFamily("1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**绑定家长*/
+    fun bindParent(ysbCode: String, relationType: String, callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("ysbCode", ysbCode)
+        jsonObject.put("relationType", relationType)
+        EBagApi.request(studentService.bindParent("1", EBagApi.createBody(jsonObject)), callback)
     }
 }

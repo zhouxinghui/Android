@@ -2,6 +2,7 @@ package com.yzy.ebag.student.http
 
 import com.yzy.ebag.student.bean.ClassesInfoBean
 import com.yzy.ebag.student.bean.LabourBean
+import com.yzy.ebag.student.bean.ParentBean
 import com.yzy.ebag.student.bean.SubjectBean
 import ebag.core.bean.ResponseBean
 import io.reactivex.Observable
@@ -25,4 +26,12 @@ interface StudentService {
     /**随堂 课后作业*/
     @POST("homeWork/getMyHomeWork/{version}")
     fun subjectWorkList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<SubjectBean>>>
+
+    /**查询家长*/
+    @POST("user/searchFamily/{version}")
+    fun searchFamily(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<List<ParentBean>>>
+
+    /**绑定家长*/
+    @POST("user/bindingParent/{version}")
+    fun bindParent(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
 }

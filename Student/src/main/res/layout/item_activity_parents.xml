@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_shadow_bg"
+    android:layout_marginLeft="@dimen/x5"
+    android:layout_marginRight="@dimen/x5"
+    android:layout_marginTop="@dimen/x7"
+    android:layout_marginBottom="@dimen/x7">
+
+    <TextView android:id="@+id/tvStudentName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#5B626D"
+        tools:text="王子文"
+        android:padding="@dimen/x5"
+        android:layout_margin="@dimen/x1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvEBagCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/tv_sub"
+        android:textColor="@color/gray_dark"
+        android:layout_marginEnd="@dimen/x5"
+        tools:text="书包号"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvStudentName"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"
+        app:layout_constraintTop_toBottomOf="@id/tvStudentName" />
+
+    <ImageView
+        android:id="@+id/ivAvatar"
+        android:layout_width="@dimen/x30"
+        android:layout_height="@dimen/x30"
+        android:layout_marginTop="@dimen/y24"
+        android:layout_marginBottom="@dimen/y24"
+        android:layout_marginStart="@dimen/x5"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="@dimen/x60"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/tv_normal"
+        android:paddingEnd="@dimen/x5"
+        android:paddingStart="@dimen/x5"
+        android:textColor="#4f4f4f"
+        tools:text="妈妈"
+        app:layout_constraintStart_toEndOf="@id/ivAvatar"
+        app:layout_constraintEnd_toStartOf="@id/line2"
+        app:layout_constraintTop_toTopOf="@id/ivAvatar"
+        app:layout_constraintBottom_toBottomOf="@id/ivAvatar" />
+
+    <View android:id="@+id/line2"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@color/gray"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvName"/>
+
+    <ebag.core.widget.drawable.DrawableTextView
+        android:id="@+id/tvPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:leftDrawable="@drawable/icon_parent_phone"
+        app:leftDrawableWidth="@dimen/x12"
+        app:leftDrawableHeight="@dimen/x12"
+        android:layout_marginStart="@dimen/x5"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#5b626d"
+        tools:text="1234567890"
+        android:drawablePadding="@dimen/x5"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        app:layout_constraintBottom_toTopOf="@id/tvAddress"
+        app:layout_constraintStart_toEndOf="@id/line2"/>
+
+    <ebag.core.widget.drawable.DrawableTextView
+        android:id="@+id/tvAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:leftDrawable="@drawable/icon_parent_location"
+        app:leftDrawableWidth="@dimen/x12"
+        app:leftDrawableHeight="@dimen/x12"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="#5b626d"
+        tools:text="1234567890"
+        android:drawablePadding="@dimen/x5"
+        app:layout_constraintTop_toBottomOf="@id/tvPhone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvPhone"/>
+</android.support.constraint.ConstraintLayout>

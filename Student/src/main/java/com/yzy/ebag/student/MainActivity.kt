@@ -16,6 +16,7 @@ import com.yzy.ebag.student.bean.ClassesInfoBean
 import com.yzy.ebag.student.http.StudentApi
 import com.yzy.ebag.student.module.mission.MyMissionActivity
 import com.yzy.ebag.student.module.personal.ClassesDialog
+import com.yzy.ebag.student.module.personal.ParentsActivity
 import com.yzy.ebag.student.module.personal.PerformanceDialog
 import com.yzy.ebag.student.module.personal.PersonalInfoActivity
 import com.yzy.ebag.student.util.StatusUtil
@@ -28,6 +29,7 @@ import ebag.core.util.SerializableUtils
 import ebag.core.util.loadHead
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.UserEntity
+import ebag.mobile.module.shop.YBActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -151,11 +153,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.performance -> {
                 PerformanceDialog(this).show()
             }
-            R.id.nav_slideshow -> {
-
+            R.id.myParents -> {
+                startActivity(Intent(this, ParentsActivity::class.java))
             }
-            R.id.nav_manage -> {
-
+            R.id.coinCenter -> {
+                YBActivity.start(this)
             }
             R.id.nav_share -> {
 

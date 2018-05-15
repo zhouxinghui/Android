@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/x250" android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/bg"
+        android:layout_width="@dimen/x250"
+        android:layout_height="@dimen/y650"
+        android:background="@drawable/normal_dialog_bg"
+        android:layout_marginTop="@dimen/y75"
+        app:layout_constraintTop_toTopOf="@id/ivHead"/>
+
+    <View
+        android:id="@+id/ivHead"
+        android:layout_width="@dimen/x62"
+        android:layout_height="@dimen/x62"
+        android:background="@drawable/my_parents_add_icon"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"/>
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="添加家长"
+        android:textColor="@color/color_dialog_add_class_title"
+        android:textSize="@dimen/tv_normal"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintTop_toBottomOf="@+id/ivHead" />
+
+    <EditText
+        android:id="@+id/etCode"
+        android:layout_width="@dimen/x230"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/y26"
+        android:layout_marginTop="@dimen/y33"
+        android:paddingBottom="@dimen/y5"
+        android:gravity="center"
+        android:textSize="@dimen/tv_normal"
+        android:hint="请输入家长书包号"
+        android:maxLength="10"
+        android:textColor="@color/color_edit_color"
+        android:textColorHint="@color/color_edit_hint"
+        android:inputType="number"
+        android:background="@null"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+    <View
+        android:layout_width="@dimen/x230"
+        android:layout_height="@dimen/y2"
+        android:background="@color/gray"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintTop_toBottomOf="@+id/etCode"/>
+    <EditText
+        android:id="@+id/etRelation"
+        android:layout_width="@dimen/x230"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/y26"
+        android:layout_marginTop="@dimen/y33"
+        android:paddingBottom="@dimen/y5"
+        android:gravity="center"
+        android:textSize="@dimen/tv_normal"
+        android:hint="请输入你们的关系 例：妈妈"
+        android:maxLength="10"
+        android:textColor="@color/color_edit_color"
+        android:textColorHint="@color/color_edit_hint"
+        android:inputType="textPersonName"
+        android:background="@null"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintTop_toBottomOf="@+id/etCode" />
+
+    <View
+        android:layout_width="@dimen/x230"
+        android:layout_height="@dimen/y2"
+        android:background="@color/gray"
+        app:layout_constraintEnd_toEndOf="@id/bg"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        app:layout_constraintTop_toBottomOf="@+id/etRelation"/>
+    <TextView
+        android:id="@+id/tvConfirm"
+        style="@style/normal_dialog_confirm_btn"
+        android:layout_width="@dimen/x250"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>
