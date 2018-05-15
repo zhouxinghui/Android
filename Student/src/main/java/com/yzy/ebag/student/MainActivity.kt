@@ -14,8 +14,9 @@ import android.widget.TextView
 import com.yzy.ebag.student.bean.ClassListInfoBean
 import com.yzy.ebag.student.bean.ClassesInfoBean
 import com.yzy.ebag.student.http.StudentApi
-import com.yzy.ebag.student.module.personal.ClassesDialog
 import com.yzy.ebag.student.module.mission.MyMissionActivity
+import com.yzy.ebag.student.module.personal.ClassesDialog
+import com.yzy.ebag.student.module.personal.PerformanceDialog
 import com.yzy.ebag.student.module.personal.PersonalInfoActivity
 import com.yzy.ebag.student.util.StatusUtil
 import ebag.core.http.network.MsgException
@@ -147,8 +148,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.myMission -> {
                 MyMissionActivity.jump(this, classId)
             }
-            R.id.nav_gallery -> {
-
+            R.id.performance -> {
+                PerformanceDialog(this).show()
             }
             R.id.nav_slideshow -> {
 
