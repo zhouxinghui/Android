@@ -15,4 +15,9 @@
     <string name="center_personal_address">家庭地址</string>
     <string name="center_personal_school">所在学校</string>
     <string name="center_personal_class">所在班级</string>
+
+    <string name="setting_update">版本更新</string>
+    <string name="setting_announce">官方公告</string>
+    <string name="setting_feedback">用户反馈</string>
+    <string name="setting_about_us">关于我们</string>
 </resources>

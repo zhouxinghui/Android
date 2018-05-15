@@ -55,4 +55,39 @@
     <style name="TabLayoutTextStyle">
         <item name="android:textSize">@dimen/tv_normal</item>
     </style>
+    <!--设置start-->
+    <!--
+    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y58"
+                    android:gravity="start|center_vertical"
+                    android:drawablePadding="@dimen/x26"
+                    android:paddingStart="@dimen/x30"
+                    android:paddingEnd="@dimen/x30"
+                    android:textSize="@dimen/x24"
+                    app:rightDrawable="@drawable/icon_more"
+                    app:rightDrawableWidth="@dimen/x13"
+                    app:rightDrawableHeight="@dimen/x22"
+                    android:textColor="@color/setting_text_color"
+                    app:leftDrawable="@drawable/set_up_icon_feedback"
+                    app:leftDrawableWidth="@dimen/x34"
+                    app:leftDrawableHeight="@dimen/x34"
+                    android:background="?attr/selectableItemBackground"
+    -->
+    <style name="setting_item_tv">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/y75</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:drawablePadding">@dimen/x15</item>
+        <item name="android:paddingStart">@dimen/x10</item>
+        <item name="android:paddingEnd">@dimen/x10</item>
+        <item name="android:textSize">@dimen/tv_normal</item>
+        <item name="rightDrawable">@drawable/right_arrow</item>
+        <item name="rightDrawableWidth">@dimen/x6</item>
+        <item name="rightDrawableHeight">@dimen/x10</item>
+        <item name="android:textColor">@color/tv_normal</item>
+        <item name="leftDrawableWidth">@dimen/x17</item>
+        <item name="leftDrawableHeight">@dimen/x17</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+    <!--设置end-->
 </resources>

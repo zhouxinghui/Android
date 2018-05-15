@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <ebag.mobile.widget.TitleBar
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="设置"/>
+
+    <android.support.v4.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/white_shadow_bg"
+                android:layout_marginStart="@dimen/x15"
+                android:layout_marginEnd="@dimen/x15"
+                android:layout_marginTop="@dimen/x16"
+                android:showDividers="middle"
+                android:divider="@drawable/setting_line">
+                <RelativeLayout
+                    android:id="@+id/re"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                <ebag.core.widget.drawable.DrawableTextView
+                    android:id="@+id/updateBtn"
+                    style="@style/setting_item_tv"
+                    app:leftDrawable="@drawable/set_up_icon_update"
+                    android:text="@string/setting_update"/>
+                    <TextView
+                        android:id="@+id/versionName"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/x34"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/tv_normal"
+                        tools:ignore="NotSibling" />
+                </RelativeLayout>
+                <ebag.core.widget.drawable.DrawableTextView
+                    android:id="@+id/announceBtn"
+                    style="@style/setting_item_tv"
+                    app:leftDrawable="@drawable/set_up_icon_announ"
+                    android:text="@string/setting_announce"/>
+
+                <ebag.core.widget.drawable.DrawableTextView
+                    android:id="@+id/feedbackBtn"
+                    style="@style/setting_item_tv"
+                    app:leftDrawable="@drawable/set_up_icon_feedback"
+                    android:text="@string/setting_feedback"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/x15"
+                android:layout_marginEnd="@dimen/x15"
+                android:layout_marginTop="@dimen/y15"
+                android:background="@drawable/white_shadow_bg">
+                <ebag.core.widget.drawable.DrawableTextView
+                    android:id="@+id/aboutBtn"
+                    style="@style/setting_item_tv"
+                    app:leftDrawable="@drawable/set_up_icon_we"
+                    android:text="@string/setting_about_us"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/logoutBtn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y95"
+                android:layout_marginStart="@dimen/x15"
+                android:layout_marginEnd="@dimen/x15"
+                android:gravity="center"
+                android:textSize="@dimen/tv_big"
+                android:background="@drawable/login_btn_bac"
+                android:textColor="@color/white"
+                android:text="退出当前账号"/>
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>
