@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginStart="@dimen/x8"
+    android:layout_marginEnd="@dimen/x8"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x10"
+        android:layout_marginTop="@dimen/y20"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/x20"
+            android:layout_height="@dimen/x20"
+            android:src="@drawable/icon_positioning_time" />
+
+        <TextView
+            android:id="@+id/location_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x15"
+            tools:text="2018-03-26 11:20" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x10"
+        android:layout_marginTop="@dimen/y20"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/x20"
+            android:layout_height="@dimen/x20"
+            android:src="@drawable/icon_positioning_position" />
+
+        <TextView
+            android:id="@+id/location_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x15"
+            tools:text="广东省深圳市" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/location_remark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x15"
+        android:layout_marginTop="@dimen/y20"
+        android:layout_marginBottom="@dimen/y20"
+        tools:text="哈哈哈哈哈哈哈"
+        android:textSize="@dimen/tv_big"
+        android:textStyle="bold"
+
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y10"
+        android:background="@color/blue" />
+
+</LinearLayout>

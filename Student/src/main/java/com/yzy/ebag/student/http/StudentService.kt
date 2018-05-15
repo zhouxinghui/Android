@@ -1,9 +1,6 @@
 package com.yzy.ebag.student.http
 
-import com.yzy.ebag.student.bean.ClassesInfoBean
-import com.yzy.ebag.student.bean.LabourBean
-import com.yzy.ebag.student.bean.ParentBean
-import com.yzy.ebag.student.bean.SubjectBean
+import com.yzy.ebag.student.bean.*
 import ebag.core.bean.ResponseBean
 import io.reactivex.Observable
 import okhttp3.RequestBody
@@ -34,4 +31,10 @@ interface StudentService {
     /**绑定家长*/
     @POST("user/bindingParent/{version}")
     fun bindParent(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
+
+    @POST("user/searchUserPositioningList/{version}")
+    fun searchLocation(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<LocationBean>>
+
+    @POST("user/addUserPositioning/{version}")
+    fun uploadLocation(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
 }

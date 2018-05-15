@@ -1,9 +1,6 @@
 package com.yzy.ebag.student.http
 
-import com.yzy.ebag.student.bean.ClassesInfoBean
-import com.yzy.ebag.student.bean.LabourBean
-import com.yzy.ebag.student.bean.ParentBean
-import com.yzy.ebag.student.bean.SubjectBean
+import com.yzy.ebag.student.bean.*
 import ebag.core.http.network.RequestCallBack
 import ebag.mobile.http.EBagApi
 import ebag.mobile.http.EBagClient
@@ -55,5 +52,23 @@ object StudentApi {
         jsonObject.put("ysbCode", ysbCode)
         jsonObject.put("relationType", relationType)
         EBagApi.request(studentService.bindParent("1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**上报位置历史列表*/
+    fun searchLocation(page: Int, callback: RequestCallBack<LocationBean>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("page", page)
+        jsonObject.put("pageSize", 10)
+        EBagApi.request(studentService.searchLocation("1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**上报位置*/
+    fun uploadLocation(address: String, remark: String, longitude: String, latitude: String, callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("address", address)
+        jsonObject.put("remark", remark)
+        jsonObject.put("longitude", longitude)
+        jsonObject.put("latitude", latitude)
+        EBagApi.request(studentService.uploadLocation("1", EBagApi.createBody(jsonObject)), callback)
     }
 }

@@ -28,9 +28,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@drawable/white_shadow_bg"
-                android:layout_marginStart="@dimen/x15"
-                android:layout_marginEnd="@dimen/x15"
-                android:layout_marginTop="@dimen/x16"
+                android:layout_marginStart="@dimen/x10"
+                android:layout_marginEnd="@dimen/x10"
+                android:layout_marginTop="@dimen/x10"
                 android:showDividers="middle"
                 android:divider="@drawable/setting_line">
                 <RelativeLayout
@@ -68,8 +68,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/x15"
-                android:layout_marginEnd="@dimen/x15"
+                android:layout_marginStart="@dimen/x10"
+                android:layout_marginEnd="@dimen/x10"
                 android:layout_marginTop="@dimen/y15"
                 android:background="@drawable/white_shadow_bg">
                 <ebag.core.widget.drawable.DrawableTextView
@@ -84,6 +84,7 @@
                 android:layout_height="@dimen/y95"
                 android:layout_marginStart="@dimen/x15"
                 android:layout_marginEnd="@dimen/x15"
+                android:layout_marginTop="@dimen/y100"
                 android:gravity="center"
                 android:textSize="@dimen/tv_big"
                 android:background="@drawable/login_btn_bac"

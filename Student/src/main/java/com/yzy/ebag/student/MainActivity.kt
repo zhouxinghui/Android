@@ -159,8 +159,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.setting -> {
                 SettingActivity.jump(this)
             }
-            R.id.nav_send -> {
-
+            R.id.location -> {
+                startActivity(Intent(this, LocationActivity::class.java))
             }
         }
 
