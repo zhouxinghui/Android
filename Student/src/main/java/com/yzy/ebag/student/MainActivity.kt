@@ -28,6 +28,7 @@ import ebag.core.util.SerializableUtils
 import ebag.core.util.loadHead
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.UserEntity
+import ebag.mobile.module.book.BookListActivity
 import ebag.mobile.module.shop.YBActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -63,6 +64,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             classesDialog.show(classesInfo, classId)
         }
         btnDailyPractice.setOnClickListener(this)
+        studyBookTv.setOnClickListener(this)
         request()
         initUserInfo()
     }
@@ -176,6 +178,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when(v?.id){
             R.id.btnDailyPractice ->{
                 ToolsActivity.jump(this, classId)
+            }
+            R.id.studyBookTv ->{
+                BookListActivity.jump(this, classId)
             }
         }
     }
