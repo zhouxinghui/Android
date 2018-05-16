@@ -30,6 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:background="#eff"
+            android:padding="@dimen/x10"
             android:paddingTop="@dimen/y30">
 
             <LinearLayout
@@ -136,6 +138,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/y20"
+            android:padding="@dimen/x10"
+            android:background="#eff"
             android:orientation="vertical">
 
             <TextView
@@ -177,6 +181,8 @@
             android:id="@+id/homework_teacher_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#eff"
+            android:padding="@dimen/x10"
             android:layout_marginTop="@dimen/y60"
             android:orientation="vertical">
 
@@ -234,6 +240,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/y60"
+            android:background="#eff"
+            android:padding="@dimen/x10"
             android:orientation="vertical">
 
             <TextView

@@ -22,6 +22,9 @@ import com.yzy.ebag.parents.utils.GlideImageLoader
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.SPUtils
+import ebag.core.util.SerializableUtils
+import ebag.core.util.T
+import ebag.mobile.bean.MyChildrenBean
 import kotlinx.android.synthetic.main.fragment_main.*
 import java.io.Serializable
 
@@ -79,14 +82,14 @@ class MainFragment : BaseFragment() {
 
 
         mainRVAdapter.setOnItemClickListener { adapter, view, position ->
-
+            val id = SerializableUtils.getSerializable<MyChildrenBean>(ebag.mobile.base.Constants.CHILD_USER_ENTITY).classId
             when (position) {
                 4 -> activity.startActivityForResult(Intent(activity, ChooseChildrenActivity::class.java).putExtra("flag", false), 998)
                 1 -> ExcitationActivity.start(activity)
                 5 -> PerformanceDialog(activity).show()
-                3 -> ZixiActivity.jump(activity)
-                2 -> PaperActivity.start(activity, "4")
-                0 -> ErrorBookActivity.start(activity)
+                3 -> if (id.isNotEmpty()) ZixiActivity.jump(activity) else T.show(activity,"暂未加入班级")
+                2 -> if (id.isNotEmpty()) PaperActivity.start(activity, "4") else T.show(activity,"暂未加入班级")
+                0 -> if (id.isNotEmpty()) ErrorBookActivity.start(activity) else T.show(activity,"暂未加入班级")
             }
         }
 

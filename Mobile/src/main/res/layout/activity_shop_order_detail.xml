@@ -13,9 +13,11 @@
         app:titleText="订单详情"
         />
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/scrollview"
+        android:layout_above="@+id/pay_layout"
         android:layout_below="@+id/order_detail_title"
         android:background="#F5F5F5">
 
@@ -28,7 +30,7 @@
             <RelativeLayout
                 android:id="@+id/rl_adress"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y90"
+                android:layout_height="@dimen/y180"
                 android:layout_marginBottom="8dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
@@ -242,11 +244,12 @@
                 android:text="Y币 1999" />
 
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/y90"
+        android:id="@+id/pay_layout"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
         android:paddingLeft="8dp">

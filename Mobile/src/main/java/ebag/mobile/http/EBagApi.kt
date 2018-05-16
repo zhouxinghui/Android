@@ -362,11 +362,11 @@ object EBagApi {
     }
 
     /**自习室-口语总览列表*/
-    fun getReadRecord(unitCode: String, classId: String, callback: RequestCallBack<List<ReadRecordBaseBean>>,studentId: String = "") {
+    fun getReadRecord(unitCode: String, classId: String, callback: RequestCallBack<List<ReadRecordBaseBean>>, studentId: String = "") {
         val jsonObject = JSONObject()
         jsonObject.put("unitCode", unitCode)
         jsonObject.put("classId", classId)
-        if (studentId.isNotEmpty()){
+        if (studentId.isNotEmpty()) {
             jsonObject.put("studentId", studentId)
         }
         EBagApi.request(eBagService.getReadRecord("v1", EBagApi.createBody(jsonObject)), callback)
@@ -451,10 +451,13 @@ object EBagApi {
     /**支付宝
      *
      */
-    fun getAiliPrepayid(oid: String, allPrice: String, callback: RequestCallBack<String>) {
+    fun getAiliPrepayid(oid: String, allPrice: String, callback: RequestCallBack<String>, app: String = "") {
         val jsonObject = JSONObject()
         jsonObject.put("oid", oid)
         jsonObject.put("allPrice", allPrice)
+        if (app.isNotEmpty()) {
+            jsonObject.put("app", app)
+        }
         EBagApi.request(eBagService.getAiliPrepayid("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
@@ -465,10 +468,13 @@ object EBagApi {
     }
 
     /**微信支付请求*/
-    fun getPrepayid(id: String, price: String, callback: RequestCallBack<WXPayBean>) {
+    fun getPrepayid(id: String, price: String, callback: RequestCallBack<WXPayBean>, app: String = "") {
         val jsonObject = JSONObject()
         jsonObject.put("oid", id)
         jsonObject.put("allPrice", price)
+        if (app.isNotEmpty()) {
+            jsonObject.put("app", app)
+        }
         EBagApi.request(eBagService.getPrepayid("v1", EBagApi.createBody(jsonObject)), callback)
     }
 

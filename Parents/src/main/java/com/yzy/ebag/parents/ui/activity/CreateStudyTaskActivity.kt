@@ -3,16 +3,24 @@ package com.yzy.ebag.parents.ui.activity
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
+import android.view.Gravity
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.parents.R
 import com.yzy.ebag.parents.bean.StudentSubjectBean
+import com.yzy.ebag.parents.http.ParentsAPI
 import com.yzy.ebag.parents.mvp.CreateStudyTaskContract
 import com.yzy.ebag.parents.mvp.presenter.CreateStudyTaskPersenter
 import com.yzy.ebag.parents.ui.adapter.CreateTaskAdapter
+import com.yzy.ebag.parents.ui.widget.ChooseUnitDialog
+import com.yzy.ebag.parents.ui.widget.UnitPopupWindow
 import ebag.core.base.BaseActivity
+import ebag.core.http.network.RequestCallBack
+import ebag.core.http.network.handleThrowable
+import ebag.core.util.LoadingDialogUtil
 import ebag.mobile.bean.MyChildrenBean
+import ebag.mobile.bean.UnitBean
 import kotlinx.android.synthetic.main.activity_createstudytask.*
 
 class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateStudyTaskView {
@@ -24,9 +32,27 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
     private lateinit var mPersenter: CreateStudyTaskContract.Persenter
     private lateinit var mSubjectAdapter: SubjectChooseAdapter
     private var selectedUid = ""
-
-
+    private var selectedBookid = ""
     override fun getLayoutId(): Int = R.layout.activity_createstudytask
+
+    private val chooseUnitDialog by lazy {
+        val dialog = ChooseUnitDialog(this)
+        dialog.onSelectedListener = { bookId, bookName ->
+            selectedBookid = bookId
+            unit__id.text = bookName
+            unit_tv_id.text = ""
+            dialog.dismiss()
+        }
+        dialog
+    }
+
+    private val unitPopupWindow by lazy {
+        val pop = UnitPopupWindow(this)
+        pop.onConfirmClick = { name, unitBean ->
+            unit_tv_id.text = name
+        }
+        pop
+    }
 
     override fun initViews() {
         mPersenter = CreateStudyTaskPersenter(this)
@@ -42,6 +68,8 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
                     myChildrenBean.isSelected = index == position
                 }
                 selectedUid = datas[position].uid
+                unit__id.text = ""
+                unit_tv_id.text = ""
                 mAdapter.notifyItemRangeChanged(0, datas.size)
                 mPersenter.querySubject(datas[position].classId)
             }
@@ -54,7 +82,38 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
         mSubjectAdapter.setOnItemClickListener { _, _, position ->
 
             mSubjectAdapter.selectedPosition = position
+            chooseUnitDialog.updateList(subjectDatas[position].subjectList)
+            unit__id.text = ""
             mSubjectAdapter.notifyDataSetChanged()
+        }
+
+        unit__id.setOnClickListener {
+
+            chooseUnitDialog.show()
+        }
+
+        unit_tv_id.setOnClickListener {
+
+            ParentsAPI.getBookUnit(selectedBookid, object : RequestCallBack<java.util.ArrayList<UnitBean>>() {
+
+                override fun onStart() {
+                    super.onStart()
+                    LoadingDialogUtil.showLoading(this@CreateStudyTaskActivity, "正在加载...")
+                }
+
+                override fun onSuccess(entity: java.util.ArrayList<UnitBean>?) {
+                    unitPopupWindow.setData(entity)
+                    unitPopupWindow.showAtLocation(window.decorView, Gravity.CENTER, 0, 0)
+                    LoadingDialogUtil.closeLoadingDialog()
+                }
+
+                override fun onError(exception: Throwable) {
+                    exception.handleThrowable(this@CreateStudyTaskActivity)
+                    LoadingDialogUtil.closeLoadingDialog()
+                }
+
+            })
+
         }
     }
 
@@ -63,6 +122,7 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
 
         subjectDatas.clear()
         subjectDatas.addAll(datas)
+        chooseUnitDialog.updateList(datas[mSubjectAdapter.selectedPosition].subjectList)
         mSubjectAdapter.notifyDataSetChanged()
     }
 

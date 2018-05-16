@@ -21,7 +21,7 @@ class WXPayEntryActivity : Activity(), IWXAPIEventHandler {
     private lateinit var api: IWXAPI
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        api = WXAPIFactory.createWXAPI(this, "wx4adbb68ec1c80484")
+        api = WXAPIFactory.createWXAPI(this, "wx626a1c084ecd9ca9")
         api.handleIntent(intent, this)
         ActivityUtils.addActivity(this)
     }

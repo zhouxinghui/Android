@@ -238,7 +238,7 @@ class OrderDetailsActivity : BaseActivity() {
                 ActivityUtils.skipActivityAndFinishAll(this@OrderDetailsActivity, ShopOrderActivity::class.java)
             }
 
-        })
+        },if (packageName.contains("parents")) "parent" else "")
     }
 
     private fun ybPay(oid: String, allPrice: String) {
@@ -315,7 +315,7 @@ class OrderDetailsActivity : BaseActivity() {
                 ActivityUtils.skipActivityAndFinishAll(this@OrderDetailsActivity, ShopOrderActivity::class.java)
             }
 
-        })
+        }, if (packageName.contains("parents")) "parent" else "")
     }
 
 

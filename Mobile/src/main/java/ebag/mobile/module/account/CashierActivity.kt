@@ -107,7 +107,7 @@ class CashierActivity : BaseActivity() {
                 ActivityUtils.skipActivityAndFinishAll(this@CashierActivity, YBCenterActivity::class.java)
             }
 
-        })
+        }, if (packageName.contains("parents")) "parent" else "")
     }
 
 
@@ -130,7 +130,7 @@ class CashierActivity : BaseActivity() {
                 ActivityUtils.skipActivityAndFinishAll(this@CashierActivity, YBCenterActivity::class.java)
             }
 
-        })
+        }, if (packageName.contains("parents")) "parent" else "")
     }
 
     private fun WXPay(bean: WXPayBean) {

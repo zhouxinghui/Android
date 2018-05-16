@@ -1,10 +1,12 @@
 package com.yzy.ebag.parents.http
 
 import com.yzy.ebag.parents.bean.*
+import ebag.core.bean.QuestionBean
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.StringUtils
 import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.bean.NoticeBean
+import ebag.mobile.bean.UnitBean
 import ebag.mobile.http.EBagApi
 import ebag.mobile.http.EBagClient
 import org.json.JSONArray
@@ -209,6 +211,90 @@ object ParentsAPI {
             jsonObj.put("uid", uid)
         }
         EBagApi.request(parentsService.getGiftDetail("v1", EBagApi.createBody(jsonObj)), callback)
+    }
+
+    fun getBookUnit(bookVersionId: String, callback: RequestCallBack<ArrayList<UnitBean>>) {
+        val jsonObj = JSONObject()
+        jsonObj.put("bookVersionId", bookVersionId)
+        EBagApi.request(parentsService.getBookUnit("v1", EBagApi.createBody(jsonObj)), callback)
+    }
+
+    /**预览试卷*/
+    fun previewTestPaper(paperId: String, callback: RequestCallBack<List<QuestionBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("testPaperId",paperId)
+        EBagApi.request(parentsService.previewTestPaper("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+
+    /**智能推送*/
+    fun smartPush(count: Int, unitBean: UnitBean.UnitSubBean, difficulty: String?, type: String, bookVersionId: String?, callback: RequestCallBack<List<QuestionBean>>){
+        val jsonObject = JSONObject()
+        if (unitBean.unitCode != null) {
+            if (unitBean.isUnit)
+                jsonObject.put("bookUnit", unitBean.unitCode)
+            else
+                jsonObject.put("bookCatalog", unitBean.unitCode)
+        }
+        if(bookVersionId != null){
+            jsonObject.put("bookVersionId", bookVersionId)
+        }
+        difficulty ?: jsonObject.put("level",difficulty)
+        jsonObject.put("type",type)
+        jsonObject.put("count", count)
+        EBagApi.request(parentsService.smartPush("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+
+    /**发布作业*/
+    fun publishHomework(
+            classes: ArrayList<AssignClassBean>,
+            groupIds: ArrayList<String>? = null,
+            isGroup: Boolean,
+            type: String,
+            remark: String,
+            content: String,
+            endTime: String,
+            subCode: String,
+            bookVersionId: String,
+            questionList: ArrayList<QuestionBean>? = null,
+            testPaperId: String? = null,
+            callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        val classArray = JSONArray()
+        classes.forEach {
+            classArray.put(it.classId)
+        }
+        if (groupIds != null){
+            val groupArray = JSONArray()
+            groupIds.forEach { groupArray.put(it) }
+            jsonObject.put("groupIds", groupArray)
+        }
+        jsonObject.put("clazzIds", classArray)
+        if (isGroup)
+            jsonObject.put("groupType", "2")
+        else
+            jsonObject.put("groupType", "1")
+        jsonObject.put("content", content)
+        jsonObject.put("remark", remark)
+        jsonObject.put("type", type)
+        jsonObject.put("endTime", endTime)
+        jsonObject.put("subCode", subCode)
+        jsonObject.put("bookVersionId", bookVersionId)
+        if (questionList != null) {
+            val questionArray = JSONArray()
+            questionList.forEach {
+                val questionJson = JSONObject()
+                questionJson.put("questionId", it.questionId)
+                questionJson.put("questionType", it.type)
+                questionArray.put(questionJson)
+            }
+            jsonObject.put("homeWorkQuestionDtos", questionArray)
+        }
+        if (testPaperId != null){
+            jsonObject.put("testPaperId", testPaperId)
+        }
+        EBagApi.request(parentsService.publishHomework("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
 }

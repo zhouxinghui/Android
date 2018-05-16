@@ -1,9 +1,11 @@
 package com.yzy.ebag.parents.http
 
 import com.yzy.ebag.parents.bean.*
+import ebag.core.bean.QuestionBean
 import ebag.core.bean.ResponseBean
 import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.bean.NoticeBean
+import ebag.mobile.bean.UnitBean
 import io.reactivex.Observable
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -84,5 +86,20 @@ interface ParentsService {
     @POST("user/getGiftDetail/{version}")
     fun getGiftDetail(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<GiftListBean>>>
 
+    /** 查询教科书目录*/
+    @POST("data/getBookUnit/{version}")
+    fun getBookUnit(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<java.util.ArrayList<UnitBean>>>
 
+    /**预览试卷*/
+    @POST("sendHome/queryTestPaperQuestion/{version}")
+    fun previewTestPaper(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<QuestionBean>>>
+
+    /**智能推送*/
+    @POST("question/smartChoice/{version}")
+    fun smartPush(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<QuestionBean>>>
+
+
+    /**发布作业*/
+    @POST("sendHome/sendHome/{version}")
+    fun publishHomework(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 }
