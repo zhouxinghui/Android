@@ -11,6 +11,7 @@ import ebag.core.util.L
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.SPUtils
 import ebag.core.util.StringUtils
+import ebag.hd.base.Constants
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
 import ebag.hd.ui.activity.account.BLoginActivity
@@ -140,10 +141,12 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
                 SPUtils.put(context, ebag.hd.base.Constants.LOGIN_TYPE, BLoginActivity.EBAG_TYPE)
         }
         if (context != null) {
-            SPUtils.put(context, ebag.hd.base.Constants.USER_ACCOUNT, account)
-            SPUtils.put(context, ebag.hd.base.Constants.USER_PASS_WORD, pwd)
-            SPUtils.put(context, ebag.hd.base.Constants.ROLE_CODE, roleCode)
-            SPUtils.put(context, ebag.hd.base.Constants.THIRD_PARTY_TYPE, "")
+            SPUtils.put(context, Constants.USER_ACCOUNT, account)
+            SPUtils.put(context, Constants.USER_PASS_WORD, pwd)
+            SPUtils.put(context, Constants.ROLE_CODE, roleCode)
+            SPUtils.put(context, Constants.THIRD_PARTY_UNION_ID, "")
+            SPUtils.put(context, Constants.THIRD_PARTY_TYPE, "")
+            SPUtils.put(context, Constants.THIRD_PARTY_TOKEN, "")
         }
     }
 

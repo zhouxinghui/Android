@@ -401,11 +401,12 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
                         }
                     }
                 })
-                SPUtils.put(this@BLoginActivity, ebag.hd.base.Constants.USER_ACCOUNT, "")
-                SPUtils.put(this@BLoginActivity, ebag.hd.base.Constants.ROLE_CODE, BLoginActivity.TEACHER_ROLE)
-                SPUtils.put(this@BLoginActivity, ebag.hd.base.Constants.THIRD_PARTY_TOKEN, if (access_token.isNullOrEmpty()) "" else access_token)
-                SPUtils.put(this@BLoginActivity, ebag.hd.base.Constants.THIRD_PARTY_UNION_ID, if (uid.isNullOrEmpty()) "" else uid)
-
+                SPUtils.put(this@BLoginActivity, Constants.USER_ACCOUNT, "")
+                SPUtils.put(this@BLoginActivity, Constants.USER_PASS_WORD, "")
+                SPUtils.put(this@BLoginActivity, Constants.LOGIN_TYPE, "")
+                SPUtils.put(this@BLoginActivity, Constants.ROLE_CODE, BLoginActivity.TEACHER_ROLE)
+                SPUtils.put(this@BLoginActivity, Constants.THIRD_PARTY_TOKEN, if (access_token.isNullOrEmpty()) "" else access_token)
+                SPUtils.put(this@BLoginActivity, Constants.THIRD_PARTY_UNION_ID, if (uid.isNullOrEmpty()) "" else uid)
             }
 
             //            授权取消

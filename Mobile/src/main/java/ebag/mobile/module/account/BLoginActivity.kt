@@ -339,8 +339,8 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
                 var uid = p2?.get("uid")
                 var openid = p2?.get("openid")//微博没有
                 var unionid = p2?.get("unionid")//微博没有
-//                var access_token = p2?.get("access_token")
-                var access_token = ""
+                var access_token = p2?.get("access_token")
+//                var access_token = ""
                 var refresh_token = p2?.get("refresh_token")//微信,qq,微博都没有获取到
                 var expires_in = p2?.get("expires_in")
                 var name = p2?.get("name")
@@ -377,6 +377,8 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
                     }
                 })
                 SPUtils.put(this@BLoginActivity, Constants.USER_ACCOUNT, "")
+                SPUtils.put(this@BLoginActivity, Constants.USER_PASS_WORD, "")
+                SPUtils.put(this@BLoginActivity, Constants.LOGIN_TYPE, "")
                 SPUtils.put(this@BLoginActivity, Constants.ROLE_CODE, BLoginActivity.TEACHER_ROLE)
                 SPUtils.put(this@BLoginActivity, Constants.THIRD_PARTY_TOKEN, if (access_token.isNullOrEmpty()) "" else access_token)
                 SPUtils.put(this@BLoginActivity, Constants.THIRD_PARTY_UNION_ID, if (uid.isNullOrEmpty()) "" else uid)

@@ -138,7 +138,9 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
             SPUtils.put(context, Constants.USER_ACCOUNT, account)
             SPUtils.put(context, Constants.USER_PASS_WORD, pwd)
             SPUtils.put(context, Constants.ROLE_CODE, roleCode)
+            SPUtils.put(context, Constants.THIRD_PARTY_UNION_ID, "")
             SPUtils.put(context, Constants.THIRD_PARTY_TYPE, "")
+            SPUtils.put(context, Constants.THIRD_PARTY_TOKEN, "")
         }
     }
 

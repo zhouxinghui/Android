@@ -110,7 +110,7 @@ object StringUtils {
      * @return 是否为手机号码格式:是为true，否则false
      */
     fun isMobileNo(str: String): Boolean {
-        return Pattern.compile("^((17[0-9])|(13[0-9])|(14[0-9])|(15[0-9])|(18[0-9]))\\d{8}$").matcher(str).matches()
+        return Pattern.compile("^((17[0-9])|(13[0-9])|(14[0-9])|(15[0-9])|(16[0-9])|(18[0-9]))\\d{8}$").matcher(str).matches()
     }
 
     /**
