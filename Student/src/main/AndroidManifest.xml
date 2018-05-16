@@ -73,6 +73,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".module.tools.MathFormulaActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".module.tools.LetterActivity"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name="com.baidu.trace.LBSTraceService"

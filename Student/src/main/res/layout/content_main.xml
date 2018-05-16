@@ -18,5 +18,12 @@
             android:padding="10dp"
             android:background="?attr/selectableItemBackground"
             />
+        <TextView android:id="@+id/btnDailyPractice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="学习工具"
+            android:padding="10dp"
+            android:background="?attr/selectableItemBackground"
+            />
     </ebag.core.widget.FlowLayout>
 </android.support.constraint.ConstraintLayout>
