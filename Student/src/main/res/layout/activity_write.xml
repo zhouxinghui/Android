@@ -85,11 +85,11 @@
         <RadioButton android:id="@+id/pen_size_one"
             style="@style/pen"
             android:background="@drawable/pen_size_one_bg"
-            android:checked="true"
             />
         <RadioButton android:id="@+id/pen_size_two"
             style="@style/pen"
             android:background="@drawable/pen_size_two_bg"
+            android:checked="true"
             />
         <RadioButton android:id="@+id/pen_size_three"
             style="@style/pen"

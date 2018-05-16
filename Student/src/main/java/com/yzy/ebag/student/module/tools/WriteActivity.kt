@@ -67,7 +67,7 @@ class WriteActivity : MVPActivity() {
 
         tvPinyin.text = list[currentIndex].pinyin
 
-        drawView.setPenRawSize(resources.getDimension(R.dimen.y5))
+        drawView.setPenRawSize(resources.getDimension(R.dimen.y10))
 
         pen_size_group.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {

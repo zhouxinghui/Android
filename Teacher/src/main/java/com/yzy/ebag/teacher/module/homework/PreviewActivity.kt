@@ -138,6 +138,7 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
                 previewList = intent.getSerializableExtra("previewList") as ArrayList<QuestionBean>
                 questionNumTv.text = "+${previewList.size}题"
                 withFirstPageData(previewList, false)
+                (mAdapter as QuestionAdapter).previewList = previewList
             }
         }else{
             val count = intent.getIntExtra("count", 0)
