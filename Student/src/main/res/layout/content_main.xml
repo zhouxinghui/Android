@@ -39,5 +39,26 @@
             android:padding="20dp"
             android:background="?attr/selectableItemBackground"
             />
+        <TextView android:id="@+id/homework"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="课后作业"
+            android:padding="20dp"
+            android:background="?attr/selectableItemBackground"
+            />
+        <TextView android:id="@+id/classWork"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="随堂作业"
+            android:padding="20dp"
+            android:background="?attr/selectableItemBackground"
+            />
+        <TextView android:id="@+id/testWork"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="考试试卷"
+            android:padding="20dp"
+            android:background="?attr/selectableItemBackground"
+            />
     </ebag.core.widget.FlowLayout>
 </android.support.constraint.ConstraintLayout>

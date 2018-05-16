@@ -88,6 +88,9 @@
         <activity android:name=".module.tools.WriteActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".module.homework.HomeworkActivity"
+            android:screenOrientation="portrait"
+            />
 
         <service
             android:name="com.baidu.trace.LBSTraceService"

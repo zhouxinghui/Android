@@ -15,6 +15,7 @@ import android.widget.TextView
 import com.yzy.ebag.student.bean.ClassListInfoBean
 import com.yzy.ebag.student.bean.ClassesInfoBean
 import com.yzy.ebag.student.http.StudentApi
+import com.yzy.ebag.student.module.homework.HomeworkActivity
 import com.yzy.ebag.student.module.mission.MyMissionActivity
 import com.yzy.ebag.student.module.personal.*
 import com.yzy.ebag.student.module.tools.ToolsActivity
@@ -69,6 +70,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         studyBookTv.setOnClickListener(this)
         classSchedule.setOnClickListener(this)
         classMember.setOnClickListener(this)
+        homework.setOnClickListener(this)
+        classWork.setOnClickListener(this)
+        testWork.setOnClickListener(this)
         request()
         initUserInfo()
     }
@@ -191,6 +195,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.classMember ->{
                 startActivity(Intent(this, ClazzmateActivity::class.java))
+            }
+            R.id.homework ->{
+                HomeworkActivity.jump(this, Constants.KHZY_TYPE, classId)
+            }
+            R.id.classWork ->{
+                HomeworkActivity.jump(this, Constants.STZY_TYPE, classId)
+            }
+            R.id.testWork ->{
+                HomeworkActivity.jump(this, Constants.KSSJ_TYPE, classId)
             }
         }
     }
