@@ -1,6 +1,6 @@
 package ebag.mobile.module.clazz
 
-import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -34,7 +34,7 @@ class ClazzmateActivity : BaseActivity() {
 
         } else {
             clazzAdapter = ClazzItemAdapter(clazzList)
-            clazz_rv.layoutManager = GridLayoutManager(this, 8)
+            clazz_rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             clazz_rv.adapter = clazzAdapter
 
             clazzAdapter.setOnItemClickListener { adapter, view, position ->

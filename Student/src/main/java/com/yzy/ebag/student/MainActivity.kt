@@ -29,6 +29,8 @@ import ebag.core.util.loadHead
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.UserEntity
 import ebag.mobile.module.book.BookListActivity
+import ebag.mobile.module.clazz.ClassScheduleActivity
+import ebag.mobile.module.clazz.ClazzmateActivity
 import ebag.mobile.module.shop.YBActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -65,6 +67,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         btnDailyPractice.setOnClickListener(this)
         studyBookTv.setOnClickListener(this)
+        classSchedule.setOnClickListener(this)
+        classMember.setOnClickListener(this)
         request()
         initUserInfo()
     }
@@ -181,6 +185,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.studyBookTv ->{
                 BookListActivity.jump(this, classId)
+            }
+            R.id.classSchedule ->{
+                ClassScheduleActivity.jump(this, classId)
+            }
+            R.id.classMember ->{
+                startActivity(Intent(this, ClazzmateActivity::class.java))
             }
         }
     }
