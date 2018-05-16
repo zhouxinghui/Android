@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.StringUtils
 import ebag.core.util.T
 import ebag.mobile.base.BaseListActivity
 
@@ -21,13 +22,16 @@ class ToolsActivity: BaseListActivity<List<Int>, Int>() {
     private val list = intArrayOf(R.drawable.tool_btn_calligraphy,R.drawable.tool_btn_read,
             R.drawable.tool_btn_pinyin,R.drawable.tool_btn_letter,R.drawable.tool_btn_formula)
     companion object {
-        fun jump(context: Context){
+        fun jump(context: Context, classId: String){
             context.startActivity(
                     Intent(context, ToolsActivity::class.java)
+                            .putExtra("classId", classId)
             )
         }
     }
+    private lateinit var classId: String
     override fun loadConfig(intent: Intent) {
+        classId = intent.getStringExtra("classId") ?: ""
         withFirstPageData(list.asList())
     }
 
@@ -72,18 +76,18 @@ class ToolsActivity: BaseListActivity<List<Int>, Int>() {
         when(list[position]){
 
             R.drawable.tool_btn_calligraphy -> {//每日练字
+                if(StringUtils.isEmpty(classId)){
+                    T.show(this,"请返回首页获取左侧班级信息")
+                }else{
+                    PractiseActivity.jump(this, "1")
+                }
+            }
+
+            R.drawable.tool_btn_read -> {//每日跟读
                 /*if(classId.isNullOrEmpty()){
                     T.show(this,"请返回首页获取左侧班级信息")
                 }else{
                     PractiseActivity.jump(this, classId)
-                }*/
-            }
-
-            R.drawable.tool_btn_read -> {//每日练字
-                /*if(classId.isNullOrEmpty()){
-                    T.show(this,"请返回首页获取左侧班级信息")
-                }else{
-                    ReadActivity.jump(this, classId)
                 }*/
             }
 

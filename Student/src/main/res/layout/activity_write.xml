@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ebag.mobile.widget.TitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="默写"/>
+    <TextView
+        android:id="@+id/tvPinyin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/x20"
+        android:textColor="#252626"
+        tools:text="sou"
+        android:layout_marginTop="@dimen/y20"
+        app:layout_constraintTop_toBottomOf="@id/titleBar"
+        app:layout_constraintStart_toStartOf="@id/bg"
+        android:layout_marginEnd="@dimen/x80"
+        />
+
+    <ImageView
+        android:id="@+id/playAnim"
+        android:layout_width="@dimen/x37"
+        android:layout_height="@dimen/x33"
+        android:background="@drawable/icon_write_speak_anim"
+        android:layout_marginTop="@dimen/y10"
+        app:layout_constraintTop_toBottomOf="@id/tvPinyin"
+        app:layout_constraintStart_toStartOf="@id/tvPinyin"
+        app:layout_constraintEnd_toEndOf="@id/tvPinyin"/>
+    <ImageView
+        android:id="@+id/bg"
+        android:layout_width="@dimen/x200"
+        android:layout_height="@dimen/x200"
+        android:src="@drawable/write_chinese_big"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/playAnim"
+        app:layout_constraintBottom_toTopOf="@+id/tvCommit"/>
+
+    <ebag.core.widget.PaletteView
+        android:id="@+id/drawView"
+        android:layout_width="@dimen/x198"
+        android:layout_height="@dimen/x198"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bg"
+        app:layout_constraintBottom_toBottomOf="@id/bg"/>
+
+    <TextView
+        android:id="@+id/tvCommit"
+        android:layout_width="@dimen/x200"
+        android:layout_height="@dimen/y75"
+        android:background="@drawable/btn_blue_selector"
+        android:textColor="@color/white"
+        android:text="提交"
+        android:gravity="center"
+        android:textSize="@dimen/tv_big"
+        app:layout_constraintTop_toBottomOf="@id/bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Button android:id="@+id/btnEraser"
+        android:layout_width="@dimen/x33"
+        android:layout_height="@dimen/x33"
+        android:background="@drawable/btn_icon_eraser"
+        app:layout_constraintStart_toEndOf="@id/bg"
+        app:layout_constraintTop_toTopOf="@id/bg"
+        app:layout_constraintBottom_toTopOf="@id/pen_size_group"/>
+
+    <RadioGroup android:id="@+id/pen_size_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="@id/btnEraser"
+        app:layout_constraintEnd_toEndOf="@id/btnEraser"
+        app:layout_constraintTop_toBottomOf="@id/btnEraser"
+        app:layout_constraintBottom_toBottomOf="@id/bg">
+        <RadioButton android:id="@+id/pen_size_one"
+            style="@style/pen"
+            android:background="@drawable/pen_size_one_bg"
+            android:checked="true"
+            />
+        <RadioButton android:id="@+id/pen_size_two"
+            style="@style/pen"
+            android:background="@drawable/pen_size_two_bg"
+            />
+        <RadioButton android:id="@+id/pen_size_three"
+            style="@style/pen"
+            android:background="@drawable/pen_size_three_bg"
+            />
+        <RadioButton android:id="@+id/pen_size_four"
+            style="@style/pen"
+            android:background="@drawable/pen_size_four_bg"
+            />
+    </RadioGroup>
+
+</android.support.constraint.ConstraintLayout>

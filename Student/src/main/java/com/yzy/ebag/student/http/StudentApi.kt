@@ -80,4 +80,30 @@ object StudentApi {
         jsonObject.put("pageSize", pageSize)
         EBagApi.request(studentService.formula("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**获取练字列表*/
+    fun getWordsList(unitCode: String, callback: RequestCallBack<WordsBean>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("unitCode", unitCode)
+        EBagApi.request(studentService.getWordsList("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**练字记录*/
+    fun wordRecord(classId: String, pageSize: Int, page: Int, callback: RequestCallBack<WordRecordBean>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("pageSize", pageSize)
+        jsonObject.put("page", page)
+        EBagApi.request(studentService.wordRecord("1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**上传练习生字*/
+    fun uploadWord(classId: String, words: String, unitId: String, wordUrl: String, callback: RequestCallBack<String>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("words", words)
+        jsonObject.put("unitId", unitId)
+        jsonObject.put("wordUrl", wordUrl)
+        EBagApi.request(studentService.uploadWord("1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

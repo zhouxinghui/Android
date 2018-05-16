@@ -175,7 +175,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btnDailyPractice ->{
-                ToolsActivity.jump(this)
+                ToolsActivity.jump(this, classId)
             }
         }
     }

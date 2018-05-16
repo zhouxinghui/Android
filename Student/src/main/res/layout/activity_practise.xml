@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ebag.mobile.widget.TitleBar android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="选择汉字"
+        />
+    <!--班级-->
+    <LinearLayout android:id="@+id/clazzBtn"
+        style="@style/assignment_ll"
+        >
+        <TextView
+            style="@style/assignment_tv"
+            android:text="班级"
+            />
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/clazzTv"
+            style="@style/assignment_gray_tv"
+            tools:text="一年级一班"
+            />
+    </LinearLayout>
+    <View
+        style="@style/line"
+        />
+    <!--教材-->
+    <LinearLayout android:id="@+id/textbookBtn"
+        style="@style/assignment_ll"
+        >
+        <TextView
+            style="@style/assignment_tv"
+            android:text="教材"
+            />
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/textbookTv"
+            style="@style/assignment_gray_tv"
+            tools:text="一年级一班"
+            />
+    </LinearLayout>
+    <View
+        style="@style/line"/>
+    <!--单元-->
+    <LinearLayout android:id="@+id/unitBtn"
+        style="@style/assignment_ll"
+        >
+        <TextView
+            style="@style/assignment_tv"
+            android:text="单元"
+            />
+        <ebag.core.widget.drawable.DrawableTextView android:id="@+id/unitTv"
+            style="@style/assignment_gray_tv"
+            android:text="全部"
+            />
+    </LinearLayout>
+    <View
+        style="@style/line"/>
+    <FrameLayout android:id="@+id/fragmentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

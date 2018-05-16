@@ -68,13 +68,26 @@
             android:screenOrientation="portrait"
             />
         <activity android:name=".module.personal.UploadLocationActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            />
         <activity android:name=".module.tools.ToolsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            />
         <activity android:name=".module.tools.MathFormulaActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            />
         <activity android:name=".module.tools.LetterActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".module.tools.PractiseActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".module.tools.RecordActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".module.tools.WriteActivity"
+            android:screenOrientation="portrait"
+            />
 
         <service
             android:name="com.baidu.trace.LBSTraceService"
