@@ -493,10 +493,11 @@ object EBagApi {
     /**
      * 获取错题详情
      */
-    fun getErrorDetail(homeWorkId: String, uid: String, callback: RequestCallBack<List<TypeQuestionBean>>) {
+    fun getErrorDetail(homeWorkId: String, uid: String?, callback: RequestCallBack<List<TypeQuestionBean>>) {
         val jsonObject = JSONObject()
         jsonObject.put("homeWorkId", homeWorkId)
-        jsonObject.put("uid", uid)
+        if(!StringUtils.isEmpty(uid))
+            jsonObject.put("uid", uid)
         EBagApi.request(eBagService.getErrorDetail("v1", EBagApi.createBody(jsonObject)), callback)
     }
 

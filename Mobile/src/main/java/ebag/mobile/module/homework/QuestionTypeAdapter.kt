@@ -16,12 +16,13 @@ import ebag.mobile.R
  */
 class QuestionTypeAdapter: BaseQuickAdapter<TypeQuestionBean, BaseViewHolder>(R.layout.item_question_type) {
     var onSubItemClickListener: ((parentPosition: Int, position: Int) -> Unit)? = null
+    var showResult = false
     override fun convert(helper: BaseViewHolder, item: TypeQuestionBean?) {
         helper.setText(R.id.tv, QuestionTypeUtils.getTitle(item?.type ?: ""))
         val recyclerView = helper.getView<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = GridLayoutManager(mContext, 5)
         val adapter = QuestionTypeSubAdapter()
-        adapter.showResult = true
+        adapter.showResult = showResult
         recyclerView.adapter = adapter
         adapter.setNewData(item?.questionVos)
         adapter.setOnItemClickListener { _, _, position ->

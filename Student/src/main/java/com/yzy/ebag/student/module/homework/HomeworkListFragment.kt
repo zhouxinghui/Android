@@ -13,6 +13,7 @@ import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.mobile.base.Constants
+import ebag.mobile.module.homework.WorkReportActivity
 
 
 /**
@@ -31,7 +32,7 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
                 .setMessage("你即将进行一场考试，在考试完成前（时间到达或完成全部题目）将不能退出！！")
                 .setPositiveButton("现在开始"){ dialog, which ->
                     val bean = adapter.getItem(currentClickIndex)
-//                    DoHomeworkActivity.jump(mContext, bean?.id ?: "", type, type, null, bean?.endTime!!.toInt())
+                    DoHomeworkActivity.jump(mContext, bean?.id ?: "", type, bean?.endTime!!.toInt())
                 }.setNegativeButton("稍后再做",null)
                 .create()
     }
@@ -77,15 +78,15 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-        /*if((adapter as HomeWorkListAdapter).getItem(position)?.state == Constants.CORRECT_UNFINISH){// 未完成
+        if((adapter as HomeWorkListAdapter).getItem(position)?.state == Constants.CORRECT_UNFINISH){// 未完成
             if (type == Constants.KSSJ_TYPE) {
                 currentClickIndex = position
                 testDialog.show()
             }else {
-                DoHomeworkActivity.jump(mContext, adapter.getItem(position)?.id ?: "", type, type)
+                DoHomeworkActivity.jump(mContext, adapter.getItem(position)?.id ?: "", type)
             }
         } else{
-            when(type){
+            /*when(type){
                 com.yzy.ebag.student.base.Constants.STZY_TYPE -> {
                     ReportClassActivity.jump(mContext, adapter.getItem(position)?.id ?: "", type)
                 }
@@ -93,8 +94,9 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
                 com.yzy.ebag.student.base.Constants.KSSJ_TYPE -> {
                     ReportTestActivity.jump(mContext, adapter.getItem(position)?.id ?: "", type)
                 }
-            }
-        }*/
+            }*/
+            WorkReportActivity.jump(mContext, adapter.getItem(position)?.id ?: "", type)
+        }
     }
 
     inner class HomeWorkListAdapter: BaseQuickAdapter<SubjectBean.HomeWorkInfoBean,BaseViewHolder>(R.layout.item_fragment_homework_list){

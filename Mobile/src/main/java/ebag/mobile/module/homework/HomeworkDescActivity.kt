@@ -16,10 +16,8 @@ import ebag.core.bean.QuestionTypeUtils
 import ebag.core.bean.TypeQuestionBean
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
-import ebag.core.util.SerializableUtils
 import ebag.mobile.R
 import ebag.mobile.base.Constants
-import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.http.EBagApi
 import kotlinx.android.synthetic.main.activity_homework_desc.*
 
@@ -41,11 +39,14 @@ class HomeworkDescActivity : BaseActivity() {
         }
     }
 
-    private var isError = false
     private lateinit var homeworkId: String
     private var workType = ""
     private var studentId = ""
-    private val typeAdapter = QuestionTypeAdapter()
+    private val typeAdapter by lazy {
+        val adapter = QuestionTypeAdapter()
+        adapter.showResult = true
+        adapter
+    }
     private lateinit var typeQuestionList: List<TypeQuestionBean?>
     private var fragments: Array<HomeworkDescFragment?>? = null
 
@@ -86,9 +87,6 @@ class HomeworkDescActivity : BaseActivity() {
         homeworkId = intent.getStringExtra("homeworkId") ?: ""
         workType = intent.getStringExtra("workType") ?: ""
         studentId = intent.getStringExtra("studentId") ?: ""
-        if (intent.hasExtra("error")) {
-            isError = intent.getBooleanExtra("error", false)
-        }
 
         /*val footerView = layoutInflater.inflate(R.layout.homework_desc_foot_view, null) as FrameLayout
         val exchangeTv = footerView.findViewById<TextView>(R.id.tv)
@@ -123,8 +121,8 @@ class HomeworkDescActivity : BaseActivity() {
     }
 
     private fun request() {
-        if (isError) {
-            EBagApi.getErrorDetail(homeworkId, (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid, detailRequest)
+        if (workType == Constants.ERROR_TOPIC_TYPE) {
+            EBagApi.getErrorDetail(homeworkId, studentId, detailRequest)
         } else {
             EBagApi.getQuestions(homeworkId, workType, studentId, detailRequest)
         }
@@ -147,10 +145,12 @@ class HomeworkDescActivity : BaseActivity() {
     private inner class ViewPagerAdapter(val fragments: Array<HomeworkDescFragment?>?): FragmentPagerAdapter(supportFragmentManager){
         override fun getItem(position: Int): Fragment {
             if (fragments!![position] == null){
-                fragments[position] = HomeworkDescFragment.newInstance(typeQuestionList[position]?.questionVos as ArrayList<QuestionBean?>)
+                fragments[position] = HomeworkDescFragment.newInstance(
+                        typeQuestionList[position]?.questionVos as ArrayList<QuestionBean?>,
+                        workType)
                 return fragments[position]!!
             }
-            return HomeworkDescFragment.newInstance(ArrayList())
+            return HomeworkDescFragment.newInstance(ArrayList(), workType)
         }
 
         override fun getCount(): Int = fragments?.size ?: 0

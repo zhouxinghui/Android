@@ -51,4 +51,12 @@ interface StudentService {
 
     @POST("util/insetWordrecord/{version}")
     fun uploadWord(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
+
+    /**提交作业*/
+    @POST("correctHome/currentHomeWork/{version}")
+    fun commitHomework(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**错题纠正*/
+    @POST("homeWork/updateErrorQuestion/{version}")
+    fun errorCorrection(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 }

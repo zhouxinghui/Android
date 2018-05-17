@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+    <ebag.mobile.widget.TitleBar android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <android.support.v4.view.ViewPager android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/y100"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                >
+                <TextView android:id="@+id/commitTv"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/y75"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/x15"
+                    android:layout_marginEnd="@dimen/x15"
+                    android:gravity="center"
+                    android:textSize="@dimen/tv_big"
+                    android:textColor="@color/white"
+                    android:background="@drawable/commit_work_btn_bg"
+                    tools:text="提交"
+                    />
+                <TextView android:id="@+id/checkQuestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/x15"
+                    android:background="@drawable/question_more"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        <ebag.core.widget.empty.StateView android:id="@+id/stateView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+</LinearLayout>

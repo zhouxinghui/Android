@@ -70,6 +70,7 @@ class WorkReportActivity: BaseActivity() {
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.isNestedScrollingEnabled = false
 
         stateView.setOnRetryClickListener {
             getReport()

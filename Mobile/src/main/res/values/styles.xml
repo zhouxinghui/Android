@@ -210,8 +210,8 @@
         <item name="android:orientation">vertical</item>
         <item name="android:background">@drawable/white_shadow_bg</item>
         <item name="android:layout_marginTop">@dimen/y5</item>
-        <item name="android:layout_marginStart">@dimen/x5</item>
-        <item name="android:layout_marginEnd">@dimen/x5</item>
+        <item name="android:layout_marginStart">@dimen/x2</item>
+        <item name="android:layout_marginEnd">@dimen/x2</item>
     </style>
     <!--work_report-->
 

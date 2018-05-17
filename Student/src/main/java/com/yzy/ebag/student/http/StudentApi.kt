@@ -1,7 +1,9 @@
 package com.yzy.ebag.student.http
 
+import com.alibaba.fastjson.JSON
 import com.yzy.ebag.student.bean.*
 import ebag.core.http.network.RequestCallBack
+import ebag.mobile.bean.request.CommitQuestionVo
 import ebag.mobile.http.EBagApi
 import ebag.mobile.http.EBagClient
 import org.json.JSONObject
@@ -105,5 +107,15 @@ object StudentApi {
         jsonObject.put("unitId", unitId)
         jsonObject.put("wordUrl", wordUrl)
         EBagApi.request(studentService.uploadWord("1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**提交作业*/
+    fun commitHomework(commitQuestionVo: CommitQuestionVo, callback: RequestCallBack<String>) {
+        EBagApi.request(studentService.commitHomework("v1", EBagApi.createBody(JSON.toJSONString(commitQuestionVo))), callback)
+    }
+
+    /**错题纠正*/
+    fun errorCorrection(commitQuestionVo: CommitQuestionVo, callback: RequestCallBack<String>) {
+        EBagApi.request(studentService.errorCorrection("v1", EBagApi.createBody(JSON.toJSONString(commitQuestionVo))), callback)
     }
 }

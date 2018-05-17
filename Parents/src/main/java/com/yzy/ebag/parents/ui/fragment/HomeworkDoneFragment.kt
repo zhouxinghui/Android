@@ -1,7 +1,6 @@
 package com.yzy.ebag.parents.ui.fragment
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
@@ -57,13 +56,11 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
 
         if (data.errorNum > 0)
             error_btn.setOnClickListener {
-                val intent = Intent(activity, HomeworkDescActivity::class.java)
-                intent.putExtra("homeworkId", homeworkId)
-                        .putExtra("testTime", 0)
-                        .putExtra("studentId", SPUtils.get(activity, com.yzy.ebag.parents.common.Constants.CURRENT_CHILDREN_YSBCODE, "") as String)
-                        .putExtra("workType", "")
-                        .putExtra("error", true)
-                startActivity(intent)
+                HomeworkDescActivity.jump(
+                        mContext,
+                        homeworkId,
+                        Constants.ERROR_TOPIC_TYPE,
+                        (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid)
             }
 
         if (data.teacherComment.isNullOrEmpty()) {

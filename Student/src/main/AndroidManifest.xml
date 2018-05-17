@@ -91,6 +91,9 @@
         <activity android:name=".module.homework.HomeworkActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".module.homework.DoHomeworkActivity"
+            android:screenOrientation="portrait"
+            />
 
         <service
             android:name="com.baidu.trace.LBSTraceService"
@@ -106,5 +109,8 @@
             android:process=":remote">
 
         </service>
+        <service
+            android:name=".service.AIDLTestService"
+            android:process=":countdown" />
     </application>
 </manifest>
