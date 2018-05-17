@@ -19,6 +19,8 @@ import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
+import ebag.core.util.T
+import ebag.mobile.base.ActivityUtils
 import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.bean.UnitBean
 import kotlinx.android.synthetic.main.activity_createstudytask.*
@@ -33,6 +35,9 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
     private lateinit var mSubjectAdapter: SubjectChooseAdapter
     private var selectedUid = ""
     private var selectedBookid = ""
+    private var questionCount = 10
+    private var subCode = ""
+    private lateinit var unitBean:UnitBean.UnitSubBean
     override fun getLayoutId(): Int = R.layout.activity_createstudytask
 
     private val chooseUnitDialog by lazy {
@@ -50,11 +55,13 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
         val pop = UnitPopupWindow(this)
         pop.onConfirmClick = { name, unitBean ->
             unit_tv_id.text = name
+            this.unitBean = unitBean!!
         }
         pop
     }
 
     override fun initViews() {
+        ActivityUtils.addActivity(this)
         mPersenter = CreateStudyTaskPersenter(this)
         mAdapter = CreateTaskAdapter(datas)
         recyclerview.layoutManager = GridLayoutManager(this, 3)
@@ -84,6 +91,8 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
             mSubjectAdapter.selectedPosition = position
             chooseUnitDialog.updateList(subjectDatas[position].subjectList)
             unit__id.text = ""
+            unit_tv_id.text = ""
+            subCode = subjectDatas[position].subCode
             mSubjectAdapter.notifyDataSetChanged()
         }
 
@@ -115,6 +124,25 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
             })
 
         }
+
+        comfirm_btn.setOnClickListener {
+            when{
+                selectedUid.isEmpty() -> T.show(this@CreateStudyTaskActivity,"还没有选择小孩")
+                selectedBookid.isEmpty() -> T.show(this@CreateStudyTaskActivity,"还没有选择教材")
+                !::unitBean.isInitialized -> T.show(this@CreateStudyTaskActivity,"还没有选择章节")
+                else -> PreviewActivity.jump(this@CreateStudyTaskActivity,false, arrayListOf(),unitBean, arrayListOf(),2,subCode,selectedBookid,false,"",questionCount)
+            }
+        }
+
+
+        question_count_group.setOnCheckedChangeListener { group, checkedId ->
+            when(checkedId){
+                R.id.count_a -> questionCount = 10
+                R.id.count_b -> questionCount = 20
+                R.id.count_c -> questionCount = 30
+                R.id.count_d -> questionCount = 40
+            }
+        }
     }
 
 
@@ -123,6 +151,7 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
         subjectDatas.clear()
         subjectDatas.addAll(datas)
         chooseUnitDialog.updateList(datas[mSubjectAdapter.selectedPosition].subjectList)
+        subCode = subjectDatas[0].subCode
         mSubjectAdapter.notifyDataSetChanged()
     }
 
@@ -184,6 +213,10 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
 
         }
 
+    }
+
+    override fun showError(e: Throwable?) {
+        super.showError(e)
     }
 
 }

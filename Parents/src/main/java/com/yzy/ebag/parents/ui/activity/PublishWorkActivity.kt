@@ -14,6 +14,7 @@ import ebag.core.util.DateUtil
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.StringUtils
 import ebag.core.util.T
+import ebag.mobile.base.ActivityUtils
 import ebag.mobile.bean.UnitBean
 import ebag.mobile.widget.DatePickerDialog
 import kotlinx.android.synthetic.main.activity_publish_work.*
@@ -23,17 +24,16 @@ class PublishWorkActivity : BaseActivity() {
     override fun getLayoutId(): Int {
         return R.layout.activity_publish_work
     }
-    private val publishRequest = object : RequestCallBack<String>(){
+
+    private val publishRequest = object : RequestCallBack<String>() {
         override fun onStart() {
             LoadingDialogUtil.showLoading(this@PublishWorkActivity, "正在发布...")
         }
+
         override fun onSuccess(entity: String?) {
             LoadingDialogUtil.closeLoadingDialog()
             T.show(this@PublishWorkActivity, "发布成功")
-            startActivity(
-                    Intent(this@PublishWorkActivity, ExcitationActivity::class.java)
-                            .putExtra("clearQuestion", true)
-            )
+            ActivityUtils.finishAll()
         }
 
         override fun onError(exception: Throwable) {
@@ -46,13 +46,14 @@ class PublishWorkActivity : BaseActivity() {
         val dialog = DatePickerDialog(this)
         dialog.onConfirmClick = {
             dateTv.text = it
-            deadTime = it + " 23:59"
+            deadTime = "$it 23:59"
         }
         dialog
     }
 
     private lateinit var deadTime: String
     private var groupIds: ArrayList<String>? = null
+
     companion object {
         fun jump(activity: Activity,
                  isGroup: Boolean,
@@ -65,7 +66,7 @@ class PublishWorkActivity : BaseActivity() {
                  bookVersionId: String,
                  testPaperId: String? = null,
                  testPaperName: String? = null
-                 ){
+        ) {
             activity.startActivity(Intent(activity, PublishWorkActivity::class.java)
                     .putExtra("isGroup", isGroup)
                     .putExtra("isTest", isTest)
@@ -82,6 +83,7 @@ class PublishWorkActivity : BaseActivity() {
     }
 
     override fun initViews() {
+        ActivityUtils.addActivity(this)
         val isGroup = intent.getBooleanExtra("isGroup", false)
         val isTest = intent.getBooleanExtra("isTest", false)
         val classes = intent.getSerializableExtra("classes") as ArrayList<AssignClassBean>
@@ -95,28 +97,31 @@ class PublishWorkActivity : BaseActivity() {
         dateTv.text = DateUtil.getFormatDateTime(Date(System.currentTimeMillis()), "yyyy-M-d")
         var content = "${if (unitBean.unitCode == null) "全部" else unitBean.name} (共${questionList.size}题)"
         publishContent.text = "发布内容：$content"
-        if (isGroup){
+        if (isGroup) {
             titleBar.setTitle("发布小组")
             publishPerson.text = "布置小组：点击选择小组"
             publishPerson.setOnClickListener {
-                if (classes.isEmpty()){
+                if (classes.isEmpty()) {
                     T.show(this, "未选择班级")
                     return@setOnClickListener
                 }
-                if (classes.size >1) {
+                if (classes.size > 1) {
                     T.show(this, "发布小组时班级不能多选")
                     return@setOnClickListener
                 }
             }
-        }else{
+        } else {
             titleBar.setTitle("发布班级")
             val stringBuilder = StringBuilder("布置班级：")
             classes.forEach { stringBuilder.append("${it.className}、") }
             stringBuilder.deleteCharAt(stringBuilder.lastIndexOf("、"))
             publishPerson.text = stringBuilder.toString()
         }
+
+        publishPerson.visibility = View.GONE
+
         var testPaperId: String? = null
-        if(isTest){
+        if (isTest) {
             deadTimeTv.text = "考试时间："
             deadTime = "45"
             time_a.text = "45分钟"
@@ -125,7 +130,7 @@ class PublishWorkActivity : BaseActivity() {
             testPaperId = intent.getStringExtra("testPaperId")
             content = intent.getStringExtra("testPaperName")
             publishContent.text = "发布内容：$content"
-        }else{
+        } else {
             deadTimeTv.text = "截止时间："
             deadTime = DateUtil.getFormatDateAdd(Date(System.currentTimeMillis()), 0, "yyyy-M-d") + " 23:59"
             time_a.text = "今天内"
@@ -138,31 +143,31 @@ class PublishWorkActivity : BaseActivity() {
             timeTv.visibility = View.GONE
             testTimeEdit.visibility = View.GONE
             testTimeTv.visibility = View.GONE
-            when(checkedId){
-                R.id.time_a ->{
+            when (checkedId) {
+                R.id.time_a -> {
                     deadTime = if (isTest)
                         "45"
                     else
                         DateUtil.getFormatDateAdd(Date(System.currentTimeMillis()), 0, "yyyy-M-d") + " 23:59"
                 }
-                R.id.time_b ->{
+                R.id.time_b -> {
                     deadTime = if (isTest)
                         "90"
                     else
                         DateUtil.getFormatDateAdd(Date(System.currentTimeMillis()), 1, "yyyy-M-d") + " 23:59"
                 }
-                R.id.time_c ->{
+                R.id.time_c -> {
                     deadTime = if (isTest)
                         "120"
                     else
                         DateUtil.getFormatDateAdd(Date(System.currentTimeMillis()), 2, "yyyy-M-d") + " 23:59"
                 }
-                R.id.time_d ->{
+                R.id.time_d -> {
                     isCustom = true
-                    if (isTest){
+                    if (isTest) {
                         testTimeEdit.visibility = View.VISIBLE
                         testTimeTv.visibility = View.VISIBLE
-                    }else{
+                    } else {
                         dateTv.visibility = View.VISIBLE
                         timeTv.visibility = View.VISIBLE
                     }
@@ -172,34 +177,35 @@ class PublishWorkActivity : BaseActivity() {
         dateTv.setOnClickListener { datePickerDialog.show() }
 
         titleBar.setOnRightClickListener {
-            if (isTest && isCustom){
-                if (StringUtils.isEmpty(testTimeEdit.text.toString())){
+            if (isTest && isCustom) {
+                if (StringUtils.isEmpty(testTimeEdit.text.toString())) {
                     T.show(this@PublishWorkActivity, "请输入自定义考试时间")
                     return@setOnRightClickListener
                 }
                 deadTime = testTimeEdit.text.toString()
-                if (deadTime.toInt() > 150 || deadTime.toInt() < 30){
+                if (deadTime.toInt() > 150 || deadTime.toInt() < 30) {
                     T.show(this@PublishWorkActivity, "考试时间范围：30-150分钟")
                     return@setOnRightClickListener
 
                 }
-            }else{
+            } else {
 
             }
-            if (classes.isEmpty()){
+            /*if (classes.isEmpty()){
                 T.show(this@PublishWorkActivity, "未选择班级")
                 return@setOnRightClickListener
             }
             if (isGroup && (groupIds == null || groupIds!!.isEmpty())){
                 T.show(this@PublishWorkActivity, "请选择小组")
                 return@setOnRightClickListener
-            }else if (isGroup){
+            }else*/
+            if (isGroup) {
                 ParentsAPI.publishHomework(classes, groupIds, isGroup, workType, attentionEdit.text.toString(), content, deadTime, subCode, bookVersionId, questionList, null, publishRequest)
-            }else{
-                if (isTest){
-                    ParentsAPI.publishHomework(classes,null, isGroup, workType, attentionEdit.text.toString(), content, deadTime, subCode, bookVersionId, null, testPaperId, publishRequest)
-                }else{
-                    ParentsAPI.publishHomework(classes,null, isGroup, workType, attentionEdit.text.toString(), content, deadTime, subCode, bookVersionId, questionList, null, publishRequest)
+            } else {
+                if (isTest) {
+                    ParentsAPI.publishHomework(classes, null, isGroup, workType, attentionEdit.text.toString(), content, deadTime, subCode, bookVersionId, null, testPaperId, publishRequest)
+                } else {
+                    ParentsAPI.publishHomework(classes, null, isGroup, workType, attentionEdit.text.toString(), content, deadTime, subCode, bookVersionId, questionList, null, publishRequest)
                 }
             }
         }

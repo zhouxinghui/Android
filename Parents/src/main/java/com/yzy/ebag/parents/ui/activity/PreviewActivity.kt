@@ -2,6 +2,7 @@ package com.yzy.ebag.parents.ui.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.drawable.AnimationDrawable
 import android.support.v7.widget.RecyclerView
 import android.util.TypedValue
@@ -25,6 +26,7 @@ import ebag.core.util.T
 import ebag.core.util.VoicePlayerOnline
 import ebag.core.xRecyclerView.adapter.OnItemChildClickListener
 import ebag.core.xRecyclerView.adapter.RecyclerViewHolder
+import ebag.mobile.base.ActivityUtils
 import ebag.mobile.base.BaseListActivity
 import ebag.mobile.bean.UnitBean
 import ebag.mobile.module.homework.QuestionAnalyseDialog
@@ -95,6 +97,7 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
         popup
     }
     override fun loadConfig(intent: Intent) {
+        ActivityUtils.addActivity(this)
         loadMoreEnabled(false)
         isTest = intent.getBooleanExtra("isTest", false)
         classes = intent.getSerializableExtra("classes") as java.util.ArrayList<AssignClassBean>
@@ -106,19 +109,31 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
         paperId = intent.getStringExtra("paperId")
 
         val rightImage = ImageView(this)
-        rightImage.setImageResource(R.drawable.more)
-        rightImage.setPadding(resources.getDimension(ebag.mobile.R.dimen.x8).toInt(), 0, resources.getDimension(ebag.mobile.R.dimen.x8).toInt(), 0)
+        val textView = TextView(this)
+        textView.text = "发布"
+        textView.gravity = Gravity.CENTER
+        textView.setTextColor(Color.WHITE)
         val previewParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, resources.getDimensionPixelSize(R.dimen.title_bar_height))
         previewParams.addRule(RelativeLayout.ALIGN_PARENT_END)
+        textView.layoutParams = previewParams
         rightImage.layoutParams = previewParams
-        titleBar.addView(rightImage)
+        rightImage.setImageResource(R.drawable.more)
+        textView.setPadding(resources.getDimension(ebag.mobile.R.dimen.x8).toInt(), 0, resources.getDimension(ebag.mobile.R.dimen.x8).toInt(), 0)
+        rightImage.setPadding(resources.getDimension(ebag.mobile.R.dimen.x8).toInt(), 0, resources.getDimension(ebag.mobile.R.dimen.x8).toInt(), 0)
+        //titleBar.addView(rightImage)
+        titleBar.addView(textView)
         rightImage.setOnClickListener {
             previewPopup.showAsDropDown(rightImage)
         }
 
-        if (isTest){
-            rightImage.visibility = View.GONE
+        rightImage.visibility = View.GONE
+
+        textView.setOnClickListener {
+            PublishWorkActivity.jump(this, true, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId)
         }
+        /*if (isTest){
+            rightImage.visibility = View.GONE
+        }*/
 
         questionNumTv = TextView(this)
         questionNumTv.setTextColor(resources.getColor(R.color.white))

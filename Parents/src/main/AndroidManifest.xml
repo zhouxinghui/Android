@@ -110,9 +110,6 @@
             android:name=".ui.activity.ExcitationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.RepresentActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ui.activity.CreateTaskActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -155,15 +152,18 @@
         <activity
             android:name=".ui.activity.LoginSelectActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.CreateStudyTaskActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".ui.activity.PublishWorkActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".ui.activity.GuideActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".ui.activity.CreateStudyTaskActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.PublishWorkActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.GuideActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.PreviewActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="UMENG_APPKEY"
@@ -175,14 +175,14 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"/>
+            android:process=":remote" />
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="0qKNIut4jdbpM4GCTV0CV0fhcNfzqNrX" />
         <service
             android:name="com.baidu.trace.LBSTraceService"
             android:enabled="true"
-            android:process=":remote"/>
+            android:process=":remote" />
     </application>
 
 </manifest>

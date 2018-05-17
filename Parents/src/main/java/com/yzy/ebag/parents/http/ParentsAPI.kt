@@ -94,7 +94,7 @@ object ParentsAPI {
         if (!StringUtils.isEmpty(unitId))
             jsonObject.put("unitId", unitId)
         if (!StringUtils.isEmpty(uid))
-            jsonObject.put("uid", uid)
+            jsonObject.put("studentId", uid)
         jsonObject.put("classId", classId)
         EBagApi.request(parentsService.getLetterRecord("v1", EBagApi.createBody(jsonObject)), callback)
     }
@@ -259,13 +259,14 @@ object ParentsAPI {
             jsonObject.put("groupIds", groupArray)
         }
         jsonObject.put("clazzIds", classArray)
-        if (isGroup)
+        /*if (isGroup)
             jsonObject.put("groupType", "2")
         else
-            jsonObject.put("groupType", "1")
+            jsonObject.put("groupType", "1")*/
+        jsonObject.put("groupType", "4")
         jsonObject.put("content", content)
         jsonObject.put("remark", remark)
-        jsonObject.put("type", type)
+        jsonObject.put("type", "3")
         jsonObject.put("endTime", endTime)
         jsonObject.put("subCode", subCode)
         jsonObject.put("bookVersionId", bookVersionId)

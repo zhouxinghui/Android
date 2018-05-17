@@ -81,6 +81,16 @@ public class SubjectBean implements MultiItemEntity {
         private String content;
         private String state;
         private String remark;
+
+        public String getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
+        }
+
+        private String createTime;
         private String endTime;
         private int questionCount;
         private int questionComplete;

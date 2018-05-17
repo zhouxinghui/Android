@@ -21,6 +21,15 @@ public class HomeworkAbstractBean {
     private double totalScore;
     private double maxScore;
 
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
+    }
+
+    private String teacherName;
     public String getContent() {
         return content;
     }

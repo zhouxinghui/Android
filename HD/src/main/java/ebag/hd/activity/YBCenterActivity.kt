@@ -9,8 +9,6 @@ import android.text.Spanned
 import android.text.style.AbsoluteSizeSpan
 import android.view.View
 import android.widget.RadioGroup
-import android.widget.TextView
-import com.chad.library.adapter.base.BaseQuickAdapter
 import ebag.core.base.BaseActivity
 import ebag.hd.R
 import ebag.hd.adapter.YBCenterAdapter
@@ -49,6 +47,11 @@ class YBCenterActivity : BaseActivity(),YBCenterContract.View,RadioGroup.OnCheck
         activity_ybcenter_stateview.setOnRetryClickListener {
             mPresenter.request(page,10,true,false)
         }
+
+        actvity_ybcenter_titlebar.setOnRightClickListener {
+            YBProtocolActivity.start(this)
+        }
+
         mAdapter = YBCenterAdapter(R.layout.item_ybcenter,mData)
         activity_ybcenter_recyclerview.layoutManager = LinearLayoutManager(this)
         activity_ybcenter_recyclerview.adapter = mAdapter

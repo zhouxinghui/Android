@@ -32,12 +32,14 @@
         />
     <TextView android:id="@+id/selectTv"
         android:layout_width="@dimen/x40"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:gravity="center"
         android:textColor="@color/white"
-        android:textSize="@dimen/tv_sub"
+        android:textSize="@dimen/tv_normal"
         android:text="选入"
         android:background="@drawable/question_select_tv_bg"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         />
 </android.support.constraint.ConstraintLayout>

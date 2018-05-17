@@ -77,6 +77,16 @@ public class OnePageInfoBean {
         private String remark;
         private String endTime;
         private int questionCount;
+
+        public String getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
+        }
+
+        private String createTime;
         private int questionComplete;
 
         public String getId() {

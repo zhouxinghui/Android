@@ -6,7 +6,7 @@ import ebag.mobile.http.EBagApi
 
 class YBCenterPersenter: YBCenterContract.Persenter <YBCenterContract.YBCenterView>{
 
-    private var page = 0
+    private var page = 1
 
     override fun startFirstpage(v:YBCenterContract.YBCenterView) {
 

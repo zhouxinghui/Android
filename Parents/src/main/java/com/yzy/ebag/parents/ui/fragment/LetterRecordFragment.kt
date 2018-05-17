@@ -13,6 +13,9 @@ import com.yzy.ebag.parents.ui.activity.LetterRecordListActivity
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.DateUtil
+import ebag.core.util.SerializableUtils
+import ebag.mobile.base.Constants
+import ebag.mobile.bean.MyChildrenBean
 import java.util.*
 
 /**
@@ -49,7 +52,7 @@ class LetterRecordFragment: BaseListFragment<List<LetterRecordBaseBean>, LetterR
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<LetterRecordBaseBean>>) {
-        ParentsAPI.getLetterRecord(unitCode, classId, requestCallBack)
+        ParentsAPI.getLetterRecord(unitCode, classId, requestCallBack,SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).uid)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<LetterRecordBaseBean>?): List<LetterRecordBaseBean>? {

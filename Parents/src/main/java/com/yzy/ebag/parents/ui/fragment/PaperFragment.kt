@@ -56,7 +56,7 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
         } else {
             recyclerview.adapter = mAdapter
             mAdapter.setOnItemClickListener { adapter, view, position ->
-                if ((adapter.getItem(position) as SubjectBean.HomeWorkInfoBean).state.toInt() > 1) {
+                if ((adapter.getItem(position) as SubjectBean.HomeWorkInfoBean).state.toInt() > 0) {
                     HomeworkReportActivity.start(activity, datas[position].id, datas[position].endTime, "4")
                 } else {
                     HomeworkDescActivity.jump(activity, datas[position].id, "4", childrenBean.uid)
@@ -186,7 +186,7 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
                                 Constants.CORRECT_PARENT_REMARKED -> "家长签名和评语完成"
                                 else -> "未完成"
                             }
-                    )
+                    ).setText(R.id.createTime, item?.createTime)
             helper.getView<View>(R.id.tvStatus).isSelected = item?.state == Constants.CORRECT_UNFINISH
         }
     }

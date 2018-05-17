@@ -71,6 +71,8 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
 
         }
 
+        homework_teacher_name.text = data.teacherName?:""
+
         if (data.parentComment.isNullOrEmpty()) {
             homework_parents_edit_layout.visibility = View.VISIBLE
             homework_parents_comment.visibility = View.GONE
@@ -80,7 +82,7 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
             homework_parents_comment.text = data.parentComment
         }
 
-        homework_parents_name.text = "${SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).name}家长"
+        homework_parents_name.text = "${SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).name}"
 
 
         homework_parents_comment_comfirm.setOnClickListener {

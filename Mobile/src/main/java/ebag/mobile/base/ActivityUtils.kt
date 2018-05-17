@@ -42,5 +42,11 @@ class ActivityUtils {
                 it.finish()
             }
         }
+
+        fun finishAll(){
+            activityStacks.forEach {
+                it.finish()
+            }
+        }
     }
 }

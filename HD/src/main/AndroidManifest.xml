@@ -124,6 +124,9 @@
         <activity android:name=".activity.ClassMateSubActivity"
             android:screenOrientation="landscape"
             />
+        <activity android:name=".activity.YBProtocolActivity"
+            android:screenOrientation="landscape"
+            />
 
         <service
             android:name=".service.AIDLTestService"
