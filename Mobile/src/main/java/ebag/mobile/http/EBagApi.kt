@@ -639,4 +639,17 @@ object EBagApi {
         jsonObject.put("id", id)
         EBagApi.request(eBagService.shopDeatils("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+
+    /*成长轨迹，考试成绩*/
+
+    fun examSocre(classId: String, homeType: String, rid: String, gradeCode: String, studentUid: String, callback: RequestCallBack<List<HomeworkBean>>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        jsonObject.put("studentUid", studentUid)
+        jsonObject.put("homeType", homeType)
+        jsonObject.put("gradeCode", gradeCode)
+        jsonObject.put("rid", rid)
+        EBagApi.request(eBagService.yearStatisticsByHomeWork("1", EBagApi.createBody(jsonObject)), callback)
+    }
 }

@@ -49,9 +49,6 @@ interface ParentsService {
     @POST("util/queryNewWordsTime/{version}")
     fun getLetterRecord(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<LetterRecordBaseBean>>>
 
-    @POST("homeStatistics/yearStatisticsByHomeWork/{version}")
-    fun yearStatisticsByHomeWork(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<HomeworkBean>>>
-
     /**
      * 随堂 课后作业
      * @return

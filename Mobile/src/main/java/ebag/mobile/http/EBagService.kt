@@ -271,4 +271,7 @@ interface EBagService {
 
     @POST("shop/getShopDetailInfo/{version}")
     fun shopDeatils(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<GoodsDetailsBean>>
+
+    @POST("homeStatistics/yearStatisticsByHomeWork/{version}")
+    fun yearStatisticsByHomeWork(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<HomeworkBean>>>
 }

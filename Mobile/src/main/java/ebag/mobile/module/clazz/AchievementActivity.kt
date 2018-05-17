@@ -1,13 +1,12 @@
-package com.yzy.ebag.parents.ui.activity
+package ebag.mobile.module.clazz
 
 import android.content.Context
 import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import com.yzy.ebag.parents.R
-import com.yzy.ebag.parents.ui.fragment.AchievementFragment
 import ebag.core.base.BaseActivity
+import ebag.mobile.R
 import kotlinx.android.synthetic.main.activity_achievement.*
 
 /**

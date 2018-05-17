@@ -10,7 +10,6 @@ import com.yzy.ebag.parents.R
 import com.yzy.ebag.parents.mvp.ClazzMainContract
 import com.yzy.ebag.parents.mvp.model.PersonalItemModel
 import com.yzy.ebag.parents.mvp.presenter.ClazzMainPresenter
-import com.yzy.ebag.parents.ui.activity.AchievementActivity
 import com.yzy.ebag.parents.ui.activity.NoticeListActivity
 import com.yzy.ebag.parents.ui.adapter.PersonalAdapter
 import com.yzy.ebag.parents.ui.widget.ClassJoinDialog
@@ -21,6 +20,7 @@ import ebag.core.util.loadHead
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.bean.NoticeBean
+import ebag.mobile.module.clazz.AchievementActivity
 import ebag.mobile.module.clazz.ClassScheduleActivity
 import ebag.mobile.module.clazz.ClazzmateActivity
 import ebag.mobile.module.clazz.album.AlbumActivity

@@ -1,21 +1,22 @@
-package com.yzy.ebag.parents.ui.fragment
+package ebag.mobile.module.clazz
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.yzy.ebag.parents.R
-import com.yzy.ebag.parents.bean.Achievement
-import com.yzy.ebag.parents.bean.HomeworkBean
-import com.yzy.ebag.parents.http.ParentsAPI
 import ebag.core.base.LazyFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.SerializableUtils
 import ebag.core.widget.FoldChartView
+import ebag.mobile.R
 import ebag.mobile.base.Constants
+import ebag.mobile.bean.Achievement
+import ebag.mobile.bean.HomeworkBean
 import ebag.mobile.bean.MyChildrenBean
+import ebag.mobile.http.EBagApi
 import kotlinx.android.synthetic.main.fragment_achievement.*
+
 
 /**
  * @author caoyu
@@ -93,7 +94,7 @@ class AchievementFragment : LazyFragment() {
     }
 
     private fun request() {
-        ParentsAPI.examSocre((SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).classId, type.toString(), "3",gradeCode,(SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid, object : RequestCallBack<List<HomeworkBean>>() {
+        EBagApi.examSocre((SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).classId, type.toString(), "3",gradeCode,(SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid, object : RequestCallBack<List<HomeworkBean>>() {
             override fun onStart() {
                 stateview.showLoading()
             }

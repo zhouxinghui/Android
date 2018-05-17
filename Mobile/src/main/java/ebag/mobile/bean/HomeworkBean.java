@@ -1,4 +1,4 @@
-package com.yzy.ebag.parents.bean;
+package ebag.mobile.bean;
 
 public class HomeworkBean {
     /**
