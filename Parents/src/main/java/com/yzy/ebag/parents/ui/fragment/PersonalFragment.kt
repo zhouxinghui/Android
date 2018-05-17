@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.yzy.ebag.parents.R
 import com.yzy.ebag.parents.mvp.model.PersonalItemModel
+import com.yzy.ebag.parents.ui.activity.GuideActivity
 import com.yzy.ebag.parents.ui.activity.PersonalInfoActivity
 import com.yzy.ebag.parents.ui.activity.SettingActivity
 import com.yzy.ebag.parents.ui.adapter.PersonalAdapter
@@ -61,6 +62,7 @@ class PersonalFragment : BaseFragment() {
             when (position) {
                 2 -> SettingActivity.start(activity)
                 0 -> YBActivity.start(activity)
+                1 -> GuideActivity.start(activity)
             }
         }
 

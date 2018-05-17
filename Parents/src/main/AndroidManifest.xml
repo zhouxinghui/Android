@@ -161,7 +161,12 @@
         <activity android:name=".ui.activity.CreateStudyTaskActivity"
             android:screenOrientation="portrait"
             />
-        <activity android:name=".ui.activity.PublishWorkActivity" />
+        <activity android:name=".ui.activity.PublishWorkActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.activity.GuideActivity"
+            android:screenOrientation="portrait"
+            />
 
         <meta-data
             android:name="UMENG_APPKEY"
