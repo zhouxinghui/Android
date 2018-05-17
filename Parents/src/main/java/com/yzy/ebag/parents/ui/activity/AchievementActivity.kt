@@ -15,13 +15,13 @@ import kotlinx.android.synthetic.main.activity_achievement.*
  * @date 2018/2/1
  * @description 成绩统计
  */
-class AchievementActivity : BaseActivity(){
+class AchievementActivity : BaseActivity() {
 
     companion object {
-        fun jump(context: Context, gradeCode:String){
+        fun jump(context: Context, gradeCode: String) {
             context.startActivity(
-                    Intent(context,AchievementActivity::class.java)
-                            .putExtra("gradeCode",gradeCode)
+                    Intent(context, AchievementActivity::class.java)
+                            .putExtra("gradeCode", gradeCode)
             )
         }
     }
@@ -37,9 +37,9 @@ class AchievementActivity : BaseActivity(){
 
         val fragments = ArrayList<Fragment>()
         val titleList = ArrayList<String>()
-        fragments.add(AchievementFragment.newInstance(1,gradeCode))
-        fragments.add(AchievementFragment.newInstance(2,gradeCode))
-        fragments.add(AchievementFragment.newInstance(4,gradeCode))
+        fragments.add(AchievementFragment.newInstance(1, gradeCode))
+        fragments.add(AchievementFragment.newInstance(2, gradeCode))
+        fragments.add(AchievementFragment.newInstance(4, gradeCode))
         titleList.add("随堂作业")
         titleList.add("课后作业")
         titleList.add("考试试卷")
@@ -51,7 +51,7 @@ class AchievementActivity : BaseActivity(){
         tabLayout.setupWithViewPager(viewPager)
     }
 
-    inner class ViewPagerAdapter(fm: FragmentManager, private val fragments: ArrayList<Fragment>, private val titleList: ArrayList<String>): FragmentPagerAdapter(fm){
+    inner class ViewPagerAdapter(fm: FragmentManager, private val fragments: ArrayList<Fragment>, private val titleList: ArrayList<String>) : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int): Fragment {
             return fragments[position]
         }
