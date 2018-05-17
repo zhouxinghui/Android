@@ -70,6 +70,13 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
             request()
         }
 
+        refresh.setOnRefreshListener {
+            page = 1
+            datas.clear()
+            homeworkdatas.clear()
+            request()
+        }
+
         mAdapter.setOnLoadMoreListener({ loadmore() }, recyclerview)
         homeWorkAdapter.setOnLoadMoreListener({ loadmore() }, recyclerview)
     }
@@ -79,7 +86,8 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
         ParentsAPI.subjectWorkList(type, childrenBean.classId, code, page, 10, childrenBean.uid, object : RequestCallBack<List<SubjectBean>>() {
 
             override fun onStart() {
-                stateview.showLoading()
+                if (!refresh.isRefreshing)
+                    stateview.showLoading()
             }
 
             override fun onSuccess(entity: List<SubjectBean>?) {
@@ -102,6 +110,9 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
                     } else {
                         datas.addAll(entity[0].homeWorkInfoVos)
                         mAdapter.notifyDataSetChanged()
+                    }
+                    if (refresh.isRefreshing) {
+                        refresh.isRefreshing = false
                     }
                     page++
                     stateview.showContent()

@@ -21,12 +21,13 @@ import ebag.mobile.module.homework.HomeworkDescActivity
 import kotlinx.android.synthetic.main.fragment_paper.*
 
 @SuppressWarnings("ValidFragment")
-class ErrorBookFragment(private val code: String):BaseFragment(){
+class ErrorBookFragment(private val code: String) : BaseFragment() {
 
     override fun getLayoutRes(): Int = R.layout.fragment_paper
     private val datas: MutableList<ErrorTopicBean.ErrorHomeWorkVosBean> = mutableListOf()
     private lateinit var mAdapter: ErrorBookFragment.HomeWorkListAdapter
-    private lateinit var  childrenBean: MyChildrenBean
+    private lateinit var childrenBean: MyChildrenBean
+    private var page = 1
     override fun getBundle(bundle: Bundle?) {
 
     }
@@ -44,14 +45,20 @@ class ErrorBookFragment(private val code: String):BaseFragment(){
 
         mAdapter.setOnItemClickListener { adapter, view, position ->
 
-            val intent = Intent(activity,HomeworkDescActivity::class.java)
+            val intent = Intent(activity, HomeworkDescActivity::class.java)
             intent.putExtra("homeworkId", datas[position].homeWorkId)
                     .putExtra("testTime", 0)
                     .putExtra("studentId", childrenBean.uid)
                     .putExtra("workType", "")
-                    .putExtra("error",true)
+                    .putExtra("error", true)
 
             startActivity(intent)
+        }
+
+        refresh.setOnRefreshListener {
+            datas.clear()
+            page = 1
+            request()
         }
 
     }
@@ -59,19 +66,23 @@ class ErrorBookFragment(private val code: String):BaseFragment(){
     private fun request() {
 
 
-
-        ParentsAPI.errorTopic(childrenBean.classId,code,1,10,childrenBean.uid,object:RequestCallBack<ArrayList<ErrorTopicBean>>(){
+        ParentsAPI.errorTopic(childrenBean.classId, code, page, 10, childrenBean.uid, object : RequestCallBack<ArrayList<ErrorTopicBean>>() {
 
             override fun onStart() {
-                stateview.showLoading()
+                if (!refresh.isRefreshing)
+                    stateview.showLoading()
             }
 
             override fun onSuccess(entity: ArrayList<ErrorTopicBean>?) {
                 if (entity!![0].errorHomeWorkVos.size == 0) {
                     stateview.showEmpty()
-                }else{
+                } else {
                     datas.addAll(entity[0].errorHomeWorkVos)
                     mAdapter.notifyDataSetChanged()
+                    if (refresh.isRefreshing) {
+                        refresh.isRefreshing = false
+                    }
+                    page++
                     stateview.showContent()
                 }
             }
@@ -85,15 +96,17 @@ class ErrorBookFragment(private val code: String):BaseFragment(){
     }
 
 
-    inner class HomeWorkListAdapter(datas:List<ErrorTopicBean.ErrorHomeWorkVosBean>): BaseQuickAdapter<ErrorTopicBean.ErrorHomeWorkVosBean, BaseViewHolder>(R.layout.item_fragment_error_topic_list,datas){
+    inner class HomeWorkListAdapter(datas: List<ErrorTopicBean.ErrorHomeWorkVosBean>) : BaseQuickAdapter<ErrorTopicBean.ErrorHomeWorkVosBean, BaseViewHolder>(R.layout.item_fragment_error_topic_list, datas) {
 
         override fun convert(helper: BaseViewHolder, item: ErrorTopicBean.ErrorHomeWorkVosBean?) {
 
             val time = DateUtil.getDateTime(item?.createDate ?: 0)
-            helper.setText(R.id.tvCount, Html.fromHtml("错题： <font color='#FF7800'>${(item?.errorQuestionNumber ?: 0) - (item?.notRevisedQuestionNum ?: 0)}</font>/${item?.errorQuestionNumber}"))
-                    .setText(R.id.tvContent,"内容： ${item?.content}")
-                    .setText(R.id.tvTime,"作业提交时间： $time")
-                    .setText(R.id.tvStatus,if(item?.notRevisedQuestionNum == 0) "已纠正" else "未纠正")
+            helper.setText(R.id.tvCount, Html.fromHtml("错题： <font color='#FF7800'>${(item?.errorQuestionNumber
+                    ?: 0) - (item?.notRevisedQuestionNum
+                    ?: 0)}</font>/${item?.errorQuestionNumber}"))
+                    .setText(R.id.tvContent, "内容： ${item?.content}")
+                    .setText(R.id.tvTime, "作业提交时间： $time")
+                    .setText(R.id.tvStatus, if (item?.notRevisedQuestionNum == 0) "已纠正" else "未纠正")
             helper.getView<View>(R.id.tvStatus).isSelected = item?.notRevisedQuestionNum == 0
         }
     }
