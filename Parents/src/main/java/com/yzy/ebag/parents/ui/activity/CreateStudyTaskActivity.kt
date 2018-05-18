@@ -37,7 +37,7 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
     private var selectedBookid = ""
     private var questionCount = 10
     private var subCode = ""
-    private lateinit var unitBean:UnitBean.UnitSubBean
+    private lateinit var unitBean: UnitBean.UnitSubBean
     override fun getLayoutId(): Int = R.layout.activity_createstudytask
 
     private val chooseUnitDialog by lazy {
@@ -78,7 +78,20 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
                 unit__id.text = ""
                 unit_tv_id.text = ""
                 mAdapter.notifyItemRangeChanged(0, datas.size)
-                mPersenter.querySubject(datas[position].classId)
+                if ((adapter.getItem(position) as MyChildrenBean).classId.isEmpty()) {
+                    unit__id.text = "小孩未加入班级"
+                    unit_tv_id.text = "小孩未加入班级"
+                    unit__id.isClickable = false
+                    unit_tv_id.isClickable = false
+                    subjectDatas.clear()
+                    mSubjectAdapter.notifyDataSetChanged()
+                } else {
+                    unit__id.text = ""
+                    unit_tv_id.text = ""
+                    unit__id.isClickable = true
+                    unit_tv_id.isClickable = true
+                    mPersenter.querySubject(datas[position].classId)
+                }
             }
         }
 
@@ -126,17 +139,18 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
         }
 
         comfirm_btn.setOnClickListener {
-            when{
-                selectedUid.isEmpty() -> T.show(this@CreateStudyTaskActivity,"还没有选择小孩")
-                selectedBookid.isEmpty() -> T.show(this@CreateStudyTaskActivity,"还没有选择教材")
-                !::unitBean.isInitialized -> T.show(this@CreateStudyTaskActivity,"还没有选择章节")
-                else -> PreviewActivity.jump(this@CreateStudyTaskActivity,false, arrayListOf(),unitBean, arrayListOf(),2,subCode,selectedBookid,false,"",questionCount)
+            when {
+                !unit__id.isClickable -> T.show(this@CreateStudyTaskActivity, "小孩未加入班级")
+                selectedUid.isEmpty() -> T.show(this@CreateStudyTaskActivity, "还没有选择小孩")
+                selectedBookid.isEmpty() -> T.show(this@CreateStudyTaskActivity, "还没有选择教材")
+                !::unitBean.isInitialized -> T.show(this@CreateStudyTaskActivity, "还没有选择章节")
+                else -> PreviewActivity.jump(this@CreateStudyTaskActivity, false, arrayListOf(), unitBean, arrayListOf(), 2, subCode, selectedBookid, false, "", questionCount)
             }
         }
 
 
         question_count_group.setOnCheckedChangeListener { group, checkedId ->
-            when(checkedId){
+            when (checkedId) {
                 R.id.count_a -> questionCount = 10
                 R.id.count_b -> questionCount = 20
                 R.id.count_c -> questionCount = 30
@@ -180,7 +194,15 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
         datas.addAll(data as ArrayList<MyChildrenBean>)
         mAdapter.notifyDataSetChanged()
         selectedUid = data[0].uid
-        mPersenter.querySubject(data[0].classId)
+        if (data[0].classId.isEmpty()) {
+            unit__id.text = "小孩未加入班级"
+            unit_tv_id.text = "小孩未加入班级"
+            unit__id.isClickable = false
+            unit_tv_id.isClickable = false
+        } else {
+            mPersenter.querySubject(data[0].classId)
+        }
+
     }
 
     override fun <T> showMoreComplete(data: List<T>) {

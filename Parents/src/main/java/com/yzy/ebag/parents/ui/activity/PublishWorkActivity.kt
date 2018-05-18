@@ -117,7 +117,7 @@ class PublishWorkActivity : BaseActivity() {
             stringBuilder.deleteCharAt(stringBuilder.lastIndexOf("、"))
             publishPerson.text = stringBuilder.toString()
         }
-
+        titleBar.setTitle("发布学习任务")
         publishPerson.visibility = View.GONE
 
         var testPaperId: String? = null

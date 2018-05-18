@@ -214,6 +214,13 @@ object ParentsAPI {
         EBagApi.request(parentsService.previewTestPaper("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
+    /**预览试卷*/
+    fun queryUserDetail(uid: String, callback: RequestCallBack<MyChildrenBean>){
+        val jsonObject = JSONObject()
+        jsonObject.put("uid",uid)
+        EBagApi.request(parentsService.queryUserDetail("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
 
     /**智能推送*/
     fun smartPush(count: Int, unitBean: UnitBean.UnitSubBean, difficulty: String?, type: String, bookVersionId: String?, callback: RequestCallBack<List<QuestionBean>>){

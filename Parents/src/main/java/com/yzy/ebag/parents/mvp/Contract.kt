@@ -60,11 +60,15 @@ interface CreateTaskContract {
 
 interface ClazzMainContract {
 
-    interface ClazzMainView : BaseView
+    interface ClazzMainView : BaseView{
+        fun updateChilden(id:String?,clazzName:String?)
+    }
 
     interface Presenter : BasePresenter<ClazzMainView> {
 
         fun queryClazzNews(id: String)
+
+        fun queryChildUpdate(id:String)
 
     }
 }

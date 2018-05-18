@@ -28,7 +28,6 @@ import kotlinx.android.synthetic.main.fragment_class.*
 
 class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
 
-
     private lateinit var mPersenter: ClazzMainPresenter
     private val datas: MutableList<PersonalItemModel> = mutableListOf()
     private val labels: Array<String> = arrayOf("成绩统计", "班级相册", "课程表", "", "加入班级")
@@ -109,9 +108,19 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
 
     fun updataClazz() {
         bean = SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY)
-        datas[3].label = if (bean.className.isEmpty()) "暂无班级" else "${bean.grade?:""}年级${bean.className?:""}"
+        datas[3].label = if (bean.className.isEmpty()) "暂无班级" else "${bean.grade
+                ?: ""}年级${bean.className ?: ""}"
         mAdapter.notifyDataSetChanged()
         mPersenter.queryClazzNews(bean.classId)
+    }
+
+    override fun updateChilden(id: String?, clazzName: String?) {
+        if (bean.classId != id) {
+            bean.classId = id
+            bean.className = clazzName
+            SerializableUtils.setSerializable(Constants.CHILD_USER_ENTITY, bean)
+            updataClazz()
+        }
     }
 
 
@@ -139,6 +148,7 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser && isViewPrepare) {
+            mPersenter.queryChildUpdate(bean.uid)
             mPersenter.queryClazzNews(bean.classId)
         }
     }

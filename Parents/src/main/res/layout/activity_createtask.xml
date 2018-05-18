@@ -15,20 +15,21 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/y15"
-        android:paddingStart="@dimen/x10"
         android:background="#fff"
+        android:paddingStart="@dimen/x10"
+        android:paddingTop="@dimen/y15"
         android:text="请选择孩子"
         android:textColor="#000"
         android:textSize="@dimen/tv_normal" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview"
-        android:paddingStart="@dimen/x20"
-        android:background="#fff"
-        android:paddingTop="@dimen/y30"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:paddingBottom="@dimen/y30"
+        android:paddingStart="@dimen/x20"
+        android:paddingTop="@dimen/y30" />
 
     <EditText
         android:id="@+id/title_edit"
@@ -38,23 +39,65 @@
         android:background="#fff"
         android:hint="请输入标题"
         android:maxLength="10"
-        android:textSize="12sp"
-        android:paddingStart="@dimen/x5" />
+        android:paddingStart="@dimen/x5"
+        android:textSize="12sp" />
 
 
     <EditText
         android:id="@+id/target_edit"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y190"
-        android:background="@drawable/edit_bcg"
-        android:hint="请输入目标内容"
-        android:gravity="start"
-        android:textSize="12sp"
-        android:backgroundTint="#fff"
         android:layout_marginTop="@dimen/y50"
-        android:paddingStart="@dimen/x5" />
+        android:background="@drawable/edit_bcg"
+        android:backgroundTint="#fff"
+        android:gravity="start"
+        android:hint="请输入目标内容"
+        android:paddingStart="@dimen/x5"
+        android:textSize="12sp" />
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y30"
+        android:paddingStart="@dimen/x5"
+        android:text="请输入奖励云币数量"
+        android:textColor="@color/black" />
+
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/black"
+        android:layout_height="0.5dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/y10"
+        android:paddingBottom="@dimen/y10"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        >
+
+        <EditText
+            android:layout_width="@dimen/x30"
+            android:layout_height="@dimen/x20"
+            android:layout_marginStart="@dimen/x10"
+            android:maxLines="1"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:hint="0"
+            android:id="@+id/yb_award"
+            android:background="@drawable/common_white_edittext_bg_radius"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="个/云币"
+            android:layout_marginStart="@dimen/x10"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/comfirm_btn"

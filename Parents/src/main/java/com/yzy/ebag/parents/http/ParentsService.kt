@@ -99,4 +99,7 @@ interface ParentsService {
     /**发布作业*/
     @POST("sendHome/sendHome/{version}")
     fun publishHomework(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    @POST("user/queryUserDetail/{version}")
+    fun queryUserDetail(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<MyChildrenBean>>
 }

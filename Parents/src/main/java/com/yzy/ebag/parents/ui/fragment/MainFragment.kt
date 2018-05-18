@@ -87,9 +87,9 @@ class MainFragment : BaseFragment() {
                 4 -> activity.startActivityForResult(Intent(activity, ChooseChildrenActivity::class.java).putExtra("flag", false), 998)
                 1 -> ExcitationActivity.start(activity)
                 5 -> PerformanceDialog(activity).show()
-                3 -> if (id.isNotEmpty()) ZixiActivity.jump(activity) else T.show(activity,"暂未加入班级")
-                2 -> if (id.isNotEmpty()) PaperActivity.start(activity, "4") else T.show(activity,"暂未加入班级")
-                0 -> if (id.isNotEmpty()) ErrorBookActivity.start(activity) else T.show(activity,"暂未加入班级")
+                3 -> if (id.isNotEmpty()) ZixiActivity.jump(activity) else T.show(activity, "暂未加入班级")
+                2 -> if (id.isNotEmpty()) PaperActivity.start(activity, "4") else T.show(activity, "暂未加入班级")
+                0 -> if (id.isNotEmpty()) ErrorBookActivity.start(activity) else T.show(activity, "暂未加入班级")
             }
         }
 
@@ -225,7 +225,8 @@ class MainFragment : BaseFragment() {
     }
 
     override fun onDestroy() {
-        request.cancelRequest()
+        if (::request.isInitialized)
+            request.cancelRequest()
         super.onDestroy()
     }
 }
