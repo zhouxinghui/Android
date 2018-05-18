@@ -213,6 +213,7 @@ class FollowReadActivity: BaseActivity() {
                             if(recorderUtil.isRecording || iflytekUtil.isRecording()){
                                 if(recorderAnim != null){
                                     recorderAnim?.stop()
+                                    recorderAnim?.selectDrawable(0)
                                 }
                                 if (subCode == "yw") {
                                     recorderUtil.pauseRecord()
