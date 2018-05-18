@@ -39,7 +39,7 @@ class YBCenterActivity : BaseActivity(),YBCenterContract.View,RadioGroup.OnCheck
         activity_ybcenter_radiogroup.setOnCheckedChangeListener(this)
         activity_ybcenter_datastateview.setOnRetryClickListener {
             when(nowSelected){
-                CURRENT -> mPresenter.request(page,10,false,false)
+                CURRENT -> mPresenter.request(page,10,true,false)
                 INCOME -> mPresenter.switch(page,10,"1",false)
                 EXPEND -> mPresenter.switch(page,10,"2",false)
             }

@@ -98,12 +98,14 @@ class MainFragment : BaseFragment() {
 
         viewpager.setOnTouchListener { _, event ->
             if (event!!.action == MotionEvent.ACTION_DOWN) {
-                val data = homeworkData[tablayout.currentTab].homeWorkInfoVos
-                if (data.size != 0) {
-                    val i = Intent(activity, HomeworkListActivity::class.java)
-                    i.putExtra("datas", data as Serializable)
-                    i.putExtra("subject", homeworkData[tablayout.currentTab].subject)
-                    startActivity(i)
+                if (::homeworkData.isInitialized) {
+                    val data = homeworkData[tablayout.currentTab].homeWorkInfoVos
+                    if (data.size != 0) {
+                        val i = Intent(activity, HomeworkListActivity::class.java)
+                        i.putExtra("datas", data as Serializable)
+                        i.putExtra("subject", homeworkData[tablayout.currentTab].subject)
+                        startActivity(i)
+                    }
                 }
             }
             false

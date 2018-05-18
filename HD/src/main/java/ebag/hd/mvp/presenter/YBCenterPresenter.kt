@@ -43,7 +43,6 @@ class YBCenterPresenter(context: Context, view: YBCenterContract.View) : YBCente
                     } else {
                         mView.showDataEmpty()
                     }
-                    return
                 }
                 when {
                     isFirst -> mView.showSuccess(entity.remainMoney.toString(), entity.increasedMoney.toString(), entity.reduceMoney.toString(), datas)
