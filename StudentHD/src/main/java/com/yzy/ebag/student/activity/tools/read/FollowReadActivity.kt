@@ -228,18 +228,13 @@ class FollowReadActivity: BaseActivity() {
                             }
                         }else{//
                             recorderAnim = view.background as AnimationDrawable
-                            // 本地不存在录音
-                            if(!recordFile.exists()){
-                                if (subCode == "yw") {
-                                    recorderUtil.setFinalFileName(recordFile.absolutePath)
-                                    recorderUtil.startRecord()
-                                }else{
-                                    iflytekUtil.startEvaluating(readDetailBean?.languageEn ?: "", recordFile.absolutePath)
-                                }
-                                recorderAnim?.start()
-                            }else{// 本地存在录音文件
-                                dialogExists.show()
+                            if (subCode == "yw") {
+                                recorderUtil.setFinalFileName(recordFile.absolutePath)
+                                recorderUtil.startRecord()
+                            }else{
+                                iflytekUtil.startEvaluating(readDetailBean?.languageEn ?: "", recordFile.absolutePath)
                             }
+                            recorderAnim?.start()
                             tempPosition = position
                         }
                     }

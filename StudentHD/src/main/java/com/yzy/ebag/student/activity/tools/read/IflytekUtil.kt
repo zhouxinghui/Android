@@ -97,7 +97,7 @@ class IflytekUtil private constructor(mContext: Context){
                                     val startIndex = str.indexOf(currentWord, 0, true)
                                     spannableString.setSpan(ForegroundColorSpan(Color.RED), startIndex, startIndex + currentWord.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 //                                } else {
-//                                    spannableString.setSpan(ForegroundColorSpan(Color.BLACK), str.indexOf(currentWord), currentWord.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                    spannableString.setSpan(ForegroundColorSpan(Color.GREEN), startIndex, startIndex + currentWord.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                                 }
                                 L.e("cca", word[i].index)
                             }
