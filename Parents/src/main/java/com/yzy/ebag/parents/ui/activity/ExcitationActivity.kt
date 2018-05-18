@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v4.app.Fragment
 import com.yzy.ebag.parents.R
 import com.yzy.ebag.parents.ui.fragment.ExcitationJobFragment
+import com.yzy.ebag.parents.ui.fragment.HomeworkJobFragment
 import ebag.core.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_excitation.*
 
@@ -13,7 +14,7 @@ class ExcitationActivity : BaseActivity() {
     private val titleData: Array<String> = arrayOf("劳动任务", "学习任务")
 
     override fun getLayoutId(): Int = R.layout.activity_excitation
-    private val list: ArrayList<Fragment> = arrayListOf(ExcitationJobFragment("0"), ExcitationJobFragment("1"))
+    private val list: ArrayList<Fragment> = arrayListOf(ExcitationJobFragment("0"), HomeworkJobFragment())
 
     override fun initViews() {
 

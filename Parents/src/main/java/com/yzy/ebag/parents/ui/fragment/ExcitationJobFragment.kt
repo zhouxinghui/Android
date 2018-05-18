@@ -24,7 +24,6 @@ class ExcitationJobFragment(private val type: String) : BaseFragment(), Excitati
     private lateinit var workAdapter: ExcitationAdapter
 
 
-
     override fun getLayoutRes(): Int = R.layout.fragment_excitation
 
     override fun getBundle(bundle: Bundle?) {
@@ -36,21 +35,18 @@ class ExcitationJobFragment(private val type: String) : BaseFragment(), Excitati
         recyclerview.layoutManager = LinearLayoutManager(activity)
         workAdapter = ExcitationAdapter(datas)
         workAdapter.disableLoadMoreIfNotFullPage(recyclerview)
-        if (type == "1") {
-            imageview.setImageResource(R.drawable.img_excitation_study)
-        } else {
-            recyclerview.adapter = workAdapter
+
+        recyclerview.adapter = workAdapter
+        mPersenter.requestTask(page.toString(), SPUtils.get(activity, com.yzy.ebag.parents.common.Constants.CURRENT_CHILDREN_YSBCODE, "") as String)
+
+        workAdapter.setOnLoadMoreListener({
             mPersenter.requestTask(page.toString(), SPUtils.get(activity, com.yzy.ebag.parents.common.Constants.CURRENT_CHILDREN_YSBCODE, "") as String)
+        }, recyclerview)
 
-            workAdapter.setOnLoadMoreListener({
-                mPersenter.requestTask(page.toString(), SPUtils.get(activity, com.yzy.ebag.parents.common.Constants.CURRENT_CHILDREN_YSBCODE, "") as String)
-            }, recyclerview)
-
-            workAdapter.setOnItemChildClickListener { adapter, _, position ->
-
-                mPersenter.finish((adapter.getItem(position) as ExcitationWorkBean).id, position)
-            }
+        workAdapter.setOnItemChildClickListener { adapter, _, position ->
+            mPersenter.finish((adapter.getItem(position) as ExcitationWorkBean).id, position)
         }
+
     }
 
     override fun showLoading() {

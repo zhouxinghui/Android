@@ -55,7 +55,8 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
         val pop = UnitPopupWindow(this)
         pop.onConfirmClick = { name, unitBean ->
             unit_tv_id.text = name
-            this.unitBean = unitBean!!
+            if (unitBean != null)
+                this.unitBean = unitBean
         }
         pop
     }
@@ -116,25 +117,27 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
 
         unit_tv_id.setOnClickListener {
 
-            ParentsAPI.getBookUnit(selectedBookid, object : RequestCallBack<java.util.ArrayList<UnitBean>>() {
+            if (selectedBookid.isNotEmpty())
 
-                override fun onStart() {
-                    super.onStart()
-                    LoadingDialogUtil.showLoading(this@CreateStudyTaskActivity, "正在加载...")
-                }
+                ParentsAPI.getBookUnit(selectedBookid, object : RequestCallBack<java.util.ArrayList<UnitBean>>() {
 
-                override fun onSuccess(entity: java.util.ArrayList<UnitBean>?) {
-                    unitPopupWindow.setData(entity)
-                    unitPopupWindow.showAtLocation(window.decorView, Gravity.CENTER, 0, 0)
-                    LoadingDialogUtil.closeLoadingDialog()
-                }
+                    override fun onStart() {
+                        super.onStart()
+                        LoadingDialogUtil.showLoading(this@CreateStudyTaskActivity, "正在加载...")
+                    }
 
-                override fun onError(exception: Throwable) {
-                    exception.handleThrowable(this@CreateStudyTaskActivity)
-                    LoadingDialogUtil.closeLoadingDialog()
-                }
+                    override fun onSuccess(entity: java.util.ArrayList<UnitBean>?) {
+                        unitPopupWindow.setData(entity)
+                        unitPopupWindow.showAtLocation(window.decorView, Gravity.CENTER, 0, 0)
+                        LoadingDialogUtil.closeLoadingDialog()
+                    }
 
-            })
+                    override fun onError(exception: Throwable) {
+                        exception.handleThrowable(this@CreateStudyTaskActivity)
+                        LoadingDialogUtil.closeLoadingDialog()
+                    }
+
+                })
 
         }
 
@@ -143,7 +146,7 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
                 !unit__id.isClickable -> T.show(this@CreateStudyTaskActivity, "小孩未加入班级")
                 selectedUid.isEmpty() -> T.show(this@CreateStudyTaskActivity, "还没有选择小孩")
                 selectedBookid.isEmpty() -> T.show(this@CreateStudyTaskActivity, "还没有选择教材")
-                !::unitBean.isInitialized -> T.show(this@CreateStudyTaskActivity, "还没有选择章节")
+                !::unitBean.isInitialized && unit_tv_id.text.isEmpty() -> T.show(this@CreateStudyTaskActivity, "还没有选择章节")
                 else -> PreviewActivity.jump(this@CreateStudyTaskActivity, false, arrayListOf(), unitBean, arrayListOf(), 2, subCode, selectedBookid, false, "", questionCount)
             }
         }

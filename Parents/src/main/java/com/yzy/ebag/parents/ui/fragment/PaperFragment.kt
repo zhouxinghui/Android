@@ -41,15 +41,16 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
         recyclerview.layoutManager = LinearLayoutManager(activity)
         mAdapter = HomeWorkListAdapter(datas)
         homeWorkAdapter = HomeworkListAdapter(homeworkdatas)
-        if (type == "2") {
-            recyclerview.adapter = homeWorkAdapter
+        if (type == "2" || type == "3") {
 
+            recyclerview.adapter = homeWorkAdapter
             homeWorkAdapter.setOnItemChildClickListener { adapter, view, position ->
 
                 if ((adapter.getItem(position) as OnePageInfoBean.HomeWorkInfoVosBean).state == "0") {
                     HomeworkDescActivity.jump(activity, homeworkdatas[position].id, "2", (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid)
                 } else {
-                    HomeworkReportActivity.start(activity, homeworkdatas[position].id, homeworkdatas[position].endTime, "2")
+                    if (type != "3")
+                        HomeworkReportActivity.start(activity, homeworkdatas[position].id, homeworkdatas[position].endTime, "2")
                 }
             }
 
@@ -94,7 +95,7 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
                 if (entity!![0].homeWorkInfoVos.size == 0) {
                     stateview.showEmpty()
                 } else {
-                    if (type == "2") {
+                    if (type == "2" || type == "3") {
                         entity[0].homeWorkInfoVos.forEach {
                             val bean = OnePageInfoBean.HomeWorkInfoVosBean()
                             bean.state = it.state
@@ -133,13 +134,13 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
 
             override fun onSuccess(entity: List<SubjectBean>?) {
                 if (entity!![0].homeWorkInfoVos.size == 0) {
-                    if (type == "2") {
+                    if (type == "2" || type == "3") {
                         homeWorkAdapter.loadMoreEnd()
                     } else {
                         mAdapter.loadMoreEnd()
                     }
                 } else {
-                    if (type == "2") {
+                    if (type == "2" || type == "3") {
                         entity[0].homeWorkInfoVos.forEach {
                             val bean = OnePageInfoBean.HomeWorkInfoVosBean()
                             bean.state = it.state
@@ -163,7 +164,7 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
             }
 
             override fun onError(exception: Throwable) {
-                if (type == "2") homeWorkAdapter.loadMoreFail() else mAdapter.loadMoreFail()
+                if (type == "2" || type == "3") homeWorkAdapter.loadMoreFail() else mAdapter.loadMoreFail()
             }
 
         })

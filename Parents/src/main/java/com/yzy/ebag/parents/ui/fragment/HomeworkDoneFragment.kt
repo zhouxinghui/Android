@@ -71,7 +71,7 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
 
         }
 
-        homework_teacher_name.text = data.teacherName?:""
+        homework_teacher_name.text = data.teacherName ?: ""
 
         if (data.parentComment.isNullOrEmpty()) {
             homework_parents_edit_layout.visibility = View.VISIBLE
@@ -108,6 +108,20 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
 
         error_preview.setOnClickListener {
             HomeworkDescActivity.jump(activity, homeworkId, mType, (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid)
+        }
+
+        homework_parents_btn.setOnClickListener {
+            ParentsAPI.parentComment(SPUtils.get(activity, com.yzy.ebag.parents.common.Constants.CURRENT_CHILDREN_YSBCODE, "") as String, homeworkId, SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).name, false, object : RequestCallBack<String>() {
+                override fun onSuccess(entity: String?) {
+                    homework_parents_btn.text = "已签字"
+                }
+
+                override fun onError(exception: Throwable) {
+                    T.show(activity, "签字失败")
+                }
+
+            })
+
         }
 
         homework_gift.setOnClickListener {

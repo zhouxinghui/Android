@@ -11,6 +11,14 @@
         android:layout_height="wrap_content"
         app:titleText="学生试卷" />
 
+    <ImageView
+        android:id="@+id/imageview"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y300"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        android:src="@drawable/img_excitation_home" />
+
     <ebag.core.widget.empty.StateView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
