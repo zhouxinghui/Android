@@ -72,7 +72,7 @@ class ReadFragment: BaseListFragment<ReadOutBean, ReadOutBean.OralLanguageBean>(
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-        ReadDetailActivity.jump(mContext, classId, adapter?.getItem(position) as ReadOutBean.OralLanguageBean?)
+        FollowReadActivity.jump(mContext, classId, adapter?.getItem(position) as ReadOutBean.OralLanguageBean?)
     }
 
     class Adapter: BaseQuickAdapter<ReadOutBean.OralLanguageBean, BaseViewHolder>(R.layout.item_fragment_tools_read){

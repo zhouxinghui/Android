@@ -17,9 +17,7 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
-import ebag.hd.activity.DisplayOfficeFileActivity
-import ebag.hd.activity.DisplayPdfFileActivity
-import ebag.hd.activity.DisplayTxtFileActivity
+import ebag.hd.activity.OfficeActivity
 import ebag.hd.widget.VideoPlayDialog
 import ebag.hd.widget.VoicePlayDialog
 
@@ -132,16 +130,16 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
         val bean = adapter.data[position]
         val fileType = bean.fileType ?: bean.fileName.substring(bean.fileName.lastIndexOf(".") + 1, bean.fileName.length)
         when(fileType){
-            "doc","docx","xls","xlsx","ppt","pptx" ->{
-                DisplayOfficeFileActivity.jump(mContext, bean.fileUrl)
-//                OfficeActivity.jump(mContext, bean.fileUrl, bean.fileName)
+            "doc","docx","xls","xlsx","ppt","pptx","txt","pdf" ->{
+//                DisplayOfficeFileActivity.jump(mContext, bean.fileUrl)
+                OfficeActivity.jump(mContext, bean.fileUrl, bean.fileName)
             }
-            "txt" ->{
+            /*"txt" ->{
                 DisplayTxtFileActivity.jump(mContext, bean.fileUrl)
             }
             "pdf" ->{
                 DisplayPdfFileActivity.jump(mContext, bean.fileUrl)
-            }
+            }*/
             "jpg","png","bmp","jpeg","gif" ->{
                 val imgList = ArrayList<String>()
                 imgList.add(bean.fileUrl)

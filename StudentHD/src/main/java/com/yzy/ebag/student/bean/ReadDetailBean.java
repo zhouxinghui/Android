@@ -29,6 +29,15 @@ public class ReadDetailBean {
     private String level;
     private String localPath;
     private int position;
+    private int score;
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 
     public int getPosition() {
         return position;

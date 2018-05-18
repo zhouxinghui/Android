@@ -186,6 +186,13 @@
         <activity
             android:name=".activity.location.LocationActivity"
             android:screenOrientation="landscape" />
+        <activity android:name=".kdxftest.KdxfDemoActvitiy">
+
+        </activity>
+        <activity android:name=".activity.tools.read.FollowReadActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            />
 
 
         <!--&lt;!&ndash; For test only 测试的主程序&ndash;&gt;-->
