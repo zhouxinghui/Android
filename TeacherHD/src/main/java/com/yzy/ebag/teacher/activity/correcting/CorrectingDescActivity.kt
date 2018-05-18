@@ -487,6 +487,7 @@ class CorrectingDescActivity : BaseActivity() {
             QuestionTypeUtils.QUESTIONS_CHINESE_WRITE_BY_VOICE,
             QuestionTypeUtils.QUESTION_MATH_APPLICATION->{
                 questionView = SentenceView(this)
+                questionView.setOnItemChildClickListener(questionClickListener)
             }
             QuestionTypeUtils.QUESTION_MATH_VERTICAL->{
                 questionView = MathVerticalView(this)
