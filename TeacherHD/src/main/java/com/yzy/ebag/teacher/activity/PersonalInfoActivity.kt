@@ -130,7 +130,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                     userEntity?.schoolName = entity?.schoolName
                     userEntity?.className = entity?.className
 
-                    headImage.loadHead(entity?.headUrl, true, System.currentTimeMillis().toString())
+                    headImage.loadHead(entity?.headUrl)
                     setTv(name, entity?.name)
                     setTv(bag, entity?.ysbCode)
                     setTv(sex, if(entity?.sex == "1") "男" else "女")

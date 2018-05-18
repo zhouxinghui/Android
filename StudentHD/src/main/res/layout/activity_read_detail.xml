@@ -14,19 +14,31 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <cn.jzvd.JZVideoPlayerStandard
-            android:id="@+id/videoPlayer"
+        <FrameLayout android:id="@+id/videoLayout"
             android:layout_width="@dimen/x526"
-            android:layout_height="@dimen/x362"
-            />
+            android:layout_height="match_parent"
+            android:background="#D5E8FE"
+            >
+            <TextView
+                android:layout_width="@dimen/x526"
+                android:layout_height="@dimen/x368"
+                android:background="@drawable/read_video_bg"
+                android:layout_gravity="center"
+                />
+            <cn.jzvd.JZVideoPlayerStandard
+                android:id="@+id/videoPlayer"
+                android:layout_width="@dimen/x460"
+                android:layout_height="@dimen/x260"
+                android:layout_gravity="center"
+                />
+        </FrameLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/historyRecycler"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_below="@id/videoPlayer"
-            android:layout_alignStart="@id/videoPlayer"
-            android:layout_alignEnd="@id/videoPlayer"/>
+            android:visibility="gone"
+            />
 
         <FrameLayout
             android:id="@+id/emptyLayout"
@@ -48,8 +60,7 @@
             android:id="@+id/contentRecycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@id/videoPlayer"
-            android:layout_marginLeft="@dimen/x20"/>
+            android:layout_toRightOf="@id/videoLayout"/>
 
         <ebag.core.widget.empty.StateView
             android:id="@+id/stateView"
