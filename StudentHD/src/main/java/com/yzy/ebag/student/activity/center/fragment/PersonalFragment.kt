@@ -92,7 +92,7 @@ class PersonalFragment : BaseFragment(), View.OnClickListener {
                 LoadingDialogUtil.closeLoadingDialog()
                 when (modifyType) {
                     0 -> {
-                        ivAvatar.loadHead(uploadHeadUrl, true, System.currentTimeMillis().toString())
+                        ivAvatar.loadHead(uploadHeadUrl)
                         userEntity?.headUrl = uploadHeadUrl
                         onHeadOrNameChange?.invoke(uploadHeadUrl, null)
                     }
@@ -119,13 +119,14 @@ class PersonalFragment : BaseFragment(), View.OnClickListener {
             }
         }
     }
-
+    private var currentMillis = 0L
     override fun initViews(rootView: View) {
 //        showContent()
         ivAvatar.setOnClickListener(this)
         tvName.setOnClickListener(this)
         tvGender.setOnClickListener(this)
         tvAddress.setOnClickListener(this)
+        currentMillis = System.currentTimeMillis()
     }
 
     override fun onResume() {
@@ -162,7 +163,7 @@ class PersonalFragment : BaseFragment(), View.OnClickListener {
                 tvName.text = entity?.name
                 tvId.text = entity?.ysbCode
                 tvContact.text = entity?.phone ?: ""
-                ivAvatar.loadHead(entity?.headUrl, true, System.currentTimeMillis().toString())
+                ivAvatar.loadHead(entity?.headUrl)
                 tvGender.text = when (entity?.sex) {
                     "1" -> "男  "
                     "2" -> "女  "
@@ -172,7 +173,7 @@ class PersonalFragment : BaseFragment(), View.OnClickListener {
                 tvAddress.text = entity?.address
                 tvSchool.text = entity?.schoolName
                 tvClass.text = entity?.className
-                uploadHeadUrl = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/headUrl/${userEntity?.uid}"
+                uploadHeadUrl = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/headUrl/${userEntity?.uid}$currentMillis"
 
             }
 
@@ -210,6 +211,8 @@ class PersonalFragment : BaseFragment(), View.OnClickListener {
                 modifyType = 0
                 key = "headUrl"
                 startSelectPicture(true, true, 1, false)
+                currentMillis = System.currentTimeMillis()
+                uploadHeadUrl = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/headUrl/${userEntity?.uid}$currentMillis"
             }
             R.id.tvName -> {
                 modifyType = 1
@@ -244,7 +247,7 @@ class PersonalFragment : BaseFragment(), View.OnClickListener {
                     val filePath = selectList[0].path
 //                    headImage.loadHead(filePath)
                     LoadingDialogUtil.showLoading(mContext, "正在上传...")
-                    OSSUploadUtils.getInstance().UploadPhotoToOSS(mContext, File(filePath), "personal/headUrl", "${userEntity?.uid}", myHandler)
+                    OSSUploadUtils.getInstance().UploadPhotoToOSS(mContext, File(filePath), "personal/headUrl", "${userEntity?.uid}$currentMillis", myHandler)
                 }
             }
         }

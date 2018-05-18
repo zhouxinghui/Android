@@ -161,6 +161,8 @@ class PersonalInfoActivity: BaseActivity(), View.OnClickListener {
                 modifyType = 0
                 key = "headUrl"
                 startSelectPicture(1, true, true, false)
+                currentTime = System.currentTimeMillis()
+                uploadHeadUrl = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/headUrl/${userEntity?.uid}$currentTime"
             }
             R.id.tvName -> {
                 modifyType = 1

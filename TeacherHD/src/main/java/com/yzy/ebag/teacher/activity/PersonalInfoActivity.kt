@@ -75,7 +75,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                 LoadingDialogUtil.closeLoadingDialog()
                 when(modifyType){
                     0 ->{
-                        headImage.loadHead(uploadHeadUrl, true, System.currentTimeMillis().toString())
+                        headImage.loadHead(uploadHeadUrl)
                         userEntity?.headUrl = uploadHeadUrl
                     }
                     1 ->{
@@ -100,7 +100,9 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
             }
         }
     }
+    private var currentTime = 0L
     override fun initViews() {
+        currentTime = System.currentTimeMillis()
         headImageBtn.setOnClickListener(this)
         nameBtn.setOnClickListener(this)
         bagBtn.setOnClickListener(this)
@@ -110,7 +112,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
         schoolBtn.setOnClickListener(this)
 
         userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.TEACHER_USER_ENTITY)
-        uploadHeadUrl = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/headUrl/${userEntity?.uid}"
+        uploadHeadUrl = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/headUrl/${userEntity?.uid}$currentTime"
         EBagApi.queryUserInfo(object : RequestCallBack<UserInfoBean>() {
             override fun onStart() {
                 LoadingDialogUtil.showLoading(this@PersonalInfoActivity)
@@ -158,6 +160,8 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                 modifyType = 0
                 key = "headUrl"
                 startSelectPicture(1, true, true, false)
+                currentTime = System.currentTimeMillis()
+                uploadHeadUrl = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/headUrl/${userEntity?.uid}$currentTime"
             }
             R.id.nameBtn ->{
                 modifyType = 1
@@ -201,7 +205,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                     val filePath = selectList[0].path
 //                    headImage.loadHead(filePath)
                     LoadingDialogUtil.showLoading(this, "正在上传...")
-                    OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(filePath), "personal/headUrl", "${userEntity?.uid}", myHandler)
+                    OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(filePath), "personal/headUrl", "${userEntity?.uid}$currentTime", myHandler)
                 }
             }
         }
