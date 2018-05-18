@@ -38,9 +38,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/x5"
                 android:textColor="#f5a523"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:id="@+id/item_excitation_reward"
-                android:text="奖励20金币" />
+                android:text="20云币" />
 
 
             <RelativeLayout

@@ -53,11 +53,12 @@ object ParentsAPI {
         EBagApi.request(parentsService.parentComment("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
-    fun createTask(title: String, content: String, uid: String, callback: RequestCallBack<String>) {
+    fun createTask(title: String, content: String, uid: String,yunCount:String, callback: RequestCallBack<String>) {
 
         val jsonObject = JSONObject()
         jsonObject.put("title", title)
         jsonObject.put("content", content)
+        jsonObject.put("yunCount", yunCount)
         val jay = JSONArray()
         jay.put(uid)
         jsonObject.put("studentUid", jay)

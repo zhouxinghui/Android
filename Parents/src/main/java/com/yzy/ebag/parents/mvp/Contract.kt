@@ -54,7 +54,7 @@ interface CreateTaskContract {
 
         fun queryChild()
 
-        fun createTask(title: String, content: String, uid: String)
+        fun createTask(title: String, content: String, uid: String,ybCount:String)
     }
 }
 

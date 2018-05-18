@@ -38,7 +38,6 @@ class ExcitationJobFragment(private val type: String) : BaseFragment(), Excitati
         workAdapter.disableLoadMoreIfNotFullPage(recyclerview)
         if (type == "1") {
             imageview.setImageResource(R.drawable.img_excitation_study)
-
         } else {
             recyclerview.adapter = workAdapter
             mPersenter.requestTask(page.toString(), SPUtils.get(activity, com.yzy.ebag.parents.common.Constants.CURRENT_CHILDREN_YSBCODE, "") as String)

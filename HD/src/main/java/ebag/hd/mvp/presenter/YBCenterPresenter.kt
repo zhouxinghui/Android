@@ -40,11 +40,13 @@ class YBCenterPresenter(context: Context, view: YBCenterContract.View) : YBCente
                 } else {
                     if (isLoadmore) {
                         mView.loadmoreEnd()
+                        return
                     } else {
                         mView.showDataEmpty()
                     }
 
                 }
+
                 when {
                     isFirst -> mView.showSuccess(entity.remainMoney.toString(), entity.increasedMoney.toString(), entity.reduceMoney.toString(), datas)
                     isLoadmore -> mView.loadmoreComplete(datas)

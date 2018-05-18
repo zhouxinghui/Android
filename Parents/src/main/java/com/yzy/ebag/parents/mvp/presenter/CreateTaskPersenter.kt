@@ -27,9 +27,9 @@ class CreateTaskPersenter(private val view: CreateTaskContract.CreateTaskView) :
     }
 
 
-    override fun createTask(title: String, content: String, uid: String) {
+    override fun createTask(title: String, content: String, uid: String,ybCount:String) {
 
-        ParentsAPI.createTask(title, content, uid, object : RequestCallBack<String>() {
+        ParentsAPI.createTask(title, content, uid,ybCount, object : RequestCallBack<String>() {
 
             override fun onSuccess(entity: String?) {
                 view.createSuccess()

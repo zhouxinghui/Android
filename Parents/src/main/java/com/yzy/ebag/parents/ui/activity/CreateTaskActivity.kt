@@ -60,7 +60,7 @@ class CreateTaskActivity : BaseActivity(), CreateTaskContract.CreateTaskView {
                 return@setOnClickListener
             }
 
-            mPersenter.createTask(title_edit.text.toString(), target_edit.text.toString(), selectedUid)
+            mPersenter.createTask(title_edit.text.toString(), target_edit.text.toString(), selectedUid,yb_award.text.toString())
         }
 
 
@@ -101,7 +101,7 @@ class CreateTaskActivity : BaseActivity(), CreateTaskContract.CreateTaskView {
     }
 
     override fun createFailed(e: Throwable?) {
-        e!!.handleThrowable(this)
+        e?.handleThrowable(this)
     }
 
     companion object {

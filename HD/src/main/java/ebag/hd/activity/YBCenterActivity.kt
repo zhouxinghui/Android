@@ -56,7 +56,6 @@ class YBCenterActivity : BaseActivity(),YBCenterContract.View,RadioGroup.OnCheck
         activity_ybcenter_recyclerview.layoutManager = LinearLayoutManager(this)
         activity_ybcenter_recyclerview.adapter = mAdapter
         activity_ybcenter_recyclerview.addItemDecoration(ebag.core.xRecyclerView.manager.DividerItemDecoration(DividerItemDecoration.VERTICAL,1, Color.parseColor("#e0e0e0")))
-        mAdapter.disableLoadMoreIfNotFullPage(activity_ybcenter_recyclerview)
         mAdapter.setOnLoadMoreListener({
             when(nowSelected){
                 CURRENT -> mPresenter.request(page,10,false,true)
