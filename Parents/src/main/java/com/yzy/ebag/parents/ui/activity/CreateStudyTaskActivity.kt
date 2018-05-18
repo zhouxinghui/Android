@@ -37,7 +37,7 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
     private var selectedBookid = ""
     private var questionCount = 10
     private var subCode = ""
-    private lateinit var unitBean: UnitBean.UnitSubBean
+    private var unitBean: UnitBean.UnitSubBean? = null
     override fun getLayoutId(): Int = R.layout.activity_createstudytask
 
     private val chooseUnitDialog by lazy {
@@ -53,10 +53,9 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
 
     private val unitPopupWindow by lazy {
         val pop = UnitPopupWindow(this)
-        pop.onConfirmClick = { name, unitBean ->
+        pop.onConfirmClick = { name, bean ->
             unit_tv_id.text = name
-            if (unitBean != null)
-                this.unitBean = unitBean
+            unitBean = bean ?: UnitBean.UnitSubBean()
         }
         pop
     }
@@ -76,6 +75,7 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
                     myChildrenBean.isSelected = index == position
                 }
                 selectedUid = datas[position].uid
+                selectedBookid = ""
                 unit__id.text = ""
                 unit_tv_id.text = ""
                 mAdapter.notifyItemRangeChanged(0, datas.size)
@@ -142,12 +142,13 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
         }
 
         comfirm_btn.setOnClickListener {
+
             when {
                 !unit__id.isClickable -> T.show(this@CreateStudyTaskActivity, "小孩未加入班级")
                 selectedUid.isEmpty() -> T.show(this@CreateStudyTaskActivity, "还没有选择小孩")
                 selectedBookid.isEmpty() -> T.show(this@CreateStudyTaskActivity, "还没有选择教材")
-                !::unitBean.isInitialized && unit_tv_id.text.isEmpty() -> T.show(this@CreateStudyTaskActivity, "还没有选择章节")
-                else -> PreviewActivity.jump(this@CreateStudyTaskActivity, false, arrayListOf(), unitBean, arrayListOf(), 2, subCode, selectedBookid, false, "", questionCount)
+                (unitBean == null) && unit_tv_id.text.isEmpty() -> T.show(this@CreateStudyTaskActivity, "还没有选择章节")
+                else -> PreviewActivity.jump(this@CreateStudyTaskActivity, false, arrayListOf(), unitBean , arrayListOf(), 2, subCode, selectedBookid, false, "", questionCount)
             }
         }
 

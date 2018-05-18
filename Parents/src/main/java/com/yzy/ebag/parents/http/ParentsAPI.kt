@@ -271,7 +271,7 @@ object ParentsAPI {
             jsonObject.put("groupType", "2")
         else
             jsonObject.put("groupType", "1")*/
-        jsonObject.put("groupType", "4")
+        jsonObject.put("groupType", "3")
         jsonObject.put("content", content)
         jsonObject.put("remark", remark)
         jsonObject.put("type", "3")
