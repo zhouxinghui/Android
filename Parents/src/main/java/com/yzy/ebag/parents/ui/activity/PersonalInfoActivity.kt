@@ -17,16 +17,19 @@ import ebag.core.util.*
 import ebag.mobile.bean.UserEntity
 import ebag.mobile.bean.UserInfoBean
 import ebag.mobile.http.EBagApi
+import ebag.mobile.util.RandomStringUtil
 import ebag.mobile.widget.ListBottomShowDialog
 import kotlinx.android.synthetic.main.activity_personal_info.*
 import java.io.File
 
-class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
+class PersonalInfoActivity : BaseActivity(), View.OnClickListener {
     override fun getLayoutId(): Int {
         return R.layout.activity_personal_info
     }
+
     private var userEntity: UserEntity? = null
     private var uploadHeadUrl = ""
+    private val randomStr by lazy { RandomStringUtil.getString() }
     /**
      * 0: 修改头像 1：修改姓名 2：修改性别 3：修改家庭住址
      */
@@ -52,7 +55,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
         bean2.sex = "2"
         bean2.sexStr = "女"
         sexList.add(bean2)
-        val dialog = object : ListBottomShowDialog<SexBean>(this, sexList){
+        val dialog = object : ListBottomShowDialog<SexBean>(this, sexList) {
             override fun setText(data: SexBean?): String {
                 return data!!.sexStr
             }
@@ -66,29 +69,29 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
     }
     private val
             modifyRequest by lazy {
-        object : RequestCallBack<String>(){
+        object : RequestCallBack<String>() {
             override fun onStart() {
-                LoadingDialogUtil.showLoading(this@PersonalInfoActivity,"正在上传...")
+                LoadingDialogUtil.showLoading(this@PersonalInfoActivity, "正在上传...")
             }
 
             override fun onSuccess(entity: String?) {
                 LoadingDialogUtil.closeLoadingDialog()
-                when(modifyType){
-                    0 ->{
+                when (modifyType) {
+                    0 -> {
                         headImage.loadHead(uploadHeadUrl, true, System.currentTimeMillis().toString())
                         userEntity?.headUrl = uploadHeadUrl
                         setResult(999)
                     }
-                    1 ->{
+                    1 -> {
                         name.text = modifyStr
                         userEntity?.name = modifyStr
                         setResult(999)
                     }
-                    2 ->{
+                    2 -> {
                         sex.text = modifyStr
                         userEntity?.sex = if (modifyStr == "男") "1" else "2"
                     }
-                    3 ->{
+                    3 -> {
                         familyAddress.text = modifyStr
                         userEntity?.address = modifyStr
                     }
@@ -102,6 +105,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
             }
         }
     }
+
     override fun initViews() {
         headImageBtn.setOnClickListener(this)
         nameBtn.setOnClickListener(this)
@@ -110,9 +114,8 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
         contactBtn.setOnClickListener(this)
         addressBtn.setOnClickListener(this)
         schoolBtn.setOnClickListener(this)
-
         userEntity = SerializableUtils.getSerializable<UserEntity>(ebag.mobile.base.Constants.PARENTS_USER_ENTITY)
-        uploadHeadUrl = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/headUrl/${userEntity?.uid}"
+        uploadHeadUrl = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/headUrl/$randomStr"
         EBagApi.queryUserInfo(object : RequestCallBack<UserInfoBean>() {
             override fun onStart() {
                 LoadingDialogUtil.showLoading(this@PersonalInfoActivity)
@@ -120,7 +123,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
 
             override fun onSuccess(entity: UserInfoBean?) {
                 LoadingDialogUtil.closeLoadingDialog()
-                if (userEntity != null){
+                if (userEntity != null) {
                     userEntity?.name = entity?.name
                     userEntity?.uid = entity?.uid
                     userEntity?.ysbCode = entity?.ysbCode
@@ -133,7 +136,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                     headImage.loadHead(entity?.headUrl, true, System.currentTimeMillis().toString())
                     setTv(name, entity?.name)
                     setTv(bag, entity?.ysbCode)
-                    setTv(sex, if(entity?.sex == "1") "男" else "女")
+                    setTv(sex, if (entity?.sex == "1") "男" else "女")
                     setTv(contactInformation, entity?.phone) //联系方式
                     setTv(familyAddress, entity?.address)
                     setTv(schoolName, entity?.schoolName)
@@ -148,41 +151,41 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
 
     }
 
-    private fun setTv(textView: TextView, string: String?){
-        if (!StringUtils.isEmpty(string)){
+    private fun setTv(textView: TextView, string: String?) {
+        if (!StringUtils.isEmpty(string)) {
             textView.text = string
         }
     }
 
     override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.headImageBtn ->{
+        when (v?.id) {
+            R.id.headImageBtn -> {
                 modifyType = 0
                 key = "headUrl"
                 startSelectPicture(1, true, true, false)
             }
-            R.id.nameBtn ->{
+            R.id.nameBtn -> {
                 modifyType = 1
                 key = "name"
                 modifyDialog.show("请输入姓名")
             }
-            R.id.bagBtn ->{
+            R.id.bagBtn -> {
                 //T.show(this, "书包号")
             }
-            R.id.sexBtn ->{
+            R.id.sexBtn -> {
                 modifyType = 2
                 key = "sex"
                 sexDialog.show()
             }
-            R.id.contactBtn ->{
+            R.id.contactBtn -> {
                 //T.show(this, "联系方式")
             }
-            R.id.addressBtn ->{
+            R.id.addressBtn -> {
                 modifyType = 3
                 key = "address"
                 modifyDialog.show("请输入地址")
             }
-            R.id.schoolBtn ->{
+            R.id.schoolBtn -> {
                 //T.show(this, "所在学校")
             }
         }
@@ -203,20 +206,22 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                     val filePath = selectList[0].path
 //                    headImage.loadHead(filePath)
                     LoadingDialogUtil.showLoading(this, "正在上传...")
-                    OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(filePath), "personal/headUrl", "${userEntity?.uid}", myHandler)
+                    OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(filePath), "personal/headUrl", "$randomStr", myHandler)
                 }
             }
         }
     }
+
     private val myHandler by lazy { MyHandler(this) }
-    class MyHandler(activity: PersonalInfoActivity): HandlerUtil<PersonalInfoActivity>(activity){
+
+    class MyHandler(activity: PersonalInfoActivity) : HandlerUtil<PersonalInfoActivity>(activity) {
         override fun handleMessage(activity: PersonalInfoActivity, msg: Message) {
-            when(msg.what){
-                ebag.core.util.Constants.UPLOAD_SUCCESS ->{
+            when (msg.what) {
+                ebag.core.util.Constants.UPLOAD_SUCCESS -> {
                     EBagApi.modifyPersonalInfo(activity.key, activity.uploadHeadUrl, activity.modifyRequest)
                     PictureFileUtils.deleteCacheDirFile(activity)
                 }
-                ebag.core.util.Constants.UPLOAD_FAIL ->{
+                ebag.core.util.Constants.UPLOAD_FAIL -> {
                     LoadingDialogUtil.closeLoadingDialog()
                     T.show(activity, "上传图片失败，请稍后重试")
                 }
