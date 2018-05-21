@@ -17,13 +17,11 @@ import ebag.core.util.T
 import ebag.hd.R
 import ebag.hd.adapter.GoodsParamAdapter
 import ebag.hd.bean.GoodsDetailsBean
-import ebag.hd.bean.SaveOrderPBean
 import ebag.hd.bean.ShopListBean
 import ebag.hd.http.EBagApi
 import ebag.hd.util.ActivityUtils
 import ebag.hd.util.GlideImageLoader
 import kotlinx.android.synthetic.main.activity_goods_details.*
-import kotlinx.android.synthetic.main.activity_shop.*
 
 
 /**
@@ -47,6 +45,9 @@ class GoodsDetailActivity : BaseActivity() {
     override fun initViews() {
 
         id = intent.getStringExtra("id")
+        if (packageName.contains("student")){
+            to_buy.text = "立即兑换"
+        }
         mAdapter = GoodsParamAdapter(this, data)
         recyclerview.layoutManager = LinearLayoutManager(this)
         recyclerview.adapter = mAdapter

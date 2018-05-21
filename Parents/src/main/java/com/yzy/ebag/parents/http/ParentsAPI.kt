@@ -275,7 +275,7 @@ object ParentsAPI {
         jsonObject.put("groupType", "3")
         jsonObject.put("content", content)
         jsonObject.put("remark", remark)
-        jsonObject.put("uid", uid)
+        jsonObject.put("childId", uid)
         jsonObject.put("type", "3")
         jsonObject.put("endTime", endTime)
         jsonObject.put("subCode", subCode)

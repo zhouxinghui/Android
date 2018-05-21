@@ -103,6 +103,7 @@ class PreviewActivity : BaseListActivity<List<QuestionBean>, QuestionBean>() {
 
     override fun loadConfig(intent: Intent) {
         ActivityUtils.addActivity(this)
+        refreshEnabled(false)
         loadMoreEnabled(false)
         isTest = intent.getBooleanExtra("isTest", false)
         classes = intent.getSerializableExtra("classes") as java.util.ArrayList<AssignClassBean>

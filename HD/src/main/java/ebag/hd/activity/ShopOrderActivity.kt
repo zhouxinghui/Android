@@ -18,6 +18,7 @@ import ebag.hd.R
 import ebag.hd.bean.QueryOrderBean
 import ebag.hd.http.EBagApi
 import ebag.hd.ui.view.BadgeView
+import ebag.hd.util.ActivityUtils
 import kotlinx.android.synthetic.main.activity_myorder.*
 import java.lang.reflect.Field
 
@@ -38,6 +39,7 @@ class ShopOrderActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_myorder
 
     override fun initViews() {
+        ActivityUtils.addActivity(this)
         stateView.setOnRetryClickListener {
             request()
         }

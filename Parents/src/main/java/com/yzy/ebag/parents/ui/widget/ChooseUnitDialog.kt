@@ -1,6 +1,7 @@
 package com.yzy.ebag.parents.ui.widget
 
 import android.content.Context
+import android.graphics.Color
 import android.support.v7.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -19,6 +20,7 @@ class ChooseUnitDialog(c: Context) : BaseDialog(c) {
     private val firstList: ArrayList<ChooseUnitModel> = arrayListOf()
     private val secondList: ArrayList<ChooseUnitModel> = arrayListOf()
     private val mAdapter: Adapter = Adapter()
+    private var selectedUnit = ""
     private val beanList: ArrayList<StudentSubjectBean.SubjectListBean> = arrayListOf()
 
     override fun setWidth(): Int = context.resources.getDimensionPixelOffset(R.dimen.x200)
@@ -65,7 +67,9 @@ class ChooseUnitDialog(c: Context) : BaseDialog(c) {
         mAdapter.setEmptyView(R.layout.base_empty,recyclerview)
 
         mAdapter.setOnItemClickListener { adapter, _, position ->
+            selectedUnit = (adapter.getItem(position) as ChooseUnitModel).code
             onSelectedListener?.invoke((adapter.getItem(position) as ChooseUnitModel).code,((adapter.getItem(position) as ChooseUnitModel).name))
+            mAdapter.notifyDataSetChanged()
         }
     }
 
@@ -76,6 +80,8 @@ class ChooseUnitDialog(c: Context) : BaseDialog(c) {
     }
 
     private fun setList(){
+        first.isChecked = true
+        selectedUnit = ""
         firstList.clear()
         secondList.clear()
         for (i in beanList.indices) {
@@ -97,8 +103,6 @@ class ChooseUnitDialog(c: Context) : BaseDialog(c) {
     }
 
     override fun show() {
-
-        first.isChecked = true
         super.show()
     }
 
@@ -107,6 +111,11 @@ class ChooseUnitDialog(c: Context) : BaseDialog(c) {
 
         override fun convert(helper: BaseViewHolder, item: ChooseUnitModel?) {
             helper.setText(R.id.textview, item?.name)
+            if (selectedUnit == item?.code){
+                helper.setTextColor(R.id.textview,Color.parseColor("#6FB1FF"))
+            }else{
+                helper.setTextColor(R.id.textview,Color.parseColor("#000000"))
+            }
         }
 
     }

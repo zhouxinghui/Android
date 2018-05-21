@@ -34,7 +34,6 @@
         </activity>
         <activity
             android:name="com.yzy.ebag.parents.ui.activity.MainActivity"
-            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.yzy.ebag.parents.ui.activity.LoginActivity"
