@@ -12,7 +12,11 @@ object LoadingDialogUtil {
         if (loadingDialog == null) {
             loadingDialog = LoadingDialog(context)
         }
-        loadingDialog!!.show(message)
+        try {
+            loadingDialog!!.show(message)
+        } catch (e: Exception) {
+
+        }
     }
 
     fun showLoading(context: Context) {

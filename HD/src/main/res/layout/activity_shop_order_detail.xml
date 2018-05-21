@@ -13,7 +13,7 @@
         app:titleText="订单详情"
         />
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/order_detail_title"
@@ -237,7 +237,7 @@
                 android:text="Y币 1999" />
 
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
