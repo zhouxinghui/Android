@@ -24,6 +24,7 @@ class HomeworkReportActivity : BaseActivity(), HomeworkReportContract.HomeworkRe
     private lateinit var mHomeworkId: String
     private lateinit var mEndTime: String
     private lateinit var mType: String
+    private lateinit var mState: String
     override fun getLayoutId(): Int = R.layout.activity_homeworkreport
 
     override fun initViews() {
@@ -31,14 +32,15 @@ class HomeworkReportActivity : BaseActivity(), HomeworkReportContract.HomeworkRe
         mHomeworkId = intent.getStringExtra("homeworkid")
         mEndTime = intent.getStringExtra("endTime")
         mType = intent.getStringExtra("type")
+        mState = intent.getStringExtra("state")
         mPersenter = HomeworkReportPersenter(this)
         mPersenter.request(mHomeworkId, SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).uid)
     }
 
 
     companion object {
-        fun start(context: Context, homeworkid: String, endTime: String,type:String) {
-            context.startActivity(Intent(context, HomeworkReportActivity::class.java).putExtra("homeworkid", homeworkid).putExtra("endTime", endTime).putExtra("type",type))
+        fun start(context: Context, homeworkid: String, endTime: String,type:String,state:String) {
+            context.startActivity(Intent(context, HomeworkReportActivity::class.java).putExtra("homeworkid", homeworkid).putExtra("endTime", endTime).putExtra("type",type).putExtra("state",state))
         }
     }
 
@@ -53,7 +55,7 @@ class HomeworkReportActivity : BaseActivity(), HomeworkReportContract.HomeworkRe
     override fun <T> showContent(data: T?) {
 
         mFragmentList.add(HomeworkAbstractFragment(data as HomeworkAbstractBean, mEndTime,mHomeworkId))
-        mFragmentList.add(HomeworkDoneFragment(data as HomeworkAbstractBean,mEndTime,mHomeworkId,mType))
+        mFragmentList.add(HomeworkDoneFragment(data as HomeworkAbstractBean,mEndTime,mHomeworkId,mType,mState))
         tablayout.setViewPager(viewpager, titleArray, this, mFragmentList)
         stateview.showContent()
     }

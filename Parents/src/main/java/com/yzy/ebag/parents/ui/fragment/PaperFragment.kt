@@ -31,6 +31,7 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
     private lateinit var homeWorkAdapter: HomeworkListAdapter
     private lateinit var childrenBean: MyChildrenBean
     private var page = 1
+    private var inited = false
     override fun getBundle(bundle: Bundle?) {
 
     }
@@ -50,7 +51,7 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
                     HomeworkDescActivity.jump(activity, homeworkdatas[position].id, "2", (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid)
                 } else {
                     if (type != "3")
-                        HomeworkReportActivity.start(activity, homeworkdatas[position].id, homeworkdatas[position].endTime, "2")
+                        HomeworkReportActivity.start(activity, homeworkdatas[position].id, homeworkdatas[position].endTime, "2",homeworkdatas[position].state)
                 }
             }
 
@@ -58,7 +59,7 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
             recyclerview.adapter = mAdapter
             mAdapter.setOnItemClickListener { adapter, view, position ->
                 if ((adapter.getItem(position) as SubjectBean.HomeWorkInfoBean).state.toInt() > 0) {
-                    HomeworkReportActivity.start(activity, datas[position].id, datas[position].endTime, "4")
+                    HomeworkReportActivity.start(activity, datas[position].id, datas[position].endTime, "4",datas[position].state)
                 } else {
                     HomeworkDescActivity.jump(activity, datas[position].id, "4", childrenBean.uid)
                 }
@@ -72,23 +73,30 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
         }
 
         refresh.setOnRefreshListener {
-            page = 1
-            datas.clear()
-            homeworkdatas.clear()
-            request()
+            refresh()
         }
 
         mAdapter.setOnLoadMoreListener({ loadmore() }, recyclerview)
         homeWorkAdapter.setOnLoadMoreListener({ loadmore() }, recyclerview)
+        inited = true
     }
 
-    private fun request() {
+    private fun refresh(loading: Boolean = false) {
+        page = 1
+        datas.clear()
+        homeworkdatas.clear()
+        request(loading)
+    }
+
+    private fun request(loading: Boolean = false) {
 
         ParentsAPI.subjectWorkList(type, childrenBean.classId, code, page, 10, childrenBean.uid, object : RequestCallBack<List<SubjectBean>>() {
 
             override fun onStart() {
-                if (!refresh.isRefreshing)
-                    stateview.showLoading()
+                if (!loading) {
+                    if (!refresh.isRefreshing)
+                        stateview.showLoading()
+                }
             }
 
             override fun onSuccess(entity: List<SubjectBean>?) {
@@ -189,6 +197,16 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
                             }
                     ).setText(R.id.createTime, item?.createTime)
             helper.getView<View>(R.id.tvStatus).isSelected = item?.state == Constants.CORRECT_UNFINISH
+        }
+    }
+
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser && inited) {
+            if (type == "3") {
+                refresh(true)
+            }
         }
     }
 

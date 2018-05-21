@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.fragment_homework_done.*
 import java.text.DecimalFormat
 
 @SuppressLint("ValidFragment")
-class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val endTime: String, private val homeworkId: String, private val mType: String) : BaseFragment() {
+class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val endTime: String, private val homeworkId: String, private val mType: String,private val mState:String) : BaseFragment() {
 
     override fun getLayoutRes(): Int = R.layout.fragment_homework_done
 
@@ -42,6 +42,11 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
         homework_top.text = setSpan("${data.maxScore}分")
         homework_error.text = setSpan(DecimalFormat("0").format(data.errorNum) + "道")
         val time = endTime.split(" ")[0].split("-")
+
+        if (mState == "4"){
+            homework_parents_btn.text = "已签字"
+            homework_parents_btn.isClickable = false
+        }
 
         var num = 0
         data.homeWorkRepDetailVos.forEach {
