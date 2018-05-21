@@ -38,12 +38,13 @@ class ActivityUtils {
             val intent = Intent(context, goal)
             //intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             context.startActivity(intent)
+            //(context as Activity).finish()
             activityStacks.forEach {
                 it.finish()
             }
         }
 
-        fun finishAll(){
+        fun finishAll() {
             activityStacks.forEach {
                 it.finish()
             }

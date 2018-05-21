@@ -34,7 +34,7 @@ import ebag.mobile.module.homework.QuestionAnalyseDialog
 /**
  * Created by YZY on 2018/4/19.
  */
-class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
+class PreviewActivity : BaseListActivity<List<QuestionBean>, QuestionBean>() {
     companion object {
         fun jump(activity: Activity,
                  isTest: Boolean,
@@ -46,8 +46,9 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
                  bookVersionId: String,
                  isPreview: Boolean,
                  paperId: String? = null,
-                 count: Int = 0
-        ){
+                 count: Int = 0,
+                 selectedUid: String
+        ) {
             activity.startActivityForResult(
                     Intent(activity, PreviewActivity::class.java)
                             .putExtra("isTest", isTest)
@@ -60,9 +61,11 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
                             .putExtra("isPreview", isPreview)
                             .putExtra("paperId", paperId)
                             .putExtra("count", count)
+                            .putExtra("selectedUid", selectedUid)
                     , 130)
         }
     }
+
     private val analyseDialog by lazy { QuestionAnalyseDialog(this) }
     private var isPreview = true
     private var previewList = ArrayList<QuestionBean>()
@@ -73,29 +76,31 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
     private var isTest = false
     private var paperId: String? = null
     private var subCode = ""
+    private var selectedUid = ""
     private lateinit var questionNumTv: TextView
     private val previewPopup by lazy {
         val popup = PreviewPopup(this)
         popup.onAssignClick = {
-            when(it){
-                1 ->{   // 发布小组
+            when (it) {
+                1 -> {   // 发布小组
                     when {
                         classes.isEmpty() -> T.show(this, "未选择班级")
                         previewList.isEmpty() -> T.show(this, "没有可发布的试题")
-                        else -> PublishWorkActivity.jump(this, true, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId)
+                        else -> PublishWorkActivity.jump(this, true, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId, selectedUid)
                     }
                 }
-                2 ->{   //发布班级
+                2 -> {   //发布班级
                     when {
                         classes.isEmpty() -> T.show(this, "未选择班级")
                         previewList.isEmpty() -> T.show(this, "没有可发布的试题")
-                        else -> PublishWorkActivity.jump(this, false, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId)
+                        else -> PublishWorkActivity.jump(this, false, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId, selectedUid)
                     }
                 }
             }
         }
         popup
     }
+
     override fun loadConfig(intent: Intent) {
         ActivityUtils.addActivity(this)
         loadMoreEnabled(false)
@@ -104,6 +109,7 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
         unitBean = intent.getSerializableExtra("unitBean") as UnitBean.UnitSubBean
         workType = intent.getIntExtra("workType", 0)
         subCode = intent.getStringExtra("subCode") ?: ""
+        selectedUid = intent.getStringExtra("selectedUid") ?: ""
         bookVersionId = intent.getStringExtra("bookVersionId") ?: ""
         isPreview = intent.getBooleanExtra("isPreview", false)
         paperId = intent.getStringExtra("paperId")
@@ -129,7 +135,7 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
         rightImage.visibility = View.GONE
 
         textView.setOnClickListener {
-            PublishWorkActivity.jump(this, true, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId)
+            PublishWorkActivity.jump(this, true, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId, selectedUid)
         }
         /*if (isTest){
             rightImage.visibility = View.GONE
@@ -139,7 +145,7 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
         questionNumTv.setTextColor(resources.getColor(R.color.white))
         questionNumTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.tv_normal))
         questionNumTv.gravity = Gravity.CENTER
-        val numParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, resources.getDimensionPixelSize(R.dimen.title_bar_height) -1)
+        val numParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, resources.getDimensionPixelSize(R.dimen.title_bar_height) - 1)
         numParams.addRule(RelativeLayout.ALIGN_PARENT_END)
         numParams.marginEnd = resources.getDimensionPixelSize(R.dimen.x40)
         questionNumTv.layoutParams = numParams
@@ -148,20 +154,20 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<QuestionBean>>) {
         if (isPreview) {
-            if (paperId != null){
+            if (paperId != null) {
                 ParentsAPI.previewTestPaper(paperId!!, requestCallBack)
-            }else {
+            } else {
                 previewList = intent.getSerializableExtra("previewList") as ArrayList<QuestionBean>
                 questionNumTv.text = "+${previewList.size}题"
                 withFirstPageData(previewList, false)
             }
-        }else{
+        } else {
             val count = intent.getIntExtra("count", 0)
             ParentsAPI.smartPush(count, unitBean, null, workType.toString(), bookVersionId, requestCallBack)
         }
     }
 
-    override fun parentToList(isFirstPage: Boolean, parent: List<QuestionBean>?): List<QuestionBean>?{
+    override fun parentToList(isFirstPage: Boolean, parent: List<QuestionBean>?): List<QuestionBean>? {
         if (parent != null && !parent.isEmpty())
             previewList = parent as ArrayList<QuestionBean>
         questionNumTv.text = "+${previewList.size}题"
@@ -177,11 +183,11 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         adapter as QuestionAdapter
-        when(view.id){
-            R.id.feedBackTv ->{
+        when (view.id) {
+            R.id.feedBackTv -> {
 //                feedbackDialog.show(adapter.data[position].questionId)
             }
-            R.id.selectTv ->{
+            R.id.selectTv -> {
                 val questionBean = adapter.getItem(position)
                 questionBean!!.isChoose = false
                 if (adapter.previewList.contains(questionBean))
@@ -190,7 +196,7 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
 
                 adapter.notifyDataSetChanged()
             }
-            R.id.analyseTv ->{
+            R.id.analyseTv -> {
                 adapter.selectItem = position
                 val questionBean = adapter.getItem(position)?.clone() as QuestionBean
                 questionBean.answer = questionBean.rightAnswer
@@ -202,13 +208,14 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
     override fun getLayoutManager(adapter: BaseQuickAdapter<QuestionBean, BaseViewHolder>): RecyclerView.LayoutManager? = null
 
     //-----------------------------------------语音播放相关
-    private val questionClickListener : QuestionItemChildClickListener by lazy { QuestionItemChildClickListener() }
-    private val voicePlayer : VoicePlayerOnline by lazy {
+    private val questionClickListener: QuestionItemChildClickListener by lazy { QuestionItemChildClickListener() }
+    private val voicePlayer: VoicePlayerOnline by lazy {
         val player = VoicePlayerOnline(this)
-        player.setOnPlayChangeListener(object : VoicePlayerOnline.OnPlayChangeListener{
+        player.setOnPlayChangeListener(object : VoicePlayerOnline.OnPlayChangeListener {
             override fun onProgressChange(progress: Int) {
                 progressBar!!.progress = progress
             }
+
             override fun onCompletePlay() {
                 tempUrl = null
                 anim!!.stop()
@@ -218,8 +225,8 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
         })
         player
     }
-    private var anim : AnimationDrawable? = null
-    private var progressBar : ProgressBar? = null
+    private var anim: AnimationDrawable? = null
+    private var progressBar: ProgressBar? = null
     private var tempUrl: String? = null
 
     inner class QuestionItemChildClickListener : OnItemChildClickListener {
@@ -228,13 +235,14 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
                 voicePlaySetting(view)
         }
     }
-    private fun voicePlaySetting(view: View){
-        var url : String = view.getTag(R.id.play_id) as String
+
+    private fun voicePlaySetting(view: View) {
+        var url: String = view.getTag(R.id.play_id) as String
         url = url.substring(3, url.length)
         if (StringUtils.isEmpty(url))
             return
-        if (url != tempUrl){
-            if(anim != null) {
+        if (url != tempUrl) {
+            if (anim != null) {
                 anim!!.stop()
                 anim!!.selectDrawable(0)
                 progressBar!!.progress = 0
@@ -244,11 +252,11 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
             voicePlayer.playUrl(url)
             anim!!.start()
             tempUrl = url
-        }else{
-            if (voicePlayer.isPlaying && !voicePlayer.isPause){
+        } else {
+            if (voicePlayer.isPlaying && !voicePlayer.isPause) {
                 voicePlayer.pause()
                 anim!!.stop()
-            }else{
+            } else {
                 voicePlayer.play()
                 anim!!.start()
             }

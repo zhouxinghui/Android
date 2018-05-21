@@ -64,6 +64,7 @@ class PublishWorkActivity : BaseActivity() {
                  workType: Int,
                  subCode: String,
                  bookVersionId: String,
+                 selectedUid: String,
                  testPaperId: String? = null,
                  testPaperName: String? = null
         ) {
@@ -78,6 +79,7 @@ class PublishWorkActivity : BaseActivity() {
                     .putExtra("bookVersionId", bookVersionId)
                     .putExtra("testPaperId", testPaperId)
                     .putExtra("testPaperName", testPaperName)
+                    .putExtra("selectedUid", selectedUid)
             )
         }
     }
@@ -91,6 +93,7 @@ class PublishWorkActivity : BaseActivity() {
         val questionList = intent.getSerializableExtra("questionList") as ArrayList<QuestionBean>
         val workType = intent.getIntExtra("workType", 0).toString()
         val subCode = intent.getStringExtra("subCode")
+        val selectedUid = intent.getStringExtra("selectedUid")
         val bookVersionId = intent.getStringExtra("bookVersionId")
         var isCustom = false
         publishTime.text = "布置时间：${DateUtil.getFormatDateTime(Date(System.currentTimeMillis()), "yyyy-M-d")}"
@@ -200,12 +203,12 @@ class PublishWorkActivity : BaseActivity() {
                 return@setOnRightClickListener
             }else*/
             if (isGroup) {
-                ParentsAPI.publishHomework(classes, groupIds, isGroup, workType, attentionEdit.text.toString(), content, deadTime, subCode, bookVersionId, questionList, null, publishRequest)
+                ParentsAPI.publishHomework(classes, groupIds, isGroup, workType, attentionEdit.text.toString(), content, deadTime, subCode, bookVersionId, questionList, null,selectedUid, publishRequest)
             } else {
                 if (isTest) {
-                    ParentsAPI.publishHomework(classes, null, isGroup, workType, attentionEdit.text.toString(), content, deadTime, subCode, bookVersionId, null, testPaperId, publishRequest)
+                    ParentsAPI.publishHomework(classes, null, isGroup, workType, attentionEdit.text.toString(), content, deadTime, subCode, bookVersionId, null, testPaperId, selectedUid,publishRequest)
                 } else {
-                    ParentsAPI.publishHomework(classes, null, isGroup, workType, attentionEdit.text.toString(), content, deadTime, subCode, bookVersionId, questionList, null, publishRequest)
+                    ParentsAPI.publishHomework(classes, null, isGroup, workType, attentionEdit.text.toString(), content, deadTime, subCode, bookVersionId, questionList, null,selectedUid, publishRequest)
                 }
             }
         }

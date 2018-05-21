@@ -255,6 +255,7 @@ object ParentsAPI {
             bookVersionId: String,
             questionList: ArrayList<QuestionBean>? = null,
             testPaperId: String? = null,
+            uid:String,
             callback: RequestCallBack<String>){
         val jsonObject = JSONObject()
         val classArray = JSONArray()
@@ -274,6 +275,7 @@ object ParentsAPI {
         jsonObject.put("groupType", "3")
         jsonObject.put("content", content)
         jsonObject.put("remark", remark)
+        jsonObject.put("uid", uid)
         jsonObject.put("type", "3")
         jsonObject.put("endTime", endTime)
         jsonObject.put("subCode", subCode)

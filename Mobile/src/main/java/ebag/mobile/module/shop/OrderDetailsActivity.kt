@@ -17,10 +17,12 @@ import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
+import ebag.core.util.SPUtils
 import ebag.core.util.T
 import ebag.core.util.loadImage
 import ebag.mobile.R
 import ebag.mobile.base.ActivityUtils
+import ebag.mobile.base.Constants
 import ebag.mobile.bean.*
 import ebag.mobile.http.EBagApi
 import kotlinx.android.synthetic.main.activity_shop_order_detail.*
@@ -340,6 +342,7 @@ class OrderDetailsActivity : BaseActivity() {
         val wxapi = WXAPIFactory.createWXAPI(this, wxKey)
         wxapi.registerApp(wxKey)
         if (wxapi.isWXAppInstalled and wxapi.isWXAppSupportAPI) {
+            SPUtils.put(this@OrderDetailsActivity, Constants.WXPAY_FLAG,2)
             val request = PayReq()
             request.appId = bean.appid
             request.partnerId = bean.partnerid

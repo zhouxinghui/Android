@@ -13,9 +13,11 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.LoadingDialogUtil
+import ebag.core.util.SPUtils
 import ebag.core.util.T
 import ebag.mobile.R
 import ebag.mobile.base.ActivityUtils
+import ebag.mobile.base.Constants
 import ebag.mobile.bean.PayResult
 import ebag.mobile.bean.WXPayBean
 import ebag.mobile.http.EBagApi
@@ -142,6 +144,7 @@ class CashierActivity : BaseActivity() {
         val wxapi = WXAPIFactory.createWXAPI(this, wxKey)
         wxapi.registerApp(wxKey)
         if (wxapi.isWXAppInstalled and wxapi.isWXAppSupportAPI) {
+            SPUtils.put(this@CashierActivity,Constants.WXPAY_FLAG,1)
             val request = PayReq()
             request.appId = bean.appid
             request.partnerId = bean.partnerid

@@ -148,7 +148,7 @@ class CreateStudyTaskActivity : BaseActivity(), CreateStudyTaskContract.CreateSt
                 selectedUid.isEmpty() -> T.show(this@CreateStudyTaskActivity, "还没有选择小孩")
                 selectedBookid.isEmpty() -> T.show(this@CreateStudyTaskActivity, "还没有选择教材")
                 (unitBean == null) && unit_tv_id.text.isEmpty() -> T.show(this@CreateStudyTaskActivity, "还没有选择章节")
-                else -> PreviewActivity.jump(this@CreateStudyTaskActivity, false, arrayListOf(), unitBean , arrayListOf(), 2, subCode, selectedBookid, false, "", questionCount)
+                else -> PreviewActivity.jump(this@CreateStudyTaskActivity, false, arrayListOf(), unitBean , arrayListOf(), 2, subCode, selectedBookid, false, "", questionCount,selectedUid)
             }
         }
 

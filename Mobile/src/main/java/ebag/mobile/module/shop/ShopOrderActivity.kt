@@ -15,6 +15,7 @@ import ebag.core.base.BaseActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.mobile.R
+import ebag.mobile.base.ActivityUtils
 import ebag.mobile.bean.QueryOrderBean
 import ebag.mobile.http.EBagApi
 import kotlinx.android.synthetic.main.activity_myorder.*
@@ -37,6 +38,7 @@ class ShopOrderActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_myorder
 
     override fun initViews() {
+        ActivityUtils.addActivity(this)
         stateView.setOnRetryClickListener {
             request()
         }
