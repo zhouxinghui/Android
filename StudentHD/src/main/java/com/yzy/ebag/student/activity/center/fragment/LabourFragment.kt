@@ -55,6 +55,13 @@ class LabourFragment: BaseListFragment<ArrayList<LabourBean>, LabourBean>() {
                     .setText(R.id.several, "${item?.sum}遍")
 //                    .setText(R.id.reward, "+${item?.reward}")
                     .setVisible(R.id.complete, item?.completed?.toUpperCase() == "Y")
+
+            if (item!!.yunCount < 1){
+                helper.setGone(R.id.item_excitation_reward,false)
+            }else{
+                helper.setGone(R.id.item_excitation_reward,true)
+                helper.setText(R.id.item_excitation_reward,"${item.yunCount}云币")
+            }
         }
 
     }

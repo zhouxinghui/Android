@@ -16,6 +16,7 @@ import com.yzy.ebag.student.dialog.ListPopupWindow
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.SPUtils
 import ebag.core.util.StringUtils
 import ebag.hd.activity.ReportClassActivity
 import ebag.hd.base.Constants
@@ -121,7 +122,7 @@ class StudyFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInf
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<SubjectBean>>) {
-        StudentApi.subjectWorkList(com.yzy.ebag.student.base.Constants.PARENT_TYPE, null, "", page, getPageSize(), requestCallBack)
+        StudentApi.subjectWorkList(com.yzy.ebag.student.base.Constants.PARENT_TYPE, SPUtils.get(activity,Constants.CLASS_ID,"") as String, subCode  , page, getPageSize(), requestCallBack)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<SubjectBean>?): List<SubjectBean.HomeWorkInfoBean>? {

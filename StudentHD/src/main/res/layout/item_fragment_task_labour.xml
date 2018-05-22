@@ -33,6 +33,17 @@
         app:layout_constraintStart_toEndOf="@id/image"/>
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="云币 20"
+        android:id="@+id/item_excitation_reward"
+        android:textColor="#f5a523"
+        android:textSize="@dimen/x24"
+        android:layout_marginStart="@dimen/x38"
+        app:layout_constraintStart_toEndOf="@id/title"
+        />
+
+    <TextView
         android:id="@+id/content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
