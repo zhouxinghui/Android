@@ -50,7 +50,7 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
                 if ((adapter.getItem(position) as OnePageInfoBean.HomeWorkInfoVosBean).state == "0") {
                     HomeworkDescActivity.jump(activity, homeworkdatas[position].id, "2", (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid)
                 } else {
-                    if (type != "3")
+                    //if (type != "3")
                         HomeworkReportActivity.start(activity, homeworkdatas[position].id, homeworkdatas[position].endTime, "2",homeworkdatas[position].state)
                 }
             }
