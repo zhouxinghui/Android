@@ -434,6 +434,7 @@ class DoHomeworkActivity: BaseActivity() {
         when(type){
             Constants.KHZY_TYPE,
             Constants.STZY_TYPE,
+            Constants.PARENT_TYPE,
             Constants.KSSJ_TYPE -> {
                 EBagApi.commitHomework(commitQuestionVo, commitCallback)
             }
