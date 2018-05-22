@@ -70,9 +70,11 @@ object EBagApi {
     }
 
     /**登录*/
-    fun login(account: String?, pwd: String?, loginType: String?, thirdPartyType: String?,
+    fun login(deviceCode: String?, account: String?, pwd: String?, loginType: String?, thirdPartyType: String?,
               roleCode: String, thirdPartyToken: String?, thirdPartyUnionid: String?, callback: RequestCallBack<UserEntity>) {
         val jsonObj = JSONObject()
+        jsonObj.put("deviceCode",deviceCode)
+        jsonObj.put("isHDorPHONE","PHONE")
         jsonObj.put("password", pwd)
         jsonObj.put("loginAccount", account)
         jsonObj.put("loginType", loginType)
@@ -91,7 +93,7 @@ object EBagApi {
     }*/
 
     /**注册*/
-    fun register(name: String, headUrl: String?, sex: String?, phone: String?, verifyCode: String?, roleCode: String?, pwd: String, thirdPartyToken: String?, thirdPartyUnionid: String?, loginType: String?, thirdPartyType: String?, callback: RequestCallBack<UserEntity>) {
+    fun register(deviceCode: String?, name: String, headUrl: String?, sex: String?, phone: String?, verifyCode: String?, roleCode: String?, pwd: String, thirdPartyToken: String?, thirdPartyUnionid: String?, loginType: String?, thirdPartyType: String?, callback: RequestCallBack<UserEntity>) {
         val jsonObj = JSONObject()
         jsonObj.put("nickName", name)
         jsonObj.put("headUrl", headUrl)
@@ -104,7 +106,16 @@ object EBagApi {
         jsonObj.put("thirdPartyToken", thirdPartyToken)
         jsonObj.put("thirdPartyUnionid", thirdPartyUnionid)
         jsonObj.put("roleCode", roleCode)
+        jsonObj.put("deviceCode",deviceCode)
+        jsonObj.put("isHDorPHONE","PHONE")
         request(EBagClient.eBagService.register("v1", createBody(jsonObj)), callback)
+    }
+
+    fun bindingActivationCode(loginAccount:String,activation:String,callback: RequestCallBack<String>){
+        val jsonObj = JSONObject()
+        jsonObj.put("loginAccount",loginAccount)
+        jsonObj.put("activation",activation)
+        request(EBagClient.eBagService.bindingActivationCode("v1",createBody(jsonObj)),callback)
     }
 
     /**忘记密码*/

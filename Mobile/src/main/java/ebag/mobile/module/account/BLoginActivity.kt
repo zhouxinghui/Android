@@ -98,6 +98,9 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
     override fun onLoginError(t: Throwable) {
         LoadingDialogUtil.closeLoadingDialog()
+        //1002代表平板学生平板未激活
+        //1003 当移动端点击第三方登录时如果没有绑定第三方返回此状态码
+        //1004代表老师平板或者pc未激活
         t.handleThrowable(this)
     }
 
@@ -189,7 +192,9 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
 
     lateinit var loginEdit: EditText
     lateinit var pwdEdit: EditText
+    lateinit var deviceId: String
     override fun initViews() {
+        deviceId = SPUtils.get(App.mContext, ebag.core.util.Constants.IMEI, "") as String
         mActivity = this
         loginEdit = loginAccount
         pwdEdit = loginPwd
@@ -346,7 +351,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
                 var name = p2?.get("name")
                 var gender = p2?.get("gender")
                 var iconurl = p2?.get("iconurl")
-                EBagApi.login(null, null, null, queryThirdPartyType(share_media.toString()), getRoleCode(), access_token, uid, object : RequestCallBack<UserEntity>() {
+                EBagApi.login(deviceId, null, null, null, queryThirdPartyType(share_media.toString()), getRoleCode(), access_token, uid, object : RequestCallBack<UserEntity>() {
                     override fun onSuccess(entity: UserEntity?) {
                         if (entity != null) {
                             this@BLoginActivity.onLoginSuccess(entity)

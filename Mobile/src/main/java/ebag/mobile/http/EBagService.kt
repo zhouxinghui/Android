@@ -26,6 +26,11 @@ interface EBagService {
     @POST("user/register/{version}")
     fun register(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<UserEntity>>
 
+    /**绑定激活码*/
+    @Headers("EBag-Special-Url: special/url")
+    @POST("user/bindingActivationCode/{version}")
+    fun bindingActivationCode(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
     /**重置密码*/
     @Headers("EBag-Special-Url: special/url")
     @POST("user/updatePassword/{version}")

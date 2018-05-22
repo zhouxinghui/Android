@@ -1,6 +1,8 @@
 package ebag.mobile.module.account
 
 import android.view.View
+import android.widget.EditText
+import android.widget.TextView
 import com.umeng.socialize.bean.SHARE_MEDIA
 import ebag.core.base.App
 import ebag.core.base.BaseActivity
@@ -8,12 +10,14 @@ import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
+import ebag.core.util.SPUtils
 import ebag.core.util.SerializableUtils
 import ebag.core.util.StringUtils
 import ebag.mobile.R
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.UserEntity
 import ebag.mobile.http.EBagApi
+import ebag.mobile.module.personal.ModifyInfoDialog
 import kotlinx.android.synthetic.main.activity_binding.*
 
 abstract class BaseBindingActivity : BaseActivity() {
@@ -32,6 +36,7 @@ abstract class BaseBindingActivity : BaseActivity() {
         var shareMedia = intent.getStringExtra("shareMedia")
         var accessToken = intent.getStringExtra("accessToken")
         var uid = intent.getStringExtra("uid")
+        val deviceId = SPUtils.get(App.mContext, ebag.core.util.Constants.IMEI, "") as String
         when{
             packageName.contains("student") ->{
                 entityName = Constants.STUDENT_USER_ENTITY
@@ -59,7 +64,7 @@ abstract class BaseBindingActivity : BaseActivity() {
                     type = BLoginActivity.EBAG_TYPE
                 }
 
-                EBagApi.login(et_user.text.toString(), et_pwd.text.toString(), type, judge(shareMedia), roleName, accessToken, uid, object : RequestCallBack<UserEntity>() {
+                EBagApi.login(deviceId, et_user.text.toString(), et_pwd.text.toString(), type, judge(shareMedia), roleName, accessToken, uid, object : RequestCallBack<UserEntity>() {
                     override fun onSuccess(entity: UserEntity?) {
                         LoadingDialogUtil.closeLoadingDialog()
                         if (entity != null) {
@@ -80,7 +85,7 @@ abstract class BaseBindingActivity : BaseActivity() {
                     }
 
                     override fun onError(exception: Throwable) {
-                        myException(exception, false)
+                        myException(exception)
                     }
                 })
             }
@@ -95,7 +100,7 @@ abstract class BaseBindingActivity : BaseActivity() {
                 } else {
                     type = BLoginActivity.EBAG_TYPE
                 }
-                EBagApi.register(name, iconurl, if (gender == "男") {
+                EBagApi.register(deviceId, name, iconurl, if (gender == "男") {
                     "1"
                 } else {
                     "2"
@@ -121,7 +126,7 @@ abstract class BaseBindingActivity : BaseActivity() {
                     }
 
                     override fun onError(exception: Throwable) {
-                        myException(exception, true)
+                        myException(exception)
                     }
 
                 })
@@ -129,9 +134,32 @@ abstract class BaseBindingActivity : BaseActivity() {
         }
     }
 
-    private fun myException(exception: Throwable, boolean: Boolean) {
+    private fun myException(exception: Throwable) {
         LoadingDialogUtil.closeLoadingDialog()
-        exception.handleThrowable(this@BaseBindingActivity)
+        if (exception is MsgException) {
+            when {
+                exception.code == "1004" -> {
+                    val dialog = ModifyInfoDialog(this)
+                    val modifyDialog by lazy {
+                        dialog.onConfirmClickListener = {
+                            dialog.dismiss()
+                        }
+                        dialog
+                    }
+                    modifyDialog.show()
+                    (dialog.findViewById(R.id.customerervice) as TextView).visibility = View.GONE
+                    (dialog.findViewById(R.id.countEdit) as EditText).visibility = View.GONE
+                    (dialog.findViewById(R.id.countEdit) as EditText).setText("0")
+                    (dialog.findViewById(R.id.textViewContent) as TextView).visibility = View.VISIBLE
+                    (dialog.findViewById(R.id.textViewContent) as TextView).text = exception.message.toString()
+                }
+                else -> {
+                    exception.handleThrowable(this)
+                }
+            }
+        } else {
+            exception.handleThrowable(this)
+        }
     }
 
     fun judge(thirdParty: String): String {

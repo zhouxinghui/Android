@@ -1,6 +1,8 @@
 package ebag.mobile.module.account
 
 import android.content.Context
+import android.view.View
+import ebag.core.base.App
 import ebag.core.base.mvp.BasePresenter
 import ebag.core.base.mvp.OnToastListener
 import ebag.core.http.network.MsgException
@@ -12,6 +14,8 @@ import ebag.core.util.StringUtils
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.UserEntity
 import ebag.mobile.http.EBagApi
+import ebag.mobile.module.personal.ModifyInfoDialog
+import kotlinx.android.synthetic.main.dialog_modify_info.*
 
 
 /**
@@ -62,7 +66,7 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
 //                        1004代表老师平板或者pc未激活
                 if (exception is MsgException) {
                     when {
-                        /*exception.code == "1002" -> {
+                        exception.code == "1002" -> {
                             var modifyStr = ""
                             val dialog = ModifyInfoDialog(getView() as Context)
                             val modifyDialog by lazy {
@@ -100,7 +104,7 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
                             dialog.countEdit.setText("0")
                             dialog.textViewContent.visibility = View.VISIBLE
                             dialog.textViewContent.text = exception.message.toString()
-                        }*/
+                        }
                         exception.code == "1003" ->
                             showToast(exception.message.toString(), true)
                         else ->
@@ -110,7 +114,6 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
                     getView()?.onLoginError(exception)
 
                 }
-
             }
         })
     }
@@ -126,11 +129,11 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
         if (getView() is Context)
             context = getView() as Context
         if (StringUtils.isMobileNo(account)) {
-            EBagApi.login(account, pwd, BLoginActivity.PHONE_TYPE, null, roleCode, null, null, loginRequest!!)
+            EBagApi.login(SPUtils.get(App.mContext, ebag.core.util.Constants.IMEI, "") as String, account, pwd, BLoginActivity.PHONE_TYPE, null, roleCode, null, null, loginRequest!!)
             if (context != null)
                 SPUtils.put(context, Constants.LOGIN_TYPE, BLoginActivity.PHONE_TYPE)
         } else {
-            EBagApi.login(account, pwd, BLoginActivity.EBAG_TYPE, null, roleCode, null, null, loginRequest!!)
+            EBagApi.login(SPUtils.get(App.mContext, ebag.core.util.Constants.IMEI, "") as String, account, pwd, BLoginActivity.EBAG_TYPE, null, roleCode, null, null, loginRequest!!)
             if (context != null)
                 SPUtils.put(context, Constants.LOGIN_TYPE, BLoginActivity.EBAG_TYPE)
         }
@@ -183,7 +186,7 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
 
                     override fun onError(exception: Throwable) {
                         if (exception is MsgException) {
-                            /*when {
+                            when {
                                 exception.code == "1002" -> {
                                     showToast("注册成功", true)
                                     var modifyStr = ""
@@ -227,15 +230,27 @@ open class LoginPresenter(view: LoginView, listener: OnToastListener) : BasePres
                                 else -> {
                                     getView()?.onRegisterError(exception)
                                 }
-                            }*/
-                            getView()?.onRegisterError(exception)
+                            }
                         } else {
                             getView()?.onRegisterError(exception)
                         }
                     }
 
                 })
-            EBagApi.register(name, null, null, phone, code, roleCode, pwd, thirdPartyToken, thirdPartyUnionid, BLoginActivity.PHONE_TYPE, null, registerRequest!!)
+            EBagApi.register(
+                    SPUtils.get(App.mContext, ebag.core.util.Constants.IMEI, "") as String,
+                    name,
+                    null,
+                    null,
+                    phone,
+                    code,
+                    roleCode,
+                    pwd,
+                    thirdPartyToken,
+                    thirdPartyUnionid,
+                    BLoginActivity.PHONE_TYPE,
+                    null,
+                    registerRequest!!)
         }
 
     }
