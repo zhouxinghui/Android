@@ -251,7 +251,7 @@
             app:layout_constraintStart_toStartOf="@id/tipTeacher"
             app:layout_constraintTop_toBottomOf="@id/editTeacher"
             app:leftDrawable="@drawable/icon_flower"
-            android:visibility="visible"
+            android:visibility="gone"
             app:leftDrawableHeight="@dimen/x24"
             app:leftDrawableWidth="@dimen/x24" />
 

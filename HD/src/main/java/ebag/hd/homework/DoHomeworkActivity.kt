@@ -402,6 +402,7 @@ class DoHomeworkActivity: BaseActivity() {
                     finish()
                 }
                 Constants.KHZY_TYPE,
+                Constants.PARENT_TYPE,
                 Constants.KSSJ_TYPE -> {
                     ReportTestActivity.jump(this@DoHomeworkActivity, homeworkId, workType)
                     finish()
