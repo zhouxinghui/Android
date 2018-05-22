@@ -34,20 +34,22 @@ import kotlin.collections.ArrayList
 /**
  * Created by YZY on 2018/2/8.
  */
-class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, RadioGroup.OnCheckedChangeListener, BookNoteFragment.NoteChangeListener{
+class ReaderActivity : BaseActivity(), View.OnClickListener, TextWatcher, RadioGroup.OnCheckedChangeListener, BookNoteFragment.NoteChangeListener {
     override fun getLayoutId(): Int {
         return R.layout.activity_reader
     }
+
     companion object {
-        fun jump(context: Context, fileName: String, bookId: Int){
+        fun jump(context: Context, fileName: String, bookId: Int) {
             context.startActivity(
                     Intent(context, ReaderActivity::class.java)
                             .putExtra("fileName", fileName)
                             .putExtra("bookId", bookId))
         }
     }
+
     private var bookId = 0
-    private var pageAdapter : PageViewAdapter? = null
+    private var pageAdapter: PageViewAdapter? = null
     private val bookCategoryPopup by lazy {
         val popup = BookCatalogPopup(this)
         popup.onCategoryClick = {
@@ -85,7 +87,7 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
      * 修改笔记
      */
     private val modifyNoteRequest by lazy {
-        object : RequestCallBack<String>(){
+        object : RequestCallBack<String>() {
             override fun onStart() {
                 LoadingDialogUtil.showLoading(this@ReaderActivity, "正在修改...")
             }
@@ -105,7 +107,7 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         }
     }
     private val addNoteRequest by lazy {
-        object : RequestCallBack<String>(){
+        object : RequestCallBack<String>() {
             override fun onStart() {
                 LoadingDialogUtil.showLoading(this@ReaderActivity, "正在添加...")
             }
@@ -125,6 +127,7 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
             }
         }
     }
+
     override fun initViews() {
         bookId = intent.getIntExtra("bookId", 0)
         penSize = resources.getDimension(R.dimen.x2)
@@ -146,8 +149,8 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
 
         pageView.setOnPageTurnListener { count, currentPosition ->
             currentPage = currentPosition
-            if(!baseFab.isDraftable)
-                FabAnimationUtil.slideButtons(this,baseFab)
+            if (!baseFab.isDraftable)
+                FabAnimationUtil.slideButtons(this, baseFab)
             trackPager.setCurrentItem(currentPosition, false)
         }
         getPaletteView().setCanDraw(false)
@@ -159,25 +162,25 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         }
 
         titleBar.setOnRightClickListener {
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 bookCategoryPopup.showAsDropDown(titleBar, 0, 0, Gravity.END)
                 bookCategoryPopup.loadDate(bookId)
             }
         }
 
         dragView.setOnTouchListener { v, event ->
-            if(!baseFab.isDraftable) {
+            if (!baseFab.isDraftable) {
                 FabAnimationUtil.slideButtons(this, baseFab)
                 getPaletteView().setCanDraw(false)
                 penSetLayout.visibility = View.GONE
             }
             super.onTouchEvent(event)
         }
-        dragView.setOnClickListener{
+        dragView.setOnClickListener {
             if (isNoteLayoutVisible())
                 setNoteVisible(noteLayout.height)
             else
-                setNoteVisible(ScreenUtil.getScreenHeight(this)/2, true)
+                setNoteVisible(ScreenUtil.getScreenHeight(this) / 2, true)
         }
         noteFragment = BookNoteFragment.newInstance(bookId)
         noteFragment.setNoteChangeListener(this)
@@ -189,99 +192,101 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         noteTitle.setOnRightClickListener {
             if (!isEditNote) {
                 showNoteEdit("", -1)
-            }else{
-                if (lastNote == currentNote){
+            } else {
+                if (lastNote == currentNote) {
                     T.show(this@ReaderActivity, "你未对笔记作任何更新操作")
                     return@setOnRightClickListener
-                }else{
+                } else {
                     //保存笔记
-                    if (currentNotePosition != -1){
+                    if (currentNotePosition != -1) {
                         EBagApi.modifyNote(noteFragment.getCurrentNote(currentNotePosition).id, currentNote, modifyNoteRequest)
-                    }else{
+                    } else {
                         EBagApi.addBookNote(bookId.toString(), currentNote, addNoteRequest)
                     }
                 }
             }
         }
-        rootView.setOnBottomHiddenChange { isShow ->  dragView.isSelected = isShow}
+        rootView.setOnBottomHiddenChange { isShow -> dragView.isSelected = isShow }
         noteEdit.addTextChangedListener(this)
 
     }
 
     override fun onClick(v: View) {
-        when(v.id){
-            R.id.baseFab ->{
-                if (isModifyTrack){
+        when (v.id) {
+            R.id.baseFab -> {
+                if (isModifyTrack) {
                     saveTrack()
                 }
-                FabAnimationUtil.slideButtons(this,baseFab)
-                if(!baseFab.isDraftable) {
+                FabAnimationUtil.slideButtons(this, baseFab)
+                if (!baseFab.isDraftable) {
                     getPaletteView().setCanDraw(false)
                     penSetLayout.visibility = View.GONE
-                }else{
+                } else {
                     getPaletteView().setCanDraw(true)
                     penSetLayout.visibility = View.VISIBLE
                 }
             }
-            R.id.noteBtn ->{
-                T.show(this,"笔记本")
+            R.id.noteBtn -> {
+                T.show(this, "笔记本")
             }
-            R.id.clearBtn ->{
+            R.id.clearBtn -> {
                 T.show(this, "清空")
                 getPaletteView().clear()
                 getPaletteView().setCanDraw(true)
             }
-            R.id.eraserBtn ->{
+            R.id.eraserBtn -> {
                 T.show(this, "橡皮擦")
                 getPaletteView().mode = PaletteView.Mode.ERASER
                 getPaletteView().setCanDraw(true)
             }
-            R.id.penBtn ->{
+            R.id.penBtn -> {
                 T.show(this, "画笔")
                 getPaletteView().mode = PaletteView.Mode.DRAW
                 getPaletteView().setCanDraw(true)
                 penSetLayout.visibility = View.VISIBLE
             }
-            R.id.saveBtn ->{
+            R.id.saveBtn -> {
                 getPaletteView().setCanDraw(false)
                 saveTrack()
             }
-            R.id.hidePenSet ->{
+            R.id.hidePenSet -> {
                 penSetLayout.visibility = View.GONE
             }
         }
     }
+
     override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
-        when(checkedId){
-            R.id.penSize1 ->{
+        when (checkedId) {
+            R.id.penSize1 -> {
                 penSize = resources.getDimension(R.dimen.x2)
             }
-            R.id.penSize2 ->{
+            R.id.penSize2 -> {
                 penSize = resources.getDimension(R.dimen.x4)
             }
-            R.id.penSize3 ->{
+            R.id.penSize3 -> {
                 penSize = resources.getDimension(R.dimen.x6)
             }
-            R.id.penSize4 ->{
+            R.id.penSize4 -> {
                 penSize = resources.getDimension(R.dimen.x8)
             }
-            R.id.penBlack ->{
+            R.id.penBlack -> {
                 penColor = "#000000"
             }
-            R.id.penBlue ->{
+            R.id.penBlue -> {
                 penColor = "#007BFF"
             }
-            R.id.penRed ->{
+            R.id.penRed -> {
                 penColor = "#FF4E4E"
             }
-            R.id.penOrange ->{
+            R.id.penOrange -> {
                 penColor = "#FF9100"
             }
         }
         getPaletteView().setPenRawSize(penSize)
         getPaletteView().setPenColor(Color.parseColor(penColor))
     }
-    private fun saveTrack(){
+
+    private fun saveTrack() {
         val bitmap = getPaletteView().buildBitmap() ?: return
         val fileName = "${FileUtil.getBookTrackPath()}Track$currentPage.png"
         val file = File(fileName)
@@ -300,7 +305,7 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         }
     }
 
-    private fun initBook(){
+    private fun initBook() {
         val imagePaths = ZipUtils.getAllImgs(intent.getStringExtra("fileName"))
         imagePaths.sortWith(Comparator { lhs, rhs ->
             val l = Integer.valueOf(lhs.substring(lhs.indexOf("page") + 4,
@@ -318,7 +323,7 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         tracks[0] = FileUtil.getBookTrackPath() + "textTrack.png"
         tracks[1] = FileUtil.getBookTrackPath() + "textTrack1.png"
         val list = ArrayList<ReaderBean>()
-        for (i in 0 until imagePaths.size){
+        for (i in 0 until imagePaths.size) {
             val readerBean = ReaderBean()
             readerBean.imagePath = imagePaths[i]
             readerBean.notePath = tracks[i]
@@ -331,8 +336,9 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         trackPager.adapter = trackAdapter
     }
 
-    private inner class TrackAdapter(private val trackPaths: List<String?>): PagerAdapter(){
+    private inner class TrackAdapter(private val trackPaths: List<String?>) : PagerAdapter() {
         var mCurrentView: PaletteView? = null
+
         init {
             val palletView = PaletteView(this@ReaderActivity)
             palletView.setFirstLoadBitmap(trackPaths[0])
@@ -340,6 +346,7 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
             palletView.setPenRawSize(resources.getDimension(R.dimen.x2))
             mCurrentView = palletView
         }
+
         override fun isViewFromObject(view: View?, `object`: Any?): Boolean {
             return view == `object`
         }
@@ -358,6 +365,7 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
             container.addView(palletView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
             return palletView
         }
+
         /**
          * 销毁 一个 页卡
          */
@@ -377,7 +385,7 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         }
     }
 
-    private fun getPaletteView(): PaletteView{
+    private fun getPaletteView(): PaletteView {
         val paletteView = trackAdapter.getPrimaryItem()
         paletteView.setOnFingerMoveListener { isModifyTrack = true }
         return trackAdapter.getPrimaryItem()
@@ -388,14 +396,14 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
             super.onBackPressed()
     }
 
-    private fun backEvent(): Boolean{
-        return if(isNoteEditVisible()){
+    private fun backEvent(): Boolean {
+        return if (isNoteEditVisible()) {
             hideNoteEdit()
             false
-        }else if(!isNoteEditVisible() && isNoteLayoutVisible()) {
+        } else if (!isNoteEditVisible() && isNoteLayoutVisible()) {
             setNoteVisible(noteLayout.height)
             false
-        }else{
+        } else {
             val fileFolder = FileUtil.getBookTrackPath()
             FileUtil.deleteFile(fileFolder.substring(0, fileFolder.length - 1))
             true
@@ -405,18 +413,18 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
     /**
      * “笔记本”是否可见
      */
-    private fun isNoteLayoutVisible(): Boolean{
+    private fun isNoteLayoutVisible(): Boolean {
         return noteLayout.height != 0
     }
 
     /**
      * 编辑笔记界面是否可见
      */
-    private fun isNoteEditVisible(): Boolean{
+    private fun isNoteEditVisible(): Boolean {
         return noteEdit.visibility == View.VISIBLE
     }
 
-    override fun showNoteEdit(text: String, currentNotePosition: Int){
+    override fun showNoteEdit(text: String, currentNotePosition: Int) {
         noteEdit.visibility = View.VISIBLE
         noteEdit.setText(text)
         noteEdit.setSelection(text.length)
@@ -426,24 +434,27 @@ class ReaderActivity : BaseActivity() , View.OnClickListener, TextWatcher, Radio
         currentNote = text
         this.currentNotePosition = currentNotePosition
     }
-    private fun hideNoteEdit(){
+
+    private fun hideNoteEdit() {
         noteEdit.visibility = View.GONE
         noteTitle.setRightText("新增")
         isEditNote = false
     }
+
     override fun afterTextChanged(s: Editable?) {
         currentNote = noteEdit.text.toString()
     }
+
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
     private fun setNoteVisible(height: Int, isShow: Boolean = false) {
         //属性动画对象
         val va: ValueAnimator
-        if (isShow){
+        if (isShow) {
             va = ValueAnimator.ofInt(0, height)
             dragView.isSelected = true
-        }else{
+        } else {
             va = ValueAnimator.ofInt(height, 0)
             dragView.isSelected = false
         }

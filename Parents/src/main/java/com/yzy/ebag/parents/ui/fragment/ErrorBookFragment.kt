@@ -42,7 +42,7 @@ class ErrorBookFragment(private val code: String) : BaseFragment() {
             request()
         }
 
-        mAdapter.setOnItemClickListener { adapter, view, position ->
+        mAdapter.setOnItemClickListener { _, _, position ->
             HomeworkDescActivity.jump(mContext, datas[position].homeWorkId, Constants.ERROR_TOPIC_TYPE, childrenBean.uid)
         }
 

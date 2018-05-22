@@ -144,6 +144,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/y250"
             android:padding="@dimen/y15"
+            android:maxLines="3"
             android:gravity="start"
             android:layout_marginTop="@dimen/y15"
             android:textColor="@color/tv_normal"

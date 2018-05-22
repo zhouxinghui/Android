@@ -3,7 +3,6 @@ package ebag.core.bean;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 /**
  * Created by YZY on 2017/5/6.
@@ -234,14 +233,7 @@ public class QuestionBean implements Serializable, MultiItemEntity, Cloneable {
     }
 
     public boolean isCorrect(){
-        if (answer != null && rightAnswer != null){
-            char[] chars = answer.toCharArray();
-            char[] chars1 = rightAnswer.toCharArray();
-            Arrays.sort(chars);
-            Arrays.sort(chars1);
-            return Arrays.toString(chars).equals(Arrays.toString(chars1));
-        }
-        return false;
+        return answer != null && rightAnswer != null && answer.equals(rightAnswer);
     }
 
     @Override
