@@ -47,6 +47,11 @@ class ClassFragment: BaseListFragment<List<SpaceBean>, SpaceBean>() {
         super.setUserVisibleHint(isVisibleToUser)
     }
 
+    override fun onResume() {
+        super.onResume()
+        onRetryClick()
+    }
+
     override fun isPagerFragment(): Boolean = false
 
     override fun loadConfig() {
