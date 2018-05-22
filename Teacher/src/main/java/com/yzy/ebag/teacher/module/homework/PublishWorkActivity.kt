@@ -82,7 +82,8 @@ class PublishWorkActivity : BaseActivity() {
                  subCode: String,
                  bookVersionId: String,
                  testPaperId: String? = null,
-                 testPaperName: String? = null
+                 testPaperName: String? = null,
+                 unitName: String? = null
                  ){
             activity.startActivity(Intent(activity, PublishWorkActivity::class.java)
                     .putExtra("isGroup", isGroup)
@@ -95,6 +96,7 @@ class PublishWorkActivity : BaseActivity() {
                     .putExtra("bookVersionId", bookVersionId)
                     .putExtra("testPaperId", testPaperId)
                     .putExtra("testPaperName", testPaperName)
+                    .putExtra("unitName", unitName)
             )
         }
     }
@@ -108,10 +110,11 @@ class PublishWorkActivity : BaseActivity() {
         val workType = intent.getIntExtra("workType", 0).toString()
         val subCode = intent.getStringExtra("subCode")
         val bookVersionId = intent.getStringExtra("bookVersionId")
+        val unitName = intent.getStringExtra("unitName")
         var isCustom = false
         publishTime.text = "布置时间：${DateUtil.getFormatDateTime(Date(System.currentTimeMillis()), "yyyy-M-d")}"
         dateTv.text = DateUtil.getFormatDateTime(Date(System.currentTimeMillis()), "yyyy-M-d")
-        var content = "${if (unitBean.unitCode == null) "全部" else unitBean.name} (共${questionList.size}题)"
+        var content = "${if (unitBean.unitCode == null) "全部" else unitName} (共${questionList.size}题)"
         publishContent.text = "发布内容：$content"
         if (isGroup){
             titleBar.setTitle("发布小组")

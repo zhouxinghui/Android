@@ -43,7 +43,8 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
                  bookVersionId: String,
                  isPreview: Boolean,
                  paperId: String? = null,
-                 count: Int = 0
+                 count: Int = 0,
+                 unitName: String? = null
         ){
             activity.startActivityForResult(
                     Intent(activity, PreviewActivity::class.java)
@@ -57,6 +58,7 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
                             .putExtra("isPreview", isPreview)
                             .putExtra("paperId", paperId)
                             .putExtra("count", count)
+                            .putExtra("unitName", unitName)
                     , Constants.PREVIEW_REQUEST)
         }
     }
@@ -71,6 +73,7 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
     private var paperId: String? = null
     private var subCode = ""
     private lateinit var questionNumTv: TextView
+    private var unitName: String? = ""
     private val previewPopup by lazy {
         val popup = PreviewPopup(this)
         popup.onAssignClick = {
@@ -79,14 +82,14 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
                     when {
                         classes.isEmpty() -> T.show(this, "未选择班级")
                         previewList.isEmpty() -> T.show(this, "没有可发布的试题")
-                        else -> PublishWorkActivity.jump(this, true, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId)
+                        else -> PublishWorkActivity.jump(this, true, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId, null, null, unitName)
                     }
                 }
                 2 ->{   //发布班级
                     when {
                         classes.isEmpty() -> T.show(this, "未选择班级")
                         previewList.isEmpty() -> T.show(this, "没有可发布的试题")
-                        else -> PublishWorkActivity.jump(this, false, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId)
+                        else -> PublishWorkActivity.jump(this, false, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId, null, null, unitName)
                     }
                 }
             }
@@ -103,6 +106,7 @@ class PreviewActivity: BaseListActivity<List<QuestionBean>, QuestionBean>() {
         bookVersionId = intent.getStringExtra("bookVersionId") ?: ""
         isPreview = intent.getBooleanExtra("isPreview", false)
         paperId = intent.getStringExtra("paperId")
+        unitName = intent.getStringExtra("unitName")
 
         val rightImage = ImageView(this)
         rightImage.setImageResource(R.drawable.more)

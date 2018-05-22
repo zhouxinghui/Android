@@ -190,7 +190,8 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                     cacheMap[currentGradeCode]!!.versionId,
                     false,
                     null,
-                    it
+                    it,
+                    cacheMap[currentGradeCode]!!.currentUnitName
             )
         }
         dialog
@@ -386,7 +387,9 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                         cacheMap[currentGradeCode]!!.subCode,
                         cacheMap[currentGradeCode]!!.versionId,
                         true,
-                        currentPaperId
+                        currentPaperId,
+                        0,
+                        cacheMap[currentGradeCode]!!.currentUnitName
                 )
             }else{
                 if(getPreviewList().isEmpty()){
@@ -401,7 +404,10 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                         workCategory,
                         cacheMap[currentGradeCode]!!.subCode,
                         cacheMap[currentGradeCode]!!.versionId,
-                        true
+                        true,
+                        null,
+                        0,
+                        cacheMap[currentGradeCode]!!.currentUnitName
                 )
             }
         })
@@ -568,7 +574,8 @@ class AssignmentActivity : MVPActivity(), AssignmentView{
                 cacheMap[currentGradeCode]!!.subCode,
                 cacheMap[currentGradeCode]!!.versionId,
                 currentPaperId,
-                currentPaperName
+                currentPaperName,
+                cacheMap[currentGradeCode]!!.currentUnitName
         )
     }
 
