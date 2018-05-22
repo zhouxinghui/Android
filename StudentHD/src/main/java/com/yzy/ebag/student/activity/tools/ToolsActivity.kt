@@ -119,6 +119,9 @@ class ToolsActivity : BaseListActivity<List<Int>, Int>() {
                                 .putExtra("type", LetterActivity.EN)
                 )
             }
+            R.drawable.tool_btn_song ->{
+                PrepareDisplayActivity.jump(this, classId)
+            }
             else -> {
                 T.show(this,"点击了第${position + 1}个条目")
             }

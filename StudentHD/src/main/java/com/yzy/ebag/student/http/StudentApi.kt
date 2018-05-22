@@ -6,6 +6,7 @@ import com.yzy.ebag.student.bean.*
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.L
 import ebag.hd.bean.ParentBean
+import ebag.hd.bean.PrepareFileBean
 import ebag.hd.bean.response.UserEntity
 import ebag.hd.http.EBagApi
 import ebag.hd.http.EBagClient
@@ -165,6 +166,15 @@ object StudentApi {
         jsonObject.put("page", page)
         jsonObject.put("pageSize", pageSize)
         EBagApi.request(studentService.formula("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 备课文件预习
+     */
+    fun prepareList(classId: String, callback: RequestCallBack<List<PrepareFileBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        EBagApi.request(studentService.prepareList("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
     /**

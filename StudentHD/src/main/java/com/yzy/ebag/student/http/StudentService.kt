@@ -3,6 +3,7 @@ package com.yzy.ebag.student.http
 import com.yzy.ebag.student.bean.*
 import ebag.core.bean.ResponseBean
 import ebag.hd.bean.ParentBean
+import ebag.hd.bean.PrepareFileBean
 import ebag.hd.bean.response.UserEntity
 import io.reactivex.Observable
 import okhttp3.RequestBody
@@ -98,6 +99,12 @@ interface StudentService {
      */
     @POST("util/queryFormulaTool/{version}")
     fun formula(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<FormulaTypeBean>>>
+
+    /**
+     * 备课文件预习
+     */
+    @POST("clazzSpace/getPushLessionfile/{version}")
+    fun prepareList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<PrepareFileBean>>>
 
     /**
      *

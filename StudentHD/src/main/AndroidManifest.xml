@@ -193,6 +193,9 @@
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize"
             />
+        <activity android:name=".activity.tools.PrepareDisplayActivity"
+            android:screenOrientation="landscape"
+            />
 
 
         <!--&lt;!&ndash; For test only 测试的主程序&ndash;&gt;-->
