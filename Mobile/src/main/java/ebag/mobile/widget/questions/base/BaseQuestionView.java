@@ -70,7 +70,12 @@ public abstract class BaseQuestionView extends LinearLayout implements IQuestion
         headAdapter = new HeadAdapter();
         headRecycler.setAdapter(headAdapter);
         addView(headRecycler,layoutParams);
-
+        headRecycler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                headAdapter.notifyDataSetChanged();
+            }
+        }, 500);
     }
 
     /**
