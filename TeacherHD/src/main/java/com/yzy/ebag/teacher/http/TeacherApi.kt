@@ -4,6 +4,7 @@ import com.yzy.ebag.teacher.bean.*
 import ebag.core.bean.QuestionBean
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.StringUtils
+import ebag.hd.bean.BaseClassesBean
 import ebag.hd.bean.BaseStudentBean
 import ebag.hd.bean.UnitBean
 import ebag.hd.bean.response.NoticeBean
@@ -562,6 +563,20 @@ object TeacherApi {
         val jsonObject = JSONObject()
         jsonObject.put("id", id)
         EBagApi.request(teacherService.deletePrepareFile("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 推送备课文件至学生自习
+     */
+    fun pushPrepareFile(lessionFileId: String, classes: List<BaseClassesBean?>, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("lessionFileId", lessionFileId)
+        val jsonArray = JSONArray()
+        classes.forEach {
+            jsonArray.put(it?.classId)
+        }
+        jsonObject.put("classIds", jsonArray)
+        EBagApi.request(teacherService.pushPrepareFile("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
     /**

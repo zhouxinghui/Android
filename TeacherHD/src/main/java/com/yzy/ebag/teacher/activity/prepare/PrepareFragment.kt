@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.PrepareFileBean
 import com.yzy.ebag.teacher.http.TeacherApi
+import com.yzy.ebag.teacher.widget.DialogSelectClasses
 import ebag.core.base.BaseListFragment
 import ebag.core.base.PhotoPreviewActivity
 import ebag.core.http.network.RequestCallBack
@@ -18,6 +19,7 @@ import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
 import ebag.hd.activity.OfficeActivity
+import ebag.hd.bean.BaseClassesBean
 import ebag.hd.widget.VideoPlayDialog
 import ebag.hd.widget.VoicePlayDialog
 
@@ -54,6 +56,24 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
             }
         }
     }
+    private val pushRequest by lazy {
+        object : RequestCallBack<String>() {
+            override fun onStart() {
+                selectClassesDialog.dismiss()
+                LoadingDialogUtil.showLoading(mContext, "正在推送...")
+            }
+
+            override fun onSuccess(entity: String?) {
+                LoadingDialogUtil.closeLoadingDialog()
+                T.show(mContext, "推送成功")
+            }
+
+            override fun onError(exception: Throwable) {
+                LoadingDialogUtil.closeLoadingDialog()
+                exception.handleThrowable(mContext)
+            }
+        }
+    }
     private lateinit var list: List<PrepareFileBean>
     private var gradeCode: String? = ""
     private var subCode: String? = ""
@@ -67,6 +87,30 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
                     deleteFile()
                 })
                 .setNegativeButton("取消", { dialog, which ->
+                    dialog.dismiss()
+                }).create()
+        dialog
+    }
+    private val selectClassesDialog by lazy {
+        val dialog = DialogSelectClasses(mContext)
+        dialog.onConfirmClick = {
+            putshFile(it)
+        }
+        dialog
+    }
+    private val selectDialog by lazy {
+        val items = arrayOf("推送至学生自习", "删除文件")
+        val dialog = AlertDialog.Builder(mContext)
+                .setItems(items, {dialog, which ->
+                    if (which == 0){
+                        selectClassesDialog.show()
+                    }else{
+                        if(type != "1") {
+                            T.show(mContext, "只能删除个人备课文件")
+                        }else {
+                            deleteFileDialog.show()
+                        }
+                    }
                     dialog.dismiss()
                 }).create()
         dialog
@@ -88,6 +132,9 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
 
     private fun deleteFile(){
         TeacherApi.deletePrepareFile(fileId, deleteRequest)
+    }
+    private fun putshFile(classes: List<BaseClassesBean?>){
+        TeacherApi.pushPrepareFile(fileId, classes, pushRequest)
     }
 
     override fun loadConfig() {
@@ -158,11 +205,9 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
     }
 
     override fun onItemLongClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int): Boolean {
-        if(type != "1")
-            return false
         adapter as MyAdapter
         fileId = adapter.data[position].id
-        deleteFileDialog.show()
+        selectDialog.show()
         return true
     }
 

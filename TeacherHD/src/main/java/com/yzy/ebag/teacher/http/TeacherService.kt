@@ -245,6 +245,12 @@ interface TeacherService {
     fun deletePrepareFile(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /**
+     * 推送备课文件至学生自习
+     */
+    @POST("clazzSpace/pushLessionfile2Class/{version}")
+    fun pushPrepareFile(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /**
      * 课堂表现列表
      */
     @POST("clazzSpace/queryUserClazzRoomShowAll/{version}")
