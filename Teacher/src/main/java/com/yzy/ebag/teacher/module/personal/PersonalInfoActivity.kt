@@ -3,6 +3,7 @@ package com.yzy.ebag.teacher.module.personal
 import android.app.Activity
 import android.content.Intent
 import android.os.Message
+import android.support.v7.app.AlertDialog
 import android.view.View
 import android.widget.TextView
 import com.luck.picture.lib.PictureSelector
@@ -90,6 +91,9 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                         familyAddress.text = modifyStr
                         userEntity?.address = modifyStr
                     }
+                    4 ->{
+                        contactInformation.text = modifyStr
+                    }
                 }
                 SerializableUtils.setSerializable(Constants.TEACHER_USER_ENTITY, userEntity)
             }
@@ -99,6 +103,19 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                 exception.handleThrowable(this@PersonalInfoActivity)
             }
         }
+    }
+    private var phoneNumber: String? = ""
+    private val phoneModifyDialog by lazy {
+        AlertDialog.Builder(this)
+                .setTitle("温馨提示")
+                .setMessage("联系方式填写之后暂时不提供修改功能，请确保您填写的联系方式正确有效")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("确定", {dialog, _ ->
+                    modifyType = 4
+                    key = "phone"
+                    modifyDialog.show("请输入联系方式", true)
+                    dialog.dismiss()
+                }).create()
     }
     override fun initViews() {
         headImageBtn.setOnClickListener(this)
@@ -132,7 +149,8 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                 setTv(name, entity?.name)
                 setTv(bag, entity?.ysbCode)
                 setTv(sex, if(entity?.sex == "1") "男" else "女")
-                setTv(contactInformation, entity?.phone) //联系方式
+                phoneNumber = entity?.phone
+                setTv(contactInformation, phoneNumber) //联系方式
                 setTv(familyAddress, entity?.address)
                 setTv(schoolName, entity?.schoolName)
             }
@@ -172,7 +190,8 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                 sexDialog.show()
             }
             R.id.contactBtn ->{
-                T.show(this, "联系方式")
+                if(StringUtils.isEmpty(phoneNumber))
+                    phoneModifyDialog.show()
             }
             R.id.addressBtn ->{
                 modifyType = 3

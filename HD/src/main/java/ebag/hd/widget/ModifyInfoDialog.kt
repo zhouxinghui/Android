@@ -1,6 +1,7 @@
 package ebag.hd.widget
 
 import android.content.Context
+import android.text.InputType
 import ebag.core.base.BaseDialog
 import ebag.core.util.EditTextLimitUtil
 import ebag.core.util.StringUtils
@@ -39,9 +40,13 @@ class ModifyInfoDialog(context: Context): BaseDialog(context) {
         }
     }
 
-    fun show(hint: String) {
+    fun show(hint: String, isNumberHint: Boolean = false) {
         countEdit.setText("")
         countEdit.hint = hint
+        if (isNumberHint)
+            countEdit.inputType = InputType.TYPE_CLASS_NUMBER
+        else
+            countEdit.inputType = InputType.TYPE_CLASS_TEXT
         super.show()
     }
 }
