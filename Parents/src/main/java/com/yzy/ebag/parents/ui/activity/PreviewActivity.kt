@@ -136,6 +136,10 @@ class PreviewActivity : BaseListActivity<List<QuestionBean>, QuestionBean>() {
         rightImage.visibility = View.GONE
 
         textView.setOnClickListener {
+            if (previewList.isEmpty()) {
+                T.show(this, "没有可发布的试题")
+                return@setOnClickListener
+            }
             PublishWorkActivity.jump(this, true, isTest, classes, unitBean, previewList, workType, subCode, bookVersionId, selectedUid)
         }
         /*if (isTest){
