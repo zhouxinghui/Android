@@ -55,8 +55,6 @@ class OverviewAdapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>(null){
         notifyDataSetChanged()
     }
 
-    var wrongIds = ArrayList<String>()
-
     override fun convert(helper: BaseViewHolder, item: MultiItemEntity?) {
         val tv = helper.getView<TextView>(R.id.tv)
         when(helper.itemViewType){
@@ -74,16 +72,6 @@ class OverviewAdapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>(null){
                     }else{
                         tv.setBackgroundResource(R.drawable.bac_overview_red)
                     }
-                }else{
-                    if(StringUtils.isEmpty(item?.answer)){
-                        tv.setBackgroundResource(R.drawable.bac_overview_grey)
-                    }else{
-                        tv.setBackgroundResource(R.drawable.bac_overview_blue)
-                    }
-                }
-                val questionId = item?.questionId
-                if (wrongIds.contains(questionId)){
-                    tv.setBackgroundResource(R.drawable.bac_overview_red)
                 }else{
                     if(StringUtils.isEmpty(item?.answer)){
                         tv.setBackgroundResource(R.drawable.bac_overview_grey)

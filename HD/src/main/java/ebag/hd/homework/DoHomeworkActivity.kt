@@ -319,6 +319,7 @@ class DoHomeworkActivity: BaseActivity() {
                 questionAdapter.canDo = false
                 questionAdapter.isShowAnalyseTv = true
                 questionAdapter.showResult = true
+                typeAdapter.showResult = true
             }
             Constants.ERROR_TOPIC_TYPE ->{
                 questionAdapter.canDo = true
@@ -417,8 +418,6 @@ class DoHomeworkActivity: BaseActivity() {
             LoadingDialogUtil.closeLoadingDialog()
             if(exception is MsgException && exception.code == "2003"){
                 T.show(this@DoHomeworkActivity, "你还有未作答正确的试题，请检查并纠正后重新提交")
-                typeAdapter.wrongIds.clear()
-                typeAdapter.wrongIds.addAll(exception.message.toString().split(","))
                 typeAdapter.notifyDataSetChanged()
             }else{
                 exception.handleThrowable(this@DoHomeworkActivity)
