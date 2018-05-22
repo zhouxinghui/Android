@@ -48,10 +48,10 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
             homeWorkAdapter.setOnItemChildClickListener { adapter, view, position ->
 
                 if ((adapter.getItem(position) as OnePageInfoBean.HomeWorkInfoVosBean).state == "0") {
-                    HomeworkDescActivity.jump(activity, homeworkdatas[position].id, "2", (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid)
+                    HomeworkDescActivity.jump(activity, homeworkdatas[position].id, Constants.KHZY_TYPE, (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid)
                 } else {
                     if (type != "3")
-                        HomeworkReportActivity.start(activity, homeworkdatas[position].id, homeworkdatas[position].endTime, "2",homeworkdatas[position].state)
+                    HomeworkReportActivity.start(activity, homeworkdatas[position].id, homeworkdatas[position].endTime, Constants.KHZY_TYPE)
                 }
             }
 
@@ -59,7 +59,7 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
             recyclerview.adapter = mAdapter
             mAdapter.setOnItemClickListener { adapter, view, position ->
                 if ((adapter.getItem(position) as SubjectBean.HomeWorkInfoBean).state.toInt() > 0) {
-                    HomeworkReportActivity.start(activity, datas[position].id, datas[position].endTime, "4",datas[position].state)
+                    HomeworkReportActivity.start(activity, datas[position].id, datas[position].endTime, "4")
                 } else {
                     HomeworkDescActivity.jump(activity, datas[position].id, "4", childrenBean.uid)
                 }
@@ -73,37 +73,30 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
         }
 
         refresh.setOnRefreshListener {
-            refresh()
+            page = 1
+            datas.clear()
+            homeworkdatas.clear()
+            request()
         }
 
         mAdapter.setOnLoadMoreListener({ loadmore() }, recyclerview)
         homeWorkAdapter.setOnLoadMoreListener({ loadmore() }, recyclerview)
-        inited = true
     }
 
-    private fun refresh(loading: Boolean = false) {
-        page = 1
-        datas.clear()
-        homeworkdatas.clear()
-        request(loading)
-    }
-
-    private fun request(loading: Boolean = false) {
+    private fun request() {
 
         ParentsAPI.subjectWorkList(type, childrenBean.classId, code, page, 10, childrenBean.uid, object : RequestCallBack<List<SubjectBean>>() {
 
             override fun onStart() {
-                if (!loading) {
-                    if (!refresh.isRefreshing)
-                        stateview.showLoading()
-                }
+                if (!refresh.isRefreshing)
+                    stateview.showLoading()
             }
 
             override fun onSuccess(entity: List<SubjectBean>?) {
                 if (entity!![0].homeWorkInfoVos.size == 0) {
                     stateview.showEmpty()
                 } else {
-                    if (type == "2" || type == "3") {
+                    if (type == "2") {
                         entity[0].homeWorkInfoVos.forEach {
                             val bean = OnePageInfoBean.HomeWorkInfoVosBean()
                             bean.state = it.state
@@ -142,13 +135,13 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
 
             override fun onSuccess(entity: List<SubjectBean>?) {
                 if (entity!![0].homeWorkInfoVos.size == 0) {
-                    if (type == "2" || type == "3") {
+                    if (type == "2") {
                         homeWorkAdapter.loadMoreEnd()
                     } else {
                         mAdapter.loadMoreEnd()
                     }
                 } else {
-                    if (type == "2" || type == "3") {
+                    if (type == "2") {
                         entity[0].homeWorkInfoVos.forEach {
                             val bean = OnePageInfoBean.HomeWorkInfoVosBean()
                             bean.state = it.state
@@ -172,7 +165,7 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
             }
 
             override fun onError(exception: Throwable) {
-                if (type == "2" || type == "3") homeWorkAdapter.loadMoreFail() else mAdapter.loadMoreFail()
+                if (type == "2") homeWorkAdapter.loadMoreFail() else mAdapter.loadMoreFail()
             }
 
         })
@@ -197,16 +190,6 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
                             }
                     ).setText(R.id.createTime, item?.createTime)
             helper.getView<View>(R.id.tvStatus).isSelected = item?.state == Constants.CORRECT_UNFINISH
-        }
-    }
-
-
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser && inited) {
-            if (type == "3") {
-                refresh(true)
-            }
         }
     }
 

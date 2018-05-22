@@ -1,6 +1,5 @@
 package com.yzy.ebag.parents.ui.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Html
@@ -44,15 +43,7 @@ class ErrorBookFragment(private val code: String) : BaseFragment() {
         }
 
         mAdapter.setOnItemClickListener { adapter, view, position ->
-
-            val intent = Intent(activity, HomeworkDescActivity::class.java)
-            intent.putExtra("homeworkId", datas[position].homeWorkId)
-                    .putExtra("testTime", 0)
-                    .putExtra("studentId", childrenBean.uid)
-                    .putExtra("workType", "")
-                    .putExtra("error", true)
-
-            startActivity(intent)
+            HomeworkDescActivity.jump(mContext, datas[position].homeWorkId, Constants.ERROR_TOPIC_TYPE, childrenBean.uid)
         }
 
         refresh.setOnRefreshListener {

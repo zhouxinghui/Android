@@ -539,6 +539,7 @@ object TeacherApi {
 
     /**
      * 备课文件列表
+     * @param lessonType 文件类型：1-个人备课    2-校产资源  3-共享资源
      */
     fun prepareList(lessonType: String, page: Int, pageSize: Int, callback: RequestCallBack<List<PrepareFileBean>>, gradeCode: String?, subCode: String?, unitId: String?){
         val jsonObject = JSONObject()

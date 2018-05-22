@@ -140,7 +140,7 @@ class MyPrepareActivity : BaseListTabActivity<PrepareBaseBean, MultiItemEntity>(
             request()
         }
         val schoolResourceBtn = titleView.findViewById<RadioButton>(R.id.schoolResource)
-        val params = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.MATCH_PARENT)
+        val params = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT)
         params.addRule(RelativeLayout.CENTER_HORIZONTAL)
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
         titleView.layoutParams = params

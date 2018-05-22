@@ -91,7 +91,7 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
     }
 
     override fun loadConfig() {
-        withFirstPageData(list, true)
+//        withFirstPageData(list, true)
     }
 
     fun notifyRequest(type: String, gradeCode: String?, subCode: String?, unitId: String?){
@@ -158,6 +158,8 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
     }
 
     override fun onItemLongClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int): Boolean {
+        if(type != "1")
+            return false
         adapter as MyAdapter
         fileId = adapter.data[position].id
         deleteFileDialog.show()

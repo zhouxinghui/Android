@@ -323,6 +323,7 @@ class DoHomeworkActivity: BaseActivity() {
             Constants.ERROR_TOPIC_TYPE ->{
                 questionAdapter.canDo = true
                 questionAdapter.isShowAnalyseTv = true
+                typeAdapter.showResult = true
             }
             else ->{
                 questionAdapter.canDo = true

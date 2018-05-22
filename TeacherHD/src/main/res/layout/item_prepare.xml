@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/x10"
+    android:background="@drawable/white_clickable_bg"
+    android:layout_margin="@dimen/x5"
+    android:padding="5dp"
     >
     <ImageView android:id="@+id/fileImg"
         android:layout_width="@dimen/x100"
