@@ -208,6 +208,7 @@
         <TextView
             android:id="@+id/tipTeacher"
             android:layout_width="0dp"
+            android:layout_marginTop="@dimen/y20"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/x24"
             android:layout_marginStart="@dimen/x20"
@@ -222,7 +223,7 @@
         <EditText
             android:id="@+id/editTeacher"
             android:layout_width="0dp"
-            android:layout_height="@dimen/y157"
+            android:layout_height="wrap_content"
             android:background="@drawable/report_test_edit_bg"
             android:textColor="#4a4a4a"
             android:textColorHint="#9b9b9b"
@@ -231,94 +232,10 @@
             android:gravity="top"
             android:padding="@dimen/x10"
             android:enabled="false"
-            app:layout_constraintBottom_toTopOf="@id/flowerTeacher"
+            android:layout_marginTop="@dimen/y20"
             app:layout_constraintEnd_toEndOf="@id/tipTeacher"
             app:layout_constraintStart_toStartOf="@id/tipTeacher"
             app:layout_constraintTop_toBottomOf="@id/tipTeacher" />
-
-        <ebag.core.widget.drawable.DrawableTextView
-            android:id="@+id/flowerTeacher"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/x5"
-            android:drawablePadding="@dimen/x10"
-            android:text="鲜花 x 3"
-            android:textColor="#4a4a4a"
-            android:textSize="@dimen/x20"
-            app:layout_constraintBottom_toTopOf="@id/tipParent"
-            app:layout_constraintEnd_toStartOf="@id/paletteTeacher"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@id/tipTeacher"
-            app:layout_constraintTop_toBottomOf="@id/editTeacher"
-            app:leftDrawable="@drawable/icon_flower"
-            android:visibility="gone"
-            app:leftDrawableHeight="@dimen/x24"
-            app:leftDrawableWidth="@dimen/x24" />
-
-        <ebag.core.widget.drawable.DrawableTextView
-            android:id="@+id/paletteTeacher"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/x10"
-            android:text="画笔 x 3"
-            android:textColor="#4a4a4a"
-            android:textSize="@dimen/x20"
-            app:layout_constraintEnd_toStartOf="@id/notebookTeacher"
-            app:layout_constraintStart_toEndOf="@id/flowerTeacher"
-            app:layout_constraintTop_toTopOf="@id/flowerTeacher"
-            app:leftDrawable="@drawable/icon_palette"
-            app:leftDrawableHeight="@dimen/x24"
-            android:visibility="gone"
-            app:leftDrawableWidth="@dimen/x24" />
-
-        <ebag.core.widget.drawable.DrawableTextView
-            android:id="@+id/notebookTeacher"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/x10"
-            android:text="笔记本 x 3"
-            android:textColor="#4a4a4a"
-            android:textSize="@dimen/x20"
-            app:layout_constraintEnd_toStartOf="@id/medalTeacher"
-            app:layout_constraintStart_toEndOf="@id/paletteTeacher"
-            app:layout_constraintTop_toTopOf="@id/flowerTeacher"
-            app:leftDrawable="@drawable/icon_notebook"
-            app:leftDrawableHeight="@dimen/x24"
-            android:visibility="gone"
-            app:leftDrawableWidth="@dimen/x24" />
-
-        <ebag.core.widget.drawable.DrawableTextView
-            android:id="@+id/medalTeacher"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/x10"
-            android:text="奖章 x 3"
-            android:textColor="#4a4a4a"
-            android:textSize="@dimen/x20"
-            app:layout_constraintEnd_toStartOf="@id/piggyTeacher"
-            app:layout_constraintStart_toEndOf="@id/notebookTeacher"
-            app:layout_constraintTop_toTopOf="@id/flowerTeacher"
-            app:leftDrawable="@drawable/icon_medal"
-            app:leftDrawableHeight="@dimen/x24"
-            android:visibility="gone"
-            app:leftDrawableWidth="@dimen/x24" />
-
-        <ebag.core.widget.drawable.DrawableTextView
-            android:id="@+id/piggyTeacher"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/x5"
-            android:drawablePadding="@dimen/x10"
-            android:text="储蓄罐 x 3"
-            android:textColor="#4a4a4a"
-            android:textSize="@dimen/x20"
-            app:layout_constraintEnd_toEndOf="@id/tipTeacher"
-            app:layout_constraintStart_toEndOf="@id/medalTeacher"
-            app:layout_constraintTop_toTopOf="@id/flowerTeacher"
-            app:leftDrawable="@drawable/icon_piggy_bank"
-            app:leftDrawableHeight="@dimen/x24"
-            android:visibility="gone"
-            app:leftDrawableWidth="@dimen/x24" />
 
         <TextView
             android:id="@+id/tipParent"
@@ -326,11 +243,11 @@
             android:layout_height="wrap_content"
             android:text="家长评语"
             android:textColor="#272727"
+            android:layout_marginTop="@dimen/y30"
             android:textSize="@dimen/x28"
-            app:layout_constraintBottom_toTopOf="@id/editParent"
             app:layout_constraintEnd_toEndOf="@id/tipTeacher"
             app:layout_constraintStart_toStartOf="@id/tipTeacher"
-            app:layout_constraintTop_toBottomOf="@id/flowerTeacher" />
+            app:layout_constraintTop_toBottomOf="@id/editTeacher" />
 
         <TextView
             android:id="@+id/tvName"
@@ -349,19 +266,132 @@
         <EditText
             android:id="@+id/editParent"
             android:layout_width="0dp"
-            android:layout_height="@dimen/y157"
+            android:layout_height="wrap_content"
             android:background="@drawable/report_test_edit_bg"
             android:textColor="#4a4a4a"
             android:textColorHint="#9b9b9b"
             android:textSize="@dimen/x24"
             android:hint="家长暂无评价..."
             android:gravity="top"
+            android:layout_marginTop="@dimen/y20"
             android:padding="@dimen/x10"
             android:enabled="false"
-            app:layout_constraintBottom_toTopOf="@id/flowerParent"
             app:layout_constraintEnd_toEndOf="@id/tipTeacher"
             app:layout_constraintStart_toStartOf="@id/tipTeacher"
             app:layout_constraintTop_toBottomOf="@id/tipParent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="#272727"
+            android:textSize="@dimen/x28"
+            android:text="老师赠送礼物"
+            android:id="@+id/gift_teacher"
+            app:layout_constraintEnd_toEndOf="@id/tipTeacher"
+            android:layout_marginTop="@dimen/y20"
+            app:layout_constraintStart_toStartOf="@id/tipTeacher"
+            app:layout_constraintTop_toBottomOf="@id/editParent"
+            />
+
+
+        <ebag.core.widget.drawable.DrawableTextView
+            android:id="@+id/flowerTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/x5"
+            android:drawablePadding="@dimen/x10"
+            android:text="鲜花 x 0"
+            android:layout_marginTop="@dimen/y8"
+            android:textColor="#4a4a4a"
+            android:textSize="@dimen/x17"
+            app:layout_constraintEnd_toStartOf="@id/paletteTeacher"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@id/tipTeacher"
+            app:layout_constraintTop_toBottomOf="@id/gift_teacher"
+            app:leftDrawable="@drawable/icon_flower"
+            android:visibility="visible"
+            app:leftDrawableHeight="@dimen/x24"
+            app:leftDrawableWidth="@dimen/x24" />
+
+        <ebag.core.widget.drawable.DrawableTextView
+            android:id="@+id/paletteTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/x10"
+            android:text="画板 x 0"
+            android:textColor="#4a4a4a"
+            android:textSize="@dimen/x17"
+            app:layout_constraintEnd_toStartOf="@id/notebookTeacher"
+            app:layout_constraintStart_toEndOf="@id/flowerTeacher"
+            app:layout_constraintTop_toTopOf="@id/flowerTeacher"
+            app:leftDrawable="@drawable/icon_palette"
+            app:leftDrawableHeight="@dimen/x24"
+            android:visibility="visible"
+            app:leftDrawableWidth="@dimen/x24" />
+
+        <ebag.core.widget.drawable.DrawableTextView
+            android:id="@+id/notebookTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/x10"
+            android:text="笔记本 x 0"
+            android:textColor="#4a4a4a"
+            android:textSize="@dimen/x17"
+            app:layout_constraintEnd_toStartOf="@id/medalTeacher"
+            app:layout_constraintStart_toEndOf="@id/paletteTeacher"
+            app:layout_constraintTop_toTopOf="@id/flowerTeacher"
+            app:leftDrawable="@drawable/icon_notebook"
+            app:leftDrawableHeight="@dimen/x24"
+            android:visibility="visible"
+            app:leftDrawableWidth="@dimen/x24" />
+
+        <ebag.core.widget.drawable.DrawableTextView
+            android:id="@+id/medalTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/x10"
+            android:text="奖章 x 0"
+            android:textColor="#4a4a4a"
+            android:textSize="@dimen/x17"
+            app:layout_constraintEnd_toStartOf="@id/piggyTeacher"
+            app:layout_constraintStart_toEndOf="@id/notebookTeacher"
+            app:layout_constraintTop_toTopOf="@id/flowerTeacher"
+            app:leftDrawable="@drawable/icon_medal"
+            app:leftDrawableHeight="@dimen/x24"
+            android:visibility="visible"
+            app:leftDrawableWidth="@dimen/x24" />
+
+        <ebag.core.widget.drawable.DrawableTextView
+            android:id="@+id/piggyTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/x5"
+            android:drawablePadding="@dimen/x10"
+            android:text="储蓄罐 x 0"
+            android:textColor="#4a4a4a"
+            android:textSize="@dimen/x17"
+            app:layout_constraintEnd_toEndOf="@id/tipTeacher"
+            app:layout_constraintStart_toEndOf="@id/medalTeacher"
+            app:layout_constraintTop_toTopOf="@id/flowerTeacher"
+            app:leftDrawable="@drawable/icon_piggy_bank"
+            app:leftDrawableHeight="@dimen/x24"
+            android:visibility="visible"
+            app:leftDrawableWidth="@dimen/x24" />
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="#272727"
+            android:textSize="@dimen/x28"
+            android:text="家长赠送礼物"
+            android:id="@+id/gift_parent"
+            app:layout_constraintEnd_toEndOf="@id/tipTeacher"
+            android:layout_marginTop="@dimen/y20"
+            app:layout_constraintStart_toStartOf="@id/tipTeacher"
+            app:layout_constraintTop_toBottomOf="@id/piggyTeacher"
+            />
+
 
         <ebag.core.widget.drawable.DrawableTextView
             android:id="@+id/flowerParent"
@@ -369,17 +399,17 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/x5"
             android:drawablePadding="@dimen/x10"
-            android:text="鲜花 x 1"
+            android:text="鲜花 x 0"
             android:textColor="#4a4a4a"
-            android:textSize="@dimen/x20"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="@dimen/x17"
+            android:layout_marginTop="@dimen/y8"
             app:layout_constraintEnd_toStartOf="@id/paletteParent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="@id/tipTeacher"
-            app:layout_constraintTop_toBottomOf="@id/editParent"
+            app:layout_constraintTop_toBottomOf="@id/gift_parent"
             app:leftDrawable="@drawable/icon_flower"
             app:leftDrawableHeight="@dimen/x24"
-            android:visibility="gone"
+            android:visibility="visible"
             app:leftDrawableWidth="@dimen/x24" />
 
         <ebag.core.widget.drawable.DrawableTextView
@@ -387,15 +417,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawablePadding="@dimen/x10"
-            android:text="画笔 x 3"
+            android:text="画笔 x 0"
             android:textColor="#4a4a4a"
-            android:textSize="@dimen/x20"
+            android:textSize="@dimen/x17"
             app:layout_constraintEnd_toStartOf="@id/notebookParent"
             app:layout_constraintStart_toEndOf="@id/flowerParent"
             app:layout_constraintTop_toTopOf="@id/flowerParent"
             app:leftDrawable="@drawable/icon_palette"
             app:leftDrawableHeight="@dimen/x24"
-            android:visibility="gone"
+            android:visibility="visible"
             app:leftDrawableWidth="@dimen/x24" />
 
         <ebag.core.widget.drawable.DrawableTextView
@@ -403,15 +433,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawablePadding="@dimen/x10"
-            android:text="笔记本 x 3"
+            android:text="笔记本 x 0"
             android:textColor="#4a4a4a"
-            android:textSize="@dimen/x20"
+            android:textSize="@dimen/x17"
             app:layout_constraintEnd_toStartOf="@id/medalParent"
             app:layout_constraintStart_toEndOf="@id/paletteParent"
             app:layout_constraintTop_toTopOf="@id/flowerParent"
             app:leftDrawable="@drawable/icon_notebook"
             app:leftDrawableHeight="@dimen/x24"
-            android:visibility="gone"
+            android:visibility="visible"
             app:leftDrawableWidth="@dimen/x24" />
 
         <ebag.core.widget.drawable.DrawableTextView
@@ -419,15 +449,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawablePadding="@dimen/x10"
-            android:text="奖章 x 3"
+            android:text="奖章 x 0"
             android:textColor="#4a4a4a"
-            android:textSize="@dimen/x20"
+            android:textSize="@dimen/x17"
             app:layout_constraintEnd_toStartOf="@id/piggyParent"
             app:layout_constraintStart_toEndOf="@id/notebookParent"
             app:layout_constraintTop_toTopOf="@id/flowerParent"
             app:leftDrawable="@drawable/icon_medal"
             app:leftDrawableHeight="@dimen/x24"
-            android:visibility="gone"
+            android:visibility="visible"
             app:leftDrawableWidth="@dimen/x24" />
 
         <ebag.core.widget.drawable.DrawableTextView
@@ -436,15 +466,15 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/x5"
             android:drawablePadding="@dimen/x10"
-            android:text="储蓄罐 x 3"
+            android:text="储蓄罐 x 0"
             android:textColor="#4a4a4a"
-            android:textSize="@dimen/x20"
+            android:textSize="@dimen/x17"
             app:layout_constraintEnd_toEndOf="@id/tipTeacher"
             app:layout_constraintStart_toEndOf="@id/medalParent"
             app:layout_constraintTop_toTopOf="@id/flowerParent"
             app:leftDrawable="@drawable/icon_piggy_bank"
             app:leftDrawableHeight="@dimen/x24"
-            android:visibility="gone"
+            android:visibility="visible"
             app:leftDrawableWidth="@dimen/x24" />
 
         <ebag.core.widget.empty.StateView

@@ -89,7 +89,7 @@ interface EBagService {
     @POST("user/login/{version}")
     fun login(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<UserEntity>>
 
-//    绑定激活码
+    //    绑定激活码
     @Headers("EBag-Special-Url: special/url")
     @POST("user/bindingActivationCode/{version}")
     fun bindingActivationCode(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
@@ -135,11 +135,13 @@ interface EBagService {
      */
     @POST("correctHome/createHomeWorkRep/{version}")
     fun homeworkReport(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ReportBean>>
+
     /**
      * 我的课本
      */
     @POST("book/myBook/{version}")
     fun myBookList(@Path("version") version: String): Observable<ResponseBean<List<BookBean>>>
+
     @POST("book/getstudentBook/{version}")
     fun studentBookList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<BookBean>>>
 
@@ -281,6 +283,7 @@ interface EBagService {
      */
     @POST("clazzSpace/queryUserClazzRoomShow/{version}")
     fun personalPerformance(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<PersonalPerformanceBean>>
+
     /**
      * 获取跟读列表里头的每个句子的详情
      */
@@ -301,7 +304,7 @@ interface EBagService {
 
     /**查询个人中心*/
     @POST("user/queryPersonalCenter/{version}")
-    fun queryPersonalCenter(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<UserInfoBean>>
+    fun queryPersonalCenter(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<UserInfoBean>>
 
 
     //TODO 接口名称，注意替换
@@ -316,54 +319,70 @@ interface EBagService {
 
     //云币中心查询支出收入
     @POST("user/serchYsbMoneyDetail/{version}")
-    fun queryYBCurrent(@Path("version")version: String, @Body requestBody: RequestBody):Observable<ResponseBean<YBCurrentBean>>
+    fun queryYBCurrent(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<YBCurrentBean>>
+
     //查询用户收货地址列表
     @POST("shop/serchShopAddress/{version}")
-    fun queryAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<MutableList<AddressListBean>>>
+    fun queryAddress(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<MutableList<AddressListBean>>>
+
     //删除用户收货地址
     @POST("shop/deleteShopAddress/{version}")
-    fun deleteAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    fun deleteAddress(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
     //保存收货地址
     @POST("shop/saveShopAddress/{version}")
-    fun saveAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    fun saveAddress(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
     //更新收货地址
     @POST("shop/updateShopAddress/{version}")
-    fun updateAddress(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    fun updateAddress(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
     //查询订单
     @POST("shop/serchOrderByStatus/{version}")
-    fun queryOrder(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<QueryOrderBean>>
+    fun queryOrder(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<QueryOrderBean>>
+
     //获取商品列表
     @POST("shop/getShopList/{version}")
-    fun getShopList(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<ShopListBean>>
+    fun getShopList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ShopListBean>>
+
     //查询购物车
     @POST("shop/serchShopCart/{version}")
-    fun queryShopCar(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<MutableList<ShopListBean.ListBean>>>
+    fun queryShopCar(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<MutableList<ShopListBean.ListBean>>>
+
     //添加商品到购物车
     @POST("shop/addShop2Cart/{version}")
-    fun addGoods2Car(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    fun addGoods2Car(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
     //查询商品详情
     @POST("shop/getShopDetailInfo/{version}")
-    fun shopDeatils(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<GoodsDetailsBean>>
+    fun shopDeatils(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<GoodsDetailsBean>>
+
     /*更新购物车*/
     @POST("shop/updateShopCart/{version}")
-    fun updateShopCar(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    fun updateShopCar(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
     /*生成订单*/
     @POST("shop/createShopOrderNo/{version}")
-    fun createShopOrderNo(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<String>>
+    fun createShopOrderNo(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
     /*微信支付*/
     @POST("shop/WXPay/{version}")
-    fun getPrepayid(@Path("version")version: String,@Body requestBody: RequestBody):Observable<ResponseBean<WXPayBean>>
+    fun getPrepayid(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<WXPayBean>>
+
     /*保存订单*/
     @POST("shop/saveOrder/{version}")
-    fun saveOrder(@Path("version") version: String,@Body requestBody: RequestBody): Observable<ResponseBean<String>>
+    fun saveOrder(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
     /*支付宝*/
     @POST("shop/AliPay/{version}")
-    fun getAiliPrepayid(@Path("version") version: String,@Body requestBody: RequestBody): Observable<ResponseBean<String>>
+    fun getAiliPrepayid(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
     @POST("shop/removeShopCart/{version}")
-    fun removeShopCar(@Path("version") version: String,@Body requestBody: RequestBody): Observable<ResponseBean<String>>
+    fun removeShopCar(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
     //云币支付
     @POST("shop/ybPay/{version}")
-    fun ybPay(@Path("version") version: String,@Body requestBody: RequestBody): Observable<ResponseBean<String>>
+    fun ybPay(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
 
     /**
@@ -375,5 +394,11 @@ interface EBagService {
     //更新订单状态
     @POST("shop/updateShopOrderStaus/{version}")
     fun updateShopOrderStaus(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    /***
+     *  查询礼物
+     */
+    @POST("user/getGiftDetail/{version}")
+    fun getGiftDetail(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<GiftListBean>>>
 
 }

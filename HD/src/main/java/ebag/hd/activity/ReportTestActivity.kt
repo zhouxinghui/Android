@@ -16,6 +16,7 @@ import ebag.core.http.network.handleThrowable
 import ebag.core.util.StringUtils
 import ebag.hd.R
 import ebag.hd.base.Constants
+import ebag.hd.bean.GiftListBean
 import ebag.hd.bean.ReportBean
 import ebag.hd.homework.DoHomeworkActivity
 import ebag.hd.http.EBagApi
@@ -125,6 +126,29 @@ class ReportTestActivity: BaseActivity() {
 
         }
 
+    }
+
+    private fun queryGift(){
+        EBagApi.getGiftDetail(homeworkId, object : RequestCallBack<List<GiftListBean>>() {
+            override fun onSuccess(entity: List<GiftListBean>?) {
+                if (entity!!.isNotEmpty()) {
+                    entity.forEach {
+                        when(it.giftName){
+                            "鲜花" -> {}
+                            "笔记本" -> {}
+                            "画板" -> {}
+                            "储存罐" -> {}
+                            "奖章" -> {}
+                        }
+                    }
+                }
+            }
+
+            override fun onError(exception: Throwable) {
+
+            }
+
+        })
     }
 
     private fun getReport(){

@@ -18,7 +18,7 @@ import ebag.core.util.T
 import kotlinx.android.synthetic.main.fragment_homework_abstract.*
 
 @SuppressLint("ValidFragment")
-class HomeworkAbstractFragment(private val bean: HomeworkAbstractBean, private val endTime: String, private val homeworkId: String) : BaseFragment() {
+class HomeworkAbstractFragment(private val bean: HomeworkAbstractBean, private val endTime: String, private val homeworkId: String, private val type: String) : BaseFragment() {
 
     private val labelArray: Array<String> = arrayOf("截止时间:", "作业内容:", "作业要求:", "练习内容:")
     private lateinit var adapter: HomeworkAbstractAdapter
@@ -67,16 +67,20 @@ class HomeworkAbstractFragment(private val bean: HomeworkAbstractBean, private v
                         }
 
                     })
-                }else{
-                    T.show(activity,"未选择礼物")
+                } else {
+                    T.show(activity, "未选择礼物")
                 }
             }
             dialog.show()
 
         }
 
-
-        queryGiftList()
+        if (type == "3") {
+            thanks.visibility = View.GONE
+            thanks_teacher.visibility = View.GONE
+        } else {
+            queryGiftList()
+        }
 
     }
 

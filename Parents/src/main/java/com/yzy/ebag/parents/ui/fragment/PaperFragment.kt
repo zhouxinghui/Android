@@ -51,7 +51,7 @@ class PaperFragment(private val code: String, private val type: String) : BaseFr
                     HomeworkDescActivity.jump(activity, homeworkdatas[position].id, "2", (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid)
                 } else {
                     //if (type != "3")
-                        HomeworkReportActivity.start(activity, homeworkdatas[position].id, homeworkdatas[position].endTime, "2",homeworkdatas[position].state)
+                        HomeworkReportActivity.start(activity, homeworkdatas[position].id, homeworkdatas[position].endTime, "2",homeworkdatas[position].state,type)
                 }
             }
 

@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:textColor="#000"
         android:text="感谢老师"
+        android:id="@+id/thanks_teacher"
         android:textStyle="bold"
         android:textSize="@dimen/x18"
         android:layout_marginTop="@dimen/y60"

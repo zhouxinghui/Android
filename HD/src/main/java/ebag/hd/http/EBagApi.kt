@@ -757,4 +757,16 @@ object EBagApi {
         jsonObject.put("requestOrderVos", array)
         EBagApi.request(eBagService.updateShopOrderStaus("v1", EBagApi.createBody(jsonObject)), callback)
     }
+
+    /**
+     * 查询礼物列表
+     */
+    fun getGiftDetail(homeWorkId: String, callback: RequestCallBack<List<GiftListBean>>,uid: String = "") {
+        val jsonObj = JSONObject()
+        jsonObj.put("homeWorkId", homeWorkId)
+        if (uid.isNotEmpty()){
+            jsonObj.put("uid", uid)
+        }
+        EBagApi.request(eBagService.getGiftDetail("v1", EBagApi.createBody(jsonObj)), callback)
+    }
 }
