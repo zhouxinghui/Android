@@ -58,10 +58,7 @@ class ReportTestActivity: BaseActivity() {
     private fun  showData() {
         if(!StringUtils.isEmpty(studentName)){
             titleView.setTitle(studentName)
-//            tvName.visibility = View.VISIBLE
-//            tvName.text = userEntity.name
         }else{
-            tvName.visibility = View.INVISIBLE
             titleView.setTitle("作业报告")
         }
         titleView.setRightText("作业详情"){
@@ -112,6 +109,11 @@ class ReportTestActivity: BaseActivity() {
 
                 editParent.setText(entity.parentComment ?: "")
                 editTeacher.setText(entity.teacherComment ?: "")
+
+                if(StringUtils.isEmpty(entity.parentAutograph))
+                    tvName.visibility = View.GONE
+                else
+                    tvName.text = entity.parentAutograph ?: ""
             }
 
         }

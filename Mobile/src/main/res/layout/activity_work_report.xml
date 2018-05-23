@@ -145,17 +145,37 @@
                             android:enabled="false"
                             android:hint="暂未编写评语"
                             />
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/tv_normal"
-                            android:textColor="@color/tv_normal"
-                            android:paddingStart="@dimen/x5"
-                            android:paddingEnd="@dimen/x5"
                             android:paddingTop="@dimen/y10"
                             android:paddingBottom="@dimen/y10"
-                            android:text="家长评语"
-                            />
+                            android:orientation="horizontal"
+                            >
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textSize="@dimen/tv_normal"
+                                android:textColor="@color/tv_normal"
+                                android:paddingStart="@dimen/x5"
+                                android:paddingEnd="@dimen/x5"
+                                android:text="家长评语"
+                                />
+                            <TextView android:id="@+id/parentName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="@dimen/x5"
+                                android:paddingEnd="@dimen/x5"
+                                android:paddingTop="@dimen/y10"
+                                android:paddingBottom="@dimen/y10"
+                                android:layout_marginEnd="@dimen/x5"
+                                android:background="@color/blue"
+                                android:textSize="@dimen/tv_normal"
+                                android:textColor="@color/white"
+                                tools:text="王老五"
+                                />
+                        </LinearLayout>
                         <EditText android:id="@+id/editParent"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/y200"

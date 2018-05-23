@@ -22,6 +22,15 @@ public class ReportBean {
     private String teacherComment;
     private String parentComment;
     private List<ReportDetailBean> homeWorkRepDetailVos;
+    private String parentAutograph;
+
+    public String getParentAutograph() {
+        return parentAutograph;
+    }
+
+    public void setParentAutograph(String parentAutograph) {
+        this.parentAutograph = parentAutograph;
+    }
 
     public String getTeacherComment() {
         return teacherComment;

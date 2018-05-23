@@ -129,7 +129,7 @@ class FollowReadActivity: BaseActivity() {
         util
     }
     private var codeDisposable: Disposable? = null
-    fun startCutDown(){
+    private fun startCutDown(){
         //从0 开始，每一秒发送一次数据
         codeDisposable = Observable
                 //从0 开始 一秒钟 加一 加10次

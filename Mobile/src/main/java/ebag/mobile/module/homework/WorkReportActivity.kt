@@ -113,6 +113,11 @@ class WorkReportActivity: BaseActivity() {
 
                 editParent.setText(entity.parentComment ?: "")
                 editTeacher.setText(entity.teacherComment ?: "")
+
+                if(StringUtils.isEmpty(entity.parentAutograph))
+                    parentName.visibility = View.GONE
+                else
+                    parentName.text = entity.parentAutograph ?: ""
             }
 
         }
