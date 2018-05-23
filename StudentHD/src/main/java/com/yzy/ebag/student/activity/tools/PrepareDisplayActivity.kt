@@ -39,6 +39,7 @@ class PrepareDisplayActivity: BaseListActivity<List<PrepareFileBean>, PrepareFil
     }
     private lateinit var classId: String
     override fun loadConfig(intent: Intent) {
+        titleBar.setTitle("每日预习")
         loadMoreEnabled(false)
         classId = intent.getStringExtra("classId")
     }

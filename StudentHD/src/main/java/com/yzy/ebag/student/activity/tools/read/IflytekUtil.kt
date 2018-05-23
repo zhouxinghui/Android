@@ -93,10 +93,10 @@ class IflytekUtil private constructor(mContext: Context){
                         for (i in word.indices) {
                             if (null != word[i].index) {
                                 val currentWord = "${word[i].content}"
+                                val startIndex = str.indexOf(currentWord, 0, true)
                                 if (word[i].total_score < 2.8) {
-                                    val startIndex = str.indexOf(currentWord, 0, true)
                                     spannableString.setSpan(ForegroundColorSpan(Color.RED), startIndex, startIndex + currentWord.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-//                                } else {
+                                } else {
                                     spannableString.setSpan(ForegroundColorSpan(Color.GREEN), startIndex, startIndex + currentWord.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                                 }
                                 L.e("cca", word[i].index)

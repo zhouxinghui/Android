@@ -20,6 +20,7 @@ import cn.jzvd.JZVideoPlayerStandard
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
+import com.yzy.ebag.student.R.string.position
 import com.yzy.ebag.student.bean.ReadDetailBean
 import com.yzy.ebag.student.bean.ReadOutBean
 import com.yzy.ebag.student.bean.ReadUploadResponseBean
@@ -31,8 +32,12 @@ import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.*
 import ebag.hd.bean.response.UserEntity
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_read_detail.*
 import java.io.File
+import java.util.concurrent.TimeUnit
 
 class FollowReadActivity: BaseActivity() {
     private var readBean: ReadOutBean.OralLanguageBean? = null
@@ -108,14 +113,49 @@ class FollowReadActivity: BaseActivity() {
     }
     private lateinit var spannableArray: Array<SpannableString?>
     private lateinit var scoreArray: Array<Int?>
+    private lateinit var loadingTv: TextView
+    private lateinit var timeTv: TextView
+    private lateinit var scoreTv: TextView
     private val iflytekUtil by lazy {
         val util = IflytekUtil.getInstance(this)
         util.onEvaluatingResult = {jsonObject, score, resultSpannable ->
             spannableArray[adapter.selectedPosition] = resultSpannable
             scoreArray[adapter.selectedPosition] = (score * 20).toInt()
-            adapter.notifyItemChanged(adapter.selectedPosition)
+//            adapter.notifyItemChanged(adapter.selectedPosition)
+            adapter.notifyDataSetChanged()
+            scoreTv.visibility = View.VISIBLE
+            loadingTv.visibility = View.GONE
         }
         util
+    }
+    private var codeDisposable: Disposable? = null
+    fun startCutDown(){
+        //从0 开始，每一秒发送一次数据
+        codeDisposable = Observable
+                //从0 开始 一秒钟 加一 加10次
+                .intervalRange(0, 10, 0, 1, TimeUnit.SECONDS)
+                .map { 10 - it }//转化为倒计时的模式
+                //开始倒计时时，状态设置为不激活状态
+                .doOnSubscribe {
+                    timeTv.visibility = View.VISIBLE
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                //一秒钟改变一次文字
+                .doOnNext {
+                    timeTv.text = it.toString()
+                }.doOnComplete {//全部完成之后改变状态
+                    timeTv.visibility = View.GONE
+                    if (iflytekUtil.isRecording()){
+                        iflytekUtil.stopEvaluating()
+                        loadingTv.visibility = View.VISIBLE
+                        scoreTv.visibility = View.GONE
+                        tempPosition = -1
+                        upload()
+                        adapter.notifyItemChanged(position)
+                    }
+                }.doOnDispose {//取消这个事件后 将其状态重置
+                    timeTv.visibility = View.GONE
+                }.subscribe()
     }
 
     override fun getLayoutId(): Int {
@@ -221,6 +261,11 @@ class FollowReadActivity: BaseActivity() {
                                     recorderUtil.finishRecord()
                                 }else{
                                     iflytekUtil.stopEvaluating()
+                                    scoreTv = view.getTag(R.id.scoreTv) as TextView
+                                    loadingTv = view.getTag(R.id.loadingTv) as TextView
+                                    loadingTv.visibility = View.VISIBLE
+                                    scoreTv.visibility = View.GONE
+                                    codeDisposable?.dispose()
                                 }
                                 tempPosition = -1
                                 upload()
@@ -233,6 +278,10 @@ class FollowReadActivity: BaseActivity() {
                                 recorderUtil.startRecord()
                             }else{
                                 iflytekUtil.startEvaluating(readDetailBean?.languageEn ?: "", recordFile.absolutePath)
+                                scoreTv = view.getTag(R.id.scoreTv) as TextView
+                                loadingTv = view.getTag(R.id.loadingTv) as TextView
+                                timeTv = view.getTag(R.id.timeTv) as TextView
+                                startCutDown()
                             }
                             recorderAnim?.start()
                             tempPosition = position
@@ -351,6 +400,9 @@ class FollowReadActivity: BaseActivity() {
             recorderUtil.stopPlayRecord()
             recorderUtil.finishRecord()
         }
+        if (iflytekUtil.isRecording()){
+            iflytekUtil.stopEvaluating()
+        }
         historyRequest.cancelRequest()
         request.cancelRequest()
         uploadRequest.cancelRequest()
@@ -450,7 +502,11 @@ class FollowReadActivity: BaseActivity() {
                     .addOnClickListener(R.id.playSelf)
                     .addOnClickListener(R.id.submit)
                     .getView<View>(R.id.layout).isSelected = isSelected
+            val recorderBtn = helper.getView<View>(R.id.recordBtn)
+            recorderBtn.setTag(R.id.timeTv, helper.getView(R.id.timeTv))
+            recorderBtn.setTag(R.id.loadingTv, helper.getView(R.id.loadingTv))
             val scoreTv = helper.getView<TextView>(R.id.scoreTv)
+            recorderBtn.setTag(R.id.scoreTv, scoreTv)
             if (::spannableArray.isInitialized && spannableArray[helper.adapterPosition] != null){
                 helper.setText(R.id.tvFirst, spannableArray[helper.adapterPosition])
                 scoreTv.visibility = View.VISIBLE

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Message
+import android.support.v7.app.AlertDialog
 import android.view.View
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
@@ -82,6 +83,19 @@ class PersonalFragment : BaseFragment(), View.OnClickListener {
         }
         dialog
     }
+    private var phoneNumber: String? = ""
+    private val phoneModifyDialog by lazy {
+        AlertDialog.Builder(mContext)
+                .setTitle("温馨提示")
+                .setMessage("联系方式填写之后暂时不提供修改功能，请确保您填写的联系方式正确有效")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("确定", {dialog, _ ->
+                    modifyType = 4
+                    key = "phone"
+                    modifyDialog.show("请输入联系方式", true)
+                    dialog.dismiss()
+                }).create()
+    }
     private val modifyRequest by lazy {
         object : RequestCallBack<String>() {
             override fun onStart() {
@@ -109,6 +123,9 @@ class PersonalFragment : BaseFragment(), View.OnClickListener {
                         tvAddress.text = modifyStr
                         userEntity?.address = modifyStr
                     }
+                    4 ->{
+                        tvContact.text = modifyStr
+                    }
                 }
                 SerializableUtils.setSerializable(Constants.STUDENT_USER_ENTITY, userEntity)
             }
@@ -126,6 +143,7 @@ class PersonalFragment : BaseFragment(), View.OnClickListener {
         tvName.setOnClickListener(this)
         tvGender.setOnClickListener(this)
         tvAddress.setOnClickListener(this)
+        tvContact.setOnClickListener(this)
         currentMillis = System.currentTimeMillis()
     }
 
@@ -162,7 +180,8 @@ class PersonalFragment : BaseFragment(), View.OnClickListener {
 
                 tvName.text = entity?.name
                 tvId.text = entity?.ysbCode
-                tvContact.text = entity?.phone ?: ""
+                phoneNumber = entity?.phone ?: ""
+                tvContact.text = phoneNumber
                 ivAvatar.loadHead(entity?.headUrl)
                 tvGender.text = when (entity?.sex) {
                     "1" -> "男  "
@@ -228,6 +247,10 @@ class PersonalFragment : BaseFragment(), View.OnClickListener {
                 modifyType = 3
                 key = "address"
                 modifyDialog.show("请输入地址")
+            }
+            R.id.tvContact ->{
+                if(StringUtils.isEmpty(phoneNumber))
+                    phoneModifyDialog.show()
             }
         }
     }
