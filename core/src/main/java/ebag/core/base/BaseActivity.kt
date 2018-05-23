@@ -22,11 +22,17 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        overridePendingTransition(R.anim.startactivity,R.anim.finishactivity)
         setContentView(getLayoutId())
         AppManager.addActivity(this)
         window.setBackgroundDrawableResource(R.color.pageBackground)
         isDestroy = false
         initViews()
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.startactivity,R.anim.finishactivity)
     }
 
     override fun onDestroy() {
