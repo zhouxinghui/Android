@@ -24,7 +24,7 @@ class ToolsActivity : BaseListActivity<List<Int>, Int>() {
 
     private val list = intArrayOf(R.drawable.tool_btn_calligraphy,R.drawable.tool_btn_read,
             R.drawable.tool_btn_pinyin,R.drawable.tool_btn_letter,R.drawable.tool_btn_formula,
-            R.drawable.tool_btn_song)
+            R.drawable.tool_btn_prepare)
 
     companion object {
         fun jump(context: Context, classId: String){
@@ -119,7 +119,7 @@ class ToolsActivity : BaseListActivity<List<Int>, Int>() {
                                 .putExtra("type", LetterActivity.EN)
                 )
             }
-            R.drawable.tool_btn_song ->{
+            R.drawable.tool_btn_prepare ->{
                 PrepareDisplayActivity.jump(this, classId)
             }
             else -> {
