@@ -23,6 +23,7 @@ import ebag.hd.activity.ReportClassActivity
 import ebag.hd.activity.ReportTestActivity
 import ebag.hd.base.BaseListActivity
 import ebag.hd.base.Constants
+import ebag.hd.widget.DialogOfferPresent
 
 /**
  * Created by YZY on 2018/3/1.
@@ -103,6 +104,14 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
                 TeacherApi.uploadComment(homeworkId, commentBean.uid, commentStr, uploadRequest)
                 commentBean.comment = commentStr
             }
+
+            R.id.give_gift -> {
+                val dialog = DialogOfferPresent(this@CommentActivity, 1, homeworkId)
+                dialog.setOnOfferSuccessListener {
+
+                }
+                dialog.show()
+            }
         }
     }
 
@@ -120,6 +129,7 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
             }else{
                 commentEdit.setText("")
             }
+            helper.addOnClickListener(R.id.give_gift)
             helper.addOnClickListener(R.id.checkReportBtn)
             helper.addOnClickListener(R.id.commitCommentBtn)
             commitCommentBtn.tag = commentEdit
