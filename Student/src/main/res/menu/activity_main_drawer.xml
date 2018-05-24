@@ -38,6 +38,11 @@
         android:icon="@drawable/ic_menu_manage"
         android:title="云币中心" />
 
+    <item
+        android:id="@+id/growup"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="成长轨迹" />
+
     <item android:title="其他选项">
         <menu>
             <item

@@ -176,6 +176,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.location -> {
                 startActivity(Intent(this, LocationActivity::class.java))
             }
+
+            R.id.growup -> {
+                GrowupActivity.start(this)
+            }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)

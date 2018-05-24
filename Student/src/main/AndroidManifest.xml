@@ -94,6 +94,7 @@
         <activity android:name=".module.homework.DoHomeworkActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".module.personal.GrowupActivity" />
 
         <service
             android:name="com.baidu.trace.LBSTraceService"
