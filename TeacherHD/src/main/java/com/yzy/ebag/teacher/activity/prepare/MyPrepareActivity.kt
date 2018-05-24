@@ -206,7 +206,7 @@ class MyPrepareActivity : BaseListTabActivity<PrepareBaseBean, MultiItemEntity>(
 
     private lateinit var fragment: PrepareFragment
     override fun getFragment(pagerIndex: Int, adapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>): Fragment {
-        fragment = PrepareFragment.newInstance(parent?.lessonFileInfoVos, type)
+        fragment = PrepareFragment.newInstance(parent?.lessonFileInfoVos, type, parent?.resultSubjectVo?.gradeCode, parent?.resultSubjectVo?.subCode)
         return fragment
     }
 

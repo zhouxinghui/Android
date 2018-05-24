@@ -12,11 +12,13 @@ import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.PrepareFileBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import com.yzy.ebag.teacher.widget.DialogSelectClasses
+import com.yzy.ebag.teacher.widget.LoadPrepareFileDialog
 import ebag.core.base.BaseListFragment
 import ebag.core.base.PhotoPreviewActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.LoadingDialogUtil
+import ebag.core.util.StringUtils
 import ebag.core.util.T
 import ebag.hd.activity.OfficeActivity
 import ebag.hd.bean.BaseClassesBean
@@ -28,11 +30,13 @@ import ebag.hd.widget.VoicePlayDialog
  */
 class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(), BaseQuickAdapter.OnItemLongClickListener{
     companion object {
-        fun newInstance(list: List<PrepareFileBean>?, type: String): PrepareFragment {
+        fun newInstance(list: List<PrepareFileBean>?, type: String, gradeCode: String?, subCode: String?): PrepareFragment {
             val fragment = PrepareFragment()
             val bundle = Bundle()
             bundle.putSerializable("list", list as ArrayList)
-            bundle.putSerializable("type", type)
+            bundle.putString("type", type)
+            bundle.putString("gradeCode", gradeCode)
+            bundle.putString("subCode", subCode)
             fragment.arguments = bundle
             return fragment
         }
@@ -77,6 +81,8 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
     private lateinit var list: List<PrepareFileBean>
     private var gradeCode: String? = ""
     private var subCode: String? = ""
+    private var mGradeCode: String? = ""
+    private var mSubCode: String? = ""
     private var unitId: String? = ""
     private var fileId = ""
     private var type = ""
@@ -99,20 +105,33 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
         dialog
     }
     private val selectDialog by lazy {
-        val items = arrayOf("推送至学生自习", "删除文件")
+        val items = if (type == "1")
+            arrayOf("推送至学生自习", "删除文件")
+        else
+            arrayOf("推送至学生自习", "保存到个人备课")
         val dialog = AlertDialog.Builder(mContext)
                 .setItems(items, {dialog, which ->
                     if (which == 0){
                         selectClassesDialog.show()
-                    }else{
+                    }else if(which == 1){
                         if(type != "1") {
-                            T.show(mContext, "只能删除个人备课文件")
+                            if (StringUtils.isEmpty(gradeCode))
+                                loadPrepareFileDialog.show(mGradeCode, mSubCode)
+                            else
+                                loadPrepareFileDialog.show(gradeCode, subCode)
                         }else {
                             deleteFileDialog.show()
                         }
                     }
                     dialog.dismiss()
                 }).create()
+        dialog
+    }
+    private val loadPrepareFileDialog by lazy {
+        val dialog = LoadPrepareFileDialog(mContext)
+        dialog.onConfirmClick = {
+
+        }
         dialog
     }
     private val videoPlayerDialog by lazy {
@@ -125,6 +144,8 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
         try {
             list = bundle?.getSerializable("list") as ArrayList<PrepareFileBean>
             type = bundle.getString("type")
+            mGradeCode = bundle.getString("gradeCode")
+            mSubCode = bundle.getString("subCode")
         }catch (e: Exception){
 
         }
