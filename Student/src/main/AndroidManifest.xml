@@ -101,6 +101,12 @@
         <activity
             android:name=".module.personal.GrowthTypeActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".module.personal.DiaryListActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".module.personal.DiaryDetailActivity"
+            android:screenOrientation="portrait"
+            />
 
         <service
             android:name="com.baidu.trace.LBSTraceService"

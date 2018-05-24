@@ -4,7 +4,7 @@
     android:layout_marginBottom="@dimen/y10"
     >
     <ImageView
-        android:layout_width="@dimen/y130" android:layout_height="@dimen/y130"
+        android:layout_width="@dimen/x150" android:layout_height="@dimen/x40"
         android:id="@+id/imageView"
         android:layout_gravity="center"
         />

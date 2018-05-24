@@ -59,4 +59,10 @@ interface StudentService {
     /**错题纠正*/
     @POST("homeWork/updateErrorQuestion/{version}")
     fun errorCorrection(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    @POST("user/searchUserGrowthList/{version}")
+    fun searchUserGrowthList(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<List<Diary>>>
+
+    @POST("user/growth/addUserGrowth/{version}")
+    fun addUserGrowth(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
 }
