@@ -29,13 +29,22 @@ public class ReadDetailBean {
     private String level;
     private String localPath;
     private int position;
-    private int score;
+    private String score;
+    private String myAudioUrl;
 
-    public int getScore() {
+    public String getMyAudioUrl() {
+        return myAudioUrl;
+    }
+
+    public void setMyAudioUrl(String myAudioUrl) {
+        this.myAudioUrl = myAudioUrl;
+    }
+
+    public String getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(String score) {
         this.score = score;
     }
 

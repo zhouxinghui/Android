@@ -109,11 +109,10 @@ object StudentApi {
     /**
      * 上传跟读录音文件
      */
-    fun uploadRecord(classId: String, languageId: String, languageDetailId: String, originalString: String, language: String, myAudioUrl: String, callback: RequestCallBack<ReadUploadResponseBean>) {
+    fun uploadRecord(classId: String, languageId: String, languageDetailId: String, score: String,  myAudioUrl: String, callback: RequestCallBack<ReadUploadResponseBean>) {
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
-        jsonObject.put("originalString", originalString)
-        jsonObject.put("language", language)
+        jsonObject.put("score", score)
         jsonObject.put("languageId", languageId)
         jsonObject.put("languageDetailId", languageDetailId)
         jsonObject.put("myAudioUrl", myAudioUrl)

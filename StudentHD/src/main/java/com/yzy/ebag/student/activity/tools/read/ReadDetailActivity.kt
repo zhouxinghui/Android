@@ -1,3 +1,4 @@
+/*
 package com.yzy.ebag.student.activity.tools.read
 
 import android.content.Context
@@ -31,11 +32,13 @@ import kotlinx.android.synthetic.main.activity_read_detail.*
 import java.io.File
 
 
+*/
 /**
  * @author caoyu
  * @date 2018/2/7
  * @description
- */
+ *//*
+
 class ReadDetailActivity: BaseActivity() {
 
     var baiduToken = ""
@@ -294,9 +297,11 @@ class ReadDetailActivity: BaseActivity() {
 
     }
 
-    /**
+    */
+/**
      * 上传文件
-     */
+     *//*
+
     private fun upload(){
 
         val recordFile = File(readDetailBean?.localPath)
@@ -372,9 +377,11 @@ class ReadDetailActivity: BaseActivity() {
     }
     private var tempPosition: Int = -1
 
-    /**
+    */
+/**
      * 本地存在录音的提示
-     */
+     *//*
+
     private val dialogExists by lazy {
         AlertDialog.Builder(this)
                 .setMessage("录音已存在，是否重新录制？")
@@ -390,9 +397,11 @@ class ReadDetailActivity: BaseActivity() {
                 .create()
     }
 
-    /**
+    */
+/**
      * 服务器存在 当前句子录音的提示
-     */
+     *//*
+
     private val dialogNetExist by lazy {
         AlertDialog.Builder(this)
                 .setMessage("服务器已存在录音，是否覆盖？")
@@ -406,9 +415,11 @@ class ReadDetailActivity: BaseActivity() {
                 .create()
     }
 
-    /**
+    */
+/**
      * 右侧的adapter
-     */
+     *//*
+
     inner class Adapter: BaseQuickAdapter<ReadDetailBean, BaseViewHolder>(R.layout.item_activity_read_load){
 
         private var oldPosition = -1
@@ -473,9 +484,11 @@ class ReadDetailActivity: BaseActivity() {
 
 
 //    private lateinit var systemTime: String
-    /**
+    */
+/**
      * 上传阿里云，如果多条历史记录 用systemTime 上传，单挑用ID上传
-     */
+     *//*
+
     private fun uploadFile(){
         if(classId.isEmpty()){
             T.show(this,"现在不能上传您的录音，请返回首页获取，当前班级")
@@ -591,9 +604,11 @@ class ReadDetailActivity: BaseActivity() {
         StudentApi.speechRecognize(readDetailBean?.localPath ?: "", baiduToken, subCode, speechRecognizeRequest!!)
     }
 
-    /**
+    */
+/**
      * 阿里云 上传文件
-     */
+     *//*
+
     private val mHandler = MyHandler(this)
     class MyHandler(activity: ReadDetailActivity): HandlerUtil<ReadDetailActivity>(activity){
         override fun handleMessage(activity: ReadDetailActivity?, msg: Message?) {
@@ -625,9 +640,11 @@ class ReadDetailActivity: BaseActivity() {
         }
     }
 
-    /**
+    */
+/**
      * 上传录音url
-     */
+     *//*
+
     private val uploadRequest = object: RequestCallBack<ReadUploadResponseBean>(){
         override fun onSuccess(entity: ReadUploadResponseBean?) {
             LoadingDialogUtil.closeLoadingDialog()
@@ -686,4 +703,4 @@ class ReadDetailActivity: BaseActivity() {
         JZUtils.setRequestedOrientation(this, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
     }
 
-}
+}*/

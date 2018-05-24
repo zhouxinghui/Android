@@ -20,7 +20,6 @@ import cn.jzvd.JZVideoPlayerStandard
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.R.string.position
 import com.yzy.ebag.student.bean.ReadDetailBean
 import com.yzy.ebag.student.bean.ReadOutBean
 import com.yzy.ebag.student.bean.ReadUploadResponseBean
@@ -92,7 +91,6 @@ class FollowReadActivity: BaseActivity() {
                 }
                 if (subCode == "yy"){
                     spannableArray = arrayOfNulls(entity.size)
-                    scoreArray = arrayOfNulls(entity.size)
                 }
             }
         }
@@ -112,19 +110,19 @@ class FollowReadActivity: BaseActivity() {
         }
     }
     private lateinit var spannableArray: Array<SpannableString?>
-    private lateinit var scoreArray: Array<Int?>
     private lateinit var loadingTv: TextView
-    private lateinit var timeTv: TextView
     private lateinit var scoreTv: TextView
+    private var score = ""
     private val iflytekUtil by lazy {
         val util = IflytekUtil.getInstance(this)
         util.onEvaluatingResult = {jsonObject, score, resultSpannable ->
             spannableArray[adapter.selectedPosition] = resultSpannable
-            scoreArray[adapter.selectedPosition] = (score * 20).toInt()
-//            adapter.notifyItemChanged(adapter.selectedPosition)
+            this.score = (score * 20).toInt().toString()
+            readDetailBean?.score = (score * 20).toInt().toString()
             adapter.notifyDataSetChanged()
             scoreTv.visibility = View.VISIBLE
             loadingTv.visibility = View.GONE
+            upload()
         }
         util
     }
@@ -137,24 +135,16 @@ class FollowReadActivity: BaseActivity() {
                 .map { 10 - it }//转化为倒计时的模式
                 //开始倒计时时，状态设置为不激活状态
                 .doOnSubscribe {
-                    timeTv.visibility = View.VISIBLE
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 //一秒钟改变一次文字
                 .doOnNext {
-                    timeTv.text = it.toString()
                 }.doOnComplete {//全部完成之后改变状态
-                    timeTv.visibility = View.GONE
                     if (iflytekUtil.isRecording()){
                         iflytekUtil.stopEvaluating()
-                        loadingTv.visibility = View.VISIBLE
-                        scoreTv.visibility = View.GONE
                         tempPosition = -1
-                        upload()
-                        adapter.notifyItemChanged(position)
                     }
                 }.doOnDispose {//取消这个事件后 将其状态重置
-                    timeTv.visibility = View.GONE
                 }.subscribe()
     }
 
@@ -206,7 +196,7 @@ class FollowReadActivity: BaseActivity() {
             }
 
             historyStateView.setOnRetryClickListener {
-                getHistory()
+//                getHistory()
             }
 
 
@@ -259,6 +249,7 @@ class FollowReadActivity: BaseActivity() {
                                     recorderUtil.pauseRecord()
                                     recorderUtil.stopPlayRecord()
                                     recorderUtil.finishRecord()
+                                    upload()
                                 }else{
                                     iflytekUtil.stopEvaluating()
                                     scoreTv = view.getTag(R.id.scoreTv) as TextView
@@ -268,8 +259,6 @@ class FollowReadActivity: BaseActivity() {
                                     codeDisposable?.dispose()
                                 }
                                 tempPosition = -1
-                                upload()
-                                adapter.notifyItemChanged(position)
                             }
                         }else{//
                             recorderAnim = view.background as AnimationDrawable
@@ -280,7 +269,6 @@ class FollowReadActivity: BaseActivity() {
                                 iflytekUtil.startEvaluating(readDetailBean?.languageEn ?: "", recordFile.absolutePath)
                                 scoreTv = view.getTag(R.id.scoreTv) as TextView
                                 loadingTv = view.getTag(R.id.loadingTv) as TextView
-                                timeTv = view.getTag(R.id.timeTv) as TextView
                                 startCutDown()
                             }
                             recorderAnim?.start()
@@ -368,7 +356,7 @@ class FollowReadActivity: BaseActivity() {
                     }
                 }
             }
-            getHistory()
+//            getHistory()
             getContent()
         }
 
@@ -379,15 +367,7 @@ class FollowReadActivity: BaseActivity() {
      * 上传文件
      */
     private fun upload(){
-//        val recordFile = File(readDetailBean?.localPath)
-//        // 本地不存在录音
-//        if(!recordFile.exists()){
-//            T.show(this,"暂未找到您的本地录音文件，请重新录制")
-//            adapter.notifyItemChanged(readDetailBean?.position ?: 0)
-//        }else{// 本地存在录音文件
-        adapter.notifyItemChanged(readDetailBean?.position ?: 0)
         uploadFile()
-//        }
     }
 
     override fun onDestroy() {
@@ -503,17 +483,19 @@ class FollowReadActivity: BaseActivity() {
                     .addOnClickListener(R.id.submit)
                     .getView<View>(R.id.layout).isSelected = isSelected
             val recorderBtn = helper.getView<View>(R.id.recordBtn)
-            recorderBtn.setTag(R.id.timeTv, helper.getView(R.id.timeTv))
             recorderBtn.setTag(R.id.loadingTv, helper.getView(R.id.loadingTv))
             val scoreTv = helper.getView<TextView>(R.id.scoreTv)
+            if (!StringUtils.isEmpty(item?.score)){
+                scoreTv.visibility = View.VISIBLE
+                scoreTv.text = item?.score
+            }else{
+                scoreTv.visibility = View.GONE
+            }
             recorderBtn.setTag(R.id.scoreTv, scoreTv)
             if (::spannableArray.isInitialized && spannableArray[helper.adapterPosition] != null){
                 helper.setText(R.id.tvFirst, spannableArray[helper.adapterPosition])
-                scoreTv.visibility = View.VISIBLE
-                scoreTv.text = scoreArray[helper.adapterPosition].toString()
             }else{
                 helper.setText(R.id.tvFirst, item?.languageEn)
-                scoreTv.visibility = View.GONE
             }
         }
 
@@ -579,16 +561,12 @@ class FollowReadActivity: BaseActivity() {
                     activity?.isOssUploading = false
                     activity?.ossSuccess = true
                     activity?.tempUrl = "${Constants.OSS_BASE_URL}/personal/${activity!!.userId}/read/${activity.readDetailBean?.languageDetailId}.wav"
-
-                    if(activity.recognizeSuccess){
-                        StudentApi.uploadRecord(
-                                activity.classId,
-                                activity.readDetailBean?.languageId ?: "",
-                                activity.readDetailBean?.languageDetailId ?: "",
-                                if (activity.subCode == "yy") activity.readDetailBean?.languageEn ?: "" else activity.readDetailBean?.languageCn ?: "",
-                                "", activity.tempUrl , activity.uploadRequest)
-                    }
-//                    LoadingDialogUtil.closeLoadingDialog()
+                    StudentApi.uploadRecord(
+                            activity.classId,
+                            activity.readDetailBean?.languageId ?: "",
+                            activity.readDetailBean?.languageDetailId ?: "",
+                            activity.score,
+                            activity.tempUrl , activity.uploadRequest)
                 }
                 msg.what == Constants.UPLOAD_FAIL ->{//上传文件失败
                     activity?.isOssUploading = false
@@ -612,8 +590,8 @@ class FollowReadActivity: BaseActivity() {
             recognizeSuccess = false
             tempUrl = ""
             resultReadStr = entity?.hightingString ?: ""
-            getHistory()
-            T.show(this@FollowReadActivity, "我的录音上传成功")
+//            getHistory()
+//            T.show(this@FollowReadActivity, "我的录音上传成功")
         }
 
         override fun onError(exception: Throwable) {
