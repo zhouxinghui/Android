@@ -18,7 +18,7 @@ class ChooseChildrenAdapter(data: List<MyChildrenBean>) : BaseQuickAdapter<MyChi
             helper.setText(R.id.child_class, "${item.grade}年级${item.className}")
         }
 
-        helper.getView<ImageView>(R.id.child_head).loadHead(item.headUrl)
+        helper.getView<ImageView>(R.id.child_head).loadHead(item.headUrl,true)
 
         if (uid == item.uid) {
             helper.setGone(R.id.child_select, true)

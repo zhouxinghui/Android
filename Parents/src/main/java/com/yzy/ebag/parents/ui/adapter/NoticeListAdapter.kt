@@ -20,7 +20,7 @@ class NoticeListAdapter(private val c: Context, datas: List<NoticeBean>) : BaseQ
         helper.setText(R.id.name, item?.name)
                 .setText(R.id.date, DateUtil.getDateTime(item!!.createDate))
                 .setText(R.id.content, item?.content)
-        helper.getView<ImageView>(R.id.head).loadHead(item?.headUrl)
+        helper.getView<ImageView>(R.id.head).loadHead(item?.headUrl,true)
         if (item.photos.isNotEmpty()) {
             val recyclerview = helper.getView<RecyclerView>(R.id.recyclerview)
             recyclerview.layoutManager = GridLayoutManager(c, 5)

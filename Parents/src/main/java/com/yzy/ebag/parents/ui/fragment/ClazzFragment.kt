@@ -134,7 +134,7 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
 
     override fun <T> showContent(data: T?) {
         val bean = (data as NoticeBean)
-        head.loadHead(bean.headUrl)
+        head.loadHead(bean.headUrl,true)
         name.text = bean.name
         date.text = DateUtil.getDateTime(bean.createDate)
         content.text = bean.content
