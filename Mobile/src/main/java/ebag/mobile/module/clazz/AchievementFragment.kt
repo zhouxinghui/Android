@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import ebag.core.base.LazyFragment
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.SPUtils
 import ebag.core.util.SerializableUtils
 import ebag.core.widget.FoldChartView
 import ebag.mobile.R
@@ -25,10 +26,11 @@ import kotlinx.android.synthetic.main.fragment_achievement.*
  */
 class AchievementFragment : LazyFragment() {
 
-    private lateinit var adapter:Adapter
+    private lateinit var adapter: Adapter
     private lateinit var chartView: FoldChartView
+
     companion object {
-        fun newInstance(type: Int,gradeCode:String): AchievementFragment {
+        fun newInstance(type: Int, gradeCode: String): AchievementFragment {
             val fragment = AchievementFragment()
             val bundle = Bundle()
             bundle.putString("gradeCode", gradeCode)
@@ -78,23 +80,40 @@ class AchievementFragment : LazyFragment() {
         }
     }
 
-    private fun initChartView(){
+    private fun initChartView() {
         chartView.setYAxis(
-            arrayOf("0", "20", "40", "60", "80", "100").asList(),
-            "分数")
+                arrayOf("0", "20", "40", "60", "80", "100").asList(),
+                "分数")
         chartView.setTextSize(resources.getDimensionPixelSize(R.dimen.x12), resources.getDimensionPixelSize(R.dimen.x12))
         chartView.setFullSize(100)
         //        curveChartView.setValueTextSize(resources.getDimensionPixelSize(R.dimen.x20))
         //        curveChartView.addPoints(intArrayOf(48, 73, 89, 72, 82, 68, 68, 83, 73, 90).asList(), null)
         chartView.setValueBackground(
-               null,
+                null,
                 resources.getDimensionPixelSize(R.dimen.x12),
                 resources.getDimensionPixelSize(R.dimen.x12)
         )
     }
 
     private fun request() {
-        EBagApi.examSocre((SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).classId, type.toString(), "3",gradeCode,(SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid, object : RequestCallBack<List<HomeworkBean>>() {
+        val clazzId: String = if (activity.packageName.contains("student")) {
+            SPUtils.get(activity, Constants.CLASS_ID, "") as String
+        } else {
+            (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).classId
+        }
+
+        val rid = if (activity.packageName.contains("student")) {
+            "1"
+        } else {
+            "3"
+        }
+
+        val childUid = if (activity.packageName.contains("student")) {
+            ""
+        } else {
+            (SerializableUtils.getSerializable(Constants.CHILD_USER_ENTITY) as MyChildrenBean).uid
+        }
+        EBagApi.examSocre(clazzId, type.toString(), rid, gradeCode, childUid, object : RequestCallBack<List<HomeworkBean>>() {
             override fun onStart() {
                 stateview.showLoading()
             }
@@ -107,8 +126,8 @@ class AchievementFragment : LazyFragment() {
                 } else {
                     val intList = arrayListOf<Int>()
                     entity.forEach {
-                        var date = it.resultDateTime.split(" ")[0]
-                        list.add(Achievement(date.substring(0,date.lastIndexOf("-")), "", it.avgScore.toDouble().toInt(), ""))
+                        val date = it.resultDateTime.split(" ")[0]
+                        list.add(Achievement(date.substring(0, date.lastIndexOf("-")), "", it.avgScore.toDouble().toInt(), ""))
                         intList.add(it.avgScore.toDouble().toInt())
 //                        intList.add(0)
                     }
@@ -116,12 +135,12 @@ class AchievementFragment : LazyFragment() {
                     val time = list[0].date
                     var month = time.substring(time.length - 2, time.length).toInt()
                     val monthList = ArrayList<String>()
-                    for (i in 0 .. 11){
+                    for (i in 0..11) {
                         monthList.add(month.toString())
-                        if (month == 12){
+                        if (month == 12) {
                             month = 0
                         }
-                        month ++
+                        month++
                     }
                     layout.removeAllViews()
                     chartView = FoldChartView(mContext)

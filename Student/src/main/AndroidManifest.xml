@@ -24,6 +24,7 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+
     <application
         android:name=".base.App"
         android:allowBackup="true"
@@ -51,59 +52,65 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main2"
-            android:theme="@style/MainActivityTheme"/>
-        <activity android:name=".module.personal.PersonalInfoActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.mission.MyMissionActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.personal.ParentsActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.personal.SettingActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.personal.LocationActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.personal.UploadLocationActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.tools.ToolsActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.tools.MathFormulaActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.tools.LetterActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.tools.PractiseActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.tools.RecordActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.tools.WriteActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.homework.HomeworkActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.homework.DoHomeworkActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".module.personal.GrowupActivity" />
+            android:theme="@style/MainActivityTheme" />
+        <activity
+            android:name=".module.personal.PersonalInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.mission.MyMissionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.personal.ParentsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.personal.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.personal.LocationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.personal.UploadLocationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.tools.ToolsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.tools.MathFormulaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.tools.LetterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.tools.PractiseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.tools.RecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.tools.WriteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.homework.HomeworkActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.homework.DoHomeworkActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.personal.GrowupActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.personal.GrowthTypeActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name="com.baidu.trace.LBSTraceService"
             android:enabled="true"
-            android:process=":remote"/>
+            android:process=":remote" />
         <!--百度地图-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="fdDs2pusQ1VCLhRghy4DUDhrPi1KWBwM"/>
+            android:value="fdDs2pusQ1VCLhRghy4DUDhrPi1KWBwM" />
+
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"

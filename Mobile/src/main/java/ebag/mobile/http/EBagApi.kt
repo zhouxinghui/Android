@@ -658,7 +658,9 @@ object EBagApi {
     fun examSocre(classId: String, homeType: String, rid: String, gradeCode: String, studentUid: String, callback: RequestCallBack<List<HomeworkBean>>) {
         val jsonObject = JSONObject()
         jsonObject.put("classId", classId)
-        jsonObject.put("studentUid", studentUid)
+        if (studentUid.isNotEmpty()) {
+            jsonObject.put("studentUid", studentUid)
+        }
         jsonObject.put("homeType", homeType)
         jsonObject.put("gradeCode", gradeCode)
         jsonObject.put("rid", rid)

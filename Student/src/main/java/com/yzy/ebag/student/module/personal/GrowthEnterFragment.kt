@@ -75,8 +75,8 @@ class GrowthEnterFragment : BaseFragment() {
         adapter.setOnItemClickListener { _, view, position ->
             if (adapter.getItem(position)?.status != 0) {
 
-               /* GrowthTypeActivity.jump(mContext, adapter.getItem(position)?.grade
-                        ?: "", adapter.getItem(position)?.gradeCode.toString())*/
+                GrowthTypeActivity.jump(mContext, adapter.getItem(position)?.grade
+                        ?: "", adapter.getItem(position)?.gradeCode.toString())
             }else{
                 T.show(activity, "无法进入更高年级")
             }

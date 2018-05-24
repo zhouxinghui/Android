@@ -53,7 +53,6 @@ class AchievementFragment : LazyFragment() {
         gradeId = bundle?.getString("gradeId") ?: ""
         gradeCode = bundle?.getString("gradeCode") ?: ""
         type = bundle?.getInt("type") ?: 0
-
     }
 
     override fun initViews(rootView: View) {
@@ -108,7 +107,7 @@ class AchievementFragment : LazyFragment() {
                 } else {
                     val intList = arrayListOf<Int>()
                     entity.forEach {
-                        var date = it.resultDateTime.split(" ")[0]
+                        val date = it.resultDateTime.split(" ")[0]
                         list.add(Achievement(date.substring(0,date.lastIndexOf("-")), "", it.avgScore.toDouble().toInt(), ""))
                         intList.add(it.avgScore.toDouble().toInt())
 //                        intList.add(0)
