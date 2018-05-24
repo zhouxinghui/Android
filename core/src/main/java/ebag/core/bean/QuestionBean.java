@@ -46,6 +46,24 @@ public class QuestionBean implements Serializable, MultiItemEntity, Cloneable {
 
     private int position;
     private int parentPosition;
+    private String questionScore;
+    private String state;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getQuestionScore() {
+        return questionScore;
+    }
+
+    public void setQuestionScore(String questionScore) {
+        this.questionScore = questionScore;
+    }
 
     public String getUseCount() {
         return useCount;
@@ -230,10 +248,6 @@ public class QuestionBean implements Serializable, MultiItemEntity, Cloneable {
 
         return this.getQuestionId() != null && this.getQuestionId().equals(((QuestionBean) o).getQuestionId());
 
-    }
-
-    public boolean isCorrect(){
-        return answer != null && rightAnswer != null && answer.equals(rightAnswer);
     }
 
     @Override

@@ -66,8 +66,8 @@ class OverviewAdapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>(null){
             else ->{
                 item as QuestionBean?
                 tv.text = ((item?.position ?: 0) + 1).toString()
-                if(showResult){
-                    if(item?.isCorrect == true){
+                if(showResult && !QuestionTypeUtils.isMarkType(QuestionTypeUtils.getIntType(item))){
+                    if(item?.questionScore == "100"){
                         tv.setBackgroundResource(R.drawable.bac_overview_green)
                     }else{
                         tv.setBackgroundResource(R.drawable.bac_overview_red)
@@ -76,7 +76,10 @@ class OverviewAdapter: BaseQuickAdapter<MultiItemEntity, BaseViewHolder>(null){
                     if(StringUtils.isEmpty(item?.answer)){
                         tv.setBackgroundResource(R.drawable.bac_overview_grey)
                     }else{
-                        tv.setBackgroundResource(R.drawable.bac_overview_blue)
+                        if (item?.state == "1")
+                            tv.setBackgroundResource(R.drawable.bac_overview_blue)
+                        else
+                            tv.setBackgroundResource(R.drawable.bac_overview_green)
                     }
                 }
             }

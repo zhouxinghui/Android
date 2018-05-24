@@ -40,7 +40,7 @@ class QuestionTypeAdapter: BaseQuickAdapter<TypeQuestionBean, BaseViewHolder>(R.
             val tv = helper.getView<TextView>(R.id.tv)
             tv.text = "${helper.adapterPosition + 1}"
             if(showResult && !QuestionTypeUtils.isMarkType(QuestionTypeUtils.getIntType(item))){
-                if(item?.isCorrect == true){
+                if(item?.questionScore == "100"){
                     tv.setBackgroundResource(R.drawable.bac_overview_green)
                 }else{
                     tv.setBackgroundResource(R.drawable.bac_overview_red)
@@ -49,7 +49,10 @@ class QuestionTypeAdapter: BaseQuickAdapter<TypeQuestionBean, BaseViewHolder>(R.
                 if(StringUtils.isEmpty(item?.answer)){
                     tv.setBackgroundResource(R.drawable.bac_overview_grey)
                 }else{
-                    tv.setBackgroundResource(R.drawable.bac_overview_blue)
+                    if (item?.state == "1")
+                        tv.setBackgroundResource(R.drawable.bac_overview_blue)
+                    else
+                        tv.setBackgroundResource(R.drawable.bac_overview_green)
                 }
             }
         }

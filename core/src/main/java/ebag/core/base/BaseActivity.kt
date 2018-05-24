@@ -22,7 +22,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        overridePendingTransition(R.anim.startactivity,R.anim.finishactivity)
+        overridePendingTransition(R.anim.slide_right_in,R.anim.slide_left_out)
         setContentView(getLayoutId())
         AppManager.addActivity(this)
         window.setBackgroundDrawableResource(R.color.pageBackground)
@@ -32,7 +32,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun finish() {
         super.finish()
-        overridePendingTransition(R.anim.startactivity,R.anim.finishactivity)
+        overridePendingTransition(R.anim.slide_left_in,R.anim.slide_right_out)
     }
 
     override fun onDestroy() {
