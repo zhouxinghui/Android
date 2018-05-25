@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_margin="@dimen/x5"
     android:gravity="center_horizontal"
+    android:background="@drawable/white_shadow_clickable_bg"
     >
     <ImageView android:id="@+id/fileImg"
         android:layout_width="@dimen/x50"

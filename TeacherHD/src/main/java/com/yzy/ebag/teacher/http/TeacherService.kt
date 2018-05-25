@@ -217,6 +217,9 @@ interface TeacherService {
     @POST("clazzSpace/initMyLessonInfo/{version}")
     fun prepareBaseData(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<PrepareBaseBean>>
 
+    @POST("clazzSpace/addLessonFileInfo/{version}")
+    fun savePrepareFile(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
     /**
      * 备课-获取版本数据
      */

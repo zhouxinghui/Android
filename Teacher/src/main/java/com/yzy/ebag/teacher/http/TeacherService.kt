@@ -156,9 +156,16 @@ interface TeacherService {
     /**备课-获取版本数据*/
     @POST("clazzSpace/changeBookVersion/{version}")
     fun prepareVersion(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<PrepareVersionBean>>
-    @POST("data/getBookUnit/{version}")
+
+    /**推送备课文件至学生自习*/
+    @POST("clazzSpace/pushLessionfile2Class/{version}")
+    fun pushPrepareFile(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
+    @POST("clazzSpace/addLessonFileInfo/{version}")
+    fun savePrepareFile(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
     /**获取单元*/
+    @POST("data/getBookUnit/{version}")
     fun getUnit(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<UnitBean>>>
 
     /**自习室-生字总览列表*/

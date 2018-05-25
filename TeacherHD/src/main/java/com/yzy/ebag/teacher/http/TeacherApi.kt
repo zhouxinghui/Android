@@ -510,6 +510,20 @@ object TeacherApi {
     }
 
     /**
+     * 保存课件到个人备课
+     */
+    fun savePrepareFile(fileBean: PrepareFileBean, gradeCode: String?, subCode: String?, unitCode: String?, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("fileName", fileBean.fileName)
+        jsonObject.put("fileType", fileBean.fileType)
+        jsonObject.put("fileUrl", fileBean.fileUrl)
+        jsonObject.put("gradeCode", gradeCode)
+        jsonObject.put("subCode", subCode)
+        jsonObject.put("unitCode", unitCode)
+        EBagApi.request(teacherService.savePrepareFile("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
      * 备课-获取版本数据
      */
     fun prepareVersion(gradeCode: String, lessonType: String, subCode: String, callback: RequestCallBack<PrepareVersionBean>){

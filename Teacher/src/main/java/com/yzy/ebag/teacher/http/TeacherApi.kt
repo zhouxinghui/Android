@@ -4,6 +4,7 @@ import com.yzy.ebag.teacher.bean.*
 import ebag.core.bean.QuestionBean
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.StringUtils
+import ebag.mobile.bean.BaseClassesBean
 import ebag.mobile.bean.BaseStudentBean
 import ebag.mobile.bean.NoticeBean
 import ebag.mobile.bean.UnitBean
@@ -468,6 +469,34 @@ object TeacherApi {
         jsonObject.put("subCode", subCode)
         jsonObject.put("gradeCode", gradeCode)
         EBagApi.request(teacherService.prepareVersion("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 推送备课文件至学生自习
+     */
+    fun pushPrepareFile(lessionFileId: String, classes: List<BaseClassesBean?>, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("lessionFileId", lessionFileId)
+        val jsonArray = JSONArray()
+        classes.forEach {
+            jsonArray.put(it?.classId)
+        }
+        jsonObject.put("classIds", jsonArray)
+        EBagApi.request(teacherService.pushPrepareFile("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**
+     * 保存课件到个人备课
+     */
+    fun savePrepareFile(fileBean: PrepareFileBean, gradeCode: String?, subCode: String?, unitCode: String?, callback: RequestCallBack<String>){
+        val jsonObject = JSONObject()
+        jsonObject.put("fileName", fileBean.fileName)
+        jsonObject.put("fileType", fileBean.fileType)
+        jsonObject.put("fileUrl", fileBean.fileUrl)
+        jsonObject.put("gradeCode", gradeCode)
+        jsonObject.put("subCode", subCode)
+        jsonObject.put("unitCode", unitCode)
+        EBagApi.request(teacherService.savePrepareFile("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
     /**获取单元*/

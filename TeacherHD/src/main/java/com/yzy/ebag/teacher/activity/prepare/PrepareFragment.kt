@@ -41,6 +41,8 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
             return fragment
         }
     }
+
+    /**删除课件*/
     private val deleteRequest by lazy {
         object : RequestCallBack<String>() {
             override fun onStart() {
@@ -60,6 +62,7 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
             }
         }
     }
+    /**推送课件到学生自习*/
     private val pushRequest by lazy {
         object : RequestCallBack<String>() {
             override fun onStart() {
@@ -78,6 +81,24 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
             }
         }
     }
+    /**保存文件*/
+    private val saveFileRequest by lazy {
+        object : RequestCallBack<String>(){
+            override fun onStart() {
+                LoadingDialogUtil.showLoading(mContext)
+            }
+
+            override fun onSuccess(entity: String?) {
+                LoadingDialogUtil.closeLoadingDialog()
+                T.show(mContext, "保存成功")
+            }
+
+            override fun onError(exception: Throwable) {
+                LoadingDialogUtil.closeLoadingDialog()
+                exception.handleThrowable(mContext)
+            }
+        }
+    }
     private lateinit var list: List<PrepareFileBean>
     private var gradeCode: String? = ""
     private var subCode: String? = ""
@@ -85,7 +106,9 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
     private var mSubCode: String? = ""
     private var unitId: String? = ""
     private var fileId = ""
+    private lateinit var fileBean: PrepareFileBean
     private var type = ""
+    /**删除文件提示*/
     private val deleteFileDialog by lazy {
         val dialog = AlertDialog.Builder(mContext)
                 .setMessage("删除此文件？")
@@ -97,40 +120,44 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
                 }).create()
         dialog
     }
+    /**推送备课时选择班级*/
     private val selectClassesDialog by lazy {
         val dialog = DialogSelectClasses(mContext)
         dialog.onConfirmClick = {
-            putshFile(it)
+            pushFile(it)
         }
         dialog
     }
+    /**长按选项*/
     private val selectDialog by lazy {
         val items = if (type == "1")
             arrayOf("推送至学生自习", "删除文件")
         else
-            arrayOf("推送至学生自习", "保存到个人备课")
+            arrayOf("保存到个人备课")
         val dialog = AlertDialog.Builder(mContext)
                 .setItems(items, {dialog, which ->
                     if (which == 0){
-                        selectClassesDialog.show()
-                    }else if(which == 1){
                         if(type != "1") {
                             if (StringUtils.isEmpty(gradeCode))
                                 loadPrepareFileDialog.show(mGradeCode, mSubCode)
                             else
                                 loadPrepareFileDialog.show(gradeCode, subCode)
                         }else {
-                            deleteFileDialog.show()
+                            selectClassesDialog.show()
                         }
+                    }else if(which == 1){
+                        deleteFileDialog.show()
                     }
                     dialog.dismiss()
                 }).create()
         dialog
     }
+    /**保存到个人备课时版本和单元选择*/
     private val loadPrepareFileDialog by lazy {
         val dialog = LoadPrepareFileDialog(mContext)
         dialog.onConfirmClick = {
-
+            val flag = StringUtils.isEmpty(gradeCode)
+            TeacherApi.savePrepareFile(fileBean, if(flag) mGradeCode else gradeCode, if (flag) mSubCode else subCode, it, saveFileRequest)
         }
         dialog
     }
@@ -154,7 +181,7 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
     private fun deleteFile(){
         TeacherApi.deletePrepareFile(fileId, deleteRequest)
     }
-    private fun putshFile(classes: List<BaseClassesBean?>){
+    private fun pushFile(classes: List<BaseClassesBean?>){
         TeacherApi.pushPrepareFile(fileId, classes, pushRequest)
     }
 
@@ -227,7 +254,8 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
 
     override fun onItemLongClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int): Boolean {
         adapter as MyAdapter
-        fileId = adapter.data[position].id
+        fileBean = adapter.data[position]
+        fileId = fileBean.id
         selectDialog.show()
         return true
     }

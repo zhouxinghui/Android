@@ -20,6 +20,7 @@ import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
 import ebag.mobile.VideoPlayDialog
 import ebag.mobile.VoicePlayDialog
+import ebag.mobile.bean.BaseClassesBean
 
 /**
  * Created by YZY on 2018/3/2.
@@ -52,11 +53,49 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
             }
         }
     }
+    /**推送课件到学生自习*/
+    private val pushRequest by lazy {
+        object : RequestCallBack<String>() {
+            override fun onStart() {
+                selectClassesDialog.dismiss()
+                LoadingDialogUtil.showLoading(mContext, "正在推送...")
+            }
+
+            override fun onSuccess(entity: String?) {
+                LoadingDialogUtil.closeLoadingDialog()
+                T.show(mContext, "推送成功")
+            }
+
+            override fun onError(exception: Throwable) {
+                LoadingDialogUtil.closeLoadingDialog()
+                exception.handleThrowable(mContext)
+            }
+        }
+    }
+    /**保存文件*/
+    private val saveFileRequest by lazy {
+        object : RequestCallBack<String>(){
+            override fun onStart() {
+                LoadingDialogUtil.showLoading(mContext)
+            }
+
+            override fun onSuccess(entity: String?) {
+                LoadingDialogUtil.closeLoadingDialog()
+                T.show(mContext, "保存成功")
+            }
+
+            override fun onError(exception: Throwable) {
+                LoadingDialogUtil.closeLoadingDialog()
+                exception.handleThrowable(mContext)
+            }
+        }
+    }
     private lateinit var list: List<PrepareFileBean>
     private var gradeCode: String? = ""
     private var subCode: String? = ""
     private var unitId: String? = ""
     private var fileId = ""
+    private lateinit var fileBean: PrepareFileBean
     private var type = ""
     private var semesterCode: String? = ""
     private var versionCode: String? = ""
@@ -71,6 +110,43 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
                 }).create()
         dialog
     }
+    /**长按选项*/
+    private val selectDialog by lazy {
+        val items = if (type == "1")
+            arrayOf("推送至学生自习", "删除文件")
+        else
+            arrayOf("保存到个人备课")
+        val dialog = AlertDialog.Builder(mContext)
+                .setItems(items, {dialog, which ->
+                    if (which == 0){
+                        if(type != "1") {
+                            loadPrepareFileDialog.show(gradeCode, subCode)
+                        }else {
+                            selectClassesDialog.show()
+                        }
+                    }else if(which == 1){
+                        deleteFileDialog.show()
+                    }
+                    dialog.dismiss()
+                }).create()
+        dialog
+    }
+    /**保存到个人备课时版本和单元选择*/
+    private val loadPrepareFileDialog by lazy {
+        val dialog = LoadPrepareFileDialog(mContext)
+        dialog.onConfirmClick = {
+            TeacherApi.savePrepareFile(fileBean, gradeCode, subCode, it, saveFileRequest)
+        }
+        dialog
+    }
+    /**推送备课时选择班级*/
+    private val selectClassesDialog by lazy {
+        val dialog = DialogSelectClasses(mContext)
+        dialog.onConfirmClick = {
+            pushFile(it)
+        }
+        dialog
+    }
     private val videoPlayerDialog by lazy {
         VideoPlayDialog(mContext)
     }
@@ -83,8 +159,12 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
     private fun deleteFile(){
         TeacherApi.deletePrepareFile(fileId, deleteRequest)
     }
+    private fun pushFile(classes: List<BaseClassesBean?>){
+        TeacherApi.pushPrepareFile(fileId, classes, pushRequest)
+    }
 
     override fun loadConfig() {
+        stateView.setBackgroundRes(R.color.white)
     }
 
     fun notifyRequest(type: String, gradeCode: String?, subCode: String?, unitId: String?, semesterCode: String?, versionCode: String?){
@@ -147,8 +227,9 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
 
     override fun onItemLongClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int): Boolean {
         adapter as MyAdapter
-        fileId = adapter.data[position].id
-        deleteFileDialog.show()
+        fileBean = adapter.data[position]
+        fileId = fileBean.id
+        selectDialog.show()
         return true
     }
 
