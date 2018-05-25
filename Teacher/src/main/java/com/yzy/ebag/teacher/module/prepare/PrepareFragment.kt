@@ -112,21 +112,23 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
     }
     /**长按选项*/
     private val selectDialog by lazy {
-        val items = if (type == "1")
-            arrayOf("推送至学生自习", "删除文件")
-        else
-            arrayOf("保存到个人备课")
+        val items = arrayOf("推送至学生自习", "删除文件")
         val dialog = AlertDialog.Builder(mContext)
                 .setItems(items, {dialog, which ->
                     if (which == 0){
-                        if(type != "1") {
-                            loadPrepareFileDialog.show(gradeCode, subCode)
-                        }else {
-                            selectClassesDialog.show()
-                        }
+                        selectClassesDialog.show()
                     }else if(which == 1){
                         deleteFileDialog.show()
                     }
+                    dialog.dismiss()
+                }).create()
+        dialog
+    }
+    private val saveDialog by lazy {
+        val items = arrayOf("保存到个人备课")
+        val dialog = AlertDialog.Builder(mContext)
+                .setItems(items, {dialog, which ->
+                    loadPrepareFileDialog.show(gradeCode, subCode)
                     dialog.dismiss()
                 }).create()
         dialog
@@ -229,7 +231,11 @@ class PrepareFragment: BaseListFragment<List<PrepareFileBean>, PrepareFileBean>(
         adapter as MyAdapter
         fileBean = adapter.data[position]
         fileId = fileBean.id
-        selectDialog.show()
+        if (type != "1"){
+            saveDialog.show()
+        }else{
+            selectDialog.show()
+        }
         return true
     }
 
