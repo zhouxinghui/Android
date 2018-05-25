@@ -30,6 +30,7 @@ import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.*
+import ebag.core.widget.RoundView
 import ebag.hd.bean.response.UserEntity
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -112,39 +113,47 @@ class FollowReadActivity: BaseActivity() {
     private lateinit var spannableArray: Array<SpannableString?>
     private lateinit var loadingTv: TextView
     private lateinit var scoreTv: TextView
-    private var score = ""
+    private lateinit var recorderProgressBar: RoundView
+    private var score = "0"
     private val iflytekUtil by lazy {
         val util = IflytekUtil.getInstance(this)
-        util.onEvaluatingResult = {jsonObject, score, resultSpannable ->
+        util.onEvaluatingResult = {score, resultSpannable ->
             spannableArray[adapter.selectedPosition] = resultSpannable
             this.score = (score * 20).toInt().toString()
             readDetailBean?.score = (score * 20).toInt().toString()
-            adapter.notifyDataSetChanged()
-            scoreTv.visibility = View.VISIBLE
+//            scoreTv.visibility = View.VISIBLE
             loadingTv.visibility = View.GONE
+            adapter.notifyItemChanged(adapter.selectedPosition)
             upload()
+            tempPosition = -1
+            codeDisposable?.dispose()
         }
         util
     }
     private var codeDisposable: Disposable? = null
     private fun startCutDown(){
-        //从0 开始，每一秒发送一次数据
         codeDisposable = Observable
-                //从0 开始 一秒钟 加一 加10次
-                .intervalRange(0, 10, 0, 1, TimeUnit.SECONDS)
-                .map { 10 - it }//转化为倒计时的模式
-                //开始倒计时时，状态设置为不激活状态
+                .intervalRange(0, 10000, 0, 1, TimeUnit.MILLISECONDS)
+                .map { it }
                 .doOnSubscribe {
+                    recorderProgressBar.visibility = View.VISIBLE
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 //一秒钟改变一次文字
                 .doOnNext {
+                    L.e("当前progress：  $it")
+                    L.e("当前进度： ${(it / 100).toInt()}")
+                    recorderProgressBar.progress = (it / 100).toInt()
                 }.doOnComplete {//全部完成之后改变状态
                     if (iflytekUtil.isRecording()){
                         iflytekUtil.stopEvaluating()
                         tempPosition = -1
+                        recorderProgressBar.progress = 0
+                        recorderProgressBar.visibility = View.GONE
                     }
                 }.doOnDispose {//取消这个事件后 将其状态重置
+                    recorderProgressBar.progress = 0
+                    recorderProgressBar.visibility = View.GONE
                 }.subscribe()
     }
 
@@ -265,13 +274,14 @@ class FollowReadActivity: BaseActivity() {
                             if (subCode == "yw") {
                                 recorderUtil.setFinalFileName(recordFile.absolutePath)
                                 recorderUtil.startRecord()
+                                recorderAnim?.start()
                             }else{
-                                iflytekUtil.startEvaluating(readDetailBean?.languageEn ?: "", recordFile.absolutePath)
+                                iflytekUtil.startEvaluating(this, readDetailBean?.languageEn ?: "", recordFile.absolutePath)
                                 scoreTv = view.getTag(R.id.scoreTv) as TextView
                                 loadingTv = view.getTag(R.id.loadingTv) as TextView
+                                recorderProgressBar = view.getTag(R.id.progressBar) as RoundView
                                 startCutDown()
                             }
-                            recorderAnim?.start()
                             tempPosition = position
                         }
                     }
@@ -426,7 +436,7 @@ class FollowReadActivity: BaseActivity() {
                         recorderUtil.setFinalFileName(readDetailBean?.localPath)
                         recorderUtil.startRecord()
                     }else{
-                        iflytekUtil.startEvaluating(readDetailBean?.languageEn ?: "", readDetailBean?.localPath ?: "")
+                        iflytekUtil.startEvaluating(this, readDetailBean?.languageEn ?: "", readDetailBean?.localPath ?: "")
                     }
                     recorderAnim!!.start()
                 })
@@ -484,6 +494,7 @@ class FollowReadActivity: BaseActivity() {
                     .getView<View>(R.id.layout).isSelected = isSelected
             val recorderBtn = helper.getView<View>(R.id.recordBtn)
             recorderBtn.setTag(R.id.loadingTv, helper.getView(R.id.loadingTv))
+            recorderBtn.setTag(R.id.progressBar, helper.getView(R.id.progressBar))
             val scoreTv = helper.getView<TextView>(R.id.scoreTv)
             if (!StringUtils.isEmpty(item?.score)){
                 scoreTv.visibility = View.VISIBLE

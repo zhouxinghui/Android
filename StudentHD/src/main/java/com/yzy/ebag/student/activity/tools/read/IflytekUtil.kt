@@ -11,8 +11,8 @@ import com.google.gson.Gson
 import com.iflytek.cloud.*
 import com.yzy.ebag.student.kdxftest.SpeechEvaluatorVo
 import ebag.core.util.L
+import ebag.core.util.T
 import org.json.JSONException
-import org.json.JSONObject
 import org.json.XML
 
 /**
@@ -44,7 +44,7 @@ class IflytekUtil private constructor(mContext: Context){
     }
 
     private var evaluator: SpeechEvaluator? = SpeechEvaluator.createEvaluator(mContext, null)
-    var onEvaluatingResult: ((jsonObject: JSONObject, score: Double, resultSpannable: SpannableString) -> Unit)? = null
+    var onEvaluatingResult: ((score: Double, resultSpannable: SpannableString?) -> Unit)? = null
     private var isRecording = false
     init {
         evaluator?.setParameter(SpeechConstant.LANGUAGE, "en_us")
@@ -60,9 +60,9 @@ class IflytekUtil private constructor(mContext: Context){
      * 开始评估
      * @param str 待评估的文字
      */
-    fun startEvaluating(str: String, fileName: String){
+    fun startEvaluating(context: Context, str: String, fileName: String){
         evaluator?.setParameter(SpeechConstant.ISE_AUDIO_PATH, fileName)
-        evaluator?.startEvaluating("[content]$str", null, object : EvaluatorListener {
+        val code = evaluator?.startEvaluating("[content]$str", null, object : EvaluatorListener {
             override fun onVolumeChanged(i: Int, bytes: ByteArray) {
             }
 
@@ -84,8 +84,11 @@ class IflytekUtil private constructor(mContext: Context){
                     if (null != speechEvaluatorVo.xml_result) {
                         //                        isIs_rejected  为 true证明为乱读
                         val isIs_rejected = speechEvaluatorVo.xml_result.read_sentence.rec_paper.read_chapter.isIs_rejected
-                        Log.d("TAG", "onResult: $isIs_rejected")
-
+                        if (isIs_rejected){
+                            T.show(context, "系统检测到当前为恶意录入，请重新录音")
+                            onEvaluatingResult?.invoke(0.0, null)
+                            return
+                        }
                         //                    文字变色
                         val word = speechEvaluatorVo.xml_result.read_sentence.rec_paper.read_chapter.sentence.word
                         val totalScore = speechEvaluatorVo.xml_result.read_sentence.rec_paper.read_chapter.sentence.total_score
@@ -102,7 +105,8 @@ class IflytekUtil private constructor(mContext: Context){
                                 L.e("cca", word[i].index)
                             }
                         }
-                        onEvaluatingResult?.invoke(XML.toJSONObject(resultString), totalScore, spannableString)
+//                        onEvaluatingResult?.invoke(XML.toJSONObject(resultString), totalScore, spannableString)
+                        onEvaluatingResult?.invoke(totalScore, spannableString)
                     }
 
                 } catch (e: JSONException) {
@@ -113,16 +117,24 @@ class IflytekUtil private constructor(mContext: Context){
 
             override fun onError(speechError: SpeechError) {
                 Log.d("TAG", "onError: " + speechError.toString())
+                T.show(context, "评分失败，请稍后重试")
                 isRecording = false
+                onEvaluatingResult?.invoke(0.0, null)
             }
 
             override fun onEvent(i: Int, i1: Int, i2: Int, bundle: Bundle) {
 
             }
         })
+        if(code != ErrorCode.SUCCESS){
+            T.show(context, "评分失败，请稍后重试")
+            stopEvaluating()
+            onEvaluatingResult?.invoke(0.0, null)
+        }
     }
 
     fun stopEvaluating(){
+        isRecording = false
         evaluator?.stopEvaluating()
     }
 }
