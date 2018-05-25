@@ -139,4 +139,11 @@ object StudentApi {
         jsonObject.put("gradeCode", gradeCode)
         EBagApi.request(studentService.addUserGrowth("1", EBagApi.createBody(jsonObject)), callback)
     }
+
+
+    fun learningProcess(gradeCode:String,call: RequestCallBack<List<LeaningProgressBean>>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("gradeCode",gradeCode)
+        EBagApi.request(studentService.learningProcess("1", EBagApi.createBody(jsonObject)), call)
+    }
 }

@@ -112,8 +112,8 @@ class CourseDetailActivity : BaseActivity() {
             }
 
             override fun onSuccess(entity: List<LeaningProgressBean>?) {
-                if (entity!!.size>0){
-                entity?.forEach {
+                if (entity!!.isNotEmpty()){
+                entity.forEach {
                     list.add(Course("就读学校", it.schoolName))
                     list.add(Course("就读班级", it.learningProcessClassDtos[0].className))
                     list.add(Course("班  主  任", it.learningProcessClassDtos[0].headmaster))

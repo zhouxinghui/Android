@@ -65,4 +65,7 @@ interface StudentService {
 
     @POST("user/growth/addUserGrowth/{version}")
     fun addUserGrowth(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<String>>
+
+    @POST("user/learningProcess/{version}")
+    fun learningProcess(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<List<LeaningProgressBean>>>
 }
