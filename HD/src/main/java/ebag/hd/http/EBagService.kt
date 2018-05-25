@@ -399,7 +399,7 @@ interface EBagService {
      *  查询礼物
      */
     @POST("user/getGiftDetail/{version}")
-    fun getGiftDetail(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<GiftListBean>>>
+    fun getGiftDetail(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<GiftTeacherBean>>
 
     @POST("user/giveYsbMoneyGift2User/{version}")
     fun giveYsbMoneyGifg2User(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>

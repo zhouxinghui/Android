@@ -687,4 +687,14 @@ object EBagApi {
 
         EBagApi.request(eBagService.giveYsbMoneyGifg2User("v1", EBagApi.createBody(jsonObj)), callback)
     }
+
+    fun getGiftDetail(homeWorkId: String, callback: RequestCallBack<GiftTeacherBean>,uid: String = "") {
+        val jsonObj = JSONObject()
+        jsonObj.put("homeWorkId", homeWorkId)
+        if (uid.isNotEmpty()){
+            jsonObj.put("uid", uid)
+        }
+        jsonObj.put("queryType","student")
+        EBagApi.request(eBagService.getGiftDetail("v1", EBagApi.createBody(jsonObj)), callback)
+    }
 }

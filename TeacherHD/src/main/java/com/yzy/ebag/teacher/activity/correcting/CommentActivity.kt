@@ -127,7 +127,7 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
                     }
 
                 }
-                dialog.show()
+                dialog.show(1)
             }
         }
     }

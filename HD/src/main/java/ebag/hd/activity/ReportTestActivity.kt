@@ -16,7 +16,7 @@ import ebag.core.http.network.handleThrowable
 import ebag.core.util.StringUtils
 import ebag.hd.R
 import ebag.hd.base.Constants
-import ebag.hd.bean.GiftListBean
+import ebag.hd.bean.GiftTeacherBean
 import ebag.hd.bean.ReportBean
 import ebag.hd.homework.DoHomeworkActivity
 import ebag.hd.http.EBagApi
@@ -27,9 +27,9 @@ import kotlinx.android.synthetic.main.activity_report_test.*
  * @date 2018/1/24
  * @description
  */
-class ReportTestActivity: BaseActivity() {
+class ReportTestActivity : BaseActivity() {
     companion object {
-        fun jump(context: Context, homeworkId: String, workType: String, studentId: String = "", studentName: String = ""){
+        fun jump(context: Context, homeworkId: String, workType: String, studentId: String = "", studentName: String = "") {
             context.startActivity(
                     Intent(context, ReportTestActivity::class.java)
                             .putExtra("homeworkId", homeworkId)
@@ -39,6 +39,7 @@ class ReportTestActivity: BaseActivity() {
             )
         }
     }
+
     override fun getLayoutId(): Int {
         return R.layout.activity_report_test
     }
@@ -55,13 +56,13 @@ class ReportTestActivity: BaseActivity() {
         showData()
     }
 
-    private fun  showData() {
-        if(!StringUtils.isEmpty(studentName)){
+    private fun showData() {
+        if (!StringUtils.isEmpty(studentName)) {
             titleView.setTitle(studentName)
-        }else{
+        } else {
             titleView.setTitle("作业报告")
         }
-        titleView.setRightText("作业详情"){
+        titleView.setRightText("作业详情") {
             DoHomeworkActivity.jump(this, homeworkId, Constants.REPORT_TYPE, workType, studentId)
         }
 
@@ -76,16 +77,17 @@ class ReportTestActivity: BaseActivity() {
     }
 
     private val adapter = Adapter()
-    private val reportRequest = object : RequestCallBack<ReportBean>(){
+    private val reportRequest = object : RequestCallBack<ReportBean>() {
 
         override fun onStart() {
             stateView.showLoading()
         }
 
         override fun onSuccess(entity: ReportBean?) {
-            if(entity == null){
+            if (entity == null) {
                 stateView.showEmpty("暂未生成报告，请稍后重试！")
-            }else{
+            } else {
+                queryGift()
                 stateView.showContent()
                 adapter.setNewData(entity.homeWorkRepDetailVos)
 
@@ -110,7 +112,7 @@ class ReportTestActivity: BaseActivity() {
                 editParent.setText(entity.parentComment ?: "")
                 editTeacher.setText(entity.teacherComment ?: "")
 
-                if(StringUtils.isEmpty(entity.parentAutograph))
+                if (StringUtils.isEmpty(entity.parentAutograph))
                     tvName.visibility = View.GONE
                 else
                     tvName.text = entity.parentAutograph ?: ""
@@ -119,10 +121,10 @@ class ReportTestActivity: BaseActivity() {
         }
 
         override fun onError(exception: Throwable) {
-            if(exception is MsgException){
+            if (exception is MsgException) {
                 exception.handleThrowable(this@ReportTestActivity)
                 stateView.showError(exception.message)
-            }else{
+            } else {
                 stateView.showError()
             }
 
@@ -130,17 +132,45 @@ class ReportTestActivity: BaseActivity() {
 
     }
 
-    private fun queryGift(){
-        EBagApi.getGiftDetail(homeworkId, object : RequestCallBack<List<GiftListBean>>() {
-            override fun onSuccess(entity: List<GiftListBean>?) {
-                if (entity!!.isNotEmpty()) {
-                    entity.forEach {
-                        when(it.giftName){
-                            "鲜花" -> {}
-                            "笔记本" -> {}
-                            "画板" -> {}
-                            "储存罐" -> {}
-                            "奖章" -> {}
+    private fun queryGift() {
+        EBagApi.getGiftDetail(homeworkId, object : RequestCallBack<GiftTeacherBean>() {
+            override fun onSuccess(entity: GiftTeacherBean?) {
+                entity?.teacher?.forEach {
+                    when (it.giftName) {
+                        "鲜花" -> {
+                            flowerTeacher.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                        "笔记本" -> {
+                            paletteTeacher.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                        "画板" -> {
+                            notebookTeacher.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                        "储蓄罐" -> {
+                            piggyTeacher.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                        "奖章" -> {
+                            medalTeacher.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                    }
+                }
+
+                entity?.parent?.forEach {
+                    when (it.giftName) {
+                        "鲜花" -> {
+                            flowerParent.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                        "笔记本" -> {
+                            paletteParent.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                        "画板" -> {
+                            notebookParent.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                        "储蓄罐" -> {
+                            piggyParent.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                        "奖章" -> {
+                            medalParent.text = "${it.giftName} x ${it.giftNum}"
                         }
                     }
                 }
@@ -150,19 +180,20 @@ class ReportTestActivity: BaseActivity() {
 
             }
 
-        })
+        },studentId)
     }
 
-    private fun getReport(){
+    private fun getReport() {
         EBagApi.homeworkReport(homeworkId, studentId, reportRequest)
     }
-    inner class Adapter: BaseQuickAdapter<ReportBean.ReportDetailBean, BaseViewHolder>(R.layout.item_activity_report_test){
+
+    inner class Adapter : BaseQuickAdapter<ReportBean.ReportDetailBean, BaseViewHolder>(R.layout.item_activity_report_test) {
 
         override fun convert(helper: BaseViewHolder, item: ReportBean.ReportDetailBean?) {
             helper.setText(R.id.questionType, item?.questionTypeName)
                     .setText(R.id.count, "${item?.questionNum}")
                     .setText(R.id.errorCount, "${item?.errorCount}")
-                    .setBackgroundRes(R.id.layout,if(helper.adapterPosition % 2 == 0) R.color.light_blue else R.color.white)
+                    .setBackgroundRes(R.id.layout, if (helper.adapterPosition % 2 == 0) R.color.light_blue else R.color.white)
         }
 
     }

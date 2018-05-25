@@ -17,6 +17,7 @@ import ebag.core.http.network.handleThrowable
 import ebag.core.util.StringUtils
 import ebag.mobile.R
 import ebag.mobile.base.Constants
+import ebag.mobile.bean.GiftTeacherBean
 import ebag.mobile.bean.ReportBean
 import ebag.mobile.http.EBagApi
 import kotlinx.android.synthetic.main.activity_work_report.*
@@ -91,6 +92,7 @@ class WorkReportActivity: BaseActivity() {
                 stateView.showEmpty("暂未生成报告，请稍后重试！")
             }else{
                 stateView.showContent()
+                queryGift()
                 adapter.setNewData(entity.homeWorkRepDetailVos)
 
                 scoreRound.progress = entity.totalScore.toInt()
@@ -134,8 +136,60 @@ class WorkReportActivity: BaseActivity() {
 
     }
 
+
     private fun getReport(){
         EBagApi.homeworkReport(homeworkId, studentId, reportRequest)
+    }
+
+    private fun queryGift() {
+        EBagApi.getGiftDetail(homeworkId, object : RequestCallBack<GiftTeacherBean>() {
+            override fun onSuccess(entity: GiftTeacherBean?) {
+                entity?.teacher?.forEach {
+                    when (it.giftName) {
+                        "鲜花" -> {
+                            flowerTeacher.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                        "笔记本" -> {
+                            paletteTeacher.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                        "画板" -> {
+                            notebookTeacher.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                        "储蓄罐" -> {
+                            piggyTeacher.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                        "奖章" -> {
+                            medalTeacher.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                    }
+                }
+
+                entity?.parent?.forEach {
+                    when (it.giftName) {
+                        "鲜花" -> {
+                            flowerParent.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                        "笔记本" -> {
+                            paletteParent.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                        "画板" -> {
+                            notebookParent.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                        "储蓄罐" -> {
+                            piggyParent.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                        "奖章" -> {
+                            medalParent.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                    }
+                }
+            }
+
+            override fun onError(exception: Throwable) {
+
+            }
+
+        },studentId)
     }
 
     inner class Adapter: BaseQuickAdapter<ReportBean.ReportDetailBean, BaseViewHolder>(R.layout.item_activity_report){

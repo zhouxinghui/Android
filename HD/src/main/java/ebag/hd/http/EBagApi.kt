@@ -761,12 +761,13 @@ object EBagApi {
     /**
      * 查询礼物列表
      */
-    fun getGiftDetail(homeWorkId: String, callback: RequestCallBack<List<GiftListBean>>,uid: String = "") {
+    fun getGiftDetail(homeWorkId: String, callback: RequestCallBack<GiftTeacherBean>,uid: String = "") {
         val jsonObj = JSONObject()
         jsonObj.put("homeWorkId", homeWorkId)
         if (uid.isNotEmpty()){
             jsonObj.put("uid", uid)
         }
+        jsonObj.put("queryType","student")
         EBagApi.request(eBagService.getGiftDetail("v1", EBagApi.createBody(jsonObj)), callback)
     }
 
