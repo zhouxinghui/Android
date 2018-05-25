@@ -14,20 +14,20 @@ import com.yzy.ebag.teacher.bean.CommentBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
-import ebag.core.util.LoadingDialogUtil
-import ebag.core.util.StringUtils
-import ebag.core.util.T
-import ebag.core.util.loadHead
+import ebag.core.util.*
 import ebag.mobile.base.BaseListActivity
 import ebag.mobile.base.Constants
+import ebag.mobile.bean.MyChildrenBean
+import ebag.mobile.http.EBagApi
 import ebag.mobile.module.homework.WorkReportActivity
+import ebag.mobile.widget.DialogOfferPresent
 
 /**
  * Created by YZY on 2018/3/1.
  */
 class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
     companion object {
-        fun jump(context: Context, homeworkId: String, type: String){
+        fun jump(context: Context, homeworkId: String, type: String) {
             context.startActivity(
                     Intent(context, CommentActivity::class.java)
                             .putExtra("homeworkId", homeworkId)
@@ -35,11 +35,12 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
             )
         }
     }
+
     private var homeworkId = ""
     private var type = ""
     private val adapter = MyAdapter()
     private var currentPosition = 0
-    private val uploadRequest = object : RequestCallBack<String>(){
+    private val uploadRequest = object : RequestCallBack<String>() {
         override fun onStart() {
             LoadingDialogUtil.showLoading(this@CommentActivity, "上传评语中...")
         }
@@ -56,6 +57,7 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
             exception.handleThrowable(this@CommentActivity)
         }
     }
+
     override fun loadConfig(intent: Intent) {
         homeworkId = intent.getStringExtra("homeworkId")
         type = intent.getStringExtra("type")
@@ -84,28 +86,50 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         currentPosition = position
         val commentBean = adapter.data[position] as CommentBean
-        when(view.id){
-            R.id.checkReportBtn ->{
+        when (view.id) {
+            R.id.checkReportBtn -> {
                 /*if (type == Constants.KSSJ_TYPE || type == Constants.KHZY_TYPE)
                     ReportTestActivity.jump(this, homeworkId, type, commentBean.uid, commentBean.studentName)
                 else
                     ReportClassActivity.jump(this, homeworkId, type, commentBean.uid, commentBean.studentName)*/
                 WorkReportActivity.jump(this, homeworkId, type, commentBean.uid, commentBean.studentName)
             }
-            R.id.commitCommentBtn ->{
+            R.id.commitCommentBtn -> {
                 val commentEdit = view.tag as EditText
                 val commentStr = commentEdit.text.toString()
-                if (StringUtils.isEmpty(commentStr)){
+                if (StringUtils.isEmpty(commentStr)) {
                     T.show(this, "评语不能为空")
                     return
                 }
                 TeacherApi.uploadComment(homeworkId, commentBean.uid, commentStr, uploadRequest)
                 commentBean.comment = commentStr
             }
+
+            R.id.give_gift -> {
+                val dialog = DialogOfferPresent(this@CommentActivity, 1, homeworkId)
+                dialog.setOnOfferSuccessListener { bean ->
+                    if (bean.giftVos.isNotEmpty()) {
+                        EBagApi.giveYsbMoneyGifg2User(bean, object : RequestCallBack<String>() {
+                            override fun onSuccess(entity: String?) {
+                                T.show(this@CommentActivity, "赠送成功")
+                            }
+
+                            override fun onError(exception: Throwable) {
+                                exception.handleThrowable(this@CommentActivity)
+                            }
+
+                        }, SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).uid)
+                    } else {
+                        T.show(this@CommentActivity, "未选择礼物")
+                    }
+
+                }
+                dialog.show()
+            }
         }
     }
 
-    inner class MyAdapter: BaseQuickAdapter<CommentBean, BaseViewHolder>(R.layout.item_comment){
+    inner class MyAdapter : BaseQuickAdapter<CommentBean, BaseViewHolder>(R.layout.item_comment) {
         override fun convert(helper: BaseViewHolder, item: CommentBean) {
 
             helper.getView<ImageView>(R.id.headImg).loadHead(item.headUrl)
@@ -114,37 +138,38 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
             val commentEdit = helper.getView<EditText>(R.id.commentEdit)
             val checkReportBtn = helper.getView<TextView>(R.id.checkReportBtn)
             val commitCommentBtn = helper.getView<TextView>(R.id.commitCommentBtn)
-            if (!StringUtils.isEmpty(item.comment)){
+            if (!StringUtils.isEmpty(item.comment)) {
                 commentEdit.setText(item.comment)
-            }else{
+            } else {
                 commentEdit.setText("")
             }
             helper.addOnClickListener(R.id.checkReportBtn)
             helper.addOnClickListener(R.id.commitCommentBtn)
+            helper.addOnClickListener(R.id.give_gift)
             commitCommentBtn.tag = commentEdit
-            when(item.correctState){
-                Constants.CORRECT_CORRECTED ->{ //已批改
+            when (item.correctState) {
+                Constants.CORRECT_CORRECTED -> { //已批改
                     commentEdit.isEnabled = true
                     checkReportBtn.isEnabled = true
                     commitCommentBtn.isEnabled = true
                     checkReportBtn.text = "查看作业"
                     commitCommentBtn.text = "提交评语"
                 }
-                Constants.CORRECT_TEACHER_REMARKED ->{ //已评价
+                Constants.CORRECT_TEACHER_REMARKED -> { //已评价
                     commentEdit.isEnabled = false
                     checkReportBtn.isEnabled = true
                     commitCommentBtn.isEnabled = false
                     checkReportBtn.text = "查看作业"
                     commitCommentBtn.text = "已评价"
                 }
-                Constants.CORRECT_UNCORRECT ->{ //未批改
+                Constants.CORRECT_UNCORRECT -> { //未批改
                     commentEdit.isEnabled = false
                     checkReportBtn.isEnabled = false
                     commitCommentBtn.isEnabled = false
                     checkReportBtn.text = "未批改"
                     commitCommentBtn.text = "提交评语"
                 }
-                Constants.CORRECT_UNFINISH ->{ //未完成
+                Constants.CORRECT_UNFINISH -> { //未完成
                     commentEdit.isEnabled = false
                     checkReportBtn.isEnabled = false
                     commitCommentBtn.isEnabled = false
@@ -153,9 +178,9 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
                 }
             }
 
-            if (type == "1"){
-                helper.setGone(R.id.commentEdit,false)
-                helper.setGone(R.id.commitCommentBtn,false)
+            if (type == "1") {
+                helper.setGone(R.id.commentEdit, false)
+                helper.setGone(R.id.commitCommentBtn, false)
             }
         }
     }

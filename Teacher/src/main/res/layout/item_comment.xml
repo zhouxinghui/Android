@@ -77,4 +77,23 @@
         android:layout_marginTop="@dimen/y15"
         android:background="@drawable/comment_btn_bg"
         />
+
+    <ebag.core.widget.drawable.DrawableTextView
+        android:id="@+id/give_gift"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/x20"
+        android:text="赠送礼物"
+        android:textColor="#4a4a4a"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/tv_normal"
+        app:leftDrawable="@drawable/icon_homework_gift"
+        app:leftDrawableHeight="@dimen/x20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/y20"
+        app:layout_constraintTop_toBottomOf="@id/checkReportBtn"
+        android:visibility="visible"
+        app:leftDrawableWidth="@dimen/x20"/>
+
 </android.support.constraint.ConstraintLayout>

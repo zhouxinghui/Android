@@ -77,9 +77,6 @@ interface ParentsService {
     @POST("clazz/getClassCourses/{version}")
     fun getTaughtCourses(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<StudentSubjectBean>>>
 
-    @POST("user/giveYsbMoneyGift2User/{version}")
-    fun giveYsbMoneyGifg2User(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
-
     @POST("user/getGiftDetail/{version}")
     fun getGiftDetail(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<GiftListBean>>>
 

@@ -1,4 +1,4 @@
-package com.yzy.ebag.parents.ui.widget;
+package ebag.mobile.widget;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -12,14 +12,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.yzy.ebag.parents.R;
-import com.yzy.ebag.parents.bean.GiftBean;
-import com.yzy.ebag.parents.bean.GiftPayBean;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import ebag.core.util.SerializableUtils;
+import ebag.mobile.R;
+import ebag.mobile.base.Constants;
+import ebag.mobile.bean.GiftBean;
+import ebag.mobile.bean.GiftPayBean;
 import ebag.mobile.bean.UserEntity;
 
 /**
@@ -31,11 +31,13 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
     private ImageView img2,img3,img4,img5;
     private Button cut1,cut2,cut3,cut4,cut5,add1,add2,add3,add4,add5;
     private String homeworkId;
+    private Context mContext;
     /**对话框类型：0 送老师；1 送孩子*/
     private int type = 0;
     public DialogOfferPresent(Context context, int type,String id) {
         super(context, R.style.ActionSheetDialogStyle);
-        init(context);
+        mContext = context;
+        init(mContext);
         this.type = type;
         homeworkId = id;
     }
@@ -125,117 +127,117 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
-            case R.id.cut1:
-                count1 --;
-                if (count1 == 0){
-                    cut1.setEnabled(false);
-                }
-                if (count1 == 98){
-                    add1.setEnabled(true);
-                }
-                num1.setText(String.valueOf(count1));
-                payCount1 = 10*count1;
-                break;
-            case R.id.cut2:
-                count2 --;
-                if (count2 == 0){
-                    cut2.setEnabled(false);
-                }
-                if (count2 == 98){
-                    add2.setEnabled(true);
-                }
-                payCount2 = 50*count2;
-                num2.setText(String.valueOf(count2));
-                break;
-            case R.id.cut3:
-                count3 --;
-                if (count3 == 0){
-                    cut3.setEnabled(false);
-                }
-                if (count3 == 98){
-                    add3.setEnabled(true);
-                }
-                payCount3 = 100*count3;
-                num3.setText(String.valueOf(count3));
-                break;
-            case R.id.cut4:
-                count4 --;
-                if (count4 == 0){
-                    cut4.setEnabled(false);
-                }
-                if (count4 == 98){
-                    add4.setEnabled(true);
-                }
-                payCount4 = 150*count4;
-                num4.setText(String.valueOf(count4));
-                break;
-            case R.id.cut5:
-                count5 --;
-                if (count5 == 0){
-                    cut5.setEnabled(false);
-                }
-                if (count5 == 98){
-                    add5.setEnabled(true);
-                }
-                payCount5 = 200*count5;
-                num5.setText(String.valueOf(count5));
-                break;
-            case R.id.add1:
-                count1 ++;
-                if (count1 == 99){
-                    add1.setEnabled(false);
-                }
-                if (count1 == 1){
-                    cut1.setEnabled(true);
-                }
-                payCount1 = 10*count1;
-                num1.setText(String.valueOf(count1));
-                break;
-            case R.id.add2:
-                count2 ++;
-                if (count2 == 99){
-                    add2.setEnabled(false);
-                }
-                if (count2 == 1){
-                    cut2.setEnabled(true);
-                }
-                payCount2 = 50*count2;
-                num2.setText(String.valueOf(count2));
-                break;
-            case R.id.add3:
-                count3 ++;
-                if (count3 == 99){
-                    add3.setEnabled(false);
-                }
-                if (count3 == 1){
-                    cut3.setEnabled(true);
-                }
-                payCount3 = 100*count3;
-                num3.setText(String.valueOf(count3));
-                break;
-            case R.id.add4:
-                count4 ++;
-                if (count4 == 99){
-                    add4.setEnabled(false);
-                }
-                if (count4 == 1){
-                    cut4.setEnabled(true);
-                }
-                payCount4 = 150*count4;
-                num4.setText(String.valueOf(count4));
-                break;
-            case R.id.add5:
-                count5 ++;
-                if (count5 == 99){
-                    add5.setEnabled(false);
-                }
-                if (count5 == 1){
-                    cut5.setEnabled(true);
-                }
-                payCount5 = 200*count5;
-                num5.setText(String.valueOf(count5));
-                break;
+        int i = v.getId();
+        if (i == R.id.cut1) {
+            count1--;
+            if (count1 == 0) {
+                cut1.setEnabled(false);
+            }
+            if (count1 == 98) {
+                add1.setEnabled(true);
+            }
+            num1.setText(String.valueOf(count1));
+            payCount1 = 10 * count1;
+
+        } else if (i == R.id.cut2) {
+            count2--;
+            if (count2 == 0) {
+                cut2.setEnabled(false);
+            }
+            if (count2 == 98) {
+                add2.setEnabled(true);
+            }
+            payCount2 = 50 * count2;
+            num2.setText(String.valueOf(count2));
+
+        } else if (i == R.id.cut3) {
+            count3--;
+            if (count3 == 0) {
+                cut3.setEnabled(false);
+            }
+            if (count3 == 98) {
+                add3.setEnabled(true);
+            }
+            payCount3 = 100 * count3;
+            num3.setText(String.valueOf(count3));
+
+        } else if (i == R.id.cut4) {
+            count4--;
+            if (count4 == 0) {
+                cut4.setEnabled(false);
+            }
+            if (count4 == 98) {
+                add4.setEnabled(true);
+            }
+            payCount4 = 150 * count4;
+            num4.setText(String.valueOf(count4));
+
+        } else if (i == R.id.cut5) {
+            count5--;
+            if (count5 == 0) {
+                cut5.setEnabled(false);
+            }
+            if (count5 == 98) {
+                add5.setEnabled(true);
+            }
+            payCount5 = 200 * count5;
+            num5.setText(String.valueOf(count5));
+
+        } else if (i == R.id.add1) {
+            count1++;
+            if (count1 == 99) {
+                add1.setEnabled(false);
+            }
+            if (count1 == 1) {
+                cut1.setEnabled(true);
+            }
+            payCount1 = 10 * count1;
+            num1.setText(String.valueOf(count1));
+
+        } else if (i == R.id.add2) {
+            count2++;
+            if (count2 == 99) {
+                add2.setEnabled(false);
+            }
+            if (count2 == 1) {
+                cut2.setEnabled(true);
+            }
+            payCount2 = 50 * count2;
+            num2.setText(String.valueOf(count2));
+
+        } else if (i == R.id.add3) {
+            count3++;
+            if (count3 == 99) {
+                add3.setEnabled(false);
+            }
+            if (count3 == 1) {
+                cut3.setEnabled(true);
+            }
+            payCount3 = 100 * count3;
+            num3.setText(String.valueOf(count3));
+
+        } else if (i == R.id.add4) {
+            count4++;
+            if (count4 == 99) {
+                add4.setEnabled(false);
+            }
+            if (count4 == 1) {
+                cut4.setEnabled(true);
+            }
+            payCount4 = 150 * count4;
+            num4.setText(String.valueOf(count4));
+
+        } else if (i == R.id.add5) {
+            count5++;
+            if (count5 == 99) {
+                add5.setEnabled(false);
+            }
+            if (count5 == 1) {
+                cut5.setEnabled(true);
+            }
+            payCount5 = 200 * count5;
+            num5.setText(String.valueOf(count5));
+
         }
         totalPayCount = payCount1 + payCount2 + payCount3 + payCount4 + payCount5;
         totalNum.setText(String.valueOf(totalPayCount) + "YB");
@@ -307,6 +309,12 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
             list.add(bean);
         }
 
-        bean = new GiftPayBean(((UserEntity)SerializableUtils.getSerializable(ebag.mobile.base.Constants.PARENTS_USER_ENTITY)).getUid(),homeworkId,totalPayCount,list);
+        String uid;
+        if (mContext.getPackageName().contains("parents")){
+            uid = ((UserEntity)SerializableUtils.getSerializable(Constants.PARENTS_USER_ENTITY)).getUid();
+        }else{
+            uid = ((UserEntity)SerializableUtils.getSerializable(Constants.TEACHER_USER_ENTITY)).getUid();
+        }
+        bean = new GiftPayBean(uid,homeworkId,totalPayCount,list);
     }
 }

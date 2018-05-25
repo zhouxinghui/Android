@@ -12,7 +12,6 @@ import com.yzy.ebag.parents.R
 import com.yzy.ebag.parents.bean.GiftListBean
 import com.yzy.ebag.parents.bean.HomeworkAbstractBean
 import com.yzy.ebag.parents.http.ParentsAPI
-import com.yzy.ebag.parents.ui.widget.DialogOfferPresent
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
@@ -23,7 +22,9 @@ import ebag.core.util.T
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.bean.UserEntity
+import ebag.mobile.http.EBagApi
 import ebag.mobile.module.homework.HomeworkDescActivity
+import ebag.mobile.widget.DialogOfferPresent
 import kotlinx.android.synthetic.main.fragment_homework_done.*
 import java.text.DecimalFormat
 
@@ -134,7 +135,7 @@ class HomeworkDoneFragment(private val data: HomeworkAbstractBean, private val e
             val dialog = DialogOfferPresent(activity, 1, homeworkId)
             dialog.setOnOfferSuccessListener { bean ->
                 if (bean.giftVos.isNotEmpty()) {
-                    ParentsAPI.giveYsbMoneyGifg2User(bean, object : RequestCallBack<String>() {
+                    EBagApi.giveYsbMoneyGifg2User(bean, object : RequestCallBack<String>() {
                         override fun onSuccess(entity: String?) {
                             T.show(activity, "赠送成功")
                             queryGiftList()

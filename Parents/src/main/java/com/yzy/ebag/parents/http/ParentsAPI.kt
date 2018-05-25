@@ -4,6 +4,7 @@ import com.yzy.ebag.parents.bean.*
 import ebag.core.bean.QuestionBean
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.StringUtils
+import ebag.mobile.bean.GiftPayBean
 import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.bean.NoticeBean
 import ebag.mobile.bean.UnitBean
@@ -170,25 +171,7 @@ object ParentsAPI {
      * 送礼物
      */
 
-    fun giveYsbMoneyGifg2User(bean: GiftPayBean, callback: RequestCallBack<String>,uid:String = "") {
-        val jsonObj = JSONObject()
-        jsonObj.put("givingUid", bean.givingUid)
-        jsonObj.put("homeWorkId", bean.homeWorkId)
-        jsonObj.put("giftsMoney", bean.giftsMoney)
-        if (uid.isNotEmpty()){
-            jsonObj.put("uid", uid)
-        }
-        val array = JSONArray()
-        bean.giftVos.forEach {
-            val j = JSONObject()
-            j.put("giftName", it.giftName)
-            j.put("giftNum", it.giftNum)
-            array.put(j)
-        }
-        jsonObj.put("giftVos", array)
 
-        EBagApi.request(parentsService.giveYsbMoneyGifg2User("v1", EBagApi.createBody(jsonObj)), callback)
-    }
 
     /**
      * 查询礼物列表

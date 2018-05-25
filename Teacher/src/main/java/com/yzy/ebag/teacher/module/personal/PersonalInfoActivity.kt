@@ -19,6 +19,7 @@ import ebag.mobile.bean.UserEntity
 import ebag.mobile.bean.UserInfoBean
 import ebag.mobile.http.EBagApi
 import ebag.mobile.module.personal.ModifyInfoDialog
+import ebag.mobile.util.RandomStringUtil
 import ebag.mobile.widget.ListBottomShowDialog
 import kotlinx.android.synthetic.main.activity_personal_info.*
 import java.io.File
@@ -29,6 +30,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
     }
     private var userEntity: UserEntity? = null
     private var uploadHeadUrl = ""
+    private val randomStr by lazy { RandomStringUtil.getString() }
     /**
      * 0: 修改头像 1：修改姓名 2：修改性别 3：修改家庭住址
      */
@@ -127,7 +129,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
         schoolBtn.setOnClickListener(this)
 
         userEntity = SerializableUtils.getSerializable<UserEntity>(Constants.TEACHER_USER_ENTITY)
-        uploadHeadUrl = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/headUrl/${userEntity?.uid}"
+        uploadHeadUrl = "${ebag.core.util.Constants.OSS_BASE_URL}/personal/headUrl/$randomStr"
         EBagApi.queryUserInfo(object : RequestCallBack<UserInfoBean>() {
             override fun onStart() {
                 LoadingDialogUtil.showLoading(this@PersonalInfoActivity)
@@ -219,7 +221,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener{
                     val filePath = selectList[0].path
 //                    headImage.loadHead(filePath)
                     LoadingDialogUtil.showLoading(this, "正在上传...")
-                    OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(filePath), "personal/headUrl", "${userEntity?.uid}", myHandler)
+                    OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(filePath), "personal/headUrl", randomStr, myHandler)
                 }
             }
         }

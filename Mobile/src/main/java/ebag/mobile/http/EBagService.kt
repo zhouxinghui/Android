@@ -279,4 +279,7 @@ interface EBagService {
 
     @POST("homeStatistics/yearStatisticsByHomeWork/{version}")
     fun yearStatisticsByHomeWork(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<HomeworkBean>>>
+
+    @POST("user/giveYsbMoneyGift2User/{version}")
+    fun giveYsbMoneyGifg2User(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 }

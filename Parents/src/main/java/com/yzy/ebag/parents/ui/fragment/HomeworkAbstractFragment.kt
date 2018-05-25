@@ -10,11 +10,12 @@ import com.yzy.ebag.parents.bean.HomeworkAbstractBean
 import com.yzy.ebag.parents.http.ParentsAPI
 import com.yzy.ebag.parents.mvp.model.HomeworkAbsModel
 import com.yzy.ebag.parents.ui.adapter.HomeworkAbstractAdapter
-import com.yzy.ebag.parents.ui.widget.DialogOfferPresent
 import ebag.core.base.BaseFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
 import ebag.core.util.T
+import ebag.mobile.http.EBagApi
+import ebag.mobile.widget.DialogOfferPresent
 import kotlinx.android.synthetic.main.fragment_homework_abstract.*
 
 @SuppressLint("ValidFragment")
@@ -56,7 +57,7 @@ class HomeworkAbstractFragment(private val bean: HomeworkAbstractBean, private v
             val dialog = DialogOfferPresent(activity, 0, homeworkId)
             dialog.setOnOfferSuccessListener { bean ->
                 if (bean.giftVos.isNotEmpty()) {
-                    ParentsAPI.giveYsbMoneyGifg2User(bean, object : RequestCallBack<String>() {
+                    EBagApi.giveYsbMoneyGifg2User(bean, object : RequestCallBack<String>() {
                         override fun onSuccess(entity: String?) {
                             T.show(activity, "赠送成功")
                             queryGiftList()

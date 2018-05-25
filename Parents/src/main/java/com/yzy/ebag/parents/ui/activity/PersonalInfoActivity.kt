@@ -224,7 +224,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener {
                     val filePath = selectList[0].path
 //                    headImage.loadHead(filePath)
                     LoadingDialogUtil.showLoading(this, "正在上传...")
-                    OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(filePath), "personal/headUrl", "$randomStr", myHandler)
+                    OSSUploadUtils.getInstance().UploadPhotoToOSS(this, File(filePath), "personal/headUrl", randomStr, myHandler)
                 }
             }
         }

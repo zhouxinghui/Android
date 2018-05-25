@@ -225,4 +225,36 @@
     <style name="MyTabLayoutTextAppearance">
         <item name="android:textSize">@dimen/tv_sub</item>
     </style>
+
+    <style name="offer_gift_img">
+        <item name="android:layout_width">@dimen/x30</item>
+        <item name="android:layout_height">@dimen/x30</item>
+        <item name="android:layout_marginTop">@dimen/y20</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="btn_cut">
+        <item name="android:layout_width">@dimen/x20</item>
+        <item name="android:layout_height">@dimen/x20</item>
+        <item name="android:enabled">false</item>
+        <item name="android:background">@drawable/btn_paper_cut_normal</item>
+    </style>
+
+    <style name="btn_add">
+        <item name="android:layout_width">@dimen/x20</item>
+        <item name="android:layout_height">@dimen/x20</item>
+        <item name="android:background">@drawable/btn_paper_add_normal</item>
+    </style>
+
+    <style name="offer_gift_tv_num">
+        <item name="android:layout_width">@dimen/x25</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/btn_paper_num_normal</item>
+        <item name="android:layout_marginLeft">1dp</item>
+        <item name="android:layout_marginRight">1dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:text">0</item>
+    </style>
 </resources>

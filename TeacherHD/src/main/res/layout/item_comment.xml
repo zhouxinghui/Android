@@ -105,7 +105,7 @@
         android:visibility="visible"
         app:leftDrawableWidth="@dimen/x50"/>
 
-    <ebag.core.widget.drawable.DrawableTextView
+    <!--<ebag.core.widget.drawable.DrawableTextView
         android:id="@+id/flowerTeacher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -186,6 +186,6 @@
         app:leftDrawableHeight="@dimen/x50"
         android:visibility="visible"
         android:gravity="center_vertical"
-        app:leftDrawableWidth="@dimen/x50" />
+        app:leftDrawableWidth="@dimen/x50" />-->
 
 </android.support.constraint.ConstraintLayout>
