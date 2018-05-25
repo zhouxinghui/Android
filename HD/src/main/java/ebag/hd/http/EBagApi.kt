@@ -769,4 +769,24 @@ object EBagApi {
         }
         EBagApi.request(eBagService.getGiftDetail("v1", EBagApi.createBody(jsonObj)), callback)
     }
+
+    fun giveYsbMoneyGifg2User(bean: GiftPayBean, callback: RequestCallBack<String>, uid:String = "") {
+        val jsonObj = JSONObject()
+        jsonObj.put("givingUid", bean.givingUid)
+        jsonObj.put("homeWorkId", bean.homeWorkId)
+        jsonObj.put("giftsMoney", bean.giftsMoney)
+        if (uid.isNotEmpty()){
+            jsonObj.put("uid", uid)
+        }
+        val array = JSONArray()
+        bean.giftVos.forEach {
+            val j = JSONObject()
+            j.put("giftName", it.giftName)
+            j.put("giftNum", it.giftNum)
+            array.put(j)
+        }
+        jsonObj.put("giftVos", array)
+
+        EBagApi.request(eBagService.giveYsbMoneyGifg2User("v1", EBagApi.createBody(jsonObj)), callback)
+    }
 }

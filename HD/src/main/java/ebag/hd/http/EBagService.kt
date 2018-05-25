@@ -401,4 +401,7 @@ interface EBagService {
     @POST("user/getGiftDetail/{version}")
     fun getGiftDetail(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<GiftListBean>>>
 
+    @POST("user/giveYsbMoneyGift2User/{version}")
+    fun giveYsbMoneyGifg2User(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
 }

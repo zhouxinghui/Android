@@ -14,10 +14,12 @@ import com.yzy.ebag.teacher.bean.CommentBean
 import com.yzy.ebag.teacher.http.TeacherApi
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
-import ebag.core.util.*
+import ebag.core.util.LoadingDialogUtil
+import ebag.core.util.StringUtils
+import ebag.core.util.T
+import ebag.core.util.loadHead
 import ebag.mobile.base.BaseListActivity
 import ebag.mobile.base.Constants
-import ebag.mobile.bean.MyChildrenBean
 import ebag.mobile.http.EBagApi
 import ebag.mobile.module.homework.WorkReportActivity
 import ebag.mobile.widget.DialogOfferPresent
@@ -118,7 +120,7 @@ class CommentActivity : BaseListActivity<List<CommentBean>, CommentBean>() {
                                 exception.handleThrowable(this@CommentActivity)
                             }
 
-                        }, SerializableUtils.getSerializable<MyChildrenBean>(Constants.CHILD_USER_ENTITY).uid)
+                        }, commentBean.uid)
                     } else {
                         T.show(this@CommentActivity, "未选择礼物")
                     }
