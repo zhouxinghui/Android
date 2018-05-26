@@ -62,8 +62,8 @@ class IflytekUtil private constructor(mContext: Context){
      */
     fun startEvaluating(context: Context, str: String, fileName: String){
         evaluator?.setParameter(SpeechConstant.ISE_AUDIO_PATH, fileName)
-        val flag = str.endsWith(".")
-        val replaceStr = StringBuilder(str.replace(".", ","))
+        val flag = str.endsWith(".") || str.endsWith("!") || str.endsWith("?")
+        val replaceStr = StringBuilder(str.replace(".", ",").replace("!", ",").replace("?", ","))
         if (flag)
             replaceStr.deleteCharAt(replaceStr.length - 1).append(".")
         L.e("待识别文字： $replaceStr")
