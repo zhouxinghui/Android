@@ -62,7 +62,12 @@ class IflytekUtil private constructor(mContext: Context){
      */
     fun startEvaluating(context: Context, str: String, fileName: String){
         evaluator?.setParameter(SpeechConstant.ISE_AUDIO_PATH, fileName)
-        val code = evaluator?.startEvaluating("[content]$str", null, object : EvaluatorListener {
+        val flag = str.endsWith(".")
+        val replaceStr = StringBuilder(str.replace(".", ","))
+        if (flag)
+            replaceStr.deleteCharAt(replaceStr.length - 1).append(".")
+        L.e("待识别文字： $replaceStr")
+        val code = evaluator?.startEvaluating("[content]$replaceStr", null, object : EvaluatorListener {
             override fun onVolumeChanged(i: Int, bytes: ByteArray) {
             }
 

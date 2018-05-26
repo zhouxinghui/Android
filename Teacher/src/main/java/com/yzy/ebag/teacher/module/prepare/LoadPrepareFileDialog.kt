@@ -57,6 +57,9 @@ class LoadPrepareFileDialog(mContext: Context): BaseDialog(mContext) {
                 return
             }
             versionAdapter.setNewData(first)
+            versionLayout.visibility = View.VISIBLE
+            unitLayout.visibility = View.GONE
+            confirmBtn.visibility = View.GONE
             versionState.showContent()
         }
 

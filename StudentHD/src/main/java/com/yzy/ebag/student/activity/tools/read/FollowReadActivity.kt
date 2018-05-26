@@ -141,13 +141,13 @@ class FollowReadActivity: BaseActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 //一秒钟改变一次文字
                 .doOnNext {
-                    L.e("当前progress：  $it")
-                    L.e("当前进度： ${(it / 100).toInt()}")
                     recorderProgressBar.progress = (it / 100).toInt()
                 }.doOnComplete {//全部完成之后改变状态
                     if (iflytekUtil.isRecording()){
                         iflytekUtil.stopEvaluating()
                         tempPosition = -1
+                        loadingTv.visibility = View.VISIBLE
+                        scoreTv.visibility = View.GONE
                         recorderProgressBar.progress = 0
                         recorderProgressBar.visibility = View.GONE
                     }
