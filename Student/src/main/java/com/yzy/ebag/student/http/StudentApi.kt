@@ -31,6 +31,20 @@ object StudentApi {
         EBagApi.request(studentService.joinClass("v1", createBody(jsonObject)), callback)
     }
 
+    /**学习小组列表*/
+    fun groups(classId: String, callback: RequestCallBack<ArrayList<GroupBean>>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        EBagApi.request(studentService.groups("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
+    /**小组成员*/
+    fun groupMember(groupId: String, callback: RequestCallBack<ArrayList<GroupUserBean>>) {
+        val jsonObject = JSONObject()
+        jsonObject.put("groupId", groupId)
+        EBagApi.request(studentService.groupMember("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
     /**劳动任务*/
     fun labourTasks(page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<LabourBean>>) {
         val jsonObject = JSONObject()

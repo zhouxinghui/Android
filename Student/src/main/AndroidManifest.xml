@@ -51,7 +51,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main2"
+            android:label=""
             android:theme="@style/MainActivityTheme" />
         <activity
             android:name=".module.personal.PersonalInfoActivity"
@@ -111,6 +111,12 @@
             android:screenOrientation="portrait"
             />
         <activity android:name=".module.account.InviteActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".group.MemberListActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".group.GroupListActivity"
             android:screenOrientation="portrait"
             />
 

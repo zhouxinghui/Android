@@ -7,13 +7,13 @@ import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.yzy.ebag.student.bean.ClassListInfoBean
 import com.yzy.ebag.student.bean.ClassesInfoBean
+import com.yzy.ebag.student.group.GroupListActivity
 import com.yzy.ebag.student.http.StudentApi
 import com.yzy.ebag.student.module.account.InviteActivity
 import com.yzy.ebag.student.module.homework.HomeworkActivity
@@ -74,6 +74,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         homework.setOnClickListener(this)
         classWork.setOnClickListener(this)
         testWork.setOnClickListener(this)
+        studyGroup.setOnClickListener(this)
         request()
         initUserInfo()
     }
@@ -140,7 +141,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    /*override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
@@ -154,7 +155,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.action_settings -> return true
             else -> return super.onOptionsItemSelected(item)
         }
-    }
+    }*/
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
@@ -209,6 +210,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.testWork ->{
                 HomeworkActivity.jump(this, Constants.KSSJ_TYPE, classId)
+            }
+            R.id.studyGroup ->{
+                GroupListActivity.jump(this, classId)
             }
         }
     }

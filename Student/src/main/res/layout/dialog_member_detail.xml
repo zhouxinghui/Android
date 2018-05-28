@@ -17,7 +17,7 @@
 
 
         <ImageView
-            android:id="@+id/clazzmate_iv"
+            android:id="@+id/imgHead"
             android:layout_width="@dimen/x80"
             android:layout_height="@dimen/x80"
             android:layout_gravity="center"
@@ -25,7 +25,7 @@
             />
 
         <TextView
-            android:id="@+id/clazzmate_name"
+            android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -34,7 +34,7 @@
             android:textSize="@dimen/tv_normal" />
 
         <TextView
-            android:id="@+id/clazzmate_info"
+            android:id="@+id/tvBaseInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -43,7 +43,7 @@
             android:textColor="#6b6c6d" />
 
         <TextView
-            android:id="@+id/clazzmate_bagnum"
+            android:id="@+id/tvYsbCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -51,7 +51,7 @@
             android:text="书包号:123" />
 
         <TextView
-            android:id="@+id/clazzmate_phone"
+            android:id="@+id/tvPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -59,7 +59,7 @@
             android:text="电话:123" />
 
         <TextView
-            android:id="@+id/clazzmate_school"
+            android:id="@+id/tvSchool"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
