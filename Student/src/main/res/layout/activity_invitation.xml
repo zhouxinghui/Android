@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ebag.mobile.widget.TitleBar
+        android:id="@+id/titleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleText="请输入注册码"
+        app:rightText="联系客服"/>
+
+    <EditText
+        android:id="@+id/codeEdit"
+        android:layout_width="@dimen/x180"
+        android:layout_height="@dimen/y80"
+        android:layout_marginTop="@dimen/x78"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:hint="请输入注册码"
+        android:layout_marginStart="@dimen/x15"
+        android:textColorHint="@color/color_edit_hint"
+        android:textColor="@color/color_edit_color"
+        android:background="@drawable/invite_code_input"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleView" />
+
+    <ImageView
+        android:id="@+id/codeScan"
+        android:layout_width="@dimen/x18"
+        android:layout_height="@dimen/x18"
+        android:layout_marginEnd="@dimen/x5"
+        app:layout_constraintBottom_toBottomOf="@+id/codeEdit"
+        app:layout_constraintEnd_toEndOf="@+id/codeEdit"
+        app:layout_constraintTop_toTopOf="@+id/codeEdit"
+        app:srcCompat="@drawable/icon_code_scan" />
+
+    <ImageView
+        android:id="@+id/nextBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y80"
+        android:layout_marginStart="@dimen/x5"
+        app:layout_constraintBottom_toBottomOf="@+id/codeEdit"
+        app:layout_constraintStart_toEndOf="@+id/codeEdit"
+        app:layout_constraintTop_toTopOf="@+id/codeEdit"
+        android:src="@drawable/invite_code_nextstep" />
+
+    <ImageView
+        android:id="@+id/tipIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x55"
+        android:layout_marginStart="@dimen/x10"
+        app:layout_constraintStart_toStartOf="@+id/codeEdit"
+        app:layout_constraintTop_toBottomOf="@+id/codeEdit"
+        app:srcCompat="@drawable/invite_register_tip" />
+
+    <TextView
+        android:id="@+id/tipText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x10"
+        android:lines="1"
+        android:textColor="@color/tv_normal"
+        android:textSize="@dimen/tv_normal"
+        android:text="@string/invite_register_get_tip"
+        app:layout_constraintBottom_toBottomOf="@+id/tipIcon"
+        app:layout_constraintStart_toEndOf="@+id/tipIcon"
+        app:layout_constraintTop_toTopOf="@+id/tipIcon" />
+
+    <TextView
+        android:id="@+id/tipText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y18"
+        android:textSize="@dimen/tv_normal"
+        android:textColor="@color/tv_normal"
+        android:text="@string/invite_register_get_tip_info"
+        android:lineSpacingExtra="@dimen/y12"
+        app:layout_constraintStart_toStartOf="@+id/tipText1"
+        app:layout_constraintTop_toBottomOf="@+id/tipText1" />
+
+    <TextView
+        android:id="@+id/changeCount"
+        android:clickable="true"
+        android:layout_width="@dimen/x230"
+        android:layout_height="@dimen/y75"
+        android:textSize="@dimen/tv_big"
+        android:gravity="center"
+        android:text="切换账号"
+        android:textColor="@color/white"
+        android:background="@drawable/login_btn_bac"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.85"
+        />
+</android.support.constraint.ConstraintLayout>

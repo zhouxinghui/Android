@@ -5,6 +5,7 @@ import com.yzy.ebag.student.bean.*
 import ebag.core.http.network.RequestCallBack
 import ebag.mobile.bean.request.CommitQuestionVo
 import ebag.mobile.http.EBagApi
+import ebag.mobile.http.EBagApi.createBody
 import ebag.mobile.http.EBagClient
 import org.json.JSONObject
 
@@ -21,6 +22,13 @@ object StudentApi {
         jsonObj.put("classId", classId)
         jsonObj.put("roleCode", "1")
         EBagApi.request(studentService.mainInfo("v1", EBagApi.createBody(jsonObj)), callback)
+    }
+
+    /**加入班级*/
+    fun joinClass(code: String, callback: RequestCallBack<String>, role: String = "student") {
+        val jsonObject = JSONObject()
+        jsonObject.put("inviteCode", code)
+        EBagApi.request(studentService.joinClass("v1", createBody(jsonObject)), callback)
     }
 
     /**劳动任务*/

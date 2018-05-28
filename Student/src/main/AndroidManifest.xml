@@ -110,6 +110,9 @@
         <activity android:name=".module.personal.CourseDetailActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".module.account.InviteActivity"
+            android:screenOrientation="portrait"
+            />
 
         <service
             android:name="com.baidu.trace.LBSTraceService"

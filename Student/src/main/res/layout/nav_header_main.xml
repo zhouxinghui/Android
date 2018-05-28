@@ -27,6 +27,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:layout_marginStart="@dimen/x5"
+            android:textSize="@dimen/tv_big"
             tools:text="Android Studio"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
     </LinearLayout>

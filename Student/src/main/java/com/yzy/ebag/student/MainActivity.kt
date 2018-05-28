@@ -15,6 +15,7 @@ import android.widget.TextView
 import com.yzy.ebag.student.bean.ClassListInfoBean
 import com.yzy.ebag.student.bean.ClassesInfoBean
 import com.yzy.ebag.student.http.StudentApi
+import com.yzy.ebag.student.module.account.InviteActivity
 import com.yzy.ebag.student.module.homework.HomeworkActivity
 import com.yzy.ebag.student.module.mission.MyMissionActivity
 import com.yzy.ebag.student.module.personal.*
@@ -104,7 +105,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //            tvAnnounceContent.text = "暂无公告"
             if(exception is MsgException){
                 if(exception.code == "2001"){// 没有加入班级
-//                    InviteActivity.jump(this, BInviteActivity.CODE_INVITE)
+                    InviteActivity.jump(this@MainActivity, InviteActivity.CODE_INVITE)
                 }
             }
             exception.handleThrowable(this@MainActivity)

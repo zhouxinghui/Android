@@ -16,6 +16,10 @@ interface StudentService {
     @POST("user/getOnePageInfo/{version}")
     fun mainInfo(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ClassesInfoBean>>
 
+    /**加入班级*/
+    @POST("clazz/joinByClass/{version}")
+    fun joinClass(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
+
     /**劳动任务*/
     @POST("user/searchChildTargetList/{version}")
     fun labourTasks(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<LabourBean>>>

@@ -20,4 +20,16 @@
     <string name="setting_announce">官方公告</string>
     <string name="setting_feedback">用户反馈</string>
     <string name="setting_about_us">关于我们</string>
+
+    <!--邀请码-->
+    <string name="invite_register_tip">请输入注册码</string>
+    <string name="invite_invite_tip">请输入班级邀请码</string>
+    <string name="invite_register_get_tip">获取注册码提示：</string>
+    <string name="invite_register_get_tip_info">1、学生版云书包定制版平板注册码请查看包装内邀请码卡片。\n
+        2、网络下载版学生云书包邀请码请点击右上角联系客服获取邀请码。</string>
+
+    <string name="invite_invite_get_tip">获取班级邀请码提示：</string>
+    <string name="invite_invite_get_tip_info">1、班级邀请码由班主任创建班级所获得。\n
+        2、找班主任获取班级邀请码。</string>
+    <string name="invite_contact_customer">联系客服</string>
 </resources>
