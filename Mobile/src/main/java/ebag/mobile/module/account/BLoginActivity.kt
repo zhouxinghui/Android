@@ -47,7 +47,7 @@ abstract class BLoginActivity : MVPActivity(), LoginView, CodeView {
         var mActivity: Activity? = null
     }
 
-    private var isToMain = false
+    private var isToMain = true
 
     override fun getLayoutId(): Int {
         return R.layout.activity_login

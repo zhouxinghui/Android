@@ -31,7 +31,8 @@ open class App: MultiDexApplication(){
     override fun onCreate() {
         super.onCreate()
         mContext = this
-        SPUtils.put(mContext,Constants.IMEI,DeviceTool.getIMEI(mContext!!) ?: "")
+        val deviceId = DeviceTool.getIMEI(mContext!!) ?: ""
+        SPUtils.put(mContext,Constants.IMEI, deviceId)
         TOKEN = SPUtils.get(this, Constants.USER_TOKEN,"") as String
     }
 }

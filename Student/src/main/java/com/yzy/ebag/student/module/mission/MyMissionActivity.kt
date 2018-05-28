@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.util.TypedValue
+import android.view.View
 import android.widget.LinearLayout
 import com.yzy.ebag.student.R
 import ebag.core.base.BaseActivity
@@ -28,10 +29,30 @@ class MyMissionActivity: BaseActivity() {
             )
         }
     }
+    private val studyFragment = StudyMissionFragment.newInstance()
+    private val studyMissionPopup by lazy {
+        val popup = StudyMissionPopup(this)
+        popup.onItemClick = {subCode, subName ->
+            studyFragment.setSubcode(subCode)
+            tvSelect.text = subName
+        }
+        popup.setOnDismissListener {
+            tvSelect.isSelected = false
+        }
+        popup
+    }
     override fun initViews() {
+        studyFragment.onSubjectChange = {
+            studyMissionPopup.setData(it)
+            tvSelect.text = it[0].subject
+        }
+        tvSelect.setOnClickListener {
+            studyMissionPopup.showAsDropDown(tvSelect)
+            tvSelect.isSelected = true
+        }
         val fragments = arrayListOf(
                 LabourMissionFragment.newInstance(),
-                StudyMissionFragment.newInstance())
+                studyFragment)
         val titleList = arrayListOf("劳动任务", "学习任务")
 
         val adapter = ViewPagerAdapter(
@@ -46,7 +67,10 @@ class MyMissionActivity: BaseActivity() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
             }
             override fun onPageSelected(position: Int) {
-
+                if (position == 1)
+                    tvSelect.visibility = View.VISIBLE
+                else
+                    tvSelect.visibility = View.GONE
             }
 
         })

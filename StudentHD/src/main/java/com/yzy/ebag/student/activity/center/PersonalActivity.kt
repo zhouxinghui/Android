@@ -22,7 +22,8 @@ import kotlinx.android.synthetic.main.activity_personal.*
 /**
  * Created by caoyu on 2018/1/12.
  */
-class PersonalActivity: MVPActivity() {
+class
+PersonalActivity: MVPActivity() {
 
     private val itemStrIds = arrayListOf(
             R.string.center_personal,

@@ -267,6 +267,7 @@ class DoHomeworkActivity : BaseActivity() {
         when(workType){
             Constants.KHZY_TYPE,
             Constants.STZY_TYPE,
+            Constants.PARENT_TYPE,
             Constants.KSSJ_TYPE -> {
                 StudentApi.commitHomework(commitQuestionVo, commitCallback)
             }

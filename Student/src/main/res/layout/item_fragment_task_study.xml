@@ -4,11 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/x24"
-    android:layout_marginLeft="@dimen/x20"
-    android:layout_marginRight="@dimen/x20"
-    android:layout_marginTop="@dimen/x7"
-    android:layout_marginBottom="@dimen/x7"
+    android:padding="@dimen/x5"
+    android:layout_marginTop="@dimen/y10"
     android:background="@drawable/white_shadow_bg">
 
     <TextView
@@ -16,20 +13,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/tv_normal"
-        android:textSize="@dimen/x28"
+        android:textSize="@dimen/tv_normal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="完成： 28/28" />
 
     <TextView
         android:id="@+id/tvContent"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/x10"
+        android:layout_marginTop="@dimen/y10"
         android:textColor="@color/tv_normal"
-        android:textSize="@dimen/x28"
+        android:textSize="@dimen/tv_normal"
         app:layout_constraintStart_toStartOf="@id/tvCount"
-        app:layout_constraintTop_toBottomOf="@id/tvCount"
+        app:layout_constraintTop_toBottomOf="@id/tvTime"
+        app:layout_constraintEnd_toStartOf="@id/tvStatus"
         tools:text="内容： 第一单元 看一看" />
 
     <TextView
@@ -37,24 +35,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#8892a1"
-        android:textSize="@dimen/x20"
-        app:layout_constraintBaseline_toBaselineOf="@id/tvCount"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="@dimen/tv_normal"
+        android:layout_marginTop="@dimen/y10"
+        app:layout_constraintTop_toBottomOf="@id/tvCount"
         tools:text="截止时间： 2017-12-25 12:50" />
 
     <ebag.core.widget.drawable.DrawableTextView
         android:id="@+id/tvStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/x14"
         android:drawablePadding="@dimen/x10"
         android:textColor="@color/color_homework_list_selector"
-        android:textSize="@dimen/x28"
-        app:layout_constraintBaseline_toBaselineOf="@id/tvContent"
+        android:textSize="@dimen/tv_normal"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:rightDrawable="@drawable/right_arrow"
-        app:rightDrawableHeight="@dimen/x6"
-        app:rightDrawableWidth="@dimen/x10"
+        app:rightDrawableHeight="@dimen/x10"
+        app:rightDrawableWidth="@dimen/x6"
         tools:text="未完成" />
 
 </android.support.constraint.ConstraintLayout>

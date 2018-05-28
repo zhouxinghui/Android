@@ -9,9 +9,13 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.yzy.ebag.student.R
 import com.yzy.ebag.student.bean.SubjectBean
 import com.yzy.ebag.student.http.StudentApi
+import com.yzy.ebag.student.module.homework.DoHomeworkActivity
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
+import ebag.core.util.SPUtils
+import ebag.core.util.StringUtils
 import ebag.mobile.base.Constants
+import ebag.mobile.module.homework.WorkReportActivity
 
 /**
  * Created by YZY on 2018/5/15.
@@ -23,6 +27,14 @@ class StudyMissionFragment: BaseListFragment<List<SubjectBean>, SubjectBean.Home
         }
     }
 
+    var onSubjectChange: ((list: List<SubjectBean>) -> Unit)? = null
+    private var subCode = ""
+
+    fun setSubcode(subCode: String){
+        this.subCode = subCode
+        onRetryClick()
+    }
+
     override fun getBundle(bundle: Bundle?) {
     }
 
@@ -30,10 +42,22 @@ class StudyMissionFragment: BaseListFragment<List<SubjectBean>, SubjectBean.Home
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<SubjectBean>>) {
-        StudentApi.subjectWorkList(com.yzy.ebag.student.base.Constants.PARENT_TYPE, null, "", page, getPageSize(), requestCallBack)
+        StudentApi.subjectWorkList(Constants.PARENT_TYPE,
+                SPUtils.get(mContext, Constants.CLASS_ID,"") as String,
+                subCode,
+                page,
+                getPageSize(),
+                requestCallBack)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<SubjectBean>?): List<SubjectBean.HomeWorkInfoBean>? {
+        if(subCode.isEmpty() && parent != null && parent.isNotEmpty()){
+            val list = parent.filter { !StringUtils.isEmpty(it.subject) }
+            if(list.isNotEmpty()){
+                subCode = list[0].subCode
+                onSubjectChange?.invoke(list)
+            }
+        }
         return if(parent != null && parent.isNotEmpty()){
             parent[0].homeWorkInfoVos
         }else{
@@ -41,19 +65,18 @@ class StudyMissionFragment: BaseListFragment<List<SubjectBean>, SubjectBean.Home
         }
     }
 
-    /*override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
         adapter as Adapter
         if(adapter.getItem(position)?.state == Constants.CORRECT_UNFINISH){
             DoHomeworkActivity.jump(
                     mContext,
                     adapter.getItem(position)?.id ?: "",
-                    com.yzy.ebag.student.base.Constants.PARENT_TYPE,
-                    com.yzy.ebag.student.base.Constants.PARENT_TYPE
+                    Constants.PARENT_TYPE
             )
         }else{
-            ReportClassActivity.jump(mContext, adapter.getItem(position)?.id ?: "", com.yzy.ebag.student.base.Constants.PARENT_TYPE)
+            WorkReportActivity.jump(mContext, adapter.getItem(position)?.id ?: "", Constants.PARENT_TYPE)
         }
-    }*/
+    }
 
     override fun getAdapter(): BaseQuickAdapter<SubjectBean.HomeWorkInfoBean, BaseViewHolder> = Adapter()
 

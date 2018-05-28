@@ -27,7 +27,8 @@ class LoginActivity: BLoginActivity() {
                 Permission.READ_EXTERNAL_STORAGE,
                 Permission.ACCESS_COARSE_LOCATION,
                 Permission.ACCESS_FINE_LOCATION,
-                Permission.RECORD_AUDIO
+                Permission.RECORD_AUDIO,
+                Permission.READ_PHONE_STATE
                 )
         requestPermission(*permissions)
     }
