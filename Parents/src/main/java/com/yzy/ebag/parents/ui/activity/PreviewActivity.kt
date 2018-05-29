@@ -226,6 +226,8 @@ class PreviewActivity : BaseListActivity<List<QuestionBean>, QuestionBean>() {
                 anim!!.stop()
                 anim!!.selectDrawable(0)
                 progressBar!!.progress = 0
+
+
             }
         })
         player
