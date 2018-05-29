@@ -23,31 +23,31 @@
     </group>-->
     <item
         android:id="@+id/performance"
-        android:icon="@drawable/ic_menu_gallery"
+        android:icon="@drawable/icon_menu_performance"
         android:title="课堂表现" />
     <item
         android:id="@+id/myParents"
-        android:icon="@drawable/ic_menu_slideshow"
+        android:icon="@drawable/icon_menu_parent"
         android:title="我的家长" />
     <item
         android:id="@+id/coinCenter"
-        android:icon="@drawable/ic_menu_manage"
+        android:icon="@drawable/icon_menu_shop"
         android:title="云币中心" />
 
     <item
         android:id="@+id/growup"
-        android:icon="@drawable/ic_menu_manage"
+        android:icon="@drawable/icon_menu_group_track"
         android:title="成长轨迹" />
 
     <item android:title="其他选项">
         <menu>
             <item
                 android:id="@+id/setting"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/icon_menu_setting"
                 android:title="设置" />
             <item
                 android:id="@+id/location"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/icon_menu_location"
                 android:title="定位" />
         </menu>
     </item>

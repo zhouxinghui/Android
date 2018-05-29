@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+        nav_view.itemIconTintList = null
         val headView = nav_view.getHeaderView(0)
         headImg = headView.findViewById(R.id.imageView)
         nameTv = headView.findViewById(R.id.nameTv)
