@@ -1,6 +1,8 @@
 package com.yzy.ebag.student
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
@@ -11,6 +13,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.youth.banner.loader.ImageLoader
 import com.yzy.ebag.student.bean.ClassListInfoBean
 import com.yzy.ebag.student.bean.ClassesInfoBean
 import com.yzy.ebag.student.group.GroupListActivity
@@ -24,10 +27,7 @@ import com.yzy.ebag.student.util.StatusUtil
 import ebag.core.http.network.MsgException
 import ebag.core.http.network.RequestCallBack
 import ebag.core.http.network.handleThrowable
-import ebag.core.util.LoadingDialogUtil
-import ebag.core.util.SPUtils
-import ebag.core.util.SerializableUtils
-import ebag.core.util.loadHead
+import ebag.core.util.*
 import ebag.mobile.base.Constants
 import ebag.mobile.bean.UserEntity
 import ebag.mobile.module.book.BookListActivity
@@ -67,6 +67,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         clazzTv.setOnClickListener {
             classesDialog.show(classesInfo, classId)
         }
+
+        val bannerList = arrayListOf("main_banner1", "main_banner2")
+        banner.setImageLoader(object : ImageLoader(){
+            override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
+                val resId = resources.getIdentifier(path as String, "drawable", packageName)
+                imageView?.setImageResource(resId)
+            }
+        }).setImages(bannerList).start()
+
+        myMission.setOnClickListener(this)
         btnDailyPractice.setOnClickListener(this)
         studyBookTv.setOnClickListener(this)
         classSchedule.setOnClickListener(this)
@@ -77,6 +87,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         studyGroup.setOnClickListener(this)
         request()
         initUserInfo()
+
+        refreshLayout.setOnRefreshListener {
+            request()
+        }
+        refreshLayout.setColorSchemeColors(Color.parseColor("#7D7DFF"))
     }
     private lateinit var headImg: ImageView
     private lateinit var nameTv: TextView
@@ -93,23 +108,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             if (entity != null){
                 SPUtils.put(this@MainActivity,Constants.CLASS_NAME,entity.className)
                 SPUtils.put(this@MainActivity,Constants.GRADE_CODE,entity.gradeCode?.toInt())
-//                tvAnnounceContent.text = classesInfoBean.resultClassNoticeVo?.content ?: "暂无公告"
+                tvAnnounceContent.text = entity.resultClassNoticeVo?.content ?: "暂无公告"
                 classesInfo = entity.resultAllClazzInfoVos
                 classId = entity.classId ?: ""
                 SPUtils.put(this@MainActivity,Constants.CLASS_ID,classId)
                 clazzTv.text = entity.className
             }
+            refreshLayout.isRefreshing = false
         }
 
         override fun onError(exception: Throwable) {
             LoadingDialogUtil.closeLoadingDialog()
-//            tvAnnounceContent.text = "暂无公告"
+            tvAnnounceContent.text = "暂无公告"
             if(exception is MsgException){
                 if(exception.code == "2001"){// 没有加入班级
                     InviteActivity.jump(this@MainActivity, InviteActivity.CODE_INVITE)
                 }
             }
             exception.handleThrowable(this@MainActivity)
+            refreshLayout.isRefreshing = false
         }
     }
     private val classesDialog by lazy {
@@ -143,7 +160,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     /*override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
+        menuInflater.inflate(R.menu.content_main, menu)
         return true
     }
 
@@ -160,9 +177,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.myMission -> {
-                MyMissionActivity.jump(this, classId)
-            }
             R.id.performance -> {
                 PerformanceDialog(this).show()
             }
@@ -191,29 +205,40 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btnDailyPractice ->{
-                ToolsActivity.jump(this, classId)
+                if (hasClassId()) ToolsActivity.jump(this, classId)
             }
             R.id.studyBookTv ->{
-                BookListActivity.jump(this, classId)
+                if (hasClassId()) BookListActivity.jump(this, classId)
             }
             R.id.classSchedule ->{
-                ClassScheduleActivity.jump(this, classId)
+                if (hasClassId()) ClassScheduleActivity.jump(this, classId)
             }
             R.id.classMember ->{
                 startActivity(Intent(this, ClazzmateActivity::class.java))
             }
             R.id.homework ->{
-                HomeworkActivity.jump(this, Constants.KHZY_TYPE, classId)
+                if (hasClassId()) HomeworkActivity.jump(this, Constants.KHZY_TYPE, classId)
             }
             R.id.classWork ->{
-                HomeworkActivity.jump(this, Constants.STZY_TYPE, classId)
+                if (hasClassId()) HomeworkActivity.jump(this, Constants.STZY_TYPE, classId)
             }
             R.id.testWork ->{
-                HomeworkActivity.jump(this, Constants.KSSJ_TYPE, classId)
+                if (hasClassId()) HomeworkActivity.jump(this, Constants.KSSJ_TYPE, classId)
             }
             R.id.studyGroup ->{
-                GroupListActivity.jump(this, classId)
+                if (hasClassId()) GroupListActivity.jump(this, classId)
             }
+            R.id.myMission ->{
+                if (hasClassId()) MyMissionActivity.jump(this, classId)
+            }
+        }
+    }
+    private fun hasClassId(): Boolean{
+        return if (StringUtils.isEmpty(classId)){
+            T.show(this, "请先在主页尝试下拉刷新获取班级数据")
+            false
+        }else{
+            true
         }
     }
 }
