@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_shadow_bg"
+    android:padding="@dimen/x5">
+
+    <ImageView
+        android:id="@+id/ivHead"
+        android:layout_width="@dimen/x34"
+        android:layout_height="@dimen/x34"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x5"
+        android:textColor="#2a2a2a"
+        android:textSize="@dimen/tv_normal"
+        android:layout_marginTop="@dimen/x3"
+        tools:text="一年级语文老师"
+        app:layout_constraintStart_toEndOf="@id/ivHead"
+        app:layout_constraintTop_toTopOf="@id/ivHead" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y10"
+        tools:text="2017-12-20"
+        android:textSize="@dimen/tv_sub"
+        android:textColor="#9b9b9b"
+        app:layout_constraintStart_toStartOf="@id/tvName"
+        app:layout_constraintTop_toBottomOf="@id/tvName" />
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y15"
+        android:textColor="#2a2a2a"
+        android:textSize="@dimen/tv_normal"
+        tools:text="请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告请转告"
+        app:layout_constraintTop_toBottomOf="@id/ivHead"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/ivHead" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvContent"/>
+
+</android.support.constraint.ConstraintLayout>

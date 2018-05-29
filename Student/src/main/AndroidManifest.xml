@@ -122,6 +122,9 @@
         <activity android:name=".module.personal.MyClassesActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".module.personal.AnnounceActivity"
+            android:screenOrientation="portrait"
+            />
 
         <service
             android:name="com.baidu.trace.LBSTraceService"
