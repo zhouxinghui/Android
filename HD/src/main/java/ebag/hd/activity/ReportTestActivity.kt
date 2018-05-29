@@ -73,6 +73,13 @@ class ReportTestActivity : BaseActivity() {
             getReport()
         }
 
+        if (workType == "3"){
+            tipTeacher.visibility = View.GONE
+            editTeacher.visibility = View.GONE
+            gift_teacher.visibility = View.GONE
+            teacherGiftLayout.visibility = View.GONE
+        }
+
         getReport()
     }
 

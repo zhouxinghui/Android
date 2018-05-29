@@ -18,7 +18,7 @@ import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.SPUtils
 import ebag.core.util.StringUtils
-import ebag.hd.activity.ReportClassActivity
+import ebag.hd.activity.ReportTestActivity
 import ebag.hd.base.Constants
 import ebag.hd.homework.DoHomeworkActivity
 
@@ -163,7 +163,8 @@ class StudyFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInf
                     com.yzy.ebag.student.base.Constants.PARENT_TYPE
             )
         }else{
-            ReportClassActivity.jump(mContext, adapter.getItem(position)?.id ?: "", com.yzy.ebag.student.base.Constants.PARENT_TYPE)
+            ReportTestActivity.jump(mContext,adapter.getItem(position)?.id ?: "",com.yzy.ebag.student.base.Constants.PARENT_TYPE)
+            //ReportClassActivity.jump(mContext, adapter.getItem(position)?.id ?: "", com.yzy.ebag.student.base.Constants.PARENT_TYPE)
         }
     }
 
