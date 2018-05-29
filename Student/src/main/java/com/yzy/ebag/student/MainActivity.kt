@@ -85,6 +85,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         classWork.setOnClickListener(this)
         testWork.setOnClickListener(this)
         studyGroup.setOnClickListener(this)
+        myClass.setOnClickListener(this)
         request()
         initUserInfo()
 
@@ -230,6 +231,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.myMission ->{
                 if (hasClassId()) MyMissionActivity.jump(this, classId)
+            }
+            R.id.myClass ->{
+                startActivity(Intent(this@MainActivity, MyClassesActivity::class.java))
             }
         }
     }

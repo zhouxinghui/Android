@@ -20,6 +20,10 @@ interface StudentService {
     @POST("clazz/joinByClass/{version}")
     fun joinClass(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
+    /**班级*/
+    @POST("clazz/queryMyClassInfo/{version}")
+    fun clazzSpace(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<SpaceBean>>>
+
     /**获取学习小组*/
     @POST("clazz/getMyClazzByGroup/{version}")
     fun groups(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<ArrayList<GroupBean>>>

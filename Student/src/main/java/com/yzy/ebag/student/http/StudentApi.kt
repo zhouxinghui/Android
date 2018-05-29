@@ -31,6 +31,12 @@ object StudentApi {
         EBagApi.request(studentService.joinClass("v1", createBody(jsonObject)), callback)
     }
 
+    /**班级*/
+    fun clazzSpace(callback: RequestCallBack<List<SpaceBean>>) {
+        val jsonObject = JSONObject()
+        EBagApi.request(studentService.clazzSpace("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
     /**学习小组列表*/
     fun groups(classId: String, callback: RequestCallBack<ArrayList<GroupBean>>) {
         val jsonObject = JSONObject()

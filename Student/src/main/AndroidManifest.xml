@@ -119,6 +119,9 @@
         <activity android:name=".group.GroupListActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".module.personal.MyClassesActivity"
+            android:screenOrientation="portrait"
+            />
 
         <service
             android:name="com.baidu.trace.LBSTraceService"
