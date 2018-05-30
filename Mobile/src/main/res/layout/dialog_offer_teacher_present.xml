@@ -8,6 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#000"
+        android:id="@+id/title"
         android:text="赠送老师礼物"
         android:layout_margin="10dp"/>
     <LinearLayout
