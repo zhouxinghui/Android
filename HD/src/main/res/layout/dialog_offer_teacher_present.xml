@@ -56,6 +56,7 @@
                     android:textColor="#F19D2B"
                     android:layout_gravity="center"
                     android:textSize="14sp"
+                    android:id="@+id/price1"
                     android:drawableLeft="@drawable/icon_yun_b_small"
                     android:text="10YB"/>
             </LinearLayout>
@@ -94,6 +95,7 @@
                     android:textColor="#F19D2B"
                     android:layout_gravity="center"
                     android:textSize="12sp"
+                    android:id="@+id/price2"
                     android:drawableLeft="@drawable/icon_yun_b_small"
                     android:text="50YB"/>
             </LinearLayout>
@@ -132,6 +134,7 @@
                     android:textColor="#F19D2B"
                     android:layout_gravity="center"
                     android:textSize="12sp"
+                    android:id="@+id/price3"
                     android:drawableLeft="@drawable/icon_yun_b_small"
                     android:text="100YB"/>
             </LinearLayout>
@@ -176,6 +179,7 @@
                     android:textColor="#F19D2B"
                     android:layout_gravity="center"
                     android:textSize="12sp"
+                    android:id="@+id/price4"
                     android:drawableLeft="@drawable/icon_yun_b_small"
                     android:text="150YB"/>
             </LinearLayout>
@@ -214,6 +218,7 @@
                     android:textColor="#F19D2B"
                     android:layout_gravity="center"
                     android:textSize="12sp"
+                    android:id="@+id/price5"
                     android:drawableLeft="@drawable/icon_yun_b_small"
                     android:text="200YB"/>
             </LinearLayout>

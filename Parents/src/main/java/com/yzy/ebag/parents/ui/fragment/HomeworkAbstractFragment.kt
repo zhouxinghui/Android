@@ -72,7 +72,7 @@ class HomeworkAbstractFragment(private val bean: HomeworkAbstractBean, private v
                     T.show(activity, "未选择礼物")
                 }
             }
-            dialog.show()
+            dialog.show(0)
 
         }
 

@@ -25,10 +25,11 @@ import kotlinx.android.synthetic.main.activity_work_report.*
 /**
  * Created by YZY on 2018/4/28.
  */
-class WorkReportActivity: BaseActivity() {
+class WorkReportActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_work_report
+
     companion object {
-        fun jump(context: Context, homeworkId: String, workType: String, studentId: String = "", studentName: String = ""){
+        fun jump(context: Context, homeworkId: String, workType: String, studentId: String = "", studentName: String = "") {
             context.startActivity(
                     Intent(context, WorkReportActivity::class.java)
                             .putExtra("homeworkId", homeworkId)
@@ -38,6 +39,7 @@ class WorkReportActivity: BaseActivity() {
             )
         }
     }
+
     private lateinit var homeworkId: String
     private var studentId = ""
     private var workType = ""
@@ -57,15 +59,15 @@ class WorkReportActivity: BaseActivity() {
             commentLayout.visibility = View.GONE
     }
 
-    private fun fillData(){
-        if(!StringUtils.isEmpty(studentName)){
+    private fun fillData() {
+        if (!StringUtils.isEmpty(studentName)) {
             titleBar.setTitle(studentName)
-        }else{
+        } else {
             titleBar.setTitle("作业报告")
         }
 
 
-        titleBar.setRightText("作业详情"){
+        titleBar.setRightText("作业详情") {
             HomeworkDescActivity.jump(this, homeworkId, workType, studentId)
         }
 
@@ -81,16 +83,16 @@ class WorkReportActivity: BaseActivity() {
     }
 
     private val adapter = Adapter()
-    private val reportRequest = object : RequestCallBack<ReportBean>(){
+    private val reportRequest = object : RequestCallBack<ReportBean>() {
 
         override fun onStart() {
             stateView.showLoading()
         }
 
         override fun onSuccess(entity: ReportBean?) {
-            if(entity == null){
+            if (entity == null) {
                 stateView.showEmpty("暂未生成报告，请稍后重试！")
-            }else{
+            } else {
                 stateView.showContent()
                 queryGift()
                 adapter.setNewData(entity.homeWorkRepDetailVos)
@@ -116,7 +118,7 @@ class WorkReportActivity: BaseActivity() {
                 editParent.setText(entity.parentComment ?: "")
                 editTeacher.setText(entity.teacherComment ?: "")
 
-                if(StringUtils.isEmpty(entity.parentAutograph))
+                if (StringUtils.isEmpty(entity.parentAutograph))
                     parentName.visibility = View.GONE
                 else
                     parentName.text = entity.parentAutograph ?: ""
@@ -125,10 +127,10 @@ class WorkReportActivity: BaseActivity() {
         }
 
         override fun onError(exception: Throwable) {
-            if(exception is MsgException){
+            if (exception is MsgException) {
                 exception.handleThrowable(this@WorkReportActivity)
                 stateView.showError(exception.message)
-            }else{
+            } else {
                 stateView.showError()
             }
 
@@ -137,7 +139,7 @@ class WorkReportActivity: BaseActivity() {
     }
 
 
-    private fun getReport(){
+    private fun getReport() {
         EBagApi.homeworkReport(homeworkId, studentId, reportRequest)
     }
 
@@ -164,45 +166,46 @@ class WorkReportActivity: BaseActivity() {
                     }
                 }
 
-                entity?.parent?.forEach {
+                entity?.parent2teacher?.forEach {
                     when (it.giftName) {
                         "鲜花" -> {
                             flowerParent.text = "${it.giftName} x ${it.giftNum}"
                         }
-                        "笔记本" -> {
+                        "钢笔" -> {
                             paletteParent.text = "${it.giftName} x ${it.giftNum}"
                         }
-                        "画板" -> {
+                        "贺卡" -> {
                             notebookParent.text = "${it.giftName} x ${it.giftNum}"
                         }
-                        "储蓄罐" -> {
+                        "按摩椅" -> {
                             piggyParent.text = "${it.giftName} x ${it.giftNum}"
                         }
-                        "奖章" -> {
+                        "台灯" -> {
                             medalParent.text = "${it.giftName} x ${it.giftNum}"
                         }
                     }
                 }
+
             }
 
             override fun onError(exception: Throwable) {
 
             }
 
-        },studentId)
+        }, studentId)
     }
 
-    inner class Adapter: BaseQuickAdapter<ReportBean.ReportDetailBean, BaseViewHolder>(R.layout.item_activity_report){
+    inner class Adapter : BaseQuickAdapter<ReportBean.ReportDetailBean, BaseViewHolder>(R.layout.item_activity_report) {
 
         override fun convert(helper: BaseViewHolder, item: ReportBean.ReportDetailBean?) {
             helper.setText(R.id.questionType, item?.questionTypeName)
                     .setText(R.id.count, "${item?.questionNum}")
                     .setText(R.id.errorCount, "${item?.errorCount}")
-                    .setBackgroundRes(R.id.layout,if(helper.adapterPosition % 2 == 0) R.color.light_blue else R.color.white)
-            if (workType != Constants.STZY_TYPE){
+                    .setBackgroundRes(R.id.layout, if (helper.adapterPosition % 2 == 0) R.color.light_blue else R.color.white)
+            if (workType != Constants.STZY_TYPE) {
                 helper.setGone(R.id.score, false)
-            }else{
-                helper.setText(R.id.score, "${String.format("%.02f",item?.questionScore)}")
+            } else {
+                helper.setText(R.id.score, "${String.format("%.02f", item?.questionScore)}")
                 helper.setGone(R.id.score, true)
             }
         }

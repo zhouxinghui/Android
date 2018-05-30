@@ -27,4 +27,14 @@ public class GiftTeacherBean {
     }
 
     private List<GiftListBean> parent;
+
+    public List<GiftListBean> getParent2teacher() {
+        return parent2teacher;
+    }
+
+    public void setParent2teacher(List<GiftListBean> parent2teacher) {
+        this.parent2teacher = parent2teacher;
+    }
+
+    private List<GiftListBean> parent2teacher;
 }

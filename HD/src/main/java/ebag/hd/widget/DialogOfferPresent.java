@@ -30,6 +30,9 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
     private String homeworkId;
     /**对话框类型：0 送老师；1 送孩子*/
     private int type = 0;
+    private TextView price1, price2, price3, price4, price5;
+    private int[] teacherPrice = {100,200,300,400,500};
+    private int[] childPrice = {10,20,30,40,50};
     public DialogOfferPresent(Context context, int type, String id) {
         super(context, R.style.ActionSheetDialogStyle);
         init(context);
@@ -46,6 +49,11 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
         cut4 = (Button) contentView.findViewById(R.id.cut4);
         cut5 = (Button) contentView.findViewById(R.id.cut5);
         title = contentView.findViewById(R.id.title);
+        price1 = contentView.findViewById(R.id.price1);
+        price2 = contentView.findViewById(R.id.price2);
+        price3 = contentView.findViewById(R.id.price3);
+        price4 = contentView.findViewById(R.id.price4);
+        price5 = contentView.findViewById(R.id.price5);
         cut1.setOnClickListener(this);
         cut2.setOnClickListener(this);
         cut3.setOnClickListener(this);
@@ -104,7 +112,7 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
      * @param type 0 送老师；1 送孩子
      */
     public void show(int type) {
-        if (type == 1){
+        if (type == 1) {
             img2.setImageResource(R.drawable.icon_paper_notebook);
             img3.setImageResource(R.drawable.icon_paper_palette);
             img4.setImageResource(R.drawable.icon_paper_piggy_bank);
@@ -114,6 +122,17 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
             tv4.setText("储蓄罐");
             tv5.setText("奖章");
             title.setText("赠送孩子礼物");
+            price1.setText(childPrice[0]+"YB");
+            price2.setText(childPrice[1]+"YB");
+            price3.setText(childPrice[2]+"YB");
+            price4.setText(childPrice[3]+"YB");
+            price5.setText(childPrice[4]+"YB");
+        }else{
+            price1.setText(teacherPrice[0]+"YB");
+            price2.setText(teacherPrice[1]+"YB");
+            price3.setText(teacherPrice[2]+"YB");
+            price4.setText(teacherPrice[3]+"YB");
+            price5.setText(teacherPrice[4]+"YB");
         }
         super.show();
     }
@@ -125,6 +144,7 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
     public void onClick(View v) {
 
         int i = v.getId();
+        int price;
         if (i == R.id.cut1) {
             count1--;
             if (count1 == 0) {
@@ -134,7 +154,12 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
                 add1.setEnabled(true);
             }
             num1.setText(String.valueOf(count1));
-            payCount1 = 10 * count1;
+            if (type == 0){
+                price = teacherPrice[0];
+            }else{
+                price = childPrice[0];
+            }
+            payCount1 = price * count1;
 
         } else if (i == R.id.cut2) {
             count2--;
@@ -144,7 +169,12 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
             if (count2 == 98) {
                 add2.setEnabled(true);
             }
-            payCount2 = 50 * count2;
+            if (type == 0){
+                price = teacherPrice[1];
+            }else{
+                price = childPrice[1];
+            }
+            payCount2 = price * count2;
             num2.setText(String.valueOf(count2));
 
         } else if (i == R.id.cut3) {
@@ -155,7 +185,12 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
             if (count3 == 98) {
                 add3.setEnabled(true);
             }
-            payCount3 = 100 * count3;
+            if (type == 0){
+                price = teacherPrice[2];
+            }else{
+                price = childPrice[2];
+            }
+            payCount3 = price * count3;
             num3.setText(String.valueOf(count3));
 
         } else if (i == R.id.cut4) {
@@ -166,7 +201,12 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
             if (count4 == 98) {
                 add4.setEnabled(true);
             }
-            payCount4 = 150 * count4;
+            if (type == 0){
+                price = teacherPrice[3];
+            }else{
+                price = childPrice[3];
+            }
+            payCount4 = price * count4;
             num4.setText(String.valueOf(count4));
 
         } else if (i == R.id.cut5) {
@@ -177,7 +217,12 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
             if (count5 == 98) {
                 add5.setEnabled(true);
             }
-            payCount5 = 200 * count5;
+            if (type == 0){
+                price = teacherPrice[4];
+            }else{
+                price = childPrice[4];
+            }
+            payCount5 = price * count5;
             num5.setText(String.valueOf(count5));
 
         } else if (i == R.id.add1) {
@@ -188,7 +233,12 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
             if (count1 == 1) {
                 cut1.setEnabled(true);
             }
-            payCount1 = 10 * count1;
+            if (type == 0){
+                price = teacherPrice[0];
+            }else{
+                price = childPrice[0];
+            }
+            payCount1 = price * count1;
             num1.setText(String.valueOf(count1));
 
         } else if (i == R.id.add2) {
@@ -199,7 +249,12 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
             if (count2 == 1) {
                 cut2.setEnabled(true);
             }
-            payCount2 = 50 * count2;
+            if (type == 0){
+                price = teacherPrice[1];
+            }else{
+                price = childPrice[1];
+            }
+            payCount2 = price * count2;
             num2.setText(String.valueOf(count2));
 
         } else if (i == R.id.add3) {
@@ -210,7 +265,12 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
             if (count3 == 1) {
                 cut3.setEnabled(true);
             }
-            payCount3 = 100 * count3;
+            if (type == 0){
+                price = teacherPrice[2];
+            }else{
+                price = childPrice[2];
+            }
+            payCount3 = price * count3;
             num3.setText(String.valueOf(count3));
 
         } else if (i == R.id.add4) {
@@ -221,7 +281,12 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
             if (count4 == 1) {
                 cut4.setEnabled(true);
             }
-            payCount4 = 150 * count4;
+            if (type == 0){
+                price = teacherPrice[3];
+            }else{
+                price = childPrice[3];
+            }
+            payCount4 = price * count4;
             num4.setText(String.valueOf(count4));
 
         } else if (i == R.id.add5) {
@@ -232,7 +297,12 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
             if (count5 == 1) {
                 cut5.setEnabled(true);
             }
-            payCount5 = 200 * count5;
+            if (type == 0){
+                price = teacherPrice[4];
+            }else{
+                price = childPrice[4];
+            }
+            payCount5 = price * count5;
             num5.setText(String.valueOf(count5));
 
         }

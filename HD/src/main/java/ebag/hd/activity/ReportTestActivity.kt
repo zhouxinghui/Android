@@ -189,6 +189,28 @@ class ReportTestActivity : BaseActivity() {
                         }
                     }
                 }
+
+                entity?.parent2teacher?.forEach {
+
+                    when (it.giftName) {
+                        "鲜花" -> {
+                            flowerParent2teacher.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                        "钢笔" -> {
+                            paletteParent2teacher.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                        "贺卡" -> {
+                            notebookParent2teacher.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                        "按摩椅" -> {
+                            piggyParent2teacher.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                        "台灯" -> {
+                            medalParent2teacher.text = "${it.giftName} x ${it.giftNum}"
+                        }
+                    }
+
+                }
             }
 
             override fun onError(exception: Throwable) {
