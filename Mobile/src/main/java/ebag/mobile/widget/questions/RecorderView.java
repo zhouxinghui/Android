@@ -87,7 +87,7 @@ public class RecorderView extends BaseQuestionView {
         uploadBtn.setLayoutParams(params);
         uploadBtn.setBackgroundResource(R.drawable.icon_upload_recorder);
         linearLayout.addView(uploadBtn);
-        uploadBtn.setVisibility(View.INVISIBLE);
+        uploadBtn.setVisibility(View.GONE);
 
         //播放录音按钮
         playBtn = new TextView(context);
@@ -98,7 +98,7 @@ public class RecorderView extends BaseQuestionView {
         playBtn.setLayoutParams(params);
         playBtn.setBackgroundResource(R.drawable.recorde_play_bg);
         linearLayout.addView(playBtn);
-        playBtn.setVisibility(View.INVISIBLE);
+        playBtn.setVisibility(View.GONE);
 
         addView(linearLayout);
     }
@@ -130,6 +130,8 @@ public class RecorderView extends BaseQuestionView {
     @Override
     public void questionActive(boolean active) {
         recorderBtn.setEnabled(active);
+        //上面的不要删，删的时候看看其他地方要不要改
+        recorderBtn.setVisibility(active ? View.VISIBLE : View.GONE);
         if (!StringUtils.INSTANCE.isEmpty(studentAnswer))
             playBtn.setVisibility(View.VISIBLE);
         else
