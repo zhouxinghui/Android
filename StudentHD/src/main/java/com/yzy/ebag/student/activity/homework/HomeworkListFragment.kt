@@ -62,6 +62,11 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
         list = bundle?.getParcelableArrayList("list")
     }
 
+    override fun onResume() {
+        super.onResume()
+        onRetryClick()
+    }
+
     override fun loadConfig() {
         setPadding(0,
                 resources.getDimensionPixelSize(R.dimen.x10), 0,0)
