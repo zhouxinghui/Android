@@ -1,6 +1,8 @@
 package com.yzy.ebag.teacher.module.homework
 
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.CorrectAnswerBean
 import com.yzy.ebag.teacher.http.TeacherApi
@@ -83,6 +85,25 @@ class SmartPushDialog(context: Context): BaseDialog(context) {
                 TeacherApi.markScore(homeworkId, uid, questionId, score, markRequest)
             }
         }
+
+        countEdit.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (s!!.length > 1 && s.toString()[0] == '0') {
+                    s.clear()
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+
+            }
+
+        })
     }
 
     fun show(bean: CorrectAnswerBean?, homeworkId: String, questionId: String) {

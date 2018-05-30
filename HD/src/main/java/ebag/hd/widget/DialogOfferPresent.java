@@ -24,7 +24,7 @@ import ebag.hd.bean.GiftPayBean;
  */
 
 public class DialogOfferPresent extends Dialog implements View.OnClickListener{
-    private TextView num1,num2,num3,num4,num5,tv1,tv2,tv3,tv4,tv5,totalNum;
+    private TextView num1,num2,num3,num4,num5,tv1,tv2,tv3,tv4,tv5,totalNum,title;
     private ImageView img2,img3,img4,img5;
     private Button cut1,cut2,cut3,cut4,cut5,add1,add2,add3,add4,add5;
     private String homeworkId;
@@ -45,6 +45,7 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
         cut3 = (Button) contentView.findViewById(R.id.cut3);
         cut4 = (Button) contentView.findViewById(R.id.cut4);
         cut5 = (Button) contentView.findViewById(R.id.cut5);
+        title = contentView.findViewById(R.id.title);
         cut1.setOnClickListener(this);
         cut2.setOnClickListener(this);
         cut3.setOnClickListener(this);
@@ -112,6 +113,7 @@ public class DialogOfferPresent extends Dialog implements View.OnClickListener{
             tv3.setText("画板");
             tv4.setText("储蓄罐");
             tv5.setText("奖章");
+            title.setText("赠送孩子礼物");
         }
         super.show();
     }

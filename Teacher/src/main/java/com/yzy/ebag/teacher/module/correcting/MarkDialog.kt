@@ -1,6 +1,8 @@
 package com.yzy.ebag.teacher.module.correcting
 
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
@@ -63,6 +65,25 @@ class MarkDialog(context: Context): BaseDialog(context) {
             }
             TeacherApi.markScore(homeworkId, uid, questionId, score, markRequest)
         }
+
+        markEdit.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (s!!.length > 1 && s.toString()[0] == '0') {
+                    s.clear()
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+
+            }
+
+        })
     }
 
     fun show(bean: CorrectAnswerBean?, homeworkId: String, questionId: String) {

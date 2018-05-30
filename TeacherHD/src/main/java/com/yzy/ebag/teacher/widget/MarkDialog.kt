@@ -1,6 +1,8 @@
 package com.yzy.ebag.teacher.widget
 
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.CorrectAnswerBean
@@ -17,7 +19,7 @@ import kotlinx.android.synthetic.main.dialog_mark.*
 /**
  * Created by YZY on 2018/2/27.
  */
-class MarkDialog(context: Context): BaseDialog(context) {
+class MarkDialog(context: Context) : BaseDialog(context) {
     override fun getLayoutRes(): Int {
         return R.layout.dialog_mark
     }
@@ -29,7 +31,7 @@ class MarkDialog(context: Context): BaseDialog(context) {
     var onMarkSuccess: (() -> Unit)? = null
     private var bean: CorrectAnswerBean? = null
     private var score = ""
-    private val markRequest = object : RequestCallBack<String>(){
+    private val markRequest = object : RequestCallBack<String>() {
         override fun onStart() {
             LoadingDialogUtil.showLoading(context, "上传分数...")
             dismiss()
@@ -47,19 +49,39 @@ class MarkDialog(context: Context): BaseDialog(context) {
             exception.handleThrowable(context)
         }
     }
+
     init {
         confirmBtn.setOnClickListener {
             score = markEdit.text.toString()
-            if (StringUtils.isEmpty(score)){
+            if (StringUtils.isEmpty(score)) {
                 T.show(context, "请输入分数")
                 return@setOnClickListener
             }
-            if (score.toInt() > 100){
+            if (score.toInt() > 100) {
                 T.show(context, "分数范围：0-100")
                 return@setOnClickListener
             }
             TeacherApi.markScore(homeworkId, uid, questionId, score, markRequest)
         }
+
+        markEdit.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (s!!.length > 1 && s.toString()[0] == '0') {
+                    s.clear()
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+
+            }
+
+        })
     }
 
     fun show(bean: CorrectAnswerBean?, homeworkId: String, questionId: String) {
@@ -70,10 +92,10 @@ class MarkDialog(context: Context): BaseDialog(context) {
         uid = bean?.uid ?: ""
         nameAndBagId.text = "${bean?.studentName}    书包号：${bean?.ysbCode}"
         val answer = bean?.studentAnswer
-        if (StringUtils.isEmpty(answer)){
+        if (StringUtils.isEmpty(answer)) {
             commitTime.visibility = View.GONE
             studentAnswer.text = "未完成"
-        }else{
+        } else {
             commitTime.visibility = View.VISIBLE
             commitTime.text = "提交时间：${DateUtil.getDateTime(bean?.endTime ?: 0, "yyyy-MM-dd HH:mm")}"
             studentAnswer.text = bean?.studentAnswer?.replace("#R#", "、")
