@@ -127,6 +127,7 @@ public class ClassificationView extends BaseQuestionView implements  View.OnTouc
 //                (int)getResources().getDimension(R.dimen.y15),
 //                0,0);
         elementLayout.setBackgroundResource(R.drawable.classify_element_layout_bg);
+        elementLayout.setMotionEventSplittingEnabled(false);
         addView(parentCategory);
         addView(elementLayout);
 

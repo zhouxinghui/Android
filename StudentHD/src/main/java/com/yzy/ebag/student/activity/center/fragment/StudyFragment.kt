@@ -27,7 +27,7 @@ import ebag.hd.homework.DoHomeworkActivity
  * @date 2018/1/17
  * @description
  */
-class StudyFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInfoBean>() {
+class StudyFragment : BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInfoBean>() {
 
     companion object {
         fun newInstance(): StudyFragment {
@@ -122,24 +122,24 @@ class StudyFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInf
     }
 
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<SubjectBean>>) {
-        StudentApi.subjectWorkList(com.yzy.ebag.student.base.Constants.PARENT_TYPE, SPUtils.get(activity,Constants.CLASS_ID,"") as String, subCode  , page, getPageSize(), requestCallBack)
+        StudentApi.subjectWorkList(com.yzy.ebag.student.base.Constants.PARENT_TYPE, SPUtils.get(activity, Constants.CLASS_ID, "") as String, subCode, page, getPageSize(), requestCallBack)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<SubjectBean>?): List<SubjectBean.HomeWorkInfoBean>? {
-        if(subCode.isEmpty() && parent != null && parent.isNotEmpty()){
+        if (subCode.isEmpty() && parent != null && parent.isNotEmpty()) {
             val list = parent.filter { !StringUtils.isEmpty(it.subject) }
-            if(list.isNotEmpty()){
+            if (list.isNotEmpty()) {
                 spinner.visibility = View.VISIBLE
                 tvSelect.text = list[0].subject
                 subCode = list[0].subCode
                 popZhWnd.setData(list)
-            }else{
+            } else {
                 spinner.visibility = View.GONE
             }
         }
-        return if(parent != null && parent.isNotEmpty()){
+        return if (parent != null && parent.isNotEmpty()) {
             parent[0].homeWorkInfoVos
-        }else{
+        } else {
             null
         }
 
@@ -155,30 +155,31 @@ class StudyFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInf
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
         adapter as Adapter
-        if(adapter.getItem(position)?.state == Constants.CORRECT_UNFINISH){
+        if (adapter.getItem(position)?.state == Constants.CORRECT_UNFINISH) {
             DoHomeworkActivity.jump(
                     mContext,
                     adapter.getItem(position)?.id ?: "",
                     com.yzy.ebag.student.base.Constants.PARENT_TYPE,
                     com.yzy.ebag.student.base.Constants.PARENT_TYPE
             )
-        }else{
-            ReportTestActivity.jump(mContext,adapter.getItem(position)?.id ?: "",com.yzy.ebag.student.base.Constants.PARENT_TYPE)
+        } else {
+            ReportTestActivity.jump(mContext, adapter.getItem(position)?.id
+                    ?: "", com.yzy.ebag.student.base.Constants.PARENT_TYPE)
             //ReportClassActivity.jump(mContext, adapter.getItem(position)?.id ?: "", com.yzy.ebag.student.base.Constants.PARENT_TYPE)
         }
     }
 
-    class Adapter: BaseQuickAdapter<SubjectBean.HomeWorkInfoBean,BaseViewHolder>(R.layout.item_fragment_task_study){
+    class Adapter : BaseQuickAdapter<SubjectBean.HomeWorkInfoBean, BaseViewHolder>(R.layout.item_fragment_task_study) {
 
         override fun convert(helper: BaseViewHolder, item: SubjectBean.HomeWorkInfoBean?) {
 //            val spannableString = SpannableString("完成： ${item?.questionComplete}/${item?.questionCount}")
 //            spannableString.setSpan(ForegroundColorSpan(resources.getColor(R.color.color_homework_selected)), 4, 4 + "${entity.doneCount}".length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 //            setter.setText(R.id.tvCount, spannableString)
             helper.setText(R.id.tvCount, Html.fromHtml("完成： <font color='#FF7800'>${item?.questionComplete}</font>/${item?.questionCount}"))
-                    .setText(R.id.tvContent,"内容： ${item?.content}")
-                    .setText(R.id.tvTime,"截止时间： ${item?.endTime ?: "无"}")
+                    .setText(R.id.tvContent, "内容： ${item?.content}")
+                    .setText(R.id.tvTime, "截止时间： ${item?.endTime ?: "无"}")
                     .setText(R.id.tvStatus,
-                            when(item?.state){
+                            when (item?.state) {
                                 Constants.CORRECT_UNFINISH -> "未完成"
                                 Constants.CORRECT_UNCORRECT -> "未批改"
                                 Constants.CORRECT_CORRECTED -> "已批改"
@@ -192,7 +193,7 @@ class StudyFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInf
     }
 
     private val popZhWnd by lazy {
-        object :ListPopupWindow<SubjectBean>(mContext, spinner, resources.getDimensionPixelSize(R.dimen.x268)){
+        object : ListPopupWindow<SubjectBean>(mContext, spinner, resources.getDimensionPixelSize(R.dimen.x268)) {
 
             private val selected = Color.parseColor("#499DFF")
             private val noDone = Color.parseColor("#FF666D")
@@ -202,7 +203,7 @@ class StudyFragment: BaseListFragment<List<SubjectBean>, SubjectBean.HomeWorkInf
             }
 
             override fun itemClick(item: SubjectBean?) {
-                if(subCode != item?.subCode){
+                if (subCode != item?.subCode) {
                     subCode = item?.subCode ?: ""
                     tvSelect.text = item?.subject
                     onRetryClick()
