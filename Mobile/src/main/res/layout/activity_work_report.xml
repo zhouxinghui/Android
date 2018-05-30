@@ -346,11 +346,11 @@
                                 android:layout_weight="1"
                                 android:drawablePadding="@dimen/x10"
                                 android:gravity="center_vertical"
-                                android:text="画笔 x 0"
+                                android:text="钢笔 x 0"
                                 android:textColor="#4a4a4a"
                                 android:textSize="@dimen/tv_sub"
                                 android:visibility="visible"
-                                app:leftDrawable="@drawable/icon_palette"
+                                app:leftDrawable="@drawable/icon_paper_pen"
                                 app:leftDrawableHeight="@dimen/x20"
                                 app:leftDrawableWidth="@dimen/x20" />
 
@@ -361,11 +361,11 @@
                                 android:layout_weight="1"
                                 android:drawablePadding="@dimen/x10"
                                 android:gravity="center_vertical"
-                                android:text="笔记本 x 0"
+                                android:text="贺卡 x 0"
                                 android:textColor="#4a4a4a"
                                 android:textSize="@dimen/tv_sub"
                                 android:visibility="visible"
-                                app:leftDrawable="@drawable/icon_notebook"
+                                app:leftDrawable="@drawable/icon_paper_greet_card"
                                 app:leftDrawableHeight="@dimen/x20"
                                 app:leftDrawableWidth="@dimen/x20" />
 
@@ -386,11 +386,11 @@
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="@dimen/x10"
                                 android:gravity="center_vertical"
-                                android:text="奖章 x 0"
+                                android:text="台灯 x 0"
                                 android:textColor="#4a4a4a"
                                 android:textSize="@dimen/tv_sub"
                                 android:visibility="visible"
-                                app:leftDrawable="@drawable/icon_medal"
+                                app:leftDrawable="@drawable/icon_paper_table_lamp"
                                 app:leftDrawableHeight="@dimen/x20"
                                 app:leftDrawableWidth="@dimen/x20" />
 
@@ -402,11 +402,11 @@
                                 android:layout_marginEnd="@dimen/x5"
                                 android:drawablePadding="@dimen/x10"
                                 android:gravity="center_vertical"
-                                android:text="储蓄罐 x 0"
+                                android:text="按摩椅 x 0"
                                 android:textColor="#4a4a4a"
                                 android:textSize="@dimen/tv_sub"
                                 android:visibility="visible"
-                                app:leftDrawable="@drawable/icon_piggy_bank"
+                                app:leftDrawable="@drawable/icon_paper_massage_cushion"
                                 app:leftDrawableHeight="@dimen/x20"
                                 app:leftDrawableWidth="@dimen/x20" />
                         </LinearLayout>
