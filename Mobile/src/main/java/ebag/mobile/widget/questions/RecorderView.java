@@ -87,7 +87,7 @@ public class RecorderView extends BaseQuestionView {
         uploadBtn.setLayoutParams(params);
         uploadBtn.setBackgroundResource(R.drawable.icon_upload_recorder);
         linearLayout.addView(uploadBtn);
-//        uploadBtn.setVisibility(View.INVISIBLE);
+        uploadBtn.setVisibility(View.INVISIBLE);
 
         //播放录音按钮
         playBtn = new TextView(context);
@@ -98,7 +98,7 @@ public class RecorderView extends BaseQuestionView {
         playBtn.setLayoutParams(params);
         playBtn.setBackgroundResource(R.drawable.recorde_play_bg);
         linearLayout.addView(playBtn);
-//        playBtn.setVisibility(View.INVISIBLE);
+        playBtn.setVisibility(View.INVISIBLE);
 
         addView(linearLayout);
     }
