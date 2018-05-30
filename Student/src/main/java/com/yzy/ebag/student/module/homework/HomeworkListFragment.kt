@@ -54,6 +54,11 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
         classId = bundle?.getString("classId") ?: ""
     }
 
+    override fun onResume() {
+        super.onResume()
+        onRetryClick()
+    }
+
     override fun loadConfig() {
 
     }

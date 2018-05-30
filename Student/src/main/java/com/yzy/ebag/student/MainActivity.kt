@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         testWork.setOnClickListener(this)
         studyGroup.setOnClickListener(this)
         myClass.setOnClickListener(this)
-        tvMoreAnnounce.setOnClickListener(this)
+        tvAnnounceContent.setOnClickListener(this)
         request()
         initUserInfo()
 
@@ -237,7 +237,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.myClass ->{
                 startActivity(Intent(this@MainActivity, MyClassesActivity::class.java))
             }
-            R.id.tvMoreAnnounce ->{
+            R.id.tvAnnounceContent ->{
                 if (hasClassId()) AnnounceActivity.jump(this, classId)
             }
         }
