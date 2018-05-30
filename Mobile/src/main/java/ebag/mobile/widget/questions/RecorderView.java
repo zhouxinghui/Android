@@ -130,6 +130,8 @@ public class RecorderView extends BaseQuestionView {
     @Override
     public void questionActive(boolean active) {
         recorderBtn.setEnabled(active);
+        //上面的不要删，删的时候看看其他地方要不要改
+        recorderBtn.setVisibility(active ? View.VISIBLE : View.GONE);
         if (!StringUtils.INSTANCE.isEmpty(studentAnswer))
             playBtn.setVisibility(View.VISIBLE);
         else
