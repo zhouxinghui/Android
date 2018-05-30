@@ -88,9 +88,6 @@
             android:name=".module.tools.ReadRecordListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DisplayOfficeFileActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".module.personal.SettingActivity"
             android:screenOrientation="portrait" />
         <activity

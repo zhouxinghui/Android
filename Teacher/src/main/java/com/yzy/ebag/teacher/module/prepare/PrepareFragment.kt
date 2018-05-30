@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.yzy.ebag.teacher.DisplayOfficeFileActivity
 import com.yzy.ebag.teacher.R
 import com.yzy.ebag.teacher.bean.PrepareFileBean
 import com.yzy.ebag.teacher.http.TeacherApi
@@ -21,6 +20,7 @@ import ebag.core.util.T
 import ebag.mobile.VideoPlayDialog
 import ebag.mobile.VoicePlayDialog
 import ebag.mobile.bean.BaseClassesBean
+import ebag.mobile.util.DisplayOfficeFileActivity
 
 /**
  * Created by YZY on 2018/3/2.

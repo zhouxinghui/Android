@@ -19,7 +19,7 @@ import ebag.mobile.base.BaseListActivity
  * Created by YZY on 2018/5/15.
  */
 class ToolsActivity: BaseListActivity<List<Int>, Int>() {
-    private val list = intArrayOf(R.drawable.tool_btn_calligraphy,R.drawable.tool_btn_read,
+    private val list = intArrayOf(R.drawable.tool_btn_calligraphy,R.drawable.tool_btn_prepare,
             R.drawable.tool_btn_pinyin,R.drawable.tool_btn_letter,R.drawable.tool_btn_formula)
     companion object {
         fun jump(context: Context, classId: String){
@@ -77,18 +77,18 @@ class ToolsActivity: BaseListActivity<List<Int>, Int>() {
 
             R.drawable.tool_btn_calligraphy -> {//每日练字
                 if(StringUtils.isEmpty(classId)){
-                    T.show(this,"请返回首页获取左侧班级信息")
+                    T.show(this,"请返回首页下拉刷新获取班级信息")
                 }else{
                     PractiseActivity.jump(this, "1")
                 }
             }
 
-            R.drawable.tool_btn_read -> {//每日跟读
-                /*if(classId.isNullOrEmpty()){
-                    T.show(this,"请返回首页获取左侧班级信息")
+            R.drawable.tool_btn_prepare -> {//每日预习
+                if(StringUtils.isEmpty(classId)){
+                    T.show(this,"请返回首页下拉刷新获取班级信息")
                 }else{
-                    PractiseActivity.jump(this, classId)
-                }*/
+                    PrepareDisplayActivity.jump(this, classId)
+                }
             }
 
 

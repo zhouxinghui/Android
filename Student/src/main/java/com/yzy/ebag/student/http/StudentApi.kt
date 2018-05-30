@@ -147,6 +147,13 @@ object StudentApi {
         EBagApi.request(studentService.errorCorrection("v1", EBagApi.createBody(JSON.toJSONString(commitQuestionVo))), callback)
     }
 
+    /**备课文件预习*/
+    fun prepareList(classId: String, callback: RequestCallBack<List<PrepareFileBean>>){
+        val jsonObject = JSONObject()
+        jsonObject.put("classId", classId)
+        EBagApi.request(studentService.prepareList("v1", EBagApi.createBody(jsonObject)), callback)
+    }
+
     fun searchUserGrowthList(page: Int, pageSize: Int, gradeCode: String, type: String, callback: RequestCallBack<List<Diary>>) {
         val jsonObject = JSONObject()
         jsonObject.put("page", page)

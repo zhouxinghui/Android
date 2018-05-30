@@ -76,6 +76,10 @@ interface StudentService {
     @POST("homeWork/updateErrorQuestion/{version}")
     fun errorCorrection(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<String>>
 
+    /**备课文件预习*/
+    @POST("clazzSpace/getPushLessionfile/{version}")
+    fun prepareList(@Path("version") version: String, @Body requestBody: RequestBody): Observable<ResponseBean<List<PrepareFileBean>>>
+
     @POST("user/searchUserGrowthList/{version}")
     fun searchUserGrowthList(@Path("version") version: String, @Body requestBody: RequestBody):Observable<ResponseBean<List<Diary>>>
 

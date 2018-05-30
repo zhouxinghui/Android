@@ -1,4 +1,4 @@
-package com.yzy.ebag.teacher
+package ebag.mobile.util
 
 import android.content.Context
 import android.content.Intent
@@ -13,6 +13,7 @@ import ebag.core.http.file.DownloadManager
 import ebag.core.util.FileUtil
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
+import ebag.mobile.R
 import kotlinx.android.synthetic.main.activity_display_office_file.*
 
 
