@@ -151,10 +151,10 @@ class WorkReportActivity : BaseActivity() {
                         "鲜花" -> {
                             flowerTeacher.text = "${it.giftName} x ${it.giftNum}"
                         }
-                        "笔记本" -> {
+                        "画板" -> {
                             paletteTeacher.text = "${it.giftName} x ${it.giftNum}"
                         }
-                        "画板" -> {
+                        "笔记本" -> {
                             notebookTeacher.text = "${it.giftName} x ${it.giftNum}"
                         }
                         "储蓄罐" -> {
