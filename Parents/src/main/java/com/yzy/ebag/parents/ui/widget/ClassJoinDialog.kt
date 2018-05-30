@@ -30,11 +30,6 @@ class ClassJoinDialog: BaseFragmentDialog() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        isCancelable = false
-    }
-
     override fun getBundle(bundle: Bundle?) {
     }
 
@@ -45,9 +40,6 @@ class ClassJoinDialog: BaseFragmentDialog() {
     var successListener: ((clazzName:String,clazzId:String) -> Unit)? = null
 
     override fun initView(view: View) {
-        btnClose.setOnClickListener {
-            dismiss()
-        }
 
         tvConfirm.isEnabled = false
 
