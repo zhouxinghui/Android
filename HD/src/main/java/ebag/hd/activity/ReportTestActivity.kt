@@ -73,6 +73,14 @@ class ReportTestActivity : BaseActivity() {
             getReport()
         }
 
+        if (packageName.contains("student")){
+            parent2teacherLayout.visibility = View.GONE
+            gift_parent2teacher.visibility = View.GONE
+        }else{
+            parentGiftLayout.visibility = View.GONE
+            gift_parent.visibility = View.GONE
+        }
+
         if (workType == "3"){
             tipTeacher.visibility = View.GONE
             editTeacher.visibility = View.GONE

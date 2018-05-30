@@ -401,6 +401,18 @@
             />
 
 
+    <android.support.constraint.ConstraintLayout android:id="@+id/parentGiftLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y8"
+        app:layout_constraintStart_toStartOf="@id/longLineVer"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingStart="@dimen/x20"
+        android:paddingEnd="@dimen/x20"
+        app:layout_constraintTop_toBottomOf="@id/gift_parent"
+        app:layout_constraintBottom_toTopOf="@id/gift_parent2teacher"
+        >
+
         <ebag.core.widget.drawable.DrawableTextView
             android:id="@+id/flowerParent"
             android:layout_width="wrap_content"
@@ -409,11 +421,11 @@
             android:text="鲜花 x 0"
             android:textColor="#4a4a4a"
             android:textSize="@dimen/x17"
+            android:layout_marginStart="@dimen/x5"
             android:layout_marginTop="@dimen/y8"
             app:layout_constraintEnd_toStartOf="@id/paletteParent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@id/tipTeacher"
-            app:layout_constraintTop_toBottomOf="@id/gift_parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:leftDrawable="@drawable/icon_flower"
             app:leftDrawableHeight="@dimen/x24"
             android:visibility="visible"
@@ -424,7 +436,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawablePadding="@dimen/x10"
-            android:text="画笔 x 0"
+            android:text="画板 x 0"
             android:textColor="#4a4a4a"
             android:textSize="@dimen/x17"
             app:layout_constraintEnd_toStartOf="@id/notebookParent"
@@ -475,13 +487,18 @@
             android:text="储蓄罐 x 0"
             android:textColor="#4a4a4a"
             android:textSize="@dimen/x17"
-            app:layout_constraintEnd_toEndOf="@id/tipTeacher"
+            android:layout_marginEnd="@dimen/x5"
             app:layout_constraintStart_toEndOf="@id/medalParent"
             app:layout_constraintTop_toTopOf="@id/flowerParent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:leftDrawable="@drawable/icon_piggy_bank"
             app:leftDrawableHeight="@dimen/x24"
             android:visibility="visible"
             app:leftDrawableWidth="@dimen/x24" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
 
 
         <TextView
@@ -494,7 +511,7 @@
             app:layout_constraintEnd_toEndOf="@id/tipTeacher"
             android:layout_marginTop="@dimen/y20"
             app:layout_constraintStart_toStartOf="@id/tipTeacher"
-            app:layout_constraintTop_toBottomOf="@id/piggyParent"
+            app:layout_constraintTop_toBottomOf="@id/parentGiftLayout"
             />
 
 
@@ -530,13 +547,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/x10"
-                android:text="画板 x 0"
+                android:text="贺卡 x 0"
                 android:textColor="#4a4a4a"
                 android:textSize="@dimen/x17"
                 app:layout_constraintEnd_toStartOf="@id/notebookParent2teacher"
                 app:layout_constraintStart_toEndOf="@id/flowerParent2teacher"
                 app:layout_constraintTop_toTopOf="@id/flowerParent2teacher"
-                app:leftDrawable="@drawable/icon_palette"
+                app:leftDrawable="@drawable/icon_paper_greet_card"
                 app:leftDrawableHeight="@dimen/x24"
                 android:visibility="visible"
                 app:leftDrawableWidth="@dimen/x24" />
@@ -546,13 +563,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/x10"
-                android:text="笔记本 x 0"
+                android:text="钢笔 x 0"
                 android:textColor="#4a4a4a"
                 android:textSize="@dimen/x17"
                 app:layout_constraintEnd_toStartOf="@id/medalParent2teacher"
                 app:layout_constraintStart_toEndOf="@id/paletteParent2teacher"
                 app:layout_constraintTop_toTopOf="@id/flowerParent2teacher"
-                app:leftDrawable="@drawable/icon_notebook"
+                app:leftDrawable="@drawable/icon_paper_pen"
                 app:leftDrawableHeight="@dimen/x24"
                 android:visibility="visible"
                 app:leftDrawableWidth="@dimen/x24" />
@@ -562,13 +579,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/x10"
-                android:text="奖章 x 0"
+                android:text="台灯 x 0"
                 android:textColor="#4a4a4a"
                 android:textSize="@dimen/x17"
                 app:layout_constraintEnd_toStartOf="@id/piggyParent2teacher"
                 app:layout_constraintStart_toEndOf="@id/notebookParent2teacher"
                 app:layout_constraintTop_toTopOf="@id/flowerParent2teacher"
-                app:leftDrawable="@drawable/icon_medal"
+                app:leftDrawable="@drawable/icon_paper_table_lamp"
                 app:leftDrawableHeight="@dimen/x24"
                 android:visibility="visible"
                 app:leftDrawableWidth="@dimen/x24" />
@@ -579,13 +596,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/x5"
                 android:drawablePadding="@dimen/x10"
-                android:text="储蓄罐 x 0"
+                android:text="按摩椅 x 0"
                 android:textColor="#4a4a4a"
                 android:textSize="@dimen/x17"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/medalParent2teacher"
                 app:layout_constraintTop_toTopOf="@id/flowerParent2teacher"
-                app:leftDrawable="@drawable/icon_piggy_bank"
+                app:leftDrawable="@drawable/icon_paper_massage_cushion"
                 app:leftDrawableHeight="@dimen/x24"
                 android:visibility="visible"
                 app:leftDrawableWidth="@dimen/x24" />
