@@ -28,6 +28,7 @@ object TeacherApi {
     fun firstPage(callback: RequestCallBack<FirstPageBean>){
         val jsonObject = JSONObject()
         jsonObject.put("roleCode", "2")
+        jsonObject.put("isHDorPHONE", "HD")
         EBagApi.request(teacherService.firstPage("v1", EBagApi.createBody(jsonObject)), callback)
     }
 
