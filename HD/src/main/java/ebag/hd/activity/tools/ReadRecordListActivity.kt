@@ -39,6 +39,7 @@ class ReadRecordListActivity: BaseActivity() {
             )
         }
     }
+    private var subCode = "yy"
     private var unitCode = ""
     private var classId = ""
     private var deadTime: Long = 0
@@ -53,6 +54,9 @@ class ReadRecordListActivity: BaseActivity() {
                 stateView.showEmpty()
             else
                 stateView.showContent()
+            if (StringUtils.isEmpty(entity!![0].languageEn)) {
+                subCode = "yw"
+            }
             leftAdapter.setNewData(entity)
             leftAdapter.selectedPosition = 0
             EBagApi.getReadRecordDesc(classId, entity!![0].languageDetailId, deadTime, rightRequest)
@@ -206,7 +210,10 @@ class ReadRecordListActivity: BaseActivity() {
                     .setText(R.id.ysbCode, item?.ysbCode)
                     .setText(R.id.nameTv, item?.name)
                     .setText(R.id.scoreEdit, item?.score ?: "")
-
+            if (subCode == "yw") {
+                helper.setGone(R.id.scoreEdit, false)
+                helper.setGone(R.id.scoreTv, false)
+            }
             val linearLayout = helper.getView<LinearLayout>(R.id.play_id)
             val imageView = helper.getView<ImageView>(R.id.image_id)
             val progressBar = helper.getView<ProgressBar>(R.id.progress_id)
