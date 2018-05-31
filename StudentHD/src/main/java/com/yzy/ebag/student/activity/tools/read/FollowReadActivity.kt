@@ -259,6 +259,7 @@ class FollowReadActivity: BaseActivity() {
                                     recorderUtil.stopPlayRecord()
                                     recorderUtil.finishRecord()
                                     upload()
+                                    adapter.notifyItemChanged(position)
                                 }else{
                                     iflytekUtil.stopEvaluating()
                                     scoreTv = view.getTag(R.id.scoreTv) as TextView
@@ -339,7 +340,7 @@ class FollowReadActivity: BaseActivity() {
                     val recordHistory = historyAdapter.getItem(position)
 
                     if(recordHistory?.myAudioUrl == null){
-                        T.show(this,"对不起文件丢失，请重新录制上传")
+                        T.show(this,"对不起，文件丢失，请重新录制上传")
                     }else{
                         if(playingUrl != recordHistory.myAudioUrl){
                             if(anim != null) {
@@ -503,6 +504,9 @@ class FollowReadActivity: BaseActivity() {
                 scoreTv.visibility = View.GONE
             }
             recorderBtn.setTag(R.id.scoreTv, scoreTv)
+            if (subCode == "yw"){
+                scoreTv.visibility = View.GONE
+            }
             if (::spannableArray.isInitialized && spannableArray[helper.adapterPosition] != null){
                 helper.setText(R.id.tvFirst, spannableArray[helper.adapterPosition])
             }else{
