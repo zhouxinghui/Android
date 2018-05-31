@@ -31,15 +31,17 @@ class ErrorTopicFragment: BaseListFragment<List<ErrorTopicBean>, ErrorTopicBean.
     private lateinit var subCode: String
     private lateinit var classId: String
     override fun getBundle(bundle: Bundle?) {
-        subCode = bundle?.getString("subject") ?: ""
+        subCode = bundle?.getString("subCode") ?: ""
         classId = bundle?.getString("classId") ?: ""
     }
 
     override fun loadConfig() {
     }
 
+    override fun getPageSize(): Int = 10
+
     override fun requestData(page: Int, requestCallBack: RequestCallBack<List<ErrorTopicBean>>) {
-        StudentApi.errorTopic(classId,subCode,page,getPageSize(),requestCallBack)
+        StudentApi.errorTopic(classId, subCode, page, getPageSize(), requestCallBack)
     }
 
     override fun parentToList(isFirstPage: Boolean, parent: List<ErrorTopicBean>?): List<ErrorTopicBean.ErrorHomeWorkVosBean>? {

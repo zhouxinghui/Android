@@ -59,9 +59,9 @@ class ErrorTopicActivity: BaseActivity() {
     override fun initViews() {
         classId = intent.getStringExtra("classId") ?: ""
         titleBar.setTitle("我的错题")
-        StudentApi.errorTopic(classId, "", 1, 10, requestCallBack)
+        StudentApi.errorTopic(classId, "", 1, 1, requestCallBack)
         stateView.setOnRetryClickListener {
-            StudentApi.errorTopic(classId, "", 1, 10, requestCallBack)
+            StudentApi.errorTopic(classId, "", 1, 1, requestCallBack)
         }
     }
 
