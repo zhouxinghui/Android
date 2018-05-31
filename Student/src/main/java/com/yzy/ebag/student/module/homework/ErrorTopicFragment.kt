@@ -35,6 +35,11 @@ class ErrorTopicFragment: BaseListFragment<List<ErrorTopicBean>, ErrorTopicBean.
         classId = bundle?.getString("classId") ?: ""
     }
 
+    override fun onResume() {
+        super.onResume()
+        onRetryClick()
+    }
+
     override fun loadConfig() {
     }
 

@@ -42,6 +42,11 @@ class TopicListFragment: BaseListFragment<List<ErrorTopicBean>, ErrorTopicBean.E
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        onRetryClick()
+    }
+
     override fun getPageSize(): Int {
         return 10
     }
