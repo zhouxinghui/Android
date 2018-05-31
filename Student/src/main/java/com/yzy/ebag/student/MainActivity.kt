@@ -19,6 +19,7 @@ import com.yzy.ebag.student.bean.ClassesInfoBean
 import com.yzy.ebag.student.group.GroupListActivity
 import com.yzy.ebag.student.http.StudentApi
 import com.yzy.ebag.student.module.account.InviteActivity
+import com.yzy.ebag.student.module.homework.ErrorTopicActivity
 import com.yzy.ebag.student.module.homework.HomeworkActivity
 import com.yzy.ebag.student.module.mission.MyMissionActivity
 import com.yzy.ebag.student.module.personal.*
@@ -88,6 +89,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         studyGroup.setOnClickListener(this)
         myClass.setOnClickListener(this)
         tvAnnounceContent.setOnClickListener(this)
+        errorQuestion.setOnClickListener(this)
         request()
         initUserInfo()
 
@@ -239,6 +241,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.tvAnnounceContent ->{
                 if (hasClassId()) AnnounceActivity.jump(this, classId)
+            }
+            R.id.errorQuestion ->{
+                if (hasClassId()) ErrorTopicActivity.jump(this, classId)
             }
         }
     }

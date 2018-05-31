@@ -6,8 +6,7 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentPagerAdapter
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.base.Constants
-import com.yzy.ebag.student.bean.SubjectBean
+import com.yzy.ebag.student.bean.ErrorTopicBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseActivity
 import ebag.core.http.network.MsgException
@@ -16,28 +15,25 @@ import ebag.core.http.network.handleThrowable
 import kotlinx.android.synthetic.main.activity_homework.*
 
 /**
- * Created by YZY on 2018/5/16.
+ * Created by YZY on 2018/5/31.
  */
-class HomeworkActivity: BaseActivity() {
+class ErrorTopicActivity: BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_homework
-
     companion object {
-        fun jump(content: Context, type: String, classId: String){
+        fun jump(content: Context, classId: String){
             content.startActivity(
-                    Intent(content, HomeworkActivity::class.java)
-                            .putExtra("type", type)
+                    Intent(content, ErrorTopicActivity::class.java)
                             .putExtra("classId",classId)
             )
         }
     }
-    private var type = "1"
     private var classId = ""
-    private val requestCallBack = object : RequestCallBack<ArrayList<SubjectBean>>(){
+    private val requestCallBack = object : RequestCallBack<ArrayList<ErrorTopicBean>>(){
         override fun onStart() {
             stateView.showLoading()
         }
 
-        override fun onSuccess(entity: ArrayList<SubjectBean>?) {
+        override fun onSuccess(entity: ArrayList<ErrorTopicBean>?) {
             if (entity == null || entity.isEmpty()){
                 stateView.showEmpty()
             }else{
@@ -56,39 +52,24 @@ class HomeworkActivity: BaseActivity() {
                 stateView.showEmpty(exception.message.toString())
             }else{
                 stateView.showError()
-                exception.handleThrowable(this@HomeworkActivity)
+                exception.handleThrowable(this@ErrorTopicActivity)
             }
         }
     }
     override fun initViews() {
-        type = intent.getStringExtra("type") ?: ""
         classId = intent.getStringExtra("classId") ?: ""
-
-        when(type){
-            Constants.KHZY_TYPE -> {
-                titleBar.setTitle("课后作业")
-            }
-
-            Constants.STZY_TYPE -> {
-                titleBar.setTitle("随堂作业")
-            }
-
-            else -> {
-                titleBar.setTitle("考试试卷")
-            }
-        }
-
-        StudentApi.subjectWorkList(type, classId, "", 1, 1, requestCallBack)
+        titleBar.setTitle("我的错题")
+        StudentApi.errorTopic(classId, "", 1, 10, requestCallBack)
         stateView.setOnRetryClickListener {
-            StudentApi.subjectWorkList(type, classId, "", 1, 1, requestCallBack)
+            StudentApi.errorTopic(classId, "", 1, 10, requestCallBack)
         }
     }
 
     private inner class ViewPagerAdapter(
-            private val fragments: Array<HomeworkListFragment?>, private val entity: ArrayList<SubjectBean>?): FragmentPagerAdapter(supportFragmentManager){
+            private val fragments: Array<ErrorTopicFragment?>, private val entity: ArrayList<ErrorTopicBean>?): FragmentPagerAdapter(supportFragmentManager){
         override fun getItem(position: Int): Fragment? {
             if (fragments[position] == null){
-                fragments[position] = HomeworkListFragment.newInstance(type, classId, entity?.get(position)?.subCode ?: "")
+                fragments[position] = ErrorTopicFragment.newInstance(classId, entity?.get(position)?.subCode ?: "")
             }
             return fragments[position]
         }

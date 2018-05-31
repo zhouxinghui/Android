@@ -128,6 +128,9 @@
         <activity android:name=".module.tools.PrepareDisplayActivity"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".module.homework.ErrorTopicActivity"
+            android:screenOrientation="portrait"
+            />
 
         <service
             android:name="com.baidu.trace.LBSTraceService"

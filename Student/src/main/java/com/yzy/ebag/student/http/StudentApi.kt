@@ -70,6 +70,16 @@ object StudentApi {
         EBagApi.request(studentService.subjectWorkList("v1", EBagApi.createBody(jsonObj)), callback)
     }
 
+    /**我的错题*/
+    fun errorTopic(classId: String, subCode: String, page: Int, pageSize: Int, callback: RequestCallBack<ArrayList<ErrorTopicBean>>) {
+        val jsonObj = JSONObject()
+        jsonObj.put("classId", classId)
+        jsonObj.put("subCode", subCode)
+        jsonObj.put("page", page)
+        jsonObj.put("pageSize", pageSize)
+        EBagApi.request(studentService.errorTopic("v1", EBagApi.createBody(jsonObj)), callback)
+    }
+
     /**查询家长*/
     fun searchFamily(callback: RequestCallBack<List<ParentBean>>) {
         val jsonObject = JSONObject()
