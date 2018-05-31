@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">云书包家长端</string>
+    <string name="app_name">云书包家长版</string>
 
     <string-array name="main_rv_label">
         <item>作业错题本</item>

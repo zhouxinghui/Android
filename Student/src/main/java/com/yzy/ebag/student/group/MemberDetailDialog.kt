@@ -89,8 +89,8 @@ class MemberDetailDialog: BaseFragmentDialog() {
 
         tvBaseInfo.text = "${sex}${age}${city}${county}".trim()
 
-        tvYsbCode.text = "书  包  号    ${if(StringUtils.isEmpty(groupUserBean?.ysbCode)) "暂无" else groupUserBean?.ysbCode}"
-        tvPhone.text = "电        话    ${if(StringUtils.isEmpty(groupUserBean?.phone)) "暂无" else groupUserBean?.phone}"
-        tvSchool.text = "所在学校    ${if(StringUtils.isEmpty(groupUserBean?.schoolName)) "暂无" else groupUserBean?.schoolName}"
+        tvYsbCode.text = "${if(StringUtils.isEmpty(groupUserBean?.ysbCode)) "暂无" else groupUserBean?.ysbCode}"
+        tvPhone.text = "${if(StringUtils.isEmpty(groupUserBean?.phone)) "暂无" else groupUserBean?.phone}"
+        tvSchool.text = "${if(StringUtils.isEmpty(groupUserBean?.schoolName)) "暂无" else groupUserBean?.schoolName}"
     }
 }

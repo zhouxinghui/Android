@@ -35,9 +35,9 @@ class ClazzmateInfoDIalog: BaseFragmentDialog(){
         clazzmate_iv.loadHead(datas.headUrl)
         clazzmate_name.text = datas.name
         clazzmate_info.text = "${when(datas.sex){"1" -> "男" "2" -> "女" else -> ""}} ${datas.county?:""}"
-        clazzmate_bagnum.text = "书包号：${datas.ysbCode}"
-        clazzmate_phone.text = "电话：${datas.phone}"
-        clazzmate_school.text = "学校：${datas.schoolName}"
+        clazzmate_bagnum.text = "${datas.ysbCode}"
+        clazzmate_phone.text = "${datas.phone}"
+        clazzmate_school.text = "${datas.schoolName}"
 
     }
 

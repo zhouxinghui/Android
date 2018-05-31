@@ -73,7 +73,7 @@ class ClassMateSubActivity: BaseListActivity<List<ClassMemberBean.SubMemberBean>
     private inner class ClazzmateAdapter : BaseQuickAdapter<ClassMemberBean.SubMemberBean, BaseViewHolder>(R.layout.item_clazzmate) {
         override fun convert(helper: BaseViewHolder, item: ClassMemberBean.SubMemberBean?) {
             helper.setText(R.id.clazz_name, item?.name)
-            helper.getView<ImageView>(R.id.clazz_head).loadHead(item?.headUrl,true)
+            helper.getView<ImageView>(R.id.clazz_head).loadHead(item?.headUrl)
         }
     }
 }
