@@ -73,15 +73,15 @@ class ReportTestActivity : BaseActivity() {
             getReport()
         }
 
-        if (packageName.contains("student")){
+        if (packageName.contains("student")) {
             parent2teacherLayout.visibility = View.GONE
             gift_parent2teacher.visibility = View.GONE
-        }else{
+        } else {
             parentGiftLayout.visibility = View.GONE
             gift_parent.visibility = View.GONE
         }
 
-        if (workType == "3"){
+        if (workType == "3") {
             tipTeacher.visibility = View.GONE
             editTeacher.visibility = View.GONE
             gift_teacher.visibility = View.GONE
@@ -217,7 +217,7 @@ class ReportTestActivity : BaseActivity() {
 
             }
 
-        },studentId)
+        }, studentId, if (packageName.contains("student")) "student" else "")
     }
 
     private fun getReport() {

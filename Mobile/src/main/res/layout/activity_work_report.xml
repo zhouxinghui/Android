@@ -208,7 +208,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/y20"
-                            android:text="老师赠送礼物"
+                            android:text="老师赠送给学生"
                             android:paddingStart="@dimen/x5"
                             android:textColor="#272727"
                             android:textSize="@dimen/tv_normal" />
@@ -312,7 +312,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/y20"
-                            android:text="家长赠送礼物"
+                            android:text="家长赠送给老师"
                             android:paddingStart="@dimen/x5"
                             android:textColor="#272727"
                             android:textSize="@dimen/tv_normal" />

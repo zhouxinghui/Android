@@ -100,8 +100,8 @@ object EBagApi {
     fun login(deviceCode: String, isHDorPHONE: String, account: String?, pwd: String?, loginType: String?, thirdPartyType: String?,
               roleCode: String, thirdPartyToken: String?, thirdPartyUnionid: String?, callback: RequestCallBack<UserEntity>) {
         val jsonObj = JSONObject()
-        jsonObj.put("deviceCode",deviceCode)
-        jsonObj.put("isHDorPHONE",isHDorPHONE)
+        jsonObj.put("deviceCode", deviceCode)
+        jsonObj.put("isHDorPHONE", isHDorPHONE)
         jsonObj.put("password", pwd)
         jsonObj.put("loginAccount", account)
         jsonObj.put("loginType", loginType)
@@ -112,19 +112,19 @@ object EBagApi {
         request(EBagClient.eBagService.login("v1", createBody(jsonObj)), callback)
     }
 
-    fun bindingActivationCode(loginAccount:String,activation:String,callback: RequestCallBack<String>){
+    fun bindingActivationCode(loginAccount: String, activation: String, callback: RequestCallBack<String>) {
         val jsonObj = JSONObject()
-        jsonObj.put("loginAccount",loginAccount)
-        jsonObj.put("activation",activation)
-        request(EBagClient.eBagService.bindingActivationCode("v1",createBody(jsonObj)),callback)
+        jsonObj.put("loginAccount", loginAccount)
+        jsonObj.put("activation", activation)
+        request(EBagClient.eBagService.bindingActivationCode("v1", createBody(jsonObj)), callback)
     }
 
     /**
      * 注册
      */
-    fun register(deviceCode:String,isHDorPHONE: String,name: String, headUrl: String?, sex: String?, phone: String?, verifyCode: String?, roleCode: String?, pwd: String, thirdPartyToken: String?, thirdPartyUnionid: String?, loginType: String?, thirdPartyType: String?, callback: RequestCallBack<UserEntity>) {
+    fun register(deviceCode: String, isHDorPHONE: String, name: String, headUrl: String?, sex: String?, phone: String?, verifyCode: String?, roleCode: String?, pwd: String, thirdPartyToken: String?, thirdPartyUnionid: String?, loginType: String?, thirdPartyType: String?, callback: RequestCallBack<UserEntity>) {
         val jsonObj = JSONObject()
-        jsonObj.put("isHDorPHONE",isHDorPHONE)
+        jsonObj.put("isHDorPHONE", isHDorPHONE)
         jsonObj.put("nickName", name)
         jsonObj.put("headUrl", headUrl)
         jsonObj.put("sex", sex)
@@ -136,7 +136,7 @@ object EBagApi {
         jsonObj.put("thirdPartyToken", thirdPartyToken)
         jsonObj.put("thirdPartyUnionid", thirdPartyUnionid)
         jsonObj.put("roleCode", roleCode)
-        jsonObj.put("deviceCode",deviceCode)
+        jsonObj.put("deviceCode", deviceCode)
         request(EBagClient.eBagService.register("v1", createBody(jsonObj)), callback)
     }
 
@@ -440,7 +440,7 @@ object EBagApi {
      */
     fun getMyClasses(callback: RequestCallBack<List<BaseClassesBean>>, queryType: String? = null) {
         val jsonObject = JSONObject()
-        if (!StringUtils.isEmpty(queryType)){
+        if (!StringUtils.isEmpty(queryType)) {
             jsonObject.put("queryType", queryType)
         }
         EBagApi.request(eBagService.getMyClasses("v1", EBagApi.createBody(jsonObject)), callback)
@@ -761,22 +761,24 @@ object EBagApi {
     /**
      * 查询礼物列表
      */
-    fun getGiftDetail(homeWorkId: String, callback: RequestCallBack<GiftTeacherBean>,uid: String = "") {
+    fun getGiftDetail(homeWorkId: String, callback: RequestCallBack<GiftTeacherBean>, uid: String = "", queryType: String = "") {
         val jsonObj = JSONObject()
         jsonObj.put("homeWorkId", homeWorkId)
-        if (uid.isNotEmpty()){
+        if (uid.isNotEmpty()) {
             jsonObj.put("uid", uid)
         }
-        jsonObj.put("queryType","student")
+        if (queryType.isNotEmpty()) {
+            jsonObj.put("queryType", "student")
+        }
         EBagApi.request(eBagService.getGiftDetail("v1", EBagApi.createBody(jsonObj)), callback)
     }
 
-    fun giveYsbMoneyGifg2User(bean: GiftPayBean, callback: RequestCallBack<String>, uid:String = "") {
+    fun giveYsbMoneyGifg2User(bean: GiftPayBean, callback: RequestCallBack<String>, uid: String = "") {
         val jsonObj = JSONObject()
         jsonObj.put("givingUid", bean.givingUid)
         jsonObj.put("homeWorkId", bean.homeWorkId)
         jsonObj.put("giftsMoney", bean.giftsMoney)
-        if (uid.isNotEmpty()){
+        if (uid.isNotEmpty()) {
             jsonObj.put("uid", uid)
         }
         val array = JSONArray()

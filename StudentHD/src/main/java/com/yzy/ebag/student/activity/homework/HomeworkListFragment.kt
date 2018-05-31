@@ -13,11 +13,9 @@ import com.yzy.ebag.student.bean.SubjectBean
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.BaseListFragment
 import ebag.core.http.network.RequestCallBack
-import ebag.core.util.SerializableUtils
 import ebag.hd.activity.ReportClassActivity
 import ebag.hd.activity.ReportTestActivity
 import ebag.hd.base.Constants
-import ebag.hd.bean.response.UserEntity
 import ebag.hd.homework.DoHomeworkActivity
 import java.util.*
 
@@ -111,7 +109,7 @@ class HomeworkListFragment : BaseListFragment<List<SubjectBean>, SubjectBean.Hom
                 }
                 com.yzy.ebag.student.base.Constants.KHZY_TYPE,
                 com.yzy.ebag.student.base.Constants.KSSJ_TYPE -> {
-                    ReportTestActivity.jump(mContext, adapter.getItem(position)?.id ?: "", type,SerializableUtils.getSerializable<UserEntity>(Constants.STUDENT_USER_ENTITY).uid)
+                    ReportTestActivity.jump(mContext, adapter.getItem(position)?.id ?: "", type,"")
                 }
             }
         }
