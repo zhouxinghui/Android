@@ -149,18 +149,23 @@ class WorkReportActivity : BaseActivity() {
                 entity?.teacher?.forEach {
                     when (it.giftName) {
                         "鲜花" -> {
+                            flowerTeacher.visibility = View.VISIBLE
                             flowerTeacher.text = "${it.giftName} x ${it.giftNum}"
                         }
                         "画板" -> {
+                            paletteTeacher.visibility = View.VISIBLE
                             paletteTeacher.text = "${it.giftName} x ${it.giftNum}"
                         }
                         "笔记本" -> {
+                            notebookTeacher.visibility = View.VISIBLE
                             notebookTeacher.text = "${it.giftName} x ${it.giftNum}"
                         }
                         "储蓄罐" -> {
+                            piggyTeacher.visibility = View.VISIBLE
                             piggyTeacher.text = "${it.giftName} x ${it.giftNum}"
                         }
                         "奖章" -> {
+                            medalTeacher.visibility = View.VISIBLE
                             medalTeacher.text = "${it.giftName} x ${it.giftNum}"
                         }
                     }
@@ -169,18 +174,23 @@ class WorkReportActivity : BaseActivity() {
                 entity?.parent2teacher?.forEach {
                     when (it.giftName) {
                         "鲜花" -> {
+                            flowerParent.visibility = View.VISIBLE
                             flowerParent.text = "${it.giftName} x ${it.giftNum}"
                         }
                         "钢笔" -> {
+                            paletteParent.visibility = View.VISIBLE
                             paletteParent.text = "${it.giftName} x ${it.giftNum}"
                         }
                         "贺卡" -> {
+                            notebookParent.visibility = View.VISIBLE
                             notebookParent.text = "${it.giftName} x ${it.giftNum}"
                         }
                         "按摩椅" -> {
+                            piggyParent.visibility = View.VISIBLE
                             piggyParent.text = "${it.giftName} x ${it.giftNum}"
                         }
                         "台灯" -> {
+                            medalParent.visibility = View.VISIBLE
                             medalParent.text = "${it.giftName} x ${it.giftNum}"
                         }
                     }

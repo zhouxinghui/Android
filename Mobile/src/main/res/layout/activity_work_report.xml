@@ -214,7 +214,86 @@
                             android:textSize="@dimen/tv_normal" />
 
 
-                        <LinearLayout
+                        <ebag.core.widget.FlowLayout
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="@dimen/y10"
+                            android:layout_marginStart="@dimen/x10"
+                            android:layout_height="wrap_content">
+                            <ebag.core.widget.drawable.DrawableTextView
+                                android:id="@+id/flowerTeacher"
+                                android:layout_width="@dimen/x80"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/x10"
+                                android:gravity="center_vertical"
+                                android:text="鲜花 x 0"
+                                android:textColor="#4a4a4a"
+                                android:textSize="@dimen/tv_sub"
+                                android:visibility="gone"
+                                app:leftDrawable="@drawable/icon_flower"
+                                app:leftDrawableHeight="@dimen/x20"
+                                app:leftDrawableWidth="@dimen/x20" />
+
+                            <ebag.core.widget.drawable.DrawableTextView
+                                android:id="@+id/paletteTeacher"
+                                android:layout_width="@dimen/x80"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/x10"
+                                android:gravity="center_vertical"
+                                android:text="画板 x 0"
+                                android:textColor="#4a4a4a"
+                                android:textSize="@dimen/tv_sub"
+                                android:visibility="gone"
+                                app:leftDrawable="@drawable/icon_palette"
+                                app:leftDrawableHeight="@dimen/x20"
+                                app:leftDrawableWidth="@dimen/x20" />
+
+                            <ebag.core.widget.drawable.DrawableTextView
+                                android:id="@+id/notebookTeacher"
+                                android:layout_width="@dimen/x80"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/x10"
+                                android:gravity="center_vertical"
+                                android:text="笔记本 x 0"
+                                android:textColor="#4a4a4a"
+                                android:textSize="@dimen/tv_sub"
+                                android:visibility="gone"
+                                app:leftDrawable="@drawable/icon_notebook"
+                                app:leftDrawableHeight="@dimen/x20"
+                                app:leftDrawableWidth="@dimen/x20" />
+
+
+                            <ebag.core.widget.drawable.DrawableTextView
+                                android:id="@+id/medalTeacher"
+                                android:layout_width="@dimen/x80"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/x10"
+                                android:gravity="center_vertical"
+                                android:text="奖章 x 0"
+                                android:layout_marginTop="@dimen/y8"
+                                android:textColor="#4a4a4a"
+                                android:textSize="@dimen/tv_sub"
+                                android:visibility="gone"
+                                app:leftDrawable="@drawable/icon_medal"
+                                app:leftDrawableHeight="@dimen/x20"
+                                app:leftDrawableWidth="@dimen/x20" />
+
+                            <ebag.core.widget.drawable.DrawableTextView
+                                android:id="@+id/piggyTeacher"
+                                android:layout_width="@dimen/x80"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/x10"
+                                android:gravity="center_vertical"
+                                android:text="储蓄罐 x 0"
+                                android:textColor="#4a4a4a"
+                                android:layout_marginTop="@dimen/y8"
+                                android:textSize="@dimen/tv_sub"
+                                android:visibility="gone"
+                                app:leftDrawable="@drawable/icon_piggy_bank"
+                                app:leftDrawableHeight="@dimen/x20"
+                                app:leftDrawableWidth="@dimen/x20" />
+
+                        </ebag.core.widget.FlowLayout>
+                        <!--<LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/y10"
@@ -266,9 +345,9 @@
                                 app:leftDrawableHeight="@dimen/x20"
                                 app:leftDrawableWidth="@dimen/x20" />
 
-                        </LinearLayout>
+                        </LinearLayout>-->
 
-                        <LinearLayout
+                        <!--<LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/y10"
@@ -305,7 +384,7 @@
                                 app:leftDrawableHeight="@dimen/x20"
                                 app:leftDrawableWidth="@dimen/x20" />
 
-                        </LinearLayout>
+                        </LinearLayout>-->
 
                         <TextView
                             android:id="@+id/gift_parent"
@@ -317,7 +396,91 @@
                             android:textColor="#272727"
                             android:textSize="@dimen/tv_normal" />
 
-                        <LinearLayout
+
+                        <ebag.core.widget.FlowLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/y10"
+                            android:layout_marginStart="@dimen/x10"
+                            >
+
+                            <ebag.core.widget.drawable.DrawableTextView
+                                android:id="@+id/flowerParent"
+                                android:layout_width="@dimen/x80"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/x10"
+                                android:gravity="center_vertical"
+                                android:text="鲜花 x 0"
+                                android:textColor="#4a4a4a"
+                                android:textSize="@dimen/tv_sub"
+                                android:visibility="gone"
+                                app:leftDrawable="@drawable/icon_flower"
+                                app:leftDrawableHeight="@dimen/x20"
+                                app:leftDrawableWidth="@dimen/x20" />
+
+                            <ebag.core.widget.drawable.DrawableTextView
+                                android:id="@+id/paletteParent"
+                                android:layout_width="@dimen/x80"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/x10"
+                                android:gravity="center_vertical"
+                                android:text="钢笔 x 0"
+                                android:textColor="#4a4a4a"
+                                android:textSize="@dimen/tv_sub"
+                                android:visibility="gone"
+                                app:leftDrawable="@drawable/icon_paper_pen"
+                                app:leftDrawableHeight="@dimen/x20"
+                                app:leftDrawableWidth="@dimen/x20" />
+
+                            <ebag.core.widget.drawable.DrawableTextView
+                                android:id="@+id/notebookParent"
+                                android:layout_width="@dimen/x80"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/x10"
+                                android:gravity="center_vertical"
+                                android:text="贺卡 x 0"
+                                android:textColor="#4a4a4a"
+                                android:textSize="@dimen/tv_sub"
+                                android:visibility="gone"
+                                app:leftDrawable="@drawable/icon_paper_greet_card"
+                                app:leftDrawableHeight="@dimen/x20"
+                                app:leftDrawableWidth="@dimen/x20" />
+
+                            <ebag.core.widget.drawable.DrawableTextView
+                                android:id="@+id/medalParent"
+                                android:layout_width="@dimen/x80"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/x10"
+                                android:gravity="center_vertical"
+                                android:text="台灯 x 0"
+                                android:textColor="#4a4a4a"
+                                android:textSize="@dimen/tv_sub"
+                                android:visibility="gone"
+                                android:layout_marginTop="@dimen/y8"
+                                app:leftDrawable="@drawable/icon_paper_table_lamp"
+                                app:leftDrawableHeight="@dimen/x20"
+                                app:leftDrawableWidth="@dimen/x20" />
+
+                            <ebag.core.widget.drawable.DrawableTextView
+                                android:id="@+id/piggyParent"
+                                android:layout_marginTop="@dimen/y8"
+                                android:layout_width="@dimen/x80"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/x5"
+                                android:drawablePadding="@dimen/x10"
+                                android:gravity="center_vertical"
+                                android:text="按摩椅 x 0"
+                                android:textColor="#4a4a4a"
+                                android:textSize="@dimen/tv_sub"
+                                android:visibility="gone"
+                                app:leftDrawable="@drawable/icon_paper_massage_cushion"
+                                app:leftDrawableHeight="@dimen/x20"
+                                app:leftDrawableWidth="@dimen/x20" />
+
+
+                        </ebag.core.widget.FlowLayout>
+
+                        <!--<LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/y10"
@@ -369,6 +532,8 @@
                                 app:leftDrawableHeight="@dimen/x20"
                                 app:leftDrawableWidth="@dimen/x20" />
 
+
+
                         </LinearLayout>
 
 
@@ -409,7 +574,7 @@
                                 app:leftDrawable="@drawable/icon_paper_massage_cushion"
                                 app:leftDrawableHeight="@dimen/x20"
                                 app:leftDrawableWidth="@dimen/x20" />
-                        </LinearLayout>
+                        </LinearLayout>-->
                     </LinearLayout>
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>
