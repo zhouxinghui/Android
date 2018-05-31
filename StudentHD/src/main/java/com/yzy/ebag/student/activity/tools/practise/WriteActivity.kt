@@ -5,16 +5,13 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.AnimationDrawable
 import android.os.Message
-import com.luck.picture.lib.tools.PictureFileUtils
 import com.yzy.ebag.student.R
-import com.yzy.ebag.student.activity.growth.DiaryDetailActivity
 import com.yzy.ebag.student.bean.Practise
 import com.yzy.ebag.student.http.StudentApi
 import ebag.core.base.mvp.MVPActivity
 import ebag.core.http.network.RequestCallBack
 import ebag.core.util.*
 import ebag.hd.bean.response.UserEntity
-import kotlinx.android.synthetic.main.activity_diary_detail.*
 import kotlinx.android.synthetic.main.activity_write.*
 import java.io.File
 import java.io.FileNotFoundException
@@ -60,8 +57,6 @@ class WriteActivity : MVPActivity() {
 
 
     override fun initViews() {
-
-
         val ser = intent.getSerializableExtra("list") ?: return
         classId = intent.getStringExtra("classId") ?: return
         unitCode = intent.getStringExtra("unitCode") ?: return
@@ -74,6 +69,7 @@ class WriteActivity : MVPActivity() {
         maxIndex = list.size - 1
 
         tvPinyin.text = list[currentIndex].pinyin
+        tvHanzi.text = list[currentIndex].hanzi
 
         drawView.setPenRawSize(resources.getDimension(R.dimen.x10))
 

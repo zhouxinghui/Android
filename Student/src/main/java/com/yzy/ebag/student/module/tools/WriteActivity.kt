@@ -66,6 +66,7 @@ class WriteActivity : MVPActivity() {
         maxIndex = list.size - 1
 
         tvPinyin.text = list[currentIndex].pinyin
+        tvHanzi.text = list[currentIndex].hanzi
 
         drawView.setPenRawSize(resources.getDimension(R.dimen.y10))
 

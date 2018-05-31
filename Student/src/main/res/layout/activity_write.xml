@@ -24,15 +24,28 @@
         android:layout_marginEnd="@dimen/x80"
         />
 
+    <TextView
+        android:id="@+id/tvHanzi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/x20"
+        android:textColor="#252626"
+        tools:text="搜"
+        app:layout_constraintTop_toBottomOf="@id/tvPinyin"
+        app:layout_constraintStart_toStartOf="@id/tvPinyin"
+        app:layout_constraintEnd_toEndOf="@id/tvPinyin"
+        />
+
     <ImageView
         android:id="@+id/playAnim"
         android:layout_width="@dimen/x37"
         android:layout_height="@dimen/x33"
         android:background="@drawable/icon_write_speak_anim"
-        android:layout_marginTop="@dimen/y10"
-        app:layout_constraintTop_toBottomOf="@id/tvPinyin"
-        app:layout_constraintStart_toStartOf="@id/tvPinyin"
-        app:layout_constraintEnd_toEndOf="@id/tvPinyin"/>
+        android:layout_marginStart="@dimen/x10"
+        app:layout_constraintTop_toTopOf="@id/tvPinyin"
+        app:layout_constraintStart_toEndOf="@id/tvPinyin"
+        app:layout_constraintBottom_toBottomOf="@id/tvHanzi"
+        />
     <ImageView
         android:id="@+id/bg"
         android:layout_width="@dimen/x200"
