@@ -20,7 +20,7 @@
         <ImageView android:id="@+id/imageView"
             android:layout_width="@dimen/x40"
             android:layout_height="@dimen/x40"
-            app:srcCompat="@mipmap/ic_launcher_round" />
+            app:srcCompat="@mipmap/ic_launcher" />
 
         <TextView android:id="@+id/nameTv"
             android:layout_width="match_parent"
