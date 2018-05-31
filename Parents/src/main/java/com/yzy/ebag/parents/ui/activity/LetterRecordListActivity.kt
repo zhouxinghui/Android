@@ -140,6 +140,9 @@ class LetterRecordListActivity : BaseListActivity<LetterDescBean, LetterDescBean
             scoreEdit.isEnabled = !(item?.isBscore ?: true)
             val textWatcher = object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
+                    if (s!!.length > 1 && s.toString()[0] == '0') {
+                        s.clear()
+                    }
                     if (!StringUtils.isEmpty(s.toString())) {
                         item?.score = s.toString()
                     }
