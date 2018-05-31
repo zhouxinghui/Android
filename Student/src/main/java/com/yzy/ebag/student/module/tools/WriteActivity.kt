@@ -108,6 +108,7 @@ class WriteActivity : MVPActivity() {
                 hanzi.append("${practise.hanzi},")
                 drawView.clear()
                 tvPinyin.text = list[++currentIndex].pinyin
+                tvHanzi.text = list[++currentIndex].hanzi
             }
         }
 
