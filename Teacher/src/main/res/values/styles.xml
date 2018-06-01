@@ -135,13 +135,13 @@
         <item name="android:layout_height">@dimen/y200</item>
         <item name="android:paddingLeft">@dimen/x10</item>
         <item name="android:paddingRight">@dimen/x10</item>
-        <item name="android:gravity">center</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawablePadding">@dimen/x8</item>
         <item name="android:background">@drawable/white_shadow_clickable_bg</item>
-        <item name="android:textColor">@color/blue</item>
+        <item name="android:textColor">@color/tv_normal</item>
         <item name="android:textSize">@dimen/tv_big</item>
-        <item name="android:textStyle">bold</item>
-        <item name="leftDrawableWidth">@dimen/x50</item>
-        <item name="leftDrawableHeight">@dimen/x50</item>
+        <item name="leftDrawableWidth">@dimen/x30</item>
+        <item name="leftDrawableHeight">@dimen/x30</item>
     </style>
     <!--classFragment-->
     <!--createClass-->
@@ -187,8 +187,6 @@
         <item name="android:textColor">@color/tv_normal</item>
         <item name="android:textSize">@dimen/tv_big</item>
         <item name="android:layout_marginTop">@dimen/y10</item>
-        <item name="android:layout_marginStart">@dimen/x5</item>
-        <item name="android:layout_marginEnd">@dimen/x5</item>
         <item name="android:paddingTop">@dimen/y20</item>
         <item name="android:paddingBottom">@dimen/y20</item>
         <item name="android:paddingStart">@dimen/x10</item>
