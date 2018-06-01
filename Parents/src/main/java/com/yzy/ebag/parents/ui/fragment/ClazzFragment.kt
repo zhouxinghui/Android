@@ -71,7 +71,7 @@ class ClazzFragment : BaseFragment(), ClazzMainContract.ClazzMainView {
         labels.forEachIndexed { index, s ->
             datas.add(PersonalItemModel(icons[index], s))
         }
-        mAdapter = PersonalAdapter(datas)
+        mAdapter = PersonalAdapter(mContext,datas)
         recyclerview.adapter = mAdapter
         recyclerview.addItemDecoration(ebag.core.xRecyclerView.manager.DividerItemDecoration(DividerItemDecoration.VERTICAL, 1, Color.parseColor("#e0e0e0")))
         isViewPrepare = true

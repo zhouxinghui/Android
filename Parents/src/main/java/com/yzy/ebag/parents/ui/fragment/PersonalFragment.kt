@@ -48,7 +48,7 @@ class PersonalFragment : BaseFragment() {
             datas.add(PersonalItemModel(i, labelList[index]))
         }
 
-        mAdapter = PersonalAdapter(datas)
+        mAdapter = PersonalAdapter(mContext,datas)
         val url = SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).headUrl
         val name = SerializableUtils.getSerializable<UserEntity>(Constants.PARENTS_USER_ENTITY).name
         personal_head.loadHead(url, true)
