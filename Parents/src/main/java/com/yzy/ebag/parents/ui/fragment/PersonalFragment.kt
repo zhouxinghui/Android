@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.yzy.ebag.parents.R
 import com.yzy.ebag.parents.mvp.model.PersonalItemModel
-import com.yzy.ebag.parents.ui.activity.GuideActivity
 import com.yzy.ebag.parents.ui.activity.PersonalInfoActivity
 import com.yzy.ebag.parents.ui.activity.SettingActivity
 import com.yzy.ebag.parents.ui.adapter.PersonalAdapter
@@ -23,8 +22,8 @@ import kotlinx.android.synthetic.main.fragment_personal.*
 class PersonalFragment : BaseFragment() {
 
     private lateinit var mAdapter: PersonalAdapter
-    private val iconList: ArrayList<Int> = arrayListOf(R.drawable.icon_courses_taught, R.drawable.icon_operating_instructions, R.drawable.icon_set_up)
-    private val labelList: ArrayList<String> = arrayListOf("云币中心", "操作指南", "设置")
+    private val iconList: ArrayList<Int> = arrayListOf(R.drawable.icon_courses_taught, R.drawable.icon_set_up)//R.drawable.icon_operating_instructions,
+    private val labelList: ArrayList<String> = arrayListOf("云币中心",  "设置")//"操作指南",
     private val datas: MutableList<PersonalItemModel> = mutableListOf()
 
     companion object {
@@ -60,9 +59,9 @@ class PersonalFragment : BaseFragment() {
 
         mAdapter.setOnItemClickListener { _, _, position ->
             when (position) {
-                2 -> SettingActivity.start(activity)
+                1 -> SettingActivity.start(activity)
                 0 -> YBActivity.start(activity)
-                1 -> GuideActivity.start(activity)
+                //1 -> GuideActivity.start(activity)
             }
         }
 
