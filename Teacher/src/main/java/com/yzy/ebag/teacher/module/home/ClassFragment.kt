@@ -41,11 +41,11 @@ class ClassFragment: BaseListFragment<List<SpaceBean>, SpaceBean>() {
 
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+    /*override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         if (isVisibleToUser)
             onRetryClick()
         super.setUserVisibleHint(isVisibleToUser)
-    }
+    }*/
 
     override fun onResume() {
         super.onResume()

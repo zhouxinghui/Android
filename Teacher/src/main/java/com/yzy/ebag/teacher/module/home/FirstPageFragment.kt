@@ -50,6 +50,11 @@ class FirstPageFragment: BaseFragment() {
             banner?.setImageLoader(MyImageLoader())?.setImages(images)?.start()
             //作业进度
             adapter.datas = entity?.resultHomeWorkVos
+            if (entity?.resultHomeWorkVos == null || entity?.resultHomeWorkVos.isEmpty()){
+                noWorkLayout.visibility = View.VISIBLE
+            }else{
+                noWorkLayout.visibility = View.GONE
+            }
         }
 
         override fun onError(exception: Throwable) {

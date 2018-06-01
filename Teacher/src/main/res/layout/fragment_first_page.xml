@@ -117,12 +117,35 @@
             android:layout_marginEnd="@dimen/x10"
             android:layout_marginBottom="@dimen/y10"
             />
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            />
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+            <FrameLayout android:id="@+id/noWorkLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:visibility="gone"
+                >
+                <ebag.core.widget.drawable.DrawableTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/tv_normal"
+                    android:textColor="@color/gray"
+                    android:text="暂无作业"
+                    app:topDrawable="@drawable/icon_home_no_work"
+                    app:topDrawableWidth="@dimen/x64"
+                    app:topDrawableHeight="@dimen/x79"
+                    />
+            </FrameLayout>
+        </FrameLayout>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
