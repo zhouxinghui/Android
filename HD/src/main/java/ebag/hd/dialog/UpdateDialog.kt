@@ -9,7 +9,9 @@ import ebag.core.util.FileUtil
 import ebag.core.util.LoadingDialogUtil
 import ebag.core.util.T
 import ebag.hd.R
+import ebag.hd.util.getApkPath
 import ebag.hd.util.installApk
+import ha.excited.BigNews
 import kotlinx.android.synthetic.main.dialog_update.*
 
 /**
@@ -21,7 +23,8 @@ class UpdateDialog(
         versionName: String,
         content: String,
         url: String,
-        isUpdate: String) : BaseDialog(mContext) {
+        isUpdate: String,
+        private val isPatch: String) : BaseDialog(mContext) {
     override fun getLayoutRes(): Int {
         return R.layout.dialog_update
     }
@@ -42,7 +45,10 @@ class UpdateDialog(
     }
 
     private fun downloadApk(url: String, roleName: String){
-        val fileName = "$roleName.apk"
+        val fileName = if (isPatch == "N")
+            "$roleName.apk"
+        else
+            "$roleName.patch"
         val filePath = "${FileUtil.getApkFilePath()}$fileName"
         if (FileUtil.isFileExists(filePath)){
             FileUtil.deleteFile(filePath)
@@ -55,7 +61,17 @@ class UpdateDialog(
 
             override fun onComplete() {
                 LoadingDialogUtil.closeLoadingDialog()
-                mContext.installApk(filePath)
+                if (isPatch == "N")
+                    mContext.installApk(filePath)
+                else{
+                    val newApkPath = "${FileUtil.getApkFilePath()}${roleName}_new.apk"
+                    val flag = BigNews.make(mContext.getApkPath(), newApkPath, filePath)
+                    if (flag){
+                        mContext.installApk(newApkPath)
+                    }else{
+                        T.show(mContext, "增量更新包打包失败")
+                    }
+                }
             }
 
             override fun onError(e: Throwable) {

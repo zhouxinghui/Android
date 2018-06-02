@@ -65,7 +65,7 @@
             android:background="@drawable/main_homework_bcg"
             android:hint="请给孩子账号设置一个密码" />
 
-        <EditText
+        <ebag.core.widget.ContainsEmojiEditText
             android:id="@+id/et_relation"
             android:layout_width="match_parent"
             android:layout_height="@dimen/y100"

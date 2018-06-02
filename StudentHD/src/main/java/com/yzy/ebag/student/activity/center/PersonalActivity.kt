@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.activity_personal.*
 class
 PersonalActivity: MVPActivity() {
 
-    private val itemStrIds = arrayListOf(
+    /*private val itemStrIds = arrayListOf(
             R.string.center_personal,
             R.string.my_task,
             R.string.my_class,
@@ -34,6 +34,15 @@ PersonalActivity: MVPActivity() {
             R.string.growth_trajectory,
             R.string.center_cloud_coin,
             R.string.operating_guide
+    )*/
+    private val itemStrIds = arrayListOf(
+            R.string.center_personal,
+            R.string.my_task,
+            R.string.my_class,
+            R.string.classroom_performance,
+            R.string.my_parents,
+            R.string.growth_trajectory,
+            R.string.center_cloud_coin
     )
 
     override fun destroyPresenter() {

@@ -27,6 +27,15 @@ public class VersionUpdateBean implements Serializable {
     private String versionNumber;
     private String versionCode;
     private String isUpdate;
+    private String isPatch;
+
+    public String getIsPatch() {
+        return isPatch;
+    }
+
+    public void setIsPatch(String isPatch) {
+        this.isPatch = isPatch;
+    }
 
     public String getAppName() {
         return appName;

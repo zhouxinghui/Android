@@ -15,9 +15,6 @@ import ebag.hd.dialog.UpdateDialog
 import ebag.hd.http.EBagApi
 import java.io.File
 
-
-
-
 /**
  * Created by YZY on 2018/3/7.
  */
@@ -38,7 +35,7 @@ fun Context.checkUpdate(roleName: String, isShowToast: Boolean = true){
             }
             val versionCode = entity.versionNumber.toInt()
             if (versionCode > currentVersionCode){//有版本更新
-                val dialog = UpdateDialog(this@checkUpdate, roleName, entity.versionName, entity.mark, entity.url, entity.isUpdate)
+                val dialog = UpdateDialog(this@checkUpdate, roleName, entity.versionName, entity.mark, entity.url, entity.isUpdate, entity.isPatch)
                 dialog.show()
             }else{//无版本更新
                 if (isShowToast)
@@ -93,4 +90,14 @@ fun Context.getVersionCode(): String{
 
 fun Context.getProviderName(): String{
     return "$packageName.fileprovider"
+}
+
+fun Context.getApkPath(): String?{
+    var apkPath: String? = null
+    try {
+        val applicationInfo = applicationInfo ?: return null
+        apkPath = applicationInfo.sourceDir
+    } catch (e: Throwable) {
+    }
+    return apkPath
 }

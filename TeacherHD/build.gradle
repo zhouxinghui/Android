@@ -24,7 +24,7 @@ android {
         applicationId "com.yzy.ebag.teacher"
         minSdkVersion 17
         targetSdkVersion 26
-        versionCode 18
+        versionCode 15
         versionName "3.0"
 
         multiDexEnabled true

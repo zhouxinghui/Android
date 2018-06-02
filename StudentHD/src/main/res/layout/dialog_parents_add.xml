@@ -57,7 +57,7 @@
         app:layout_constraintEnd_toEndOf="@id/bg"
         app:layout_constraintStart_toStartOf="@id/bg"
         app:layout_constraintTop_toBottomOf="@+id/etCode"/>
-    <EditText
+    <ebag.core.widget.ContainsEmojiEditText
         android:id="@+id/etRelation"
         android:layout_width="@dimen/x460"
         android:layout_height="wrap_content"

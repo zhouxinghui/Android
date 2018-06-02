@@ -71,6 +71,7 @@
             style="@style/mine_item_tv"
             android:text="操作指南"
             app:leftDrawable="@drawable/mine_operation"
+            android:visibility="gone"
             />
         <ebag.core.widget.drawable.DrawableTextView android:id="@+id/setting"
             style="@style/mine_item_tv"
