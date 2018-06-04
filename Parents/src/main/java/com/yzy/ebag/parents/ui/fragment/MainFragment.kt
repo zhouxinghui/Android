@@ -172,7 +172,7 @@ class MainFragment : BaseFragment() {
 
             override fun onError(exception: Throwable) {
                 homework_loading.visibility = View.VISIBLE
-                homework_loading.text = exception.message
+                homework_loading.text = "网络错误"
             }
 
         }
