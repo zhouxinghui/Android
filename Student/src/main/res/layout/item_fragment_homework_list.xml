@@ -33,12 +33,13 @@
 
     <TextView
         android:id="@+id/tvContent"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/y10"
         android:textColor="@color/tv_normal"
         android:textSize="@dimen/tv_normal"
         app:layout_constraintStart_toStartOf="@id/tvCount"
+        app:layout_constraintEnd_toStartOf="@id/tvStatus"
         app:layout_constraintTop_toBottomOf="@id/tvTime"
         tools:text="内容： 第一单元 看一看" />
 
@@ -61,8 +62,7 @@
         android:drawablePadding="@dimen/x5"
         android:textColor="@color/color_homework_list_selector"
         android:textSize="@dimen/tv_big"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvContent"
         app:layout_constraintEnd_toEndOf="parent"
         app:rightDrawable="@drawable/right_arrow"
         app:rightDrawableHeight="@dimen/x10"
