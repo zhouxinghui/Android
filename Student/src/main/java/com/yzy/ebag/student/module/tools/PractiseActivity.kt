@@ -72,7 +72,7 @@ class PractiseActivity: BaseActivity() {
     private var unitId: String = ""
     private val unitList = ArrayList<UnitBean>()
     private var subCode = "yw"
-    private val letterFragment = PractiseFragment.newInstance()
+    private val letterFragment by lazy { PractiseFragment.newInstance(classId) }
 //    private val readFragment = ReadRecordFragment.newInstance()
     private var clazzListPopup: ClazzListPopup? = null
     private val bookVersionPopup by lazy {

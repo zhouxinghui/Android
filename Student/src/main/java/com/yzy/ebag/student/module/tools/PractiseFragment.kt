@@ -20,9 +20,10 @@ import kotlinx.android.synthetic.main.fragment_practise.*
 class PractiseFragment: BaseFragment(),BaseQuickAdapter.OnItemClickListener {
 
     companion object {
-        fun newInstance(): PractiseFragment {
+        fun newInstance(classId: String): PractiseFragment {
             val fragment = PractiseFragment()
             val bundle = Bundle()
+            bundle.putString("classId", classId)
             fragment.arguments = bundle
             return fragment
         }
