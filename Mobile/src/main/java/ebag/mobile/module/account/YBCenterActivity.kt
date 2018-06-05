@@ -46,6 +46,9 @@ class YBCenterActivity : BaseActivity(), YBCenterContract.YBCenterView {
             YBProtocolActivity.start(this)
         }
 
+        stateview.setOnRetryClickListener {
+            mPersenter.startFirstpage(this)
+        }
     }
 
     override fun <T> showContents(data: T) {
