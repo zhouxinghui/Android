@@ -35,6 +35,8 @@ class UploadLocationActivity : BaseActivity() {
         option.setIsNeedAddress(true)
         option.setIgnoreKillProcess(false)
         option.setIsNeedLocationPoiList(true)
+        option.setCoorType("bd09ll")
+        option.priority = LocationClientOption.GpsFirst
         locationClient.locOption = option
         locationClient.start()
         timeCountDown = TimeCountDown(1000 * 10, 1000)
@@ -77,7 +79,7 @@ class UploadLocationActivity : BaseActivity() {
             val a = p0?.address
             latitude = p0?.latitude.toString()    //获取纬度信息
             longitude = p0?.longitude.toString()  //获取经度信息
-            if (a?.address != null ) {
+            if (a?.address != null) {
                 //location = addr[0].name
                 address = "${a.address}"
                 uploadlocation_tv.text = address
