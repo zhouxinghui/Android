@@ -14,7 +14,7 @@ open class BaseApp : App(){
         //初始化腾讯X5内核，浏览Office文件用的
         QbSdk.initX5Environment(this, object : QbSdk.PreInitCallback {
             override fun onCoreInitFinished() {
-
+                L.e("x5:onCoreInitFinished")
             }
 
             override fun onViewInitFinished(b: Boolean) {

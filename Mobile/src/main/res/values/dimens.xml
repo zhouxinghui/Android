@@ -4,7 +4,7 @@
     <dimen name="title_bar_title_sub_size">@dimen/x12</dimen>
     <dimen name="title_bar_height">@dimen/y100</dimen>
 
-    <dimen name="design_fab_size_normal" tools:override="true">40dp</dimen>
+    <dimen name="design_fab_size_normal" tools:override="true">@dimen/x35</dimen>
 
     <dimen name="tv_big">@dimen/x14</dimen>
     <dimen name="tv_normal">@dimen/x12</dimen>

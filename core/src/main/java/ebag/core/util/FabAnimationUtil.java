@@ -95,6 +95,7 @@ public class FabAnimationUtil {
         int buttonTop = button.getTop();
         int buttonBottom = ScreenUtil.getScreenHeight(context) - button.getBottom();
         int buttonWidth = button.getWidth();
+        L.INSTANCE.e("buttonWidth:" + buttonWidth);
         int radius = 7*buttonWidth/4;
         int vertical = buttonWidth + buttonWidth/5;
         int gap = 5*buttonWidth/4;
