@@ -77,7 +77,7 @@ class UploadLocationActivity : BaseActivity() {
             val a = p0?.address
             latitude = p0?.latitude.toString()    //获取纬度信息
             longitude = p0?.longitude.toString()  //获取经度信息
-            if (a != null ) {
+            if (a?.address != null ) {
                 //location = addr[0].name
                 address = "${a.address}"
                 uploadlocation_tv.text = address
