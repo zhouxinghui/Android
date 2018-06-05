@@ -50,6 +50,9 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustUnspecified|stateHidden">
             <intent-filter>
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
