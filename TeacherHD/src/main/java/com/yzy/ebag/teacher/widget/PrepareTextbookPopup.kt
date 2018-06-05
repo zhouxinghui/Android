@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.PopupWindow
+import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -49,6 +50,7 @@ class PrepareTextbookPopup(context: Context): PopupWindow(context) {
                 stateView.showEmpty()
                 return
             }
+            contentView.findViewById<RadioButton>(R.id.semesterFirst).isChecked = true
             adapter.setNewData(first)
             stateView.showContent()
         }
