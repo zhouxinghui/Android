@@ -3,6 +3,7 @@ package ebag.hd.base
 import com.tencent.smtt.sdk.QbSdk
 import ebag.core.base.App
 import ebag.core.util.L
+import ebag.core.util.SPUtils
 
 /**
  * Created by YZY on 2017/12/20.
@@ -19,6 +20,7 @@ open class BaseApp : App(){
 
             override fun onViewInitFinished(b: Boolean) {
                 L.e("onViewInitFinished", "X5内核初始化：" + b)
+                SPUtils.put(this@BaseApp, Constants.IS_X5_INIT, b)
             }
         })
     }

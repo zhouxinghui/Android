@@ -46,11 +46,11 @@ class PrepareTextbookPopup(context: Context): PopupWindow(context) {
                 return
             }
             val first = entity.first
+            contentView.findViewById<RadioButton>(R.id.semesterFirst).isChecked = true
             if (first == null || first.isEmpty()){
                 stateView.showEmpty()
                 return
             }
-            contentView.findViewById<RadioButton>(R.id.semesterFirst).isChecked = true
             adapter.setNewData(first)
             stateView.showContent()
         }

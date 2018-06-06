@@ -65,4 +65,6 @@ object Constants {
     const val THIRD_PARTY_TOKEN = "thirdPartyToken"
     const val THIRD_PARTY_UNION_ID = "thirdPartyUnionid"
     const val CLASS_ID: String = "class_id"
+
+    const val IS_X5_INIT = "is_x5_init"
 }
